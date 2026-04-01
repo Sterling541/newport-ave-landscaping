@@ -4,8 +4,8 @@
    ============================================================ */
 import { useEffect, useRef, useState } from "react";
 
-const OUTDOOR_LIVING =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/outdoor-living-AuvjXxv4t6LYr7V5Zp3Lby.webp";
+const FACILITY_SHOWROOM =
+  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportLandscapingFacilityHiResPhotos14_8274e271.webp";
 
 export default function CTABanner() {
   const ref = useRef<HTMLDivElement>(null);
@@ -31,7 +31,7 @@ export default function CTABanner() {
       <div
         className="absolute inset-0"
         style={{
-          backgroundImage: `url(${OUTDOOR_LIVING})`,
+          backgroundImage: `url(${FACILITY_SHOWROOM})`,
           backgroundSize: "cover",
           backgroundPosition: "center 40%",
         }}
@@ -41,7 +41,7 @@ export default function CTABanner() {
         className="absolute inset-0"
         style={{
           background:
-            "linear-gradient(135deg, oklch(0.15 0.05 152 / 0.88) 0%, oklch(0.22 0.06 152 / 0.7) 60%, oklch(0.22 0.06 152 / 0.5) 100%)",
+            "linear-gradient(135deg, oklch(0.18 0.005 0 / 0.88) 0%, oklch(0.46 0.20 25 / 0.60) 60%, oklch(0.18 0.005 0 / 0.75) 100%)",
         }}
       />
 
@@ -56,16 +56,16 @@ export default function CTABanner() {
         >
           <div
             className="font-label mb-6 flex items-center justify-center gap-3"
-            style={{ color: "oklch(0.68 0.10 42)" }}
+            style={{ color: "oklch(0.82 0.10 25)" }}
           >
             <span
               className="inline-block w-8 h-px"
-              style={{ backgroundColor: "oklch(0.68 0.10 42)" }}
+              style={{ backgroundColor: "oklch(0.82 0.10 25)" }}
             />
             Ask About Our Financing
             <span
               className="inline-block w-8 h-px"
-              style={{ backgroundColor: "oklch(0.68 0.10 42)" }}
+              style={{ backgroundColor: "oklch(0.82 0.10 25)" }}
             />
           </div>
 
@@ -73,14 +73,14 @@ export default function CTABanner() {
             className="font-display font-light mb-6 mx-auto"
             style={{
               fontSize: "clamp(2.2rem, 5vw, 4rem)",
-              color: "oklch(0.97 0.012 85)",
+              color: "oklch(1 0 0)",
               lineHeight: 1.1,
               maxWidth: "700px",
             }}
           >
             Ready to Transform Your
             <br />
-            <em style={{ color: "oklch(0.68 0.10 42)", fontStyle: "italic" }}>
+            <em style={{ color: "oklch(0.82 0.10 25)", fontStyle: "italic" }}>
               Outdoor Space?
             </em>
           </h2>
@@ -88,7 +88,7 @@ export default function CTABanner() {
           <p
             className="font-body text-lg mb-10 mx-auto"
             style={{
-              color: "oklch(0.85 0.02 85)",
+              color: "oklch(0.90 0.005 0)",
               maxWidth: "500px",
               lineHeight: 1.7,
             }}
@@ -105,13 +105,13 @@ export default function CTABanner() {
                   .querySelector("#contact")
                   ?.scrollIntoView({ behavior: "smooth" })
               }
-              className="btn-terracotta"
+              className="btn-red"
             >
               Start Your Project
             </button>
             <a
               href="tel:5416178873"
-              className="btn-outline-cream"
+              className="btn-outline-white"
             >
               Call (541) 617-8873
             </a>

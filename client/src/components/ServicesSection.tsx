@@ -1,6 +1,6 @@
 /* ============================================================
-   SERVICES SECTION — Sunlit Craftsman Design
-   Staggered grid layout, warm card hover effects
+   SERVICES SECTION — Brand Refresh
+   White/light-gray background, brand red accents, charcoal text
    ============================================================ */
 import { useEffect, useRef, useState } from "react";
 import { Droplets, Palette, Layers, Scissors, Waves, Flame } from "lucide-react";
@@ -81,19 +81,16 @@ function ServiceCard({
       className="service-card group relative overflow-hidden"
       style={{
         backgroundColor: "oklch(1 0 0)",
-        border: "1px solid oklch(0.88 0.015 75)",
+        border: "1px solid oklch(0.90 0.003 0)",
         opacity: visible ? 1 : 0,
         transform: visible ? "translateY(0)" : "translateY(30px)",
         transition: `opacity 0.7s ease, transform 0.7s ease`,
       }}
     >
-      {/* Top accent bar */}
+      {/* Top accent bar — brand red */}
       <div
         className="h-1 w-full"
-        style={{
-          background:
-            "linear-gradient(90deg, oklch(0.22 0.06 152), oklch(0.58 0.12 42))",
-        }}
+        style={{ backgroundColor: "oklch(0.46 0.20 25)" }}
       />
 
       <div className="p-8">
@@ -101,8 +98,8 @@ function ServiceCard({
         <div
           className="w-12 h-12 flex items-center justify-center mb-5 transition-colors duration-300"
           style={{
-            backgroundColor: "oklch(0.93 0.018 85)",
-            color: "oklch(0.22 0.06 152)",
+            backgroundColor: "oklch(0.96 0.03 25)",
+            color: "oklch(0.46 0.20 25)",
           }}
         >
           <Icon size={22} strokeWidth={1.5} />
@@ -111,7 +108,7 @@ function ServiceCard({
         {/* Title */}
         <h3
           className="font-display font-semibold mb-3"
-          style={{ fontSize: "1.4rem", color: "oklch(0.18 0.04 152)" }}
+          style={{ fontSize: "1.4rem", color: "oklch(0.22 0.005 0)" }}
         >
           {service.title}
         </h3>
@@ -119,7 +116,7 @@ function ServiceCard({
         {/* Description */}
         <p
           className="font-body text-sm leading-relaxed mb-6"
-          style={{ color: "oklch(0.45 0.04 152)" }}
+          style={{ color: "oklch(0.45 0.005 0)" }}
         >
           {service.description}
         </p>
@@ -132,12 +129,12 @@ function ServiceCard({
               ?.scrollIntoView({ behavior: "smooth" })
           }
           className="font-label text-xs flex items-center gap-2 transition-colors duration-200"
-          style={{ color: "oklch(0.58 0.12 42)" }}
+          style={{ color: "oklch(0.46 0.20 25)" }}
           onMouseEnter={(e) =>
-            (e.currentTarget.style.color = "oklch(0.22 0.06 152)")
+            (e.currentTarget.style.color = "oklch(0.38 0.20 25)")
           }
           onMouseLeave={(e) =>
-            (e.currentTarget.style.color = "oklch(0.58 0.12 42)")
+            (e.currentTarget.style.color = "oklch(0.46 0.20 25)")
           }
         >
           Learn More
@@ -167,7 +164,7 @@ export default function ServicesSection() {
     <section
       id="services"
       className="py-24"
-      style={{ backgroundColor: "oklch(0.97 0.012 85)" }}
+      style={{ backgroundColor: "oklch(0.985 0.003 0)" }}
     >
       <div className="container">
         {/* Section header */}
@@ -182,27 +179,27 @@ export default function ServicesSection() {
         >
           <div
             className="font-label mb-4 flex items-center gap-3"
-            style={{ color: "oklch(0.58 0.12 42)" }}
+            style={{ color: "oklch(0.46 0.20 25)" }}
           >
             <span
               className="inline-block w-8 h-px"
-              style={{ backgroundColor: "oklch(0.58 0.12 42)" }}
+              style={{ backgroundColor: "oklch(0.46 0.20 25)" }}
             />
             What We Do
           </div>
           <h2
             className="font-display font-light mb-4"
-            style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)", color: "oklch(0.18 0.04 152)", lineHeight: 1.1 }}
+            style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)", color: "oklch(0.22 0.005 0)", lineHeight: 1.1 }}
           >
             Complete Landscaping
             <br />
-            <em style={{ color: "oklch(0.22 0.06 152)", fontStyle: "italic" }}>
+            <em style={{ color: "oklch(0.46 0.20 25)", fontStyle: "italic" }}>
               Services for Every Vision
             </em>
           </h2>
           <p
             className="font-body leading-relaxed"
-            style={{ color: "oklch(0.45 0.04 152)" }}
+            style={{ color: "oklch(0.45 0.005 0)" }}
           >
             From initial design consultation to final installation, our expert
             team handles every aspect of your outdoor transformation. No project
@@ -217,15 +214,15 @@ export default function ServicesSection() {
           ))}
         </div>
 
-        {/* Additional services list */}
+        {/* Additional services list — charcoal band */}
         <div
           className="mt-12 p-8"
           style={{
-            backgroundColor: "oklch(0.22 0.06 152)",
-            color: "oklch(0.85 0.02 85)",
+            backgroundColor: "oklch(0.22 0.005 0)",
+            color: "oklch(0.90 0.003 0)",
           }}
         >
-          <div className="font-label mb-4" style={{ color: "oklch(0.68 0.10 42)" }}>
+          <div className="font-label mb-4" style={{ color: "oklch(0.85 0.10 25)" }}>
             Also Available
           </div>
           <div className="flex flex-wrap gap-x-8 gap-y-2">
@@ -246,8 +243,8 @@ export default function ServicesSection() {
                 className="font-body text-sm flex items-center gap-2"
               >
                 <span
-                  className="w-1 h-1 rounded-full inline-block"
-                  style={{ backgroundColor: "oklch(0.58 0.12 42)" }}
+                  className="w-1.5 h-1.5 rounded-full inline-block"
+                  style={{ backgroundColor: "oklch(0.46 0.20 25)" }}
                 />
                 {item}
               </span>

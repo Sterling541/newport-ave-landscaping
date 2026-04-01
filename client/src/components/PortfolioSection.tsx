@@ -1,6 +1,6 @@
 /* ============================================================
-   PORTFOLIO SECTION — Sunlit Craftsman Design
-   Masonry-style grid with warm hover overlays
+   PORTFOLIO SECTION — Brand Refresh
+   Light gray background, brand red accents, real facility photos
    ============================================================ */
 import { useEffect, useRef, useState } from "react";
 
@@ -12,8 +12,12 @@ const HERO_MAIN =
   "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/hero-main-G8fqyZAnfti5GBXHAqJjh6.webp";
 const HERO_SERVICES =
   "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/hero-services-JzKxhcNzPjF9WTtBX8Sc9c.webp";
+// Real facility photos
+const FACILITY_AERIAL =
+  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportLandscapingFacilityHiResPhotos33(2)_f88fff50.webp";
+const FACILITY_NURSERY =
+  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportLandscapingFacilityHiResPhotos27(1)_99973c3e.webp";
 
-// Using Unsplash for additional portfolio variety
 const portfolioItems = [
   {
     title: "Backyard Landscape Renovation",
@@ -40,15 +44,15 @@ const portfolioItems = [
     size: "medium",
   },
   {
-    title: "Awbrey Glenn Flagstone Patio",
-    category: "Patio & Pavers",
-    image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80",
+    title: "Our Nursery & Plant Yard",
+    category: "Facility",
+    image: FACILITY_NURSERY,
     size: "medium",
   },
   {
-    title: "Broken Top Xeriscape",
-    category: "Xeriscaping",
-    image: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800&q=80",
+    title: "Aerial View — Our Campus",
+    category: "Facility",
+    image: FACILITY_AERIAL,
     size: "medium",
   },
 ];
@@ -103,19 +107,19 @@ function PortfolioCard({
         className="absolute inset-0 flex flex-col justify-end p-6 transition-opacity duration-400"
         style={{
           background:
-            "linear-gradient(to top, oklch(0.15 0.05 152 / 0.9) 0%, oklch(0.15 0.05 152 / 0.3) 60%, transparent 100%)",
-          opacity: hovered ? 1 : 0.7,
+            "linear-gradient(to top, oklch(0.10 0.005 0 / 0.88) 0%, oklch(0.10 0.005 0 / 0.25) 60%, transparent 100%)",
+          opacity: hovered ? 1 : 0.75,
         }}
       >
         <div
           className="font-label mb-2"
-          style={{ color: "oklch(0.68 0.10 42)", fontSize: "0.65rem" }}
+          style={{ color: "oklch(0.85 0.10 25)", fontSize: "0.65rem" }}
         >
           {item.category}
         </div>
         <h3
           className="font-display font-medium"
-          style={{ color: "oklch(0.97 0.012 85)", fontSize: "1.2rem" }}
+          style={{ color: "oklch(1 0 0)", fontSize: "1.2rem" }}
         >
           {item.title}
         </h3>
@@ -143,7 +147,7 @@ export default function PortfolioSection() {
     <section
       id="portfolio"
       className="py-24"
-      style={{ backgroundColor: "oklch(0.22 0.06 152)" }}
+      style={{ backgroundColor: "oklch(0.96 0.003 0)" }}
     >
       <div className="container">
         {/* Header */}
@@ -159,11 +163,11 @@ export default function PortfolioSection() {
           <div>
             <div
               className="font-label mb-4 flex items-center gap-3"
-              style={{ color: "oklch(0.68 0.10 42)" }}
+              style={{ color: "oklch(0.46 0.20 25)" }}
             >
               <span
                 className="inline-block w-8 h-px"
-                style={{ backgroundColor: "oklch(0.68 0.10 42)" }}
+                style={{ backgroundColor: "oklch(0.46 0.20 25)" }}
               />
               Our Work
             </div>
@@ -171,20 +175,20 @@ export default function PortfolioSection() {
               className="font-display font-light"
               style={{
                 fontSize: "clamp(2rem, 4vw, 3.5rem)",
-                color: "oklch(0.97 0.012 85)",
+                color: "oklch(0.22 0.005 0)",
                 lineHeight: 1.1,
               }}
             >
               Find Inspiration in
               <br />
-              <em style={{ color: "oklch(0.68 0.10 42)", fontStyle: "italic" }}>
+              <em style={{ color: "oklch(0.46 0.20 25)", fontStyle: "italic" }}>
                 Central Oregon Yards
               </em>
             </h2>
           </div>
           <p
             className="font-body max-w-sm"
-            style={{ color: "oklch(0.72 0.03 75)" }}
+            style={{ color: "oklch(0.50 0.005 0)" }}
           >
             Discover what's possible for your outdoor space. Every project is
             custom-designed to reflect your unique vision.
@@ -197,7 +201,7 @@ export default function PortfolioSection() {
           <div className="lg:col-span-2">
             <PortfolioCard item={portfolioItems[0]} index={0} />
           </div>
-          {/* Regular items */}
+          {/* Right column stack */}
           <div className="flex flex-col gap-4">
             <PortfolioCard item={portfolioItems[1]} index={1} />
             <PortfolioCard item={portfolioItems[2]} index={2} />
@@ -216,7 +220,7 @@ export default function PortfolioSection() {
                 .querySelector("#contact")
                 ?.scrollIntoView({ behavior: "smooth" })
             }
-            className="btn-terracotta"
+            className="btn-red"
           >
             Start Your Transformation
           </button>

@@ -1,13 +1,13 @@
 /* ============================================================
-   HERO SECTION — Sunlit Craftsman Design
-   Full-bleed photography, warm overlay, elegant display type
-   Diagonal bottom divider, scroll-triggered animation
+   HERO SECTION — Brand Refresh
+   Bright, airy hero with lighter overlay, brand red accents
+   White text on photo, red CTA button
    ============================================================ */
 import { useEffect, useRef, useState } from "react";
 import { ChevronDown } from "lucide-react";
 
 const HERO_IMAGE =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/hero-main-G8fqyZAnfti5GBXHAqJjh6.webp";
+  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportLandscapingFacilityHiResPhotos56_a7221ea8.webp";
 
 export default function HeroSection() {
   const [loaded, setLoaded] = useState(false);
@@ -42,29 +42,30 @@ export default function HeroSection() {
           backgroundImage: `url(${HERO_IMAGE})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
-          transform: `translateY(${scrollY * 0.3}px)`,
+          transform: `translateY(${scrollY * 0.25}px)`,
           willChange: "transform",
         }}
       />
 
-      {/* Layered overlays */}
+      {/* Lighter overlay — still readable but brighter feel */}
       <div
         className="absolute inset-0"
         style={{
           background:
-            "linear-gradient(135deg, oklch(0.15 0.05 152 / 0.82) 0%, oklch(0.22 0.06 152 / 0.55) 50%, oklch(0.22 0.06 152 / 0.25) 100%)",
+            "linear-gradient(120deg, oklch(0.10 0.005 0 / 0.72) 0%, oklch(0.15 0.005 0 / 0.45) 55%, oklch(0.15 0.005 0 / 0.20) 100%)",
         }}
       />
+      {/* Bottom fade for smooth transition into white section */}
       <div
         className="absolute inset-0"
         style={{
           background:
-            "linear-gradient(to top, oklch(0.15 0.05 152 / 0.6) 0%, transparent 50%)",
+            "linear-gradient(to top, oklch(0.10 0.005 0 / 0.50) 0%, transparent 40%)",
         }}
       />
 
       {/* Content */}
-      <div className="container relative z-10 pt-32 pb-20">
+      <div className="container relative z-10 pt-36 pb-20">
         <div className="max-w-3xl">
           {/* Label */}
           <div
@@ -73,12 +74,12 @@ export default function HeroSection() {
               opacity: loaded ? 1 : 0,
               transform: loaded ? "translateY(0)" : "translateY(20px)",
               transition: "opacity 0.8s ease 0.1s, transform 0.8s ease 0.1s",
-              color: "oklch(0.68 0.10 42)",
+              color: "oklch(0.85 0.10 25)",
             }}
           >
             <span
               className="inline-block w-8 h-px"
-              style={{ backgroundColor: "oklch(0.68 0.10 42)" }}
+              style={{ backgroundColor: "oklch(0.46 0.20 25)" }}
             />
             Central Oregon's Premier Landscaping
           </div>
@@ -88,7 +89,7 @@ export default function HeroSection() {
             className="font-display font-light leading-none mb-6"
             style={{
               fontSize: "clamp(3rem, 7vw, 6rem)",
-              color: "oklch(0.97 0.012 85)",
+              color: "oklch(1 0 0)",
               opacity: loaded ? 1 : 0,
               transform: loaded ? "translateY(0)" : "translateY(30px)",
               transition: "opacity 0.9s ease 0.25s, transform 0.9s ease 0.25s",
@@ -96,7 +97,7 @@ export default function HeroSection() {
           >
             Your Dream
             <br />
-            <em style={{ color: "oklch(0.80 0.08 42)", fontStyle: "italic" }}>
+            <em style={{ color: "oklch(0.85 0.10 25)", fontStyle: "italic" }}>
               Outdoor Space
             </em>
             <br />
@@ -107,7 +108,7 @@ export default function HeroSection() {
           <p
             className="font-body text-lg font-light max-w-xl mb-10 leading-relaxed"
             style={{
-              color: "oklch(0.88 0.015 85)",
+              color: "oklch(0.90 0.003 0)",
               opacity: loaded ? 1 : 0,
               transform: loaded ? "translateY(0)" : "translateY(20px)",
               transition: "opacity 0.8s ease 0.45s, transform 0.8s ease 0.45s",
@@ -128,14 +129,18 @@ export default function HeroSection() {
             }}
           >
             <button
-              onClick={() => document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" })}
-              className="btn-terracotta"
+              onClick={() =>
+                document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" })
+              }
+              className="btn-red"
             >
               Start Your Project
             </button>
             <button
-              onClick={() => document.querySelector("#portfolio")?.scrollIntoView({ behavior: "smooth" })}
-              className="btn-outline-cream"
+              onClick={() =>
+                document.querySelector("#portfolio")?.scrollIntoView({ behavior: "smooth" })
+              }
+              className="btn-outline-white"
             >
               View Our Work
             </button>
@@ -143,9 +148,9 @@ export default function HeroSection() {
 
           {/* Stats */}
           <div
-            className="flex flex-wrap gap-10 mt-14 pt-10"
+            className="grid grid-cols-2 sm:grid-cols-4 gap-6 mt-14 pt-10"
             style={{
-              borderTop: "1px solid oklch(0.97 0.012 85 / 0.2)",
+              borderTop: "1px solid oklch(1 0 0 / 0.25)",
               opacity: loaded ? 1 : 0,
               transition: "opacity 0.8s ease 0.8s",
             }}
@@ -159,13 +164,13 @@ export default function HeroSection() {
               <div key={stat.label}>
                 <div
                   className="font-display font-semibold"
-                  style={{ fontSize: "2.5rem", color: "oklch(0.68 0.10 42)", lineHeight: 1 }}
+                  style={{ fontSize: "2.5rem", color: "oklch(0.85 0.10 25)", lineHeight: 1 }}
                 >
                   {stat.value}
                 </div>
                 <div
                   className="font-label mt-1"
-                  style={{ color: "oklch(0.75 0.02 85)" }}
+                  style={{ color: "oklch(0.80 0.005 0)" }}
                 >
                   {stat.label}
                 </div>
@@ -178,8 +183,8 @@ export default function HeroSection() {
       {/* Scroll indicator */}
       <button
         onClick={scrollToServices}
-        className="absolute bottom-16 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 group"
-        style={{ color: "oklch(0.85 0.02 85)" }}
+        className="absolute bottom-16 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2"
+        style={{ color: "oklch(0.85 0.003 0)" }}
       >
         <span className="font-label" style={{ fontSize: "0.65rem" }}>
           Explore
@@ -187,7 +192,7 @@ export default function HeroSection() {
         <ChevronDown
           size={20}
           className="animate-bounce"
-          style={{ color: "oklch(0.68 0.10 42)" }}
+          style={{ color: "oklch(0.85 0.10 25)" }}
         />
       </button>
     </section>

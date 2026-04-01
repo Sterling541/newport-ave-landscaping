@@ -1,7 +1,10 @@
 /* ============================================================
-   FOOTER — Sunlit Craftsman Design
-   Dark forest green, organized links, brand identity
+   FOOTER — Brand Refresh
+   Deep charcoal background, brand red accents, real logo
    ============================================================ */
+
+const LOGO_WHITE =
+  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/LogoNewportAvenueLandscapingBGRed_367837c1.png";
 
 const maintenanceServices = [
   "Lawn Service",
@@ -31,40 +34,22 @@ export default function Footer() {
   };
 
   return (
-    <footer style={{ backgroundColor: "oklch(0.12 0.04 152)" }}>
+    <footer style={{ backgroundColor: "oklch(0.14 0.005 0)" }}>
       {/* Main footer */}
       <div className="container py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
           {/* Brand */}
           <div className="lg:col-span-1">
             <div className="flex items-center gap-3 mb-5">
-              <div
-                className="w-10 h-10 rounded-full flex items-center justify-center font-display font-bold text-lg"
-                style={{
-                  backgroundColor: "oklch(0.58 0.12 42)",
-                  color: "oklch(0.97 0.012 85)",
-                }}
-              >
-                N
-              </div>
-              <div>
-                <div
-                  className="font-display font-semibold text-lg leading-tight"
-                  style={{ color: "oklch(0.97 0.012 85)" }}
-                >
-                  Newport Ave
-                </div>
-                <div
-                  className="font-label text-xs"
-                  style={{ color: "oklch(0.55 0.03 152)", letterSpacing: "0.2em" }}
-                >
-                  Landscaping
-                </div>
-              </div>
+              <img
+                src={LOGO_WHITE}
+                alt="Newport Avenue Landscaping"
+                className="h-14 w-auto"
+              />
             </div>
             <p
               className="font-body text-sm leading-relaxed mb-6"
-              style={{ color: "oklch(0.55 0.03 152)" }}
+              style={{ color: "oklch(0.55 0.005 0)" }}
             >
               Central Oregon's premier landscaping company, serving Bend and
               surrounding communities for over 21 years.
@@ -73,24 +58,24 @@ export default function Footer() {
               <a
                 href="tel:5416178873"
                 className="font-body text-sm block transition-colors"
-                style={{ color: "oklch(0.72 0.03 75)" }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = "oklch(0.68 0.10 42)")}
-                onMouseLeave={(e) => (e.currentTarget.style.color = "oklch(0.72 0.03 75)")}
+                style={{ color: "oklch(0.72 0.005 0)" }}
+                onMouseEnter={(e) => (e.currentTarget.style.color = "oklch(0.72 0.12 25)")}
+                onMouseLeave={(e) => (e.currentTarget.style.color = "oklch(0.72 0.005 0)")}
               >
                 (541) 617-8873
               </a>
               <a
                 href="mailto:info@newportavelandscaping.com"
                 className="font-body text-sm block transition-colors"
-                style={{ color: "oklch(0.72 0.03 75)" }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = "oklch(0.68 0.10 42)")}
-                onMouseLeave={(e) => (e.currentTarget.style.color = "oklch(0.72 0.03 75)")}
+                style={{ color: "oklch(0.72 0.005 0)" }}
+                onMouseEnter={(e) => (e.currentTarget.style.color = "oklch(0.72 0.12 25)")}
+                onMouseLeave={(e) => (e.currentTarget.style.color = "oklch(0.72 0.005 0)")}
               >
                 info@newportavelandscaping.com
               </a>
               <p
                 className="font-body text-sm"
-                style={{ color: "oklch(0.55 0.03 152)" }}
+                style={{ color: "oklch(0.55 0.005 0)" }}
               >
                 1020 SE Paiute Way #100
                 <br />
@@ -103,7 +88,7 @@ export default function Footer() {
           <div>
             <div
               className="font-label mb-5"
-              style={{ color: "oklch(0.68 0.10 42)" }}
+              style={{ color: "oklch(0.72 0.12 25)" }}
             >
               Maintenance Services
             </div>
@@ -113,9 +98,9 @@ export default function Footer() {
                   <button
                     onClick={() => scrollTo("#contact")}
                     className="font-body text-sm transition-colors text-left"
-                    style={{ color: "oklch(0.55 0.03 152)" }}
-                    onMouseEnter={(e) => (e.currentTarget.style.color = "oklch(0.85 0.02 85)")}
-                    onMouseLeave={(e) => (e.currentTarget.style.color = "oklch(0.55 0.03 152)")}
+                    style={{ color: "oklch(0.55 0.005 0)" }}
+                    onMouseEnter={(e) => (e.currentTarget.style.color = "oklch(0.85 0.005 0)")}
+                    onMouseLeave={(e) => (e.currentTarget.style.color = "oklch(0.55 0.005 0)")}
                   >
                     {s}
                   </button>
@@ -128,7 +113,7 @@ export default function Footer() {
           <div>
             <div
               className="font-label mb-5"
-              style={{ color: "oklch(0.68 0.10 42)" }}
+              style={{ color: "oklch(0.72 0.12 25)" }}
             >
               Landscaping Services
             </div>
@@ -138,9 +123,9 @@ export default function Footer() {
                   <button
                     onClick={() => scrollTo("#contact")}
                     className="font-body text-sm transition-colors text-left"
-                    style={{ color: "oklch(0.55 0.03 152)" }}
-                    onMouseEnter={(e) => (e.currentTarget.style.color = "oklch(0.85 0.02 85)")}
-                    onMouseLeave={(e) => (e.currentTarget.style.color = "oklch(0.55 0.03 152)")}
+                    style={{ color: "oklch(0.55 0.005 0)" }}
+                    onMouseEnter={(e) => (e.currentTarget.style.color = "oklch(0.85 0.005 0)")}
+                    onMouseLeave={(e) => (e.currentTarget.style.color = "oklch(0.55 0.005 0)")}
                   >
                     {s}
                   </button>
@@ -153,7 +138,7 @@ export default function Footer() {
           <div>
             <div
               className="font-label mb-5"
-              style={{ color: "oklch(0.68 0.10 42)" }}
+              style={{ color: "oklch(0.72 0.12 25)" }}
             >
               Quick Links
             </div>
@@ -170,9 +155,9 @@ export default function Footer() {
                   <button
                     onClick={() => scrollTo(link.id)}
                     className="font-body text-sm transition-colors text-left"
-                    style={{ color: "oklch(0.55 0.03 152)" }}
-                    onMouseEnter={(e) => (e.currentTarget.style.color = "oklch(0.85 0.02 85)")}
-                    onMouseLeave={(e) => (e.currentTarget.style.color = "oklch(0.55 0.03 152)")}
+                    style={{ color: "oklch(0.55 0.005 0)" }}
+                    onMouseEnter={(e) => (e.currentTarget.style.color = "oklch(0.85 0.005 0)")}
+                    onMouseLeave={(e) => (e.currentTarget.style.color = "oklch(0.55 0.005 0)")}
                   >
                     {link.label}
                   </button>
@@ -182,7 +167,7 @@ export default function Footer() {
 
             <button
               onClick={() => scrollTo("#contact")}
-              className="btn-terracotta w-full text-center"
+              className="btn-red w-full text-center"
             >
               Start Service
             </button>
@@ -193,12 +178,12 @@ export default function Footer() {
       {/* Bottom bar */}
       <div
         className="border-t"
-        style={{ borderColor: "oklch(0.22 0.06 152 / 0.5)" }}
+        style={{ borderColor: "oklch(0.25 0.005 0)" }}
       >
         <div className="container py-5 flex flex-col md:flex-row items-center justify-between gap-4">
           <p
             className="font-body text-xs"
-            style={{ color: "oklch(0.42 0.03 152)" }}
+            style={{ color: "oklch(0.42 0.005 0)" }}
           >
             © 2025 Newport Avenue Landscaping. All Rights Reserved.
           </p>
@@ -207,9 +192,9 @@ export default function Footer() {
               <button
                 key={item}
                 className="font-body text-xs transition-colors"
-                style={{ color: "oklch(0.42 0.03 152)" }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = "oklch(0.68 0.10 42)")}
-                onMouseLeave={(e) => (e.currentTarget.style.color = "oklch(0.42 0.03 152)")}
+                style={{ color: "oklch(0.42 0.005 0)" }}
+                onMouseEnter={(e) => (e.currentTarget.style.color = "oklch(0.72 0.12 25)")}
+                onMouseLeave={(e) => (e.currentTarget.style.color = "oklch(0.42 0.005 0)")}
               >
                 {item}
               </button>
@@ -217,7 +202,7 @@ export default function Footer() {
           </div>
           <p
             className="font-body text-xs"
-            style={{ color: "oklch(0.35 0.03 152)" }}
+            style={{ color: "oklch(0.38 0.005 0)" }}
           >
             LCB #9153 — Licensed, Bonded & Insured
           </p>

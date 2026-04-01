@@ -1,6 +1,6 @@
 /* ============================================================
-   STATS SECTION — Sunlit Craftsman Design
-   Terracotta accent band with key metrics
+   STATS SECTION — Brand Refresh
+   Brand red accent band with white numbers
    ============================================================ */
 import { useEffect, useRef, useState } from "react";
 
@@ -30,7 +30,7 @@ export default function StatsSection() {
     <div
       ref={ref}
       className="py-12"
-      style={{ backgroundColor: "oklch(0.58 0.12 42)" }}
+      style={{ backgroundColor: "oklch(0.46 0.20 25)" }}
     >
       <div className="container">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
@@ -46,13 +46,13 @@ export default function StatsSection() {
             >
               <div
                 className="font-display font-semibold mb-1"
-                style={{ fontSize: "2.8rem", color: "oklch(0.97 0.012 85)", lineHeight: 1 }}
+                style={{ fontSize: "2.8rem", color: "oklch(1 0 0)", lineHeight: 1 }}
               >
                 {stat.value}
               </div>
               <div
                 className="font-label"
-                style={{ color: "oklch(0.97 0.012 85 / 0.75)", fontSize: "0.65rem" }}
+                style={{ color: "oklch(1 0 0 / 0.80)", fontSize: "0.65rem" }}
               >
                 {stat.label}
               </div>

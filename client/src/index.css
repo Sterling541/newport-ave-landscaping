@@ -1,9 +1,10 @@
 /* ============================================================
-   NEWPORT AVE LANDSCAPING — SUNLIT CRAFTSMAN DESIGN SYSTEM
-   Design Movement: High-end home & garden magazine meets Pacific Northwest warmth
-   Color Philosophy: Warm cream base, deep forest green primary, terracotta accent
+   NEWPORT AVE LANDSCAPING — BRAND REFRESH
+   Design: Bright, airy white base with brand red (#D42B2B) accent
+   Color Philosophy: Clean white backgrounds, bold red for CTAs/accents,
+     charcoal (#2C2C2C) for text — energetic yet professional
    Typography: Cormorant Garamond (display) + Nunito Sans (body) + Raleway (labels)
-   Layout: Offset grid, diagonal dividers, photography-first, generous whitespace
+   Layout: Light, open, photography-forward
    ============================================================ */
 
 @import "tailwindcss";
@@ -49,55 +50,56 @@
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
 
-  /* Custom brand colors */
-  --color-forest: oklch(0.22 0.06 152);
-  --color-forest-light: oklch(0.32 0.07 152);
-  --color-forest-dark: oklch(0.15 0.05 152);
-  --color-cream: oklch(0.97 0.012 85);
-  --color-cream-dark: oklch(0.93 0.018 85);
-  --color-terracotta: oklch(0.58 0.12 42);
-  --color-terracotta-light: oklch(0.68 0.10 42);
-  --color-stone: oklch(0.72 0.03 75);
-  --color-stone-light: oklch(0.88 0.015 75);
+  /* Brand colors */
+  --color-brand-red: oklch(0.46 0.20 25);
+  --color-brand-red-dark: oklch(0.38 0.20 25);
+  --color-brand-red-light: oklch(0.55 0.18 25);
+  --color-brand-red-pale: oklch(0.96 0.03 25);
+  --color-charcoal: oklch(0.22 0.005 0);
+  --color-charcoal-light: oklch(0.38 0.005 0);
+  --color-mid-gray: oklch(0.60 0.005 0);
+  --color-light-gray: oklch(0.93 0.003 0);
+  --color-off-white: oklch(0.985 0.003 85);
+  --color-pure-white: oklch(1 0 0);
 }
 
 :root {
   --radius: 0.25rem;
-  /* Forest green as primary */
-  --primary: oklch(0.22 0.06 152);
-  --primary-foreground: oklch(0.97 0.012 85);
-  /* Terracotta as secondary */
-  --secondary: oklch(0.58 0.12 42);
-  --secondary-foreground: oklch(0.97 0.012 85);
-  /* Warm cream background */
-  --background: oklch(0.97 0.012 85);
-  --foreground: oklch(0.18 0.04 152);
+  /* Brand red as primary */
+  --primary: oklch(0.46 0.20 25);
+  --primary-foreground: oklch(1 0 0);
+  /* Light gray as secondary */
+  --secondary: oklch(0.93 0.003 0);
+  --secondary-foreground: oklch(0.22 0.005 0);
+  /* Pure white background */
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.22 0.005 0);
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.18 0.04 152);
+  --card-foreground: oklch(0.22 0.005 0);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.18 0.04 152);
-  --muted: oklch(0.93 0.018 85);
-  --muted-foreground: oklch(0.45 0.04 152);
-  --accent: oklch(0.93 0.018 85);
-  --accent-foreground: oklch(0.22 0.06 152);
+  --popover-foreground: oklch(0.22 0.005 0);
+  --muted: oklch(0.96 0.003 0);
+  --muted-foreground: oklch(0.50 0.005 0);
+  --accent: oklch(0.96 0.03 25);
+  --accent-foreground: oklch(0.46 0.20 25);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.985 0 0);
-  --border: oklch(0.88 0.015 75);
-  --input: oklch(0.88 0.015 75);
-  --ring: oklch(0.22 0.06 152);
-  --chart-1: oklch(0.22 0.06 152);
-  --chart-2: oklch(0.32 0.07 152);
-  --chart-3: oklch(0.58 0.12 42);
-  --chart-4: oklch(0.68 0.10 42);
-  --chart-5: oklch(0.72 0.03 75);
-  --sidebar: oklch(0.22 0.06 152);
-  --sidebar-foreground: oklch(0.97 0.012 85);
-  --sidebar-primary: oklch(0.58 0.12 42);
-  --sidebar-primary-foreground: oklch(0.97 0.012 85);
-  --sidebar-accent: oklch(0.32 0.07 152);
-  --sidebar-accent-foreground: oklch(0.97 0.012 85);
-  --sidebar-border: oklch(0.32 0.07 152);
-  --sidebar-ring: oklch(0.58 0.12 42);
+  --border: oklch(0.90 0.003 0);
+  --input: oklch(0.90 0.003 0);
+  --ring: oklch(0.46 0.20 25);
+  --chart-1: oklch(0.46 0.20 25);
+  --chart-2: oklch(0.55 0.18 25);
+  --chart-3: oklch(0.38 0.20 25);
+  --chart-4: oklch(0.22 0.005 0);
+  --chart-5: oklch(0.60 0.005 0);
+  --sidebar: oklch(0.22 0.005 0);
+  --sidebar-foreground: oklch(1 0 0);
+  --sidebar-primary: oklch(0.46 0.20 25);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.32 0.005 0);
+  --sidebar-accent-foreground: oklch(1 0 0);
+  --sidebar-border: oklch(0.32 0.005 0);
+  --sidebar-ring: oklch(0.46 0.20 25);
 }
 
 @layer base {
@@ -168,7 +170,7 @@
     font-weight: 600;
   }
 
-  /* Diagonal section divider */
+  /* Section dividers */
   .diagonal-bottom {
     clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
     padding-bottom: 8rem;
@@ -179,22 +181,13 @@
     margin-top: -4rem;
   }
 
-  /* Warm overlay for images */
-  .warm-overlay::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, oklch(0.22 0.06 152 / 0.6) 0%, oklch(0.22 0.06 152 / 0.2) 60%, transparent 100%);
-    pointer-events: none;
-  }
-
   /* Service card hover */
   .service-card {
     transition: transform 0.4s ease, box-shadow 0.4s ease;
   }
   .service-card:hover {
     transform: translateY(-6px);
-    box-shadow: 0 20px 60px oklch(0.22 0.06 152 / 0.15);
+    box-shadow: 0 20px 60px oklch(0.46 0.20 25 / 0.12);
   }
 
   /* Scroll animation classes */
@@ -208,10 +201,10 @@
     transform: translateY(0);
   }
 
-  /* Terracotta CTA button */
-  .btn-terracotta {
-    background-color: oklch(0.58 0.12 42);
-    color: oklch(0.97 0.012 85);
+  /* Brand red CTA button */
+  .btn-red {
+    background-color: oklch(0.46 0.20 25);
+    color: oklch(1 0 0);
     font-family: 'Raleway', sans-serif;
     letter-spacing: 0.1em;
     text-transform: uppercase;
@@ -220,16 +213,91 @@
     padding: 0.875rem 2rem;
     border: none;
     transition: background-color 0.3s ease, transform 0.2s ease;
+    display: inline-block;
+  }
+  .btn-red:hover {
+    background-color: oklch(0.38 0.20 25);
+    transform: translateY(-1px);
+  }
+
+  /* Charcoal button */
+  .btn-charcoal {
+    background-color: oklch(0.22 0.005 0);
+    color: oklch(1 0 0);
+    font-family: 'Raleway', sans-serif;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 0.875rem 2rem;
+    border: none;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    display: inline-block;
+  }
+  .btn-charcoal:hover {
+    background-color: oklch(0.32 0.005 0);
+    transform: translateY(-1px);
+  }
+
+  /* Outline button on white bg */
+  .btn-outline-dark {
+    background-color: transparent;
+    color: oklch(0.22 0.005 0);
+    font-family: 'Raleway', sans-serif;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 0.875rem 2rem;
+    border: 1.5px solid oklch(0.22 0.005 0);
+    transition: background-color 0.3s ease, color 0.3s ease;
+    display: inline-block;
+  }
+  .btn-outline-dark:hover {
+    background-color: oklch(0.22 0.005 0);
+    color: oklch(1 0 0);
+  }
+
+  /* Outline button on dark/image bg */
+  .btn-outline-white {
+    background-color: transparent;
+    color: oklch(1 0 0);
+    font-family: 'Raleway', sans-serif;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 0.875rem 2rem;
+    border: 1.5px solid oklch(1 0 0);
+    transition: background-color 0.3s ease, color 0.3s ease;
+    display: inline-block;
+  }
+  .btn-outline-white:hover {
+    background-color: oklch(1 0 0);
+    color: oklch(0.22 0.005 0);
+  }
+
+  /* Legacy aliases so old components still work */
+  .btn-terracotta { 
+    background-color: oklch(0.46 0.20 25);
+    color: oklch(1 0 0);
+    font-family: 'Raleway', sans-serif;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 0.875rem 2rem;
+    border: none;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    display: inline-block;
   }
   .btn-terracotta:hover {
-    background-color: oklch(0.50 0.13 42);
+    background-color: oklch(0.38 0.20 25);
     transform: translateY(-1px);
   }
-
-  /* Forest green button */
   .btn-forest {
-    background-color: oklch(0.22 0.06 152);
-    color: oklch(0.97 0.012 85);
+    background-color: oklch(0.22 0.005 0);
+    color: oklch(1 0 0);
     font-family: 'Raleway', sans-serif;
     letter-spacing: 0.1em;
     text-transform: uppercase;
@@ -238,27 +306,27 @@
     padding: 0.875rem 2rem;
     border: none;
     transition: background-color 0.3s ease, transform 0.2s ease;
+    display: inline-block;
   }
   .btn-forest:hover {
-    background-color: oklch(0.32 0.07 152);
+    background-color: oklch(0.32 0.005 0);
     transform: translateY(-1px);
   }
-
-  /* Outline button */
   .btn-outline-cream {
     background-color: transparent;
-    color: oklch(0.97 0.012 85);
+    color: oklch(1 0 0);
     font-family: 'Raleway', sans-serif;
     letter-spacing: 0.1em;
     text-transform: uppercase;
     font-size: 0.8rem;
     font-weight: 600;
     padding: 0.875rem 2rem;
-    border: 1.5px solid oklch(0.97 0.012 85);
+    border: 1.5px solid oklch(1 0 0);
     transition: background-color 0.3s ease, color 0.3s ease;
+    display: inline-block;
   }
   .btn-outline-cream:hover {
-    background-color: oklch(0.97 0.012 85);
-    color: oklch(0.22 0.06 152);
+    background-color: oklch(1 0 0);
+    color: oklch(0.22 0.005 0);
   }
 }

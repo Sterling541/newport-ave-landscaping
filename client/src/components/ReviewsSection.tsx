@@ -1,6 +1,6 @@
 /* ============================================================
-   REVIEWS SECTION — Sunlit Craftsman Design
-   Large pull-quote format, warm cream background
+   REVIEWS SECTION — Brand Refresh
+   Large pull-quote format, clean white background
    Auto-rotating carousel with manual controls
    ============================================================ */
 import { useEffect, useRef, useState } from "react";
@@ -93,7 +93,7 @@ export default function ReviewsSection() {
     <section
       id="reviews"
       className="py-24"
-      style={{ backgroundColor: "oklch(0.97 0.012 85)" }}
+      style={{ backgroundColor: "oklch(0.985 0.003 0)" }}
     >
       <div className="container">
         <div
@@ -108,29 +108,29 @@ export default function ReviewsSection() {
           <div className="text-center mb-16">
             <div
               className="font-label mb-4 flex items-center justify-center gap-3"
-              style={{ color: "oklch(0.58 0.12 42)" }}
+              style={{ color: "oklch(0.46 0.20 25)" }}
             >
               <span
                 className="inline-block w-8 h-px"
-                style={{ backgroundColor: "oklch(0.58 0.12 42)" }}
+                style={{ backgroundColor: "oklch(0.46 0.20 25)" }}
               />
               Client Stories
               <span
                 className="inline-block w-8 h-px"
-                style={{ backgroundColor: "oklch(0.58 0.12 42)" }}
+                style={{ backgroundColor: "oklch(0.46 0.20 25)" }}
               />
             </div>
             <h2
               className="font-display font-light"
               style={{
                 fontSize: "clamp(2rem, 4vw, 3.5rem)",
-                color: "oklch(0.18 0.04 152)",
+                color: "oklch(0.22 0.005 0)",
                 lineHeight: 1.1,
               }}
             >
               What Our Clients
               <br />
-              <em style={{ color: "oklch(0.22 0.06 152)", fontStyle: "italic" }}>
+              <em style={{ color: "oklch(0.46 0.20 25)", fontStyle: "italic" }}>
                 Are Saying
               </em>
             </h2>
@@ -144,8 +144,8 @@ export default function ReviewsSection() {
                 <Star
                   key={i}
                   size={20}
-                  fill="oklch(0.58 0.12 42)"
-                  style={{ color: "oklch(0.58 0.12 42)" }}
+                  fill="oklch(0.46 0.20 25)"
+                  style={{ color: "oklch(0.46 0.20 25)" }}
                 />
               ))}
             </div>
@@ -155,7 +155,7 @@ export default function ReviewsSection() {
               className="font-display font-light mb-8 transition-opacity duration-300"
               style={{
                 fontSize: "clamp(1.3rem, 2.5vw, 2rem)",
-                color: "oklch(0.22 0.06 152)",
+                color: "oklch(0.22 0.005 0)",
                 lineHeight: 1.5,
                 fontStyle: "italic",
                 opacity: animating ? 0 : 1,
@@ -168,7 +168,7 @@ export default function ReviewsSection() {
             <div
               className="font-label transition-opacity duration-300"
               style={{
-                color: "oklch(0.58 0.12 42)",
+                color: "oklch(0.46 0.20 25)",
                 opacity: animating ? 0 : 1,
               }}
             >
@@ -182,18 +182,18 @@ export default function ReviewsSection() {
               onClick={goPrev}
               className="w-10 h-10 flex items-center justify-center transition-colors"
               style={{
-                border: "1px solid oklch(0.88 0.015 75)",
-                color: "oklch(0.45 0.04 152)",
+                border: "1px solid oklch(0.90 0.003 0)",
+                color: "oklch(0.38 0.005 0)",
               }}
               onMouseEnter={(e) => {
-                (e.currentTarget as HTMLButtonElement).style.backgroundColor = "oklch(0.22 0.06 152)";
-                (e.currentTarget as HTMLButtonElement).style.color = "oklch(0.97 0.012 85)";
-                (e.currentTarget as HTMLButtonElement).style.borderColor = "oklch(0.22 0.06 152)";
+                (e.currentTarget as HTMLButtonElement).style.backgroundColor = "oklch(0.46 0.20 25)";
+                (e.currentTarget as HTMLButtonElement).style.color = "oklch(1 0 0)";
+                (e.currentTarget as HTMLButtonElement).style.borderColor = "oklch(0.46 0.20 25)";
               }}
               onMouseLeave={(e) => {
                 (e.currentTarget as HTMLButtonElement).style.backgroundColor = "transparent";
-                (e.currentTarget as HTMLButtonElement).style.color = "oklch(0.45 0.04 152)";
-                (e.currentTarget as HTMLButtonElement).style.borderColor = "oklch(0.88 0.015 75)";
+                (e.currentTarget as HTMLButtonElement).style.color = "oklch(0.38 0.005 0)";
+                (e.currentTarget as HTMLButtonElement).style.borderColor = "oklch(0.90 0.003 0)";
               }}
             >
               <ChevronLeft size={18} />
@@ -209,8 +209,8 @@ export default function ReviewsSection() {
                   style={{
                     backgroundColor:
                       i === current
-                        ? "oklch(0.22 0.06 152)"
-                        : "oklch(0.72 0.03 75)",
+                        ? "oklch(0.46 0.20 25)"
+                        : "oklch(0.80 0.003 0)",
                     transform: i === current ? "scale(1.4)" : "scale(1)",
                   }}
                 />
@@ -221,18 +221,18 @@ export default function ReviewsSection() {
               onClick={goNext}
               className="w-10 h-10 flex items-center justify-center transition-colors"
               style={{
-                border: "1px solid oklch(0.88 0.015 75)",
-                color: "oklch(0.45 0.04 152)",
+                border: "1px solid oklch(0.90 0.003 0)",
+                color: "oklch(0.38 0.005 0)",
               }}
               onMouseEnter={(e) => {
-                (e.currentTarget as HTMLButtonElement).style.backgroundColor = "oklch(0.22 0.06 152)";
-                (e.currentTarget as HTMLButtonElement).style.color = "oklch(0.97 0.012 85)";
-                (e.currentTarget as HTMLButtonElement).style.borderColor = "oklch(0.22 0.06 152)";
+                (e.currentTarget as HTMLButtonElement).style.backgroundColor = "oklch(0.46 0.20 25)";
+                (e.currentTarget as HTMLButtonElement).style.color = "oklch(1 0 0)";
+                (e.currentTarget as HTMLButtonElement).style.borderColor = "oklch(0.46 0.20 25)";
               }}
               onMouseLeave={(e) => {
                 (e.currentTarget as HTMLButtonElement).style.backgroundColor = "transparent";
-                (e.currentTarget as HTMLButtonElement).style.color = "oklch(0.45 0.04 152)";
-                (e.currentTarget as HTMLButtonElement).style.borderColor = "oklch(0.88 0.015 75)";
+                (e.currentTarget as HTMLButtonElement).style.color = "oklch(0.38 0.005 0)";
+                (e.currentTarget as HTMLButtonElement).style.borderColor = "oklch(0.90 0.003 0)";
               }}
             >
               <ChevronRight size={18} />
@@ -247,7 +247,7 @@ export default function ReviewsSection() {
                 className="p-6"
                 style={{
                   backgroundColor: "oklch(1 0 0)",
-                  border: "1px solid oklch(0.88 0.015 75)",
+                  border: "1px solid oklch(0.90 0.003 0)",
                 }}
               >
                 <div className="flex gap-1 mb-3">
@@ -255,20 +255,20 @@ export default function ReviewsSection() {
                     <Star
                       key={j}
                       size={12}
-                      fill="oklch(0.58 0.12 42)"
-                      style={{ color: "oklch(0.58 0.12 42)" }}
+                    fill="oklch(0.46 0.20 25)"
+                    style={{ color: "oklch(0.46 0.20 25)" }}
                     />
                   ))}
                 </div>
                 <p
                   className="font-body text-sm leading-relaxed mb-4 line-clamp-4"
-                  style={{ color: "oklch(0.35 0.04 152)" }}
+                  style={{ color: "oklch(0.38 0.005 0)" }}
                 >
                   "{r.text}"
                 </p>
                 <div
                   className="font-label"
-                  style={{ color: "oklch(0.58 0.12 42)", fontSize: "0.65rem" }}
+                  style={{ color: "oklch(0.46 0.20 25)", fontSize: "0.65rem" }}
                 >
                   {r.name}
                 </div>

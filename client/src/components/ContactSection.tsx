@@ -1,7 +1,6 @@
 /* ============================================================
-   CONTACT SECTION — Sunlit Craftsman Design
-   Split layout: form left, contact info right
-   Forest green background, warm cream form
+   CONTACT SECTION — Brand Refresh
+   Charcoal background, white form panel, brand red accents
    ============================================================ */
 import { useState } from "react";
 import { Phone, Mail, MapPin, Clock } from "lucide-react";
@@ -18,7 +17,6 @@ export default function ContactSection() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // In a real deployment, this would send to a backend
     setSubmitted(true);
   };
 
@@ -32,36 +30,36 @@ export default function ContactSection() {
     <section
       id="contact"
       className="py-24"
-      style={{ backgroundColor: "oklch(0.22 0.06 152)" }}
+      style={{ backgroundColor: "oklch(0.18 0.005 0)" }}
     >
       <div className="container">
         {/* Header */}
         <div className="text-center mb-16">
           <div
             className="font-label mb-4 flex items-center justify-center gap-3"
-            style={{ color: "oklch(0.68 0.10 42)" }}
+            style={{ color: "oklch(0.72 0.12 25)" }}
           >
             <span
               className="inline-block w-8 h-px"
-              style={{ backgroundColor: "oklch(0.68 0.10 42)" }}
+              style={{ backgroundColor: "oklch(0.72 0.12 25)" }}
             />
             Get In Touch
             <span
               className="inline-block w-8 h-px"
-              style={{ backgroundColor: "oklch(0.68 0.10 42)" }}
+              style={{ backgroundColor: "oklch(0.72 0.12 25)" }}
             />
           </div>
           <h2
             className="font-display font-light"
             style={{
               fontSize: "clamp(2rem, 4vw, 3.5rem)",
-              color: "oklch(0.97 0.012 85)",
+              color: "oklch(1 0 0)",
               lineHeight: 1.1,
             }}
           >
             Start Your Outdoor
             <br />
-            <em style={{ color: "oklch(0.68 0.10 42)", fontStyle: "italic" }}>
+            <em style={{ color: "oklch(0.72 0.12 25)", fontStyle: "italic" }}>
               Transformation Today
             </em>
           </h2>
@@ -73,17 +71,17 @@ export default function ContactSection() {
             {submitted ? (
               <div
                 className="p-12 text-center"
-                style={{ backgroundColor: "oklch(0.97 0.012 85)" }}
+                style={{ backgroundColor: "oklch(1 0 0)" }}
               >
                 <div
                   className="font-display text-3xl mb-4"
-                  style={{ color: "oklch(0.22 0.06 152)" }}
+                  style={{ color: "oklch(0.46 0.20 25)" }}
                 >
                   Thank You!
                 </div>
                 <p
                   className="font-body"
-                  style={{ color: "oklch(0.35 0.04 152)" }}
+                  style={{ color: "oklch(0.38 0.005 0)" }}
                 >
                   We've received your message and will be in touch within 1
                   business day. We look forward to transforming your outdoor
@@ -94,13 +92,13 @@ export default function ContactSection() {
               <form
                 onSubmit={handleSubmit}
                 className="p-8 md:p-10"
-                style={{ backgroundColor: "oklch(0.97 0.012 85)" }}
+                style={{ backgroundColor: "oklch(1 0 0)" }}
               >
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-5">
                   <div>
                     <label
                       className="font-label block mb-2"
-                      style={{ color: "oklch(0.35 0.04 152)", fontSize: "0.65rem" }}
+                      style={{ color: "oklch(0.38 0.005 0)", fontSize: "0.65rem" }}
                     >
                       Full Name *
                     </label>
@@ -113,22 +111,22 @@ export default function ContactSection() {
                       placeholder="Jane Smith"
                       className="w-full px-4 py-3 font-body text-sm outline-none transition-colors"
                       style={{
-                        backgroundColor: "oklch(0.93 0.018 85)",
-                        border: "1px solid oklch(0.88 0.015 75)",
-                        color: "oklch(0.18 0.04 152)",
+                        backgroundColor: "oklch(0.97 0.003 0)",
+                        border: "1px solid oklch(0.90 0.003 0)",
+                        color: "oklch(0.22 0.005 0)",
                       }}
                       onFocus={(e) =>
-                        (e.currentTarget.style.borderColor = "oklch(0.22 0.06 152)")
+                        (e.currentTarget.style.borderColor = "oklch(0.46 0.20 25)")
                       }
                       onBlur={(e) =>
-                        (e.currentTarget.style.borderColor = "oklch(0.88 0.015 75)")
+                        (e.currentTarget.style.borderColor = "oklch(0.90 0.003 0)")
                       }
                     />
                   </div>
                   <div>
                     <label
                       className="font-label block mb-2"
-                      style={{ color: "oklch(0.35 0.04 152)", fontSize: "0.65rem" }}
+                      style={{ color: "oklch(0.38 0.005 0)", fontSize: "0.65rem" }}
                     >
                       Phone Number
                     </label>
@@ -140,15 +138,15 @@ export default function ContactSection() {
                       placeholder="(541) 555-0000"
                       className="w-full px-4 py-3 font-body text-sm outline-none transition-colors"
                       style={{
-                        backgroundColor: "oklch(0.93 0.018 85)",
-                        border: "1px solid oklch(0.88 0.015 75)",
-                        color: "oklch(0.18 0.04 152)",
+                        backgroundColor: "oklch(0.97 0.003 0)",
+                        border: "1px solid oklch(0.90 0.003 0)",
+                        color: "oklch(0.22 0.005 0)",
                       }}
                       onFocus={(e) =>
-                        (e.currentTarget.style.borderColor = "oklch(0.22 0.06 152)")
+                        (e.currentTarget.style.borderColor = "oklch(0.46 0.20 25)")
                       }
                       onBlur={(e) =>
-                        (e.currentTarget.style.borderColor = "oklch(0.88 0.015 75)")
+                        (e.currentTarget.style.borderColor = "oklch(0.90 0.003 0)")
                       }
                     />
                   </div>
@@ -157,7 +155,7 @@ export default function ContactSection() {
                 <div className="mb-5">
                   <label
                     className="font-label block mb-2"
-                    style={{ color: "oklch(0.35 0.04 152)", fontSize: "0.65rem" }}
+                    style={{ color: "oklch(0.38 0.005 0)", fontSize: "0.65rem" }}
                   >
                     Email Address *
                   </label>
@@ -170,15 +168,15 @@ export default function ContactSection() {
                     placeholder="jane@example.com"
                     className="w-full px-4 py-3 font-body text-sm outline-none transition-colors"
                     style={{
-                      backgroundColor: "oklch(0.93 0.018 85)",
-                      border: "1px solid oklch(0.88 0.015 75)",
-                      color: "oklch(0.18 0.04 152)",
+                      backgroundColor: "oklch(0.97 0.003 0)",
+                      border: "1px solid oklch(0.90 0.003 0)",
+                      color: "oklch(0.22 0.005 0)",
                     }}
                     onFocus={(e) =>
-                      (e.currentTarget.style.borderColor = "oklch(0.22 0.06 152)")
+                      (e.currentTarget.style.borderColor = "oklch(0.46 0.20 25)")
                     }
                     onBlur={(e) =>
-                      (e.currentTarget.style.borderColor = "oklch(0.88 0.015 75)")
+                      (e.currentTarget.style.borderColor = "oklch(0.90 0.003 0)")
                     }
                   />
                 </div>
@@ -186,7 +184,7 @@ export default function ContactSection() {
                 <div className="mb-5">
                   <label
                     className="font-label block mb-2"
-                    style={{ color: "oklch(0.35 0.04 152)", fontSize: "0.65rem" }}
+                    style={{ color: "oklch(0.38 0.005 0)", fontSize: "0.65rem" }}
                   >
                     Service Needed
                   </label>
@@ -196,15 +194,15 @@ export default function ContactSection() {
                     onChange={handleChange}
                     className="w-full px-4 py-3 font-body text-sm outline-none transition-colors"
                     style={{
-                      backgroundColor: "oklch(0.93 0.018 85)",
-                      border: "1px solid oklch(0.88 0.015 75)",
-                      color: formData.service ? "oklch(0.18 0.04 152)" : "oklch(0.55 0.03 152)",
+                      backgroundColor: "oklch(0.97 0.003 0)",
+                      border: "1px solid oklch(0.90 0.003 0)",
+                      color: formData.service ? "oklch(0.22 0.005 0)" : "oklch(0.55 0.005 0)",
                     }}
                     onFocus={(e) =>
-                      (e.currentTarget.style.borderColor = "oklch(0.22 0.06 152)")
+                      (e.currentTarget.style.borderColor = "oklch(0.46 0.20 25)")
                     }
                     onBlur={(e) =>
-                      (e.currentTarget.style.borderColor = "oklch(0.88 0.015 75)")
+                      (e.currentTarget.style.borderColor = "oklch(0.90 0.003 0)")
                     }
                   >
                     <option value="">Select a service...</option>
@@ -223,7 +221,7 @@ export default function ContactSection() {
                 <div className="mb-8">
                   <label
                     className="font-label block mb-2"
-                    style={{ color: "oklch(0.35 0.04 152)", fontSize: "0.65rem" }}
+                    style={{ color: "oklch(0.38 0.005 0)", fontSize: "0.65rem" }}
                   >
                     Tell Us About Your Project
                   </label>
@@ -235,26 +233,26 @@ export default function ContactSection() {
                     placeholder="Describe your vision, property size, timeline..."
                     className="w-full px-4 py-3 font-body text-sm outline-none transition-colors resize-none"
                     style={{
-                      backgroundColor: "oklch(0.93 0.018 85)",
-                      border: "1px solid oklch(0.88 0.015 75)",
-                      color: "oklch(0.18 0.04 152)",
+                      backgroundColor: "oklch(0.97 0.003 0)",
+                      border: "1px solid oklch(0.90 0.003 0)",
+                      color: "oklch(0.22 0.005 0)",
                     }}
                     onFocus={(e) =>
-                      (e.currentTarget.style.borderColor = "oklch(0.22 0.06 152)")
+                      (e.currentTarget.style.borderColor = "oklch(0.46 0.20 25)")
                     }
                     onBlur={(e) =>
-                      (e.currentTarget.style.borderColor = "oklch(0.88 0.015 75)")
+                      (e.currentTarget.style.borderColor = "oklch(0.90 0.003 0)")
                     }
                   />
                 </div>
 
-                <button type="submit" className="btn-forest w-full text-center">
+                <button type="submit" className="btn-red w-full text-center">
                   Send Message
                 </button>
 
                 <p
                   className="font-body text-xs mt-4 text-center"
-                  style={{ color: "oklch(0.55 0.03 152)" }}
+                  style={{ color: "oklch(0.55 0.005 0)" }}
                 >
                   We typically respond within 1 business day. Ask about our
                   financing options!
@@ -268,7 +266,7 @@ export default function ContactSection() {
             <div>
               <h3
                 className="font-display font-light text-2xl mb-6"
-                style={{ color: "oklch(0.97 0.012 85)" }}
+                style={{ color: "oklch(1 0 0)" }}
               >
                 Contact Information
               </h3>
@@ -287,7 +285,6 @@ export default function ContactSection() {
                     value: "info@newportavelandscaping.com",
                     href: "mailto:info@newportavelandscaping.com",
                   },
-                  /* Email already shown above */
                   {
                     icon: MapPin,
                     label: "Address",
@@ -307,8 +304,8 @@ export default function ContactSection() {
                       <div
                         className="w-10 h-10 flex items-center justify-center flex-shrink-0"
                         style={{
-                          backgroundColor: "oklch(0.58 0.12 42 / 0.2)",
-                          color: "oklch(0.68 0.10 42)",
+                          backgroundColor: "oklch(0.46 0.20 25 / 0.20)",
+                          color: "oklch(0.72 0.12 25)",
                         }}
                       >
                         <Icon size={18} strokeWidth={1.5} />
@@ -316,7 +313,7 @@ export default function ContactSection() {
                       <div>
                         <div
                           className="font-label mb-1"
-                          style={{ color: "oklch(0.68 0.10 42)", fontSize: "0.65rem" }}
+                          style={{ color: "oklch(0.72 0.12 25)", fontSize: "0.65rem" }}
                         >
                           {item.label}
                         </div>
@@ -324,12 +321,12 @@ export default function ContactSection() {
                           <a
                             href={item.href}
                             className="font-body text-sm transition-colors"
-                            style={{ color: "oklch(0.85 0.02 85)", whiteSpace: "pre-line" }}
+                            style={{ color: "oklch(0.85 0.005 0)", whiteSpace: "pre-line" }}
                             onMouseEnter={(e) =>
-                              (e.currentTarget.style.color = "oklch(0.68 0.10 42)")
+                              (e.currentTarget.style.color = "oklch(0.72 0.12 25)")
                             }
                             onMouseLeave={(e) =>
-                              (e.currentTarget.style.color = "oklch(0.85 0.02 85)")
+                              (e.currentTarget.style.color = "oklch(0.85 0.005 0)")
                             }
                           >
                             {item.value}
@@ -337,7 +334,7 @@ export default function ContactSection() {
                         ) : (
                           <span
                             className="font-body text-sm"
-                            style={{ color: "oklch(0.85 0.02 85)", whiteSpace: "pre-line" }}
+                            style={{ color: "oklch(0.85 0.005 0)", whiteSpace: "pre-line" }}
                           >
                             {item.value}
                           </span>
@@ -353,19 +350,19 @@ export default function ContactSection() {
             <div
               className="p-6"
               style={{
-                backgroundColor: "oklch(0.15 0.05 152)",
-                borderLeft: "3px solid oklch(0.58 0.12 42)",
+                backgroundColor: "oklch(0.25 0.005 0)",
+                borderLeft: "3px solid oklch(0.46 0.20 25)",
               }}
             >
               <div
                 className="font-label mb-3"
-                style={{ color: "oklch(0.68 0.10 42)" }}
+                style={{ color: "oklch(0.72 0.12 25)" }}
               >
                 Licensed, Bonded & Insured
               </div>
               <p
                 className="font-body text-xs leading-relaxed"
-                style={{ color: "oklch(0.72 0.03 75)" }}
+                style={{ color: "oklch(0.70 0.005 0)" }}
               >
                 LCB #9153 — "All Phase" license with the Oregon Landscape
                 Contractors Board. Serving residential, commercial, and
@@ -377,7 +374,7 @@ export default function ContactSection() {
             <div>
               <div
                 className="font-label mb-4"
-                style={{ color: "oklch(0.68 0.10 42)" }}
+                style={{ color: "oklch(0.72 0.12 25)" }}
               >
                 Follow Us
               </div>
@@ -388,16 +385,18 @@ export default function ContactSection() {
                   rel="noopener noreferrer"
                   className="px-4 py-2 font-label text-xs transition-colors"
                   style={{
-                    border: "1px solid oklch(0.32 0.07 152)",
-                    color: "oklch(0.72 0.03 75)",
+                    border: "1px solid oklch(0.35 0.005 0)",
+                    color: "oklch(0.70 0.005 0)",
                   }}
                   onMouseEnter={(e) => {
-                    (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "oklch(0.32 0.07 152)";
-                    (e.currentTarget as HTMLAnchorElement).style.color = "oklch(0.97 0.012 85)";
+                    (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "oklch(0.46 0.20 25)";
+                    (e.currentTarget as HTMLAnchorElement).style.color = "oklch(1 0 0)";
+                    (e.currentTarget as HTMLAnchorElement).style.borderColor = "oklch(0.46 0.20 25)";
                   }}
                   onMouseLeave={(e) => {
                     (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "transparent";
-                    (e.currentTarget as HTMLAnchorElement).style.color = "oklch(0.72 0.03 75)";
+                    (e.currentTarget as HTMLAnchorElement).style.color = "oklch(0.70 0.005 0)";
+                    (e.currentTarget as HTMLAnchorElement).style.borderColor = "oklch(0.35 0.005 0)";
                   }}
                 >
                   Facebook
@@ -408,16 +407,18 @@ export default function ContactSection() {
                   rel="noopener noreferrer"
                   className="px-4 py-2 font-label text-xs transition-colors"
                   style={{
-                    border: "1px solid oklch(0.32 0.07 152)",
-                    color: "oklch(0.72 0.03 75)",
+                    border: "1px solid oklch(0.35 0.005 0)",
+                    color: "oklch(0.70 0.005 0)",
                   }}
                   onMouseEnter={(e) => {
-                    (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "oklch(0.32 0.07 152)";
-                    (e.currentTarget as HTMLAnchorElement).style.color = "oklch(0.97 0.012 85)";
+                    (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "oklch(0.46 0.20 25)";
+                    (e.currentTarget as HTMLAnchorElement).style.color = "oklch(1 0 0)";
+                    (e.currentTarget as HTMLAnchorElement).style.borderColor = "oklch(0.46 0.20 25)";
                   }}
                   onMouseLeave={(e) => {
                     (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "transparent";
-                    (e.currentTarget as HTMLAnchorElement).style.color = "oklch(0.72 0.03 75)";
+                    (e.currentTarget as HTMLAnchorElement).style.color = "oklch(0.70 0.005 0)";
+                    (e.currentTarget as HTMLAnchorElement).style.borderColor = "oklch(0.35 0.005 0)";
                   }}
                 >
                   Yelp
