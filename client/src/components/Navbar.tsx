@@ -19,9 +19,9 @@ const navLeft = [
 ];
 
 const navRight = [
+  { label: "Maintenance", href: "#services" },
   { label: "Reviews", href: "#reviews" },
   { label: "Contact", href: "#contact" },
-  { label: "(541) 617-8873", href: "tel:5416178873", isPhone: true },
 ];
 
 export default function Navbar() {
@@ -110,37 +110,23 @@ export default function Navbar() {
             {/* Right links — with top/bottom border lines */}
             <div className="flex items-center gap-8 flex-1 justify-end" style={{ borderTop: "1px solid rgba(255,255,255,0.3)", borderBottom: "1px solid rgba(255,255,255,0.3)", padding: "14px 0" }}>
               {navRight.map((item) => (
-                item.isPhone ? (
-                  <a
-                    key={item.label}
-                    href={item.href}
-                    className="font-nav flex items-center gap-1.5 transition-colors duration-200"
-                    style={{ color: "oklch(0.72 0.12 25)" }}
-                    onMouseEnter={(e) => (e.currentTarget.style.color = "oklch(0.85 0.10 25)")}
-                    onMouseLeave={(e) => (e.currentTarget.style.color = "oklch(0.72 0.12 25)")}
-                  >
-                    <Phone size={12} />
-                    {item.label}
-                  </a>
-                ) : (
-                  <button
-                    key={item.label}
-                    onClick={() => scrollTo(item.href)}
-                    className="font-nav transition-colors duration-200"
-                    style={{ color: "oklch(0.82 0.003 0)" }}
-                    onMouseEnter={(e) => (e.currentTarget.style.color = "oklch(0.72 0.12 25)")}
-                    onMouseLeave={(e) => (e.currentTarget.style.color = "oklch(0.82 0.003 0)")}
-                  >
-                    {item.label}
-                  </button>
-                )
+                <button
+                  key={item.label}
+                  onClick={() => scrollTo(item.href)}
+                  className="font-nav transition-colors duration-200"
+                  style={{ color: "oklch(0.82 0.003 0)" }}
+                  onMouseEnter={(e) => (e.currentTarget.style.color = "oklch(0.72 0.12 25)")}
+                  onMouseLeave={(e) => (e.currentTarget.style.color = "oklch(0.82 0.003 0)")}
+                >
+                  {item.label}
+                </button>
               ))}
               <button
                 onClick={() => scrollTo("#contact")}
                 className="btn-red"
                 style={{ padding: "0.5rem 1.25rem", fontSize: "0.62rem" }}
               >
-                Start Service
+                Get a Quote
               </button>
             </div>
           </div>
