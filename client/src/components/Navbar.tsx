@@ -75,51 +75,21 @@ export default function Navbar() {
         }}
       >
         {/* Desktop nav */}
-        <div className="hidden md:flex items-center justify-between px-8 py-0" style={{ minHeight: "220px" }}>
+        <div className="hidden md:flex flex-col justify-center px-8" style={{ minHeight: "220px" }}>
 
-          {/* Left links */}
-          <div className="flex items-center gap-8 flex-1">
-            {navLeft.map((item) => (
-              <button
-                key={item.label}
-                onClick={() => scrollTo(item.href)}
-                className="font-nav transition-colors duration-200"
-                style={{ color: "oklch(0.82 0.003 0)" }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = "oklch(0.72 0.12 25)")}
-                onMouseLeave={(e) => (e.currentTarget.style.color = "oklch(0.82 0.003 0)")}
-              >
-                {item.label}
-              </button>
-            ))}
+          {/* Top horizontal rule row */}
+          <div className="flex items-center w-full" style={{ marginBottom: "0" }}>
+            <div style={{ flex: 1, height: "1px", backgroundColor: "rgba(255,255,255,0.3)" }} />
+            <div style={{ width: "220px", flexShrink: 0 }} />
+            <div style={{ flex: 1, height: "1px", backgroundColor: "rgba(255,255,255,0.3)" }} />
           </div>
 
-          {/* Centered logo */}
-          <div className="flex-shrink-0 mx-4">
-            <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
-              <img
-                src={LOGO_WHITE}
-                alt="Newport Avenue Landscaping"
-                style={{ height: "220px", width: "auto", objectFit: "contain", display: "block" }}
-              />
-            </button>
-          </div>
+          {/* Main nav row: links + logo + links */}
+          <div className="flex items-center justify-between w-full" style={{ padding: "10px 0" }}>
 
-          {/* Right links */}
-          <div className="flex items-center gap-8 flex-1 justify-end">
-            {navRight.map((item) => (
-              item.isPhone ? (
-                <a
-                  key={item.label}
-                  href={item.href}
-                  className="font-nav flex items-center gap-1.5 transition-colors duration-200"
-                  style={{ color: "oklch(0.72 0.12 25)" }}
-                  onMouseEnter={(e) => (e.currentTarget.style.color = "oklch(0.85 0.10 25)")}
-                  onMouseLeave={(e) => (e.currentTarget.style.color = "oklch(0.72 0.12 25)")}
-                >
-                  <Phone size={12} />
-                  {item.label}
-                </a>
-              ) : (
+            {/* Left links */}
+            <div className="flex items-center gap-8 flex-1">
+              {navLeft.map((item) => (
                 <button
                   key={item.label}
                   onClick={() => scrollTo(item.href)}
@@ -130,16 +100,65 @@ export default function Navbar() {
                 >
                   {item.label}
                 </button>
-              )
-            ))}
-            <button
-              onClick={() => scrollTo("#contact")}
-              className="btn-red"
-              style={{ padding: "0.5rem 1.25rem", fontSize: "0.62rem" }}
-            >
-              Start Service
-            </button>
+              ))}
+            </div>
+
+            {/* Centered logo */}
+            <div className="flex-shrink-0 mx-4" style={{ width: "220px", display: "flex", justifyContent: "center" }}>
+              <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
+                <img
+                  src={LOGO_WHITE}
+                  alt="Newport Avenue Landscaping"
+                  style={{ height: "180px", width: "auto", objectFit: "contain", display: "block" }}
+                />
+              </button>
+            </div>
+
+            {/* Right links */}
+            <div className="flex items-center gap-8 flex-1 justify-end">
+              {navRight.map((item) => (
+                item.isPhone ? (
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    className="font-nav flex items-center gap-1.5 transition-colors duration-200"
+                    style={{ color: "oklch(0.72 0.12 25)" }}
+                    onMouseEnter={(e) => (e.currentTarget.style.color = "oklch(0.85 0.10 25)")}
+                    onMouseLeave={(e) => (e.currentTarget.style.color = "oklch(0.72 0.12 25)")}
+                  >
+                    <Phone size={12} />
+                    {item.label}
+                  </a>
+                ) : (
+                  <button
+                    key={item.label}
+                    onClick={() => scrollTo(item.href)}
+                    className="font-nav transition-colors duration-200"
+                    style={{ color: "oklch(0.82 0.003 0)" }}
+                    onMouseEnter={(e) => (e.currentTarget.style.color = "oklch(0.72 0.12 25)")}
+                    onMouseLeave={(e) => (e.currentTarget.style.color = "oklch(0.82 0.003 0)")}
+                  >
+                    {item.label}
+                  </button>
+                )
+              ))}
+              <button
+                onClick={() => scrollTo("#contact")}
+                className="btn-red"
+                style={{ padding: "0.5rem 1.25rem", fontSize: "0.62rem" }}
+              >
+                Start Service
+              </button>
+            </div>
           </div>
+
+          {/* Bottom horizontal rule row */}
+          <div className="flex items-center w-full" style={{ marginTop: "0" }}>
+            <div style={{ flex: 1, height: "1px", backgroundColor: "rgba(255,255,255,0.3)" }} />
+            <div style={{ width: "220px", flexShrink: 0 }} />
+            <div style={{ flex: 1, height: "1px", backgroundColor: "rgba(255,255,255,0.3)" }} />
+          </div>
+
         </div>
 
         {/* Mobile nav bar */}
