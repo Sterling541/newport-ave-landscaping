@@ -75,7 +75,7 @@ export default function Navbar() {
         }}
       >
         {/* Desktop nav */}
-        <div className="hidden md:flex items-center justify-between px-8 py-0" style={{ minHeight: "116px" }}>
+        <div className="hidden md:flex items-center justify-between px-8 py-0" style={{ minHeight: "220px" }}>
 
           {/* Left links */}
           <div className="flex items-center gap-8 flex-1">
@@ -99,7 +99,7 @@ export default function Navbar() {
               <img
                 src={LOGO_WHITE}
                 alt="Newport Avenue Landscaping"
-                style={{ height: "110px", width: "auto", objectFit: "contain", display: "block" }}
+                style={{ height: "220px", width: "auto", objectFit: "contain", display: "block" }}
               />
             </button>
           </div>
