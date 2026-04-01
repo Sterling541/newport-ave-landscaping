@@ -75,20 +75,13 @@ export default function Navbar() {
         }}
       >
         {/* Desktop nav */}
-        <div className="hidden md:flex flex-col justify-center px-8" style={{ minHeight: "220px" }}>
+        <div className="hidden md:flex flex-col items-center justify-center px-8" style={{ minHeight: "220px" }}>
 
-          {/* Top horizontal rule row */}
-          <div className="flex items-center w-full" style={{ marginBottom: "0" }}>
-            <div style={{ flex: 1, height: "1px", backgroundColor: "rgba(255,255,255,0.3)" }} />
-            <div style={{ width: "220px", flexShrink: 0 }} />
-            <div style={{ flex: 1, height: "1px", backgroundColor: "rgba(255,255,255,0.3)" }} />
-          </div>
+          {/* Main nav row: links + logo + links — with border lines above/below the side panels */}
+          <div className="flex items-center justify-between w-full" style={{ padding: "0" }}>
 
-          {/* Main nav row: links + logo + links */}
-          <div className="flex items-center justify-between w-full" style={{ padding: "10px 0" }}>
-
-            {/* Left links */}
-            <div className="flex items-center gap-8 flex-1">
+            {/* Left links — with top/bottom border lines */}
+            <div className="flex items-center gap-8 flex-1" style={{ borderTop: "1px solid rgba(255,255,255,0.3)", borderBottom: "1px solid rgba(255,255,255,0.3)", padding: "14px 0" }}>
               {navLeft.map((item) => (
                 <button
                   key={item.label}
@@ -114,8 +107,8 @@ export default function Navbar() {
               </button>
             </div>
 
-            {/* Right links */}
-            <div className="flex items-center gap-8 flex-1 justify-end">
+            {/* Right links — with top/bottom border lines */}
+            <div className="flex items-center gap-8 flex-1 justify-end" style={{ borderTop: "1px solid rgba(255,255,255,0.3)", borderBottom: "1px solid rgba(255,255,255,0.3)", padding: "14px 0" }}>
               {navRight.map((item) => (
                 item.isPhone ? (
                   <a
@@ -150,13 +143,6 @@ export default function Navbar() {
                 Start Service
               </button>
             </div>
-          </div>
-
-          {/* Bottom horizontal rule row */}
-          <div className="flex items-center w-full" style={{ marginTop: "0" }}>
-            <div style={{ flex: 1, height: "1px", backgroundColor: "rgba(255,255,255,0.3)" }} />
-            <div style={{ width: "220px", flexShrink: 0 }} />
-            <div style={{ flex: 1, height: "1px", backgroundColor: "rgba(255,255,255,0.3)" }} />
           </div>
 
         </div>
