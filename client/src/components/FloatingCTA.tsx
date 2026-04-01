@@ -1,5 +1,5 @@
 /* ============================================================
-   FLOATING CTA — Sunlit Craftsman Design
+   FLOATING CTA — Brand Red
    Sticky phone + start service buttons for mobile
    ============================================================ */
 import { Phone } from "lucide-react";
@@ -26,7 +26,7 @@ export default function FloatingCTA() {
       <a
         href="tel:5416178873"
         className="w-12 h-12 flex items-center justify-center shadow-lg"
-        style={{ backgroundColor: "oklch(0.22 0.06 152)", color: "oklch(0.97 0.012 85)" }}
+        style={{ backgroundColor: "oklch(0.46 0.20 25)", color: "oklch(1 0 0)", borderRadius: "50%" }}
         aria-label="Call us"
       >
         <Phone size={20} />
@@ -35,8 +35,7 @@ export default function FloatingCTA() {
         onClick={() =>
           document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" })
         }
-        className="btn-terracotta shadow-lg text-xs px-4 py-3"
-        style={{ writingMode: "horizontal-tb" }}
+        className="btn-red shadow-lg text-xs px-4 py-3"
       >
         Start Service
       </button>

@@ -206,14 +206,22 @@ export default function ContactSection() {
                     }
                   >
                     <option value="">Select a service...</option>
-                    <option value="design-build">Custom Design & Build</option>
-                    <option value="irrigation">Sprinklers & Irrigation</option>
-                    <option value="pavers">Patio Pavers & Walkways</option>
-                    <option value="maintenance">Landscape Maintenance</option>
-                    <option value="water-features">Water Features</option>
-                    <option value="outdoor-living">Outdoor Living Areas</option>
-                    <option value="snow-removal">Snow Removal</option>
-                    <option value="membership">Priority Irrigation Membership</option>
+                    <optgroup label="Residential">
+                      <option value="design-build">Custom Design & Build</option>
+                      <option value="irrigation">Sprinklers & Irrigation</option>
+                      <option value="pavers">Patio Pavers & Walkways</option>
+                      <option value="maintenance">Residential Maintenance</option>
+                      <option value="water-features">Water Features</option>
+                      <option value="outdoor-living">Outdoor Living Areas</option>
+                      <option value="snow-removal">Snow Removal</option>
+                      <option value="membership">Priority Irrigation Membership</option>
+                    </optgroup>
+                    <optgroup label="Commercial &amp; HOA">
+                      <option value="commercial-install">Commercial Landscape Installation</option>
+                      <option value="hoa-maintenance">HOA &amp; Community Maintenance</option>
+                      <option value="commercial-maintenance">Commercial Property Maintenance</option>
+                      <option value="government">Government / Municipal</option>
+                    </optgroup>
                     <option value="other">Other / Not Sure</option>
                   </select>
                 </div>

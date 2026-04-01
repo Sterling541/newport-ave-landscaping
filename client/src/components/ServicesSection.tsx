@@ -3,33 +3,47 @@
    White/light-gray background, brand red accents, charcoal text
    ============================================================ */
 import { useEffect, useRef, useState } from "react";
-import { Droplets, Palette, Layers, Scissors, Waves, Flame } from "lucide-react";
+import { Droplets, Palette, Layers, Scissors, Waves, Flame, Building2, Users } from "lucide-react";
 
 const services = [
   {
     icon: Droplets,
     title: "Sprinklers & Irrigation",
     description:
-      "A dedicated full-time team focused exclusively on sprinkler installation, repair, and maintenance. We design custom systems for every property.",
+      "A dedicated full-time team focused exclusively on sprinkler installation, repair, and maintenance. We design custom systems for every property — residential, commercial, and HOA.",
     link: "#contact",
   },
   {
     icon: Palette,
     title: "Custom Design & Build",
     description:
-      "Work with our award-winning designers to bring your outdoor oasis to life. We offer a 5-year installation warranty — the only company in Central Oregon to do so.",
+      "Work with our award-winning designers to bring your outdoor vision to life. We offer a 5-year installation warranty — the only company in Central Oregon to do so.",
     link: "#contact",
   },
   {
     icon: Layers,
     title: "Patio Pavers & Walkways",
     description:
-      "Your one-stop shop for all outdoor paving needs — driveways, walkways, flagstone patios, and decorative paver installations.",
+      "Your one-stop shop for all outdoor paving needs — driveways, walkways, flagstone patios, and decorative paver installations for homes and commercial properties.",
+    link: "#contact",
+  },
+  {
+    icon: Building2,
+    title: "Commercial Landscape Installation",
+    description:
+      "Large-scale commercial landscape installation for business campuses, retail centers, multi-family developments, and government properties throughout Central Oregon.",
+    link: "#contact",
+  },
+  {
+    icon: Users,
+    title: "HOA & Community Maintenance",
+    description:
+      "Comprehensive landscape maintenance programs for HOA communities, apartment complexes, and commercial properties — keeping common areas pristine year-round.",
     link: "#contact",
   },
   {
     icon: Scissors,
-    title: "Landscape Maintenance",
+    title: "Residential Maintenance",
     description:
       "Weekly lawn care, spring/fall clean-ups, aeration, and seasonal maintenance plans so you can spend your weekends making memories.",
     link: "#contact",
@@ -208,7 +222,7 @@ export default function ServicesSection() {
         </div>
 
         {/* Services grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {services.map((service, index) => (
             <ServiceCard key={service.title} service={service} index={index} />
           ))}
@@ -235,8 +249,10 @@ export default function ServicesSection() {
               "Aeration Services",
               "Sprinkler Activation",
               "Sprinkler Blowout",
-              "Commercial Maintenance",
               "Government Contracts",
+              "Multi-Family Communities",
+              "Apartment Complex Maintenance",
+              "Commercial Property Maintenance",
             ].map((item) => (
               <span
                 key={item}

@@ -6,9 +6,9 @@ import { useEffect, useRef, useState } from "react";
 
 const stats = [
   { value: "21+", label: "Years in Business" },
-  { value: "500+", label: "Projects Completed" },
+  { value: "10,000+", label: "Projects Completed" },
   { value: "5-yr", label: "Installation Warranty" },
-  { value: "100%", label: "Licensed & Insured" },
+  { value: "Res · Com · HOA", label: "All Client Types Served" },
 ];
 
 export default function StatsSection() {
