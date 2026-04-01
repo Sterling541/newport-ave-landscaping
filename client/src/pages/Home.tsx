@@ -1,6 +1,6 @@
 /* ============================================================
    HOME PAGE — Newport Ave Landscaping
-   Sunlit Craftsman Design System
+   Southview-Inspired Editorial Design
    Assembles all sections in order
    ============================================================ */
 import Navbar from "@/components/Navbar";
@@ -18,7 +18,7 @@ import FloatingCTA from "@/components/FloatingCTA";
 
 export default function Home() {
   return (
-    <div className="min-h-screen" style={{ backgroundColor: "oklch(0.97 0.012 85)" }}>
+    <div className="min-h-screen" style={{ backgroundColor: "oklch(1 0 0)" }}>
       <Navbar />
       <HeroSection />
       <StatsSection />

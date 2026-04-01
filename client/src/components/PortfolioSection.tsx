@@ -1,59 +1,63 @@
 /* ============================================================
-   PORTFOLIO SECTION — Brand Refresh
-   Light gray background, brand red accents, real facility photos
+   PORTFOLIO SECTION — Southview-Inspired
+   Design: Cream background. "LANDSCAPE DESIGN COLLECTIONS" header.
+   3-column photo grid. Category labels in serif italic below each photo.
+   Hover: image zooms. Clean, editorial, magazine-quality.
    ============================================================ */
 import { useEffect, useRef, useState } from "react";
 
-const WATER_FEATURE =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/water-feature-9xHShKKvZVEUGyYW39Yoig.webp";
-const OUTDOOR_LIVING =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/outdoor-living-AuvjXxv4t6LYr7V5Zp3Lby.webp";
-const HERO_MAIN =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/hero-main-G8fqyZAnfti5GBXHAqJjh6.webp";
-const HERO_SERVICES =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/hero-services-JzKxhcNzPjF9WTtBX8Sc9c.webp";
-// Real facility photos
 const FACILITY_AERIAL =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportLandscapingFacilityHiResPhotos33(2)_f88fff50.webp";
+  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/facility-aerial_98383b9b.webp";
 const FACILITY_NURSERY =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportLandscapingFacilityHiResPhotos27(1)_99973c3e.webp";
+  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/facility-nursery_c0df8919.webp";
+const FACILITY_SHOWROOM =
+  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/facility-showroom_fd5f40e4.webp";
 
 const portfolioItems = [
   {
-    title: "Backyard Landscape Renovation",
-    category: "Design & Build",
-    image: HERO_MAIN,
-    size: "large",
+    title: "Custom Residential Design",
+    subtitle: "Bend, OR",
+    image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80",
   },
   {
-    title: "Broken Top Water Feature",
-    category: "Water Features",
-    image: WATER_FEATURE,
-    size: "medium",
+    title: "Commercial Landscape Installation",
+    subtitle: "Central Oregon",
+    image: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800&q=80",
   },
   {
-    title: "Paver Patio & Gas Firepit",
-    category: "Outdoor Living",
-    image: OUTDOOR_LIVING,
-    size: "medium",
+    title: "HOA Community Maintenance",
+    subtitle: "Redmond, OR",
+    image: "https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=800&q=80",
   },
   {
-    title: "NW Bend Backyard Landscaping",
-    category: "Design & Build",
-    image: HERO_SERVICES,
-    size: "medium",
+    title: "Water Feature & Pond",
+    subtitle: "Bend, OR",
+    image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80",
+  },
+  {
+    title: "Paver Patio & Walkway",
+    subtitle: "Sisters, OR",
+    image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80",
+  },
+  {
+    title: "Outdoor Living Space",
+    subtitle: "Sunriver, OR",
+    image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80",
   },
   {
     title: "Our Nursery & Plant Yard",
-    category: "Facility",
+    subtitle: "1020 SE Paiute Way, Bend",
     image: FACILITY_NURSERY,
-    size: "medium",
   },
   {
-    title: "Aerial View — Our Campus",
-    category: "Facility",
+    title: "Our Campus — Aerial View",
+    subtitle: "Bend, Oregon",
     image: FACILITY_AERIAL,
-    size: "medium",
+  },
+  {
+    title: "Design Showroom & Office",
+    subtitle: "Visit by Appointment",
+    image: FACILITY_SHOWROOM,
   },
 ];
 
@@ -71,9 +75,7 @@ function PortfolioCard({
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setTimeout(() => setVisible(true), index * 80);
-        }
+        if (entry.isIntersecting) setTimeout(() => setVisible(true), index * 60);
       },
       { threshold: 0.1 }
     );
@@ -84,145 +86,148 @@ function PortfolioCard({
   return (
     <div
       ref={ref}
-      className="relative overflow-hidden group cursor-pointer"
+      className="group cursor-pointer"
       style={{
-        aspectRatio: item.size === "large" ? "16/10" : "4/3",
         opacity: visible ? 1 : 0,
         transform: visible ? "translateY(0)" : "translateY(30px)",
-        transition: `opacity 0.7s ease, transform 0.7s ease`,
+        transition: `opacity 0.6s ease, transform 0.6s ease`,
       }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      {/* Image */}
-      <img
-        src={item.image}
-        alt={item.title}
-        className="w-full h-full object-cover transition-transform duration-700"
-        style={{ transform: hovered ? "scale(1.08)" : "scale(1)" }}
-      />
-
-      {/* Overlay */}
+      {/* Photo */}
       <div
-        className="absolute inset-0 flex flex-col justify-end p-6 transition-opacity duration-400"
+        className="overflow-hidden"
+        style={{ aspectRatio: "4/3" }}
+      >
+        <img
+          src={item.image}
+          alt={item.title}
+          className="w-full h-full object-cover"
+          style={{
+            transform: hovered ? "scale(1.05)" : "scale(1)",
+            transition: "transform 0.7s ease",
+          }}
+        />
+      </div>
+
+      {/* Label — Southview style: serif italic below photo */}
+      <div
+        className="pt-3 pb-3 px-1"
         style={{
-          background:
-            "linear-gradient(to top, oklch(0.10 0.005 0 / 0.88) 0%, oklch(0.10 0.005 0 / 0.25) 60%, transparent 100%)",
-          opacity: hovered ? 1 : 0.75,
+          borderBottom: "1px solid oklch(0.88 0.010 85)",
         }}
       >
         <div
-          className="font-label mb-2"
-          style={{ color: "oklch(0.85 0.10 25)", fontSize: "0.65rem" }}
-        >
-          {item.category}
-        </div>
-        <h3
-          className="font-display font-medium"
-          style={{ color: "oklch(1 0 0)", fontSize: "1.2rem" }}
+          className="font-display"
+          style={{
+            fontSize: "1rem",
+            fontStyle: "italic",
+            color: hovered ? "oklch(0.46 0.20 25)" : "oklch(0.22 0.008 0)",
+            transition: "color 0.3s ease",
+            fontWeight: 400,
+          }}
         >
           {item.title}
-        </h3>
+        </div>
+        <div
+          className="font-label mt-1"
+          style={{ color: "oklch(0.60 0.008 0)", fontSize: "0.58rem" }}
+        >
+          {item.subtitle}
+        </div>
       </div>
     </div>
   );
 }
 
 export default function PortfolioSection() {
-  const titleRef = useRef<HTMLDivElement>(null);
-  const [titleVisible, setTitleVisible] = useState(false);
+  const headerRef = useRef<HTMLDivElement>(null);
+  const [headerVisible, setHeaderVisible] = useState(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) setTitleVisible(true);
+        if (entry.isIntersecting) setHeaderVisible(true);
       },
       { threshold: 0.2 }
     );
-    if (titleRef.current) observer.observe(titleRef.current);
+    if (headerRef.current) observer.observe(headerRef.current);
     return () => observer.disconnect();
   }, []);
 
   return (
     <section
       id="portfolio"
-      className="py-24"
-      style={{ backgroundColor: "oklch(0.96 0.003 0)" }}
+      className="py-20"
+      style={{ backgroundColor: "oklch(0.97 0.012 85)" }}
     >
       <div className="container">
-        {/* Header */}
+        {/* Header — Southview style: centered, serif, all-caps label */}
         <div
-          ref={titleRef}
-          className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6"
+          ref={headerRef}
+          className="text-center mb-14"
           style={{
-            opacity: titleVisible ? 1 : 0,
-            transform: titleVisible ? "translateY(0)" : "translateY(20px)",
-            transition: "opacity 0.7s ease, transform 0.7s ease",
+            opacity: headerVisible ? 1 : 0,
+            transform: headerVisible ? "translateY(0)" : "translateY(20px)",
+            transition: "opacity 0.8s ease, transform 0.8s ease",
           }}
         >
-          <div>
-            <div
-              className="font-label mb-4 flex items-center gap-3"
-              style={{ color: "oklch(0.46 0.20 25)" }}
-            >
-              <span
-                className="inline-block w-8 h-px"
-                style={{ backgroundColor: "oklch(0.46 0.20 25)" }}
-              />
-              Our Work
-            </div>
-            <h2
-              className="font-display font-light"
-              style={{
-                fontSize: "clamp(2rem, 4vw, 3.5rem)",
-                color: "oklch(0.22 0.005 0)",
-                lineHeight: 1.1,
-              }}
-            >
-              Find Inspiration in
-              <br />
-              <em style={{ color: "oklch(0.46 0.20 25)", fontStyle: "italic" }}>
-                Central Oregon Yards
-              </em>
-            </h2>
-          </div>
-          <p
-            className="font-body max-w-sm"
-            style={{ color: "oklch(0.50 0.005 0)" }}
+          <div
+            className="font-label mb-4"
+            style={{ color: "oklch(0.46 0.20 25)" }}
           >
-            Discover what's possible for your outdoor space. Every project is
-            custom-designed to reflect your unique vision.
-          </p>
+            Landscape Design Collections
+          </div>
+          <h2
+            className="font-display font-light mb-6"
+            style={{
+              fontSize: "clamp(2rem, 4vw, 3.5rem)",
+              color: "oklch(0.22 0.008 0)",
+              lineHeight: 1.05,
+            }}
+          >
+            Our Work Across{" "}
+            <em style={{ color: "oklch(0.46 0.20 25)" }}>Central Oregon</em>
+          </h2>
+          <button
+            onClick={() =>
+              document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" })
+            }
+            className="btn-outline-dark"
+          >
+            Design-Build Portfolio
+          </button>
         </div>
 
-        {/* Portfolio grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {/* Large featured item */}
-          <div className="lg:col-span-2">
-            <PortfolioCard item={portfolioItems[0]} index={0} />
-          </div>
-          {/* Right column stack */}
-          <div className="flex flex-col gap-4">
-            <PortfolioCard item={portfolioItems[1]} index={1} />
-            <PortfolioCard item={portfolioItems[2]} index={2} />
-          </div>
-          {/* Bottom row */}
-          {portfolioItems.slice(3).map((item, i) => (
-            <PortfolioCard key={item.title} item={item} index={i + 3} />
+        {/* 3-column photo grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {portfolioItems.map((item, index) => (
+            <PortfolioCard key={item.title} item={item} index={index} />
           ))}
         </div>
 
         {/* CTA */}
-        <div className="text-center mt-12">
+        <div
+          className="text-center mt-14"
+          style={{
+            opacity: headerVisible ? 1 : 0,
+            transition: "opacity 0.8s ease 0.5s",
+          }}
+        >
+          <p
+            className="font-body mb-6"
+            style={{ color: "oklch(0.45 0.008 0)", fontWeight: 300 }}
+          >
+            Ready to transform your outdoor space?
+          </p>
           <button
             onClick={() =>
-              document
-                .querySelector("#contact")
-                ?.scrollIntoView({ behavior: "smooth" })
+              document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" })
             }
             className="btn-red"
           >
-            Start Your Transformation
+            Start Your Project
           </button>
         </div>
       </div>

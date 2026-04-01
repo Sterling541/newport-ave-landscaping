@@ -32,7 +32,7 @@ export default function MembershipSection() {
   return (
     <section
       className="py-24 relative overflow-hidden"
-      style={{ backgroundColor: "oklch(1 0 0)" }}
+      style={{ backgroundColor: "oklch(0.97 0.012 85)" }}
     >
       {/* Subtle dot pattern */}
       <div
@@ -116,7 +116,7 @@ export default function MembershipSection() {
                   .querySelector("#contact")
                   ?.scrollIntoView({ behavior: "smooth" })
               }
-              className="btn-charcoal"
+              className="btn-outline-dark"
             >
               Sign Up Today
             </button>

@@ -4,7 +4,7 @@
    ============================================================ */
 
 const LOGO_WHITE =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/LogoNewportAvenueLandscapingBGRed_367837c1.png";
+  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/newport-logo-white_008ab0fa.png";
 
 const maintenanceServices = [
   "Lawn Service",

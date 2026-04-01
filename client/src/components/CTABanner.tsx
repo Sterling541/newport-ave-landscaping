@@ -5,7 +5,7 @@
 import { useEffect, useRef, useState } from "react";
 
 const FACILITY_SHOWROOM =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportLandscapingFacilityHiResPhotos14_8274e271.webp";
+  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/facility-aerial2_d22fc996.webp";
 
 export default function CTABanner() {
   const ref = useRef<HTMLDivElement>(null);
@@ -40,8 +40,7 @@ export default function CTABanner() {
       <div
         className="absolute inset-0"
         style={{
-          background:
-            "linear-gradient(135deg, oklch(0.18 0.005 0 / 0.88) 0%, oklch(0.46 0.20 25 / 0.60) 60%, oklch(0.18 0.005 0 / 0.75) 100%)",
+          backgroundColor: "oklch(0.10 0.005 0 / 0.72)",
         }}
       />
 
@@ -62,7 +61,7 @@ export default function CTABanner() {
               className="inline-block w-8 h-px"
               style={{ backgroundColor: "oklch(0.82 0.10 25)" }}
             />
-            Ask About Our Financing
+            Bend, Oregon's Premier Landscaping Company
             <span
               className="inline-block w-8 h-px"
               style={{ backgroundColor: "oklch(0.82 0.10 25)" }}

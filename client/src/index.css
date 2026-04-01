@@ -1,10 +1,15 @@
 /* ============================================================
-   NEWPORT AVE LANDSCAPING — BRAND REFRESH
-   Design: Bright, airy white base with brand red (#D42B2B) accent
-   Color Philosophy: Clean white backgrounds, bold red for CTAs/accents,
-     charcoal (#2C2C2C) for text — energetic yet professional
-   Typography: Cormorant Garamond (display) + Nunito Sans (body) + Raleway (labels)
-   Layout: Light, open, photography-forward
+   NEWPORT AVENUE LANDSCAPING — Design System
+   Inspired by: Southview Design editorial aesthetic
+   
+   Philosophy:
+   - Photography-first: let the images do the talking
+   - Dark charcoal nav anchors the brand at the top
+   - Cream/off-white (#f7f3ec) for content sections — warm, premium
+   - Brand red (#D42B2B) used sparingly as the sole accent
+   - Restrained serif typography: Cormorant Garamond display, 
+     Source Serif 4 body, Montserrat labels
+   - Alternating dark/cream sections for editorial rhythm
    ============================================================ */
 
 @import "tailwindcss";
@@ -49,57 +54,55 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
-
-  /* Brand colors */
-  --color-brand-red: oklch(0.46 0.20 25);
-  --color-brand-red-dark: oklch(0.38 0.20 25);
-  --color-brand-red-light: oklch(0.55 0.18 25);
-  --color-brand-red-pale: oklch(0.96 0.03 25);
-  --color-charcoal: oklch(0.22 0.005 0);
-  --color-charcoal-light: oklch(0.38 0.005 0);
-  --color-mid-gray: oklch(0.60 0.005 0);
-  --color-light-gray: oklch(0.93 0.003 0);
-  --color-off-white: oklch(0.985 0.003 85);
-  --color-pure-white: oklch(1 0 0);
 }
 
 :root {
-  --radius: 0.25rem;
-  /* Brand red as primary */
-  --primary: oklch(0.46 0.20 25);
+  --radius: 0.25rem; /* Very subtle rounding — editorial feel */
+
+  /* Brand colors */
+  --brand-red: oklch(0.46 0.20 25);          /* #D42B2B — used sparingly */
+  --brand-red-light: oklch(0.62 0.16 25);    /* Hover state */
+  --nav-dark: oklch(0.15 0.005 0);           /* Near-black charcoal nav */
+  --cream: oklch(0.97 0.012 85);             /* Warm cream background */
+  --cream-dark: oklch(0.93 0.015 85);        /* Slightly darker cream */
+  --charcoal: oklch(0.22 0.008 0);           /* Dark text */
+  --charcoal-mid: oklch(0.35 0.006 0);       /* Mid-tone text */
+  --muted-text: oklch(0.55 0.008 0);         /* Muted body text */
+
+  /* Semantic tokens */
+  --primary: var(--brand-red);
   --primary-foreground: oklch(1 0 0);
-  /* Light gray as secondary */
-  --secondary: oklch(0.93 0.003 0);
-  --secondary-foreground: oklch(0.22 0.005 0);
-  /* Pure white background */
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.22 0.005 0);
+  --sidebar-primary: var(--brand-red);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --chart-1: oklch(0.46 0.20 25);
+  --chart-2: oklch(0.55 0.15 25);
+  --chart-3: oklch(0.62 0.12 25);
+  --chart-4: oklch(0.70 0.08 25);
+  --chart-5: oklch(0.78 0.05 25);
+
+  --background: var(--cream);
+  --foreground: var(--charcoal);
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.22 0.005 0);
+  --card-foreground: var(--charcoal);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.22 0.005 0);
-  --muted: oklch(0.96 0.003 0);
-  --muted-foreground: oklch(0.50 0.005 0);
-  --accent: oklch(0.96 0.03 25);
-  --accent-foreground: oklch(0.46 0.20 25);
+  --popover-foreground: var(--charcoal);
+  --secondary: var(--cream-dark);
+  --secondary-foreground: var(--charcoal);
+  --muted: var(--cream-dark);
+  --muted-foreground: var(--muted-text);
+  --accent: var(--cream-dark);
+  --accent-foreground: var(--charcoal);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.985 0 0);
-  --border: oklch(0.90 0.003 0);
-  --input: oklch(0.90 0.003 0);
-  --ring: oklch(0.46 0.20 25);
-  --chart-1: oklch(0.46 0.20 25);
-  --chart-2: oklch(0.55 0.18 25);
-  --chart-3: oklch(0.38 0.20 25);
-  --chart-4: oklch(0.22 0.005 0);
-  --chart-5: oklch(0.60 0.005 0);
-  --sidebar: oklch(0.22 0.005 0);
-  --sidebar-foreground: oklch(1 0 0);
-  --sidebar-primary: oklch(0.46 0.20 25);
-  --sidebar-primary-foreground: oklch(1 0 0);
-  --sidebar-accent: oklch(0.32 0.005 0);
-  --sidebar-accent-foreground: oklch(1 0 0);
-  --sidebar-border: oklch(0.32 0.005 0);
-  --sidebar-ring: oklch(0.46 0.20 25);
+  --border: oklch(0.88 0.010 85);
+  --input: oklch(0.88 0.010 85);
+  --ring: var(--brand-red);
+  --sidebar: var(--nav-dark);
+  --sidebar-foreground: oklch(0.90 0.003 0);
+  --sidebar-accent: oklch(0.22 0.005 0);
+  --sidebar-accent-foreground: oklch(0.90 0.003 0);
+  --sidebar-border: oklch(1 0 0 / 0.10);
+  --sidebar-ring: var(--brand-red);
 }
 
 @layer base {
@@ -108,10 +111,7 @@
   }
   body {
     @apply bg-background text-foreground;
-    font-family: 'Nunito Sans', sans-serif;
-  }
-  h1, h2, h3, h4 {
-    font-family: 'Cormorant Garamond', serif;
+    font-family: 'Source Serif 4', Georgia, serif;
   }
   button:not(:disabled),
   [role="button"]:not([aria-disabled="true"]),
@@ -124,6 +124,140 @@
   input[type="radio"]:not(:disabled) {
     @apply cursor-pointer;
   }
+}
+
+/* ── Typography classes ── */
+.font-display {
+  font-family: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+  letter-spacing: -0.01em;
+}
+
+.font-body {
+  font-family: 'Source Serif 4', Georgia, serif;
+}
+
+.font-label {
+  font-family: 'Montserrat', 'Helvetica Neue', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.font-nav {
+  font-family: 'Montserrat', 'Helvetica Neue', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* ── Button styles ── */
+.btn-red {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 2rem;
+  background-color: oklch(0.46 0.20 25);
+  color: oklch(1 0 0);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  border: none;
+  transition: background-color 0.25s ease, transform 0.2s ease;
+}
+.btn-red:hover {
+  background-color: oklch(0.38 0.20 25);
+  transform: translateY(-1px);
+}
+
+.btn-outline-dark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 2rem;
+  background-color: transparent;
+  color: oklch(0.22 0.008 0);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  border: 1.5px solid oklch(0.22 0.008 0);
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+.btn-outline-dark:hover {
+  background-color: oklch(0.22 0.008 0);
+  color: oklch(1 0 0);
+}
+
+.btn-outline-white {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 2rem;
+  background-color: transparent;
+  color: oklch(1 0 0);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  border: 1.5px solid oklch(1 0 0 / 0.70);
+  transition: background-color 0.25s ease, border-color 0.25s ease;
+}
+.btn-outline-white:hover {
+  background-color: oklch(1 0 0 / 0.12);
+  border-color: oklch(1 0 0);
+}
+
+/* ── Service card ── */
+.service-card {
+  border-radius: var(--radius);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+.service-card:hover {
+  box-shadow: 0 8px 32px oklch(0 0 0 / 0.12);
+  transform: translateY(-4px);
+}
+
+/* ── Photo card (portfolio) ── */
+.photo-card {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+.photo-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+.photo-card:hover img {
+  transform: scale(1.04);
+}
+.photo-card-label {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1.5rem 1rem 1rem;
+  background: linear-gradient(0deg, oklch(0 0 0 / 0.65) 0%, transparent 100%);
+  color: oklch(1 0 0);
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 1.05rem;
+  letter-spacing: 0.02em;
+  transform: translateY(4px);
+  transition: transform 0.3s ease;
+}
+.photo-card:hover .photo-card-label {
+  transform: translateY(0);
 }
 
 @layer components {
@@ -153,180 +287,5 @@
       padding-right: 2rem;
       max-width: 1280px;
     }
-  }
-
-  /* Brand typography utilities */
-  .font-display {
-    font-family: 'Cormorant Garamond', serif;
-  }
-  .font-body {
-    font-family: 'Nunito Sans', sans-serif;
-  }
-  .font-label {
-    font-family: 'Raleway', sans-serif;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    font-size: 0.75rem;
-    font-weight: 600;
-  }
-
-  /* Section dividers */
-  .diagonal-bottom {
-    clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
-    padding-bottom: 8rem;
-  }
-  .diagonal-top {
-    clip-path: polygon(0 10%, 100% 0, 100% 100%, 0 100%);
-    padding-top: 8rem;
-    margin-top: -4rem;
-  }
-
-  /* Service card hover */
-  .service-card {
-    transition: transform 0.4s ease, box-shadow 0.4s ease;
-  }
-  .service-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 20px 60px oklch(0.46 0.20 25 / 0.12);
-  }
-
-  /* Scroll animation classes */
-  .fade-up {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
-  }
-  .fade-up.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* Brand red CTA button */
-  .btn-red {
-    background-color: oklch(0.46 0.20 25);
-    color: oklch(1 0 0);
-    font-family: 'Raleway', sans-serif;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    font-size: 0.8rem;
-    font-weight: 600;
-    padding: 0.875rem 2rem;
-    border: none;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    display: inline-block;
-  }
-  .btn-red:hover {
-    background-color: oklch(0.38 0.20 25);
-    transform: translateY(-1px);
-  }
-
-  /* Charcoal button */
-  .btn-charcoal {
-    background-color: oklch(0.22 0.005 0);
-    color: oklch(1 0 0);
-    font-family: 'Raleway', sans-serif;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    font-size: 0.8rem;
-    font-weight: 600;
-    padding: 0.875rem 2rem;
-    border: none;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    display: inline-block;
-  }
-  .btn-charcoal:hover {
-    background-color: oklch(0.32 0.005 0);
-    transform: translateY(-1px);
-  }
-
-  /* Outline button on white bg */
-  .btn-outline-dark {
-    background-color: transparent;
-    color: oklch(0.22 0.005 0);
-    font-family: 'Raleway', sans-serif;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    font-size: 0.8rem;
-    font-weight: 600;
-    padding: 0.875rem 2rem;
-    border: 1.5px solid oklch(0.22 0.005 0);
-    transition: background-color 0.3s ease, color 0.3s ease;
-    display: inline-block;
-  }
-  .btn-outline-dark:hover {
-    background-color: oklch(0.22 0.005 0);
-    color: oklch(1 0 0);
-  }
-
-  /* Outline button on dark/image bg */
-  .btn-outline-white {
-    background-color: transparent;
-    color: oklch(1 0 0);
-    font-family: 'Raleway', sans-serif;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    font-size: 0.8rem;
-    font-weight: 600;
-    padding: 0.875rem 2rem;
-    border: 1.5px solid oklch(1 0 0);
-    transition: background-color 0.3s ease, color 0.3s ease;
-    display: inline-block;
-  }
-  .btn-outline-white:hover {
-    background-color: oklch(1 0 0);
-    color: oklch(0.22 0.005 0);
-  }
-
-  /* Legacy aliases so old components still work */
-  .btn-terracotta { 
-    background-color: oklch(0.46 0.20 25);
-    color: oklch(1 0 0);
-    font-family: 'Raleway', sans-serif;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    font-size: 0.8rem;
-    font-weight: 600;
-    padding: 0.875rem 2rem;
-    border: none;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    display: inline-block;
-  }
-  .btn-terracotta:hover {
-    background-color: oklch(0.38 0.20 25);
-    transform: translateY(-1px);
-  }
-  .btn-forest {
-    background-color: oklch(0.22 0.005 0);
-    color: oklch(1 0 0);
-    font-family: 'Raleway', sans-serif;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    font-size: 0.8rem;
-    font-weight: 600;
-    padding: 0.875rem 2rem;
-    border: none;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    display: inline-block;
-  }
-  .btn-forest:hover {
-    background-color: oklch(0.32 0.005 0);
-    transform: translateY(-1px);
-  }
-  .btn-outline-cream {
-    background-color: transparent;
-    color: oklch(1 0 0);
-    font-family: 'Raleway', sans-serif;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    font-size: 0.8rem;
-    font-weight: 600;
-    padding: 0.875rem 2rem;
-    border: 1.5px solid oklch(1 0 0);
-    transition: background-color 0.3s ease, color 0.3s ease;
-    display: inline-block;
-  }
-  .btn-outline-cream:hover {
-    background-color: oklch(1 0 0);
-    color: oklch(0.22 0.005 0);
   }
 }
