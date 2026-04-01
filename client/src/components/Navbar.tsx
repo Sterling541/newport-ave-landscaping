@@ -75,7 +75,7 @@ export default function Navbar() {
         }}
       >
         {/* Desktop nav */}
-        <div className="hidden md:flex flex-col items-center justify-center px-8" style={{ minHeight: "220px" }}>
+        <div className="hidden md:flex flex-col items-center justify-center px-8" style={{ minHeight: "300px" }}>
 
           {/* Main nav row: links + logo + links — with border lines above/below the side panels */}
           <div className="flex items-center justify-between w-full" style={{ padding: "0" }}>
@@ -97,12 +97,12 @@ export default function Navbar() {
             </div>
 
             {/* Centered logo */}
-            <div className="flex-shrink-0 mx-4" style={{ width: "220px", display: "flex", justifyContent: "center" }}>
+            <div className="flex-shrink-0 mx-4" style={{ width: "280px", display: "flex", justifyContent: "center" }}>
               <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
                 <img
                   src={LOGO_WHITE}
                   alt="Newport Avenue Landscaping"
-                  style={{ height: "180px", width: "auto", objectFit: "contain", display: "block" }}
+                  style={{ height: "260px", width: "auto", objectFit: "contain", display: "block" }}
                 />
               </button>
             </div>
