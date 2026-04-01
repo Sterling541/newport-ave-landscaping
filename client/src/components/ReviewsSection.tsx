@@ -19,12 +19,12 @@ const reviews = [
   },
   {
     name: "Lisa Krynicki",
-    text: "We spent all summer trying to find a landscaper to fix our broken sprinkler system. Then I called Newport Ave Landscaping. They made an appointment for me immediately. They showed up exactly when they said they would. The service technician was incredibly friendly, quick, and helpful. He did it all in less than an hour.",
+    text: "We spent all summer trying to find a landscaper to fix our broken sprinkler system. Then I called Newport Avenue Landscaping. They made an appointment for me immediately. They showed up exactly when they said they would. The service technician was incredibly friendly, quick, and helpful. He did it all in less than an hour.",
     rating: 5,
   },
   {
     name: "Kelly Meyer",
-    text: "Highly recommend! We just can't say enough about how pleased we are with the work Newport Ave Landscaping did for us. We had several landscaping needs. From design to tree removal, new SOD, irrigation, pavers and plants. Our yard looks amazing!",
+    text: "Highly recommend! We just can't say enough about how pleased we are with the work Newport Avenue Landscaping did for us. We had several landscaping needs. From design to tree removal, new SOD, irrigation, pavers and plants. Our yard looks amazing!",
     rating: 5,
   },
   {
@@ -34,7 +34,7 @@ const reviews = [
   },
   {
     name: "Melanie Grandjacques",
-    text: "Thanks to Newport Ave Landscaping for our amazing yard transformation!! Nate, Chris, Francis and crew were so great to work with. Results are beautiful!!",
+    text: "Thanks to Newport Avenue Landscaping for our amazing yard transformation!! Nate, Chris, Francis and crew were so great to work with. Results are beautiful!!",
     rating: 5,
   },
   {

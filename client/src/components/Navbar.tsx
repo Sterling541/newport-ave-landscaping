@@ -75,7 +75,7 @@ export default function Navbar() {
         }}
       >
         {/* Desktop nav */}
-        <div className="hidden md:flex items-center justify-between px-8 py-0" style={{ minHeight: "68px" }}>
+        <div className="hidden md:flex items-center justify-between px-8 py-0" style={{ minHeight: "116px" }}>
 
           {/* Left links */}
           <div className="flex items-center gap-8 flex-1">
@@ -94,12 +94,12 @@ export default function Navbar() {
           </div>
 
           {/* Centered logo */}
-          <div className="flex-shrink-0 mx-8">
+          <div className="flex-shrink-0 mx-4">
             <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
               <img
                 src={LOGO_WHITE}
                 alt="Newport Avenue Landscaping"
-                style={{ height: "52px", width: "auto", objectFit: "contain" }}
+                style={{ height: "110px", width: "auto", objectFit: "contain", display: "block" }}
               />
             </button>
           </div>
@@ -143,7 +143,7 @@ export default function Navbar() {
         </div>
 
         {/* Mobile nav bar */}
-        <div className="flex md:hidden items-center justify-between px-4" style={{ minHeight: "60px" }}>
+        <div className="flex md:hidden items-center justify-between px-4" style={{ minHeight: "72px" }}>
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
             style={{ color: "oklch(0.85 0.003 0)" }}
@@ -156,7 +156,7 @@ export default function Navbar() {
             <img
               src={LOGO_WHITE}
               alt="Newport Avenue Landscaping"
-              style={{ height: "40px", width: "auto", objectFit: "contain" }}
+              style={{ height: "52px", width: "auto", objectFit: "contain" }}
             />
           </button>
 

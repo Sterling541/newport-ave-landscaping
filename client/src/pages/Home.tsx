@@ -1,5 +1,5 @@
 /* ============================================================
-   HOME PAGE — Newport Ave Landscaping
+   HOME PAGE — Newport Avenue Landscaping
    Southview-Inspired Editorial Design
    Assembles all sections in order
    ============================================================ */

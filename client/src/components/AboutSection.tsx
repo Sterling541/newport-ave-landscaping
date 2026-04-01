@@ -110,7 +110,7 @@ export default function AboutSection() {
                 className="inline-block w-8 h-px"
                 style={{ backgroundColor: "oklch(0.46 0.20 25)" }}
               />
-              About Newport Ave
+              About Newport Avenue Landscaping
             </div>
 
             <h2

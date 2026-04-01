@@ -1,34 +1,36 @@
 /* ============================================================
    HERO SECTION — Southview-Inspired Full-Bleed Slideshow
-   Design: Full-screen photo carousel. Minimal text overlay.
-   "DESIGN · BUILD · MAINTAIN" tagline at bottom.
-   Single "CONTACT US" CTA. Photography does the talking.
-   Auto-advances every 6s. Manual prev/next arrows.
+   Design: Full-screen photo carousel using real project photos.
+   Unique headline — not "Design · Build · Maintain".
+   Photography does the talking. Auto-advances every 6s.
    ============================================================ */
 import { useEffect, useState, useCallback } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-// Confirmed working CDN URLs
-const CONFIRMED_SLIDES = [
+const SLIDES = [
+  {
+    image:
+      "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/project-backyard_1921c6a5.jpg",
+    eyebrow: "Residential Landscaping",
+    headline: "Your Outdoor\nSpace, Perfected.",
+  },
+  {
+    image:
+      "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/project-nines_5290a642.jpg",
+    eyebrow: "Commercial Landscape Installation",
+    headline: "Built for\nEvery Scale.",
+  },
+  {
+    image:
+      "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/project-patio_7045a45c.jpg",
+    eyebrow: "Patio & Outdoor Living",
+    headline: "Spaces Worth\nLiving In.",
+  },
   {
     image:
       "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/facility-showroom_fd5f40e4.webp",
-    caption: "Award-Winning Design",
-  },
-  {
-    image:
-      "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/facility-aerial2_d22fc996.webp",
-    caption: "Central Oregon's Premier Landscaping",
-  },
-  {
-    image:
-      "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/facility-nursery_c0df8919.webp",
-    caption: "Residential · Commercial · HOA",
-  },
-  {
-    image:
-      "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/facility-aerial_98383b9b.webp",
-    caption: "10,000+ Projects Completed",
+    eyebrow: "Central Oregon's Premier Landscaper",
+    headline: "10,000+ Projects\nCompleted.",
   },
 ];
 
@@ -55,11 +57,11 @@ export default function HeroSection() {
   );
 
   const next = useCallback(() => {
-    goTo((current + 1) % CONFIRMED_SLIDES.length);
+    goTo((current + 1) % SLIDES.length);
   }, [current, goTo]);
 
   const prev = useCallback(() => {
-    goTo((current - 1 + CONFIRMED_SLIDES.length) % CONFIRMED_SLIDES.length);
+    goTo((current - 1 + SLIDES.length) % SLIDES.length);
   }, [current, goTo]);
 
   // Auto-advance
@@ -68,7 +70,7 @@ export default function HeroSection() {
     return () => clearInterval(timer);
   }, [next]);
 
-  const slide = CONFIRMED_SLIDES[current];
+  const slide = SLIDES[current];
 
   return (
     <section
@@ -91,7 +93,7 @@ export default function HeroSection() {
         className="absolute inset-0"
         style={{
           background:
-            "linear-gradient(180deg, oklch(0 0 0 / 0.20) 0%, oklch(0 0 0 / 0.10) 40%, oklch(0 0 0 / 0.55) 80%, oklch(0 0 0 / 0.75) 100%)",
+            "linear-gradient(180deg, oklch(0 0 0 / 0.25) 0%, oklch(0 0 0 / 0.10) 35%, oklch(0 0 0 / 0.55) 75%, oklch(0 0 0 / 0.80) 100%)",
         }}
       />
 
@@ -106,7 +108,7 @@ export default function HeroSection() {
         }}
       >
         <div className="container">
-          {/* Caption / eyebrow */}
+          {/* Eyebrow label */}
           <div
             className="font-label mb-4 flex items-center gap-3"
             style={{ color: "oklch(0.72 0.12 25)" }}
@@ -115,26 +117,34 @@ export default function HeroSection() {
               className="inline-block h-px"
               style={{ width: "32px", backgroundColor: "oklch(0.46 0.20 25)" }}
             />
-            {slide.caption}
+            {slide.eyebrow}
           </div>
 
-          {/* Main tagline */}
+          {/* Main headline — unique per slide, no "Design · Build · Maintain" */}
           <h1
             className="font-display font-light text-white mb-8"
             style={{
               fontSize: "clamp(2.8rem, 7vw, 6.5rem)",
               lineHeight: 0.95,
               letterSpacing: "-0.02em",
+              whiteSpace: "pre-line",
             }}
           >
-            Design{" "}
-            <span style={{ color: "oklch(0.75 0.10 25)", fontStyle: "italic" }}>·</span>
-            {" "}Build{" "}
-            <span style={{ color: "oklch(0.75 0.10 25)", fontStyle: "italic" }}>·</span>
-            {" "}Maintain
+            {slide.headline.split("\n").map((line, i) =>
+              i === 1 ? (
+                <span key={i}>
+                  <br />
+                  <em style={{ color: "oklch(0.80 0.10 25)", fontStyle: "italic" }}>
+                    {line}
+                  </em>
+                </span>
+              ) : (
+                <span key={i}>{line}</span>
+              )
+            )}
           </h1>
 
-          {/* CTAs */}
+          {/* CTAs + dots */}
           <div className="flex flex-wrap gap-4 items-center">
             <button
               onClick={() =>
@@ -142,7 +152,7 @@ export default function HeroSection() {
               }
               className="btn-red"
             >
-              Contact Us
+              Get a Free Quote
             </button>
             <button
               onClick={() =>
@@ -155,7 +165,7 @@ export default function HeroSection() {
 
             {/* Slide dots */}
             <div className="flex items-center gap-2 ml-auto">
-              {CONFIRMED_SLIDES.map((_, i) => (
+              {SLIDES.map((_, i) => (
                 <button
                   key={i}
                   onClick={() => goTo(i)}
