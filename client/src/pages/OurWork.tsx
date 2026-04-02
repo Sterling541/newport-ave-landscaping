@@ -5,6 +5,7 @@
    ============================================================ */
 import { useEffect, useRef, useState } from "react";
 import { Link } from "wouter";
+import Navbar from "@/components/Navbar";
 
 function FadeIn({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -111,6 +112,7 @@ export default function OurWork() {
 
   return (
     <div style={{ backgroundColor: "oklch(0.12 0.005 0)" }}>
+      <Navbar />
 
       {/* ── Hero ── */}
       <section
@@ -126,7 +128,7 @@ export default function OurWork() {
           className="absolute inset-0"
           style={{ background: "linear-gradient(0deg, oklch(0.10 0.005 0 / 0.95) 0%, oklch(0 0 0 / 0.35) 70%)" }}
         />
-        <div className="container relative pb-14 pt-32">
+        <div className="container relative pb-14" style={{ paddingTop: "clamp(200px, 22vw, 280px)" }}>
           <div className="font-label mb-3 flex items-center gap-3" style={{ color: "oklch(0.72 0.12 25)" }}>
             <span className="inline-block h-px w-7" style={{ backgroundColor: "oklch(0.46 0.20 25)" }} />
             Portfolio

@@ -4,6 +4,7 @@
    Contact form, info, map embed, license info.
    ============================================================ */
 import { useEffect, useRef, useState } from "react";
+import Navbar from "@/components/Navbar";
 
 function FadeIn({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -35,6 +36,7 @@ export default function Contact() {
   const [form, setForm] = useState({ name: "", phone: "", email: "", message: "" });
   const [submitted, setSubmitted] = useState(false);
 
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // In a static site, open mailto as fallback
@@ -48,6 +50,7 @@ export default function Contact() {
 
   return (
     <div style={{ backgroundColor: "oklch(0.97 0.012 85)" }}>
+      <Navbar />
 
       {/* ── Hero ── */}
       <section
@@ -70,7 +73,7 @@ export default function Contact() {
           className="absolute inset-0"
           style={{ background: "linear-gradient(0deg, oklch(0.10 0.005 0 / 0.95) 0%, oklch(0 0 0 / 0.20) 70%)" }}
         />
-        <div className="container relative pb-12 pt-24">
+        <div className="container relative pb-12" style={{ paddingTop: "clamp(200px, 22vw, 280px)" }}>
           <div className="font-label mb-3 flex items-center gap-3" style={{ color: "oklch(0.72 0.12 25)" }}>
             <span className="inline-block h-px w-7" style={{ backgroundColor: "oklch(0.46 0.20 25)" }} />
             Get In Touch

@@ -5,6 +5,7 @@
    ============================================================ */
 import { useEffect, useRef, useState } from "react";
 import { Link } from "wouter";
+import Navbar from "@/components/Navbar";
 
 const TEAM_PHOTO = "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/team_photo_d9a1d108.webp";
 
@@ -81,6 +82,7 @@ function FadeIn({ children, delay = 0, className = "" }: { children: React.React
 export default function About() {
   return (
     <div style={{ backgroundColor: "oklch(0.97 0.012 85)" }}>
+      <Navbar />
 
       {/* ── Hero ── */}
       <section
@@ -95,14 +97,14 @@ export default function About() {
           alt="Newport Ave Landscaping team"
           style={{
             position: "absolute", inset: 0, width: "100%", height: "100%",
-            objectFit: "cover", objectPosition: "center top", opacity: 0.45,
+            objectFit: "cover", objectPosition: "center top", opacity: 0.75,
           }}
         />
         <div
           className="absolute inset-0"
-          style={{ background: "linear-gradient(0deg, oklch(0.10 0.005 0 / 0.90) 0%, oklch(0 0 0 / 0.20) 60%)" }}
+          style={{ background: "linear-gradient(0deg, oklch(0.10 0.005 0 / 0.75) 0%, oklch(0 0 0 / 0.10) 60%)" }}
         />
-        <div className="container relative pb-14 pt-32">
+        <div className="container relative pb-14" style={{ paddingTop: "clamp(200px, 22vw, 280px)" }}>
           <div className="font-label mb-3 flex items-center gap-3" style={{ color: "oklch(0.72 0.12 25)" }}>
             <span className="inline-block h-px w-7" style={{ backgroundColor: "oklch(0.46 0.20 25)" }} />
             Our Story
