@@ -93,8 +93,8 @@ export default function CTABanner() {
             }}
           >
             Partner with Central Oregon's premier landscaping team. Award-winning
-            design, exceptional craftsmanship, and a 5-year warranty you can
-            count on.
+            design, exceptional craftsmanship, and a team of 150+ professionals
+            ready to bring your vision to life.
           </p>
 
           <div className="flex flex-wrap gap-4 justify-center">

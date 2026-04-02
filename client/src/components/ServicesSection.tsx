@@ -6,16 +6,17 @@
    Below: 4-column service grid on cream background.
    ============================================================ */
 import { useEffect, useRef, useState } from "react";
-import {
-  Droplets,
-  Palette,
-  Layers,
-  Scissors,
-  Waves,
-  Flame,
-  Building2,
-  Users,
-} from "lucide-react";
+
+// Custom artist-drawn service icons from newportavelandscaping.com
+const CDN = "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx";
+const ICONS = {
+  sprinklers: `${CDN}/icon_sprinklers_and_irrigation_c476b59e.svg`,
+  design:     `${CDN}/icon_custom_design_and_build_e2ab5689.svg`,
+  pavers:     `${CDN}/icon_patio_pavers_and_walkways_ce98fcac.svg`,
+  maintenance:`${CDN}/icon_landscape_maintenance_4e143b90.svg`,
+  water:      `${CDN}/icon_water_features_d2983ad9.svg`,
+  outdoor:    `${CDN}/icon_outdoor_living_areas_50fb1e5f.svg`,
+};
 
 // Featured service photo cards (top 3 — Southview style)
 const featuredServices = [
@@ -39,52 +40,40 @@ const featuredServices = [
   },
 ];
 
-// Full service list
+// Full service list — using custom artist-drawn icons
 const services = [
   {
-    icon: Palette,
+    iconSrc: ICONS.design,
     title: "Custom Design & Build",
     description:
-      "Award-winning designers bring your outdoor vision to life. 5-year installation warranty — the only company in Central Oregon to offer this.",
+      "Award-winning designers bring your outdoor vision to life. Backed by a team of 150+ professionals — one of Central Oregon's largest landscaping crews.",
   },
   {
-    icon: Droplets,
+    iconSrc: ICONS.sprinklers,
     title: "Sprinklers & Irrigation",
     description:
       "Dedicated full-time team for sprinkler installation, repair, and maintenance. Custom systems for residential, commercial, and HOA properties.",
   },
   {
-    icon: Building2,
-    title: "Commercial Installation",
-    description:
-      "Large-scale landscape installation for business campuses, retail centers, multi-family developments, and government properties.",
-  },
-  {
-    icon: Users,
-    title: "HOA & Community Care",
-    description:
-      "Comprehensive maintenance programs for HOA communities, apartment complexes, and commercial properties — pristine year-round.",
-  },
-  {
-    icon: Layers,
+    iconSrc: ICONS.pavers,
     title: "Pavers & Walkways",
     description:
       "Driveways, walkways, flagstone patios, and decorative paver installations for homes and commercial properties.",
   },
   {
-    icon: Scissors,
-    title: "Residential Maintenance",
+    iconSrc: ICONS.maintenance,
+    title: "Landscape Maintenance",
     description:
       "Weekly lawn care, spring/fall clean-ups, aeration, and seasonal maintenance plans tailored to your property.",
   },
   {
-    icon: Waves,
+    iconSrc: ICONS.water,
     title: "Water Features",
     description:
       "Ponds, streams, koi ponds, and bubbling fountains — crafted by Central Oregon's most trusted pond contractors.",
   },
   {
-    icon: Flame,
+    iconSrc: ICONS.outdoor,
     title: "Outdoor Living",
     description:
       "Fire pits, outdoor kitchens, pergolas, and custom living spaces designed for entertaining and relaxation.",
@@ -112,8 +101,6 @@ function ServiceCard({
     return () => observer.disconnect();
   }, [index]);
 
-  const Icon = service.icon;
-
   return (
     <div
       ref={ref}
@@ -134,14 +121,16 @@ function ServiceCard({
         e.currentTarget.style.boxShadow = "none";
       }}
     >
+      {/* Custom artist-drawn icon in red circle */}
       <div
-        className="w-10 h-10 flex items-center justify-center mb-4 transition-colors duration-300"
-        style={{
-          backgroundColor: "oklch(0.96 0.008 85)",
-          color: "oklch(0.46 0.20 25)",
-        }}
+        className="w-14 h-14 rounded-full flex items-center justify-center mb-5 transition-transform duration-300 group-hover:scale-105"
+        style={{ backgroundColor: "oklch(0.46 0.20 25)" }}
       >
-        <Icon size={18} strokeWidth={1.5} />
+        <img
+          src={service.iconSrc}
+          alt={service.title}
+          style={{ width: "32px", height: "32px", objectFit: "contain" }}
+        />
       </div>
       <h3
         className="font-display mb-2"

@@ -65,7 +65,7 @@ export default function StatsSection() {
             Newport Avenue Landscaping is a Bend, Oregon landscaping firm with a
             reputation for excellence. We provide homeowners, commercial clients,
             and HOA communities with landscape design, construction, and
-            maintenance services — backed by a 5-year installation warranty.
+            maintenance services — backed by a team of 150+ dedicated professionals.
           </p>
 
           {/* Two CTA buttons */}
@@ -101,7 +101,7 @@ export default function StatsSection() {
           {[
             { value: "21+", label: "Years in Business" },
             { value: "10,000+", label: "Projects Completed" },
-            { value: "5-Year", label: "Installation Warranty" },
+            { value: "150+", label: "Team Members" },
             { value: "Res · Com · HOA", label: "All Client Types" },
           ].map((stat, i) => (
             <div key={stat.label} className="text-center">

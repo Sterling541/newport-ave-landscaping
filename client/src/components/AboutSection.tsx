@@ -18,8 +18,8 @@ const highlights = [
   },
   {
     icon: Shield,
-    title: "5-Year Warranty",
-    desc: "The only company in Central Oregon offering a full 5-year warranty on all landscape installations.",
+    title: "Team of 150+",
+    desc: "One of Central Oregon's largest landscaping crews — 150+ dedicated professionals delivering on every project.",
   },
   {
     icon: Clock,
