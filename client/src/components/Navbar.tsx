@@ -49,17 +49,20 @@ export default function Navbar() {
         className="fixed top-0 left-0 right-0 z-50"
         style={{ backgroundColor: "oklch(0.46 0.20 25)" }}
       >
-        <div className="container flex items-center justify-between py-1.5">
-          <span className="font-label text-white" style={{ fontSize: "0.6rem", opacity: 0.9 }}>
+        <div className="container flex items-center justify-between py-2">
+          <span className="font-label text-white" style={{ fontSize: "0.65rem", opacity: 0.85 }}>
             Visits by Appointment Only &nbsp;·&nbsp; 1020 SE Paiute Way #100, Bend, OR
           </span>
           <a
             href="tel:5416178873"
-            className="font-label text-white flex items-center gap-1.5"
-            style={{ fontSize: "0.6rem", opacity: 0.9 }}
+            className="font-label text-white flex items-center gap-2"
+            style={{ textDecoration: "none" }}
           >
-            <Phone size={10} />
-            (541) 617-8873
+            <span style={{ fontSize: "0.65rem", opacity: 0.85, letterSpacing: "0.05em" }}>For Service Call:</span>
+            <span className="flex items-center gap-1.5" style={{ fontSize: "0.85rem", fontWeight: 700, letterSpacing: "0.04em" }}>
+              <Phone size={13} />
+              (541) 617-8873
+            </span>
           </a>
         </div>
       </div>
