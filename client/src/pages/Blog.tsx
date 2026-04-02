@@ -62,7 +62,7 @@ export default function Blog() {
                 className="group cursor-pointer"
                 onClick={() => { navigate(post.slug); window.scrollTo({ top: 0, behavior: "smooth" }); }}
               >
-                <div className="overflow-hidden mb-4" style={{ borderRadius: "2px" }}>
+                <div className="overflow-hidden mb-4" style={{ borderRadius: "1.2rem 0.15rem 1.2rem 0.15rem" }}>
                   <img
                     src={post.image}
                     alt={post.title}

@@ -253,7 +253,7 @@ export default function ServicePageLayout({
                   key={link.href}
                   href={link.href}
                   className="font-label px-5 py-2 text-white transition-opacity hover:opacity-75"
-                  style={{ backgroundColor: "oklch(0.25 0.005 0)", fontSize: "0.68rem", letterSpacing: "0.08em", borderRadius: "0.25rem 1.5rem 1.5rem 0.25rem" }}
+                  style={{ backgroundColor: "oklch(0.25 0.005 0)", fontSize: "0.68rem", letterSpacing: "0.08em", borderRadius: "1.2rem 0.15rem 1.2rem 0.15rem" }}
                 >
                   {link.label}
                 </Link>

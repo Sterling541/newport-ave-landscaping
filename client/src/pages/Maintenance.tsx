@@ -340,7 +340,7 @@ export default function Maintenance() {
                   { icon: "❄️", title: "Fall Blowout", desc: "Compressed-air winterization of every zone to prevent freeze damage." },
                   { icon: "✅", title: "Annual Backflow Test", desc: "Certified backflow preventer testing to meet city requirements." },
                 ].map((item) => (
-                  <div key={item.title} className="flex gap-5 p-5" style={{ backgroundColor: "oklch(0.20 0.005 0)", borderRadius: "0.35rem 1.5rem 1.5rem 0.35rem" }}>
+                  <div key={item.title} className="flex gap-5 p-5" style={{ backgroundColor: "oklch(0.20 0.005 0)", borderRadius: "1.2rem 0.15rem 1.2rem 0.15rem" }}>
                     <div className="text-2xl flex-shrink-0">{item.icon}</div>
                     <div>
                       <div className="font-display font-light text-white mb-1" style={{ fontSize: "1.05rem" }}>

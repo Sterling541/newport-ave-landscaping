@@ -207,7 +207,7 @@ export default function OurWork() {
             onClick={() => setActiveTab("featured")}
             className="font-nav px-6 py-2.5 transition-all duration-200"
             style={{
-              borderRadius: "0.35rem 2rem 2rem 0.35rem",
+              borderRadius: "1.2rem 0.15rem 1.2rem 0.15rem",
               backgroundColor: activeTab === "featured" ? "oklch(0.46 0.20 25)" : "transparent",
               color: activeTab === "featured" ? "oklch(1 0 0)" : "oklch(0.65 0.008 0)",
               border: activeTab === "featured" ? "none" : "1.5px solid oklch(0.35 0.005 0)",
@@ -220,7 +220,7 @@ export default function OurWork() {
             onClick={() => setActiveTab("legacy")}
             className="font-nav px-6 py-2.5 transition-all duration-200"
             style={{
-              borderRadius: "0.35rem 2rem 2rem 0.35rem",
+              borderRadius: "1.2rem 0.15rem 1.2rem 0.15rem",
               backgroundColor: activeTab === "legacy" ? "oklch(0.46 0.20 25)" : "transparent",
               color: activeTab === "legacy" ? "oklch(1 0 0)" : "oklch(0.65 0.008 0)",
               border: activeTab === "legacy" ? "none" : "1.5px solid oklch(0.35 0.005 0)",
@@ -236,7 +236,7 @@ export default function OurWork() {
                 onClick={() => setActiveProject(null)}
                 className="font-nav px-4 py-1.5 transition-all duration-200"
                 style={{
-                  borderRadius: "0.35rem 1.5rem 1.5rem 0.35rem",
+                  borderRadius: "1.2rem 0.15rem 1.2rem 0.15rem",
                   backgroundColor: !activeProject ? "oklch(0.22 0.005 0)" : "transparent",
                   color: !activeProject ? "oklch(0.90 0.003 0)" : "oklch(0.55 0.005 0)",
                   border: "1px solid oklch(0.28 0.005 0)",
@@ -251,7 +251,7 @@ export default function OurWork() {
                   onClick={() => setActiveProject(p.id === activeProject ? null : p.id)}
                   className="font-nav px-4 py-1.5 transition-all duration-200"
                   style={{
-                    borderRadius: "0.35rem 1.5rem 1.5rem 0.35rem",
+                    borderRadius: "1.2rem 0.15rem 1.2rem 0.15rem",
                     backgroundColor: activeProject === p.id ? "oklch(0.22 0.005 0)" : "transparent",
                     color: activeProject === p.id ? "oklch(0.90 0.003 0)" : "oklch(0.55 0.005 0)",
                     border: "1px solid oklch(0.28 0.005 0)",
@@ -282,7 +282,7 @@ export default function OurWork() {
                   </p>
                   <div className="flex flex-wrap gap-2 mt-3">
                     {project.tags.map((tag) => (
-                      <span key={tag} className="font-label px-3 py-1" style={{ backgroundColor: "oklch(0.46 0.20 25 / 0.18)", color: "oklch(0.72 0.12 25)", borderRadius: "0.25rem 1rem 1rem 0.25rem", fontSize: "0.58rem" }}>
+                      <span key={tag} className="font-label px-3 py-1" style={{ backgroundColor: "oklch(0.46 0.20 25 / 0.18)", color: "oklch(0.72 0.12 25)", borderRadius: "1.2rem 0.15rem 1.2rem 0.15rem", fontSize: "0.58rem" }}>
                         {tag}
                       </span>
                     ))}
@@ -399,7 +399,7 @@ export default function OurWork() {
             alt="Project photo"
             className="max-h-[88vh] max-w-[90vw] object-contain"
             onClick={(e) => e.stopPropagation()}
-            style={{ borderRadius: "0.35rem 1.5rem 1.5rem 0.35rem" }}
+            style={{ borderRadius: "1.2rem 0.15rem 1.2rem 0.15rem" }}
           />
           <button onClick={(e) => { e.stopPropagation(); navigateLightbox(1); }} className="absolute right-4 text-white p-3 hover:opacity-70 transition-opacity z-10" aria-label="Next">
             <ChevronRight size={36} />

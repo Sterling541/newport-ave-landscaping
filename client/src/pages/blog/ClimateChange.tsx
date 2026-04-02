@@ -79,7 +79,7 @@ export default function ClimateChange() {
             {/* CTA */}
             <div
               className="mt-12 p-8 text-center"
-              style={{ backgroundColor: "oklch(0.15 0.005 0)", borderRadius: "0.35rem 2rem 2rem 0.35rem" }}
+              style={{ backgroundColor: "oklch(0.15 0.005 0)", borderRadius: "1.2rem 0.15rem 1.2rem 0.15rem" }}
             >
               <p className="font-label mb-2" style={{ color: "oklch(0.72 0.12 25)", fontSize: "0.7rem", letterSpacing: "0.18em" }}>
                 READY TO ADAPT YOUR LANDSCAPE?
