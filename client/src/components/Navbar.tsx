@@ -98,13 +98,13 @@ export default function Navbar() {
               ))}
             </div>
 
-            {/* Centered logo */}
+            {/* Centered logo — shifted up so the text portion aligns with nav links */}
             <div className="flex-shrink-0 mx-8" style={{ width: "340px", display: "flex", justifyContent: "center" }}>
               <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
                 <img
                   src={LOGO_WHITE}
                   alt="Newport Avenue Landscaping"
-                  style={{ height: "260px", width: "auto", objectFit: "contain", display: "block" }}
+                  style={{ height: "260px", width: "auto", objectFit: "contain", display: "block", marginTop: "-105px" }}
                 />
               </button>
             </div>
