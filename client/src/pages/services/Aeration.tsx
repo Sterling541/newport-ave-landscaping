@@ -1,0 +1,60 @@
+import ServicePageLayout from "@/components/ServicePageLayout";
+
+const relatedLinks = [
+  { label: "Lawn Service", href: "/services/lawn-service" },
+  { label: "Commercial Maintenance", href: "/services/commercial-maintenance" },
+  { label: "Irrigation Installation", href: "/services/irrigation" },
+  { label: "Snow Removal", href: "/services/snow-removal" },
+];
+
+export default function Aeration() {
+  return (
+    <ServicePageLayout
+      category="Maintenance Services"
+      title="Aeration Services"
+      subtitle="Bend, Oregon"
+      heroImage="https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=1600&q=80"
+      heroPosition="center 50%"
+      intro="Aeration is the process of taking small plugs or cores — usually one to six inches long — out of the lawn. Over time, the soil under your grass compacts, making it difficult for the lawn roots to breathe, feed, and grow. Plug Aeration is used to increase the health of the lawn by decompacting the soil and also helps manage or eradicate fungus and other lawn diseases."
+      pricing={[
+        { label: "Starting Rate", value: "$195 (first hour)" },
+        { label: "Additional Time", value: "$92 / man hour" },
+        { label: "Recommended Frequency", value: "Twice per season" },
+      ]}
+      sections={[
+        {
+          heading: "What Is Aeration?",
+          body: "Aeration is essential to maintaining a healthy lawn. As lawns age, soil compacts, reducing the pores or pockets of oxygen needed for roots to breathe, absorb nutrients and water, and grow. Soil compaction also reduces micro-organism abundance and health.",
+        },
+        {
+          heading: "Benefits of Aeration",
+          body: "Core Aeration provides four key benefits for your Central Oregon lawn:",
+          list: [
+            "Reduces the density of the soil — a nice lawn starts with the soil base. Before grass is planted, the soil is compacted to make a firm base for planting. As time increases, settling and water further compact the soil making root growth more difficult.",
+            "Reduces thatch build-up — thatch is a layer of organic matter that accumulates on a lawn around the base of the grass. Thatch acts like a sponge and keeps moisture from getting to the roots; it also enables fungus, dandelions, clover, and crab grass to more easily infect your lawn.",
+            "Reduces the amount of water and fertilizer needed — as plugs are taken from the soil, space is opened enabling water, nutrients, and fertilizer to more easily reach the roots.",
+            "Eradicates or helps manage fungus and other lawn diseases.",
+          ],
+        },
+        {
+          heading: "Our Aeration Process",
+          body: [
+            "On our first trip to your home, we'll check the soil to understand your lawn's soil density and composition. This gives us a better understanding of how many passes we will need to make with the Aerator or if your lawn even needs aeration.",
+            "Next, we'll identify your sprinkler head locations so we don't puncture them with the Aerator. We'll flag each head as necessary and then go to work aerating.",
+            "After the Aeration, if you're interested, we can re-seed your lawn (recommended) for the cost of the seed. Seed typically costs $15–$150/bag depending on the type of grass seed and size of the bag.",
+          ],
+          accent: true,
+        },
+        {
+          heading: "How Often Should You Aerate?",
+          body: [
+            "Especially for older lawns, aerating is highly recommended twice per season — once in the Spring and once in the Fall. Over the course of a Spring and Summer season, root growth and soil compaction increase, thus necessitating an Aeration in the Fall.",
+            "Additionally, the Winter brings snow, rain, and further thatch buildup. By the time Spring rolls around, we want to provide optimal growing conditions for the lawn; thus the need for Aeration in the Spring.",
+            "In Bend, Oregon we have a lot of ponderosa and lodgepole pine trees which produce needles which in turn alters the pH of your lawn's soil — another reason regular aeration is especially important here.",
+          ],
+        },
+      ]}
+      relatedLinks={relatedLinks}
+    />
+  );
+}
