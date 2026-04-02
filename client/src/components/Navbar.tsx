@@ -13,14 +13,15 @@ const LOGO_WHITE =
   "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/newport-logo-nav-v3_60ba11f0.png";
 
 const navLeft = [
+  { label: "About", href: "#about" },
   { label: "Our Work", href: "#portfolio" },
   { label: "Services", href: "#services" },
-  { label: "About", href: "#about" },
 ];
 
 const navRight = [
-  { label: "Maintenance", href: "#services" },
   { label: "Contact", href: "#contact" },
+  { label: "Maintenance", href: "#services" },
+  { label: "Install", href: "#services" },
 ];
 
 export default function Navbar() {
@@ -123,13 +124,7 @@ export default function Navbar() {
                   {item.label}
                 </button>
               ))}
-              <button
-                onClick={() => scrollTo("#contact")}
-                className="btn-red"
-                style={{ padding: "0.5rem 1.25rem", fontSize: "0.62rem" }}
-              >
-                Get a Quote
-              </button>
+
             </div>
           </div>
 
