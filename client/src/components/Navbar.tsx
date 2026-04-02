@@ -9,8 +9,8 @@ import { useState, useEffect, useRef } from "react";
 import { useLocation } from "wouter";
 import { Menu, X, Phone, ChevronDown } from "lucide-react";
 
-const LOGO_WHITE =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/newport-logo-nav-v3_456c5ad6.png";
+const LOGO_NAV =
+  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/logo-horizontal_25cdc63f.png";
 
 const maintenanceItems = [
   { label: "Lawn Service", href: "/services/lawn-service" },
@@ -168,12 +168,12 @@ export default function Navbar() {
             </div>
 
             {/* Centered logo */}
-            <div className="flex-shrink-0 mx-8" style={{ width: "340px", display: "flex", justifyContent: "center" }}>
+            <div className="flex-shrink-0 mx-8" style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
               <button onClick={() => goTo("/")}>
                 <img
-                  src={LOGO_WHITE}
+                  src={LOGO_NAV}
                   alt="Newport Avenue Landscaping"
-                  style={{ height: "260px", width: "auto", objectFit: "contain", display: "block", marginTop: "-105px" }}
+                  style={{ height: "56px", width: "auto", objectFit: "contain", display: "block" }}
                 />
               </button>
             </div>
@@ -246,9 +246,9 @@ export default function Navbar() {
 
           <button onClick={() => goTo("/")}>
             <img
-              src={LOGO_WHITE}
+              src={LOGO_NAV}
               alt="Newport Avenue Landscaping"
-              style={{ height: "52px", width: "auto", objectFit: "contain" }}
+              style={{ height: "44px", width: "auto", objectFit: "contain" }}
             />
           </button>
 

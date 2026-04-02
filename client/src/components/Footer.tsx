@@ -5,8 +5,8 @@
    ============================================================ */
 import { useLocation } from "wouter";
 
-const LOGO_WHITE =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/newport-logo-white_008ab0fa.png";
+const LOGO_STACKED =
+  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/logo-transparent-stacked_ff350b79.png";
 
 const maintenanceLinks = [
   { label: "Lawn Service", href: "/services/lawn-service" },
@@ -55,9 +55,10 @@ export default function Footer() {
           <div className="lg:col-span-1">
             <button onClick={() => go("/")} className="mb-5 block">
               <img
-                src={LOGO_WHITE}
+                src={LOGO_STACKED}
                 alt="Newport Avenue Landscaping"
-                className="h-14 w-auto"
+                className="h-24 w-auto"
+                style={{ filter: "brightness(0) invert(1)" }}
               />
             </button>
             <p
