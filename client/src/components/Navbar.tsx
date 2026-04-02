@@ -7,26 +7,28 @@
    Mobile: hamburger menu, logo centered.
    ============================================================ */
 import { useState, useEffect } from "react";
+import { useLocation } from "wouter";
 import { Menu, X, Phone } from "lucide-react";
 
 const LOGO_WHITE =
   "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/newport-logo-nav-v3_456c5ad6.png";
 
 const navLeft = [
-  { label: "About", href: "#about" },
-  { label: "Our Work", href: "#portfolio" },
-  { label: "Contact", href: "#contact" },
+  { label: "About", href: "/about" },
+  { label: "Our Work", href: "/our-work" },
+  { label: "Contact", href: "/contact" },
 ];
 
 const navRight = [
-  { label: "Maintenance", href: "#services" },
-  { label: "Install", href: "#services" },
-  { label: "Services", href: "#services" },
+  { label: "Maintenance", href: "/maintenance" },
+  { label: "Install", href: "/install" },
+  { label: "Services", href: "/services" },
 ];
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [location, navigate] = useLocation();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 40);
@@ -38,6 +40,9 @@ export default function Navbar() {
     setMobileOpen(false);
     if (href.startsWith("#")) {
       document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
+    } else if (href.startsWith("/")) {
+      navigate(href);
+      window.scrollTo({ top: 0, behavior: "smooth" });
     } else {
       window.location.href = href;
     }
@@ -90,9 +95,9 @@ export default function Navbar() {
                   key={item.label}
                   onClick={() => scrollTo(item.href)}
                   className="font-nav transition-colors duration-200"
-                  style={{ color: "oklch(0.82 0.003 0)" }}
+                  style={{ color: location === item.href ? "oklch(0.72 0.12 25)" : "oklch(0.82 0.003 0)" }}
                   onMouseEnter={(e) => (e.currentTarget.style.color = "oklch(0.72 0.12 25)")}
-                  onMouseLeave={(e) => (e.currentTarget.style.color = "oklch(0.82 0.003 0)")}
+                  onMouseLeave={(e) => (e.currentTarget.style.color = location === item.href ? "oklch(0.72 0.12 25)" : "oklch(0.82 0.003 0)")}
                 >
                   {item.label}
                 </button>
@@ -101,7 +106,7 @@ export default function Navbar() {
 
             {/* Centered logo — shifted up so the text portion aligns with nav links */}
             <div className="flex-shrink-0 mx-8" style={{ width: "340px", display: "flex", justifyContent: "center" }}>
-              <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
+              <button onClick={() => { navigate("/"); window.scrollTo({ top: 0, behavior: "smooth" }); }}>
                 <img
                   src={LOGO_WHITE}
                   alt="Newport Avenue Landscaping"
@@ -140,7 +145,7 @@ export default function Navbar() {
             {mobileOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
 
-          <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
+          <button onClick={() => { navigate("/"); window.scrollTo({ top: 0, behavior: "smooth" }); }}>
             <img
               src={LOGO_WHITE}
               alt="Newport Avenue Landscaping"
@@ -177,7 +182,7 @@ export default function Navbar() {
               </button>
             ))}
             <button
-              onClick={() => scrollTo("#contact")}
+              onClick={() => scrollTo("/contact")}
               className="btn-red mt-2"
             >
               Start Service

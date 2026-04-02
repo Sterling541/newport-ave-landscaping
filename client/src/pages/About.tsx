@@ -1,0 +1,355 @@
+/* ============================================================
+   ABOUT PAGE — Newport Ave Landscaping
+   Design: Dark charcoal + cream. Serif display headings.
+   Founder story, timeline, management team.
+   ============================================================ */
+import { useEffect, useRef, useState } from "react";
+import { Link } from "wouter";
+
+const TEAM_PHOTO = "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/team_photo_d9a1d108.webp";
+
+const timeline = [
+  {
+    year: "2005",
+    title: "TURF Launched",
+    description:
+      "Sterling West finished school at OSU and with an unbridled entrepreneurial spirit, borrowed his Dad's old farm truck and started a lawn maintenance company called TURF.",
+  },
+  {
+    year: "2011",
+    title: "TURF Overgrown",
+    description:
+      "TURF had grown to 8 employees and over 250 weekly maintenance accounts. Customers continued to ask for landscape construction, so we started hiring experts.",
+  },
+  {
+    year: "2012",
+    title: "Newport Ave Landscaping",
+    description:
+      "TURF changes to Newport Ave Landscaping — initially located at Newport Ave and 14th — and offers clients both maintenance and design & build service.",
+  },
+  {
+    year: "2022",
+    title: "Largest in Central Oregon",
+    description:
+      "Growth doubles each year and Newport Ave Landscaping becomes the largest landscaper in Central Oregon with a team of 150+ professionals.",
+  },
+];
+
+const team = [
+  { name: "Jana", role: "General Manager" },
+  { name: "Mykiah", role: "Front Office" },
+  { name: "Aurora", role: "Project Manager" },
+  { name: "Chris", role: "Project Manager" },
+  { name: "Annelie", role: "Lead Landscape Designer" },
+  { name: "Milton", role: "Maintenance Dept. Manager" },
+  { name: "Francis", role: "Irrigation Technician" },
+  { name: "John", role: "Landscape Consultant" },
+  { name: "Nathan", role: "Landscape Consultant" },
+  { name: "Jesus", role: "Construction Foreman" },
+  { name: "Patrick", role: "Construction Foreman" },
+  { name: "Tommy", role: "Construction Foreman" },
+  { name: "Miguel", role: "Construction Foreman" },
+  { name: "Neri", role: "Maintenance Lead" },
+];
+
+function FadeIn({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) setVisible(true); },
+      { threshold: 0.1 }
+    );
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, []);
+  return (
+    <div
+      ref={ref}
+      className={className}
+      style={{
+        opacity: visible ? 1 : 0,
+        transform: visible ? "translateY(0)" : "translateY(28px)",
+        transition: `opacity 0.7s ease ${delay}s, transform 0.7s ease ${delay}s`,
+      }}
+    >
+      {children}
+    </div>
+  );
+}
+
+export default function About() {
+  return (
+    <div style={{ backgroundColor: "oklch(0.97 0.012 85)" }}>
+
+      {/* ── Hero ── */}
+      <section
+        className="relative flex items-end"
+        style={{
+          height: "clamp(320px, 45vw, 520px)",
+          backgroundColor: "oklch(0.12 0.005 0)",
+        }}
+      >
+        <img
+          src={TEAM_PHOTO}
+          alt="Newport Ave Landscaping team"
+          style={{
+            position: "absolute", inset: 0, width: "100%", height: "100%",
+            objectFit: "cover", objectPosition: "center top", opacity: 0.45,
+          }}
+        />
+        <div
+          className="absolute inset-0"
+          style={{ background: "linear-gradient(0deg, oklch(0.10 0.005 0 / 0.90) 0%, oklch(0 0 0 / 0.20) 60%)" }}
+        />
+        <div className="container relative pb-14 pt-32">
+          <div className="font-label mb-3 flex items-center gap-3" style={{ color: "oklch(0.72 0.12 25)" }}>
+            <span className="inline-block h-px w-7" style={{ backgroundColor: "oklch(0.46 0.20 25)" }} />
+            Our Story
+          </div>
+          <h1
+            className="font-display font-light text-white"
+            style={{ fontSize: "clamp(2.4rem, 6vw, 5rem)", lineHeight: 1.0 }}
+          >
+            About Newport Ave<br />
+            <em style={{ color: "oklch(0.75 0.10 25)" }}>Landscaping</em>
+          </h1>
+        </div>
+      </section>
+
+      {/* ── Founder Story ── */}
+      <section className="py-24" style={{ backgroundColor: "oklch(1 0 0)" }}>
+        <div className="container">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <FadeIn>
+              <div className="font-label mb-4 flex items-center gap-3" style={{ color: "oklch(0.46 0.20 25)" }}>
+                <span className="inline-block h-px w-7" style={{ backgroundColor: "oklch(0.46 0.20 25)" }} />
+                Our Founder
+              </div>
+              <h2
+                className="font-display font-light mb-6"
+                style={{ fontSize: "clamp(1.8rem, 3.5vw, 3rem)", color: "oklch(0.15 0.005 0)", lineHeight: 1.1 }}
+              >
+                3rd Generation<br />
+                <em style={{ color: "oklch(0.46 0.20 25)" }}>Landscape Professional</em>
+              </h2>
+              <div className="space-y-5 font-body" style={{ color: "oklch(0.38 0.008 0)", lineHeight: 1.8, fontWeight: 300 }}>
+                <p>
+                  My grandfather founded and operated the largest landscaping company in Orange County, California in 1960 — Orange County Landscaping, Inc. After college, I noticed a void of high-quality landscapers in Bend. As a 3rd generation landscape construction professional, I founded Newport Ave Landscaping with the intention of setting a new standard of service and workmanship in the industry.
+                </p>
+                <p>
+                  Today, we've grown to become the largest landscaper in Central Oregon. Our work has been published twice in <em>Architectural Digest</em> magazine, and we've designed outdoor living spaces for top executives, athletes, and celebrities — including Shaun White, Mark Hoppus (Blink-182), Steven Tyler (Aerosmith), Rihanna, Kim Kardashian, and more.
+                </p>
+                <p>
+                  I encourage you to look at the testimonials on this website and reviews on Google, Bing, Home Advisor, and the BBB. Thank you for considering Newport Ave Landscaping.
+                </p>
+              </div>
+              <div
+                className="mt-8 pt-6 flex items-center gap-4"
+                style={{ borderTop: "1px solid oklch(0.90 0.010 85)" }}
+              >
+                <div>
+                  <div className="font-display font-medium" style={{ color: "oklch(0.15 0.005 0)", fontSize: "1.05rem" }}>
+                    Sterling West
+                  </div>
+                  <div className="font-label" style={{ color: "oklch(0.46 0.20 25)", fontSize: "0.72rem" }}>
+                    President &amp; Principal Designer
+                  </div>
+                </div>
+              </div>
+            </FadeIn>
+
+            <FadeIn delay={0.15}>
+              {/* Stats grid */}
+              <div className="grid grid-cols-2 gap-4">
+                {[
+                  { num: "21+", label: "Years in Business" },
+                  { num: "150+", label: "Team Members" },
+                  { num: "2×", label: "Published in Arch Digest" },
+                  { num: "#1", label: "Largest in Central Oregon" },
+                ].map((stat) => (
+                  <div
+                    key={stat.label}
+                    className="p-7"
+                    style={{ backgroundColor: "oklch(0.97 0.012 85)" }}
+                  >
+                    <div
+                      className="font-display font-light mb-1"
+                      style={{ fontSize: "2.8rem", color: "oklch(0.46 0.20 25)", lineHeight: 1 }}
+                    >
+                      {stat.num}
+                    </div>
+                    <div className="font-label" style={{ color: "oklch(0.45 0.008 0)", fontSize: "0.72rem" }}>
+                      {stat.label}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </FadeIn>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Timeline ── */}
+      <section className="py-24" style={{ backgroundColor: "oklch(0.15 0.005 0)" }}>
+        <div className="container">
+          <FadeIn>
+            <div className="font-label mb-4 flex items-center gap-3" style={{ color: "oklch(0.72 0.12 25)" }}>
+              <span className="inline-block h-px w-7" style={{ backgroundColor: "oklch(0.46 0.20 25)" }} />
+              Our History
+            </div>
+            <h2
+              className="font-display font-light text-white mb-14"
+              style={{ fontSize: "clamp(1.8rem, 3.5vw, 3rem)", lineHeight: 1.1 }}
+            >
+              Two Decades of<br />
+              <em style={{ color: "oklch(0.75 0.10 25)" }}>Growth &amp; Excellence</em>
+            </h2>
+          </FadeIn>
+
+          <div className="relative">
+            {/* Vertical line */}
+            <div
+              className="absolute left-0 top-0 bottom-0 hidden md:block"
+              style={{ width: "2px", backgroundColor: "oklch(0.46 0.20 25 / 0.35)", left: "80px" }}
+            />
+            <div className="space-y-12">
+              {timeline.map((item, i) => (
+                <FadeIn key={item.year} delay={i * 0.1}>
+                  <div className="flex gap-8 items-start">
+                    <div
+                      className="hidden md:flex flex-shrink-0 w-20 h-20 rounded-full items-center justify-center font-display font-light text-white"
+                      style={{
+                        backgroundColor: "oklch(0.46 0.20 25)",
+                        fontSize: "1.1rem",
+                        minWidth: "80px",
+                      }}
+                    >
+                      {item.year}
+                    </div>
+                    <div className="pt-2">
+                      <div className="font-label mb-1 md:hidden" style={{ color: "oklch(0.46 0.20 25)" }}>
+                        {item.year}
+                      </div>
+                      <h3
+                        className="font-display font-light text-white mb-2"
+                        style={{ fontSize: "1.3rem" }}
+                      >
+                        {item.title}
+                      </h3>
+                      <p
+                        className="font-body"
+                        style={{ color: "oklch(0.70 0.008 0)", fontWeight: 300, lineHeight: 1.7, maxWidth: "560px" }}
+                      >
+                        {item.description}
+                      </p>
+                    </div>
+                  </div>
+                </FadeIn>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Team ── */}
+      <section className="py-24" style={{ backgroundColor: "oklch(0.97 0.012 85)" }}>
+        <div className="container">
+          <FadeIn>
+            <div className="font-label mb-4 flex items-center gap-3" style={{ color: "oklch(0.46 0.20 25)" }}>
+              <span className="inline-block h-px w-7" style={{ backgroundColor: "oklch(0.46 0.20 25)" }} />
+              The People Behind the Work
+            </div>
+            <h2
+              className="font-display font-light mb-14"
+              style={{ fontSize: "clamp(1.8rem, 3.5vw, 3rem)", color: "oklch(0.15 0.005 0)", lineHeight: 1.1 }}
+            >
+              Our Management<br />
+              <em style={{ color: "oklch(0.46 0.20 25)" }}>Team</em>
+            </h2>
+          </FadeIn>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 mb-8">
+            {team.map((member, i) => (
+              <FadeIn key={member.name} delay={i * 0.05}>
+                <div
+                  className="p-5 text-center"
+                  style={{ backgroundColor: "oklch(1 0 0)" }}
+                >
+                  {/* Avatar placeholder with initials */}
+                  <div
+                    className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-3 font-display font-light text-white"
+                    style={{ backgroundColor: "oklch(0.46 0.20 25)", fontSize: "1.2rem" }}
+                  >
+                    {member.name.charAt(0)}
+                  </div>
+                  <div
+                    className="font-display font-medium mb-1"
+                    style={{ fontSize: "0.95rem", color: "oklch(0.15 0.005 0)" }}
+                  >
+                    {member.name}
+                  </div>
+                  <div
+                    className="font-label"
+                    style={{ fontSize: "0.65rem", color: "oklch(0.46 0.20 25)" }}
+                  >
+                    {member.role}
+                  </div>
+                </div>
+              </FadeIn>
+            ))}
+          </div>
+
+          {/* Plus crew callout */}
+          <FadeIn>
+            <div
+              className="p-8 text-center"
+              style={{ backgroundColor: "oklch(0.15 0.005 0)" }}
+            >
+              <div
+                className="font-display font-light text-white mb-2"
+                style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)" }}
+              >
+                75<span style={{ color: "oklch(0.72 0.12 25)" }}>+</span>
+              </div>
+              <div className="font-label" style={{ color: "oklch(0.60 0.008 0)" }}>
+                Incredibly Hard-Working Landscapers in the Field Every Day
+              </div>
+            </div>
+          </FadeIn>
+        </div>
+      </section>
+
+      {/* ── CTA ── */}
+      <section
+        className="py-20 text-center"
+        style={{ backgroundColor: "oklch(0.46 0.20 25)" }}
+      >
+        <div className="container">
+          <FadeIn>
+            <h2
+              className="font-display font-light text-white mb-4"
+              style={{ fontSize: "clamp(1.8rem, 3.5vw, 3rem)" }}
+            >
+              Ready to Transform Your Landscape?
+            </h2>
+            <p
+              className="font-body mb-8 mx-auto"
+              style={{ color: "oklch(0.92 0.05 25)", fontWeight: 300, maxWidth: "480px" }}
+            >
+              Let's start a conversation about your outdoor vision. Our team is ready to bring it to life.
+            </p>
+            <Link
+              href="/contact"
+              className="inline-block font-label px-10 py-4 text-white"
+              style={{ backgroundColor: "oklch(0.15 0.005 0)", letterSpacing: "0.12em" }}
+            >
+              GET A FREE QUOTE
+            </Link>
+          </FadeIn>
+        </div>
+      </section>
+
+    </div>
+  );
+}
