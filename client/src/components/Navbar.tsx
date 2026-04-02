@@ -20,7 +20,6 @@ const navLeft = [
 
 const navRight = [
   { label: "Maintenance", href: "#services" },
-  { label: "Reviews", href: "#reviews" },
   { label: "Contact", href: "#contact" },
 ];
 
@@ -97,7 +96,7 @@ export default function Navbar() {
             </div>
 
             {/* Centered logo */}
-            <div className="flex-shrink-0 mx-4" style={{ width: "280px", display: "flex", justifyContent: "center" }}>
+            <div className="flex-shrink-0 mx-8" style={{ width: "340px", display: "flex", justifyContent: "center" }}>
               <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
                 <img
                   src={LOGO_WHITE}
