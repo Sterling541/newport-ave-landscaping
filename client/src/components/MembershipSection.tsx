@@ -128,7 +128,7 @@ export default function MembershipSection() {
             style={{
               backgroundColor: "oklch(0.46 0.20 25)",
               padding: "3rem",
-              borderRadius: "0.35rem 2.5rem 2.5rem 0.35rem",
+              borderRadius: "1.2rem 0.15rem 1.2rem 0.15rem",
             }}
           >
             {/* Decorative corner */}
@@ -145,7 +145,7 @@ export default function MembershipSection() {
               style={{
                 backgroundColor: "oklch(1 0 0 / 0.15)",
                 color: "oklch(1 0 0)",
-                borderRadius: "0.25rem 1.5rem 1.5rem 0.25rem",
+                borderRadius: "1.2rem 0.15rem 1.2rem 0.15rem",
               }}
             >
               <Droplets size={28} strokeWidth={1.5} />
