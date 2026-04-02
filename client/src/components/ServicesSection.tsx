@@ -6,17 +6,14 @@
    Below: 4-column service grid on cream background.
    ============================================================ */
 import { useEffect, useRef, useState } from "react";
-
-// Custom artist-drawn service icons from newportavelandscaping.com
-const CDN = "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx";
-const ICONS = {
-  sprinklers: `${CDN}/icon_sprinklers_and_irrigation_c476b59e.svg`,
-  design:     `${CDN}/icon_custom_design_and_build_e2ab5689.svg`,
-  pavers:     `${CDN}/icon_patio_pavers_and_walkways_ce98fcac.svg`,
-  maintenance:`${CDN}/icon_landscape_maintenance_4e143b90.svg`,
-  water:      `${CDN}/icon_water_features_d2983ad9.svg`,
-  outdoor:    `${CDN}/icon_outdoor_living_areas_50fb1e5f.svg`,
-};
+import {
+  SprinklersIcon,
+  DesignIcon,
+  PaversIcon,
+  MaintenanceIcon,
+  WaterIcon,
+  OutdoorIcon,
+} from "./ServiceIcons";
 
 // Featured service photo cards (top 3 — Southview style)
 const featuredServices = [
@@ -40,40 +37,40 @@ const featuredServices = [
   },
 ];
 
-// Full service list — using custom artist-drawn icons
+// Full service list — using custom artist-drawn inline SVG icons
 const services = [
   {
-    iconSrc: ICONS.design,
+    IconComponent: DesignIcon,
     title: "Custom Design & Build",
     description:
       "Award-winning designers bring your outdoor vision to life. Backed by a team of 150+ professionals — one of Central Oregon's largest landscaping crews.",
   },
   {
-    iconSrc: ICONS.sprinklers,
+    IconComponent: SprinklersIcon,
     title: "Sprinklers & Irrigation",
     description:
       "Dedicated full-time team for sprinkler installation, repair, and maintenance. Custom systems for residential, commercial, and HOA properties.",
   },
   {
-    iconSrc: ICONS.pavers,
+    IconComponent: PaversIcon,
     title: "Pavers & Walkways",
     description:
       "Driveways, walkways, flagstone patios, and decorative paver installations for homes and commercial properties.",
   },
   {
-    iconSrc: ICONS.maintenance,
+    IconComponent: MaintenanceIcon,
     title: "Landscape Maintenance",
     description:
       "Weekly lawn care, spring/fall clean-ups, aeration, and seasonal maintenance plans tailored to your property.",
   },
   {
-    iconSrc: ICONS.water,
+    IconComponent: WaterIcon,
     title: "Water Features",
     description:
       "Ponds, streams, koi ponds, and bubbling fountains — crafted by Central Oregon's most trusted pond contractors.",
   },
   {
-    iconSrc: ICONS.outdoor,
+    IconComponent: OutdoorIcon,
     title: "Outdoor Living",
     description:
       "Fire pits, outdoor kitchens, pergolas, and custom living spaces designed for entertaining and relaxation.",
@@ -126,11 +123,7 @@ function ServiceCard({
         className="w-14 h-14 rounded-full flex items-center justify-center mb-5 transition-transform duration-300 group-hover:scale-105"
         style={{ backgroundColor: "oklch(0.46 0.20 25)" }}
       >
-        <img
-          src={service.iconSrc}
-          alt={service.title}
-          style={{ width: "32px", height: "32px", objectFit: "contain" }}
-        />
+        <service.IconComponent size={30} />
       </div>
       <h3
         className="font-display mb-2"
