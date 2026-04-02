@@ -232,8 +232,7 @@ export default function ServicePageLayout({
             </p>
             <Link
               href="/contact"
-              className="inline-block font-label px-10 py-4 text-white"
-              style={{ backgroundColor: "oklch(0.15 0.005 0)", letterSpacing: "0.12em" }}
+              className="btn-red"
             >
               GET A FREE QUOTE
             </Link>
@@ -254,7 +253,7 @@ export default function ServicePageLayout({
                   key={link.href}
                   href={link.href}
                   className="font-label px-5 py-2 text-white transition-opacity hover:opacity-75"
-                  style={{ backgroundColor: "oklch(0.25 0.005 0)", fontSize: "0.68rem", letterSpacing: "0.08em" }}
+                  style={{ backgroundColor: "oklch(0.25 0.005 0)", fontSize: "0.68rem", letterSpacing: "0.08em", borderRadius: "0.25rem 1.5rem 1.5rem 0.25rem" }}
                 >
                   {link.label}
                 </Link>

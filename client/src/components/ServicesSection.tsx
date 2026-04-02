@@ -129,6 +129,7 @@ function ServiceCard({
       style={{
         backgroundColor: "oklch(1 0 0)",
         borderBottom: "3px solid transparent",
+        borderRadius: "0.35rem 1.5rem 1.5rem 0.35rem",
         opacity: visible ? 1 : 0,
         transform: visible ? "translateY(0)" : "translateY(24px)",
         transition: `opacity 0.6s ease, transform 0.6s ease, border-color 0.3s ease, box-shadow 0.3s ease`,

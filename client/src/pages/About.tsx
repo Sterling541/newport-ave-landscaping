@@ -343,7 +343,7 @@ export default function About() {
             </p>
             <Link
               href="/contact"
-              className="inline-block font-label px-10 py-4 text-white"
+              className="btn-red"
               style={{ backgroundColor: "oklch(0.15 0.005 0)", letterSpacing: "0.12em" }}
             >
               GET A FREE QUOTE
