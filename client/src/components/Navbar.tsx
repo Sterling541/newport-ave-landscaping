@@ -10,18 +10,18 @@ import { useState, useEffect } from "react";
 import { Menu, X, Phone } from "lucide-react";
 
 const LOGO_WHITE =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/newport-logo-nav-v3_60ba11f0.png";
+  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/newport-logo-nav-v3_456c5ad6.png";
 
 const navLeft = [
   { label: "About", href: "#about" },
   { label: "Our Work", href: "#portfolio" },
-  { label: "Services", href: "#services" },
+  { label: "Contact", href: "#contact" },
 ];
 
 const navRight = [
-  { label: "Contact", href: "#contact" },
   { label: "Maintenance", href: "#services" },
   { label: "Install", href: "#services" },
+  { label: "Services", href: "#services" },
 ];
 
 export default function Navbar() {
