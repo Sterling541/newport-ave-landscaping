@@ -152,9 +152,9 @@
   text-transform: uppercase;
 }
 
-/* ── Button styles ── 
-   Asymmetric shape: small radius on BOTH left corners, large full curve on BOTH right corners
-   Matches the Newport Ave sign button — border-radius: small small large large (TL TR BR BL)
+/* ── Buttons ──────────────────────────────────────────────────────────────────
+   Leaf / D-shape: matches the Newport Ave leaf icon silhouette
+   Sharp left corners, full semicircle on the right side
    CSS order: top-left top-right bottom-right bottom-left
 */
 .btn-red {
@@ -171,7 +171,7 @@
   letter-spacing: 0.16em;
   text-transform: uppercase;
   border: none;
-  border-radius: 0.35rem 2.5rem 2.5rem 0.35rem;
+  border-radius: 0.2rem 50% 50% 0.2rem;
   transition: background-color 0.25s ease, transform 0.2s ease, box-shadow 0.2s ease;
   box-shadow: 3px 3px 0 oklch(0.30 0.18 25);
 }
@@ -199,7 +199,7 @@
   letter-spacing: 0.16em;
   text-transform: uppercase;
   border: 1.5px solid oklch(0.22 0.008 0);
-  border-radius: 0.35rem 2.5rem 2.5rem 0.35rem;
+  border-radius: 0.2rem 50% 50% 0.2rem;
   transition: background-color 0.25s ease, color 0.25s ease;
 }
 .btn-outline-dark:hover {
@@ -221,7 +221,7 @@
   letter-spacing: 0.16em;
   text-transform: uppercase;
   border: 1.5px solid oklch(1 0 0 / 0.70);
-  border-radius: 0.35rem 2.5rem 2.5rem 0.35rem;
+  border-radius: 0.2rem 50% 50% 0.2rem;
   transition: background-color 0.25s ease, border-color 0.25s ease;
 }
 .btn-outline-white:hover {
