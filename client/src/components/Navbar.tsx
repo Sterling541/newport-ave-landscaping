@@ -31,6 +31,7 @@ const servicesItems = [
   { label: "Outdoor Kitchens & Living", href: "/services/outdoor-living" },
   { label: "Fire Pits & Fireplaces", href: "/services/fire-features" },
   { label: "Landscape Lighting", href: "/services/landscape-lighting" },
+  { label: "Xeriscaping", href: "/services/xeriscaping" },
 ];
 
 const navLeft = [

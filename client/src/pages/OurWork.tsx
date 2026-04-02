@@ -4,7 +4,7 @@
    Three projects: Suchy Backyard, Hosmer Lake Dr, McGrath Road
    ============================================================ */
 import { useEffect, useRef, useState } from "react";
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
@@ -93,15 +93,16 @@ const MCGRATH_PHOTOS = [
 
 // Legacy portfolio from existing site (scraped)
 const LEGACY_PROJECTS = [
-  { title: "Broken Top Water Feature & Sunken Fire Pit", category: "Water Features · Fire Features", img: "https://newportavelandscaping.com/wp-content/uploads/2022/05/bend-oregon-brokentop-driveway-finished.jpg" },
-  { title: "NW Bend Backyard Landscaping", category: "Design & Build · Water Features", img: "https://newportavelandscaping.com/wp-content/uploads/2022/05/nw-bend-backyard-install-pondless-water-feature-pathway-with-lighting-1.jpeg" },
-  { title: "East Bend Landscape Install", category: "Design & Build · Irrigation", img: "https://newportavelandscaping.com/wp-content/uploads/2022/05/east-bend-landscape-install-finished-backyard-aeriel-view2.jpg" },
-  { title: "Paver Patio & Gas Firepit", category: "Pavers · Fire Features", img: "https://newportavelandscaping.com/wp-content/uploads/2022/05/bend-oregon-paver-patio-gas-firepit-photo-1.jpg" },
-  { title: "Awbrey Butte Xeriscape", category: "Xeriscaping · Design & Build", img: "https://newportavelandscaping.com/wp-content/uploads/2022/05/awbrey-butte-xeriscape-landscaping-renovation-day-shot.jpg" },
-  { title: "Century Drive Landscape Enhancement", category: "Design & Build · Planting", img: "https://newportavelandscaping.com/wp-content/uploads/2022/05/century-drive-landscape-enhancement-finished-1.jpg" },
-  { title: "Westside Outdoor Living Space", category: "Outdoor Living · Pavers", img: "https://newportavelandscaping.com/wp-content/uploads/2022/05/westside-outdoor-living-space-finished-1.jpg" },
-  { title: "Awbrey Butte Patio Extension & Wall", category: "Pavers · Retaining Walls", img: "https://newportavelandscaping.com/wp-content/uploads/2022/05/awbrey-butte-patio-extension-wall-finished-1.jpg" },
-  { title: "Awbrey Glenn Flagstone Patio & Walkway", category: "Pavers · Walkways", img: "https://newportavelandscaping.com/wp-content/uploads/2022/05/awbrey-glenn-flagstone-patio-walkway-finished-1.jpg" },
+  { title: "Broken Top Water Feature & Sunken Fire Pit", category: "Water Features · Fire Features", img: "https://newportavelandscaping.com/wp-content/uploads/2022/05/Brokentop-Water-Feature-and-Sunken-Fire-Pit-After-Picture.jpg", href: "/portfolio/broken-top-water-feature" },
+  { title: "NW Bend Backyard Landscaping", category: "Design & Build · Water Features", img: "https://newportavelandscaping.com/wp-content/uploads/2022/05/NW-Bend-Backyard-After-Picture.jpg", href: "/portfolio/nw-bend-backyard" },
+  { title: "East Bend Landscape Install", category: "Design & Build · Irrigation", img: "https://newportavelandscaping.com/wp-content/uploads/2022/05/east-bend-landscape-install-finished-backyard-aeriel-view2-1.jpg", href: "/portfolio/east-bend-landscape" },
+  { title: "Paver Patio & Gas Firepit", category: "Pavers · Fire Features", img: "https://newportavelandscaping.com/wp-content/uploads/2022/05/bend-oregon-paver-patio-gas-firepit-photo-2.jpg", href: "/portfolio/paver-patio-firepit" },
+  { title: "Awbrey Butte Xeriscape", category: "Xeriscaping · Design & Build", img: "https://newportavelandscaping.com/wp-content/uploads/2022/05/awbrey-butte-xeriscape-landscaping-renovation-day-shot.jpg", href: "/portfolio/awbrey-butte-xeriscape" },
+  { title: "Century Drive Landscape Enhancement", category: "Design & Build · Planting", img: "https://newportavelandscaping.com/wp-content/uploads/2022/05/century-drive-bend-oregon-stream-pondless-water-feature-enhancement-front-view.jpg", href: "/portfolio/century-drive" },
+  { title: "Broken Top Xeriscape", category: "Xeriscaping · Design & Build", img: "https://newportavelandscaping.com/wp-content/uploads/2022/05/Bend-OR-Brokentop-Xeriscape-After-Picture.jpg", href: "/portfolio/broken-top-xeriscape" },
+  { title: "Awbrey Glenn Flagstone Patio & Walkway", category: "Pavers · Walkways", img: "https://newportavelandscaping.com/wp-content/uploads/2022/05/awbrey-glen-flagstone-front-walkway-after-photo-1.jpg", href: "/portfolio/awbrey-glenn-flagstone" },
+  { title: "SW Bend Backyard Landscaping", category: "Outdoor Living · Design & Build", img: "https://newportavelandscaping.com/wp-content/uploads/2022/05/south-west-bend-oregon-campground-backyard-full-view-2.jpg", href: "/portfolio/sw-bend-backyard" },
+  { title: "Backyard Landscape Renovation", category: "Full Renovation · Design & Build", img: "https://newportavelandscaping.com/wp-content/uploads/2022/05/south-east-bend-oregon-backyard-landscape-renovation-after-photo-1-2-768x512.jpg", href: "/portfolio/backyard-renovation" },
 ];
 
 const PROJECTS = [
@@ -134,6 +135,7 @@ const PROJECTS = [
 interface LightboxState { projectId: string; index: number; isLegacy?: boolean; }
 
 export default function OurWork() {
+  const [, navigate] = useLocation();
   const [lightbox, setLightbox] = useState<LightboxState | null>(null);
   const [activeTab, setActiveTab] = useState<"featured" | "legacy">("featured");
   const [activeProject, setActiveProject] = useState<string | null>(null);
@@ -339,7 +341,7 @@ export default function OurWork() {
               {LEGACY_PROJECTS.map((project, i) => (
                 <FadeIn key={project.title} delay={i * 0.05}>
                   <button
-                    onClick={() => openLightbox("legacy", i, true)}
+                    onClick={() => project.href ? (navigate(project.href), window.scrollTo({ top: 0, behavior: "smooth" })) : openLightbox("legacy", i, true)}
                     className="photo-card group w-full"
                     style={{ aspectRatio: "4/3", display: "block" }}
                   >

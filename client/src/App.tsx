@@ -34,10 +34,23 @@ import WaterFeatures from "./pages/services/WaterFeatures";
 import OutdoorLiving from "./pages/services/OutdoorLiving";
 import FireFeatures from "./pages/services/FireFeatures";
 import LandscapeLighting from "./pages/services/LandscapeLighting";
+import Xeriscaping from "./pages/services/Xeriscaping";
 
 // Blog posts
 import ClimateChange from "./pages/blog/ClimateChange";
 import SeasonalGuide from "./pages/blog/SeasonalGuide";
+
+// Portfolio project pages
+import AwbreyButteXeriscape from "./pages/portfolio/AwbreyButteXeriscape";
+import AwbreyGlennFlagstone from "./pages/portfolio/AwbreyGlennFlagstone";
+import BackyardRenovation from "./pages/portfolio/BackyardRenovation";
+import BrokenTopWaterFeature from "./pages/portfolio/BrokenTopWaterFeature";
+import BrokenTopXeriscape from "./pages/portfolio/BrokenTopXeriscape";
+import CenturyDrive from "./pages/portfolio/CenturyDrive";
+import EastBendLandscape from "./pages/portfolio/EastBendLandscape";
+import NWBendBackyard from "./pages/portfolio/NWBendBackyard";
+import PaverPatioFirepit from "./pages/portfolio/PaverPatioFirepit";
+import SWBendBackyard from "./pages/portfolio/SWBendBackyard";
 
 function Router() {
   return (
@@ -72,10 +85,23 @@ function Router() {
       <Route path={"/services/outdoor-living"} component={OutdoorLiving} />
       <Route path={"/services/fire-features"} component={FireFeatures} />
       <Route path={"/services/landscape-lighting"} component={LandscapeLighting} />
+      <Route path={"/services/xeriscaping"} component={Xeriscaping} />
 
       {/* Blog posts */}
       <Route path={"/blog/climate-change-landscaping"} component={ClimateChange} />
       <Route path={"/blog/seasonal-landscaping-guide"} component={SeasonalGuide} />
+
+      {/* Portfolio project pages */}
+      <Route path={"/portfolio/awbrey-butte-xeriscape"} component={AwbreyButteXeriscape} />
+      <Route path={"/portfolio/awbrey-glenn-flagstone"} component={AwbreyGlennFlagstone} />
+      <Route path={"/portfolio/backyard-renovation"} component={BackyardRenovation} />
+      <Route path={"/portfolio/broken-top-water-feature"} component={BrokenTopWaterFeature} />
+      <Route path={"/portfolio/broken-top-xeriscape"} component={BrokenTopXeriscape} />
+      <Route path={"/portfolio/century-drive"} component={CenturyDrive} />
+      <Route path={"/portfolio/east-bend-landscape"} component={EastBendLandscape} />
+      <Route path={"/portfolio/nw-bend-backyard"} component={NWBendBackyard} />
+      <Route path={"/portfolio/paver-patio-firepit"} component={PaverPatioFirepit} />
+      <Route path={"/portfolio/sw-bend-backyard"} component={SWBendBackyard} />
 
       {/* Fallback */}
       <Route path={"/404"} component={NotFound} />
