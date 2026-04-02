@@ -152,13 +152,16 @@
   text-transform: uppercase;
 }
 
-/* ── Button styles ── */
+/* ── Button styles ── 
+   Asymmetric leaf shape: flat top-left & bottom-left, curved top-right & bottom-right
+   Matches the Newport Ave sign button silhouette
+*/
 .btn-red {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  padding: 0.75rem 2rem;
+  padding: 0.75rem 2.2rem 0.75rem 1.8rem;
   background-color: oklch(0.46 0.20 25);
   color: oklch(1 0 0);
   font-family: 'Montserrat', sans-serif;
@@ -167,11 +170,18 @@
   letter-spacing: 0.16em;
   text-transform: uppercase;
   border: none;
-  transition: background-color 0.25s ease, transform 0.2s ease;
+  border-radius: 0 2.5rem 2.5rem 0.25rem;
+  transition: background-color 0.25s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 3px 3px 0 oklch(0.30 0.18 25);
 }
 .btn-red:hover {
   background-color: oklch(0.38 0.20 25);
-  transform: translateY(-1px);
+  transform: translateY(-2px);
+  box-shadow: 4px 5px 0 oklch(0.28 0.18 25);
+}
+.btn-red:active {
+  transform: translateY(0);
+  box-shadow: 1px 1px 0 oklch(0.28 0.18 25);
 }
 
 .btn-outline-dark {
@@ -179,7 +189,7 @@
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  padding: 0.75rem 2rem;
+  padding: 0.75rem 2.2rem 0.75rem 1.8rem;
   background-color: transparent;
   color: oklch(0.22 0.008 0);
   font-family: 'Montserrat', sans-serif;
@@ -188,6 +198,7 @@
   letter-spacing: 0.16em;
   text-transform: uppercase;
   border: 1.5px solid oklch(0.22 0.008 0);
+  border-radius: 0 2.5rem 2.5rem 0.25rem;
   transition: background-color 0.25s ease, color 0.25s ease;
 }
 .btn-outline-dark:hover {
@@ -200,7 +211,7 @@
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  padding: 0.75rem 2rem;
+  padding: 0.75rem 2.2rem 0.75rem 1.8rem;
   background-color: transparent;
   color: oklch(1 0 0);
   font-family: 'Montserrat', sans-serif;
@@ -209,6 +220,7 @@
   letter-spacing: 0.16em;
   text-transform: uppercase;
   border: 1.5px solid oklch(1 0 0 / 0.70);
+  border-radius: 0 2.5rem 2.5rem 0.25rem;
   transition: background-color 0.25s ease, border-color 0.25s ease;
 }
 .btn-outline-white:hover {

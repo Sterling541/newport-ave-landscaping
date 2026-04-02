@@ -10,7 +10,7 @@ import { useLocation } from "wouter";
 import { Menu, X, Phone, ChevronDown } from "lucide-react";
 
 const LOGO_NAV =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/logo-horizontal_25cdc63f.png";
+  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/newport-logo-nav-v3_456c5ad6.png";
 
 const maintenanceItems = [
   { label: "Lawn Service", href: "/services/lawn-service" },
@@ -168,12 +168,12 @@ export default function Navbar() {
             </div>
 
             {/* Centered logo */}
-            <div className="flex-shrink-0 mx-8" style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+            <div className="flex-shrink-0 mx-8" style={{ width: "340px", display: "flex", justifyContent: "center" }}>
               <button onClick={() => goTo("/")}>
                 <img
                   src={LOGO_NAV}
                   alt="Newport Avenue Landscaping"
-                  style={{ height: "56px", width: "auto", objectFit: "contain", display: "block" }}
+                  style={{ height: "260px", width: "auto", objectFit: "contain", display: "block", marginTop: "-105px" }}
                 />
               </button>
             </div>
