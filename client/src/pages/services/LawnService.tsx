@@ -13,7 +13,7 @@ export default function LawnService() {
       category="Maintenance Services"
       title="Residential Lawn Service"
       subtitle="Bend, Oregon"
-      heroImage="https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=1600&q=80"
+      heroImage="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=1600&q=80"
       heroPosition="center 60%"
       intro="Since 2005, we've provided lawn care and landscape maintenance for thousands of homes located throughout Bend, Redmond, Sisters, and the broader Central Oregon area. From La Pine to Madras and from Prineville to Sisters, our gardeners can be seen beautifying landscapes."
       pricing={[

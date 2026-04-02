@@ -67,7 +67,7 @@ const residentialServices = [
   {
     title: "Retaining Walls",
     description: "Structural and decorative retaining walls in natural stone, concrete block, and timber. We solve drainage and grade challenges while adding beautiful architectural elements to your landscape.",
-    image: "https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=800&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800&auto=format&fit=crop",
   },
   {
     title: "Landscape Lighting",

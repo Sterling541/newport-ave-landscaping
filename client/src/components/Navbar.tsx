@@ -19,6 +19,7 @@ const maintenanceItems = [
   { label: "Spring Activation", href: "/services/sprinkler-activation" },
   { label: "Sprinkler Blowout", href: "/services/sprinkler-blowout" },
   { label: "Snow Removal", href: "/services/snow-removal" },
+  { label: "Lawn Fungus Treatment", href: "/services/lawn-fungus" },
 ];
 
 const servicesItems = [
@@ -35,7 +36,7 @@ const servicesItems = [
 const navLeft = [
   { label: "About", href: "/about" },
   { label: "Our Work", href: "/our-work" },
-  { label: "Contact", href: "/contact" },
+  { label: "Blog", href: "/blog" },
 ];
 
 const navRight = [

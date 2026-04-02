@@ -12,6 +12,9 @@ import Maintenance from "./pages/Maintenance";
 import Services from "./pages/Services";
 import OurWork from "./pages/OurWork";
 import Contact from "./pages/Contact";
+import Blog from "./pages/Blog";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import Terms from "./pages/Terms";
 
 // Maintenance sub-pages
 import LawnService from "./pages/services/LawnService";
@@ -20,6 +23,7 @@ import Aeration from "./pages/services/Aeration";
 import SprinklerActivation from "./pages/services/SprinklerActivation";
 import SprinklerBlowout from "./pages/services/SprinklerBlowout";
 import SnowRemoval from "./pages/services/SnowRemoval";
+import LawnFungus from "./pages/services/LawnFungus";
 
 // Installation / service sub-pages
 import LandscapeDesign from "./pages/services/LandscapeDesign";
@@ -30,6 +34,10 @@ import WaterFeatures from "./pages/services/WaterFeatures";
 import OutdoorLiving from "./pages/services/OutdoorLiving";
 import FireFeatures from "./pages/services/FireFeatures";
 import LandscapeLighting from "./pages/services/LandscapeLighting";
+
+// Blog posts
+import ClimateChange from "./pages/blog/ClimateChange";
+import SeasonalGuide from "./pages/blog/SeasonalGuide";
 
 function Router() {
   return (
@@ -42,6 +50,9 @@ function Router() {
       <Route path={"/install"} component={Services} />
       <Route path={"/our-work"} component={OurWork} />
       <Route path={"/contact"} component={Contact} />
+      <Route path={"/blog"} component={Blog} />
+      <Route path={"/privacy-policy"} component={PrivacyPolicy} />
+      <Route path={"/terms"} component={Terms} />
 
       {/* Maintenance sub-pages */}
       <Route path={"/services/lawn-service"} component={LawnService} />
@@ -50,6 +61,7 @@ function Router() {
       <Route path={"/services/sprinkler-activation"} component={SprinklerActivation} />
       <Route path={"/services/sprinkler-blowout"} component={SprinklerBlowout} />
       <Route path={"/services/snow-removal"} component={SnowRemoval} />
+      <Route path={"/services/lawn-fungus"} component={LawnFungus} />
 
       {/* Installation / service sub-pages */}
       <Route path={"/services/landscape-design"} component={LandscapeDesign} />
@@ -60,6 +72,10 @@ function Router() {
       <Route path={"/services/outdoor-living"} component={OutdoorLiving} />
       <Route path={"/services/fire-features"} component={FireFeatures} />
       <Route path={"/services/landscape-lighting"} component={LandscapeLighting} />
+
+      {/* Blog posts */}
+      <Route path={"/blog/climate-change-landscaping"} component={ClimateChange} />
+      <Route path={"/blog/seasonal-landscaping-guide"} component={SeasonalGuide} />
 
       {/* Fallback */}
       <Route path={"/404"} component={NotFound} />

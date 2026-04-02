@@ -5,6 +5,7 @@
    Hover: image zooms. Clean, editorial, magazine-quality.
    ============================================================ */
 import { useEffect, useRef, useState } from "react";
+import { useLocation } from "wouter";
 
 const FACILITY_AERIAL =
   "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/facility-aerial_98383b9b.webp";
@@ -144,6 +145,7 @@ function PortfolioCard({
 export default function PortfolioSection() {
   const headerRef = useRef<HTMLDivElement>(null);
   const [headerVisible, setHeaderVisible] = useState(false);
+  const [, navigate] = useLocation();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -191,12 +193,10 @@ export default function PortfolioSection() {
             <em style={{ color: "oklch(0.46 0.20 25)" }}>Central Oregon</em>
           </h2>
           <button
-            onClick={() =>
-              document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" })
-            }
+            onClick={() => { navigate("/our-work"); window.scrollTo({ top: 0, behavior: "smooth" }); }}
             className="btn-outline-dark"
           >
-            Design-Build Portfolio
+            View Full Portfolio
           </button>
         </div>
 
@@ -222,9 +222,7 @@ export default function PortfolioSection() {
             Ready to transform your outdoor space?
           </p>
           <button
-            onClick={() =>
-              document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" })
-            }
+            onClick={() => { navigate("/contact"); window.scrollTo({ top: 0, behavior: "smooth" }); }}
             className="btn-red"
           >
             Start Your Project

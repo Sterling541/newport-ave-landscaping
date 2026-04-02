@@ -6,6 +6,7 @@
    Below: 4-column service grid on cream background.
    ============================================================ */
 import { useEffect, useRef, useState } from "react";
+import { useLocation } from "wouter";
 import {
   SprinklersIcon,
   DesignIcon,
@@ -23,19 +24,19 @@ const featuredServices = [
     title: "Residential Landscaping",
     subtitle: "Design, Build & Maintain",
     image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80",
-    href: "#contact",
+    href: "/services",
   },
   {
     title: "Commercial Landscape",
     subtitle: "Installation & Maintenance",
     image: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800&q=80",
-    href: "#contact",
+    href: "/services/commercial-maintenance",
   },
   {
     title: "HOA & Community",
     subtitle: "Year-Round Maintenance",
     image: "https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=800&q=80",
-    href: "#contact",
+    href: "/maintenance",
   },
 ];
 
@@ -46,48 +47,56 @@ const services = [
     title: "Custom Design & Build",
     description:
       "Award-winning designers bring your outdoor vision to life. Backed by a team of 150+ professionals — one of Central Oregon's largest landscaping crews.",
+    href: "/services/landscape-design",
   },
   {
     IconComponent: SprinklersIcon,
     title: "Sprinklers & Irrigation",
     description:
       "Dedicated full-time team for sprinkler installation, repair, and maintenance. Custom systems for residential, commercial, and HOA properties.",
+    href: "/services/irrigation",
   },
   {
     IconComponent: PaversIcon,
     title: "Pavers & Walkways",
     description:
       "Driveways, walkways, flagstone patios, and decorative paver installations for homes and commercial properties.",
+    href: "/services/pavers",
   },
   {
     IconComponent: MaintenanceIcon,
     title: "Residential Maintenance",
     description:
       "Weekly lawn care, spring/fall clean-ups, aeration, and seasonal maintenance plans tailored to your property.",
+    href: "/services/lawn-service",
   },
   {
     IconComponent: CommercialHOAIcon,
     title: "Commercial & HOA Maintenance",
     description:
       "Year-round landscape maintenance programs for HOA communities, apartment complexes, commercial properties, and government contracts.",
+    href: "/services/commercial-maintenance",
   },
   {
     IconComponent: LandscapeArchitectureIcon,
     title: "Landscape Architecture",
     description:
       "Full-service landscape architecture and master planning — from initial site analysis and concept design to construction documents and project oversight.",
+    href: "/services/landscape-design",
   },
   {
     IconComponent: WaterIcon,
     title: "Water Features",
     description:
       "Ponds, streams, koi ponds, and bubbling fountains — crafted by Central Oregon's most trusted pond contractors.",
+    href: "/services/water-features",
   },
   {
     IconComponent: OutdoorIcon,
     title: "Outdoor Living",
     description:
       "Fire pits, outdoor kitchens, pergolas, and custom living spaces designed for entertaining and relaxation.",
+    href: "/services/outdoor-living",
   },
 ];
 
@@ -95,11 +104,12 @@ function ServiceCard({
   service,
   index,
 }: {
-  service: (typeof services)[0];
+  service: (typeof services)[0] & { href: string };
   index: number;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
+  const [, navigate] = useLocation();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -115,7 +125,7 @@ function ServiceCard({
   return (
     <div
       ref={ref}
-      className="group p-7 transition-all duration-300"
+      className="group p-7 transition-all duration-300 cursor-pointer"
       style={{
         backgroundColor: "oklch(1 0 0)",
         borderBottom: "3px solid transparent",
@@ -123,6 +133,7 @@ function ServiceCard({
         transform: visible ? "translateY(0)" : "translateY(24px)",
         transition: `opacity 0.6s ease, transform 0.6s ease, border-color 0.3s ease, box-shadow 0.3s ease`,
       }}
+      onClick={() => { navigate(service.href); window.scrollTo({ top: 0, behavior: "smooth" }); }}
       onMouseEnter={(e) => {
         e.currentTarget.style.borderBottomColor = "oklch(0.46 0.20 25)";
         e.currentTarget.style.boxShadow = "0 8px 32px oklch(0 0 0 / 0.10)";
@@ -162,6 +173,7 @@ function ServiceCard({
 export default function ServicesSection() {
   const headerRef = useRef<HTMLDivElement>(null);
   const [headerVisible, setHeaderVisible] = useState(false);
+  const [, navigate] = useLocation();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -220,10 +232,11 @@ export default function ServicesSection() {
             {featuredServices.map((item, i) => (
               <a
                 key={item.title}
-                href="#contact"
+                href={item.href}
                 onClick={(e) => {
                   e.preventDefault();
-                  document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" });
+                  navigate(item.href);
+                  window.scrollTo({ top: 0, behavior: "smooth" });
                 }}
                 className="photo-card block"
                 style={{

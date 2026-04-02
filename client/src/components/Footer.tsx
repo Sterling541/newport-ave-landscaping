@@ -1,36 +1,49 @@
 /* ============================================================
    FOOTER — Brand Refresh
    Deep charcoal background, brand red accents, real logo
+   All links wired to real page routes
    ============================================================ */
+import { useLocation } from "wouter";
 
 const LOGO_WHITE =
   "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/newport-logo-white_008ab0fa.png";
 
-const maintenanceServices = [
-  "Lawn Service",
-  "Commercial Landscape Maintenance",
-  "Aeration Services",
-  "Sprinkler System Activation",
-  "Sprinkler Blowout Service",
-  "Sprinkler Repair",
-  "Snow Removal",
+const maintenanceLinks = [
+  { label: "Lawn Service", href: "/services/lawn-service" },
+  { label: "Commercial Maintenance", href: "/services/commercial-maintenance" },
+  { label: "Aeration Services", href: "/services/aeration" },
+  { label: "Sprinkler Activation", href: "/services/sprinkler-activation" },
+  { label: "Sprinkler Blowout", href: "/services/sprinkler-blowout" },
+  { label: "Sprinkler Repair", href: "/services/sprinkler-repair" },
+  { label: "Snow Removal", href: "/services/snow-removal" },
+  { label: "Lawn Fungus", href: "/services/lawn-fungus" },
 ];
 
-const landscapingServices = [
-  "Patios & Pavers",
-  "Fire Features",
-  "Outdoor Kitchens",
-  "Water Features",
-  "Landscape Design",
-  "Retaining Walls",
-  "Xeriscaping",
-  "Landscape Lighting",
-  "Drainage Solutions",
+const landscapingLinks = [
+  { label: "Irrigation Installation", href: "/services/irrigation" },
+  { label: "Pavers & Walkways", href: "/services/pavers" },
+  { label: "Fire Pits & Fireplaces", href: "/services/fire-features" },
+  { label: "Outdoor Living Spaces", href: "/services/outdoor-living" },
+  { label: "Water Features", href: "/services/water-features" },
+  { label: "Landscape Design", href: "/services/landscape-design" },
+  { label: "Landscape Lighting", href: "/services/landscape-lighting" },
+];
+
+const quickLinks = [
+  { label: "About Us", href: "/about" },
+  { label: "Our Work", href: "/our-work" },
+  { label: "Services", href: "/services" },
+  { label: "Maintenance", href: "/maintenance" },
+  { label: "Blog", href: "/blog" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export default function Footer() {
-  const scrollTo = (id: string) => {
-    document.querySelector(id)?.scrollIntoView({ behavior: "smooth" });
+  const [, navigate] = useLocation();
+
+  const go = (href: string) => {
+    navigate(href);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
@@ -40,13 +53,13 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
           {/* Brand */}
           <div className="lg:col-span-1">
-            <div className="flex items-center gap-3 mb-5">
+            <button onClick={() => go("/")} className="mb-5 block">
               <img
                 src={LOGO_WHITE}
                 alt="Newport Avenue Landscaping"
                 className="h-14 w-auto"
               />
-            </div>
+            </button>
             <p
               className="font-body text-sm leading-relaxed mb-6"
               style={{ color: "oklch(0.55 0.005 0)" }}
@@ -86,23 +99,20 @@ export default function Footer() {
 
           {/* Maintenance Services */}
           <div>
-            <div
-              className="font-label mb-5"
-              style={{ color: "oklch(0.72 0.12 25)" }}
-            >
+            <div className="font-label mb-5" style={{ color: "oklch(0.72 0.12 25)" }}>
               Maintenance Services
             </div>
             <ul className="space-y-2">
-              {maintenanceServices.map((s) => (
-                <li key={s}>
+              {maintenanceLinks.map((s) => (
+                <li key={s.label}>
                   <button
-                    onClick={() => scrollTo("#contact")}
+                    onClick={() => go(s.href)}
                     className="font-body text-sm transition-colors text-left"
                     style={{ color: "oklch(0.55 0.005 0)" }}
                     onMouseEnter={(e) => (e.currentTarget.style.color = "oklch(0.85 0.005 0)")}
                     onMouseLeave={(e) => (e.currentTarget.style.color = "oklch(0.55 0.005 0)")}
                   >
-                    {s}
+                    {s.label}
                   </button>
                 </li>
               ))}
@@ -111,23 +121,20 @@ export default function Footer() {
 
           {/* Landscaping Services */}
           <div>
-            <div
-              className="font-label mb-5"
-              style={{ color: "oklch(0.72 0.12 25)" }}
-            >
+            <div className="font-label mb-5" style={{ color: "oklch(0.72 0.12 25)" }}>
               Landscaping Services
             </div>
             <ul className="space-y-2">
-              {landscapingServices.map((s) => (
-                <li key={s}>
+              {landscapingLinks.map((s) => (
+                <li key={s.label}>
                   <button
-                    onClick={() => scrollTo("#contact")}
+                    onClick={() => go(s.href)}
                     className="font-body text-sm transition-colors text-left"
                     style={{ color: "oklch(0.55 0.005 0)" }}
                     onMouseEnter={(e) => (e.currentTarget.style.color = "oklch(0.85 0.005 0)")}
                     onMouseLeave={(e) => (e.currentTarget.style.color = "oklch(0.55 0.005 0)")}
                   >
-                    {s}
+                    {s.label}
                   </button>
                 </li>
               ))}
@@ -136,24 +143,14 @@ export default function Footer() {
 
           {/* Quick links & CTA */}
           <div>
-            <div
-              className="font-label mb-5"
-              style={{ color: "oklch(0.72 0.12 25)" }}
-            >
+            <div className="font-label mb-5" style={{ color: "oklch(0.72 0.12 25)" }}>
               Quick Links
             </div>
             <ul className="space-y-2 mb-8">
-              {[
-                { label: "Our Work", id: "#portfolio" },
-                { label: "Services", id: "#services" },
-                { label: "About Us", id: "#about" },
-                { label: "Reviews", id: "#reviews" },
-                { label: "Contact", id: "#contact" },
-                { label: "Careers", id: "#contact" },
-              ].map((link) => (
+              {quickLinks.map((link) => (
                 <li key={link.label}>
                   <button
-                    onClick={() => scrollTo(link.id)}
+                    onClick={() => go(link.href)}
                     className="font-body text-sm transition-colors text-left"
                     style={{ color: "oklch(0.55 0.005 0)" }}
                     onMouseEnter={(e) => (e.currentTarget.style.color = "oklch(0.85 0.005 0)")}
@@ -166,7 +163,7 @@ export default function Footer() {
             </ul>
 
             <button
-              onClick={() => scrollTo("#contact")}
+              onClick={() => go("/contact")}
               className="btn-red w-full text-center"
             >
               Start Service
@@ -176,35 +173,33 @@ export default function Footer() {
       </div>
 
       {/* Bottom bar */}
-      <div
-        className="border-t"
-        style={{ borderColor: "oklch(0.25 0.005 0)" }}
-      >
+      <div className="border-t" style={{ borderColor: "oklch(0.25 0.005 0)" }}>
         <div className="container py-5 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p
-            className="font-body text-xs"
-            style={{ color: "oklch(0.42 0.005 0)" }}
-          >
+          <p className="font-body text-xs" style={{ color: "oklch(0.42 0.005 0)" }}>
             © 2025 Newport Avenue Landscaping. All Rights Reserved.
           </p>
           <div className="flex gap-6">
-            {["Privacy Policy", "Terms & Conditions"].map((item) => (
-              <button
-                key={item}
-                className="font-body text-xs transition-colors"
-                style={{ color: "oklch(0.42 0.005 0)" }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = "oklch(0.72 0.12 25)")}
-                onMouseLeave={(e) => (e.currentTarget.style.color = "oklch(0.42 0.005 0)")}
-              >
-                {item}
-              </button>
-            ))}
+            <button
+              onClick={() => go("/privacy-policy")}
+              className="font-body text-xs transition-colors"
+              style={{ color: "oklch(0.42 0.005 0)" }}
+              onMouseEnter={(e) => (e.currentTarget.style.color = "oklch(0.72 0.12 25)")}
+              onMouseLeave={(e) => (e.currentTarget.style.color = "oklch(0.42 0.005 0)")}
+            >
+              Privacy Policy
+            </button>
+            <button
+              onClick={() => go("/terms")}
+              className="font-body text-xs transition-colors"
+              style={{ color: "oklch(0.42 0.005 0)" }}
+              onMouseEnter={(e) => (e.currentTarget.style.color = "oklch(0.72 0.12 25)")}
+              onMouseLeave={(e) => (e.currentTarget.style.color = "oklch(0.42 0.005 0)")}
+            >
+              Terms &amp; Conditions
+            </button>
           </div>
-          <p
-            className="font-body text-xs"
-            style={{ color: "oklch(0.38 0.005 0)" }}
-          >
-            LCB #9153 — Licensed, Bonded & Insured
+          <p className="font-body text-xs" style={{ color: "oklch(0.38 0.005 0)" }}>
+            LCB #9153 — Licensed, Bonded &amp; Insured
           </p>
         </div>
       </div>
