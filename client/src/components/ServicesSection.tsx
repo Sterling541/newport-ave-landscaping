@@ -13,6 +13,8 @@ import {
   MaintenanceIcon,
   WaterIcon,
   OutdoorIcon,
+  CommercialHOAIcon,
+  LandscapeArchitectureIcon,
 } from "./ServiceIcons";
 
 // Featured service photo cards (top 3 — Southview style)
@@ -59,9 +61,21 @@ const services = [
   },
   {
     IconComponent: MaintenanceIcon,
-    title: "Landscape Maintenance",
+    title: "Residential Maintenance",
     description:
       "Weekly lawn care, spring/fall clean-ups, aeration, and seasonal maintenance plans tailored to your property.",
+  },
+  {
+    IconComponent: CommercialHOAIcon,
+    title: "Commercial & HOA Maintenance",
+    description:
+      "Year-round landscape maintenance programs for HOA communities, apartment complexes, commercial properties, and government contracts.",
+  },
+  {
+    IconComponent: LandscapeArchitectureIcon,
+    title: "Landscape Architecture",
+    description:
+      "Full-service landscape architecture and master planning — from initial site analysis and concept design to construction documents and project oversight.",
   },
   {
     IconComponent: WaterIcon,

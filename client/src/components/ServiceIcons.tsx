@@ -97,3 +97,75 @@ export function OutdoorIcon({ size = 32, className }: IconProps) {
     </svg>
   );
 }
+
+export function CommercialHOAIcon({ size = 32, className }: IconProps) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 100 100"
+      width={size}
+      height={size}
+      fill="white"
+      className={className}
+    >
+      {/* Office building left */}
+      <rect x="5" y="30" width="32" height="55" rx="1"/>
+      <rect x="10" y="36" width="7" height="7" fill="none" stroke="white" strokeWidth="2.5"/>
+      <rect x="22" y="36" width="7" height="7" fill="none" stroke="white" strokeWidth="2.5"/>
+      <rect x="10" y="50" width="7" height="7" fill="none" stroke="white" strokeWidth="2.5"/>
+      <rect x="22" y="50" width="7" height="7" fill="none" stroke="white" strokeWidth="2.5"/>
+      <rect x="10" y="64" width="7" height="7" fill="none" stroke="white" strokeWidth="2.5"/>
+      <rect x="22" y="64" width="7" height="7" fill="none" stroke="white" strokeWidth="2.5"/>
+      {/* Taller building right */}
+      <rect x="42" y="15" width="38" height="70" rx="1"/>
+      <rect x="48" y="22" width="8" height="8" fill="none" stroke="white" strokeWidth="2.5"/>
+      <rect x="62" y="22" width="8" height="8" fill="none" stroke="white" strokeWidth="2.5"/>
+      <rect x="48" y="37" width="8" height="8" fill="none" stroke="white" strokeWidth="2.5"/>
+      <rect x="62" y="37" width="8" height="8" fill="none" stroke="white" strokeWidth="2.5"/>
+      <rect x="48" y="52" width="8" height="8" fill="none" stroke="white" strokeWidth="2.5"/>
+      <rect x="62" y="52" width="8" height="8" fill="none" stroke="white" strokeWidth="2.5"/>
+      <rect x="48" y="67" width="8" height="8" fill="none" stroke="white" strokeWidth="2.5"/>
+      <rect x="62" y="67" width="8" height="8" fill="none" stroke="white" strokeWidth="2.5"/>
+      {/* Ground / lawn strip */}
+      <rect x="2" y="85" width="96" height="5" rx="2"/>
+      {/* Small shrubs */}
+      <ellipse cx="18" cy="85" rx="6" ry="4"/>
+      <ellipse cx="55" cy="85" rx="8" ry="5"/>
+      <ellipse cx="80" cy="85" rx="6" ry="4"/>
+    </svg>
+  );
+}
+
+export function LandscapeArchitectureIcon({ size = 32, className }: IconProps) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 100 100"
+      width={size}
+      height={size}
+      fill="white"
+      className={className}
+    >
+      {/* Drawing board / drafting table */}
+      <rect x="10" y="20" width="65" height="48" rx="2" fill="none" stroke="white" strokeWidth="3"/>
+      {/* Landscape plan lines on board */}
+      <line x1="20" y1="35" x2="65" y2="35" stroke="white" strokeWidth="2"/>
+      <line x1="20" y1="45" x2="55" y2="45" stroke="white" strokeWidth="2"/>
+      <line x1="20" y1="55" x2="60" y2="55" stroke="white" strokeWidth="2"/>
+      {/* Tree circle on plan */}
+      <circle cx="58" cy="40" r="7" fill="none" stroke="white" strokeWidth="2"/>
+      <line x1="58" y1="47" x2="58" y2="52" stroke="white" strokeWidth="2"/>
+      {/* Pencil / stylus */}
+      <line x1="72" y1="15" x2="85" y2="28" stroke="white" strokeWidth="3" strokeLinecap="round"/>
+      <line x1="68" y1="19" x2="72" y2="15" stroke="white" strokeWidth="2.5" strokeLinecap="round"/>
+      <polygon points="85,28 80,33 78,28"/>
+      {/* Table legs */}
+      <line x1="15" y1="68" x2="10" y2="88" stroke="white" strokeWidth="3" strokeLinecap="round"/>
+      <line x1="70" y1="68" x2="75" y2="88" stroke="white" strokeWidth="3" strokeLinecap="round"/>
+      {/* Compass / divider tool */}
+      <circle cx="82" cy="72" r="10" fill="none" stroke="white" strokeWidth="2.5"/>
+      <line x1="82" y1="62" x2="82" y2="82" stroke="white" strokeWidth="2"/>
+      <line x1="72" y1="72" x2="92" y2="72" stroke="white" strokeWidth="2"/>
+    </svg>
+  );
+}
