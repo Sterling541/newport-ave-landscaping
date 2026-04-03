@@ -204,6 +204,21 @@ input, textarea, select {
   background-color: oklch(0.88 0.006 75);
 }
 
+/* ── Asymmetric button shape: top-left + bottom-right rounded ── */
+/* Applied globally to all button elements and button-like links */
+button,
+[role="button"],
+[type="button"],
+[type="submit"],
+[type="reset"],
+.btn-pill-copper,
+.btn-pill-outline,
+.btn-red,
+.btn-outline-dark,
+.btn-outline-white {
+  border-radius: 1.8rem 0.2rem 1.8rem 0.2rem !important;
+}
+
 /* ── Pill / oval CTA buttons ── */
 .btn-pill-copper {
   display: inline-flex;
@@ -219,7 +234,7 @@ input, textarea, select {
   letter-spacing: 0.18em;
   text-transform: uppercase;
   border: none;
-  border-radius: 999px;
+  border-radius: 1.8rem 0.2rem 1.8rem 0.2rem;
   transition: background-color 0.25s ease, transform 0.2s ease;
   white-space: nowrap;
   text-decoration: none;
@@ -243,7 +258,7 @@ input, textarea, select {
   letter-spacing: 0.18em;
   text-transform: uppercase;
   border: 1.5px solid oklch(0.75 0.006 30);
-  border-radius: 999px;
+  border-radius: 1.8rem 0.2rem 1.8rem 0.2rem;
   transition: border-color 0.25s ease, color 0.25s ease, transform 0.2s ease;
   white-space: nowrap;
   text-decoration: none;
@@ -268,7 +283,7 @@ input, textarea, select {
   letter-spacing: 0.18em;
   text-transform: uppercase;
   border: none;
-  border-radius: 999px;
+  border-radius: 1.8rem 0.2rem 1.8rem 0.2rem;
   transition: background-color 0.25s ease;
   white-space: nowrap;
 }
@@ -287,7 +302,7 @@ input, textarea, select {
   letter-spacing: 0.18em;
   text-transform: uppercase;
   border: 1px solid oklch(0.75 0.006 30);
-  border-radius: 999px;
+  border-radius: 1.8rem 0.2rem 1.8rem 0.2rem;
   transition: border-color 0.25s ease, color 0.25s ease;
   text-decoration: none;
 }
@@ -306,7 +321,7 @@ input, textarea, select {
   letter-spacing: 0.18em;
   text-transform: uppercase;
   border: 1px solid oklch(0.60 0.008 0 / 0.6);
-  border-radius: 999px;
+  border-radius: 1.8rem 0.2rem 1.8rem 0.2rem;
   transition: border-color 0.25s ease;
   text-decoration: none;
 }

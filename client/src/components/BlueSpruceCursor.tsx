@@ -1,14 +1,18 @@
 /* ============================================================
-   BLUE SPRUCE CURSOR
+   LOGO ICON CURSOR
 
-   Always shows the spruce tree SVG.
-   - Default state: blue-green spruce needles
-   - Hover over interactive elements: needles turn red
-   - Click: slight scale-down
+   Uses the Newport Avenue Landscaping red leaf/shield icon
+   as a custom cursor.
+   - Default state: full color logo icon
+   - Hover over interactive elements: slight scale-up + glow
+   - Click: scale-down spring
 
    Usage: Mount once in Home.tsx at the top level.
    ============================================================ */
 import { useEffect, useRef, useState } from "react";
+
+const LOGO_ICON_URL =
+  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/leaf-icon-favicon_df4f4a2a.png";
 
 export default function BlueSpruceCursor() {
   const cursorRef = useRef<HTMLDivElement>(null);
@@ -26,7 +30,7 @@ export default function BlueSpruceCursor() {
       posRef.current = { x: e.clientX, y: e.clientY };
       if (!isVisible) setIsVisible(true);
 
-      // Detect interactive elements for red state
+      // Detect interactive elements for hover state
       const target = e.target as Element;
       const isInteractive =
         target.closest(
@@ -66,13 +70,8 @@ export default function BlueSpruceCursor() {
     };
   }, []);
 
-  // Color palette — switches between green and red
-  const stemColor   = isPointer ? "oklch(0.40 0.22 25)"  : "oklch(0.28 0.008 30)";
-  const needleOuter = isPointer ? "oklch(0.55 0.24 25)"  : "oklch(0.45 0.008 30)";
-  const needleInner = isPointer ? "oklch(0.50 0.22 25)"  : "oklch(0.40 0.008 30)";
-  const needleDeep  = isPointer ? "oklch(0.42 0.20 25)"  : "oklch(0.35 0.008 30)";
-  const budColor    = isPointer ? "oklch(0.65 0.22 25)"  : "oklch(0.46 0.20 25)";
-  const frostColor  = isPointer ? "oklch(0.80 0.10 25)"  : "oklch(0.75 0.06 220)";
+  // Icon size: slightly larger on hover
+  const iconSize = isPointer ? 40 : 32;
 
   return (
     <div
@@ -86,79 +85,27 @@ export default function BlueSpruceCursor() {
         willChange: "transform",
         opacity: isVisible ? 1 : 0,
         transition: "opacity 0.2s ease",
-        // Offset so the tip bud is exactly at the cursor hotspot
-        marginLeft: "-16px",
-        marginTop: "-2px",
+        // Offset so the top-left corner of the icon is at the cursor hotspot
+        marginLeft: `-${iconSize / 2}px`,
+        marginTop: `-${iconSize / 2}px`,
       }}
     >
-      {/* ── Blue Spruce Branch Tip — always shown ── */}
-      <svg
-        width="32"
-        height="48"
-        viewBox="0 0 32 48"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
+      <img
+        src={LOGO_ICON_URL}
+        alt=""
+        draggable={false}
         style={{
-          transform: isClicking ? "scale(0.88)" : "scale(1)",
-          transition: "transform 0.1s ease, filter 0.15s ease",
+          width: `${iconSize}px`,
+          height: `${iconSize}px`,
+          objectFit: "contain",
+          display: "block",
+          transform: isClicking ? "scale(0.82)" : "scale(1)",
+          transition: "transform 0.12s ease, width 0.15s ease, height 0.15s ease, filter 0.15s ease",
           filter: isPointer
-            ? "drop-shadow(0 2px 10px rgba(200,40,20,0.55))"
-            : "drop-shadow(0 2px 8px rgba(0,0,0,0.6))",
+            ? "drop-shadow(0 2px 12px oklch(0.46 0.20 25 / 0.7))"
+            : "drop-shadow(0 2px 8px rgba(0,0,0,0.35))",
         }}
-      >
-        {/* Main central stem — tip at top (hotspot) */}
-        <line x1="16" y1="2" x2="16" y2="46" stroke={stemColor} strokeWidth="1.8" strokeLinecap="round"/>
-
-        {/* Whorl 1 — near tip */}
-        <line x1="16" y1="6"  x2="10" y2="4"  stroke={needleOuter} strokeWidth="1"   strokeLinecap="round"/>
-        <line x1="16" y1="6"  x2="22" y2="4"  stroke={needleOuter} strokeWidth="1"   strokeLinecap="round"/>
-        <line x1="16" y1="6"  x2="13" y2="3"  stroke={needleInner} strokeWidth="0.8" strokeLinecap="round"/>
-        <line x1="16" y1="6"  x2="19" y2="3"  stroke={needleInner} strokeWidth="0.8" strokeLinecap="round"/>
-
-        {/* Whorl 2 */}
-        <line x1="16" y1="11" x2="8"  y2="8"  stroke={needleOuter} strokeWidth="1.1" strokeLinecap="round"/>
-        <line x1="16" y1="11" x2="24" y2="8"  stroke={needleOuter} strokeWidth="1.1" strokeLinecap="round"/>
-        <line x1="16" y1="11" x2="11" y2="7"  stroke={needleInner} strokeWidth="0.9" strokeLinecap="round"/>
-        <line x1="16" y1="11" x2="21" y2="7"  stroke={needleInner} strokeWidth="0.9" strokeLinecap="round"/>
-        <line x1="16" y1="11" x2="16" y2="7"  stroke={needleDeep}  strokeWidth="0.8" strokeLinecap="round"/>
-
-        {/* Whorl 3 */}
-        <line x1="16" y1="17" x2="6"  y2="13" stroke={needleOuter} strokeWidth="1.2" strokeLinecap="round"/>
-        <line x1="16" y1="17" x2="26" y2="13" stroke={needleOuter} strokeWidth="1.2" strokeLinecap="round"/>
-        <line x1="16" y1="17" x2="9"  y2="12" stroke={needleInner} strokeWidth="1"   strokeLinecap="round"/>
-        <line x1="16" y1="17" x2="23" y2="12" stroke={needleInner} strokeWidth="1"   strokeLinecap="round"/>
-        <line x1="16" y1="17" x2="16" y2="11" stroke={needleDeep}  strokeWidth="0.9" strokeLinecap="round"/>
-
-        {/* Whorl 4 */}
-        <line x1="16" y1="24" x2="4"  y2="19" stroke={needleOuter} strokeWidth="1.3" strokeLinecap="round"/>
-        <line x1="16" y1="24" x2="28" y2="19" stroke={needleOuter} strokeWidth="1.3" strokeLinecap="round"/>
-        <line x1="16" y1="24" x2="7"  y2="18" stroke={needleInner} strokeWidth="1.1" strokeLinecap="round"/>
-        <line x1="16" y1="24" x2="25" y2="18" stroke={needleInner} strokeWidth="1.1" strokeLinecap="round"/>
-        <line x1="16" y1="24" x2="16" y2="17" stroke={needleDeep}  strokeWidth="1"   strokeLinecap="round"/>
-
-        {/* Whorl 5 */}
-        <line x1="16" y1="32" x2="3"  y2="26" stroke={needleOuter} strokeWidth="1.4" strokeLinecap="round"/>
-        <line x1="16" y1="32" x2="29" y2="26" stroke={needleOuter} strokeWidth="1.4" strokeLinecap="round"/>
-        <line x1="16" y1="32" x2="6"  y2="25" stroke={needleInner} strokeWidth="1.2" strokeLinecap="round"/>
-        <line x1="16" y1="32" x2="26" y2="25" stroke={needleInner} strokeWidth="1.2" strokeLinecap="round"/>
-        <line x1="16" y1="32" x2="16" y2="24" stroke={needleDeep}  strokeWidth="1.1" strokeLinecap="round"/>
-
-        {/* Whorl 6 — base, widest */}
-        <line x1="16" y1="40" x2="2"  y2="33" stroke={needleOuter} strokeWidth="1.5" strokeLinecap="round"/>
-        <line x1="16" y1="40" x2="30" y2="33" stroke={needleOuter} strokeWidth="1.5" strokeLinecap="round"/>
-        <line x1="16" y1="40" x2="5"  y2="32" stroke={needleInner} strokeWidth="1.3" strokeLinecap="round"/>
-        <line x1="16" y1="40" x2="27" y2="32" stroke={needleInner} strokeWidth="1.3" strokeLinecap="round"/>
-        <line x1="16" y1="40" x2="16" y2="32" stroke={needleDeep}  strokeWidth="1.2" strokeLinecap="round"/>
-
-        {/* Tiny tip bud */}
-        <circle cx="16" cy="2" r="1.5" fill={budColor}/>
-
-        {/* Frost / sheen highlights */}
-        <line x1="16" y1="11" x2="8.5"  y2="8.5"  stroke={frostColor} strokeWidth="0.4" strokeLinecap="round" opacity="0.6"/>
-        <line x1="16" y1="17" x2="6.5"  y2="13.5" stroke={frostColor} strokeWidth="0.4" strokeLinecap="round" opacity="0.6"/>
-        <line x1="16" y1="24" x2="4.5"  y2="19.5" stroke={frostColor} strokeWidth="0.4" strokeLinecap="round" opacity="0.5"/>
-        <line x1="16" y1="32" x2="3.5"  y2="26.5" stroke={frostColor} strokeWidth="0.4" strokeLinecap="round" opacity="0.5"/>
-      </svg>
+      />
     </div>
   );
 }

@@ -325,9 +325,6 @@ export default function HeroSection() {
       {/* ── Animated botanical spruce drawing — bottom right ── */}
       <AnimatedSpruceBranch />
 
-      {/* ── Vertical staggered service list — right edge ── */}
-      <VerticalServiceList />
-
       {/* ── Thin horizontal rule + EST year — architectural detail ── */}
       <div
         style={{

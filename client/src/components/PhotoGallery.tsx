@@ -8,18 +8,12 @@ import { useEffect, useRef, useState, useCallback } from "react";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 
 const photos = [
-  // --- Row 1: Featured hero shots ---
+  // Row 1 — hero shots
   {
     src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportAveLandcaping-13_ef32520c.jpg",
     title: "Flagstone Patio & Stream at Sunset",
     category: "Water Features",
     span: "col-span-2 row-span-2",
-  },
-  {
-    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/ITP_7404_28389405.jpg",
-    title: "Modern Outdoor Living",
-    category: "Outdoor Living",
-    span: "col-span-1 row-span-1",
   },
   {
     src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/fire7_f0b582ff.jpg",
@@ -34,12 +28,12 @@ const photos = [
     span: "col-span-1 row-span-2",
   },
   {
-    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportLandscaping-ArchieBriggs-2_41676ecd.jpg",
-    title: "Paver Walkway & Front Yard",
-    category: "Hardscape",
+    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/ITP_7558_e52a40c9.jpg",
+    title: "Outdoor Kitchen & BBQ",
+    category: "Outdoor Living",
     span: "col-span-1 row-span-1",
   },
-  // --- Row 2 ---
+  // Row 2
   {
     src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportAveLandcaping-9_97b731b0.jpg",
     title: "Pond & Patio with Landscape Lighting",
@@ -47,70 +41,8 @@ const photos = [
     span: "col-span-2 row-span-2",
   },
   {
-    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/fire4_82c70612.jpg",
-    title: "Stone Fire Pit & Seating Wall",
-    category: "Fire Features",
-    span: "col-span-1 row-span-1",
-  },
-  {
-    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/ITP_7558_e52a40c9.jpg",
-    title: "Outdoor Kitchen & BBQ",
-    category: "Outdoor Living",
-    span: "col-span-1 row-span-1",
-  },
-  {
-    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/GLLPatio10_2ffabcfb.jpg",
-    title: "Paver Patio & Fire Feature",
-    category: "Hardscape",
-    span: "col-span-1 row-span-1",
-  },
-  {
-    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/ITP_7447_72a324ef.jpg",
-    title: "Tile Walkway & Planters",
-    category: "Hardscape",
-    span: "col-span-1 row-span-1",
-  },
-  // --- Row 3 ---
-  {
-    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportAveLandcaping-2_fafb7359.jpg",
-    title: "Backyard Patio & Water Feature",
-    category: "Landscaping",
-    span: "col-span-1 row-span-2",
-  },
-  {
-    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/pondless-stream-bend-oregon_ddbe366e.jpg",
-    title: "Pondless Stream — Bend, OR",
-    category: "Water Features",
-    span: "col-span-2 row-span-1",
-  },
-  {
-    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/ITP_7287_3749a375.jpg",
-    title: "Composite Deck & Turf",
-    category: "Outdoor Living",
-    span: "col-span-1 row-span-1",
-  },
-  {
-    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportAveLandcaping-5_1a063eaa.jpg",
-    title: "Rock Garden & Native Plants",
-    category: "Landscaping",
-    span: "col-span-1 row-span-1",
-  },
-  {
-    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/GLLPatio3_7287b20c.jpg",
-    title: "Fire Pit at Sunset",
-    category: "Hardscape",
-    span: "col-span-1 row-span-1",
-  },
-  // --- Row 4 ---
-  {
-    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/forest-home4_cd8d9af7.jpg",
-    title: "Koi Pond & Waterfall at Dusk",
-    category: "Water Features",
-    span: "col-span-2 row-span-2",
-  },
-  {
-    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/outdoor-kitchen-water_90c45e1a.jpg",
-    title: "Outdoor Kitchen & Boulder Water Feature",
+    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/powell-butte-1_21624e54.webp",
+    title: "Powell Butte — Full Outdoor Living Build",
     category: "Outdoor Living",
     span: "col-span-1 row-span-1",
   },
@@ -121,120 +53,22 @@ const photos = [
     span: "col-span-1 row-span-1",
   },
   {
-    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/ITP_7315_b6d377b2.jpg",
-    title: "Pool & Spa — Outdoor Living",
-    category: "Outdoor Living",
-    span: "col-span-1 row-span-1",
-  },
-  {
     src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/landscaping-native_fa3d1cfe.jpg",
     title: "Native Rock Garden & Plantings",
     category: "Landscaping",
     span: "col-span-1 row-span-1",
   },
-  // --- Row 5 ---
+  // Row 3
   {
-    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/forest-home3_a0744dff.jpg",
-    title: "Forest Stream & Fire Pit Patio",
+    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/forest-home4_cd8d9af7.jpg",
+    title: "Koi Pond & Waterfall at Dusk",
     category: "Water Features",
-    span: "col-span-2 row-span-2",
-  },
-  {
-    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/img-2975_daa4e035.jpg",
-    title: "Residential Landscaping",
-    category: "Landscaping",
     span: "col-span-1 row-span-1",
   },
   {
-    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/img-2979_757411bc.jpg",
-    title: "Landscaping & Planting",
-    category: "Landscaping",
-    span: "col-span-1 row-span-1",
-  },
-  {
-    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportAveLandcaping-14_96d1eb45.jpg",
-    title: "Residential Landscaping",
-    category: "Landscaping",
-    span: "col-span-1 row-span-1",
-  },
-  {
-    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportLandscapingRVParkDay2Photos57_ce65cd27.jpg",
-    title: "Commercial Tree Planting",
-    category: "Commercial",
-    span: "col-span-1 row-span-1",
-  },
-  // --- Row 6 ---
-  {
-    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportAveLandcaping-10_ee1a5c7b.jpg",
-    title: "Landscaping & Planting",
-    category: "Landscaping",
-    span: "col-span-1 row-span-1",
-  },
-  {
-    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/ITP_7532_89e9f821.jpg",
-    title: "Pool Deck — Evening Lighting",
-    category: "Outdoor Living",
-    span: "col-span-1 row-span-1",
-  },
-  {
-    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportLandscapingRVParkPhotos48_eb8a58d0.jpg",
-    title: "Commercial Install",
-    category: "Commercial",
-    span: "col-span-1 row-span-1",
-  },
-  {
-    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/ITP_7407_032aed3b.jpg",
-    title: "Concrete Planter & Turf",
-    category: "Landscaping",
-    span: "col-span-1 row-span-1",
-  },
-  {
-    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/crew-concrete.jpg",
-    title: "Crew at Work — Concrete & Masonry",
-    category: "Behind the Scenes",
-    span: "col-span-1 row-span-1",
-  },
-  {
-    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportAveLandcaping-3_168c9c48.jpg",
-    title: "Residential Landscaping",
-    category: "Landscaping",
-    span: "col-span-1 row-span-1",
-  },
-  // --- Powell Butte Loop Project ---
-  {
-    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/powell-butte-1_21624e54.webp",
-    title: "Powell Butte — Full Outdoor Living Build",
-    category: "Outdoor Living",
-    span: "col-span-2 row-span-2",
-  },
-  {
-    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/powell-butte-5_060ae194.webp",
-    title: "Powell Butte — Outdoor Kitchen",
-    category: "Outdoor Living",
-    span: "col-span-1 row-span-1",
-  },
-  {
-    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/powell-butte-6_66c0faeb.webp",
-    title: "Powell Butte — Fire Pit & Seating",
-    category: "Fire Features",
-    span: "col-span-1 row-span-1",
-  },
-  {
-    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/powell-butte-14_fbef73a2.webp",
-    title: "Powell Butte — Pool & Spa",
-    category: "Outdoor Living",
-    span: "col-span-1 row-span-2",
-  },
-  {
-    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/powell-butte-3_bfd76730.webp",
-    title: "Powell Butte — Composite Deck",
+    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/GLLPatio3_7287b20c.jpg",
+    title: "Fire Pit at Sunset",
     category: "Hardscape",
-    span: "col-span-1 row-span-1",
-  },
-  {
-    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/powell-butte-4_adf9848a.webp",
-    title: "Powell Butte — Turf & Landscape",
-    category: "Landscaping",
     span: "col-span-1 row-span-1",
   },
   {
@@ -243,90 +77,7 @@ const photos = [
     category: "Outdoor Living",
     span: "col-span-2 row-span-1",
   },
-  {
-    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/powell-butte-8_46deb546.webp",
-    title: "Powell Butte — Pergola & Deck",
-    category: "Outdoor Living",
-    span: "col-span-1 row-span-1",
-  },
-  {
-    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/powell-butte-9_48d92f6d.webp",
-    title: "Powell Butte — Paver Patio",
-    category: "Hardscape",
-    span: "col-span-1 row-span-1",
-  },
-  {
-    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/powell-butte-10_e07daf7c.webp",
-    title: "Powell Butte — Landscape Lighting",
-    category: "Landscaping",
-    span: "col-span-1 row-span-1",
-  },
-  {
-    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/powell-butte-11_9553a544.webp",
-    title: "Powell Butte — Stone Fireplace",
-    category: "Fire Features",
-    span: "col-span-1 row-span-2",
-  },
-  {
-    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/powell-butte-12_1c5b4f2f.webp",
-    title: "Powell Butte — Outdoor Dining",
-    category: "Outdoor Living",
-    span: "col-span-1 row-span-1",
-  },
-  {
-    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/powell-butte-13_c5a01571.webp",
-    title: "Powell Butte — Raised Planters",
-    category: "Landscaping",
-    span: "col-span-1 row-span-1",
-  },
-  {
-    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/powell-butte-15_517b2e5a.webp",
-    title: "Powell Butte — Dusk View",
-    category: "Outdoor Living",
-    span: "col-span-2 row-span-1",
-  },
-  {
-    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/powell-butte-16_ab1065e0.webp",
-    title: "Powell Butte — Walkway & Steps",
-    category: "Hardscape",
-    span: "col-span-1 row-span-1",
-  },
-  {
-    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/powell-butte-17_180f7001.webp",
-    title: "Powell Butte — Retaining Wall",
-    category: "Hardscape",
-    span: "col-span-1 row-span-1",
-  },
-  {
-    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/powell-butte-18_1e0268bc.webp",
-    title: "Powell Butte — Planting Beds",
-    category: "Landscaping",
-    span: "col-span-1 row-span-1",
-  },
-  {
-    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/powell-butte-19_54684fc7.webp",
-    title: "Powell Butte — Aerial Overview",
-    category: "Outdoor Living",
-    span: "col-span-1 row-span-1",
-  },
-  {
-    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/powell-butte-20_7895b07f.webp",
-    title: "Powell Butte — Spa & Waterfall",
-    category: "Water Features",
-    span: "col-span-1 row-span-1",
-  },
-  {
-    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/powell-butte-31_8548e833.webp",
-    title: "Powell Butte — Night Lighting",
-    category: "Outdoor Living",
-    span: "col-span-1 row-span-1",
-  },
-  {
-    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/powell-butte-32_68f01e3c.webp",
-    title: "Powell Butte — Kitchen Detail",
-    category: "Outdoor Living",
-    span: "col-span-1 row-span-1",
-  },
+  // Lightbox-only extras
   {
     src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/powell-butte-33_75351121.webp",
     title: "Powell Butte — Finished Project",
@@ -427,7 +178,7 @@ export default function PhotoGallery() {
           </div>
         </FadeIn>
 
-        {/* Masonry Grid */}
+        {/* Masonry Grid — show first 11 photos (3 visual rows) */}
         <div
           className="grid gap-3"
           style={{
@@ -435,7 +186,7 @@ export default function PhotoGallery() {
             gridAutoRows: "220px",
           }}
         >
-          {photos.map((photo, i) => (
+          {photos.slice(0, 11).map((photo, i) => (
             <FadeIn
               key={photo.src}
               delay={i * 0.03}
@@ -474,6 +225,21 @@ export default function PhotoGallery() {
             </FadeIn>
           ))}
         </div>
+
+        {/* View All link */}
+        <FadeIn>
+          <div className="mt-10 flex justify-center">
+            <a
+              href="/our-work"
+              className="font-label inline-flex items-center gap-3 transition-opacity hover:opacity-70"
+              style={{ color: "oklch(0.46 0.20 25)", fontSize: "0.7rem", letterSpacing: "0.14em" }}
+            >
+              <span style={{ display: "inline-block", width: 28, height: 1, backgroundColor: "oklch(0.46 0.20 25)" }} />
+              VIEW ALL {photos.length} PROJECTS
+              <span style={{ display: "inline-block", width: 28, height: 1, backgroundColor: "oklch(0.46 0.20 25)" }} />
+            </a>
+          </div>
+        </FadeIn>
 
         {/* Mobile responsive */}
         <style>{`

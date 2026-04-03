@@ -72,7 +72,7 @@ export default function LightingSection() {
       style={{
         height: "220vh",
         position: "relative",
-        backgroundColor: "oklch(0.08 0.010 30)",
+        backgroundColor: "transparent",
       }}
     >
       {/* Sticky viewport */}
