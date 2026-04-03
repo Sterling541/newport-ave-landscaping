@@ -1,7 +1,7 @@
 /* ============================================================
    WHO WE SERVE — Dual-Audience Trust Band
    Addresses Residential, Commercial, and HOA clients clearly
-   Dark charcoal background with red accents
+   Each card has a background photo with dark overlay
    ============================================================ */
 import { useEffect, useRef, useState } from "react";
 import { Home, Building2, Trees } from "lucide-react";
@@ -11,25 +11,25 @@ const segments = [
     icon: Home,
     label: "High-End Residential",
     headline: "Your Home, Elevated.",
-    body:
-      "From luxury outdoor living rooms and custom water features to full estate landscaping — we design and build spaces that reflect your lifestyle and increase your property's value.",
+    body: "From luxury outdoor living rooms and custom water features to full estate landscaping — we design and build spaces that reflect your lifestyle and increase your property's value.",
     proof: "Broken Top · Awbrey Butte · NW Crossing",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportAveLandcaping-13_ef32520c.jpg",
   },
   {
     icon: Building2,
     label: "Commercial Properties",
     headline: "Scale Without Compromise.",
-    body:
-      "We are Central Oregon's leading commercial landscape contractor. Retail centers, office parks, mixed-use developments, and government facilities — managed by dedicated account teams with full in-house crews.",
+    body: "We are Central Oregon's leading commercial landscape contractor. Retail centers, office parks, mixed-use developments, and government facilities — managed by dedicated account teams with full in-house crews.",
     proof: "Government Contracts · Retail Centers · Office Parks",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportLandscapingRVParkDay2Photos57_ce65cd27.jpg",
   },
   {
     icon: Trees,
     label: "HOA Communities",
     headline: "Community Pride, Year-Round.",
-    body:
-      "Newport Avenue manages more HOA landscape maintenance contracts in Central Oregon than any other firm. Reliable, consistent, and always on schedule — so your community always looks its best.",
+    body: "Newport Avenue manages more HOA landscape maintenance contracts in Central Oregon than any other firm. Reliable, consistent, and always on schedule — so your community always looks its best.",
     proof: "200+ HOA Communities Served · Irrigation · Snow",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportAveLandcaping-9_97b731b0.jpg",
   },
 ];
 
@@ -105,70 +105,92 @@ export default function WhoWeServe() {
         </div>
 
         {/* Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-px" style={{ backgroundColor: "oklch(0.22 0.005 0)" }}>
+        <div
+          className="grid grid-cols-1 md:grid-cols-3 gap-px"
+          style={{ backgroundColor: "oklch(0.22 0.005 0)" }}
+        >
           {segments.map((seg, i) => {
             const Icon = seg.icon;
             return (
               <div
                 key={seg.label}
-                className="p-10 flex flex-col"
+                className="relative overflow-hidden"
                 style={{
-                  backgroundColor: "oklch(0.14 0.005 0)",
+                  minHeight: "480px",
                   opacity: visible ? 1 : 0,
                   transform: visible ? "translateY(0)" : "translateY(32px)",
                   transition: `opacity 0.7s ease ${i * 0.15}s, transform 0.7s ease ${i * 0.15}s`,
                 }}
               >
-                {/* Icon */}
+                {/* Background photo */}
                 <div
-                  className="w-12 h-12 flex items-center justify-center mb-6"
+                  className="absolute inset-0"
                   style={{
-                    backgroundColor: "oklch(0.46 0.20 25 / 0.15)",
-                    color: "oklch(0.70 0.10 25)",
+                    backgroundImage: `url(${seg.image})`,
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
                   }}
-                >
-                  <Icon size={22} strokeWidth={1.5} />
-                </div>
-
-                {/* Label */}
+                />
+                {/* Dark gradient overlay */}
                 <div
-                  className="font-label mb-3"
-                  style={{ color: "oklch(0.70 0.10 25)", fontSize: "0.65rem" }}
-                >
-                  {seg.label}
-                </div>
-
-                {/* Headline */}
-                <h3
-                  className="font-display font-light mb-4"
+                  className="absolute inset-0"
                   style={{
-                    fontSize: "clamp(1.4rem, 2.5vw, 1.9rem)",
-                    color: "oklch(0.97 0 0)",
-                    lineHeight: 1.15,
+                    background: "linear-gradient(to top, oklch(0.05 0.005 0 / 0.95) 40%, oklch(0.05 0.005 0 / 0.65) 100%)",
                   }}
-                >
-                  {seg.headline}
-                </h3>
+                />
+                {/* Content */}
+                <div className="relative z-10 p-10 flex flex-col h-full" style={{ minHeight: "480px" }}>
+                  {/* Icon */}
+                  <div
+                    className="w-12 h-12 flex items-center justify-center mb-6"
+                    style={{
+                      backgroundColor: "oklch(0.46 0.20 25 / 0.20)",
+                      color: "oklch(0.70 0.10 25)",
+                    }}
+                  >
+                    <Icon size={22} strokeWidth={1.5} />
+                  </div>
 
-                {/* Body */}
-                <p
-                  className="font-body leading-relaxed mb-6 flex-1"
-                  style={{ color: "oklch(0.62 0.005 0)", fontSize: "0.9rem" }}
-                >
-                  {seg.body}
-                </p>
+                  {/* Label */}
+                  <div
+                    className="font-label mb-3"
+                    style={{ color: "oklch(0.70 0.10 25)", fontSize: "0.65rem" }}
+                  >
+                    {seg.label}
+                  </div>
 
-                {/* Proof line */}
-                <div
-                  className="font-label pt-5 border-t"
-                  style={{
-                    color: "oklch(0.50 0.005 0)",
-                    fontSize: "0.6rem",
-                    borderColor: "oklch(0.22 0.005 0)",
-                    letterSpacing: "0.08em",
-                  }}
-                >
-                  {seg.proof}
+                  {/* Headline */}
+                  <h3
+                    className="font-display font-light mb-4"
+                    style={{
+                      fontSize: "clamp(1.4rem, 2.5vw, 1.9rem)",
+                      color: "oklch(0.97 0 0)",
+                      lineHeight: 1.15,
+                    }}
+                  >
+                    {seg.headline}
+                  </h3>
+
+                  {/* Body */}
+                  <p
+                    className="font-body leading-relaxed mb-6 flex-1"
+                    style={{ color: "oklch(0.80 0.005 0)", fontSize: "0.9rem" }}
+                  >
+                    {seg.body}
+                  </p>
+
+                  {/* Proof line */}
+                  <div
+                    className="font-label pt-5 border-t"
+                    style={{
+                      color: "oklch(0.60 0.005 0)",
+                      fontSize: "0.6rem",
+                      borderColor: "oklch(0.30 0.005 0)",
+                      letterSpacing: "0.08em",
+                    }}
+                  >
+                    {seg.proof}
+                  </div>
                 </div>
               </div>
             );
@@ -193,15 +215,31 @@ export default function WhoWeServe() {
           <div className="flex gap-3 flex-shrink-0">
             <a
               href="/contact"
-              className="btn-outline-white"
-              style={{ whiteSpace: "nowrap" }}
+              style={{
+                whiteSpace: "nowrap",
+                padding: "0.6rem 1.4rem",
+                border: "1px solid white",
+                color: "white",
+                fontSize: "0.75rem",
+                letterSpacing: "0.1em",
+                fontWeight: 600,
+                textDecoration: "none",
+              }}
             >
-              Get a Free Quote
+              GET A FREE QUOTE
             </a>
             <a
               href="tel:5416178873"
-              className="btn-red"
-              style={{ backgroundColor: "oklch(0.22 0.005 0)", whiteSpace: "nowrap" }}
+              style={{
+                whiteSpace: "nowrap",
+                padding: "0.6rem 1.4rem",
+                backgroundColor: "oklch(0.14 0.005 0)",
+                color: "white",
+                fontSize: "0.75rem",
+                letterSpacing: "0.1em",
+                fontWeight: 600,
+                textDecoration: "none",
+              }}
             >
               (541) 617-8873
             </a>
