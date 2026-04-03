@@ -1,18 +1,16 @@
 /* ============================================================
-   MEMBERSHIP BANNER — Homepage teaser
-   Design: Matches MembershipSection — cream bg, brand red card,
-   charcoal text, dot pattern, serif display headings.
+   MEMBERSHIP BANNER — Matches original design
+   Sprinkler background photo, shield badge left, bold white
+   headline right, red CTA button.
    ============================================================ */
 import { useEffect, useRef, useState } from "react";
 import { useLocation } from "wouter";
-import { Check, Droplets } from "lucide-react";
 
-const bannerFeatures = [
-  "Sprinkler system spring activation",
-  "Mid-season inspection & adjustment",
-  "Fall winterization / blowout",
-  "Priority scheduling — no waiting",
-];
+const BADGE_URL =
+  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/membership-badge-XZx4Knw2aXFm4uTKtLij98.webp";
+
+const BG_URL =
+  "https://images.unsplash.com/photo-1558618047-f4e90e8b1a3b?w=1600&auto=format&fit=crop&q=80";
 
 export default function MembershipBanner() {
   const ref = useRef<HTMLDivElement>(null);
@@ -21,156 +19,106 @@ export default function MembershipBanner() {
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setVisible(true); },
-      { threshold: 0.15 }
+      ([entry]) => {
+        if (entry.isIntersecting) setVisible(true);
+      },
+      { threshold: 0.1 }
     );
     if (ref.current) observer.observe(ref.current);
     return () => observer.disconnect();
   }, []);
 
   return (
-    <section className="py-24 relative overflow-hidden" style={{ backgroundColor: "oklch(0.97 0.012 85)" }}>
-      {/* Subtle dot pattern */}
+    <section
+      className="relative overflow-hidden"
+      style={{ minHeight: "clamp(220px, 22vw, 320px)" }}
+    >
+      {/* Background photo */}
       <div
-        className="absolute top-0 right-0 w-1/2 h-full opacity-[0.03] pointer-events-none"
+        className="absolute inset-0"
         style={{
-          backgroundImage: "radial-gradient(oklch(0.22 0.005 0) 1px, transparent 1px)",
-          backgroundSize: "24px 24px",
+          backgroundImage: `url(${BG_URL})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center 60%",
+        }}
+      />
+      {/* Dark overlay for legibility */}
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            "linear-gradient(90deg, oklch(0.08 0.005 0 / 0.55) 0%, oklch(0.08 0.005 0 / 0.72) 100%)",
         }}
       />
 
-      <div className="container relative z-10">
-        <div
-          ref={ref}
-          className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center"
-          style={{
-            opacity: visible ? 1 : 0,
-            transform: visible ? "translateY(0)" : "translateY(30px)",
-            transition: "opacity 0.8s ease, transform 0.8s ease",
-          }}
-        >
-          {/* Content */}
-          <div>
-            <div className="font-label mb-4 flex items-center gap-3" style={{ color: "oklch(0.46 0.20 25)" }}>
-              <span className="inline-block w-8 h-px" style={{ backgroundColor: "oklch(0.46 0.20 25)" }} />
-              Membership Program
-            </div>
-
-            <h2
-              className="font-display font-light mb-4"
-              style={{ fontSize: "clamp(2rem, 4vw, 3.2rem)", color: "oklch(0.22 0.005 0)", lineHeight: 1.1 }}
-            >
-              Newport Priority
-              <br />
-              <em style={{ color: "oklch(0.46 0.20 25)", fontStyle: "italic" }}>
-                Irrigation Membership
-              </em>
-            </h2>
-
-            <p className="font-body text-lg leading-relaxed mb-8" style={{ color: "oklch(0.38 0.005 0)" }}>
-              Never worry about your sprinklers again. Our Priority Irrigation
-              Membership gives you complete peace of mind — from spring
-              activation to fall winterization, we handle everything.
-            </p>
-
-            <ul className="space-y-3 mb-10">
-              {bannerFeatures.map((feature) => (
-                <li key={feature} className="flex items-center gap-3">
-                  <div
-                    className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0"
-                    style={{ backgroundColor: "oklch(0.46 0.20 25)" }}
-                  >
-                    <Check size={12} strokeWidth={2.5} style={{ color: "oklch(1 0 0)" }} />
-                  </div>
-                  <span className="font-body text-sm" style={{ color: "oklch(0.38 0.005 0)" }}>
-                    {feature}
-                  </span>
-                </li>
-              ))}
-            </ul>
-
-            <div className="flex flex-wrap gap-4">
-              <button
-                onClick={() => { navigate("/membership"); window.scrollTo({ top: 0, behavior: "smooth" }); }}
-                className="btn-outline-dark"
-              >
-                Learn More
-              </button>
-              <button
-                onClick={() => { navigate("/contact"); window.scrollTo({ top: 0, behavior: "smooth" }); }}
-                className="btn-red"
-              >
-                Sign Up Today
-              </button>
-            </div>
-          </div>
-
-          {/* Pricing Card — brand red, exact same style */}
-          <div
-            className="relative"
+      {/* Content */}
+      <div
+        ref={ref}
+        className="container relative z-10 flex flex-col md:flex-row items-center gap-8 md:gap-12 py-10 md:py-14"
+        style={{
+          opacity: visible ? 1 : 0,
+          transform: visible ? "translateY(0)" : "translateY(24px)",
+          transition: "opacity 0.8s ease, transform 0.8s ease",
+        }}
+      >
+        {/* Shield badge */}
+        <div className="flex-shrink-0 flex items-center justify-center">
+          <img
+            src={BADGE_URL}
+            alt="Newport Avenue Priority Irrigation Membership Badge"
             style={{
-              backgroundColor: "oklch(0.46 0.20 25)",
-              padding: "3rem",
-              borderRadius: "1.2rem 0.15rem 1.2rem 0.15rem",
+              width: "clamp(140px, 16vw, 220px)",
+              height: "auto",
+              filter: "drop-shadow(0 8px 24px oklch(0 0 0 / 0.60))",
+            }}
+          />
+        </div>
+
+        {/* Text + CTA */}
+        <div className="text-center md:text-left">
+          <h2
+            className="font-display font-black text-white uppercase leading-none mb-3"
+            style={{
+              fontSize: "clamp(1.6rem, 3.5vw, 3rem)",
+              letterSpacing: "0.02em",
+              textShadow: "0 2px 12px oklch(0 0 0 / 0.60)",
             }}
           >
-            {/* Decorative corner */}
-            <div
-              className="absolute top-0 right-0 w-24 h-24"
-              style={{ background: "linear-gradient(225deg, oklch(0.38 0.20 25) 0%, transparent 60%)" }}
-            />
-
-            <div
-              className="w-16 h-16 flex items-center justify-center mb-6"
-              style={{
-                backgroundColor: "oklch(1 0 0 / 0.15)",
-                color: "oklch(1 0 0)",
-                borderRadius: "1.2rem 0.15rem 1.2rem 0.15rem",
-              }}
-            >
-              <Droplets size={28} strokeWidth={1.5} />
-            </div>
-
-            <div className="font-label mb-2" style={{ color: "oklch(1 0 0 / 0.70)" }}>
-              Priority Irrigation Plan
-            </div>
-
-            <div className="font-display font-semibold mb-1" style={{ fontSize: "3rem", color: "oklch(1 0 0)", lineHeight: 1 }}>
-              $349
-            </div>
-            <div className="font-body text-sm mb-6" style={{ color: "oklch(1 0 0 / 0.65)" }}>
-              / year
-            </div>
-
-            <div className="h-px mb-6" style={{ backgroundColor: "oklch(1 0 0 / 0.20)" }} />
-
-            <div className="space-y-3 mb-8">
-              {[
-                "Spring system activation",
-                "Fall compressed-air blowout",
-                "Annual backflow preventer test",
-                "Priority scheduling all season",
-              ].map((item) => (
-                <div key={item} className="flex items-center gap-3">
-                  <Check size={14} style={{ color: "oklch(1 0 0 / 0.80)", flexShrink: 0 }} />
-                  <span className="font-body text-sm" style={{ color: "oklch(1 0 0 / 0.85)" }}>
-                    {item}
-                  </span>
-                </div>
-              ))}
-            </div>
-
+            Newport Priority<br />
+            Irrigation<br />
+            Membership:
+          </h2>
+          <p
+            className="font-body font-semibold mb-6"
+            style={{
+              color: "oklch(0.92 0.04 25)",
+              fontSize: "clamp(0.95rem, 1.5vw, 1.2rem)",
+              textShadow: "0 1px 6px oklch(0 0 0 / 0.50)",
+            }}
+          >
+            Never Worry About Your Sprinklers Again
+          </p>
+          <div className="flex flex-wrap gap-3 justify-center md:justify-start">
             <button
-              onClick={() => { navigate("/membership"); window.scrollTo({ top: 0, behavior: "smooth" }); }}
-              className="btn-outline-white w-full text-center"
-              style={{ display: "block" }}
+              onClick={() => {
+                navigate("/contact");
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }}
+              className="btn-red"
+              style={{ fontSize: "0.8rem", letterSpacing: "0.12em" }}
             >
-              See Full Details
+              SIGN UP TODAY
             </button>
-
-            <p className="font-body text-xs mt-4 text-center" style={{ color: "oklch(1 0 0 / 0.55)" }}>
-              Ask about our financing options
-            </p>
+            <button
+              onClick={() => {
+                navigate("/membership");
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }}
+              className="btn-outline-white"
+              style={{ fontSize: "0.8rem", letterSpacing: "0.12em" }}
+            >
+              LEARN MORE
+            </button>
           </div>
         </div>
       </div>

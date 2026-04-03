@@ -1,7 +1,7 @@
 /* ============================================================
    MEMBERSHIP PAGE — Newport Priority Irrigation Membership
-   Design: Matches MembershipSection — cream bg, brand red card,
-   charcoal text, dot pattern, serif display headings.
+   Hero: Badge + sprinkler background (matches original banner)
+   Body: Cream bg, red card, charcoal text, dot pattern
    ============================================================ */
 import { useEffect, useRef, useState } from "react";
 import { useLocation } from "wouter";
@@ -102,36 +102,71 @@ export default function Membership() {
     <div style={{ backgroundColor: "oklch(0.97 0.012 85)" }}>
       <Navbar />
 
-      {/* ── Hero ── */}
+      {/* ── Hero — badge + sprinkler banner ── */}
       <section
-        className="relative flex items-end"
-        style={{ height: "clamp(220px, 28vw, 340px)", backgroundColor: "oklch(0.12 0.005 0)" }}
+        className="relative overflow-hidden"
+        style={{ minHeight: "clamp(220px, 22vw, 320px)" }}
       >
         <div
           className="absolute inset-0"
           style={{
-            backgroundImage: "url(https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&auto=format&fit=crop)",
+            backgroundImage: "url(https://images.unsplash.com/photo-1558618047-f4e90e8b1a3b?w=1600&auto=format&fit=crop&q=80)",
             backgroundSize: "cover",
-            backgroundPosition: "center 40%",
-            opacity: 0.3,
+            backgroundPosition: "center 60%",
           }}
         />
         <div
           className="absolute inset-0"
-          style={{ background: "linear-gradient(0deg, oklch(0.10 0.005 0 / 0.95) 0%, oklch(0 0 0 / 0.20) 70%)" }}
+          style={{
+            background: "linear-gradient(90deg, oklch(0.08 0.005 0 / 0.55) 0%, oklch(0.08 0.005 0 / 0.72) 100%)",
+          }}
         />
-        <div className="container relative pb-12" style={{ paddingTop: "clamp(200px, 22vw, 280px)" }}>
-          <div className="font-label mb-3 flex items-center gap-3" style={{ color: "oklch(0.72 0.12 25)" }}>
-            <span className="inline-block h-px w-7" style={{ backgroundColor: "oklch(0.46 0.20 25)" }} />
-            Newport Priority Program
+        <div className="container relative z-10 flex flex-col md:flex-row items-center gap-8 md:gap-12 py-10 md:py-14">
+          <div className="flex-shrink-0 flex items-center justify-center">
+            <img
+              src="https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/membership-badge-XZx4Knw2aXFm4uTKtLij98.webp"
+              alt="Newport Avenue Priority Irrigation Membership Badge"
+              style={{
+                width: "clamp(140px, 16vw, 220px)",
+                height: "auto",
+                filter: "drop-shadow(0 8px 24px oklch(0 0 0 / 0.60))",
+              }}
+            />
           </div>
-          <h1
-            className="font-display font-light text-white"
-            style={{ fontSize: "clamp(2.4rem, 6vw, 5rem)", lineHeight: 1.0 }}
-          >
-            Priority Irrigation<br />
-            <em style={{ color: "oklch(0.75 0.10 25)" }}>Membership</em>
-          </h1>
+          <div className="text-center md:text-left">
+            <h1
+              className="font-display font-black text-white uppercase leading-none mb-3"
+              style={{
+                fontSize: "clamp(1.6rem, 3.5vw, 3rem)",
+                letterSpacing: "0.02em",
+                textShadow: "0 2px 12px oklch(0 0 0 / 0.60)",
+              }}
+            >
+              Newport Priority<br />
+              Irrigation<br />
+              Membership:
+            </h1>
+            <p
+              className="font-body font-semibold mb-6"
+              style={{
+                color: "oklch(0.92 0.04 25)",
+                fontSize: "clamp(0.95rem, 1.5vw, 1.2rem)",
+                textShadow: "0 1px 6px oklch(0 0 0 / 0.50)",
+              }}
+            >
+              Never Worry About Your Sprinklers Again
+            </p>
+            <button
+              onClick={() => {
+                navigate("/contact");
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }}
+              className="btn-red"
+              style={{ fontSize: "0.8rem", letterSpacing: "0.12em" }}
+            >
+              SIGN UP TODAY
+            </button>
+          </div>
         </div>
       </section>
 
