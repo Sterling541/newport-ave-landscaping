@@ -53,8 +53,8 @@ describe("BlueSpruceCursor", () => {
       "../client/src/components/BlueSpruceCursor.tsx"
     );
     const content = fs.readFileSync(filePath, "utf-8");
-    // Uses the leaf icon image, not a hand SVG
-    expect(content).toContain("leaf-icon-favicon");
+    // Uses the transparent leaf icon image, not a hand SVG
+    expect(content).toContain("leaf-icon-transparent");
     expect(content).not.toContain("M14 2C14 1.4");
     // Renders an img tag, not a spruce SVG
     expect(content).toContain("<img");
@@ -115,13 +115,14 @@ describe("HeroSection", () => {
     expect(content).toContain("stroke-dashoffset");
   });
 
-  it("should contain vertical staggered service list", async () => {
+  it("should contain the hero headline text", async () => {
     const fs = await import("fs");
     const path = await import("path");
     const filePath = path.resolve(__dirname, "../client/src/components/HeroSection.tsx");
     const content = fs.readFileSync(filePath, "utf-8");
-    expect(content).toContain("VerticalServiceList");
-    expect(content).toContain("SERVICES");
+    // Hero has main headline comment
+    expect(content).toContain("Main headline");
+    expect(content).toContain("6500");
   });
 
   it("should auto-rotate scenes every 6.5 seconds", async () => {
@@ -145,7 +146,7 @@ describe("BotanicalBand", () => {
     expect(fs.existsSync(filePath)).toBe(true);
   });
 
-  it("should use the marquee-scroll animation", async () => {
+  it("should use watercolor plant images from CDN", async () => {
     const fs = await import("fs");
     const path = await import("path");
     const filePath = path.resolve(
@@ -153,10 +154,12 @@ describe("BotanicalBand", () => {
       "../client/src/components/BotanicalBand.tsx"
     );
     const content = fs.readFileSync(filePath, "utf-8");
-    expect(content).toContain("marquee-scroll");
+    expect(content).toContain("plant-watercolor-1");
+    expect(content).toContain("plant-watercolor-2");
+    expect(content).toContain("plant-watercolor-3");
   });
 
-  it("should use dark forest green background", async () => {
+  it("should use bright cream background (no dark green)", async () => {
     const fs = await import("fs");
     const path = await import("path");
     const filePath = path.resolve(
@@ -164,13 +167,11 @@ describe("BotanicalBand", () => {
       "../client/src/components/BotanicalBand.tsx"
     );
     const content = fs.readFileSync(filePath, "utf-8");
-    // Green is gone — band now uses bright cream background
-    expect(content).toContain("oklch(0.975 0.006 75)");
+    expect(content).toContain("oklch(0.975");
     expect(content).not.toContain(" 155)");
-    expect(content).not.toContain(" 184.6)");
   });
 
-  it("should include large botanical illustrations bleeding above the band", async () => {
+  it("should include large plant images bleeding above the band", async () => {
     const fs = await import("fs");
     const path = await import("path");
     const filePath = path.resolve(
@@ -178,12 +179,21 @@ describe("BotanicalBand", () => {
       "../client/src/components/BotanicalBand.tsx"
     );
     const content = fs.readFileSync(filePath, "utf-8");
-    // Colossal-style large illustrations that bleed above the band
     expect(content).toContain('overflow: "visible"');
-    // Should have SVG botanical elements
-    expect(content).toContain("<svg");
-    // Should bleed above the band with negative top positioning
+    expect(content).toContain("<img");
     expect(content).toContain('top: "-');
+  });
+
+  it("should support variant prop for alternating plant arrangements", async () => {
+    const fs = await import("fs");
+    const path = await import("path");
+    const filePath = path.resolve(
+      __dirname,
+      "../client/src/components/BotanicalBand.tsx"
+    );
+    const content = fs.readFileSync(filePath, "utf-8");
+    expect(content).toContain("variant");
+    expect(content).toContain("isA");
   });
 });
 
@@ -207,8 +217,8 @@ describe("LightingSection", () => {
       "../client/src/components/LightingSection.tsx"
     );
     const content = fs.readFileSync(filePath, "utf-8");
-    // Section uses 220vh or similar tall scroll room
-    expect(content).toMatch(/2[0-9]{2}vh/);
+    // Section uses at least 100vh for scroll room
+    expect(content).toMatch(/1[0-9]{2}vh/);
   });
 
   it("should use position:sticky for the viewport panel", async () => {

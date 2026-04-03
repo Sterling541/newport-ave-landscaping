@@ -49,8 +49,8 @@ export default function Home() {
       {/* Red scrolling marquee band */}
       <MarqueeBand />
 
-      {/* Botanical divider — Studio Job-style texture band */}
-      <BotanicalBand />
+      {/* Botanical divider — watercolor plants */}
+      <BotanicalBand variant="a" />
 
       <WhoWeServe />
       <ServicesSection />
@@ -59,7 +59,7 @@ export default function Home() {
       <OutdoorRoomsSection />
 
       {/* Botanical divider before portfolio */}
-      <BotanicalBand label="PORTFOLIO" />
+      <BotanicalBand label="PORTFOLIO  ◆  150+ PROJECTS" variant="b" />
 
       <AboutSection />
       <PortfolioSection />

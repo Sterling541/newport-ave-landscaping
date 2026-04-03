@@ -72,7 +72,7 @@ export default function LightingSection() {
     <div
       ref={sectionRef}
       style={{
-        height: "220vh",
+        height: "140vh",
         position: "relative",
         backgroundColor: "transparent",
       }}

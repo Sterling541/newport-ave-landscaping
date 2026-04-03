@@ -66,9 +66,12 @@
   --ink-mid:      oklch(0.28 0.006 30);       /* Mid charcoal for secondary text */
   --ink-soft:     oklch(0.92 0.008 75);       /* Very light warm gray for cards */
   --rule:         oklch(0.88 0.006 75);       /* Thin divider lines */
-  --brand-red:    oklch(0.46 0.20 25);        /* Brand red — the single accent */
+  --brand-red:    oklch(0.46 0.20 25);        /* Brand red — primary accent */
   --brand-red-dk: oklch(0.36 0.18 25);        /* Hover red */
   --brand-red-lt: oklch(0.92 0.06 25);        /* Very light red tint */
+  --teal:         oklch(0.52 0.12 195);       /* Blue-spruce teal — secondary accent */
+  --teal-dk:      oklch(0.40 0.10 195);       /* Darker teal for hover */
+  --teal-lt:      oklch(0.92 0.04 195);       /* Very light teal tint */
 
   /* Dark section palette (hero, lighting, footer) */
   --dark-bg:      oklch(0.10 0.008 30);       /* Near-black warm */

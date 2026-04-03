@@ -31,7 +31,7 @@ export default function MembershipBanner() {
   return (
     <section
       className="relative overflow-hidden"
-      style={{ minHeight: "clamp(220px, 22vw, 320px)" }}
+      style={{ minHeight: "clamp(220px, 22vw, 320px)", backgroundColor: "oklch(0.18 0.008 30)" }}
     >
       {/* Background photo */}
       <div

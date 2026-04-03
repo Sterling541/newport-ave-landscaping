@@ -12,7 +12,7 @@
 import { useEffect, useRef, useState } from "react";
 
 const LOGO_ICON_URL =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/leaf-icon-favicon_df4f4a2a.png";
+  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/leaf-icon-transparent_a5f29f57.png";
 
 export default function BlueSpruceCursor() {
   const cursorRef = useRef<HTMLDivElement>(null);
@@ -70,8 +70,8 @@ export default function BlueSpruceCursor() {
     };
   }, []);
 
-  // Icon size: slightly larger on hover
-  const iconSize = isPointer ? 40 : 32;
+  // Icon size: doubled from original, slightly larger on hover
+  const iconSize = isPointer ? 80 : 64;
 
   return (
     <div
