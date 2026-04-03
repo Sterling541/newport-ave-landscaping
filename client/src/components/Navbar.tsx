@@ -170,13 +170,6 @@ export default function Navbar() {
                   {item.label}
                 </button>
               ))}
-              <button
-                onClick={() => goTo("/contact")}
-                className="btn-red ml-auto"
-                style={{ fontSize: "0.62rem", padding: "0.45rem 1.1rem" }}
-              >
-                Get a Quote
-              </button>
             </div>
 
             {/* Centered logo */}
