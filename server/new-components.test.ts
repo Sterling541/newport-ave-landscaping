@@ -120,7 +120,7 @@ describe("BotanicalBand", () => {
     expect(content).toContain("oklch(0.22 0.07 155)");
   });
 
-  it("should include SVG botanical pattern", async () => {
+  it("should include plan-view plant symbols (SVG circles with radial lines)", async () => {
     const fs = await import("fs");
     const path = await import("path");
     const filePath = path.resolve(
@@ -128,8 +128,10 @@ describe("BotanicalBand", () => {
       "../client/src/components/BotanicalBand.tsx"
     );
     const content = fs.readFileSync(filePath, "utf-8");
-    expect(content).toContain("<pattern");
-    expect(content).toContain("botanical");
+    // New design uses architectural plan-view plant symbols
+    expect(content).toContain("PlanShrub");
+    expect(content).toContain("PlanConifer");
+    expect(content).toContain("PlanGroundcover");
   });
 });
 
@@ -145,7 +147,7 @@ describe("LightingSection", () => {
     expect(fs.existsSync(filePath)).toBe(true);
   });
 
-  it("should use a 250vh height for scroll room", async () => {
+  it("should use a tall height for scroll room", async () => {
     const fs = await import("fs");
     const path = await import("path");
     const filePath = path.resolve(
@@ -153,7 +155,8 @@ describe("LightingSection", () => {
       "../client/src/components/LightingSection.tsx"
     );
     const content = fs.readFileSync(filePath, "utf-8");
-    expect(content).toContain("250vh");
+    // Section uses 220vh or similar tall scroll room
+    expect(content).toMatch(/2[0-9]{2}vh/);
   });
 
   it("should use position:sticky for the viewport panel", async () => {
@@ -179,7 +182,7 @@ describe("LightingSection", () => {
     expect(content).toContain("cloudfront.net");
   });
 
-  it("should have uplight cone SVGs with radial gradients", async () => {
+  it("should have multiple uplight cone SVGs with radial gradients", async () => {
     const fs = await import("fs");
     const path = await import("path");
     const filePath = path.resolve(
@@ -187,9 +190,11 @@ describe("LightingSection", () => {
       "../client/src/components/LightingSection.tsx"
     );
     const content = fs.readFileSync(filePath, "utf-8");
-    expect(content).toContain("leftCone");
-    expect(content).toContain("rightCone");
+    expect(content).toContain("coneL");
+    expect(content).toContain("coneR");
     expect(content).toContain("radialGradient");
+    // Should also have water reflection
+    expect(content).toContain("waterGlow");
   });
 
   it("should clamp progress between 0 and 1", async () => {
