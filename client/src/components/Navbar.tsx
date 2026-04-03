@@ -1,9 +1,11 @@
 /* ============================================================
-   NAVBAR — Southview-Inspired with Dropdown Menus
-   Design: Dark charcoal nav bar. Logo centered as the anchor.
-   Nav links split symmetrically left and right of the logo.
-   Thin red utility bar at very top with address/phone.
-   Dropdowns under Services and Maintenance.
+   NAVBAR — Premium Dark Forest Green
+   - Thin red bottom border line (brand signature)
+   - Animated slide-in underline on nav link hover
+   - SVG noise texture overlay for depth
+   - Logo with subtle drop shadow glow
+   - Frosted glass-style dropdown with red top accent
+   - Teal used NOWHERE — red + off-white only
    ============================================================ */
 import { useState, useEffect, useRef } from "react";
 import { useLocation } from "wouter";
@@ -46,36 +48,165 @@ const navRight = [
   { label: "Commercial", href: "/commercial" },
 ];
 
-function DropdownMenu({ items, onNavigate }: { items: { label: string; href: string }[]; onNavigate: (href: string) => void }) {
+// Animated underline nav link
+function NavLink({
+  label,
+  active,
+  onClick,
+  children,
+}: {
+  label?: string;
+  active?: boolean;
+  onClick: () => void;
+  children?: React.ReactNode;
+}) {
+  const [hovered, setHovered] = useState(false);
   return (
-    <div
-      className="absolute top-full left-1/2 min-w-[240px] py-2 z-50"
+    <button
+      onClick={onClick}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
       style={{
-        transform: "translateX(-50%)",
-        backgroundColor: "oklch(0.14 0.022 155)",
-        borderTop: "2px solid oklch(0.76 0.128 184.6)",
-        boxShadow: "0 12px 32px oklch(0 0 0 / 0.5)",
+        background: "none",
+        border: "none",
+        padding: "0.25rem 0",
+        cursor: "pointer",
+        position: "relative",
+        fontFamily: "'Montserrat', sans-serif",
+        fontSize: "0.62rem",
+        fontWeight: 600,
+        letterSpacing: "0.18em",
+        textTransform: "uppercase",
+        color: active ? "oklch(0.85 0.12 28)" : "oklch(0.82 0.003 0)",
+        transition: "color 0.2s ease",
       }}
     >
+      {children ?? label}
+      {/* Animated underline */}
+      <span
+        style={{
+          position: "absolute",
+          bottom: 0,
+          left: 0,
+          height: "1px",
+          backgroundColor: "oklch(0.46 0.20 25)",
+          width: active ? "100%" : hovered ? "100%" : "0%",
+          transition: "width 0.25s ease",
+        }}
+      />
+    </button>
+  );
+}
+
+function DropdownMenu({
+  items,
+  onNavigate,
+}: {
+  items: { label: string; href: string }[];
+  onNavigate: (href: string) => void;
+}) {
+  return (
+    <div
+      style={{
+        position: "absolute",
+        top: "calc(100% + 14px)",
+        left: "50%",
+        transform: "translateX(-50%)",
+        minWidth: "260px",
+        zIndex: 50,
+        backgroundColor: "oklch(0.13 0.022 155)",
+        borderTop: "2px solid oklch(0.46 0.20 25)",
+        borderBottom: "1px solid oklch(0.20 0.018 155)",
+        borderLeft: "1px solid oklch(0.20 0.018 155)",
+        borderRight: "1px solid oklch(0.20 0.018 155)",
+        boxShadow:
+          "0 20px 60px oklch(0 0 0 / 0.6), 0 4px 16px oklch(0 0 0 / 0.4)",
+        backdropFilter: "blur(12px)",
+        padding: "0.5rem 0",
+      }}
+    >
+      {/* Tiny red dot row at top */}
+      <div
+        style={{
+          display: "flex",
+          gap: "4px",
+          padding: "0.4rem 1.2rem 0.6rem",
+          borderBottom: "1px solid oklch(0.18 0.018 155)",
+          marginBottom: "0.25rem",
+        }}
+      >
+        {[0, 1, 2].map((i) => (
+          <span
+            key={i}
+            style={{
+              width: "4px",
+              height: "4px",
+              borderRadius: "50%",
+              backgroundColor:
+                i === 0
+                  ? "oklch(0.46 0.20 25)"
+                  : "oklch(0.25 0.008 200)",
+            }}
+          />
+        ))}
+      </div>
+
       {items.map((item) => (
-        <button
-          key={item.href}
-          onClick={() => onNavigate(item.href)}
-          className="w-full text-left px-5 py-2.5 font-nav transition-colors duration-150"
-          style={{ color: "oklch(0.78 0.003 0)", fontSize: "0.68rem", letterSpacing: "0.08em" }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.color = "oklch(0.85 0.12 28)";
-            e.currentTarget.style.backgroundColor = "oklch(0.22 0.025 155)";
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.color = "oklch(0.78 0.003 0)";
-            e.currentTarget.style.backgroundColor = "transparent";
-          }}
-        >
-          {item.label}
-        </button>
+        <DropdownItem key={item.href} item={item} onNavigate={onNavigate} />
       ))}
     </div>
+  );
+}
+
+function DropdownItem({
+  item,
+  onNavigate,
+}: {
+  item: { label: string; href: string };
+  onNavigate: (href: string) => void;
+}) {
+  const [hovered, setHovered] = useState(false);
+  return (
+    <button
+      onClick={() => onNavigate(item.href)}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{
+        width: "100%",
+        textAlign: "left",
+        padding: "0.55rem 1.2rem",
+        background: hovered ? "oklch(0.18 0.022 155)" : "transparent",
+        border: "none",
+        cursor: "pointer",
+        display: "flex",
+        alignItems: "center",
+        gap: "0.6rem",
+        transition: "background 0.15s ease",
+      }}
+    >
+      {/* Red dash accent on hover */}
+      <span
+        style={{
+          width: hovered ? "12px" : "0px",
+          height: "1px",
+          backgroundColor: "oklch(0.46 0.20 25)",
+          flexShrink: 0,
+          transition: "width 0.2s ease",
+        }}
+      />
+      <span
+        style={{
+          fontFamily: "'Montserrat', sans-serif",
+          fontSize: "0.62rem",
+          fontWeight: 500,
+          letterSpacing: "0.08em",
+          color: hovered ? "oklch(0.93 0.003 0)" : "oklch(0.68 0.003 0)",
+          transition: "color 0.15s ease",
+        }}
+      >
+        {item.label}
+      </span>
+    </button>
   );
 }
 
@@ -115,23 +246,56 @@ export default function Navbar() {
       {/* ── Utility bar ── */}
       <div
         className="fixed top-0 left-0 right-0 z-30"
-        style={{ backgroundColor: "oklch(0.22 0.028 155)" }}
+        style={{
+          backgroundColor: "oklch(0.11 0.018 155)",
+          borderBottom: "1px solid oklch(0.18 0.018 155)",
+        }}
       >
-        <div className="container flex items-center justify-between py-2">
-          <span className="font-label text-white" style={{ fontSize: "0.65rem", opacity: 0.85 }}>
-            Visits by Appointment Only &nbsp;·&nbsp; 64625 N. HWY 97, Bend, OR
-          </span>
+        <div className="container flex items-center justify-between" style={{ padding: "0.45rem 0" }}>
+          {/* Left: address */}
+          <div style={{ display: "flex", alignItems: "center", gap: "1.2rem" }}>
+            <span
+              style={{
+                fontFamily: "'Montserrat', sans-serif",
+                fontSize: "0.55rem",
+                fontWeight: 500,
+                letterSpacing: "0.12em",
+                color: "oklch(0.50 0.003 0)",
+                textTransform: "uppercase",
+              }}
+            >
+              64625 N. HWY 97, Bend, OR
+            </span>
+            <span style={{ width: "1px", height: "10px", backgroundColor: "oklch(0.22 0.018 155)", display: "block" }} />
+            <span
+              style={{
+                fontFamily: "'Montserrat', sans-serif",
+                fontSize: "0.55rem",
+                fontWeight: 500,
+                letterSpacing: "0.12em",
+                color: "oklch(0.50 0.003 0)",
+                textTransform: "uppercase",
+              }}
+            >
+              Visits by Appointment Only
+            </span>
+          </div>
+
+          {/* Right: phone */}
           <a
             href="tel:5416178873"
-            className="font-label text-white flex items-center gap-2 group"
-            style={{ textDecoration: "none", cursor: "pointer" }}
+            style={{ textDecoration: "none", display: "flex", alignItems: "center", gap: "0.5rem" }}
           >
-            <span style={{ fontSize: "0.65rem", opacity: 0.85, letterSpacing: "0.05em" }}>For Service Call:</span>
+            <Phone size={11} style={{ color: "oklch(0.46 0.20 25)" }} />
             <span
-              className="flex items-center gap-1.5"
-              style={{ fontSize: "0.85rem", fontWeight: 700, letterSpacing: "0.04em", textDecoration: "underline", textUnderlineOffset: "3px", textDecorationColor: "rgba(255,255,255,0.5)" }}
+              style={{
+                fontFamily: "'Montserrat', sans-serif",
+                fontSize: "0.62rem",
+                fontWeight: 700,
+                letterSpacing: "0.1em",
+                color: "oklch(0.78 0.003 0)",
+              }}
             >
-              <Phone size={13} />
               (541) 617-8873
             </span>
           </a>
@@ -141,217 +305,292 @@ export default function Navbar() {
       {/* ── Main nav ── */}
       <nav
         ref={navRef}
-        className="fixed left-0 right-0 z-40 transition-shadow duration-300"
+        className="fixed left-0 right-0 z-40 transition-all duration-300"
         style={{
           top: "28px",
-          backgroundColor: "oklch(0.18 0.025 155)",
-          boxShadow: scrolled ? "0 4px 24px oklch(0 0 0 / 0.35)" : "none",
+          backgroundColor: scrolled
+            ? "oklch(0.14 0.022 155 / 0.98)"
+            : "oklch(0.16 0.022 155)",
+          boxShadow: scrolled
+            ? "0 4px 32px oklch(0 0 0 / 0.5)"
+            : "none",
+          borderBottom: "1px solid oklch(0.46 0.20 25 / 0.35)",
           overflow: "visible",
+          backdropFilter: scrolled ? "blur(12px)" : "none",
         }}
       >
+        {/* SVG noise texture overlay */}
+        <svg
+          style={{
+            position: "absolute",
+            inset: 0,
+            width: "100%",
+            height: "100%",
+            pointerEvents: "none",
+            opacity: 0.04,
+            zIndex: 0,
+          }}
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <filter id="navNoise">
+            <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch" />
+            <feColorMatrix type="saturate" values="0" />
+          </filter>
+          <rect width="100%" height="100%" filter="url(#navNoise)" />
+        </svg>
+
+        {/* Thin red bottom accent line */}
+        <div
+          style={{
+            position: "absolute",
+            bottom: 0,
+            left: 0,
+            right: 0,
+            height: "2px",
+            background: "linear-gradient(90deg, transparent 0%, oklch(0.46 0.20 25) 20%, oklch(0.55 0.22 25) 50%, oklch(0.46 0.20 25) 80%, transparent 100%)",
+            zIndex: 1,
+          }}
+        />
+
         {/* Desktop nav */}
-        <div className="hidden md:flex flex-col items-center justify-center px-8" style={{ minHeight: "90px", overflow: "visible" }}>
-          <div className="flex items-center justify-between w-full">
+        <div
+          className="hidden md:flex items-center justify-between px-8"
+          style={{ minHeight: "88px", overflow: "visible", position: "relative", zIndex: 2 }}
+        >
+          {/* Left links */}
+          <div className="flex items-center gap-10 flex-1">
+            {navLeft.map((item) => (
+              <NavLink
+                key={item.label}
+                label={item.label}
+                active={location === item.href}
+                onClick={() => goTo(item.href)}
+              />
+            ))}
+          </div>
 
-            {/* Left links */}
-            <div
-              className="flex items-center gap-8 flex-1"
-              style={{ borderTop: "1px solid rgba(255,255,255,0.3)", borderBottom: "1px solid rgba(255,255,255,0.3)", padding: "14px 0" }}
+          {/* Centered logo */}
+          <div
+            style={{
+              flexShrink: 0,
+              width: "320px",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <button
+              onClick={() => goTo("/")}
+              style={{ background: "none", border: "none", cursor: "pointer", padding: 0 }}
             >
-              {navLeft.map((item) => (
-                <button
-                  key={item.label}
-                  onClick={() => goTo(item.href)}
-                  className="font-nav transition-colors duration-200"
-                  style={{ color: location === item.href ? "oklch(0.85 0.12 28)" : "oklch(0.82 0.003 0)" }}
-                  onMouseEnter={(e) => (e.currentTarget.style.color = "oklch(0.85 0.12 28)")}
-                  onMouseLeave={(e) => (e.currentTarget.style.color = location === item.href ? "oklch(0.85 0.12 28)" : "oklch(0.82 0.003 0)")}
-                >
-                  {item.label}
-                </button>
-              ))}
-            </div>
+              <img
+                src={LOGO_NAV}
+                alt="Newport Avenue Landscaping"
+                style={{
+                  height: "190px",
+                  width: "auto",
+                  objectFit: "contain",
+                  display: "block",
+                  marginTop: "-55px",
+                  position: "relative",
+                  zIndex: 60,
+                  filter: "drop-shadow(0 4px 20px oklch(0 0 0 / 0.6))",
+                }}
+              />
+            </button>
+          </div>
 
-            {/* Centered logo */}
-            <div className="flex-shrink-0 mx-8" style={{ width: "340px", display: "flex", justifyContent: "center" }}>
-              <button onClick={() => goTo("/")}>
-                <img
-                  src={LOGO_NAV}
-                  alt="Newport Avenue Landscaping"
-                  style={{ height: "200px", width: "auto", objectFit: "contain", display: "block", marginTop: "-60px", position: "relative", zIndex: 60 }}
-                />
-              </button>
-            </div>
-
-            {/* Right links with dropdowns */}
-            <div
-              className="flex items-center gap-8 flex-1 justify-end"
-              style={{ borderTop: "1px solid rgba(255,255,255,0.3)", borderBottom: "1px solid rgba(255,255,255,0.3)", padding: "14px 0" }}
-            >
-              {navRight.map((item) => (
-                <div key={item.label} className="relative">
-                  {item.dropdown ? (
-                    <button
-                      className="font-nav transition-colors duration-200 flex items-center gap-1"
-                      style={{ color: openDropdown === item.label || location.startsWith(item.href) ? "oklch(0.85 0.12 28)" : "oklch(0.82 0.003 0)" }}
-                      onMouseEnter={(e) => {
-                        setOpenDropdown(item.label);
-                        (e.currentTarget as HTMLElement).style.color = "oklch(0.85 0.12 28)";
-                      }}
-                      onMouseLeave={(e) => {
-                        (e.currentTarget as HTMLElement).style.color = openDropdown === item.label || location.startsWith(item.href) ? "oklch(0.85 0.12 28)" : "oklch(0.82 0.003 0)";
-                      }}
-                      onClick={() => setOpenDropdown(openDropdown === item.label ? null : item.label)}
+          {/* Right links */}
+          <div className="flex items-center gap-10 flex-1 justify-end">
+            {navRight.map((item) => (
+              <div key={item.label} style={{ position: "relative" }}>
+                {item.dropdown ? (
+                  <>
+                    <NavLink
+                      active={openDropdown === item.label || location.startsWith(item.href)}
+                      onClick={() =>
+                        setOpenDropdown(openDropdown === item.label ? null : item.label)
+                      }
                     >
-                      {item.label}
-                      <ChevronDown
-                        size={11}
-                        style={{
-                          transition: "transform 0.2s",
-                          transform: openDropdown === item.label ? "rotate(180deg)" : "rotate(0deg)",
-                        }}
-                      />
-                    </button>
-                  ) : (
-                    <button
-                      onClick={() => goTo(item.href)}
-                      className="font-nav transition-colors duration-200"
-                      style={{ color: location === item.href ? "oklch(0.85 0.12 28)" : "oklch(0.82 0.003 0)" }}
-                      onMouseEnter={(e) => (e.currentTarget.style.color = "oklch(0.85 0.12 28)")}
-                      onMouseLeave={(e) => (e.currentTarget.style.color = location === item.href ? "oklch(0.85 0.12 28)" : "oklch(0.82 0.003 0)")}
-                    >
-                      {item.label}
-                    </button>
-                  )}
-
-                  {/* Dropdown panel */}
-                  {item.dropdown && openDropdown === item.label && (
-                    <div
-                      onMouseEnter={() => setOpenDropdown(item.label)}
-                      onMouseLeave={() => setOpenDropdown(null)}
-                    >
-                      <DropdownMenu items={item.dropdown} onNavigate={goTo} />
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
+                      <span style={{ display: "flex", alignItems: "center", gap: "3px" }}>
+                        {item.label}
+                        <ChevronDown
+                          size={10}
+                          style={{
+                            transition: "transform 0.2s",
+                            transform:
+                              openDropdown === item.label
+                                ? "rotate(180deg)"
+                                : "rotate(0deg)",
+                            marginTop: "1px",
+                          }}
+                        />
+                      </span>
+                    </NavLink>
+                    {openDropdown === item.label && (
+                      <div
+                        onMouseEnter={() => setOpenDropdown(item.label)}
+                        onMouseLeave={() => setOpenDropdown(null)}
+                      >
+                        <DropdownMenu items={item.dropdown} onNavigate={goTo} />
+                      </div>
+                    )}
+                  </>
+                ) : (
+                  <NavLink
+                    label={item.label}
+                    active={location === item.href}
+                    onClick={() => goTo(item.href)}
+                  />
+                )}
+              </div>
+            ))}
           </div>
         </div>
 
         {/* Mobile nav bar */}
-        <div className="flex md:hidden items-center justify-between px-4" style={{ minHeight: "72px" }}>
+        <div
+          className="flex md:hidden items-center justify-between px-4"
+          style={{ minHeight: "68px", position: "relative", zIndex: 2 }}
+        >
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            style={{ color: "oklch(0.85 0.003 0)" }}
+            style={{ color: "oklch(0.82 0.003 0)", background: "none", border: "none", cursor: "pointer" }}
             aria-label="Toggle menu"
           >
             {mobileOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
 
-          <button onClick={() => goTo("/")}>
+          <button
+            onClick={() => goTo("/")}
+            style={{ background: "none", border: "none", cursor: "pointer", padding: 0 }}
+          >
             <img
               src={LOGO_NAV}
               alt="Newport Avenue Landscaping"
-              style={{ height: "44px", width: "auto", objectFit: "contain" }}
+              style={{ height: "42px", width: "auto", objectFit: "contain" }}
             />
           </button>
 
-          <a href="tel:5416178873" className="flex items-center gap-1" style={{ color: "oklch(0.85 0.12 28)" }}>
+          <a
+            href="tel:5416178873"
+            style={{ color: "oklch(0.46 0.20 25)", display: "flex", alignItems: "center" }}
+          >
             <Phone size={18} />
           </a>
         </div>
 
         {/* Mobile dropdown */}
         <div
-          className="md:hidden overflow-hidden transition-all duration-300"
+          className="md:hidden"
           style={{
-            maxHeight: mobileOpen ? "700px" : "0",
-            backgroundColor: "oklch(0.12 0.004 0)",
+            maxHeight: mobileOpen ? "80vh" : "0",
+            overflow: "hidden",
+            transition: "max-height 0.35s ease",
+            backgroundColor: "oklch(0.12 0.018 155)",
+            borderTop: mobileOpen ? "1px solid oklch(0.20 0.018 155)" : "none",
+            position: "relative",
+            zIndex: 2,
           }}
         >
-          <div className="px-6 py-4 flex flex-col gap-1">
-            {navLeft.map((item) => (
-              <button
-                key={item.label}
-                onClick={() => goTo(item.href)}
-                className="font-nav text-left py-2.5 transition-colors duration-200"
-                style={{ color: "oklch(0.80 0.003 0)" }}
-              >
-                {item.label}
-              </button>
+          <div style={{ padding: "1rem 1.5rem 2rem" }}>
+            {([...navLeft, ...navRight] as Array<{ label: string; href: string; dropdown?: { label: string; href: string }[] }>).map((item) => (
+              <div key={item.label}>
+                <button
+                  onClick={() => {
+                    if ("dropdown" in item && item.dropdown) {
+                      setMobileExpanded(mobileExpanded === item.label ? null : item.label);
+                    } else {
+                      goTo(item.href);
+                    }
+                  }}
+                  style={{
+                    width: "100%",
+                    textAlign: "left",
+                    padding: "0.9rem 0",
+                    background: "none",
+                    border: "none",
+                    borderBottom: "1px solid oklch(0.18 0.018 155)",
+                    cursor: "pointer",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    fontFamily: "'Montserrat', sans-serif",
+                    fontSize: "0.72rem",
+                    fontWeight: 600,
+                    letterSpacing: "0.15em",
+                    textTransform: "uppercase",
+                    color: "oklch(0.80 0.003 0)",
+                  }}
+                >
+                  {item.label}
+                  {"dropdown" in item && item.dropdown && (
+                    <ChevronDown
+                      size={14}
+                      style={{
+                        transition: "transform 0.2s",
+                        transform:
+                          mobileExpanded === item.label
+                            ? "rotate(180deg)"
+                            : "rotate(0deg)",
+                        color: "oklch(0.46 0.20 25)",
+                      }}
+                    />
+                  )}
+                </button>
+
+                {"dropdown" in item && item.dropdown && mobileExpanded === item.label && (
+                  <div style={{ paddingLeft: "1rem", paddingBottom: "0.5rem" }}>
+                    {item.dropdown.map((sub) => (
+                      <button
+                        key={sub.href}
+                        onClick={() => goTo(sub.href)}
+                        style={{
+                          width: "100%",
+                          textAlign: "left",
+                          padding: "0.6rem 0",
+                          background: "none",
+                          border: "none",
+                          cursor: "pointer",
+                          fontFamily: "'Montserrat', sans-serif",
+                          fontSize: "0.62rem",
+                          fontWeight: 500,
+                          letterSpacing: "0.08em",
+                          color: "oklch(0.58 0.003 0)",
+                          borderBottom: "1px solid oklch(0.16 0.018 155)",
+                        }}
+                      >
+                        — {sub.label}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
             ))}
 
-            {/* Maintenance mobile group */}
-            <button
-              className="font-nav text-left py-2.5 flex items-center justify-between"
-              style={{ color: "oklch(0.80 0.003 0)" }}
-              onClick={() => setMobileExpanded(mobileExpanded === "Maintenance" ? null : "Maintenance")}
+            {/* Mobile CTA */}
+            <a
+              href="tel:5416178873"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: "0.5rem",
+                marginTop: "1.5rem",
+                padding: "0.9rem",
+                backgroundColor: "oklch(0.46 0.20 25)",
+                textDecoration: "none",
+                fontFamily: "'Montserrat', sans-serif",
+                fontSize: "0.72rem",
+                fontWeight: 700,
+                letterSpacing: "0.15em",
+                color: "oklch(0.97 0.012 75)",
+                textTransform: "uppercase",
+              }}
             >
-              Maintenance
-              <ChevronDown size={13} style={{ transform: mobileExpanded === "Maintenance" ? "rotate(180deg)" : "rotate(0deg)", transition: "transform 0.2s" }} />
-            </button>
-            {mobileExpanded === "Maintenance" && (
-              <div className="pl-4 flex flex-col gap-1 mb-1">
-                {maintenanceItems.map((item) => (
-                  <button
-                    key={item.href}
-                    onClick={() => goTo(item.href)}
-                    className="font-nav text-left py-1.5"
-                    style={{ color: "oklch(0.65 0.003 0)", fontSize: "0.68rem" }}
-                  >
-                    {item.label}
-                  </button>
-                ))}
-              </div>
-            )}
-
-            <button
-              onClick={() => goTo("/install")}
-              className="font-nav text-left py-2.5"
-              style={{ color: "oklch(0.80 0.003 0)" }}
-            >
-              Install
-            </button>
-
-            {/* Services mobile group */}
-            <button
-              className="font-nav text-left py-2.5 flex items-center justify-between"
-              style={{ color: "oklch(0.80 0.003 0)" }}
-              onClick={() => setMobileExpanded(mobileExpanded === "Services" ? null : "Services")}
-            >
-              Services
-              <ChevronDown size={13} style={{ transform: mobileExpanded === "Services" ? "rotate(180deg)" : "rotate(0deg)", transition: "transform 0.2s" }} />
-            </button>
-            {mobileExpanded === "Services" && (
-              <div className="pl-4 flex flex-col gap-1 mb-1">
-                {servicesItems.map((item) => (
-                  <button
-                    key={item.href}
-                    onClick={() => goTo(item.href)}
-                    className="font-nav text-left py-1.5"
-                    style={{ color: "oklch(0.65 0.003 0)", fontSize: "0.68rem" }}
-                  >
-                    {item.label}
-                  </button>
-                ))}
-              </div>
-            )}
-
-            <button
-              onClick={() => goTo("/commercial")}
-              className="font-nav text-left py-2.5"
-              style={{ color: "oklch(0.80 0.003 0)" }}
-            >
-              Commercial
-            </button>
-
-            <button
-              onClick={() => goTo("/contact")}
-              className="btn-red mt-3"
-            >
-              Start Service
-            </button>
+              <Phone size={14} />
+              Call (541) 617-8873
+            </a>
           </div>
         </div>
       </nav>

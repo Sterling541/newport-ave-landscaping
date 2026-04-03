@@ -88,6 +88,33 @@ export default function ReviewsSection() {
         overflow: "hidden",
       }}
     >
+      {/* ── Halftone dot circle — bottom-left decorative ── */}
+      <svg
+        style={{
+          position: "absolute",
+          bottom: "-60px",
+          left: "-60px",
+          width: "380px",
+          height: "380px",
+          pointerEvents: "none",
+          opacity: 0.15,
+          zIndex: 0,
+        }}
+        viewBox="0 0 380 380"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        {Array.from({ length: 16 }, (_, row) =>
+          Array.from({ length: 16 }, (_, col) => {
+            const cx = 20 + col * 22;
+            const cy = 20 + row * 22;
+            const dist = Math.sqrt((cx - 190) ** 2 + (cy - 190) ** 2);
+            if (dist > 175) return null;
+            const r = Math.max(1, 5 * (1 - dist / 190));
+            return <circle key={`${row}-${col}`} cx={cx} cy={cy} r={r} fill="#c0392b" />;
+          })
+        )}
+      </svg>
+
       {/* ── Section label ── */}
       <div
         style={{

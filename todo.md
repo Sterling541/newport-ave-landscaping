@@ -78,6 +78,11 @@
 - [ ] CTA: full-bleed with text so large it wraps 3 lines
 - [ ] Global: diagonal section dividers (clip-path cuts)
 
+## In Progress — Polish Pass
+- [ ] Add halftone dot circles back to homepage sections (red dots, Colossal-style)
+- [ ] Fix hero diagonal line — make it intentional, sharp, and beautiful
+- [ ] Redesign dark green navbar with premium details (texture, micro-type, hover states)
+
 ## Pending / Future
 - [ ] Contact form backend integration (currently UI only)
 - [ ] Membership signup backend integration

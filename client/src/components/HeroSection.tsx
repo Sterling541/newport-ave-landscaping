@@ -110,58 +110,123 @@ export default function HeroSection() {
       />
 
       {/* ════════════════════════════════════════════════
-          DIAGONAL RED SLASH — the signature element
-          A glowing red line that cuts diagonally across
-          the entire viewport at ~50% height
+          DIAGONAL RED SLASH — SVG precision diagonal
+          Runs from top-right to bottom-left across the
+          full viewport. Gradient fade at both ends.
+          Diamond accent at center crossing point.
           ════════════════════════════════════════════════ */}
-      <div
+      <svg
         style={{
           position: "absolute",
           inset: 0,
+          width: "100%",
+          height: "100%",
           pointerEvents: "none",
-          overflow: "hidden",
+          overflow: "visible",
+          zIndex: 5,
         }}
+        viewBox="0 0 100 100"
+        preserveAspectRatio="none"
+        xmlns="http://www.w3.org/2000/svg"
       >
-        {/* Primary slash — 3px glowing red */}
-        <div
-          style={{
-            position: "absolute",
-            left: "-5%",
-            top: "48%",
-            width: "110%",
-            height: "3px",
-            backgroundColor: "oklch(0.46 0.20 25)",
-            transform: "rotate(-3.5deg)",
-            boxShadow:
-              "0 0 12px oklch(0.46 0.20 25 / 0.8), 0 0 40px oklch(0.46 0.20 25 / 0.4), 0 0 80px oklch(0.46 0.20 25 / 0.2)",
-          }}
+        <defs>
+          {/* Gradient: fade in from left, solid in middle, fade out to right */}
+          <linearGradient id="slashGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="#c0392b" stopOpacity="0" />
+            <stop offset="15%" stopColor="#c0392b" stopOpacity="0.9" />
+            <stop offset="50%" stopColor="#e74c3c" stopOpacity="1" />
+            <stop offset="85%" stopColor="#c0392b" stopOpacity="0.9" />
+            <stop offset="100%" stopColor="#c0392b" stopOpacity="0" />
+          </linearGradient>
+          {/* Glow filter */}
+          <filter id="slashGlow" x="-20%" y="-200%" width="140%" height="500%">
+            <feGaussianBlur stdDeviation="0.8" result="blur" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+          {/* Soft glow halo */}
+          <filter id="slashHalo" x="-20%" y="-400%" width="140%" height="900%">
+            <feGaussianBlur stdDeviation="2.5" result="halo" />
+          </filter>
+        </defs>
+
+        {/* Halo glow layer — wide soft blur behind the line */}
+        <line
+          x1="-5" y1="62"
+          x2="105" y2="34"
+          stroke="#e74c3c"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          filter="url(#slashHalo)"
+          opacity="0.35"
         />
-        {/* Secondary slash — thinner, offset for depth */}
-        <div
-          style={{
-            position: "absolute",
-            left: "-5%",
-            top: "48%",
-            width: "110%",
-            height: "1px",
-            backgroundColor: "oklch(0.46 0.20 25 / 0.35)",
-            transform: "rotate(-3.5deg) translateY(8px)",
-          }}
+
+        {/* Main diagonal line */}
+        <line
+          x1="-5" y1="62"
+          x2="105" y2="34"
+          stroke="url(#slashGrad)"
+          strokeWidth="0.35"
+          strokeLinecap="round"
+          filter="url(#slashGlow)"
         />
-        {/* Red corner accent — top-left triangle */}
-        <div
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: "0",
-            height: "0",
-            borderStyle: "solid",
-            borderWidth: "120px 120px 0 0",
-            borderColor: "oklch(0.46 0.20 25 / 0.12) transparent transparent transparent",
-          }}
+
+        {/* Thin parallel echo line */}
+        <line
+          x1="-5" y1="63.4"
+          x2="105" y2="35.4"
+          stroke="#e74c3c"
+          strokeWidth="0.08"
+          strokeLinecap="round"
+          opacity="0.3"
         />
-      </div>
+
+        {/* Diamond accent at midpoint (50, 48) */}
+        <polygon
+          points="50,46.5 51.4,48 50,49.5 48.6,48"
+          fill="#e74c3c"
+          opacity="0.9"
+          filter="url(#slashGlow)"
+        />
+        {/* Diamond inner highlight */}
+        <polygon
+          points="50,47.2 50.9,48 50,48.8 49.1,48"
+          fill="#ff8a7a"
+          opacity="0.6"
+        />
+      </svg>
+
+      {/* ════════════════════════════════════════════════
+          HALFTONE DOT CIRCLE — bottom-right decorative
+          ════════════════════════════════════════════════ */}
+      <svg
+        style={{
+          position: "absolute",
+          bottom: "-60px",
+          right: "clamp(1rem, 8vw, 8rem)",
+          width: "340px",
+          height: "340px",
+          pointerEvents: "none",
+          opacity: 0.12,
+          zIndex: 6,
+        }}
+        viewBox="0 0 340 340"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        {Array.from({ length: 15 }, (_, row) =>
+          Array.from({ length: 15 }, (_, col) => {
+            const cx = 20 + col * 22;
+            const cy = 20 + row * 22;
+            const dist = Math.sqrt((cx - 170) ** 2 + (cy - 170) ** 2);
+            if (dist > 158) return null;
+            const r = Math.max(1, 5 * (1 - dist / 175));
+            return <circle key={`${row}-${col}`} cx={cx} cy={cy} r={r} fill="#c0392b" />;
+          })
+        )}
+      </svg>
 
       {/* ════════════════════════════════════════════════
           CATEGORY LABEL — top left, teal accent (ONCE)

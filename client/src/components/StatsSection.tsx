@@ -55,6 +55,33 @@ export default function StatsSection() {
         paddingBottom: "0",
       }}
     >
+      {/* ── Halftone dot circle — top-right decorative ── */}
+      <svg
+        style={{
+          position: "absolute",
+          top: "-80px",
+          right: "-80px",
+          width: "420px",
+          height: "420px",
+          pointerEvents: "none",
+          opacity: 0.18,
+          zIndex: 0,
+        }}
+        viewBox="0 0 420 420"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        {Array.from({ length: 18 }, (_, row) =>
+          Array.from({ length: 18 }, (_, col) => {
+            const cx = 20 + col * 22;
+            const cy = 20 + row * 22;
+            const dist = Math.sqrt((cx - 210) ** 2 + (cy - 210) ** 2);
+            if (dist > 195) return null;
+            const r = Math.max(1, 4.5 * (1 - dist / 220));
+            return <circle key={`${row}-${col}`} cx={cx} cy={cy} r={r} fill="#c0392b" />;
+          })
+        )}
+      </svg>
+
       {/* ── Section label ── */}
       <div
         style={{
