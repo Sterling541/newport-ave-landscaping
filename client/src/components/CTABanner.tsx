@@ -190,7 +190,7 @@ export default function CTABanner() {
           </button>
 
           <a
-            href="tel:5415489663"
+            href="tel:5416178873"
             style={{
               fontFamily: "'Montserrat', sans-serif",
               fontSize: "0.58rem",
@@ -200,8 +200,38 @@ export default function CTABanner() {
               textDecoration: "none",
             }}
           >
-            OR CALL (541) 548-9663
+            OR CALL (541) 617-8873
           </a>
+        </div>
+
+        {/* Urgency + trust strip */}
+        <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            alignItems: "center",
+            gap: "1.5rem",
+            marginTop: "1.5rem",
+            opacity: visible ? 1 : 0,
+            transition: "opacity 0.8s ease 0.75s",
+          }}
+        >
+          <span
+            style={{
+              fontFamily: "'Montserrat', sans-serif",
+              fontSize: "0.5rem",
+              fontWeight: 600,
+              letterSpacing: "0.15em",
+              color: "oklch(0.46 0.20 25)",
+            }}
+          >
+            ⚡ BOOKING SPRING — SCHEDULE FILLS FAST
+          </span>
+          <span style={{ width: "1px", height: "12px", backgroundColor: "oklch(0.30 0.005 0)" }} />
+          <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "0.48rem", letterSpacing: "0.12em", color: "oklch(0.40 0.005 0)" }}>LICENSED & BONDED</span>
+          <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "0.48rem", letterSpacing: "0.12em", color: "oklch(0.40 0.005 0)" }}>LCB #9153</span>
+          <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "0.48rem", letterSpacing: "0.12em", color: "oklch(0.40 0.005 0)" }}>21+ YEARS IN CENTRAL OREGON</span>
+          <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "0.48rem", letterSpacing: "0.12em", color: "oklch(0.40 0.005 0)" }}>FREE ESTIMATES</span>
         </div>
       </div>
     </section>

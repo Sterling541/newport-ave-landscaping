@@ -527,6 +527,44 @@ export default function HeroSection() {
               VIEW OUR WORK →
             </a>
           </div>
+
+          {/* Trust badges + urgency */}
+          <div
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              alignItems: "center",
+              gap: "1.25rem",
+              marginTop: "1.5rem",
+            }}
+          >
+            <span
+              style={{
+                fontFamily: "'Montserrat', sans-serif",
+                fontSize: "0.46rem",
+                fontWeight: 700,
+                letterSpacing: "0.18em",
+                color: "oklch(0.46 0.20 25)",
+              }}
+            >
+              ⚡ BOOKING SPRING — SCHEDULE FILLS FAST
+            </span>
+            <span style={{ width: "1px", height: "10px", backgroundColor: "oklch(0.35 0.008 30)" }} />
+            {["LICENSED & BONDED", "LCB #9153", "21+ YEARS", "FREE ESTIMATES"].map((badge) => (
+              <span
+                key={badge}
+                style={{
+                  fontFamily: "'Montserrat', sans-serif",
+                  fontSize: "0.44rem",
+                  fontWeight: 600,
+                  letterSpacing: "0.14em",
+                  color: "oklch(0.55 0.008 30)",
+                }}
+              >
+                {badge}
+              </span>
+            ))}
+          </div>
         </div>
       </div>
 

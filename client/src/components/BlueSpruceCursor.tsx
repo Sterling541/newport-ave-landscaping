@@ -102,8 +102,8 @@ export default function BlueSpruceCursor() {
           transform: isClicking ? "scale(0.82)" : "scale(1)",
           transition: "transform 0.12s ease, width 0.15s ease, height 0.15s ease, filter 0.15s ease",
           filter: isPointer
-            ? "drop-shadow(0 2px 12px oklch(0.46 0.20 25 / 0.7))"
-            : "drop-shadow(0 2px 8px rgba(0,0,0,0.35))",
+            ? "drop-shadow(0 0 3px rgba(255,255,255,0.9)) drop-shadow(0 2px 12px oklch(0.46 0.20 25 / 0.8))"
+            : "drop-shadow(0 0 3px rgba(255,255,255,0.85)) drop-shadow(0 2px 8px rgba(0,0,0,0.5))",
         }}
       />
     </div>

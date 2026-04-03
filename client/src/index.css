@@ -417,3 +417,121 @@ button,
   overflow: visible;
   white-space: nowrap;
 }
+
+/* ============================================================
+   MOBILE RESPONSIVE FIXES
+   ============================================================ */
+
+/* Stats section: stack to single column on mobile */
+@media (max-width: 768px) {
+  .stats-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* Navbar: ensure utility bar and nav bar don't overflow on mobile */
+@media (max-width: 640px) {
+  /* Reduce logo size on small screens */
+  .navbar-logo-img {
+    height: 80px !important;
+  }
+
+  /* Utility bar: hide non-essential items on very small screens */
+  .utility-bar-extra {
+    display: none !important;
+  }
+}
+
+/* Portfolio section: ensure grid works on all screen sizes */
+@media (max-width: 480px) {
+  .portfolio-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* Hero section: fix text overflow on small screens */
+@media (max-width: 640px) {
+  .hero-headline {
+    font-size: clamp(2.5rem, 12vw, 5rem) !important;
+    letter-spacing: -0.02em !important;
+  }
+  .hero-subheadline {
+    font-size: clamp(1.8rem, 8vw, 3rem) !important;
+  }
+}
+
+/* Services section: stack cards on mobile */
+@media (max-width: 640px) {
+  .services-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* CTA Banner: stack buttons vertically on mobile */
+@media (max-width: 640px) {
+  .cta-button-row {
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+  .cta-button-row a,
+  .cta-button-row button {
+    text-align: center !important;
+  }
+}
+
+/* Blog grid: 1 column on mobile, 2 on tablet */
+@media (max-width: 640px) {
+  .blog-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* Contact form: full width inputs on mobile */
+@media (max-width: 640px) {
+  .contact-form-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* Membership section: stack cards on mobile */
+@media (max-width: 768px) {
+  .membership-cards-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* Reviews section: single column on mobile */
+@media (max-width: 640px) {
+  .reviews-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* Everything Plan section: stack on mobile */
+@media (max-width: 768px) {
+  .everything-plan-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* Floating CTA: smaller on mobile */
+@media (max-width: 640px) {
+  .floating-cta {
+    bottom: 1rem !important;
+    right: 1rem !important;
+    font-size: 0.75rem !important;
+    padding: 0.6rem 1.2rem !important;
+  }
+}
+
+/* General: prevent horizontal overflow on all pages */
+body {
+  overflow-x: hidden;
+}
+
+/* Marquee / ticker: ensure it doesn't break on mobile */
+@media (max-width: 640px) {
+  .marquee-track {
+    animation-duration: 20s !important;
+  }
+}

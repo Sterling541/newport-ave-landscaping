@@ -25,6 +25,8 @@ import BotanicalBand from "@/components/BotanicalBand";
 import LightingSection from "@/components/LightingSection";
 import OutdoorRoomsSection from "@/components/OutdoorRoomsSection";
 import EditorialQuote from "@/components/EditorialQuote";
+import SEO from "@/components/SEO";
+import { LocalBusinessSchema } from "@/components/SchemaMarkup";
 
 export default function Home() {
   return (
@@ -35,6 +37,13 @@ export default function Home() {
         overflowX: "hidden",
       }}
     >
+      <SEO
+        title="Landscaping Company Bend Oregon | Newport Avenue Landscaping"
+        description="Central Oregon's premier landscaping company since 2003. Custom landscape design, installation, maintenance & irrigation in Bend, Redmond, Sisters & beyond."
+        canonical="/"
+      />
+      <LocalBusinessSchema />
+
       {/* Custom blue spruce cursor — mounts once, hides default cursor */}
       <BlueSpruceCursor />
 

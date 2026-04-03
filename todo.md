@@ -130,3 +130,13 @@
 - [ ] Redesign ReviewsSection — larger quotes, warmer treatment
 - [ ] Redesign ContactSection — friendlier, more approachable
 - [ ] Redesign Footer — warmer, more brand-forward
+
+## Priority Improvements — 6-Point Plan
+
+- [x] Wire up dedicated service pages with per-page title + meta description (SEO #1)
+- [x] Add LocalBusiness + Service JSON-LD schema markup to all key pages (SEO #2)
+- [x] Rewrite contact form as a two-step flow (step 1: name + phone, step 2: service + message)
+- [x] Add urgency copy and trust badges (LCB#, Licensed & Bonded, years) near all CTAs
+- [x] Build blog with 4-6 foundational articles targeting local keywords
+- [x] Audit and fix mobile experience — portfolio grid, stats ticker, nav, key sections
+- [x] Fix cursor visibility on Our Work page (cursor gets lost against dark backgrounds)

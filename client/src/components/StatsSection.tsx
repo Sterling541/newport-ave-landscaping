@@ -104,6 +104,7 @@ export default function StatsSection() {
 
       {/* ── Two-column layout ── */}
       <div
+        className="stats-grid"
         style={{
           display: "grid",
           gridTemplateColumns: "1fr 1fr",

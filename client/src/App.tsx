@@ -51,6 +51,10 @@ import MadrasPage from "./pages/cities/Madras";
 // Blog posts
 import ClimateChange from "./pages/blog/ClimateChange";
 import SeasonalGuide from "./pages/blog/SeasonalGuide";
+import XeriscapeBend from "./pages/blog/XeriscapeBend";
+import SprinklerWinterizationBend from "./pages/blog/SprinklerWinterizationBend";
+import PaverPatioIdeasBend from "./pages/blog/PaverPatioIdeasBend";
+import LawnCareBendOregon from "./pages/blog/LawnCareBendOregon";
 
 // Portfolio project pages
 import AwbreyButteXeriscape from "./pages/portfolio/AwbreyButteXeriscape";
@@ -114,6 +118,10 @@ function Router() {
       {/* Blog posts */}
       <Route path={"/blog/climate-change-landscaping"} component={ClimateChange} />
       <Route path={"/blog/seasonal-landscaping-guide"} component={SeasonalGuide} />
+      <Route path={"/blog/xeriscape-landscaping-bend-oregon"} component={XeriscapeBend} />
+      <Route path={"/blog/sprinkler-winterization-bend-oregon"} component={SprinklerWinterizationBend} />
+      <Route path={"/blog/paver-patio-ideas-bend-oregon"} component={PaverPatioIdeasBend} />
+      <Route path={"/blog/lawn-care-bend-oregon"} component={LawnCareBendOregon} />
 
       {/* Portfolio project pages */}
       <Route path={"/portfolio/awbrey-butte-xeriscape"} component={AwbreyButteXeriscape} />
