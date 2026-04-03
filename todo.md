@@ -140,3 +140,4 @@
 - [x] Build blog with 4-6 foundational articles targeting local keywords
 - [x] Audit and fix mobile experience — portfolio grid, stats ticker, nav, key sections
 - [x] Fix cursor visibility on Our Work page (cursor gets lost against dark backgrounds)
+- [x] Add Bend Full Yard Transformation project to portfolio with before/after photos

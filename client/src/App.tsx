@@ -57,6 +57,7 @@ import PaverPatioIdeasBend from "./pages/blog/PaverPatioIdeasBend";
 import LawnCareBendOregon from "./pages/blog/LawnCareBendOregon";
 
 // Portfolio project pages
+import BendFullYardTransformation from "./pages/portfolio/BendFullYardTransformation";
 import AwbreyButteXeriscape from "./pages/portfolio/AwbreyButteXeriscape";
 import AwbreyGlennFlagstone from "./pages/portfolio/AwbreyGlennFlagstone";
 import BackyardRenovation from "./pages/portfolio/BackyardRenovation";
@@ -134,6 +135,7 @@ function Router() {
       <Route path={"/portfolio/nw-bend-backyard"} component={NWBendBackyard} />
       <Route path={"/portfolio/paver-patio-firepit"} component={PaverPatioFirepit} />
       <Route path={"/portfolio/sw-bend-backyard"} component={SWBendBackyard} />
+      <Route path={"/portfolio/bend-full-yard-transformation"} component={BendFullYardTransformation} />
 
       {/* Fallback */}
       <Route path={"/404"} component={NotFound} />

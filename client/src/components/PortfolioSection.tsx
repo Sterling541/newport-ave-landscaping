@@ -14,7 +14,13 @@ const FACILITY_NURSERY =
 const FACILITY_SHOWROOM =
   "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/facility-showroom_fd5f40e4.webp";
 
+const CDN_BASE = "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx";
 const portfolioItems = [
+  {
+    title: "Bend Full Yard Transformation",
+    subtitle: "Bend, OR",
+    image: `${CDN_BASE}/proj-bend-after-backyard1_c8556c78.jpg`,
+  },
   {
     title: "Paver Patio & Fire Feature",
     subtitle: "Bend, OR",

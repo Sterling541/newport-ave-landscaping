@@ -92,7 +92,9 @@ const MCGRATH_PHOTOS = [
 ];
 
 // Legacy portfolio from existing site (scraped)
+const CDN = "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx";
 const LEGACY_PROJECTS = [
+  { title: "Bend Full Yard Transformation", category: "Design & Build · Xeriscape · Pavers", img: `${CDN}/proj-bend-after-backyard1_c8556c78.jpg`, href: "/portfolio/bend-full-yard-transformation" },
   { title: "Broken Top Water Feature & Sunken Fire Pit", category: "Water Features · Fire Features", img: "https://newportavelandscaping.com/wp-content/uploads/2022/05/Brokentop-Water-Feature-and-Sunken-Fire-Pit-After-Picture.jpg", href: "/portfolio/broken-top-water-feature" },
   { title: "NW Bend Backyard Landscaping", category: "Design & Build · Water Features", img: "https://newportavelandscaping.com/wp-content/uploads/2022/05/NW-Bend-Backyard-After-Picture.jpg", href: "/portfolio/nw-bend-backyard" },
   { title: "East Bend Landscape Install", category: "Design & Build · Irrigation", img: "https://newportavelandscaping.com/wp-content/uploads/2022/05/east-bend-landscape-install-finished-backyard-aeriel-view2-1.jpg", href: "/portfolio/east-bend-landscape" },
