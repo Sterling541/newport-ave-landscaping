@@ -1,17 +1,19 @@
 /* ============================================================
-   BOTANICAL BAND — Watercolor Plant Divider
+   BOTANICAL BAND — Watercolor Outdoor Plant Divider
 
-   Large watercolor-style potted plant illustrations that
-   bleed dramatically above and below a thin warm rule band.
-   Plants float with overflow:visible, no hard crop lines.
+   Large watercolor outdoor landscape plant illustrations
+   (ornamental grass, blue spruce branch, fern frond) that
+   bleed dramatically above a thin warm rule band.
+   No pots, no backgrounds — loose painterly style.
    ============================================================ */
 
-const PLANT_1 =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/plant-watercolor-1-ZFn3XuP7hyP9nuaWiLKXQp.webp";
-const PLANT_2 =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/plant-watercolor-2-F9buvhsRNpgvU7U478oxVi.webp";
-const PLANT_3 =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/plant-watercolor-3-Le2uUdKot7UJDh8HyDf2Sc.webp";
+// Outdoor watercolor landscape plant illustrations
+const GRASS_URL =
+  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/plant-outdoor-1-KW2XRPueAXVPDCpgEKYpjG.webp";
+const SPRUCE_URL =
+  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/plant-outdoor-2-d2nDHBqYQpjzfVBriUJKGe.webp";
+const FERN_URL =
+  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/plant-outdoor-3-NXSVjdJG3BcCKapdSQGk5P.webp";
 
 interface BotanicalBandProps {
   label?: string;
@@ -29,13 +31,11 @@ export default function BotanicalBand({
     <div
       style={{
         position: "relative",
-        /* Band itself is 80px; plants bleed ~180px above */
         height: "80px",
         overflow: "visible",
         zIndex: 10,
         pointerEvents: "none",
         userSelect: "none",
-        /* Push the band down so plants above it don't overlap the section above */
         marginTop: "160px",
       }}
     >
@@ -87,63 +87,124 @@ export default function BotanicalBand({
         />
       </div>
 
-      {/* ── Plant 1 — left side, bleeds above band ── */}
-      <img
-        src={isA ? PLANT_1 : PLANT_3}
-        alt=""
-        aria-hidden="true"
-        style={{
-          position: "absolute",
-          left: "clamp(24px, 6vw, 140px)",
-          top: isA ? "-195px" : "-175px",
-          width: isA ? "clamp(220px, 20vw, 320px)" : "clamp(240px, 22vw, 360px)",
-          height: "auto",
-          objectFit: "contain",
-          opacity: 0.93,
-          transform: isA ? "rotate(-5deg)" : "rotate(4deg)",
-          filter: "drop-shadow(0 10px 28px oklch(0.18 0.008 30 / 0.14))",
-          pointerEvents: "none",
-        }}
-      />
+      {/* ── Variant A: grass left, fern right, small spruce far right ── */}
+      {isA && (
+        <>
+          {/* LEFT: ornamental grass */}
+          <img
+            src={GRASS_URL}
+            alt=""
+            aria-hidden="true"
+            style={{
+              position: "absolute",
+              left: "clamp(24px, 6vw, 140px)",
+              top: "-195px",
+              width: "clamp(220px, 20vw, 320px)",
+              height: "auto",
+              objectFit: "contain",
+              opacity: 0.92,
+              transform: "rotate(-5deg)",
+              filter: "drop-shadow(0 10px 28px rgba(0,0,0,0.12))",
+              pointerEvents: "none",
+            }}
+          />
+          {/* RIGHT: fern frond */}
+          <img
+            src={FERN_URL}
+            alt=""
+            aria-hidden="true"
+            style={{
+              position: "absolute",
+              right: "clamp(80px, 10vw, 200px)",
+              top: "-170px",
+              width: "clamp(180px, 17vw, 270px)",
+              height: "auto",
+              objectFit: "contain",
+              opacity: 0.88,
+              transform: "rotate(7deg) scaleX(-1)",
+              filter: "drop-shadow(0 10px 28px rgba(0,0,0,0.10))",
+              pointerEvents: "none",
+            }}
+          />
+          {/* FAR RIGHT: blue spruce sprig */}
+          <img
+            src={SPRUCE_URL}
+            alt=""
+            aria-hidden="true"
+            style={{
+              position: "absolute",
+              right: "clamp(-10px, 1vw, 20px)",
+              top: "-130px",
+              width: "clamp(110px, 12vw, 190px)",
+              height: "auto",
+              objectFit: "contain",
+              opacity: 0.78,
+              transform: "rotate(-12deg)",
+              filter: "drop-shadow(0 6px 16px rgba(0,0,0,0.08))",
+              pointerEvents: "none",
+            }}
+          />
+        </>
+      )}
 
-      {/* ── Plant 2 — right side, bleeds above band ── */}
-      <img
-        src={isA ? PLANT_2 : PLANT_1}
-        alt=""
-        aria-hidden="true"
-        style={{
-          position: "absolute",
-          right: "clamp(24px, 6vw, 140px)",
-          top: isA ? "-155px" : "-175px",
-          width: isA ? "clamp(180px, 16vw, 260px)" : "clamp(200px, 18vw, 290px)",
-          height: "auto",
-          objectFit: "contain",
-          opacity: 0.88,
-          transform: isA ? "rotate(6deg)" : "rotate(-4deg)",
-          filter: "drop-shadow(0 10px 28px oklch(0.18 0.008 30 / 0.11))",
-          pointerEvents: "none",
-        }}
-      />
-
-      {/* ── Plant 3 — center, smaller, variant B only ── */}
+      {/* ── Variant B: spruce left, grass center, fern right ── */}
       {!isA && (
-        <img
-          src={PLANT_2}
-          alt=""
-          aria-hidden="true"
-          style={{
-            position: "absolute",
-            left: "50%",
-            transform: "translateX(-50%) rotate(-2deg)",
-            top: "-120px",
-            width: "clamp(150px, 13vw, 210px)",
-            height: "auto",
-            objectFit: "contain",
-            opacity: 0.78,
-            filter: "drop-shadow(0 8px 20px oklch(0.18 0.008 30 / 0.09))",
-            pointerEvents: "none",
-          }}
-        />
+        <>
+          {/* LEFT: blue spruce branch */}
+          <img
+            src={SPRUCE_URL}
+            alt=""
+            aria-hidden="true"
+            style={{
+              position: "absolute",
+              left: "clamp(-10px, 1.5vw, 30px)",
+              top: "-175px",
+              width: "clamp(200px, 20vw, 310px)",
+              height: "auto",
+              objectFit: "contain",
+              opacity: 0.90,
+              transform: "rotate(10deg)",
+              filter: "drop-shadow(0 10px 28px rgba(0,0,0,0.12))",
+              pointerEvents: "none",
+            }}
+          />
+          {/* CENTER: ornamental grass */}
+          <img
+            src={GRASS_URL}
+            alt=""
+            aria-hidden="true"
+            style={{
+              position: "absolute",
+              left: "50%",
+              top: "-150px",
+              width: "clamp(150px, 14vw, 230px)",
+              height: "auto",
+              objectFit: "contain",
+              opacity: 0.78,
+              transform: "translateX(-50%) rotate(-4deg)",
+              filter: "drop-shadow(0 8px 20px rgba(0,0,0,0.09))",
+              pointerEvents: "none",
+            }}
+          />
+          {/* RIGHT: fern frond */}
+          <img
+            src={FERN_URL}
+            alt=""
+            aria-hidden="true"
+            style={{
+              position: "absolute",
+              right: "clamp(-10px, 1.5vw, 30px)",
+              top: "-185px",
+              width: "clamp(200px, 19vw, 300px)",
+              height: "auto",
+              objectFit: "contain",
+              opacity: 0.90,
+              transform: "rotate(-8deg)",
+              filter: "drop-shadow(0 10px 28px rgba(0,0,0,0.12))",
+              pointerEvents: "none",
+            }}
+          />
+        </>
       )}
     </div>
   );

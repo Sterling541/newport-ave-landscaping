@@ -23,13 +23,14 @@ import BlueSpruceCursor from "@/components/BlueSpruceCursor";
 import BotanicalBand from "@/components/BotanicalBand";
 import LightingSection from "@/components/LightingSection";
 import OutdoorRoomsSection from "@/components/OutdoorRoomsSection";
+import EditorialQuote from "@/components/EditorialQuote";
 
 export default function Home() {
   return (
     <div
       className="min-h-screen"
       style={{
-        backgroundColor: "oklch(0.10 0.008 30)",
+        backgroundColor: "oklch(0.99 0.004 75)",
         overflowX: "hidden",
       }}
     >
@@ -58,6 +59,12 @@ export default function Home() {
       {/* Belgard-style interactive outdoor rooms section */}
       <OutdoorRoomsSection />
 
+      {/* Editorial quote divider */}
+      <EditorialQuote
+        quote="Every great outdoor space starts with a vision — and ends with a place you never want to leave."
+        attribution="Newport Avenue Landscaping"
+      />
+
       {/* Botanical divider before portfolio */}
       <BotanicalBand label="PORTFOLIO  ◆  150+ PROJECTS" variant="b" />
 
@@ -67,6 +74,12 @@ export default function Home() {
 
       {/* Scroll-triggered landscape lighting section */}
       <LightingSection />
+
+      {/* Editorial quote before membership */}
+      <EditorialQuote
+        quote="Your sprinklers. Our responsibility. Zero worry."
+        attribution="Newport Priority Irrigation Membership"
+      />
 
       <MembershipBanner />
       <MembershipSection />

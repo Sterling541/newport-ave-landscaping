@@ -146,7 +146,7 @@ describe("BotanicalBand", () => {
     expect(fs.existsSync(filePath)).toBe(true);
   });
 
-  it("should use watercolor plant images from CDN", async () => {
+  it("should use outdoor watercolor plant images from CDN", async () => {
     const fs = await import("fs");
     const path = await import("path");
     const filePath = path.resolve(
@@ -154,9 +154,9 @@ describe("BotanicalBand", () => {
       "../client/src/components/BotanicalBand.tsx"
     );
     const content = fs.readFileSync(filePath, "utf-8");
-    expect(content).toContain("plant-watercolor-1");
-    expect(content).toContain("plant-watercolor-2");
-    expect(content).toContain("plant-watercolor-3");
+    expect(content).toContain("plant-outdoor-1");
+    expect(content).toContain("plant-outdoor-2");
+    expect(content).toContain("plant-outdoor-3");
   });
 
   it("should use bright cream background (no dark green)", async () => {

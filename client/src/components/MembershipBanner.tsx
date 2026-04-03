@@ -1,7 +1,8 @@
 /* ============================================================
-   MEMBERSHIP BANNER — Matches original design
-   Sprinkler background photo, shield badge left, bold white
-   headline right, red CTA button.
+   MEMBERSHIP BANNER — Matches original site design exactly
+   Full-height dark section with sprinkler background photo,
+   large red metallic shield badge on left, bold white headline
+   on right, red SIGN UP TODAY CTA button.
    ============================================================ */
 import { useEffect, useRef, useState } from "react";
 import { useLocation } from "wouter";
@@ -22,7 +23,7 @@ export default function MembershipBanner() {
       ([entry]) => {
         if (entry.isIntersecting) setVisible(true);
       },
-      { threshold: 0.1 }
+      { threshold: 0.05 }
     );
     if (ref.current) observer.observe(ref.current);
     return () => observer.disconnect();
@@ -31,81 +32,95 @@ export default function MembershipBanner() {
   return (
     <section
       className="relative overflow-hidden"
-      style={{ minHeight: "clamp(220px, 22vw, 320px)", backgroundColor: "oklch(0.18 0.008 30)" }}
+      style={{ minHeight: "clamp(320px, 38vw, 480px)", backgroundColor: "#0a0a0a" }}
     >
-      {/* Background photo */}
+      {/* Background photo — sprinkler on lawn */}
       <div
         className="absolute inset-0"
         style={{
           backgroundImage: `url(${BG_URL})`,
           backgroundSize: "cover",
-          backgroundPosition: "center 60%",
+          backgroundPosition: "center 55%",
+          backgroundRepeat: "no-repeat",
         }}
       />
-      {/* Dark overlay for legibility */}
+
+      {/* Dark gradient overlay — heavier on right for text legibility */}
       <div
         className="absolute inset-0"
         style={{
           background:
-            "linear-gradient(90deg, oklch(0.08 0.005 0 / 0.55) 0%, oklch(0.08 0.005 0 / 0.72) 100%)",
+            "linear-gradient(105deg, rgba(0,0,0,0.38) 0%, rgba(0,0,0,0.62) 45%, rgba(0,0,0,0.78) 100%)",
         }}
       />
 
-      {/* Content */}
+      {/* Content row */}
       <div
         ref={ref}
-        className="container relative z-10 flex flex-col md:flex-row items-center gap-8 md:gap-12 py-10 md:py-14"
+        className="container relative z-10 flex flex-col md:flex-row items-center justify-center md:justify-start gap-10 md:gap-16 py-16 md:py-20"
         style={{
           opacity: visible ? 1 : 0,
-          transform: visible ? "translateY(0)" : "translateY(24px)",
-          transition: "opacity 0.8s ease, transform 0.8s ease",
+          transform: visible ? "translateY(0)" : "translateY(32px)",
+          transition: "opacity 0.9s ease, transform 0.9s ease",
         }}
       >
-        {/* Shield badge */}
-        <div className="flex-shrink-0 flex items-center justify-center">
+        {/* ── LEFT: Shield badge ── */}
+        <div
+          className="flex-shrink-0 flex items-center justify-center"
+          style={{
+            filter: "drop-shadow(0 12px 40px rgba(0,0,0,0.70))",
+          }}
+        >
           <img
             src={BADGE_URL}
             alt="Newport Avenue Priority Irrigation Membership Badge"
             style={{
-              width: "clamp(140px, 16vw, 220px)",
+              width: "clamp(180px, 20vw, 280px)",
               height: "auto",
-              filter: "drop-shadow(0 8px 24px oklch(0 0 0 / 0.60))",
             }}
           />
         </div>
 
-        {/* Text + CTA */}
-        <div className="text-center md:text-left">
+        {/* ── RIGHT: Headline + CTA ── */}
+        <div className="flex flex-col items-center md:items-start text-center md:text-left max-w-xl">
           <h2
-            className="font-display font-black text-white uppercase leading-none mb-3"
+            className="font-display font-black text-white uppercase leading-none mb-4"
             style={{
-              fontSize: "clamp(1.6rem, 3.5vw, 3rem)",
+              fontSize: "clamp(2rem, 4.5vw, 3.6rem)",
               letterSpacing: "0.02em",
-              textShadow: "0 2px 12px oklch(0 0 0 / 0.60)",
+              textShadow: "0 2px 20px rgba(0,0,0,0.70)",
+              lineHeight: 1.05,
             }}
           >
             Newport Priority<br />
             Irrigation<br />
             Membership:
           </h2>
+
           <p
-            className="font-body font-semibold mb-6"
+            className="font-body font-semibold mb-8"
             style={{
-              color: "oklch(0.92 0.04 25)",
-              fontSize: "clamp(0.95rem, 1.5vw, 1.2rem)",
-              textShadow: "0 1px 6px oklch(0 0 0 / 0.50)",
+              color: "oklch(0.93 0.03 25)",
+              fontSize: "clamp(1rem, 1.8vw, 1.3rem)",
+              textShadow: "0 1px 8px rgba(0,0,0,0.60)",
+              letterSpacing: "0.01em",
             }}
           >
             Never Worry About Your Sprinklers Again
           </p>
-          <div className="flex flex-wrap gap-3 justify-center md:justify-start">
+
+          <div className="flex flex-wrap gap-4 justify-center md:justify-start">
             <button
               onClick={() => {
                 navigate("/contact");
                 window.scrollTo({ top: 0, behavior: "smooth" });
               }}
               className="btn-red"
-              style={{ fontSize: "0.8rem", letterSpacing: "0.12em" }}
+              style={{
+                fontSize: "0.85rem",
+                letterSpacing: "0.14em",
+                padding: "0.85rem 2.2rem",
+              }}
             >
               SIGN UP TODAY
             </button>
@@ -114,8 +129,27 @@ export default function MembershipBanner() {
                 navigate("/membership");
                 window.scrollTo({ top: 0, behavior: "smooth" });
               }}
-              className="btn-outline-white"
-              style={{ fontSize: "0.8rem", letterSpacing: "0.12em" }}
+              style={{
+                background: "transparent",
+                border: "2px solid rgba(255,255,255,0.70)",
+                color: "#ffffff",
+                fontSize: "0.85rem",
+                letterSpacing: "0.14em",
+                padding: "0.85rem 2.2rem",
+                borderRadius: "20px 0 20px 0",
+                cursor: "pointer",
+                fontFamily: "inherit",
+                fontWeight: 700,
+                transition: "border-color 0.2s, background 0.2s",
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLButtonElement).style.background = "rgba(255,255,255,0.12)";
+                (e.currentTarget as HTMLButtonElement).style.borderColor = "#ffffff";
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLButtonElement).style.background = "transparent";
+                (e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(255,255,255,0.70)";
+              }}
             >
               LEARN MORE
             </button>
