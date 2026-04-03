@@ -1,16 +1,17 @@
 /* ============================================================
    MEMBERSHIP BANNER — Homepage teaser
-   Dark charcoal background, brand red accents, badge, CTA
+   Design: Matches MembershipSection — cream bg, brand red card,
+   charcoal text, dot pattern, serif display headings.
    ============================================================ */
 import { useEffect, useRef, useState } from "react";
 import { useLocation } from "wouter";
-import { Droplets, CheckCircle } from "lucide-react";
+import { Check, Droplets } from "lucide-react";
 
-const BADGE_ITEMS = [
-  "Spring Activation",
-  "Fall Winterization",
-  "Annual Backflow Test",
-  "Priority Scheduling",
+const bannerFeatures = [
+  "Sprinkler system spring activation",
+  "Mid-season inspection & adjustment",
+  "Fall winterization / blowout",
+  "Priority scheduling — no waiting",
 ];
 
 export default function MembershipBanner() {
@@ -28,162 +29,151 @@ export default function MembershipBanner() {
   }, []);
 
   return (
-    <section
-      className="relative overflow-hidden"
-      style={{ backgroundColor: "oklch(0.12 0.005 0)" }}
-    >
-      {/* Subtle diagonal texture */}
+    <section className="py-24 relative overflow-hidden" style={{ backgroundColor: "oklch(0.97 0.012 85)" }}>
+      {/* Subtle dot pattern */}
       <div
-        className="absolute inset-0 pointer-events-none opacity-[0.04]"
+        className="absolute top-0 right-0 w-1/2 h-full opacity-[0.03] pointer-events-none"
         style={{
-          backgroundImage: "repeating-linear-gradient(45deg, oklch(1 0 0) 0px, oklch(1 0 0) 1px, transparent 1px, transparent 20px)",
+          backgroundImage: "radial-gradient(oklch(0.22 0.005 0) 1px, transparent 1px)",
+          backgroundSize: "24px 24px",
         }}
       />
 
-      {/* Red accent bar at top */}
-      <div style={{ height: "4px", backgroundColor: "oklch(0.46 0.20 25)" }} />
-
-      <div
-        ref={ref}
-        className="container py-16 relative z-10"
-        style={{
-          opacity: visible ? 1 : 0,
-          transform: visible ? "translateY(0)" : "translateY(24px)",
-          transition: "opacity 0.8s ease, transform 0.8s ease",
-        }}
-      >
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-
-          {/* Badge column */}
-          <div className="lg:col-span-3 flex justify-center lg:justify-start">
-            <div
-              className="relative flex flex-col items-center justify-center text-center"
-              style={{
-                width: "180px",
-                height: "180px",
-                borderRadius: "50%",
-                backgroundColor: "oklch(0.46 0.20 25)",
-                boxShadow: "0 0 0 8px oklch(0.46 0.20 25 / 0.18), 0 0 0 16px oklch(0.46 0.20 25 / 0.07)",
-                flexShrink: 0,
-              }}
-            >
-              <Droplets size={28} strokeWidth={1.5} style={{ color: "oklch(1 0 0 / 0.75)", marginBottom: "6px" }} />
-              <div
-                className="font-label text-white"
-                style={{ fontSize: "0.55rem", letterSpacing: "0.14em", lineHeight: 1.4, opacity: 0.85 }}
-              >
-                NEWPORT
-              </div>
-              <div
-                className="font-display font-semibold text-white"
-                style={{ fontSize: "1.05rem", lineHeight: 1.1 }}
-              >
-                Priority
-              </div>
-              <div
-                className="font-display font-light text-white"
-                style={{ fontSize: "0.78rem", lineHeight: 1.1, fontStyle: "italic", color: "oklch(1 0 0 / 0.85)" }}
-              >
-                Irrigation
-              </div>
-              <div
-                className="font-label text-white mt-1"
-                style={{ fontSize: "0.52rem", letterSpacing: "0.12em", opacity: 0.75 }}
-              >
-                MEMBERSHIP
-              </div>
+      <div className="container relative z-10">
+        <div
+          ref={ref}
+          className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center"
+          style={{
+            opacity: visible ? 1 : 0,
+            transform: visible ? "translateY(0)" : "translateY(30px)",
+            transition: "opacity 0.8s ease, transform 0.8s ease",
+          }}
+        >
+          {/* Content */}
+          <div>
+            <div className="font-label mb-4 flex items-center gap-3" style={{ color: "oklch(0.46 0.20 25)" }}>
+              <span className="inline-block w-8 h-px" style={{ backgroundColor: "oklch(0.46 0.20 25)" }} />
+              Membership Program
             </div>
-          </div>
 
-          {/* Copy column */}
-          <div className="lg:col-span-6">
-            <div className="font-label mb-3 flex items-center gap-3" style={{ color: "oklch(0.72 0.12 25)" }}>
-              <span className="inline-block h-px w-7" style={{ backgroundColor: "oklch(0.46 0.20 25)" }} />
-              Newport Priority Program
-            </div>
             <h2
-              className="font-display font-light text-white mb-4"
-              style={{ fontSize: "clamp(1.6rem, 3vw, 2.6rem)", lineHeight: 1.1 }}
+              className="font-display font-light mb-4"
+              style={{ fontSize: "clamp(2rem, 4vw, 3.2rem)", color: "oklch(0.22 0.005 0)", lineHeight: 1.1 }}
             >
-              Never Worry About<br />
-              <em style={{ color: "oklch(0.75 0.10 25)" }}>Your Sprinklers Again</em>
+              Newport Priority
+              <br />
+              <em style={{ color: "oklch(0.46 0.20 25)", fontStyle: "italic" }}>
+                Irrigation Membership
+              </em>
             </h2>
-            <p
-              className="font-body mb-6"
-              style={{ color: "oklch(0.68 0.008 0)", fontWeight: 300, lineHeight: 1.75, maxWidth: "520px" }}
-            >
-              Our Priority Irrigation Membership covers everything your system needs year-round — spring activation, fall winterization, and annual backflow testing — so you're always first on the schedule and never caught off-guard.
+
+            <p className="font-body text-lg leading-relaxed mb-8" style={{ color: "oklch(0.38 0.005 0)" }}>
+              Never worry about your sprinklers again. Our Priority Irrigation
+              Membership gives you complete peace of mind — from spring
+              activation to fall winterization, we handle everything.
             </p>
-            <div className="grid grid-cols-2 gap-2 mb-8">
-              {BADGE_ITEMS.map((item) => (
-                <div key={item} className="flex items-center gap-2">
-                  <CheckCircle size={14} style={{ color: "oklch(0.72 0.12 25)", flexShrink: 0 }} />
-                  <span className="font-body text-sm" style={{ color: "oklch(0.72 0.008 0)", fontWeight: 300 }}>
-                    {item}
+
+            <ul className="space-y-3 mb-10">
+              {bannerFeatures.map((feature) => (
+                <li key={feature} className="flex items-center gap-3">
+                  <div
+                    className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0"
+                    style={{ backgroundColor: "oklch(0.46 0.20 25)" }}
+                  >
+                    <Check size={12} strokeWidth={2.5} style={{ color: "oklch(1 0 0)" }} />
+                  </div>
+                  <span className="font-body text-sm" style={{ color: "oklch(0.38 0.005 0)" }}>
+                    {feature}
                   </span>
-                </div>
+                </li>
               ))}
-            </div>
+            </ul>
+
             <div className="flex flex-wrap gap-4">
               <button
                 onClick={() => { navigate("/membership"); window.scrollTo({ top: 0, behavior: "smooth" }); }}
-                className="btn-red"
+                className="btn-outline-dark"
               >
                 Learn More
               </button>
               <button
                 onClick={() => { navigate("/contact"); window.scrollTo({ top: 0, behavior: "smooth" }); }}
-                className="btn-outline-white"
+                className="btn-red"
               >
                 Sign Up Today
               </button>
             </div>
           </div>
 
-          {/* Pricing callout */}
-          <div className="lg:col-span-3">
+          {/* Pricing Card — brand red, exact same style */}
+          <div
+            className="relative"
+            style={{
+              backgroundColor: "oklch(0.46 0.20 25)",
+              padding: "3rem",
+              borderRadius: "1.2rem 0.15rem 1.2rem 0.15rem",
+            }}
+          >
+            {/* Decorative corner */}
             <div
-              className="p-6 text-center"
+              className="absolute top-0 right-0 w-24 h-24"
+              style={{ background: "linear-gradient(225deg, oklch(0.38 0.20 25) 0%, transparent 60%)" }}
+            />
+
+            <div
+              className="w-16 h-16 flex items-center justify-center mb-6"
               style={{
-                backgroundColor: "oklch(0.18 0.005 0)",
+                backgroundColor: "oklch(1 0 0 / 0.15)",
+                color: "oklch(1 0 0)",
                 borderRadius: "1.2rem 0.15rem 1.2rem 0.15rem",
-                border: "1px solid oklch(0.28 0.005 0)",
               }}
             >
-              <div className="font-label mb-2" style={{ color: "oklch(0.60 0.008 0)", fontSize: "0.60rem" }}>
-                ANNUAL MEMBERSHIP
-              </div>
-              <div
-                className="font-display font-semibold text-white"
-                style={{ fontSize: "2.8rem", lineHeight: 1 }}
-              >
-                $349
-              </div>
-              <div className="font-body text-sm mb-4" style={{ color: "oklch(0.55 0.008 0)", fontWeight: 300 }}>
-                / year
-              </div>
-              <div
-                className="h-px mb-4"
-                style={{ backgroundColor: "oklch(0.25 0.005 0)" }}
-              />
-              <div className="font-body text-xs" style={{ color: "oklch(0.55 0.008 0)", fontWeight: 300, lineHeight: 1.6 }}>
-                Includes spring activation, fall blowout & annual backflow test
-              </div>
-              <button
-                onClick={() => { navigate("/membership"); window.scrollTo({ top: 0, behavior: "smooth" }); }}
-                className="font-label text-white w-full mt-5 py-3 transition-opacity hover:opacity-80"
-                style={{ backgroundColor: "oklch(0.46 0.20 25)", fontSize: "0.62rem", letterSpacing: "0.10em" }}
-              >
-                SEE FULL DETAILS
-              </button>
+              <Droplets size={28} strokeWidth={1.5} />
             </div>
-          </div>
 
+            <div className="font-label mb-2" style={{ color: "oklch(1 0 0 / 0.70)" }}>
+              Priority Irrigation Plan
+            </div>
+
+            <div className="font-display font-semibold mb-1" style={{ fontSize: "3rem", color: "oklch(1 0 0)", lineHeight: 1 }}>
+              $349
+            </div>
+            <div className="font-body text-sm mb-6" style={{ color: "oklch(1 0 0 / 0.65)" }}>
+              / year
+            </div>
+
+            <div className="h-px mb-6" style={{ backgroundColor: "oklch(1 0 0 / 0.20)" }} />
+
+            <div className="space-y-3 mb-8">
+              {[
+                "Spring system activation",
+                "Fall compressed-air blowout",
+                "Annual backflow preventer test",
+                "Priority scheduling all season",
+              ].map((item) => (
+                <div key={item} className="flex items-center gap-3">
+                  <Check size={14} style={{ color: "oklch(1 0 0 / 0.80)", flexShrink: 0 }} />
+                  <span className="font-body text-sm" style={{ color: "oklch(1 0 0 / 0.85)" }}>
+                    {item}
+                  </span>
+                </div>
+              ))}
+            </div>
+
+            <button
+              onClick={() => { navigate("/membership"); window.scrollTo({ top: 0, behavior: "smooth" }); }}
+              className="btn-outline-white w-full text-center"
+              style={{ display: "block" }}
+            >
+              See Full Details
+            </button>
+
+            <p className="font-body text-xs mt-4 text-center" style={{ color: "oklch(1 0 0 / 0.55)" }}>
+              Ask about our financing options
+            </p>
+          </div>
         </div>
       </div>
-
-      {/* Red accent bar at bottom */}
-      <div style={{ height: "4px", backgroundColor: "oklch(0.46 0.20 25)" }} />
     </section>
   );
 }
