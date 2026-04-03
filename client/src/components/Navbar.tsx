@@ -38,6 +38,7 @@ const navLeft = [
   { label: "About", href: "/about" },
   { label: "Our Work", href: "/our-work" },
   { label: "Blog", href: "/blog" },
+  { label: "Contact", href: "/contact" },
 ];
 
 const navRight = [
@@ -184,6 +185,13 @@ export default function Navbar() {
               className="flex items-center gap-8 flex-1 justify-end"
               style={{ borderTop: "1px solid rgba(255,255,255,0.3)", borderBottom: "1px solid rgba(255,255,255,0.3)", padding: "14px 0" }}
             >
+              <button
+                onClick={() => goTo("/contact")}
+                className="btn-red"
+                style={{ fontSize: "0.62rem", padding: "0.45rem 1.1rem" }}
+              >
+                Get a Quote
+              </button>
               {navRight.map((item) => (
                 <div key={item.label} className="relative">
                   {item.dropdown ? (

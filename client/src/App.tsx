@@ -51,8 +51,8 @@ import EastBendLandscape from "./pages/portfolio/EastBendLandscape";
 import NWBendBackyard from "./pages/portfolio/NWBendBackyard";
 import PaverPatioFirepit from "./pages/portfolio/PaverPatioFirepit";
 import SWBendBackyard from "./pages/portfolio/SWBendBackyard";
-
 function Router() {
+  // make sure to consider if you need authentication for certain routes
   return (
     <Switch>
       {/* Main pages */}
