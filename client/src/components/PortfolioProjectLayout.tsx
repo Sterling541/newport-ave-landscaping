@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { Link } from "wouter";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
-import { ArrowLeft, ArrowRight, Clock, Layers } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 
 interface ProjectImage {
   src: string;
@@ -58,10 +58,12 @@ export default function PortfolioProjectLayout({
         <div className="absolute inset-0" style={{ background: "linear-gradient(to right, oklch(0 0 0 / 0.75) 40%, oklch(0 0 0 / 0.2))" }} />
         <div className="absolute inset-0 flex items-center">
           <div className="container">
-            <Link href="/our-work">
-              <a className="font-label inline-flex items-center gap-2 mb-5" style={{ color: "oklch(0.72 0.12 25)", fontSize: "0.65rem", letterSpacing: "0.14em", textDecoration: "none" }}>
-                <ArrowLeft size={12} /> BACK TO ALL PROJECTS
-              </a>
+            <Link
+              href="/our-work"
+              className="font-label inline-flex items-center gap-2 mb-5"
+              style={{ color: "oklch(0.72 0.12 25)", fontSize: "0.65rem", letterSpacing: "0.14em", textDecoration: "none" }}
+            >
+              <ArrowLeft size={12} /> BACK TO ALL PROJECTS
             </Link>
             {subtitle && (
               <p className="font-label mb-2" style={{ color: "oklch(0.72 0.12 25)", fontSize: "0.65rem", letterSpacing: "0.18em" }}>{subtitle}</p>
@@ -99,8 +101,12 @@ export default function PortfolioProjectLayout({
                     ))}
                   </div>
                   <div className="mt-8">
-                    <Link href="/contact">
-                      <a className="btn-red w-full text-center block" style={{ textDecoration: "none" }}>GET A FREE QUOTE</a>
+                    <Link
+                      href="/contact"
+                      className="btn-red w-full text-center block"
+                      style={{ textDecoration: "none" }}
+                    >
+                      GET A FREE QUOTE
                     </Link>
                   </div>
                 </div>
@@ -131,28 +137,36 @@ export default function PortfolioProjectLayout({
         <section className="py-12" style={{ borderTop: "1px solid oklch(1 0 0 / 0.08)" }}>
           <div className="container flex justify-between items-center">
             {prevProject ? (
-              <Link href={prevProject.href}>
-                <a className="inline-flex items-center gap-3 group" style={{ textDecoration: "none" }}>
-                  <ArrowLeft size={16} style={{ color: "oklch(0.72 0.12 25)" }} />
-                  <div>
-                    <p className="font-label" style={{ color: "oklch(0.55 0 0)", fontSize: "0.6rem", letterSpacing: "0.14em" }}>PREVIOUS PROJECT</p>
-                    <p style={{ fontFamily: "'Lato', sans-serif", fontSize: "0.9rem", color: "oklch(0.88 0 0)" }}>{prevProject.title}</p>
-                  </div>
-                </a>
+              <Link
+                href={prevProject.href}
+                className="inline-flex items-center gap-3 group"
+                style={{ textDecoration: "none" }}
+              >
+                <ArrowLeft size={16} style={{ color: "oklch(0.72 0.12 25)" }} />
+                <div>
+                  <p className="font-label" style={{ color: "oklch(0.55 0 0)", fontSize: "0.6rem", letterSpacing: "0.14em" }}>PREVIOUS PROJECT</p>
+                  <p style={{ fontFamily: "'Lato', sans-serif", fontSize: "0.9rem", color: "oklch(0.88 0 0)" }}>{prevProject.title}</p>
+                </div>
               </Link>
             ) : <div />}
-            <Link href="/our-work">
-              <a className="btn-outline-white px-6 py-3" style={{ textDecoration: "none", fontSize: "0.65rem" }}>ALL PROJECTS</a>
+            <Link
+              href="/our-work"
+              className="btn-outline-white px-6 py-3"
+              style={{ textDecoration: "none", fontSize: "0.65rem" }}
+            >
+              ALL PROJECTS
             </Link>
             {nextProject ? (
-              <Link href={nextProject.href}>
-                <a className="inline-flex items-center gap-3 group text-right" style={{ textDecoration: "none" }}>
-                  <div>
-                    <p className="font-label" style={{ color: "oklch(0.55 0 0)", fontSize: "0.6rem", letterSpacing: "0.14em" }}>NEXT PROJECT</p>
-                    <p style={{ fontFamily: "'Lato', sans-serif", fontSize: "0.9rem", color: "oklch(0.88 0 0)" }}>{nextProject.title}</p>
-                  </div>
-                  <ArrowRight size={16} style={{ color: "oklch(0.72 0.12 25)" }} />
-                </a>
+              <Link
+                href={nextProject.href}
+                className="inline-flex items-center gap-3 group text-right"
+                style={{ textDecoration: "none" }}
+              >
+                <div>
+                  <p className="font-label" style={{ color: "oklch(0.55 0 0)", fontSize: "0.6rem", letterSpacing: "0.14em" }}>NEXT PROJECT</p>
+                  <p style={{ fontFamily: "'Lato', sans-serif", fontSize: "0.9rem", color: "oklch(0.88 0 0)" }}>{nextProject.title}</p>
+                </div>
+                <ArrowRight size={16} style={{ color: "oklch(0.72 0.12 25)" }} />
               </Link>
             ) : <div />}
           </div>
@@ -166,13 +180,15 @@ export default function PortfolioProjectLayout({
             <p className="font-label mb-8" style={{ color: "oklch(0.72 0.12 25)", fontSize: "0.65rem", letterSpacing: "0.18em" }}>MORE PROJECTS</p>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
               {relatedProjects.map((p, i) => (
-                <Link key={i} href={p.href}>
-                  <a style={{ textDecoration: "none" }}>
-                    <div className="overflow-hidden" style={{ borderRadius: "1.2rem 0.15rem 1.2rem 0.15rem", aspectRatio: "4/3", marginBottom: "0.75rem" }}>
-                      <img src={p.image} alt={p.title} className="w-full h-full object-cover transition-transform duration-500 hover:scale-105" />
-                    </div>
-                    <p style={{ fontFamily: "'Lato', sans-serif", fontSize: "0.9rem", color: "oklch(0.88 0 0)", fontWeight: 600 }}>{p.title}</p>
-                  </a>
+                <Link
+                  key={i}
+                  href={p.href}
+                  style={{ textDecoration: "none", display: "block" }}
+                >
+                  <div className="overflow-hidden" style={{ borderRadius: "1.2rem 0.15rem 1.2rem 0.15rem", aspectRatio: "4/3", marginBottom: "0.75rem" }}>
+                    <img src={p.image} alt={p.title} className="w-full h-full object-cover transition-transform duration-500 hover:scale-105" />
+                  </div>
+                  <p style={{ fontFamily: "'Lato', sans-serif", fontSize: "0.9rem", color: "oklch(0.88 0 0)", fontWeight: 600 }}>{p.title}</p>
                 </Link>
               ))}
             </div>

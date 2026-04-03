@@ -14,12 +14,12 @@ const reviews = [
   },
   {
     name: "Gary LeFebvre",
-    text: "I recently needed to have my sprinkler system winterized. I needed service ASAP as weather forecast was for freezing conditions. I called Janna at Newport and she was able to move heaven and earth to get me on the schedule. Aurora showed up the next day and did a very professional and thorough job.",
+    text: "I recently needed to have my sprinkler system winterized. I needed service ASAP as weather forecast was for freezing conditions. I called Janna at Newport and she was able to move heaven and earth to get me on the schedule. Aurora showed up the next day and did a very professional and thorough job. Thanks to your great staff I am very grateful and have signed up for your permanent service. I would highly recommend Newport Landscaping.",
     rating: 5,
   },
   {
     name: "Lisa Krynicki",
-    text: "We spent all summer trying to find a landscaper to fix our broken sprinkler system. Then I called Newport Avenue Landscaping. They made an appointment for me immediately. They showed up exactly when they said they would. The service technician was incredibly friendly, quick, and helpful. He did it all in less than an hour.",
+    text: "We spent all summer trying to find a landscaper to fix our broken sprinkler system. I called and emailed multiple companies and nobody would respond to me. Then I called Newport Ave Landscaping. They made an appointment for me immediately. They showed up exactly when they said they would (and even called to let me know they were on the way). The service technician was incredibly friendly, quick, and helpful. What we thought was going to be a huge repair job turned out to be one stuck valve. The tech cleaned it out (didn't try to sell me a new one), reprogrammed our box, adjusted some sprinkler heads, and everything worked great! He did it all in less than an hour.",
     rating: 5,
   },
   {
@@ -39,7 +39,7 @@ const reviews = [
   },
   {
     name: "Jennifer Yarbrough",
-    text: "We used Newport Landscaping for our lawn and could not be happier with the service provided. The quality of grass cutting was excellent. I love their office staff! Mikaya is amazing!! Super efficient, helpful and kind. Kelly was also great to work with as well! They have a great team.",
+    text: "We used Newport Landscaping for our lawn and could not be happier with the service provided. The quality of grass cutting was excellent. the gentleman was reliable and did a great job. I love their office staff! Mikaya is amazing!! Super efficient, helpful and kind. Kelly was also great to work with as well! They have a great team and we are thankful we found these folks!",
     rating: 5,
   },
 ];
