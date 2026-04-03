@@ -9,6 +9,7 @@ import ServicesSection from "@/components/ServicesSection";
 import AboutSection from "@/components/AboutSection";
 import PortfolioSection from "@/components/PortfolioSection";
 import MembershipSection from "@/components/MembershipSection";
+import EverythingPlanSection from "@/components/EverythingPlanSection";
 import MembershipBanner from "@/components/MembershipBanner";
 import CTABanner from "@/components/CTABanner";
 import ReviewsSection from "@/components/ReviewsSection";
@@ -83,6 +84,7 @@ export default function Home() {
 
       <MembershipBanner />
       <MembershipSection />
+      <EverythingPlanSection />
       <CTABanner />
       <ReviewsSection />
       <ServiceAreaBand />

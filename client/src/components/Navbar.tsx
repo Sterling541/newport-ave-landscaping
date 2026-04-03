@@ -15,7 +15,7 @@ import { useLocation } from "wouter";
 import { Menu, X, Phone, ArrowRight, ChevronDown } from "lucide-react";
 
 const LOGO_NAV =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/logo-transparent-stacked_cbad9eca.png";
+  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/logo-nav-tight_c562b49c.png";
 
 const maintenanceItems = [
   { label: "Lawn Service", href: "/services/lawn-service", num: "01" },
@@ -394,7 +394,7 @@ export default function Navbar() {
           style={{
             alignItems: "center",
             justifyContent: "space-between",
-            minHeight: "96px",
+            minHeight: "120px",
             padding: "0 2.5rem",
             position: "relative",
             zIndex: 2,
@@ -446,11 +446,10 @@ export default function Navbar() {
                 src={LOGO_NAV}
                 alt="Newport Avenue Landscaping"
                 style={{
-                  height: "280px",
+                  height: "90px",
                   width: "auto",
                   objectFit: "contain",
                   display: "block",
-                  marginTop: "-70px",
                   position: "relative",
                   zIndex: 60,
                   filter: "drop-shadow(0 4px 18px oklch(0.18 0.008 30 / 0.15))",

@@ -94,6 +94,8 @@
 - [ ] Blog CMS or dynamic blog posts
 - [ ] Google Analytics integration
 - [ ] SEO meta tags per page
+- [x] Fix navbar logo: increase nav bar height so logo is big, bold, fully visible, and inline with nav menu items — no clipping
+- [x] Build dedicated "Everything Residential Maintenance Plan" section with its own full-width layout, prominent heading, and package details
 
 ## Completed — Light/Airy Redesign
 - [x] Audit current index.css and define new light design tokens
