@@ -1,17 +1,26 @@
 /* ============================================================
-   MEMBERSHIP SECTION — Brand Refresh
-   White background, brand red card, charcoal text
+   MEMBERSHIP SECTION — Maintenance Plan Pricing
+   Clearly titled "Year-Round Maintenance Plans" so visitors
+   understand this is the bundled lawn care pricing card.
    ============================================================ */
 import { useEffect, useRef, useState } from "react";
 import { Check, Droplets } from "lucide-react";
 
-const membershipFeatures = [
+const irrigationFeatures = [
   "Sprinkler system spring activation",
   "Mid-season inspection & adjustment",
   "Fall winterization / blowout",
   "Priority scheduling — no waiting",
   "Dedicated irrigation technician",
   "Annual system health report",
+];
+
+const everythingFeatures = [
+  "Weekly lawn maintenance",
+  "Spring & fall clean-ups",
+  "Annual aeration",
+  "Sprinkler winterization",
+  "Everything in the Irrigation Membership",
 ];
 
 export default function MembershipSection() {
@@ -23,7 +32,7 @@ export default function MembershipSection() {
       ([entry]) => {
         if (entry.isIntersecting) setVisible(true);
       },
-      { threshold: 0.15 }
+      { threshold: 0.12 }
     );
     if (ref.current) observer.observe(ref.current);
     return () => observer.disconnect();
@@ -32,11 +41,11 @@ export default function MembershipSection() {
   return (
     <section
       className="py-24 relative overflow-hidden"
-      style={{ backgroundColor: "oklch(1 0 0)" }}
+      style={{ backgroundColor: "oklch(0.98 0.004 80)" }}
     >
       {/* Subtle dot pattern */}
       <div
-        className="absolute top-0 right-0 w-1/2 h-full opacity-[0.03] pointer-events-none"
+        className="absolute top-0 right-0 w-1/2 h-full opacity-[0.035] pointer-events-none"
         style={{
           backgroundImage:
             "radial-gradient(oklch(0.22 0.005 0) 1px, transparent 1px)",
@@ -45,60 +54,115 @@ export default function MembershipSection() {
       />
 
       <div className="container relative z-10">
+        {/* ── Section header ── */}
         <div
           ref={ref}
-          className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center"
+          style={{
+            opacity: visible ? 1 : 0,
+            transform: visible ? "translateY(0)" : "translateY(24px)",
+            transition: "opacity 0.7s ease, transform 0.7s ease",
+            marginBottom: "clamp(2.5rem, 5vw, 4rem)",
+          }}
+        >
+          <div
+            className="font-label mb-3 flex items-center gap-3"
+            style={{ color: "oklch(0.46 0.20 25)" }}
+          >
+            <span
+              className="inline-block w-8 h-px"
+              style={{ backgroundColor: "oklch(0.46 0.20 25)" }}
+            />
+            Maintenance Plans
+          </div>
+          <h2
+            className="font-display font-light"
+            style={{
+              fontSize: "clamp(2rem, 4.5vw, 3.5rem)",
+              color: "oklch(0.22 0.005 0)",
+              lineHeight: 1.05,
+              maxWidth: "700px",
+            }}
+          >
+            Year-Round Care,{" "}
+            <em style={{ color: "oklch(0.46 0.20 25)", fontStyle: "italic" }}>
+              One Simple Plan
+            </em>
+          </h2>
+          <p
+            className="font-body mt-4"
+            style={{
+              fontSize: "clamp(0.95rem, 1.5vw, 1.1rem)",
+              color: "oklch(0.42 0.005 30)",
+              maxWidth: "560px",
+              lineHeight: 1.65,
+            }}
+          >
+            Stop juggling contractors. Our bundled maintenance plans cover
+            everything your property needs — lawn, irrigation, and seasonal
+            care — handled by one dedicated crew, year-round.
+          </p>
+        </div>
+
+        {/* ── Two-column plan cards ── */}
+        <div
+          className="grid grid-cols-1 lg:grid-cols-2 gap-8"
           style={{
             opacity: visible ? 1 : 0,
             transform: visible ? "translateY(0)" : "translateY(30px)",
-            transition: "opacity 0.8s ease, transform 0.8s ease",
+            transition: "opacity 0.8s ease 0.15s, transform 0.8s ease 0.15s",
           }}
         >
-          {/* Content */}
-          <div>
+          {/* ── Card 1: Priority Irrigation Membership ── */}
+          <div
+            style={{
+              backgroundColor: "oklch(1 0 0)",
+              border: "1.5px solid oklch(0.90 0.006 75)",
+              padding: "2.5rem",
+              borderRadius: "1.2rem 0.15rem 1.2rem 0.15rem",
+              display: "flex",
+              flexDirection: "column",
+            }}
+          >
             <div
-              className="font-label mb-4 flex items-center gap-3"
-              style={{ color: "oklch(0.46 0.20 25)" }}
+              className="font-label mb-1"
+              style={{ color: "oklch(0.46 0.20 25)", fontSize: "0.65rem", letterSpacing: "0.2em" }}
             >
-              <span
-                className="inline-block w-8 h-px"
-                style={{ backgroundColor: "oklch(0.46 0.20 25)" }}
-              />
-              Membership Program
+              Most Popular
+            </div>
+            <h3
+              className="font-display font-semibold mb-1"
+              style={{ fontSize: "clamp(1.3rem, 2.2vw, 1.7rem)", color: "oklch(0.22 0.005 0)", lineHeight: 1.1 }}
+            >
+              Priority Irrigation
+              <br />
+              Membership
+            </h3>
+            <div
+              className="font-display font-bold mt-3 mb-0"
+              style={{ fontSize: "2.6rem", color: "oklch(0.46 0.20 25)", lineHeight: 1 }}
+            >
+              $33
+            </div>
+            <div
+              className="font-body text-sm mb-6"
+              style={{ color: "oklch(0.50 0.005 30)" }}
+            >
+              / month — no contracts
             </div>
 
-            <h2
-              className="font-display font-light mb-4"
-              style={{
-                fontSize: "clamp(2rem, 4vw, 3.2rem)",
-                color: "oklch(0.22 0.005 0)",
-                lineHeight: 1.1,
-              }}
-            >
-              Newport Priority
-              <br />
-              <em style={{ color: "oklch(0.46 0.20 25)", fontStyle: "italic" }}>
-                Irrigation Membership
-              </em>
-            </h2>
+            <div
+              className="h-px mb-6"
+              style={{ backgroundColor: "oklch(0.90 0.006 75)" }}
+            />
 
-            <p
-              className="font-body text-lg leading-relaxed mb-8"
-              style={{ color: "oklch(0.38 0.005 0)" }}
-            >
-              Never worry about your sprinklers again. Our Priority Irrigation
-              Membership gives you complete peace of mind — from spring
-              activation to fall winterization, we handle everything.
-            </p>
-
-            <ul className="space-y-3 mb-10">
-              {membershipFeatures.map((feature) => (
+            <ul className="space-y-3 mb-8 flex-1">
+              {irrigationFeatures.map((feature) => (
                 <li key={feature} className="flex items-center gap-3">
                   <div
                     className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0"
                     style={{ backgroundColor: "oklch(0.46 0.20 25)" }}
                   >
-                    <Check size={12} strokeWidth={2.5} style={{ color: "oklch(1 0 0)" }} />
+                    <Check size={11} strokeWidth={2.5} style={{ color: "#fff" }} />
                   </div>
                   <span
                     className="font-body text-sm"
@@ -116,24 +180,40 @@ export default function MembershipSection() {
                   .querySelector("#contact")
                   ?.scrollIntoView({ behavior: "smooth" })
               }
-              className="btn-outline-dark"
+              style={{
+                backgroundColor: "oklch(0.46 0.20 25)",
+                color: "#fff",
+                fontFamily: "'Montserrat', 'Inter', sans-serif",
+                fontWeight: 700,
+                fontSize: "0.75rem",
+                letterSpacing: "0.14em",
+                textTransform: "uppercase",
+                padding: "0.85rem 2rem",
+                borderRadius: "999px 0.15rem 999px 0.15rem",
+                border: "none",
+                cursor: "pointer",
+                width: "100%",
+              }}
             >
-              Sign Up Today
+              Sign Up Today — $33/mo
             </button>
           </div>
 
-          {/* Pricing Card — brand red */}
+          {/* ── Card 2: Everything Plan ── */}
           <div
-            className="relative"
             style={{
               backgroundColor: "oklch(0.46 0.20 25)",
-              padding: "3rem",
+              padding: "2.5rem",
               borderRadius: "1.2rem 0.15rem 1.2rem 0.15rem",
+              display: "flex",
+              flexDirection: "column",
+              position: "relative",
+              overflow: "hidden",
             }}
           >
             {/* Decorative corner */}
             <div
-              className="absolute top-0 right-0 w-24 h-24"
+              className="absolute top-0 right-0 w-24 h-24 pointer-events-none"
               style={{
                 background:
                   "linear-gradient(225deg, oklch(0.38 0.20 25) 0%, transparent 60%)",
@@ -141,26 +221,37 @@ export default function MembershipSection() {
             />
 
             <div
-              className="w-16 h-16 flex items-center justify-center mb-6"
+              className="w-14 h-14 flex items-center justify-center mb-5"
               style={{
                 backgroundColor: "oklch(1 0 0 / 0.15)",
-                color: "oklch(1 0 0)",
+                color: "#fff",
                 borderRadius: "1.2rem 0.15rem 1.2rem 0.15rem",
               }}
             >
-              <Droplets size={28} strokeWidth={1.5} />
+              <Droplets size={24} strokeWidth={1.5} />
             </div>
 
             <div
-              className="font-label mb-2"
-              style={{ color: "oklch(1 0 0 / 0.70)" }}
+              className="font-label mb-1"
+              style={{ color: "oklch(1 0 0 / 0.65)", fontSize: "0.65rem", letterSpacing: "0.2em" }}
             >
-              Everything Plan
+              Full-Service Bundle
             </div>
-
-            <div
+            <h3
               className="font-display font-semibold mb-1"
-              style={{ fontSize: "3rem", color: "oklch(1 0 0)", lineHeight: 1 }}
+              style={{ fontSize: "clamp(1.6rem, 3vw, 2.4rem)", color: "#fff", lineHeight: 1.05 }}
+            >
+              Everything
+              <br />
+              Residential
+              <br />
+              <span style={{ fontStyle: "italic", fontWeight: 400 }}>
+                Maintenance Plan
+              </span>
+            </h3>
+            <div
+              className="font-display font-bold mt-3 mb-0"
+              style={{ fontSize: "2.6rem", color: "#fff", lineHeight: 1 }}
             >
               $388
             </div>
@@ -168,7 +259,10 @@ export default function MembershipSection() {
               className="font-body text-sm mb-6"
               style={{ color: "oklch(1 0 0 / 0.65)" }}
             >
-              / Month <span className="text-xs">(based on min. 1 man hour/week)</span>
+              / month{" "}
+              <span className="text-xs" style={{ color: "oklch(1 0 0 / 0.50)" }}>
+                (based on min. 1 man hour/week)
+              </span>
             </div>
 
             <div
@@ -176,27 +270,22 @@ export default function MembershipSection() {
               style={{ backgroundColor: "oklch(1 0 0 / 0.20)" }}
             />
 
-            <div className="space-y-3 mb-8">
-              {[
-                "Weekly lawn maintenance",
-                "Spring & fall clean-ups",
-                "Annual aeration",
-                "Sprinkler winterization",
-              ].map((item) => (
-                <div key={item} className="flex items-center gap-3">
+            <ul className="space-y-3 mb-8 flex-1">
+              {everythingFeatures.map((item) => (
+                <li key={item} className="flex items-center gap-3">
                   <Check
                     size={14}
                     style={{ color: "oklch(1 0 0 / 0.80)", flexShrink: 0 }}
                   />
                   <span
                     className="font-body text-sm"
-                    style={{ color: "oklch(1 0 0 / 0.85)" }}
+                    style={{ color: "oklch(1 0 0 / 0.88)" }}
                   >
                     {item}
                   </span>
-                </div>
+                </li>
               ))}
-            </div>
+            </ul>
 
             <button
               onClick={() =>
@@ -204,15 +293,27 @@ export default function MembershipSection() {
                   .querySelector("#contact")
                   ?.scrollIntoView({ behavior: "smooth" })
               }
-              className="btn-outline-white w-full text-center"
-              style={{ display: "block" }}
+              style={{
+                backgroundColor: "transparent",
+                color: "#fff",
+                fontFamily: "'Montserrat', 'Inter', sans-serif",
+                fontWeight: 700,
+                fontSize: "0.75rem",
+                letterSpacing: "0.14em",
+                textTransform: "uppercase",
+                padding: "0.85rem 2rem",
+                borderRadius: "999px 0.15rem 999px 0.15rem",
+                border: "1.5px solid oklch(1 0 0 / 0.50)",
+                cursor: "pointer",
+                width: "100%",
+              }}
             >
               Get Started
             </button>
 
             <p
               className="font-body text-xs mt-4 text-center"
-              style={{ color: "oklch(1 0 0 / 0.55)" }}
+              style={{ color: "oklch(1 0 0 / 0.50)" }}
             >
               Ask about our financing options
             </p>
