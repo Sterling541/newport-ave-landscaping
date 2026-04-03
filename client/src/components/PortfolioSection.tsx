@@ -124,7 +124,7 @@ function PortfolioCard({
           style={{
             fontSize: "1rem",
             fontStyle: "italic",
-            color: hovered ? "oklch(0.76 0.128 184.6)" : "oklch(0.22 0.008 0)",
+            color: hovered ? "oklch(0.56 0.18 25)" : "oklch(0.22 0.008 0)",
             transition: "color 0.3s ease",
             fontWeight: 400,
           }}
@@ -162,7 +162,7 @@ export default function PortfolioSection() {
     <section
       id="portfolio"
       className="py-20"
-      style={{ backgroundColor: "oklch(0.97 0.010 140)" }}
+      style={{ backgroundColor: "oklch(0.97 0.006 75)" }}
     >
       <div className="container">
         {/* Header — Southview style: centered, serif, all-caps label */}
@@ -177,7 +177,7 @@ export default function PortfolioSection() {
         >
           <div
             className="font-label mb-4"
-            style={{ color: "oklch(0.76 0.128 184.6)" }}
+            style={{ color: "oklch(0.56 0.18 25)" }}
           >
             Landscape Design Collections
           </div>
@@ -190,7 +190,7 @@ export default function PortfolioSection() {
             }}
           >
             Our Work Across{" "}
-            <em style={{ color: "oklch(0.76 0.128 184.6)" }}>Central Oregon</em>
+            <em style={{ color: "oklch(0.56 0.18 25)" }}>Central Oregon</em>
           </h2>
           <button
             onClick={() => { navigate("/our-work"); window.scrollTo({ top: 0, behavior: "smooth" }); }}

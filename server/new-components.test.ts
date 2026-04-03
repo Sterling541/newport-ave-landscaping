@@ -163,7 +163,10 @@ describe("BotanicalBand", () => {
       "../client/src/components/BotanicalBand.tsx"
     );
     const content = fs.readFileSync(filePath, "utf-8");
-    expect(content).toContain("oklch(0.22 0.07 155)");
+    // Green is gone — band now uses bright cream background
+    expect(content).toContain("oklch(0.975 0.006 75)");
+    expect(content).not.toContain(" 155)");
+    expect(content).not.toContain(" 184.6)");
   });
 
   it("should include large botanical illustrations bleeding above the band", async () => {

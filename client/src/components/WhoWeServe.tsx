@@ -65,16 +65,16 @@ export default function WhoWeServe() {
         >
           <div
             className="font-label mb-4 flex items-center justify-center gap-3"
-            style={{ color: "oklch(0.76 0.128 184.6)" }}
+            style={{ color: "oklch(0.56 0.18 25)" }}
           >
             <span
               className="inline-block w-8 h-px"
-              style={{ backgroundColor: "oklch(0.76 0.128 184.6)" }}
+              style={{ backgroundColor: "oklch(0.56 0.18 25)" }}
             />
             Who We Serve
             <span
               className="inline-block w-8 h-px"
-              style={{ backgroundColor: "oklch(0.76 0.128 184.6)" }}
+              style={{ backgroundColor: "oklch(0.56 0.18 25)" }}
             />
           </div>
           <h2
@@ -86,7 +86,7 @@ export default function WhoWeServe() {
             }}
           >
             One Firm.{" "}
-            <em style={{ color: "oklch(0.76 0.128 184.6)", fontStyle: "italic" }}>
+            <em style={{ color: "oklch(0.56 0.18 25)", fontStyle: "italic" }}>
               Every Client Type.
             </em>
           </h2>
@@ -201,7 +201,7 @@ export default function WhoWeServe() {
         <div
           className="mt-px p-8 flex flex-col sm:flex-row items-center justify-between gap-6"
           style={{
-            backgroundColor: "oklch(0.76 0.128 184.6)",
+            backgroundColor: "oklch(0.56 0.18 25)",
             opacity: visible ? 1 : 0,
             transition: "opacity 0.7s ease 0.5s",
           }}

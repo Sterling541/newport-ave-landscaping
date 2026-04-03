@@ -67,11 +67,11 @@ export default function BlueSpruceCursor() {
   }, []);
 
   // Color palette — switches between green and red
-  const stemColor   = isPointer ? "oklch(0.40 0.22 25)"  : "oklch(0.28 0.08 155)";
-  const needleOuter = isPointer ? "oklch(0.55 0.24 25)"  : "oklch(0.45 0.13 195)";
-  const needleInner = isPointer ? "oklch(0.50 0.22 25)"  : "oklch(0.40 0.14 185)";
-  const needleDeep  = isPointer ? "oklch(0.42 0.20 25)"  : "oklch(0.35 0.12 185)";
-  const budColor    = isPointer ? "oklch(0.65 0.22 25)"  : "oklch(0.55 0.10 155)";
+  const stemColor   = isPointer ? "oklch(0.40 0.22 25)"  : "oklch(0.28 0.008 30)";
+  const needleOuter = isPointer ? "oklch(0.55 0.24 25)"  : "oklch(0.45 0.008 30)";
+  const needleInner = isPointer ? "oklch(0.50 0.22 25)"  : "oklch(0.40 0.008 30)";
+  const needleDeep  = isPointer ? "oklch(0.42 0.20 25)"  : "oklch(0.35 0.008 30)";
+  const budColor    = isPointer ? "oklch(0.65 0.22 25)"  : "oklch(0.46 0.20 25)";
   const frostColor  = isPointer ? "oklch(0.80 0.10 25)"  : "oklch(0.75 0.06 220)";
 
   return (

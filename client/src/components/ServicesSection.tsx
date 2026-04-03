@@ -52,7 +52,7 @@ export default function ServicesSection() {
     <section
       id="services"
       style={{
-        backgroundColor: "oklch(0.08 0.008 200)",
+        backgroundColor: "oklch(0.08 0.008 30)",
         position: "relative",
         overflow: "hidden",
       }}
@@ -69,11 +69,11 @@ export default function ServicesSection() {
         <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "0.5rem", fontWeight: 700, letterSpacing: "0.3em", color: "oklch(0.46 0.20 25)" }}>
           02
         </span>
-        <span style={{ width: "2rem", height: "1px", backgroundColor: "oklch(0.22 0.008 200)", display: "block" }} />
-        <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "0.5rem", fontWeight: 600, letterSpacing: "0.25em", color: "oklch(0.35 0.008 200)" }}>
+        <span style={{ width: "2rem", height: "1px", backgroundColor: "oklch(0.22 0.008 30)", display: "block" }} />
+        <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "0.5rem", fontWeight: 600, letterSpacing: "0.25em", color: "oklch(0.35 0.008 30)" }}>
           WHAT WE DO
         </span>
-        <span style={{ flex: 1, height: "1px", backgroundColor: "oklch(0.16 0.008 200)", display: "block" }} />
+        <span style={{ flex: 1, height: "1px", backgroundColor: "oklch(0.16 0.008 30)", display: "block" }} />
       </div>
 
       {/* ── Massive section headline ── */}
@@ -108,7 +108,7 @@ export default function ServicesSection() {
             position: "relative",
             height: "clamp(180px, 38vh, 340px)",
             overflow: "hidden",
-            borderTop: "1px solid oklch(0.16 0.008 200)",
+            borderTop: "1px solid oklch(0.16 0.008 30)",
             cursor: "pointer",
           }}
         >
@@ -159,7 +159,7 @@ export default function ServicesSection() {
                   fontSize: "clamp(0.75rem, 1.5vw, 1.2rem)",
                   fontWeight: 400,
                   letterSpacing: "0.1em",
-                  color: "oklch(0.50 0.008 200)",
+                  color: "oklch(0.50 0.008 30)",
                   marginTop: "0.25rem",
                   transform: hovered === i ? "translateX(0.75rem)" : "translateX(0)",
                   transition: "transform 0.5s ease 0.05s",
@@ -196,7 +196,7 @@ export default function ServicesSection() {
                   fontSize: "0.65rem",
                   fontWeight: 400,
                   lineHeight: 1.8,
-                  color: "oklch(0.62 0.008 200)",
+                  color: "oklch(0.62 0.008 30)",
                   marginBottom: "1rem",
                 }}
               >
@@ -226,7 +226,7 @@ export default function ServicesSection() {
               fontSize: "0.5rem",
               fontWeight: 700,
               letterSpacing: "0.2em",
-              color: "oklch(0.22 0.008 200)",
+              color: "oklch(0.22 0.008 30)",
             }}
           >
             {String(i + 1).padStart(2, "0")}
@@ -238,7 +238,7 @@ export default function ServicesSection() {
       <div
         style={{
           padding: "2.5rem clamp(1.5rem, 5vw, 5rem)",
-          borderTop: "1px solid oklch(0.16 0.008 200)",
+          borderTop: "1px solid oklch(0.16 0.008 30)",
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
@@ -246,7 +246,7 @@ export default function ServicesSection() {
           gap: "1rem",
         }}
       >
-        <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "0.55rem", fontWeight: 600, letterSpacing: "0.18em", color: "oklch(0.35 0.008 200)" }}>
+        <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "0.55rem", fontWeight: 600, letterSpacing: "0.18em", color: "oklch(0.35 0.008 30)" }}>
           EVERY PROJECT. EVERY DETAIL. EVERY TIME.
         </span>
         <a

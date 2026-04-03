@@ -49,7 +49,7 @@ export default function StatsSection() {
       ref={sectionRef}
       style={{
         position: "relative",
-        backgroundColor: "oklch(0.10 0.008 200)",
+        backgroundColor: "oklch(0.10 0.008 30)",
         overflow: "hidden",
         paddingTop: "clamp(5rem, 10vw, 9rem)",
         paddingBottom: "0",
@@ -96,8 +96,8 @@ export default function StatsSection() {
         <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "0.5rem", fontWeight: 700, letterSpacing: "0.3em", color: "oklch(0.46 0.20 25)" }}>
           01
         </span>
-        <span style={{ width: "2rem", height: "1px", backgroundColor: "oklch(0.22 0.008 200)", display: "block" }} />
-        <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "0.5rem", fontWeight: 600, letterSpacing: "0.25em", color: "oklch(0.35 0.008 200)" }}>
+        <span style={{ width: "2rem", height: "1px", backgroundColor: "oklch(0.22 0.008 30)", display: "block" }} />
+        <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "0.5rem", fontWeight: 600, letterSpacing: "0.25em", color: "oklch(0.35 0.008 30)" }}>
           WHO WE ARE
         </span>
       </div>
@@ -144,7 +144,7 @@ export default function StatsSection() {
               fontSize: "0.70rem",
               fontWeight: 400,
               lineHeight: 1.9,
-              color: "oklch(0.48 0.008 200)",
+              color: "oklch(0.48 0.008 30)",
               maxWidth: "400px",
               marginBottom: "2.5rem",
             }}
@@ -192,7 +192,7 @@ export default function StatsSection() {
                 fontWeight: 900,
                 lineHeight: 0.85,
                 letterSpacing: "-0.06em",
-                color: "oklch(0.14 0.008 200)",
+                color: "oklch(0.14 0.008 30)",
                 position: "absolute",
                 right: "-4rem",
                 top: "-1rem",
@@ -224,7 +224,7 @@ export default function StatsSection() {
             </div>
           </div>
 
-          <div style={{ width: "100%", height: "1px", backgroundColor: "oklch(0.18 0.008 200)", marginBottom: "2rem" }} />
+          <div style={{ width: "100%", height: "1px", backgroundColor: "oklch(0.18 0.008 30)", marginBottom: "2rem" }} />
 
           {/* Stat 2 */}
           <div style={{ marginBottom: "2rem" }}>
@@ -246,7 +246,7 @@ export default function StatsSection() {
             </div>
           </div>
 
-          <div style={{ width: "100%", height: "1px", backgroundColor: "oklch(0.18 0.008 200)", marginBottom: "2rem" }} />
+          <div style={{ width: "100%", height: "1px", backgroundColor: "oklch(0.18 0.008 30)", marginBottom: "2rem" }} />
 
           {/* Stat 3 */}
           <div>
@@ -298,7 +298,7 @@ export default function StatsSection() {
             left: 0,
             right: 0,
             height: "100px",
-            background: "oklch(0.10 0.008 200)",
+            background: "oklch(0.10 0.008 30)",
             clipPath: "polygon(0 0, 100% 0, 100% 0, 0 100%)",
           }}
         />

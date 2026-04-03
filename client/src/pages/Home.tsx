@@ -29,7 +29,7 @@ export default function Home() {
     <div
       className="min-h-screen"
       style={{
-        backgroundColor: "oklch(0.10 0.008 200)",
+        backgroundColor: "oklch(0.10 0.008 30)",
         overflowX: "hidden",
       }}
     >

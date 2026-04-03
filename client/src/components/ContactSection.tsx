@@ -358,7 +358,7 @@ export default function ContactSection() {
             <div
               className="p-6"
               style={{
-                backgroundColor: "oklch(0.93 0.012 140)",
+                backgroundColor: "oklch(0.93 0.006 75)",
                 borderLeft: "3px solid oklch(0.46 0.20 25)",
               }}
             >

@@ -1,15 +1,14 @@
 /* ============================================================
-   NEWPORT AVENUE LANDSCAPING — Magazine-Level Design System
-   Colossal-Inspired Editorial Identity
-
-   Philosophy:
-   - Near-black canvas — images and type pop against darkness
-   - Off-white/cream text — warm, not clinical
-   - Copper/terracotta accent — the brand's warmth
-   - Massive bleed typography — type IS the design
-   - Halftone dot graphics — editorial texture
-   - Custom cursor — every detail matters
+   NEWPORT AVENUE LANDSCAPING — Radical Editorial Design System
+   
+   New Philosophy (v3):
+   - BRIGHT white/cream canvas — light, airy, premium
+   - Deep charcoal ink for type — not green, not black
+   - Brand RED as the single powerful accent
+   - Cormorant Garamond for editorial drama
+   - Montserrat for crisp labels
    - Generous whitespace — luxury breathes
+   - NO hunter green — that's gone
    ============================================================ */
 
 @import "tailwindcss";
@@ -59,54 +58,57 @@
 :root {
   --radius: 0.15rem;
 
-  /* ── Brand palette ── */
-  --ink:          oklch(0.10 0.008 200);   /* Near-black with a hint of green */
-  --ink-mid:      oklch(0.16 0.010 200);   /* Section backgrounds */
-  --ink-soft:     oklch(0.22 0.010 200);   /* Card backgrounds */
-  --rule:         oklch(0.28 0.008 200);   /* Thin divider lines */
-  --cream:        oklch(0.97 0.012 75);    /* Primary text on dark */
-  --cream-dim:    oklch(0.78 0.010 75);    /* Secondary text on dark */
-  --copper:       oklch(0.76 0.128 184.6);     /* Brand teal #23CABA */
-  --copper-dark:  oklch(0.62 0.120 184.6);     /* Hover state — darker teal */
-  --copper-glow:  oklch(0.76 0.128 184.6 / 0.15); /* Glow effect */
+  /* ── Brand palette — BRIGHT editorial ── */
+  --white:        oklch(1.00 0 0);            /* Pure white */
+  --paper:        oklch(0.985 0.006 80);      /* Warm off-white paper */
+  --paper-alt:    oklch(0.970 0.010 78);      /* Slightly warmer cream */
+  --ink:          oklch(0.18 0.008 30);       /* Deep warm charcoal — NOT green */
+  --ink-mid:      oklch(0.28 0.006 30);       /* Mid charcoal for secondary text */
+  --ink-soft:     oklch(0.92 0.008 75);       /* Very light warm gray for cards */
+  --rule:         oklch(0.88 0.006 75);       /* Thin divider lines */
+  --brand-red:    oklch(0.46 0.20 25);        /* Brand red — the single accent */
+  --brand-red-dk: oklch(0.36 0.18 25);        /* Hover red */
+  --brand-red-lt: oklch(0.92 0.06 25);        /* Very light red tint */
 
-  /* Light section variants (contact, footer) */
-  --light-bg:     oklch(0.985 0.008 75);
-  --light-alt:    oklch(0.965 0.014 80);
+  /* Dark section palette (hero, lighting, footer) */
+  --dark-bg:      oklch(0.10 0.008 30);       /* Near-black warm */
+  --dark-mid:     oklch(0.16 0.008 30);       /* Dark card bg */
+  --dark-text:    oklch(0.97 0.010 75);       /* Light text on dark */
+  --dark-muted:   oklch(0.72 0.008 75);       /* Muted text on dark */
 
   /* Semantic tokens */
-  --background:   var(--ink);
-  --foreground:   var(--cream);
-  --card:         var(--ink-soft);
-  --card-foreground: var(--cream);
-  --popover:      var(--ink-soft);
-  --popover-foreground: var(--cream);
-  --primary:      var(--copper);
-  --primary-foreground: var(--ink);
+  --background:   var(--paper);
+  --foreground:   var(--ink);
+  --card:         var(--white);
+  --card-foreground: var(--ink);
+  --popover:      var(--white);
+  --popover-foreground: var(--ink);
+  --primary:      var(--brand-red);
+  --primary-foreground: var(--white);
   --secondary:    var(--ink-soft);
-  --secondary-foreground: var(--cream);
-  --muted:        var(--ink-mid);
-  --muted-foreground: var(--cream-dim);
-  --accent:       var(--ink-soft);
-  --accent-foreground: var(--cream);
+  --secondary-foreground: var(--ink);
+  --muted:        var(--paper-alt);
+  --muted-foreground: var(--ink-mid);
+  --accent:       var(--brand-red-lt);
+  --accent-foreground: var(--brand-red-dk);
   --destructive:  oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.985 0 0);
   --border:       var(--rule);
   --input:        var(--ink-soft);
-  --ring:         var(--copper);
-  --chart-1: oklch(0.76 0.128 184.6);
-  --chart-2: oklch(0.65 0.110 184.6);
-  --chart-3: oklch(0.54 0.090 184.6);
-  --chart-4: oklch(0.42 0.070 184.6);
-  --chart-5: oklch(0.30 0.050 184.6);
-  --sidebar: var(--ink-mid);
-  --sidebar-foreground: var(--cream);
-  --sidebar-primary: var(--copper);
-  --sidebar-primary-foreground: var(--ink);
-  --sidebar-accent: var(--ink-soft);
-  --sidebar-accent-foreground: var(--cream);
+  --ring:         var(--brand-red);
+  --chart-1: oklch(0.46 0.20 25);
+  --chart-2: oklch(0.56 0.18 25);
+  --chart-3: oklch(0.66 0.14 25);
+  --chart-4: oklch(0.76 0.10 25);
+  --chart-5: oklch(0.86 0.06 25);
+  --sidebar: var(--paper);
+  --sidebar-foreground: var(--ink);
+  --sidebar-primary: var(--brand-red);
+  --sidebar-primary-foreground: var(--white);
+  --sidebar-accent: var(--paper-alt);
+  --sidebar-accent-foreground: var(--ink);
   --sidebar-border: var(--rule);
-  --sidebar-ring: var(--copper);
+  --sidebar-ring: var(--brand-red);
 }
 
 /* ── Custom cursor ── */
@@ -121,8 +123,8 @@ html {
 
 body {
   cursor: none;
-  background-color: oklch(0.10 0.008 200);
-  color: oklch(0.97 0.012 75);
+  background-color: oklch(0.985 0.006 80);
+  color: oklch(0.18 0.008 30);
   font-family: 'Source Serif 4', Georgia, serif;
   overflow-x: hidden;
 }
@@ -178,7 +180,7 @@ input, textarea, select {
   text-transform: uppercase;
 }
 
-/* ── Section label system (Colossal-style) ── */
+/* ── Section label system ── */
 .section-label {
   display: flex;
   align-items: center;
@@ -188,29 +190,29 @@ input, textarea, select {
   font-weight: 600;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: oklch(0.50 0.010 200);
+  color: oklch(0.55 0.008 30);
 }
 
 .section-label-num {
-  color: oklch(0.76 0.128 184.6);
+  color: oklch(0.46 0.20 25);
   font-weight: 700;
 }
 
 .section-label-rule {
   flex: 1;
   height: 1px;
-  background-color: oklch(0.28 0.008 200);
+  background-color: oklch(0.88 0.006 75);
 }
 
-/* ── Pill / oval CTA buttons (Colossal-style) ── */
+/* ── Pill / oval CTA buttons ── */
 .btn-pill-copper {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
   padding: 0.85rem 2.2rem;
-  background-color: oklch(0.76 0.128 184.6);
-  color: oklch(0.10 0.008 200);
+  background-color: oklch(0.46 0.20 25);
+  color: oklch(1.00 0 0);
   font-family: 'Montserrat', sans-serif;
   font-size: 0.62rem;
   font-weight: 700;
@@ -223,7 +225,7 @@ input, textarea, select {
   text-decoration: none;
 }
 .btn-pill-copper:hover {
-  background-color: oklch(0.62 0.120 184.6);
+  background-color: oklch(0.36 0.18 25);
   transform: translateY(-1px);
 }
 
@@ -234,33 +236,32 @@ input, textarea, select {
   gap: 0.5rem;
   padding: 0.85rem 2.2rem;
   background-color: transparent;
-  color: oklch(0.97 0.012 75);
+  color: oklch(0.18 0.008 30);
   font-family: 'Montserrat', sans-serif;
   font-size: 0.62rem;
   font-weight: 600;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  border: 1px solid oklch(0.40 0.008 200);
+  border: 1.5px solid oklch(0.75 0.006 30);
   border-radius: 999px;
   transition: border-color 0.25s ease, color 0.25s ease, transform 0.2s ease;
   white-space: nowrap;
   text-decoration: none;
 }
 .btn-pill-outline:hover {
-  border-color: oklch(0.76 0.128 184.6);
-  color: oklch(0.76 0.128 184.6);
+  border-color: oklch(0.46 0.20 25);
+  color: oklch(0.46 0.20 25);
   transform: translateY(-1px);
 }
 
-/* Legacy button classes — kept for secondary pages */
 .btn-red {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
   padding: 0.85rem 2.2rem;
-  background-color: oklch(0.76 0.128 184.6);
-  color: oklch(0.10 0.008 200);
+  background-color: oklch(0.46 0.20 25);
+  color: oklch(1.00 0 0);
   font-family: 'Montserrat', sans-serif;
   font-size: 0.62rem;
   font-weight: 700;
@@ -271,7 +272,7 @@ input, textarea, select {
   transition: background-color 0.25s ease;
   white-space: nowrap;
 }
-.btn-red:hover { background-color: oklch(0.62 0.120 184.6); }
+.btn-red:hover { background-color: oklch(0.36 0.18 25); }
 
 .btn-outline-dark {
   display: inline-flex;
@@ -279,18 +280,18 @@ input, textarea, select {
   gap: 0.5rem;
   padding: 0.85rem 2.2rem;
   background-color: transparent;
-  color: oklch(0.97 0.012 75);
+  color: oklch(0.18 0.008 30);
   font-family: 'Montserrat', sans-serif;
   font-size: 0.62rem;
   font-weight: 600;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  border: 1px solid oklch(0.40 0.008 200);
+  border: 1px solid oklch(0.75 0.006 30);
   border-radius: 999px;
   transition: border-color 0.25s ease, color 0.25s ease;
   text-decoration: none;
 }
-.btn-outline-dark:hover { border-color: oklch(0.76 0.128 184.6); color: oklch(0.76 0.128 184.6); }
+.btn-outline-dark:hover { border-color: oklch(0.46 0.20 25); color: oklch(0.46 0.20 25); }
 
 .btn-outline-white {
   display: inline-flex;
@@ -298,7 +299,7 @@ input, textarea, select {
   gap: 0.5rem;
   padding: 0.85rem 2.2rem;
   background-color: transparent;
-  color: oklch(0.97 0.012 75);
+  color: oklch(0.97 0.010 75);
   font-family: 'Montserrat', sans-serif;
   font-size: 0.62rem;
   font-weight: 600;
@@ -309,7 +310,7 @@ input, textarea, select {
   transition: border-color 0.25s ease;
   text-decoration: none;
 }
-.btn-outline-white:hover { border-color: oklch(0.97 0.012 75); }
+.btn-outline-white:hover { border-color: oklch(0.97 0.010 75); }
 
 /* ── Photo card ── */
 .photo-card {
@@ -331,7 +332,7 @@ input, textarea, select {
   right: 0;
   padding: 2rem 1.25rem 1.25rem;
   background: linear-gradient(0deg, oklch(0 0 0 / 0.75) 0%, transparent 100%);
-  color: oklch(0.97 0.012 75);
+  color: oklch(0.97 0.010 75);
   font-family: 'Cormorant Garamond', serif;
   font-style: italic;
   font-size: 1.1rem;
@@ -344,7 +345,7 @@ input, textarea, select {
   transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 .service-card:hover {
-  box-shadow: 0 8px 32px oklch(0 0 0 / 0.4);
+  box-shadow: 0 8px 32px oklch(0 0 0 / 0.12);
   transform: translateY(-4px);
 }
 
@@ -374,7 +375,7 @@ input, textarea, select {
 
 /* ── Halftone dot pattern ── */
 .halftone-dot {
-  background-image: radial-gradient(circle, oklch(0.46 0.20 25 / 0.35) 1px, transparent 1px);
+  background-image: radial-gradient(circle, oklch(0.46 0.20 25 / 0.18) 1px, transparent 1px);
   background-size: 12px 12px;
 }
 
@@ -391,9 +392,9 @@ input, textarea, select {
 }
 
 /* ── Thin horizontal rule ── */
-.rule { height: 1px; background-color: oklch(0.28 0.008 200); }
+.rule { height: 1px; background-color: oklch(0.88 0.006 75); }
 
-/* ── Text bleed effect — type that overflows ── */
+/* ── Text bleed effect ── */
 .bleed-right {
   overflow: visible;
   white-space: nowrap;

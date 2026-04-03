@@ -631,7 +631,7 @@ export default function Commercial() {
       {/* ── WHO WE SERVE ──────────────────────────────────────────────────── */}
       <section
         className="py-24"
-        style={{ backgroundColor: "oklch(0.97 0.010 140)" }}
+        style={{ backgroundColor: "oklch(0.97 0.006 75)" }}
       >
         <div className="container">
           <FadeIn className="text-center mb-16">

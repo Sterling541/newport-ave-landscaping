@@ -47,7 +47,7 @@ export default function Footer() {
   };
 
   return (
-    <footer style={{ backgroundColor: "oklch(0.14 0.022 155)" }}>
+    <footer style={{ backgroundColor: "oklch(0.14 0.006 30)" }}>
       {/* Main footer */}
       <div className="container py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
@@ -174,9 +174,9 @@ export default function Footer() {
       </div>
 
       {/* Bottom bar */}
-      <div className="border-t" style={{ borderColor: "oklch(0.25 0.025 155)" }}>
+      <div className="border-t" style={{ borderColor: "oklch(0.25 0.008 30)" }}>
         <div className="container py-5 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="font-body text-xs" style={{ color: "oklch(0.45 0.010 155)" }}>
+          <p className="font-body text-xs" style={{ color: "oklch(0.45 0.008 30)" }}>
             © 2025 Newport Avenue Landscaping. All Rights Reserved.
           </p>
           <div className="flex gap-6">

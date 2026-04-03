@@ -72,7 +72,7 @@ export default function LightingSection() {
       style={{
         height: "220vh",
         position: "relative",
-        backgroundColor: "oklch(0.08 0.02 200)",
+        backgroundColor: "oklch(0.08 0.010 30)",
       }}
     >
       {/* Sticky viewport */}
@@ -103,7 +103,7 @@ export default function LightingSection() {
         {/* ── Vignette ── */}
         <div style={{
           position: "absolute", inset: 0, pointerEvents: "none",
-          background: "radial-gradient(ellipse at center, transparent 20%, oklch(0.03 0.01 200) 80%)",
+          background: "radial-gradient(ellipse at center, transparent 20%, oklch(0.03 0.010 30) 80%)",
           opacity: vignetteOp,
           transition: "opacity 0.06s linear",
         }}/>
@@ -288,7 +288,7 @@ export default function LightingSection() {
                 fontSize: "0.58rem",
                 letterSpacing: "0.22em",
                 textTransform: "uppercase",
-                color: "oklch(0.06 0.02 155)",
+                color: "oklch(0.06 0.006 30)",
                 backgroundColor: "oklch(0.80 0.14 66)",
                 padding: "0.9rem 2.5rem",
                 textDecoration: "none",

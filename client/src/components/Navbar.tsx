@@ -62,7 +62,7 @@ function MegaMenuItem({
         textAlign: "left",
         background: "none",
         border: "none",
-        borderBottom: "1px solid oklch(0.92 0.01 155)",
+        borderBottom: "1px solid oklch(0.92 0.006 75)",
         padding: "0.7rem 0",
         cursor: "pointer",
         display: "flex",
@@ -77,7 +77,7 @@ function MegaMenuItem({
           fontFamily: "'Cormorant Garamond', serif",
           fontStyle: "italic",
           fontSize: "0.65rem",
-          color: "oklch(0.40 0.12 155)",
+          color: "oklch(0.40 0.008 30)",
           minWidth: "24px",
           flexShrink: 0,
         }}
@@ -91,7 +91,7 @@ function MegaMenuItem({
           fontWeight: hovered ? 700 : 500,
           letterSpacing: "0.1em",
           textTransform: "uppercase",
-          color: hovered ? "oklch(0.18 0.06 155)" : "oklch(0.38 0.04 155)",
+          color: hovered ? "oklch(0.18 0.008 30)" : "oklch(0.38 0.008 30)",
           transition: "color 0.15s ease, font-weight 0.15s ease",
           flex: 1,
         }}
@@ -101,7 +101,7 @@ function MegaMenuItem({
       <ArrowRight
         size={12}
         style={{
-          color: "oklch(0.40 0.12 155)",
+          color: "oklch(0.40 0.008 30)",
           opacity: hovered ? 1 : 0,
           transform: hovered ? "translateX(0)" : "translateX(-6px)",
           transition: "opacity 0.2s ease, transform 0.2s ease",
@@ -133,7 +133,7 @@ function MegaMenu({
         right: 0,
         zIndex: 100,
         backgroundColor: "oklch(0.98 0.005 90)",
-        borderBottom: "3px solid oklch(0.22 0.07 155)",
+        borderBottom: "3px solid oklch(0.46 0.20 25)",
         boxShadow: "0 24px 80px oklch(0 0 0 / 0.18)",
         display: "grid",
         gridTemplateColumns: "1fr 1fr",
@@ -159,7 +159,7 @@ function MegaMenu({
           style={{
             position: "absolute",
             inset: 0,
-            background: "linear-gradient(135deg, oklch(0.10 0.04 155 / 0.75) 0%, transparent 60%)",
+            background: "linear-gradient(135deg, oklch(0.10 0.006 30 / 0.75) 0%, transparent 60%)",
           }}
         />
         <div
@@ -176,7 +176,7 @@ function MegaMenu({
               fontStyle: "italic",
               fontSize: "0.7rem",
               letterSpacing: "0.3em",
-              color: "oklch(0.82 0.10 155)",
+              color: "oklch(0.92 0.06 25)",
               textTransform: "uppercase",
               marginBottom: "0.5rem",
             }}
@@ -206,7 +206,7 @@ function MegaMenu({
             left: 0,
             width: "4px",
             height: "100%",
-            background: "linear-gradient(180deg, oklch(0.40 0.12 155) 0%, transparent 100%)",
+            background: "linear-gradient(180deg, oklch(0.46 0.20 25) 0%, transparent 100%)",
           }}
         />
       </div>
@@ -215,7 +215,7 @@ function MegaMenu({
       <div
         style={{
           padding: "2rem 3rem",
-          borderLeft: "1px solid oklch(0.90 0.01 155)",
+          borderLeft: "1px solid oklch(0.90 0.006 75)",
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
@@ -236,7 +236,7 @@ function MegaMenu({
                 style={{
                   width: i === 0 ? "24px" : "6px",
                   height: "2px",
-                  backgroundColor: i === 0 ? "oklch(0.40 0.12 155)" : "oklch(0.82 0.01 155)",
+                  backgroundColor: i === 0 ? "oklch(0.46 0.20 25)" : "oklch(0.88 0.006 75)",
                   display: "block",
                 }}
               />
@@ -304,7 +304,7 @@ export default function Navbar() {
         }
       `}</style>
 
-      {/* ── Utility bar — dark green strip at very top ── */}
+      {/* ── Utility bar — bright cream strip at very top ── */}
       <div
         style={{
           position: "fixed",
@@ -312,7 +312,8 @@ export default function Navbar() {
           left: 0,
           right: 0,
           zIndex: 50,
-          backgroundColor: "oklch(0.18 0.06 155)",
+          backgroundColor: "oklch(0.97 0.006 75)",
+          borderBottom: "1px solid oklch(0.90 0.006 75)",
           height: "28px",
           display: "flex",
           alignItems: "center",
@@ -335,7 +336,7 @@ export default function Navbar() {
               fontSize: "0.52rem",
               fontWeight: 500,
               letterSpacing: "0.14em",
-              color: "oklch(0.68 0.06 155)",
+              color: "oklch(0.38 0.008 30)",
               textTransform: "uppercase",
             }}
           >
@@ -350,14 +351,14 @@ export default function Navbar() {
               gap: "0.4rem",
             }}
           >
-            <Phone size={10} style={{ color: "oklch(0.82 0.10 155)" }} />
+            <Phone size={10} style={{ color: "oklch(0.46 0.20 25)" }} />
             <span
               style={{
                 fontFamily: "'Montserrat', sans-serif",
                 fontSize: "0.58rem",
                 fontWeight: 700,
                 letterSpacing: "0.1em",
-                color: "oklch(0.90 0.06 155)",
+                color: "oklch(0.18 0.008 30)",
               }}
             >
               (541) 617-8873
@@ -380,9 +381,9 @@ export default function Navbar() {
             : "oklch(1 0 0)",
           backdropFilter: scrolled ? "blur(16px)" : "none",
           boxShadow: scrolled
-            ? "0 4px 32px oklch(0.18 0.06 155 / 0.14)"
-            : "0 2px 0 oklch(0.90 0.02 155 / 0.5)",
-          borderBottom: "1.5px solid oklch(0.90 0.02 155)",
+            ? "0 4px 32px oklch(0.18 0.008 30 / 0.14)"
+            : "0 2px 0 oklch(0.90 0.006 75 / 0.5)",
+          borderBottom: "1.5px solid oklch(0.90 0.006 75)",
           transition: "background-color 0.3s ease, box-shadow 0.3s ease",
           overflow: "visible",
         }}
@@ -452,7 +453,7 @@ export default function Navbar() {
                   marginTop: "-60px",
                   position: "relative",
                   zIndex: 60,
-                  filter: "drop-shadow(0 4px 18px oklch(0.18 0.06 155 / 0.15))",
+                  filter: "drop-shadow(0 4px 18px oklch(0.18 0.008 30 / 0.15))",
                 }}
               />
             </button>
@@ -478,7 +479,7 @@ export default function Navbar() {
               active={isActive("/commercial")}
               onClick={() => goTo("/commercial")}
             />
-            {/* Get a Quote — pill CTA, deep green */}
+            {/* Get a Quote — pill CTA, brand red */}
             <a
               href="/contact"
               onClick={(e) => { e.preventDefault(); goTo("/contact"); }}
@@ -488,8 +489,8 @@ export default function Navbar() {
                 fontWeight: 700,
                 letterSpacing: "0.18em",
                 textTransform: "uppercase",
-                color: "oklch(0.97 0.01 90)",
-                backgroundColor: "oklch(0.22 0.07 155)",
+                color: "oklch(1 0 0)",
+                backgroundColor: "oklch(0.46 0.20 25)",
                 padding: "0.65rem 1.6rem",
                 borderRadius: "999px",
                 textDecoration: "none",
@@ -500,11 +501,11 @@ export default function Navbar() {
                 whiteSpace: "nowrap",
               }}
               onMouseEnter={(e) => {
-                (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "oklch(0.30 0.09 155)";
+                (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "oklch(0.36 0.18 25)";
                 (e.currentTarget as HTMLAnchorElement).style.transform = "translateY(-1px)";
               }}
               onMouseLeave={(e) => {
-                (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "oklch(0.22 0.07 155)";
+                (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "oklch(0.46 0.20 25)";
                 (e.currentTarget as HTMLAnchorElement).style.transform = "translateY(0)";
               }}
             >
@@ -528,7 +529,7 @@ export default function Navbar() {
         >
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            style={{ color: "oklch(0.22 0.07 155)", background: "none", border: "none", cursor: "pointer", padding: "0.25rem" }}
+            style={{ color: "oklch(0.22 0.008 30)", background: "none", border: "none", cursor: "pointer", padding: "0.25rem" }}
             aria-label="Toggle menu"
           >
             {mobileOpen ? <X size={22} /> : <Menu size={22} />}
@@ -547,7 +548,7 @@ export default function Navbar() {
 
           <a
             href="tel:5416178873"
-            style={{ color: "oklch(0.22 0.07 155)", display: "flex", alignItems: "center" }}
+            style={{ color: "oklch(0.22 0.008 30)", display: "flex", alignItems: "center" }}
           >
             <Phone size={18} />
           </a>
@@ -561,7 +562,7 @@ export default function Navbar() {
             overflow: "hidden",
             transition: "max-height 0.35s ease",
             backgroundColor: "oklch(0.98 0.005 90)",
-            borderTop: mobileOpen ? "1px solid oklch(0.90 0.02 155)" : "none",
+            borderTop: mobileOpen ? "1px solid oklch(0.90 0.006 75)" : "none",
             position: "relative",
             zIndex: 2,
           }}
@@ -591,7 +592,7 @@ export default function Navbar() {
                     padding: "0.9rem 0",
                     background: "none",
                     border: "none",
-                    borderBottom: "1px solid oklch(0.90 0.02 155)",
+                    borderBottom: "1px solid oklch(0.90 0.006 75)",
                     cursor: "pointer",
                     display: "flex",
                     alignItems: "center",
@@ -601,7 +602,7 @@ export default function Navbar() {
                     fontWeight: 600,
                     letterSpacing: "0.15em",
                     textTransform: "uppercase",
-                    color: "oklch(0.22 0.07 155)",
+                    color: "oklch(0.22 0.008 30)",
                   }}
                 >
                   {item.label}
@@ -609,7 +610,7 @@ export default function Navbar() {
                     <ChevronDown
                       size={14}
                       style={{
-                        color: "oklch(0.40 0.12 155)",
+                        color: "oklch(0.40 0.008 30)",
                         transform: mobileExpanded === item.label ? "rotate(180deg)" : "rotate(0deg)",
                         transition: "transform 0.2s",
                       }}
@@ -634,14 +635,14 @@ export default function Navbar() {
                           fontSize: "0.62rem",
                           fontWeight: 500,
                           letterSpacing: "0.08em",
-                          color: "oklch(0.38 0.04 155)",
-                          borderBottom: "1px solid oklch(0.92 0.01 155)",
+                          color: "oklch(0.38 0.008 30)",
+                          borderBottom: "1px solid oklch(0.92 0.006 75)",
                           display: "flex",
                           alignItems: "center",
                           gap: "0.5rem",
                         }}
                       >
-                        <span style={{ color: "oklch(0.40 0.12 155)", fontFamily: "'Cormorant Garamond', serif", fontStyle: "italic" }}>
+                        <span style={{ color: "oklch(0.40 0.008 30)", fontFamily: "'Cormorant Garamond', serif", fontStyle: "italic" }}>
                           {sub.num}
                         </span>
                         {sub.label}
@@ -661,14 +662,14 @@ export default function Navbar() {
                 gap: "0.5rem",
                 marginTop: "1.5rem",
                 padding: "0.9rem",
-                backgroundColor: "oklch(0.22 0.07 155)",
-                borderRadius: "8px",
-                textDecoration: "none",
-                fontFamily: "'Montserrat', sans-serif",
-                fontSize: "0.72rem",
-                fontWeight: 700,
-                letterSpacing: "0.15em",
-                color: "oklch(0.97 0.01 90)",
+            backgroundColor: "oklch(0.46 0.20 25)",
+            borderRadius: "8px",
+            textDecoration: "none",
+            fontFamily: "'Montserrat', sans-serif",
+            fontSize: "0.72rem",
+            fontWeight: 700,
+            letterSpacing: "0.15em",
+            color: "oklch(1 0 0)",
                 textTransform: "uppercase",
               }}
             >
@@ -751,10 +752,10 @@ function NavTextLink({
         letterSpacing: "0.18em",
         textTransform: "uppercase",
         color: active
-          ? "oklch(0.22 0.07 155)"
+          ? "oklch(0.22 0.008 30)"
           : hovered
-          ? "oklch(0.22 0.07 155)"
-          : "oklch(0.35 0.05 155)",
+          ? "oklch(0.22 0.008 30)"
+          : "oklch(0.35 0.008 30)",
         display: "flex",
         alignItems: "center",
         gap: "0.3rem",
@@ -779,7 +780,7 @@ function NavTextLink({
           left: 0,
           right: 0,
           height: "2px",
-          backgroundColor: "oklch(0.40 0.12 155)",
+          backgroundColor: "oklch(0.40 0.008 30)",
           transform: active || hovered ? "scaleX(1)" : "scaleX(0)",
           transformOrigin: "left",
           transition: "transform 0.2s ease",

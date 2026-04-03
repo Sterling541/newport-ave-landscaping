@@ -19,7 +19,7 @@ const ROOMS = [
     description:
       "Custom ponds, pondless waterfalls, bubbling boulders, and stream beds that bring the sound and movement of water to your backyard. Designed for Central Oregon's climate.",
     img: `${CDN}/NewportAveLandcaping-13_ef32520c.jpg`,
-    accent: "oklch(0.55 0.12 200)",
+    accent: "oklch(0.46 0.20 25)",
   },
   {
     id: "fire",
@@ -49,7 +49,7 @@ const ROOMS = [
     description:
       "Belgard, Techo-Bloc, and natural stone paver installations for patios, walkways, driveways, and pool decks. Precision-set for Central Oregon's freeze-thaw cycles.",
     img: `${CDN}/ITP_7404_28389405.jpg`,
-    accent: "oklch(0.58 0.08 155)",
+    accent: "oklch(0.46 0.20 25)",
   },
   {
     id: "lighting",
@@ -111,7 +111,7 @@ export default function OutdoorRoomsSection() {
               fontWeight: 700,
               letterSpacing: "0.32em",
               textTransform: "uppercase",
-              color: "oklch(0.40 0.12 155)",
+              color: "oklch(0.40 0.008 30)",
               marginBottom: "0.75rem",
             }}
           >
@@ -124,13 +124,13 @@ export default function OutdoorRoomsSection() {
               fontWeight: 700,
               lineHeight: 0.9,
               letterSpacing: "-0.03em",
-              color: "oklch(0.14 0.04 155)",
+              color: "oklch(0.14 0.006 30)",
               margin: 0,
             }}
           >
             Outdoor
             <br />
-            <em style={{ fontWeight: 300, color: "oklch(0.30 0.06 155)" }}>Rooms</em>
+            <em style={{ fontWeight: 300, color: "oklch(0.30 0.008 30)" }}>Rooms</em>
           </h2>
         </div>
         <p
@@ -139,7 +139,7 @@ export default function OutdoorRoomsSection() {
             fontSize: "0.65rem",
             fontWeight: 400,
             lineHeight: 1.8,
-            color: "oklch(0.42 0.04 155)",
+            color: "oklch(0.42 0.008 30)",
             maxWidth: "340px",
           }}
         >
@@ -166,7 +166,7 @@ export default function OutdoorRoomsSection() {
           style={{
             display: "flex",
             flexDirection: "column",
-            borderRight: "1.5px solid oklch(0.88 0.02 155)",
+            borderRight: "1.5px solid oklch(0.88 0.006 75)",
             paddingRight: "0",
           }}
         >
@@ -183,10 +183,10 @@ export default function OutdoorRoomsSection() {
                   cursor: "pointer",
                   textAlign: "left",
                   padding: "1.6rem 2rem 1.6rem 0",
-                  borderBottom: "1px solid oklch(0.90 0.01 155)",
+                  borderBottom: "1px solid oklch(0.90 0.006 75)",
                   position: "relative",
                   transition: "background-color 0.2s ease",
-                  backgroundColor: isActive ? "oklch(0.94 0.02 155)" : "transparent",
+                  backgroundColor: isActive ? "oklch(0.94 0.006 75)" : "transparent",
                 }}
               >
                 {/* Active indicator bar */}
@@ -197,7 +197,7 @@ export default function OutdoorRoomsSection() {
                     top: 0,
                     bottom: 0,
                     width: "3px",
-                    backgroundColor: isActive ? "oklch(0.22 0.07 155)" : "transparent",
+                    backgroundColor: isActive ? "oklch(0.22 0.008 30)" : "transparent",
                     transition: "background-color 0.2s ease",
                   }}
                 />
@@ -209,7 +209,7 @@ export default function OutdoorRoomsSection() {
                       fontFamily: "'Cormorant Garamond', serif",
                       fontStyle: "italic",
                       fontSize: "0.7rem",
-                      color: isActive ? "oklch(0.40 0.12 155)" : "oklch(0.65 0.04 155)",
+                      color: isActive ? "oklch(0.40 0.008 30)" : "oklch(0.46 0.20 25)",
                       minWidth: "24px",
                       paddingTop: "2px",
                       transition: "color 0.2s ease",
@@ -227,7 +227,7 @@ export default function OutdoorRoomsSection() {
                         fontWeight: isActive ? 700 : 500,
                         letterSpacing: "0.12em",
                         textTransform: "uppercase",
-                        color: isActive ? "oklch(0.14 0.06 155)" : "oklch(0.42 0.04 155)",
+                        color: isActive ? "oklch(0.14 0.006 30)" : "oklch(0.42 0.008 30)",
                         marginBottom: "0.3rem",
                         transition: "color 0.2s ease, font-weight 0.2s ease",
                       }}
@@ -241,7 +241,7 @@ export default function OutdoorRoomsSection() {
                         fontFamily: "'Cormorant Garamond', serif",
                         fontStyle: "italic",
                         fontSize: "0.78rem",
-                        color: "oklch(0.38 0.06 155)",
+                        color: "oklch(0.38 0.008 30)",
                         maxHeight: isActive ? "2rem" : "0",
                         overflow: "hidden",
                         opacity: isActive ? 1 : 0,
@@ -270,18 +270,18 @@ export default function OutdoorRoomsSection() {
                 letterSpacing: "0.18em",
                 textTransform: "uppercase",
                 color: "oklch(0.97 0.01 90)",
-                backgroundColor: "oklch(0.22 0.07 155)",
+                backgroundColor: "oklch(0.22 0.008 30)",
                 padding: "0.85rem 1.8rem",
                 borderRadius: "999px",
                 textDecoration: "none",
                 transition: "background-color 0.2s ease, transform 0.15s ease",
               }}
               onMouseEnter={(e) => {
-                (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "oklch(0.30 0.09 155)";
+                (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "oklch(0.30 0.008 30)";
                 (e.currentTarget as HTMLAnchorElement).style.transform = "translateY(-1px)";
               }}
               onMouseLeave={(e) => {
-                (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "oklch(0.22 0.07 155)";
+                (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "oklch(0.22 0.008 30)";
                 (e.currentTarget as HTMLAnchorElement).style.transform = "translateY(0)";
               }}
             >
@@ -319,7 +319,7 @@ export default function OutdoorRoomsSection() {
               position: "absolute",
               inset: 0,
               background:
-                "linear-gradient(to bottom, transparent 30%, oklch(0.08 0.03 155 / 0.85) 100%)",
+                "linear-gradient(to bottom, transparent 30%, oklch(0.08 0.006 30 / 0.85) 100%)",
               pointerEvents: "none",
             }}
           />
@@ -386,7 +386,7 @@ export default function OutdoorRoomsSection() {
                 fontSize: "0.65rem",
                 fontWeight: 400,
                 lineHeight: 1.8,
-                color: "oklch(0.75 0.005 200)",
+                color: "oklch(0.75 0.005 30)",
                 maxWidth: "520px",
               }}
             >

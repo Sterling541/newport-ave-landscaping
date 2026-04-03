@@ -31,7 +31,7 @@ export default function ServiceAreaBand() {
   return (
     <section
       style={{
-        backgroundColor: "oklch(0.20 0.008 200)",
+        backgroundColor: "oklch(0.20 0.008 30)",
         padding: "56px 0 64px",
       }}
     >

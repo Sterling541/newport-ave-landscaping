@@ -94,7 +94,7 @@ export default function CTABanner() {
             style={{
               width: "2rem",
               height: "1px",
-              backgroundColor: "oklch(0.30 0.008 200)",
+              backgroundColor: "oklch(0.14 0.006 30)",
               display: "block",
             }}
           />
@@ -104,7 +104,7 @@ export default function CTABanner() {
               fontSize: "0.5rem",
               fontWeight: 600,
               letterSpacing: "0.25em",
-              color: "oklch(0.45 0.008 200)",
+              color: "oklch(0.35 0.008 30)",
             }}
           >
             START YOUR PROJECT
@@ -137,7 +137,7 @@ export default function CTABanner() {
               fontStyle: "italic",
               lineHeight: 0.92,
               letterSpacing: "-0.03em",
-              color: "oklch(0.72 0.012 75)",
+              color: "oklch(0.72 0.008 30)",
               opacity: visible ? 1 : 0,
               transform: visible ? "translateY(0)" : "translateY(60px)",
               transition: "opacity 0.9s ease 0.35s, transform 0.9s ease 0.35s",
@@ -196,7 +196,7 @@ export default function CTABanner() {
               fontSize: "0.58rem",
               fontWeight: 600,
               letterSpacing: "0.12em",
-              color: "oklch(0.65 0.008 200)",
+              color: "oklch(0.55 0.008 30)",
               textDecoration: "none",
             }}
           >

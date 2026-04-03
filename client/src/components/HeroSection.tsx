@@ -104,7 +104,7 @@ function AnimatedSpruceBranch() {
       {/* Main branch stem */}
       <path className="branch-path"
         d="M210 510 C208 440 205 370 210 300 C215 230 212 160 210 90 C209 60 210 30 210 10"
-        stroke="oklch(0.82 0.06 155)" strokeWidth="3.5" fill="none" strokeLinecap="round"/>
+        stroke="oklch(0.92 0.06 25)" strokeWidth="3.5" fill="none" strokeLinecap="round"/>
 
       {/* Left pinnae — large fronds */}
       {[
@@ -121,7 +121,7 @@ function AnimatedSpruceBranch() {
         return (
           <path key={`l${i}`} className="branch-path"
             d={`M210 ${y} Q${cx1} ${cy1} ${ex} ${ey}`}
-            stroke="oklch(0.75 0.08 155)" strokeWidth="2" fill="none" strokeLinecap="round"
+            stroke="oklch(0.56 0.18 25)" strokeWidth="2" fill="none" strokeLinecap="round"
             style={{
               strokeDasharray: len * 2,
               strokeDashoffset: drawn ? 0 : len * 2,
@@ -145,7 +145,7 @@ function AnimatedSpruceBranch() {
         return (
           <path key={`r${i}`} className="branch-path"
             d={`M210 ${y} Q${cx1} ${cy1} ${ex} ${ey}`}
-            stroke="oklch(0.75 0.08 155)" strokeWidth="2" fill="none" strokeLinecap="round"
+            stroke="oklch(0.56 0.18 25)" strokeWidth="2" fill="none" strokeLinecap="round"
             style={{
               strokeDasharray: len * 2,
               strokeDashoffset: drawn ? 0 : len * 2,
@@ -171,7 +171,7 @@ function AnimatedSpruceBranch() {
               <line key={`n${row}${side}${j}`}
                 x1={nx} y1={ny}
                 x2={nx + Math.cos(nRad) * 12} y2={ny + Math.sin(nRad) * 12}
-                stroke="oklch(0.70 0.08 155)" strokeWidth="1.2" strokeLinecap="round"
+                stroke="oklch(0.56 0.18 25)" strokeWidth="1.2" strokeLinecap="round"
                 style={{
                   strokeDasharray: 14,
                   strokeDashoffset: drawn ? 0 : 14,
@@ -235,7 +235,7 @@ function VerticalServiceList() {
               display: "inline-block",
               width: "16px",
               height: "1px",
-              backgroundColor: "oklch(0.65 0.10 155)",
+              backgroundColor: "oklch(0.46 0.20 25)",
               flexShrink: 0,
             }}
           />
@@ -246,7 +246,7 @@ function VerticalServiceList() {
               fontWeight: 600,
               letterSpacing: "0.22em",
               textTransform: "uppercase",
-              color: "oklch(0.72 0.005 200)",
+              color: "oklch(0.72 0.005 30)",
               whiteSpace: "nowrap",
             }}
           >
@@ -356,7 +356,7 @@ export default function HeroSection() {
               display: "inline-block",
               width: "2.5rem",
               height: "2px",
-              backgroundColor: "oklch(0.76 0.128 184.6)",
+              backgroundColor: "oklch(0.56 0.18 25)",
             }}
           />
           <span
@@ -365,7 +365,7 @@ export default function HeroSection() {
               fontSize: "0.55rem",
               fontWeight: 700,
               letterSpacing: "0.28em",
-              color: "oklch(0.75 0.008 200)",
+              color: "oklch(0.75 0.008 30)",
             }}
           >
             {s.category}
@@ -377,7 +377,7 @@ export default function HeroSection() {
           style={{
             flex: 1,
             height: "1px",
-            background: "linear-gradient(to right, oklch(0.45 0.008 200 / 0.4), transparent)",
+            background: "linear-gradient(to right, oklch(0.45 0.008 30 / 0.4), transparent)",
           }}
         />
 
@@ -388,7 +388,7 @@ export default function HeroSection() {
             fontStyle: "italic",
             fontSize: "0.6rem",
             letterSpacing: "0.2em",
-            color: "oklch(0.42 0.008 200)",
+            color: "oklch(0.42 0.008 30)",
           }}
         >
           Est. 2003
@@ -463,7 +463,7 @@ export default function HeroSection() {
               fontSize: "0.5rem",
               fontWeight: 500,
               letterSpacing: "0.16em",
-              color: "oklch(0.55 0.008 200)",
+              color: "oklch(0.55 0.008 30)",
               textTransform: "uppercase",
               maxWidth: "200px",
               lineHeight: 1.9,
@@ -482,7 +482,7 @@ export default function HeroSection() {
                 fontSize: "0.58rem",
                 fontWeight: 700,
                 letterSpacing: "0.18em",
-                color: "oklch(0.10 0.008 200)",
+                color: "oklch(0.10 0.008 30)",
                 backgroundColor: "oklch(0.97 0.012 75)",
                 border: "none",
                 borderRadius: "999px",
@@ -556,8 +556,8 @@ export default function HeroSection() {
               borderRadius: "999px",
               backgroundColor:
                 i === scene
-                  ? "oklch(0.82 0.10 155)"
-                  : "oklch(0.35 0.008 200)",
+                  ? "oklch(0.92 0.06 25)"
+                  : "oklch(0.35 0.008 30)",
               border: "none",
               padding: 0,
               cursor: "pointer",
@@ -578,7 +578,7 @@ export default function HeroSection() {
           fontSize: "0.5rem",
           fontWeight: 600,
           letterSpacing: "0.2em",
-          color: "oklch(0.38 0.008 200)",
+          color: "oklch(0.38 0.008 30)",
         }}
       >
         {String(scene + 1).padStart(2, "0")} / {String(SCENES.length).padStart(2, "0")}

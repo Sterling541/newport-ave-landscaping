@@ -20,13 +20,13 @@ function FernFrond({ style }: { style?: React.CSSProperties }) {
     <svg viewBox="0 0 160 280" xmlns="http://www.w3.org/2000/svg" style={style}>
       <defs>
         <filter id="fShadow" x="-20%" y="-10%" width="140%" height="130%">
-          <feDropShadow dx="4" dy="8" stdDeviation="6" floodColor="oklch(0.06 0.04 155)" floodOpacity="0.5" />
+          <feDropShadow dx="4" dy="8" stdDeviation="6" floodColor="oklch(0.06 0.006 30)" floodOpacity="0.5" />
         </filter>
       </defs>
       <g filter="url(#fShadow)">
         {/* Central stem */}
         <path d="M80 270 C78 220 76 170 80 120 C84 70 82 30 80 10"
-          stroke="oklch(0.28 0.08 155)" strokeWidth="2.5" fill="none" strokeLinecap="round"/>
+          stroke="oklch(0.28 0.008 30)" strokeWidth="2.5" fill="none" strokeLinecap="round"/>
         {/* Left pinnae */}
         {[
           [240, 38, -55], [210, 46, -58], [178, 54, -60],
@@ -41,7 +41,7 @@ function FernFrond({ style }: { style?: React.CSSProperties }) {
           return (
             <g key={`l${i}`}>
               <path d={`M80 ${y} Q${cx1} ${cy1} ${ex} ${ey}`}
-                stroke="oklch(0.40 0.10 155)" strokeWidth="1.8" fill="none" strokeLinecap="round"/>
+                stroke="oklch(0.40 0.008 30)" strokeWidth="1.8" fill="none" strokeLinecap="round"/>
               {[0.3, 0.55, 0.78].map((t, j) => {
                 const lx = 80 + Math.cos(rad) * len * t;
                 const ly = y + Math.sin(rad) * len * t;
@@ -51,7 +51,7 @@ function FernFrond({ style }: { style?: React.CSSProperties }) {
                     cx={lx + Math.cos(lr) * 7} cy={ly + Math.sin(lr) * 7}
                     rx={7} ry={3}
                     transform={`rotate(${angle - 35}, ${lx + Math.cos(lr) * 7}, ${ly + Math.sin(lr) * 7})`}
-                    fill="oklch(0.36 0.10 155)" opacity="0.75"/>
+                    fill="oklch(0.36 0.008 30)" opacity="0.75"/>
                 );
               })}
             </g>
@@ -71,7 +71,7 @@ function FernFrond({ style }: { style?: React.CSSProperties }) {
           return (
             <g key={`r${i}`}>
               <path d={`M80 ${y} Q${cx1} ${cy1} ${ex} ${ey}`}
-                stroke="oklch(0.40 0.10 155)" strokeWidth="1.8" fill="none" strokeLinecap="round"/>
+                stroke="oklch(0.40 0.008 30)" strokeWidth="1.8" fill="none" strokeLinecap="round"/>
               {[0.3, 0.55, 0.78].map((t, j) => {
                 const lx = 80 + Math.cos(rad) * len * t;
                 const ly = y + Math.sin(rad) * len * t;
@@ -81,13 +81,13 @@ function FernFrond({ style }: { style?: React.CSSProperties }) {
                     cx={lx + Math.cos(lr) * 7} cy={ly + Math.sin(lr) * 7}
                     rx={7} ry={3}
                     transform={`rotate(${angle + 35}, ${lx + Math.cos(lr) * 7}, ${ly + Math.sin(lr) * 7})`}
-                    fill="oklch(0.36 0.10 155)" opacity="0.75"/>
+                    fill="oklch(0.36 0.008 30)" opacity="0.75"/>
                 );
               })}
             </g>
           );
         })}
-        <ellipse cx="80" cy="10" rx="5" ry="8" fill="oklch(0.32 0.10 155)"/>
+        <ellipse cx="80" cy="10" rx="5" ry="8" fill="oklch(0.32 0.008 30)"/>
       </g>
     </svg>
   );
@@ -99,12 +99,12 @@ function SpruceBranch({ style }: { style?: React.CSSProperties }) {
     <svg viewBox="0 0 320 180" xmlns="http://www.w3.org/2000/svg" style={style}>
       <defs>
         <filter id="sShadow" x="-10%" y="-20%" width="120%" height="150%">
-          <feDropShadow dx="3" dy="6" stdDeviation="7" floodColor="oklch(0.06 0.04 155)" floodOpacity="0.45" />
+          <feDropShadow dx="3" dy="6" stdDeviation="7" floodColor="oklch(0.06 0.006 30)" floodOpacity="0.45" />
         </filter>
       </defs>
       <g filter="url(#sShadow)">
         <path d="M10 100 C60 95 120 88 180 90 C240 92 290 85 310 80"
-          stroke="oklch(0.26 0.07 155)" strokeWidth="3" fill="none" strokeLinecap="round"/>
+          stroke="oklch(0.26 0.008 30)" strokeWidth="3" fill="none" strokeLinecap="round"/>
         {[
           [40, 97, -1, 42], [80, 92, 1, 50], [120, 89, -1, 48],
           [160, 90, 1, 52], [200, 91, -1, 46], [245, 87, 1, 44], [285, 82, -1, 38],
@@ -116,7 +116,7 @@ function SpruceBranch({ style }: { style?: React.CSSProperties }) {
           return (
             <g key={i}>
               <line x1={x} y1={y} x2={ex} y2={ey}
-                stroke="oklch(0.30 0.08 155)" strokeWidth="1.5" strokeLinecap="round"/>
+                stroke="oklch(0.30 0.008 30)" strokeWidth="1.5" strokeLinecap="round"/>
               {[0.25, 0.5, 0.75, 1.0].map((t, j) => {
                 const nx = x + Math.cos(rad) * len * t;
                 const ny = y + Math.sin(rad) * len * t;
@@ -127,10 +127,10 @@ function SpruceBranch({ style }: { style?: React.CSSProperties }) {
                       return (
                         <line key={k} x1={nx} y1={ny}
                           x2={nx + Math.cos(nAngle) * 9} y2={ny + Math.sin(nAngle) * 9}
-                          stroke="oklch(0.50 0.12 155)" strokeWidth="1" strokeLinecap="round" opacity="0.85"/>
+                          stroke="oklch(0.46 0.20 25)" strokeWidth="1" strokeLinecap="round" opacity="0.85"/>
                       );
                     })}
-                    <circle cx={nx} cy={ny} r="1.5" fill="oklch(0.42 0.10 155)" opacity="0.6"/>
+                    <circle cx={nx} cy={ny} r="1.5" fill="oklch(0.42 0.008 30)" opacity="0.6"/>
                   </g>
                 );
               })}
@@ -139,7 +139,7 @@ function SpruceBranch({ style }: { style?: React.CSSProperties }) {
         })}
         {[50, 100, 150, 200, 260].map((x, i) => (
           <line key={i} x1={x} y1={93 - i * 0.5} x2={x + 6} y2={91 - i * 0.5}
-            stroke="oklch(0.20 0.05 155)" strokeWidth="0.8" opacity="0.5"/>
+            stroke="oklch(0.20 0.008 30)" strokeWidth="0.8" opacity="0.5"/>
         ))}
       </g>
     </svg>
@@ -152,30 +152,30 @@ function BroadLeaf({ style }: { style?: React.CSSProperties }) {
     <svg viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg" style={style}>
       <defs>
         <filter id="bShadow" x="-15%" y="-10%" width="130%" height="130%">
-          <feDropShadow dx="5" dy="8" stdDeviation="8" floodColor="oklch(0.06 0.04 155)" floodOpacity="0.48" />
+          <feDropShadow dx="5" dy="8" stdDeviation="8" floodColor="oklch(0.06 0.006 30)" floodOpacity="0.48" />
         </filter>
       </defs>
       <g filter="url(#bShadow)">
-        <path d="M100 235 C98 200 95 165 100 130" stroke="oklch(0.28 0.08 155)" strokeWidth="3" fill="none" strokeLinecap="round"/>
+        <path d="M100 235 C98 200 95 165 100 130" stroke="oklch(0.28 0.008 30)" strokeWidth="3" fill="none" strokeLinecap="round"/>
         <path d="M100 130 C80 115 45 100 20 80 C10 65 15 45 30 35 C50 22 75 28 90 45 C95 52 98 65 100 80 C102 65 105 52 110 45 C125 28 150 22 170 35 C185 45 190 65 180 80 C155 100 120 115 100 130Z"
-          fill="oklch(0.30 0.09 155)" opacity="0.88"/>
-        <path d="M100 130 L100 40" stroke="oklch(0.46 0.10 155)" strokeWidth="1.5" fill="none" opacity="0.7"/>
+          fill="oklch(0.30 0.008 30)" opacity="0.88"/>
+        <path d="M100 130 L100 40" stroke="oklch(0.46 0.20 25)" strokeWidth="1.5" fill="none" opacity="0.7"/>
         {[
           [115, 62, 90, 138, 90], [100, 42, 72, 158, 72],
           [82, 28, 58, 172, 58], [65, 38, 46, 162, 46], [50, 60, 36, 140, 36],
         ].map(([y, lx, ly, rx, ry], i) => (
           <g key={i}>
             <path d={`M100 ${y} Q${(100 + lx) / 2} ${(y + ly) / 2} ${lx} ${ly}`}
-              stroke="oklch(0.46 0.10 155)" strokeWidth="1" fill="none" opacity="0.55"/>
+              stroke="oklch(0.46 0.20 25)" strokeWidth="1" fill="none" opacity="0.55"/>
             <path d={`M100 ${y} Q${(100 + rx) / 2} ${(y + ry) / 2} ${rx} ${ry}`}
-              stroke="oklch(0.46 0.10 155)" strokeWidth="1" fill="none" opacity="0.55"/>
+              stroke="oklch(0.46 0.20 25)" strokeWidth="1" fill="none" opacity="0.55"/>
           </g>
         ))}
         {/* Fenestrations */}
         <path d="M62 88 C58 80 55 70 60 62 C65 54 72 52 78 58"
-          stroke="oklch(0.16 0.06 155)" strokeWidth="8" fill="none" strokeLinecap="round" opacity="0.9"/>
+          stroke="oklch(0.16 0.008 30)" strokeWidth="8" fill="none" strokeLinecap="round" opacity="0.9"/>
         <path d="M138 88 C142 80 145 70 140 62 C135 54 128 52 122 58"
-          stroke="oklch(0.16 0.06 155)" strokeWidth="8" fill="none" strokeLinecap="round" opacity="0.9"/>
+          stroke="oklch(0.16 0.008 30)" strokeWidth="8" fill="none" strokeLinecap="round" opacity="0.9"/>
       </g>
     </svg>
   );
@@ -187,7 +187,7 @@ function GrassClump({ style }: { style?: React.CSSProperties }) {
     <svg viewBox="0 0 140 220" xmlns="http://www.w3.org/2000/svg" style={style}>
       <defs>
         <filter id="gShadow" x="-20%" y="-5%" width="140%" height="120%">
-          <feDropShadow dx="3" dy="6" stdDeviation="5" floodColor="oklch(0.06 0.04 155)" floodOpacity="0.4" />
+          <feDropShadow dx="3" dy="6" stdDeviation="5" floodColor="oklch(0.06 0.006 30)" floodOpacity="0.4" />
         </filter>
       </defs>
       <g filter="url(#gShadow)">
@@ -204,14 +204,14 @@ function GrassClump({ style }: { style?: React.CSSProperties }) {
         ].map(([sx, sy, cp1x, cp1y, cp2x, cp2y, ex, ey], i) => (
           <path key={i}
             d={`M${sx} ${sy} C${cp1x} ${cp1y} ${cp2x} ${cp2y} ${ex} ${ey}`}
-            stroke={i % 3 === 0 ? "oklch(0.52 0.12 155)" : i % 3 === 1 ? "oklch(0.42 0.10 155)" : "oklch(0.60 0.10 165)"}
+            stroke={i % 3 === 0 ? "oklch(0.46 0.20 25)" : i % 3 === 1 ? "oklch(0.42 0.008 30)" : "oklch(0.46 0.20 25)"}
             strokeWidth={i === 3 || i === 4 ? "2" : "1.5"}
             fill="none" strokeLinecap="round" opacity="0.85"/>
         ))}
         {[[15, 10], [35, 5], [55, 8], [68, 5], [82, 5], [98, 8], [112, 5], [125, 10]].map(([x, y], i) => (
-          <ellipse key={i} cx={x} cy={y} rx="2.5" ry="5" fill="oklch(0.60 0.10 165)" opacity="0.7"/>
+          <ellipse key={i} cx={x} cy={y} rx="2.5" ry="5" fill="oklch(0.46 0.20 25)" opacity="0.7"/>
         ))}
-        <ellipse cx="70" cy="210" rx="28" ry="8" fill="oklch(0.20 0.07 155)" opacity="0.6"/>
+        <ellipse cx="70" cy="210" rx="28" ry="8" fill="oklch(0.20 0.008 30)" opacity="0.6"/>
       </g>
     </svg>
   );
@@ -276,12 +276,12 @@ export default function BotanicalBand({ label }: { label?: string }) {
         <BroadLeaf style={{ width: "100%", height: "auto" }} />
       </div>
 
-      {/* ── Dark band ── */}
+      {/* ── Bright band ── */}
       <div
         style={{
-          backgroundColor: "oklch(0.22 0.07 155)",
-          borderTop: "1.5px solid oklch(0.30 0.08 155)",
-          borderBottom: "1.5px solid oklch(0.30 0.08 155)",
+          backgroundColor: "oklch(0.975 0.006 75)",
+          borderTop: "1.5px solid oklch(0.88 0.006 75)",
+          borderBottom: "1.5px solid oklch(0.88 0.006 75)",
           height: "72px",
           display: "flex",
           alignItems: "center",
@@ -295,7 +295,7 @@ export default function BotanicalBand({ label }: { label?: string }) {
           <div style={{
             flexShrink: 0,
             padding: "0 1.5rem",
-            borderRight: "1px solid oklch(0.30 0.08 155)",
+            borderRight: "1px solid oklch(0.88 0.006 75)",
             height: "100%",
             display: "flex",
             alignItems: "center",
@@ -306,7 +306,7 @@ export default function BotanicalBand({ label }: { label?: string }) {
               fontWeight: 700,
               letterSpacing: "0.28em",
               textTransform: "uppercase",
-              color: "oklch(0.62 0.08 155)",
+              color: "oklch(0.46 0.20 25)",
               whiteSpace: "nowrap",
             }}>
               {label}
@@ -327,7 +327,7 @@ export default function BotanicalBand({ label }: { label?: string }) {
                 fontStyle: "italic",
                 fontSize: "clamp(13px, 1.4vw, 18px)",
                 letterSpacing: "0.18em",
-                color: "oklch(0.75 0.06 155)",
+                color: "oklch(0.38 0.008 30)",
                 paddingRight: "4rem",
                 opacity: 0.9,
               }}>

@@ -50,7 +50,7 @@ export default function MarqueeBand() {
               fontSize: "0.58rem",
               fontWeight: 700,
               letterSpacing: "0.22em",
-              color: item === "·" ? "oklch(0.76 0.128 184.6)" : "oklch(0.97 0.012 75)",
+              color: item === "·" ? "oklch(0.56 0.18 25)" : "oklch(0.97 0.012 75)",
               marginRight: "1.5rem",
               whiteSpace: "nowrap",
             }}
