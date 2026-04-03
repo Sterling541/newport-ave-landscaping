@@ -6,24 +6,25 @@
    ============================================================ */
 
 // All Central Oregon communities served, sorted alphabetically
-const AREAS = [
-  "Alfalfa",
-  "Bend",
-  "Black Butte Ranch",
-  "Crooked River Ranch",
-  "Eagle Crest",
-  "La Pine",
-  "Madras",
-  "Metolius",
-  "Powell Butte",
-  "Prineville",
-  "Redmond",
-  "Sisters",
-  "Sunriver",
-  "Terrebonne",
-  "Three Rivers",
-  "Tumalo",
-  "Warm Springs",
+// Cities with dedicated landing pages get a href; others are plain text
+const AREAS: { name: string; href?: string }[] = [
+  { name: "Alfalfa" },
+  { name: "Bend", href: "/landscaping/bend" },
+  { name: "Black Butte Ranch" },
+  { name: "Crooked River Ranch" },
+  { name: "Eagle Crest" },
+  { name: "La Pine", href: "/landscaping/la-pine" },
+  { name: "Madras", href: "/landscaping/madras" },
+  { name: "Metolius" },
+  { name: "Powell Butte" },
+  { name: "Prineville", href: "/landscaping/prineville" },
+  { name: "Redmond", href: "/landscaping/redmond" },
+  { name: "Sisters", href: "/landscaping/sisters" },
+  { name: "Sunriver", href: "/landscaping/sunriver" },
+  { name: "Terrebonne" },
+  { name: "Three Rivers" },
+  { name: "Tumalo", href: "/landscaping/tumalo" },
+  { name: "Warm Springs" },
 ];
 
 export default function ServiceAreaBand() {
@@ -53,18 +54,39 @@ export default function ServiceAreaBand() {
           className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-x-6 gap-y-3"
         >
           {AREAS.map((area) => (
-            <span
-              key={area}
-              className="font-body"
-              style={{
-                color: "oklch(0.88 0.005 220)",
-                fontSize: "0.95rem",
-                lineHeight: 1.6,
-              }}
-            >
-              {area}
-            </span>
+            area.href ? (
+              <a
+                key={area.name}
+                href={area.href}
+                className="font-body"
+                style={{
+                  color: "oklch(0.88 0.005 220)",
+                  fontSize: "0.95rem",
+                  lineHeight: 1.6,
+                  textDecoration: "none",
+                  borderBottom: "1px solid oklch(0.46 0.20 25 / 0.5)",
+                  transition: "color 0.2s",
+                }}
+                onMouseEnter={e => (e.currentTarget.style.color = "oklch(0.72 0.12 25)")}
+                onMouseLeave={e => (e.currentTarget.style.color = "oklch(0.88 0.005 220)")}
+              >
+                {area.name}
+              </a>
+            ) : (
+              <span
+                key={area.name}
+                className="font-body"
+                style={{
+                  color: "oklch(0.88 0.005 220)",
+                  fontSize: "0.95rem",
+                  lineHeight: 1.6,
+                }}
+              >
+                {area.name}
+              </span>
+            )
           ))}
+
         </div>
       </div>
     </section>

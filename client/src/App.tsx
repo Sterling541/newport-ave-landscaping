@@ -38,6 +38,16 @@ import FireFeatures from "./pages/services/FireFeatures";
 import LandscapeLighting from "./pages/services/LandscapeLighting";
 import Xeriscaping from "./pages/services/Xeriscaping";
 
+// City landing pages
+import BendPage from "./pages/cities/Bend";
+import RedmondPage from "./pages/cities/Redmond";
+import SistersPage from "./pages/cities/Sisters";
+import SunriverPage from "./pages/cities/Sunriver";
+import TumaloPage from "./pages/cities/Tumalo";
+import PrinevillePage from "./pages/cities/Prineville";
+import LaPinePage from "./pages/cities/LaPine";
+import MadrasPage from "./pages/cities/Madras";
+
 // Blog posts
 import ClimateChange from "./pages/blog/ClimateChange";
 import SeasonalGuide from "./pages/blog/SeasonalGuide";
@@ -90,6 +100,16 @@ function Router() {
       <Route path={"/services/fire-features"} component={FireFeatures} />
       <Route path={"/services/landscape-lighting"} component={LandscapeLighting} />
       <Route path={"/services/xeriscaping"} component={Xeriscaping} />
+
+      {/* City landing pages */}
+      <Route path={"/landscaping/bend"} component={BendPage} />
+      <Route path={"/landscaping/redmond"} component={RedmondPage} />
+      <Route path={"/landscaping/sisters"} component={SistersPage} />
+      <Route path={"/landscaping/sunriver"} component={SunriverPage} />
+      <Route path={"/landscaping/tumalo"} component={TumaloPage} />
+      <Route path={"/landscaping/prineville"} component={PrinevillePage} />
+      <Route path={"/landscaping/la-pine"} component={LaPinePage} />
+      <Route path={"/landscaping/madras"} component={MadrasPage} />
 
       {/* Blog posts */}
       <Route path={"/blog/climate-change-landscaping"} component={ClimateChange} />

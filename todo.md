@@ -44,6 +44,19 @@
 - [x] Build service area band component for homepage
 - [x] Integrate service area band into homepage at appropriate position
 
+## In Progress
+- [x] Build reusable CityPage template component
+- [x] Build city page: Bend
+- [x] Build city page: Redmond
+- [x] Build city page: Sisters
+- [x] Build city page: Sunriver
+- [x] Build city page: Tumalo
+- [x] Build city page: Prineville
+- [x] Build city page: La Pine
+- [x] Build city page: Madras
+- [x] Register all city routes in App.tsx
+- [x] Link city names in ServiceAreaBand to their pages
+
 ## Pending / Future
 - [ ] Contact form backend integration (currently UI only)
 - [ ] Membership signup backend integration
