@@ -141,3 +141,4 @@
 - [x] Audit and fix mobile experience — portfolio grid, stats ticker, nav, key sections
 - [x] Fix cursor visibility on Our Work page (cursor gets lost against dark backgrounds)
 - [x] Add Bend Full Yard Transformation project to portfolio with before/after photos
+- [x] Save commercial installation photos (Discovery West Plaza + Nines) to CDN and add best ones to Commercial page

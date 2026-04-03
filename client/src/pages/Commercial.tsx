@@ -23,6 +23,13 @@ import {
 } from "lucide-react";
 
 // ── CDN image constants ──────────────────────────────────────
+// Discovery West Plaza
+const DW_AERIAL_OVERVIEW = "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/DiscoveryWestPlazaHiResPhotos45_7e4380ec.jpg";
+const DW_AERIAL_ANGLED = "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/DiscoveryWestPlazaHiResPhotos58_4ec582a1.jpg";
+const DW_OVERHEAD_CIRCULAR = "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/DiscoveryWestPlazaHiResPhotos55_79ba9dd5.jpg";
+const DW_CREW_PLANTING = "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/DiscoveryWestPlazaHiResPhotos57_fafc711f.jpg";
+const NINES_CREW = "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NinesProject3_602cdeb8.jpg";
+
 const HERO_IMAGE =
   "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportLandscapingRVParkPhotos50_5ba97805.jpg";
 const CREW_PLANTING =
@@ -624,6 +631,72 @@ export default function Commercial() {
                 </div>
               ))}
             </div>
+          </FadeIn>
+        </div>
+      </section>
+
+      {/* ── CASE STUDY: DISCOVERY WEST PLAZA ──────────────────────────── */}
+      <section className="py-24" style={{ backgroundColor: "oklch(0.10 0.005 0)" }}>
+        <div className="container">
+          <FadeIn className="mb-12">
+            <div className="font-label mb-3" style={{ color: "oklch(0.72 0.12 25)", fontSize: "0.7rem", letterSpacing: "0.15em" }}>FEATURED PROJECT</div>
+            <h2 className="font-display font-light text-white mb-4" style={{ fontSize: "clamp(2rem, 5vw, 3.5rem)", lineHeight: 1.1 }}>
+              Discovery West Plaza
+            </h2>
+            <p className="text-white/60 max-w-2xl" style={{ fontSize: "1.05rem", lineHeight: 1.7 }}>
+              A landmark commercial plaza installation in Bend, Oregon — featuring a sweeping herringbone paver roundabout, central water sculpture, curved xeriscape planting beds, boulder accents, ornamental trees, and full irrigation. Newport Avenue crews completed the full landscape installation for this high-profile mixed-use development.
+            </p>
+          </FadeIn>
+
+          {/* Photo grid */}
+          <div className="grid gap-3" style={{ gridTemplateColumns: "2fr 1fr", gridTemplateRows: "auto auto" }}>
+            {/* Hero aerial */}
+            <FadeIn delay={0.1} className="row-span-2">
+              <div className="overflow-hidden" style={{ borderRadius: "4px", height: "100%", minHeight: "400px" }}>
+                <img src={DW_AERIAL_OVERVIEW} alt="Discovery West Plaza — full aerial overview of circular paver plaza" className="w-full h-full object-cover" style={{ transition: "transform 0.6s ease" }} onMouseEnter={e => (e.currentTarget.style.transform = "scale(1.04)")} onMouseLeave={e => (e.currentTarget.style.transform = "scale(1)")} />
+              </div>
+            </FadeIn>
+            {/* Side top */}
+            <FadeIn delay={0.2}>
+              <div className="overflow-hidden" style={{ borderRadius: "4px", height: "240px" }}>
+                <img src={DW_AERIAL_ANGLED} alt="Discovery West Plaza — angled aerial with crew working" className="w-full h-full object-cover" style={{ transition: "transform 0.6s ease" }} onMouseEnter={e => (e.currentTarget.style.transform = "scale(1.04)")} onMouseLeave={e => (e.currentTarget.style.transform = "scale(1)")} />
+              </div>
+            </FadeIn>
+            {/* Side bottom */}
+            <FadeIn delay={0.3}>
+              <div className="overflow-hidden" style={{ borderRadius: "4px", height: "240px" }}>
+                <img src={DW_OVERHEAD_CIRCULAR} alt="Discovery West Plaza — overhead view of circular paver pattern" className="w-full h-full object-cover" style={{ transition: "transform 0.6s ease" }} onMouseEnter={e => (e.currentTarget.style.transform = "scale(1.04)")} onMouseLeave={e => (e.currentTarget.style.transform = "scale(1)")} />
+              </div>
+            </FadeIn>
+          </div>
+
+          {/* Second row — crew shots */}
+          <div className="grid gap-3 mt-3" style={{ gridTemplateColumns: "1fr 1fr" }}>
+            <FadeIn delay={0.4}>
+              <div className="overflow-hidden" style={{ borderRadius: "4px", height: "280px" }}>
+                <img src={DW_CREW_PLANTING} alt="Newport Avenue crew planting at Discovery West Plaza" className="w-full h-full object-cover" style={{ transition: "transform 0.6s ease" }} onMouseEnter={e => (e.currentTarget.style.transform = "scale(1.04)")} onMouseLeave={e => (e.currentTarget.style.transform = "scale(1)")} />
+              </div>
+            </FadeIn>
+            <FadeIn delay={0.5}>
+              <div className="overflow-hidden" style={{ borderRadius: "4px", height: "280px" }}>
+                <img src={NINES_CREW} alt="Newport Avenue crew installing plantings at The Nines commercial project" className="w-full h-full object-cover" style={{ transition: "transform 0.6s ease" }} onMouseEnter={e => (e.currentTarget.style.transform = "scale(1.04)")} onMouseLeave={e => (e.currentTarget.style.transform = "scale(1)")} />
+              </div>
+            </FadeIn>
+          </div>
+
+          {/* Project stats */}
+          <FadeIn delay={0.4} className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-6">
+            {[
+              { label: "PROJECT TYPE", value: "Commercial Plaza" },
+              { label: "LOCATION", value: "Bend, OR" },
+              { label: "SCOPE", value: "Full Landscape Install" },
+              { label: "FEATURES", value: "Pavers · Irrigation · Xeriscape" },
+            ].map((stat) => (
+              <div key={stat.label} className="border-t pt-4" style={{ borderColor: "oklch(1 0 0 / 0.12)" }}>
+                <div className="font-label mb-1" style={{ color: "oklch(0.72 0.12 25)", fontSize: "0.6rem", letterSpacing: "0.12em" }}>{stat.label}</div>
+                <div className="text-white font-light" style={{ fontSize: "0.95rem" }}>{stat.value}</div>
+              </div>
+            ))}
           </FadeIn>
         </div>
       </section>
