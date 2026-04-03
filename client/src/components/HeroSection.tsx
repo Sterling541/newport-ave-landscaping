@@ -10,27 +10,33 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 const SLIDES = [
   {
     image:
-      "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/GLLPatio10_2ffabcfb.jpg",
-    eyebrow: "Patios & Outdoor Living",
+      "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportAveLandcaping-13_ef32520c.jpg",
+    eyebrow: "Water Features & Outdoor Living",
     headline: "Spaces Worth\nLiving In.",
   },
   {
     image:
-      "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/GLLPatio3_7287b20c.jpg",
-    eyebrow: "Hardscape & Fire Features",
+      "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/ITP_7404_28389405.jpg",
+    eyebrow: "Patios & Outdoor Living",
     headline: "Your Outdoor\nSpace, Perfected.",
   },
   {
     image:
-      "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportLandscapingRVParkDay2Photos57_ce65cd27.jpg",
-    eyebrow: "Commercial Landscape Installation",
-    headline: "Built for\nEvery Scale.",
+      "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/fire4_82c70612.jpg",
+    eyebrow: "Hardscape & Fire Features",
+    headline: "Fire Features\nBuilt to Last.",
   },
   {
     image:
-      "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/GLLPatio2_4916fcde.jpg",
+      "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportAveLandcaping-9_97b731b0.jpg",
     eyebrow: "Central Oregon's Premier Landscaper",
     headline: "Bend's Most Trusted\nLandscape Team.",
+  },
+  {
+    image:
+      "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/GLLPatio10_2ffabcfb.jpg",
+    eyebrow: "Patios & Hardscape",
+    headline: "Crafted for\nCentral Oregon.",
   },
 ];
 

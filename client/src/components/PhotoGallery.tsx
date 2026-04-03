@@ -8,11 +8,92 @@ import { useEffect, useRef, useState, useCallback } from "react";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 
 const photos = [
+  // --- Row 1: Featured hero shots ---
+  {
+    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportAveLandcaping-13_ef32520c.jpg",
+    title: "Flagstone Patio & Stream at Sunset",
+    category: "Water Features",
+    span: "col-span-2 row-span-2",
+  },
+  {
+    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/ITP_7404_28389405.jpg",
+    title: "Modern Outdoor Living",
+    category: "Outdoor Living",
+    span: "col-span-1 row-span-1",
+  },
+  {
+    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/fire7_f0b582ff.jpg",
+    title: "Fire Pit at Dusk",
+    category: "Fire Features",
+    span: "col-span-1 row-span-1",
+  },
+  {
+    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/ITP_7385_f2bbba86.jpg",
+    title: "Pool Deck & Composite Decking",
+    category: "Hardscape",
+    span: "col-span-1 row-span-2",
+  },
+  {
+    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportLandscaping-ArchieBriggs-2_41676ecd.jpg",
+    title: "Paver Walkway & Front Yard",
+    category: "Hardscape",
+    span: "col-span-1 row-span-1",
+  },
+  // --- Row 2 ---
+  {
+    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportAveLandcaping-9_97b731b0.jpg",
+    title: "Pond & Patio with Landscape Lighting",
+    category: "Water Features",
+    span: "col-span-2 row-span-2",
+  },
+  {
+    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/fire4_82c70612.jpg",
+    title: "Stone Fire Pit & Seating Wall",
+    category: "Fire Features",
+    span: "col-span-1 row-span-1",
+  },
+  {
+    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/ITP_7558_e52a40c9.jpg",
+    title: "Outdoor Kitchen & BBQ",
+    category: "Outdoor Living",
+    span: "col-span-1 row-span-1",
+  },
   {
     src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/GLLPatio10_2ffabcfb.jpg",
     title: "Paver Patio & Fire Feature",
     category: "Hardscape",
-    span: "col-span-2 row-span-2", // large featured
+    span: "col-span-1 row-span-1",
+  },
+  {
+    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/ITP_7447_72a324ef.jpg",
+    title: "Tile Walkway & Planters",
+    category: "Hardscape",
+    span: "col-span-1 row-span-1",
+  },
+  // --- Row 3 ---
+  {
+    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportAveLandcaping-2_fafb7359.jpg",
+    title: "Backyard Patio & Water Feature",
+    category: "Landscaping",
+    span: "col-span-1 row-span-2",
+  },
+  {
+    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/pondless-stream-bend-oregon_ddbe366e.jpg",
+    title: "Pondless Stream — Bend, OR",
+    category: "Water Features",
+    span: "col-span-2 row-span-1",
+  },
+  {
+    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/ITP_7287_3749a375.jpg",
+    title: "Composite Deck & Turf",
+    category: "Outdoor Living",
+    span: "col-span-1 row-span-1",
+  },
+  {
+    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportAveLandcaping-5_1a063eaa.jpg",
+    title: "Rock Garden & Native Plants",
+    category: "Landscaping",
+    span: "col-span-1 row-span-1",
   },
   {
     src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/GLLPatio3_7287b20c.jpg",
@@ -20,65 +101,60 @@ const photos = [
     category: "Hardscape",
     span: "col-span-1 row-span-1",
   },
+  // --- Row 4 ---
   {
-    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/GLLPatio2_4916fcde.jpg",
-    title: "Outdoor Living & Golf Views",
-    category: "Patios",
-    span: "col-span-1 row-span-1",
+    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/ITP_7315_b6d377b2.jpg",
+    title: "Pool & Spa — Outdoor Living",
+    category: "Outdoor Living",
+    span: "col-span-2 row-span-1",
   },
   {
-    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/GLLPatio9_9e7ea695.jpg",
-    title: "Multi-Level Patio",
-    category: "Hardscape",
-    span: "col-span-1 row-span-2",
-  },
-  {
-    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/GLLPatio1_90e2e0c4.jpg",
-    title: "Elevated Patio & Dining",
-    category: "Patios",
-    span: "col-span-1 row-span-1",
-  },
-  {
-    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/GLLPatioM_939b3a04.jpg",
-    title: "Patio Overview",
-    category: "Hardscape",
+    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportAveLandcaping-14_96d1eb45.jpg",
+    title: "Residential Landscaping",
+    category: "Landscaping",
     span: "col-span-1 row-span-1",
   },
   {
     src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportLandscapingRVParkDay2Photos57_ce65cd27.jpg",
     title: "Commercial Tree Planting",
     category: "Commercial",
-    span: "col-span-2 row-span-1",
+    span: "col-span-1 row-span-1",
   },
   {
-    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportLandscapingRVParkDay2Photos2_8e8d0bb1.jpg",
-    title: "Crew at Work",
-    category: "Commercial",
+    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportAveLandcaping-10_ee1a5c7b.jpg",
+    title: "Landscaping & Planting",
+    category: "Landscaping",
+    span: "col-span-1 row-span-1",
+  },
+  {
+    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/ITP_7532_89e9f821.jpg",
+    title: "Pool Deck — Evening Lighting",
+    category: "Outdoor Living",
+    span: "col-span-1 row-span-1",
+  },
+  {
+    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportLandscaping-ArchieBriggs-4_c6fe915f.jpg",
+    title: "ArchieBriggs Project",
+    category: "Hardscape",
+    span: "col-span-1 row-span-1",
+  },
+  {
+    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportAveLandcaping-3_168c9c48.jpg",
+    title: "Residential Landscaping",
+    category: "Landscaping",
     span: "col-span-1 row-span-1",
   },
   {
     src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportLandscapingRVParkPhotos48_eb8a58d0.jpg",
-    title: "Tree Installation",
+    title: "Commercial Install",
     category: "Commercial",
     span: "col-span-1 row-span-1",
   },
   {
-    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportLandscapingRVParkPhotos18_e9e57912.jpg",
-    title: "Irrigation & Planting",
-    category: "Commercial",
-    span: "col-span-1 row-span-1",
-  },
-  {
-    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/IMG_1336_4fa29027.JPG",
-    title: "Residential Landscaping",
+    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/ITP_7407_032aed3b.jpg",
+    title: "Concrete Planter & Turf",
     category: "Landscaping",
-    span: "col-span-1 row-span-2",
-  },
-  {
-    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/DWinstall3_9346a59a.jpg",
-    title: "Large-Scale Install",
-    category: "Commercial",
-    span: "col-span-2 row-span-1",
+    span: "col-span-1 row-span-1",
   },
 ];
 
@@ -88,7 +164,7 @@ function FadeIn({ children, delay = 0, className = "" }: { children: React.React
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => { if (entry.isIntersecting) setVisible(true); },
-      { threshold: 0.08 }
+      { threshold: 0.05 }
     );
     if (ref.current) observer.observe(ref.current);
     return () => observer.disconnect();
@@ -124,7 +200,6 @@ export default function PhotoGallery() {
     setLightbox((lightbox + 1) % photos.length);
   }, [lightbox]);
 
-  // Keyboard navigation
   useEffect(() => {
     if (lightbox === null) return;
     const handler = (e: KeyboardEvent) => {
@@ -136,7 +211,6 @@ export default function PhotoGallery() {
     return () => window.removeEventListener("keydown", handler);
   }, [lightbox, prev, next]);
 
-  // Lock body scroll when lightbox is open
   useEffect(() => {
     document.body.style.overflow = lightbox !== null ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
@@ -160,11 +234,11 @@ export default function PhotoGallery() {
               <em style={{ color: "oklch(0.46 0.20 25)" }}>Gallery</em>
             </h2>
             <a
-              href="/our-work"
+              href="/contact"
               className="font-label inline-flex items-center gap-2 transition-opacity hover:opacity-70"
               style={{ color: "oklch(0.46 0.20 25)", fontSize: "0.7rem", letterSpacing: "0.1em" }}
             >
-              VIEW ALL PROJECTS
+              GET A FREE QUOTE
               <span style={{ display: "inline-block", width: 28, height: 1, backgroundColor: "oklch(0.46 0.20 25)" }} />
             </a>
           </div>
@@ -181,7 +255,7 @@ export default function PhotoGallery() {
           {photos.map((photo, i) => (
             <FadeIn
               key={photo.src}
-              delay={i * 0.04}
+              delay={i * 0.03}
               className={photo.span}
             >
               <button
@@ -196,15 +270,11 @@ export default function PhotoGallery() {
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   loading="lazy"
                 />
-                {/* Overlay on hover */}
                 <div
-                  className="absolute inset-0 flex flex-col justify-end p-5 transition-opacity duration-300"
+                  className="absolute inset-0 flex flex-col justify-end p-5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                   style={{
                     background: "linear-gradient(0deg, oklch(0.08 0.005 0 / 0.85) 0%, transparent 60%)",
-                    opacity: 0,
                   }}
-                  onMouseEnter={(e) => (e.currentTarget.style.opacity = "1")}
-                  onMouseLeave={(e) => (e.currentTarget.style.opacity = "0")}
                 >
                   <div className="font-label mb-1" style={{ color: "oklch(0.72 0.12 25)", fontSize: "0.6rem" }}>
                     {photo.category}
@@ -213,22 +283,21 @@ export default function PhotoGallery() {
                     {photo.title}
                   </div>
                 </div>
-                {/* Always-visible subtle overlay for hover effect */}
                 <div
                   className="absolute inset-0 transition-opacity duration-300 opacity-0 group-hover:opacity-100"
-                  style={{ background: "oklch(0.46 0.20 25 / 0.12)" }}
+                  style={{ background: "oklch(0.46 0.20 25 / 0.10)" }}
                 />
               </button>
             </FadeIn>
           ))}
         </div>
 
-        {/* Mobile: simple 2-col grid fallback */}
+        {/* Mobile responsive */}
         <style>{`
           @media (max-width: 768px) {
             .gallery-grid {
               grid-template-columns: repeat(2, 1fr) !important;
-              grid-auto-rows: 180px !important;
+              grid-auto-rows: 160px !important;
             }
             .gallery-grid > * {
               grid-column: span 1 !important;
@@ -245,7 +314,6 @@ export default function PhotoGallery() {
           style={{ backgroundColor: "oklch(0.05 0 0 / 0.95)" }}
           onClick={closeLightbox}
         >
-          {/* Close button */}
           <button
             className="absolute top-5 right-5 z-10 text-white transition-opacity hover:opacity-70"
             onClick={closeLightbox}
@@ -253,8 +321,6 @@ export default function PhotoGallery() {
           >
             <X size={28} />
           </button>
-
-          {/* Prev */}
           <button
             className="absolute left-4 z-10 text-white transition-opacity hover:opacity-70 p-2"
             onClick={(e) => { e.stopPropagation(); prev(); }}
@@ -262,8 +328,6 @@ export default function PhotoGallery() {
           >
             <ChevronLeft size={36} />
           </button>
-
-          {/* Image */}
           <div
             className="relative max-w-5xl w-full mx-16"
             onClick={(e) => e.stopPropagation()}
@@ -286,8 +350,6 @@ export default function PhotoGallery() {
               </div>
             </div>
           </div>
-
-          {/* Next */}
           <button
             className="absolute right-4 z-10 text-white transition-opacity hover:opacity-70 p-2"
             onClick={(e) => { e.stopPropagation(); next(); }}
