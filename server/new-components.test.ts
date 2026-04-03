@@ -86,6 +86,52 @@ describe("BlueSpruceCursor", () => {
   });
 });
 
+// ── HeroSection ─────────────────────────────────────────────
+describe("HeroSection", () => {
+  it("should define a hero section component file", async () => {
+    const fs = await import("fs");
+    const path = await import("path");
+    const filePath = path.resolve(__dirname, "../client/src/components/HeroSection.tsx");
+    expect(fs.existsSync(filePath)).toBe(true);
+  });
+
+  it("should NOT contain the diagonal ticker band (removed)", async () => {
+    const fs = await import("fs");
+    const path = await import("path");
+    const filePath = path.resolve(__dirname, "../client/src/components/HeroSection.tsx");
+    const content = fs.readFileSync(filePath, "utf-8");
+    // Diagonal ticker was removed — no rotate(-18deg) band
+    expect(content).not.toContain("rotate(-18deg)");
+    expect(content).not.toContain("ticker-up");
+  });
+
+  it("should contain animated botanical spruce drawing", async () => {
+    const fs = await import("fs");
+    const path = await import("path");
+    const filePath = path.resolve(__dirname, "../client/src/components/HeroSection.tsx");
+    const content = fs.readFileSync(filePath, "utf-8");
+    expect(content).toContain("AnimatedSpruceBranch");
+    expect(content).toContain("stroke-dashoffset");
+  });
+
+  it("should contain vertical staggered service list", async () => {
+    const fs = await import("fs");
+    const path = await import("path");
+    const filePath = path.resolve(__dirname, "../client/src/components/HeroSection.tsx");
+    const content = fs.readFileSync(filePath, "utf-8");
+    expect(content).toContain("VerticalServiceList");
+    expect(content).toContain("SERVICES");
+  });
+
+  it("should auto-rotate scenes every 6.5 seconds", async () => {
+    const fs = await import("fs");
+    const path = await import("path");
+    const filePath = path.resolve(__dirname, "../client/src/components/HeroSection.tsx");
+    const content = fs.readFileSync(filePath, "utf-8");
+    expect(content).toContain("6500");
+  });
+});
+
 // ── BotanicalBand ─────────────────────────────────────────────
 describe("BotanicalBand", () => {
   it("should define a botanical band component file", async () => {
@@ -120,7 +166,7 @@ describe("BotanicalBand", () => {
     expect(content).toContain("oklch(0.22 0.07 155)");
   });
 
-  it("should include plan-view plant symbols (SVG circles with radial lines)", async () => {
+  it("should include large botanical illustrations bleeding above the band", async () => {
     const fs = await import("fs");
     const path = await import("path");
     const filePath = path.resolve(
@@ -128,10 +174,12 @@ describe("BotanicalBand", () => {
       "../client/src/components/BotanicalBand.tsx"
     );
     const content = fs.readFileSync(filePath, "utf-8");
-    // New design uses architectural plan-view plant symbols
-    expect(content).toContain("PlanShrub");
-    expect(content).toContain("PlanConifer");
-    expect(content).toContain("PlanGroundcover");
+    // Colossal-style large illustrations that bleed above the band
+    expect(content).toContain('overflow: "visible"');
+    // Should have SVG botanical elements
+    expect(content).toContain("<svg");
+    // Should bleed above the band with negative top positioning
+    expect(content).toContain('top: "-');
   });
 });
 
@@ -182,7 +230,7 @@ describe("LightingSection", () => {
     expect(content).toContain("cloudfront.net");
   });
 
-  it("should have multiple uplight cone SVGs with radial gradients", async () => {
+  it("should have natural soft uplight and water glow (not harsh cones)", async () => {
     const fs = await import("fs");
     const path = await import("path");
     const filePath = path.resolve(
@@ -190,11 +238,13 @@ describe("LightingSection", () => {
       "../client/src/components/LightingSection.tsx"
     );
     const content = fs.readFileSync(filePath, "utf-8");
+    // Natural glow: one main tree uplight, boulder accent, water glow
     expect(content).toContain("coneL");
-    expect(content).toContain("coneR");
+    expect(content).toContain("boulderGrad");
     expect(content).toContain("radialGradient");
-    // Should also have water reflection
     expect(content).toContain("waterGlow");
+    // Should NOT have the third harsh cone from old design
+    expect(content).not.toContain("coneC");
   });
 
   it("should clamp progress between 0 and 1", async () => {

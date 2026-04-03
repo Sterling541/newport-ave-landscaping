@@ -1,11 +1,19 @@
 /* ============================================================
-   HERO SECTION — Wild Editorial
-   - Full-bleed cinematic photo (auto-rotates every 6s)
-   - Massive diagonal red slash cutting across the image
-   - Oversized headline at bottom-left
-   - Teal used ONCE as the category label dash
-   - Dot progress indicators (red active)
-   - Pill CTAs
+   HERO SECTION — Editorial Cinematic
+   
+   Unique elements replacing the diagonal ticker:
+   
+   1. ANIMATED BOTANICAL DRAWING — a spruce branch SVG that
+      draws itself with stroke-dashoffset animation when the
+      hero loads. Positioned bottom-right, semi-transparent.
+      Feels like a hand-drawn illustration being sketched live.
+   
+   2. VERTICAL SERVICE SIDEBAR — a slim right-edge panel with
+      a vertical list of service names that stagger-fade in.
+      Rotated 90deg, reads bottom-to-top. Very editorial.
+   
+   3. HORIZONTAL RULE + YEAR — a thin line with "EST. 2003"
+      that draws in from left. Architectural detail.
    ============================================================ */
 import { useState, useEffect, useRef } from "react";
 
@@ -46,6 +54,211 @@ const SCENES = [
   },
 ];
 
+const SERVICES = [
+  "Landscape Design",
+  "Water Features",
+  "Outdoor Kitchens",
+  "Fire Features",
+  "Paver Patios",
+  "Irrigation",
+  "Landscape Lighting",
+  "Lawn Care",
+  "Snow Removal",
+];
+
+/* ── Animated spruce branch SVG ────────────────────────────── */
+function AnimatedSpruceBranch() {
+  const [drawn, setDrawn] = useState(false);
+
+  useEffect(() => {
+    const t = setTimeout(() => setDrawn(true), 400);
+    return () => clearTimeout(t);
+  }, []);
+
+  // Total approximate path length — used for stroke-dasharray
+  const L = 1200;
+
+  return (
+    <svg
+      viewBox="0 0 420 520"
+      xmlns="http://www.w3.org/2000/svg"
+      style={{
+        position: "absolute",
+        bottom: "-40px",
+        right: "-20px",
+        width: "clamp(220px, 28vw, 420px)",
+        height: "auto",
+        pointerEvents: "none",
+        zIndex: 6,
+        opacity: 0.18,
+      }}
+    >
+      <style>{`
+        .branch-path {
+          stroke-dasharray: ${L};
+          stroke-dashoffset: ${drawn ? 0 : L};
+          transition: stroke-dashoffset 3.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+      `}</style>
+
+      {/* Main branch stem */}
+      <path className="branch-path"
+        d="M210 510 C208 440 205 370 210 300 C215 230 212 160 210 90 C209 60 210 30 210 10"
+        stroke="oklch(0.82 0.06 155)" strokeWidth="3.5" fill="none" strokeLinecap="round"/>
+
+      {/* Left pinnae — large fronds */}
+      {[
+        [480, 52, -55], [430, 64, -58], [378, 74, -60],
+        [328, 80, -62], [278, 74, -64], [228, 64, -66],
+        [178, 50, -68], [128, 34, -70],
+      ].map(([y, len, angle], i) => {
+        const rad = (angle * Math.PI) / 180;
+        const ex = 210 + Math.cos(rad) * len;
+        const ey = y + Math.sin(rad) * len;
+        const cx1 = 210 + Math.cos(rad + 0.4) * len * 0.5;
+        const cy1 = y + Math.sin(rad + 0.4) * len * 0.5;
+        const delay = 0.4 + i * 0.18;
+        return (
+          <path key={`l${i}`} className="branch-path"
+            d={`M210 ${y} Q${cx1} ${cy1} ${ex} ${ey}`}
+            stroke="oklch(0.75 0.08 155)" strokeWidth="2" fill="none" strokeLinecap="round"
+            style={{
+              strokeDasharray: len * 2,
+              strokeDashoffset: drawn ? 0 : len * 2,
+              transition: `stroke-dashoffset 1.8s cubic-bezier(0.4, 0, 0.2, 1) ${delay}s`,
+            }}/>
+        );
+      })}
+
+      {/* Right pinnae */}
+      {[
+        [480, 50, -125], [430, 62, -122], [378, 72, -120],
+        [328, 78, -118], [278, 72, -116], [228, 62, -114],
+        [178, 48, -112], [128, 32, -110],
+      ].map(([y, len, angle], i) => {
+        const rad = (angle * Math.PI) / 180;
+        const ex = 210 + Math.cos(rad) * len;
+        const ey = y + Math.sin(rad) * len;
+        const cx1 = 210 + Math.cos(rad - 0.4) * len * 0.5;
+        const cy1 = y + Math.sin(rad - 0.4) * len * 0.5;
+        const delay = 0.5 + i * 0.18;
+        return (
+          <path key={`r${i}`} className="branch-path"
+            d={`M210 ${y} Q${cx1} ${cy1} ${ex} ${ey}`}
+            stroke="oklch(0.75 0.08 155)" strokeWidth="2" fill="none" strokeLinecap="round"
+            style={{
+              strokeDasharray: len * 2,
+              strokeDashoffset: drawn ? 0 : len * 2,
+              transition: `stroke-dashoffset 1.8s cubic-bezier(0.4, 0, 0.2, 1) ${delay}s`,
+            }}/>
+        );
+      })}
+
+      {/* Needle clusters on each pinna */}
+      {[380, 330, 280, 230, 180, 130].map((y, row) => (
+        [-1, 1].map((side) => {
+          const baseAngle = side > 0 ? -125 : -55;
+          const len = 60 + row * 2;
+          const rad = (baseAngle * Math.PI) / 180;
+          const bx = 210 + Math.cos(rad) * len * 0.6;
+          const by = y + Math.sin(rad) * len * 0.6;
+          const delay = 1.2 + row * 0.12;
+          return [0.3, 0.6, 0.9].map((t, j) => {
+            const nx = 210 + Math.cos(rad) * len * t;
+            const ny = y + Math.sin(rad) * len * t;
+            const nRad = (baseAngle + side * 25) * Math.PI / 180;
+            return (
+              <line key={`n${row}${side}${j}`}
+                x1={nx} y1={ny}
+                x2={nx + Math.cos(nRad) * 12} y2={ny + Math.sin(nRad) * 12}
+                stroke="oklch(0.70 0.08 155)" strokeWidth="1.2" strokeLinecap="round"
+                style={{
+                  strokeDasharray: 14,
+                  strokeDashoffset: drawn ? 0 : 14,
+                  transition: `stroke-dashoffset 0.8s ease ${delay + j * 0.06}s`,
+                  opacity: 0.7,
+                }}/>
+            );
+          });
+        })
+      ))}
+    </svg>
+  );
+}
+
+/* ── Staggered vertical service list ───────────────────────── */
+function VerticalServiceList() {
+  const [visible, setVisible] = useState<boolean[]>(SERVICES.map(() => false));
+
+  useEffect(() => {
+    SERVICES.forEach((_, i) => {
+      setTimeout(() => {
+        setVisible((prev) => {
+          const next = [...prev];
+          next[i] = true;
+          return next;
+        });
+      }, 800 + i * 140);
+    });
+  }, []);
+
+  return (
+    <div
+      style={{
+        position: "absolute",
+        right: "0",
+        top: "50%",
+        transform: "translateY(-50%)",
+        zIndex: 8,
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "flex-end",
+        gap: "0",
+        pointerEvents: "none",
+      }}
+    >
+      {SERVICES.map((svc, i) => (
+        <div
+          key={svc}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "0.5rem",
+            padding: "0.28rem 1rem 0.28rem 0.75rem",
+            opacity: visible[i] ? 1 : 0,
+            transform: visible[i] ? "translateX(0)" : "translateX(20px)",
+            transition: "opacity 0.5s ease, transform 0.5s ease",
+          }}
+        >
+          <span
+            style={{
+              display: "inline-block",
+              width: "16px",
+              height: "1px",
+              backgroundColor: "oklch(0.65 0.10 155)",
+              flexShrink: 0,
+            }}
+          />
+          <span
+            style={{
+              fontFamily: "'Montserrat', sans-serif",
+              fontSize: "0.42rem",
+              fontWeight: 600,
+              letterSpacing: "0.22em",
+              textTransform: "uppercase",
+              color: "oklch(0.72 0.005 200)",
+              whiteSpace: "nowrap",
+            }}
+          >
+            {svc}
+          </span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+/* ── Main component ─────────────────────────────────────────── */
 export default function HeroSection() {
   const [scene, setScene] = useState(0);
   const [fading, setFading] = useState(false);
@@ -94,7 +307,7 @@ export default function HeroSection() {
           backgroundPosition: "center 55%",
           opacity: fading ? 0 : 1,
           transition: "opacity 0.55s ease",
-          filter: "brightness(0.60)",
+          filter: "brightness(0.58)",
         }}
       />
 
@@ -109,166 +322,80 @@ export default function HeroSection() {
         }}
       />
 
-      {/* ════════════════════════════════════════════════
-          DIAGONAL RED SLASH — SVG precision diagonal
-          Runs from top-right to bottom-left across the
-          full viewport. Gradient fade at both ends.
-          Diamond accent at center crossing point.
-          ════════════════════════════════════════════════ */}
-      <svg
-        style={{
-          position: "absolute",
-          inset: 0,
-          width: "100%",
-          height: "100%",
-          pointerEvents: "none",
-          overflow: "visible",
-          zIndex: 5,
-        }}
-        viewBox="0 0 100 100"
-        preserveAspectRatio="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <defs>
-          {/* Gradient: fade in from left, solid in middle, fade out to right */}
-          <linearGradient id="slashGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#c0392b" stopOpacity="0" />
-            <stop offset="15%" stopColor="#c0392b" stopOpacity="0.9" />
-            <stop offset="50%" stopColor="#e74c3c" stopOpacity="1" />
-            <stop offset="85%" stopColor="#c0392b" stopOpacity="0.9" />
-            <stop offset="100%" stopColor="#c0392b" stopOpacity="0" />
-          </linearGradient>
-          {/* Glow filter */}
-          <filter id="slashGlow" x="-20%" y="-200%" width="140%" height="500%">
-            <feGaussianBlur stdDeviation="0.8" result="blur" />
-            <feMerge>
-              <feMergeNode in="blur" />
-              <feMergeNode in="blur" />
-              <feMergeNode in="SourceGraphic" />
-            </feMerge>
-          </filter>
-          {/* Soft glow halo */}
-          <filter id="slashHalo" x="-20%" y="-400%" width="140%" height="900%">
-            <feGaussianBlur stdDeviation="2.5" result="halo" />
-          </filter>
-        </defs>
+      {/* ── Animated botanical spruce drawing — bottom right ── */}
+      <AnimatedSpruceBranch />
 
-        {/* Halo glow layer — wide soft blur behind the line */}
-        <line
-          x1="-5" y1="62"
-          x2="105" y2="34"
-          stroke="#e74c3c"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          filter="url(#slashHalo)"
-          opacity="0.35"
-        />
+      {/* ── Vertical staggered service list — right edge ── */}
+      <VerticalServiceList />
 
-        {/* Main diagonal line */}
-        <line
-          x1="-5" y1="62"
-          x2="105" y2="34"
-          stroke="url(#slashGrad)"
-          strokeWidth="0.35"
-          strokeLinecap="round"
-          filter="url(#slashGlow)"
-        />
-
-        {/* Thin parallel echo line */}
-        <line
-          x1="-5" y1="63.4"
-          x2="105" y2="35.4"
-          stroke="#e74c3c"
-          strokeWidth="0.08"
-          strokeLinecap="round"
-          opacity="0.3"
-        />
-
-        {/* Diamond accent at midpoint (50, 48) */}
-        <polygon
-          points="50,46.5 51.4,48 50,49.5 48.6,48"
-          fill="#e74c3c"
-          opacity="0.9"
-          filter="url(#slashGlow)"
-        />
-        {/* Diamond inner highlight */}
-        <polygon
-          points="50,47.2 50.9,48 50,48.8 49.1,48"
-          fill="#ff8a7a"
-          opacity="0.6"
-        />
-      </svg>
-
-      {/* ════════════════════════════════════════════════
-          HALFTONE DOT CIRCLE — bottom-right decorative
-          ════════════════════════════════════════════════ */}
-      <svg
-        style={{
-          position: "absolute",
-          bottom: "-60px",
-          right: "clamp(1rem, 8vw, 8rem)",
-          width: "340px",
-          height: "340px",
-          pointerEvents: "none",
-          opacity: 0.12,
-          zIndex: 6,
-        }}
-        viewBox="0 0 340 340"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        {Array.from({ length: 15 }, (_, row) =>
-          Array.from({ length: 15 }, (_, col) => {
-            const cx = 20 + col * 22;
-            const cy = 20 + row * 22;
-            const dist = Math.sqrt((cx - 170) ** 2 + (cy - 170) ** 2);
-            if (dist > 158) return null;
-            const r = Math.max(1, 5 * (1 - dist / 175));
-            return <circle key={`${row}-${col}`} cx={cx} cy={cy} r={r} fill="#c0392b" />;
-          })
-        )}
-      </svg>
-
-      {/* ════════════════════════════════════════════════
-          CATEGORY LABEL — top left, teal accent (ONCE)
-          ════════════════════════════════════════════════ */}
+      {/* ── Thin horizontal rule + EST year — architectural detail ── */}
       <div
         style={{
           position: "absolute",
           top: "clamp(5.5rem, 10vh, 8rem)",
           left: "clamp(1.5rem, 5vw, 5rem)",
+          right: "clamp(1.5rem, 5vw, 5rem)",
+          zIndex: 10,
           display: "flex",
           alignItems: "center",
-          gap: "0.75rem",
-          opacity: fading ? 0 : 1,
-          transition: "opacity 0.4s ease 0.2s",
-          zIndex: 10,
+          gap: "1.2rem",
         }}
       >
-        {/* Teal dash — the ONE teal accent in the hero */}
-        <span
+        {/* Category label */}
+        <div
           style={{
-            display: "inline-block",
-            width: "2.5rem",
-            height: "2px",
-            backgroundColor: "oklch(0.76 0.128 184.6)",
-          }}
-        />
-        <span
-          style={{
-            fontFamily: "'Montserrat', sans-serif",
-            fontSize: "0.55rem",
-            fontWeight: 700,
-            letterSpacing: "0.28em",
-            color: "oklch(0.75 0.008 200)",
+            display: "flex",
+            alignItems: "center",
+            gap: "0.75rem",
+            opacity: fading ? 0 : 1,
+            transition: "opacity 0.4s ease 0.2s",
           }}
         >
-          {s.category}
+          <span
+            style={{
+              display: "inline-block",
+              width: "2.5rem",
+              height: "2px",
+              backgroundColor: "oklch(0.76 0.128 184.6)",
+            }}
+          />
+          <span
+            style={{
+              fontFamily: "'Montserrat', sans-serif",
+              fontSize: "0.55rem",
+              fontWeight: 700,
+              letterSpacing: "0.28em",
+              color: "oklch(0.75 0.008 200)",
+            }}
+          >
+            {s.category}
+          </span>
+        </div>
+
+        {/* Expanding rule line */}
+        <div
+          style={{
+            flex: 1,
+            height: "1px",
+            background: "linear-gradient(to right, oklch(0.45 0.008 200 / 0.4), transparent)",
+          }}
+        />
+
+        {/* EST year */}
+        <span
+          style={{
+            fontFamily: "'Cormorant Garamond', serif",
+            fontStyle: "italic",
+            fontSize: "0.6rem",
+            letterSpacing: "0.2em",
+            color: "oklch(0.42 0.008 200)",
+          }}
+        >
+          Est. 2003
         </span>
       </div>
 
-      {/* ════════════════════════════════════════════════
-          MAIN HEADLINE — bottom left, massive type
-          ════════════════════════════════════════════════ */}
+      {/* ── Main headline — bottom left, massive type ── */}
       <div
         style={{
           position: "absolute",
@@ -280,7 +407,6 @@ export default function HeroSection() {
           transition: "opacity 0.45s ease 0.1s",
         }}
       >
-        {/* Line 1 — bold */}
         <div
           style={{
             fontFamily: "'Cormorant Garamond', 'Playfair Display', Georgia, serif",
@@ -294,7 +420,6 @@ export default function HeroSection() {
           {s.line1}
         </div>
 
-        {/* Line 2 — bold */}
         <div
           style={{
             fontFamily: "'Cormorant Garamond', 'Playfair Display', Georgia, serif",
@@ -308,7 +433,6 @@ export default function HeroSection() {
           {s.line2}
         </div>
 
-        {/* Accent line — italic, lighter weight, slightly smaller */}
         <div
           style={{
             fontFamily: "'Cormorant Garamond', 'Playfair Display', Georgia, serif",
@@ -336,7 +460,7 @@ export default function HeroSection() {
           <p
             style={{
               fontFamily: "'Montserrat', sans-serif",
-              fontSize: "0.58rem",
+              fontSize: "0.5rem",
               fontWeight: 500,
               letterSpacing: "0.16em",
               color: "oklch(0.55 0.008 200)",
@@ -409,9 +533,7 @@ export default function HeroSection() {
         </div>
       </div>
 
-      {/* ════════════════════════════════════════════════
-          DOT PROGRESS — right edge, red active
-          ════════════════════════════════════════════════ */}
+      {/* ── Dot progress — right edge ── */}
       <div
         style={{
           position: "absolute",
@@ -434,7 +556,7 @@ export default function HeroSection() {
               borderRadius: "999px",
               backgroundColor:
                 i === scene
-                  ? "oklch(0.46 0.20 25)" // red for active
+                  ? "oklch(0.82 0.10 155)"
                   : "oklch(0.35 0.008 200)",
               border: "none",
               padding: 0,
@@ -445,9 +567,7 @@ export default function HeroSection() {
         ))}
       </div>
 
-      {/* ════════════════════════════════════════════════
-          SCENE COUNTER — top right
-          ════════════════════════════════════════════════ */}
+      {/* ── Scene counter — top right ── */}
       <div
         style={{
           position: "absolute",
@@ -464,9 +584,7 @@ export default function HeroSection() {
         {String(scene + 1).padStart(2, "0")} / {String(SCENES.length).padStart(2, "0")}
       </div>
 
-      {/* ════════════════════════════════════════════════
-          SCROLL INDICATOR — bottom center
-          ════════════════════════════════════════════════ */}
+      {/* ── Scroll indicator — bottom center ── */}
       <div
         style={{
           position: "absolute",

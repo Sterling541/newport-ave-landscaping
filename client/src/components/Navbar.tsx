@@ -1,22 +1,21 @@
 /* ============================================================
-   NAVBAR — Extreme Editorial / Studio Job Inspired
+   NAVBAR — White/Bright Editorial
    
    Design language:
-   - Minimal top bar: just the brand name + a few key links
+   - Bright white/cream bar — high contrast against dark hero
+   - Huge centered logo that bleeds above the bar
+   - Nav links in deep forest green, bold
+   - "Get a Quote" pill in deep green with cream text
    - On hover over "Maintenance" or "Services", a full-width
      MEGA MENU drops down with editorial photo + massive type
-   - The mega menu uses the same dark forest green + red accents
-   - A thin red line separates the utility bar from the main nav
-   - Logo centered, oversized, bleeds slightly above the bar
-   - "Get a Quote" pill CTA on the right
-   - Scroll: bar compresses and gains backdrop blur
+   - Scroll: bar gains slight shadow, stays white
    ============================================================ */
 import { useState, useEffect, useRef } from "react";
 import { useLocation } from "wouter";
-import { Menu, X, Phone, ArrowRight } from "lucide-react";
+import { Menu, X, Phone, ArrowRight, ChevronDown } from "lucide-react";
 
 const LOGO_NAV =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/newport-logo-nav-v3_456c5ad6.png";
+  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/logo-transparent-stacked_cbad9eca.png";
 
 const maintenanceItems = [
   { label: "Lawn Service", href: "/services/lawn-service", num: "01" },
@@ -40,7 +39,6 @@ const servicesItems = [
   { label: "Xeriscaping", href: "/services/xeriscaping", num: "09" },
 ];
 
-// Mega menu editorial photos (already uploaded)
 const MEGA_PHOTO_MAINTENANCE =
   "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/3771NESuchyBackyardHiResPhotos11-min-min_32e40dc0.jpg";
 const MEGA_PHOTO_SERVICES =
@@ -64,8 +62,8 @@ function MegaMenuItem({
         textAlign: "left",
         background: "none",
         border: "none",
-        borderBottom: "1px solid oklch(0.18 0.018 155)",
-        padding: "0.75rem 0",
+        borderBottom: "1px solid oklch(0.92 0.01 155)",
+        padding: "0.7rem 0",
         cursor: "pointer",
         display: "flex",
         alignItems: "center",
@@ -79,7 +77,7 @@ function MegaMenuItem({
           fontFamily: "'Cormorant Garamond', serif",
           fontStyle: "italic",
           fontSize: "0.65rem",
-          color: "oklch(0.46 0.20 25)",
+          color: "oklch(0.40 0.12 155)",
           minWidth: "24px",
           flexShrink: 0,
         }}
@@ -89,11 +87,11 @@ function MegaMenuItem({
       <span
         style={{
           fontFamily: "'Montserrat', sans-serif",
-          fontSize: "0.7rem",
+          fontSize: "0.68rem",
           fontWeight: hovered ? 700 : 500,
           letterSpacing: "0.1em",
           textTransform: "uppercase",
-          color: hovered ? "oklch(0.95 0.003 0)" : "oklch(0.68 0.003 0)",
+          color: hovered ? "oklch(0.18 0.06 155)" : "oklch(0.38 0.04 155)",
           transition: "color 0.15s ease, font-weight 0.15s ease",
           flex: 1,
         }}
@@ -103,7 +101,7 @@ function MegaMenuItem({
       <ArrowRight
         size={12}
         style={{
-          color: "oklch(0.46 0.20 25)",
+          color: "oklch(0.40 0.12 155)",
           opacity: hovered ? 1 : 0,
           transform: hovered ? "translateX(0)" : "translateX(-6px)",
           transition: "opacity 0.2s ease, transform 0.2s ease",
@@ -130,13 +128,13 @@ function MegaMenu({
     <div
       style={{
         position: "fixed",
-        top: "calc(28px + 88px)",
+        top: "calc(28px + 96px)",
         left: 0,
         right: 0,
         zIndex: 100,
-        backgroundColor: "oklch(0.11 0.018 155)",
-        borderBottom: "2px solid oklch(0.46 0.20 25 / 0.5)",
-        boxShadow: "0 24px 80px oklch(0 0 0 / 0.7)",
+        backgroundColor: "oklch(0.98 0.005 90)",
+        borderBottom: "3px solid oklch(0.22 0.07 155)",
+        boxShadow: "0 24px 80px oklch(0 0 0 / 0.18)",
         display: "grid",
         gridTemplateColumns: "1fr 1fr",
         overflow: "hidden",
@@ -154,18 +152,16 @@ function MegaMenu({
             width: "100%",
             height: "100%",
             objectFit: "cover",
-            filter: "brightness(0.55) saturate(0.8)",
+            filter: "brightness(0.65) saturate(0.85)",
           }}
         />
-        {/* Dark gradient over photo */}
         <div
           style={{
             position: "absolute",
             inset: 0,
-            background: "linear-gradient(135deg, oklch(0.08 0.018 155 / 0.8) 0%, transparent 60%)",
+            background: "linear-gradient(135deg, oklch(0.10 0.04 155 / 0.75) 0%, transparent 60%)",
           }}
         />
-        {/* Massive editorial type */}
         <div
           style={{
             position: "absolute",
@@ -180,7 +176,7 @@ function MegaMenu({
               fontStyle: "italic",
               fontSize: "0.7rem",
               letterSpacing: "0.3em",
-              color: "oklch(0.72 0.15 65)",
+              color: "oklch(0.82 0.10 155)",
               textTransform: "uppercase",
               marginBottom: "0.5rem",
             }}
@@ -196,12 +192,13 @@ function MegaMenu({
               color: "oklch(0.97 0.01 75)",
               textTransform: "uppercase",
               letterSpacing: "-0.02em",
+              whiteSpace: "pre-line",
             }}
           >
             {headline}
           </h3>
         </div>
-        {/* Red corner accent */}
+        {/* Green corner accent */}
         <div
           style={{
             position: "absolute",
@@ -209,7 +206,7 @@ function MegaMenu({
             left: 0,
             width: "4px",
             height: "100%",
-            background: "linear-gradient(180deg, oklch(0.46 0.20 25) 0%, transparent 100%)",
+            background: "linear-gradient(180deg, oklch(0.40 0.12 155) 0%, transparent 100%)",
           }}
         />
       </div>
@@ -218,10 +215,11 @@ function MegaMenu({
       <div
         style={{
           padding: "2rem 3rem",
-          borderLeft: "1px solid oklch(0.18 0.018 155)",
+          borderLeft: "1px solid oklch(0.90 0.01 155)",
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
+          backgroundColor: "oklch(0.98 0.005 90)",
         }}
       >
         <div style={{ marginBottom: "1rem" }}>
@@ -238,7 +236,7 @@ function MegaMenu({
                 style={{
                   width: i === 0 ? "24px" : "6px",
                   height: "2px",
-                  backgroundColor: i === 0 ? "oklch(0.46 0.20 25)" : "oklch(0.25 0.008 200)",
+                  backgroundColor: i === 0 ? "oklch(0.40 0.12 155)" : "oklch(0.82 0.01 155)",
                   display: "block",
                 }}
               />
@@ -306,7 +304,7 @@ export default function Navbar() {
         }
       `}</style>
 
-      {/* ── Utility bar ── */}
+      {/* ── Utility bar — dark green strip at very top ── */}
       <div
         style={{
           position: "fixed",
@@ -314,8 +312,7 @@ export default function Navbar() {
           left: 0,
           right: 0,
           zIndex: 50,
-          backgroundColor: "oklch(0.09 0.015 155)",
-          borderBottom: "1px solid oklch(0.16 0.018 155)",
+          backgroundColor: "oklch(0.18 0.06 155)",
           height: "28px",
           display: "flex",
           alignItems: "center",
@@ -338,7 +335,7 @@ export default function Navbar() {
               fontSize: "0.52rem",
               fontWeight: 500,
               letterSpacing: "0.14em",
-              color: "oklch(0.42 0.003 0)",
+              color: "oklch(0.68 0.06 155)",
               textTransform: "uppercase",
             }}
           >
@@ -353,14 +350,14 @@ export default function Navbar() {
               gap: "0.4rem",
             }}
           >
-            <Phone size={10} style={{ color: "oklch(0.46 0.20 25)" }} />
+            <Phone size={10} style={{ color: "oklch(0.82 0.10 155)" }} />
             <span
               style={{
                 fontFamily: "'Montserrat', sans-serif",
                 fontSize: "0.58rem",
                 fontWeight: 700,
                 letterSpacing: "0.1em",
-                color: "oklch(0.72 0.003 0)",
+                color: "oklch(0.90 0.06 155)",
               }}
             >
               (541) 617-8873
@@ -369,7 +366,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* ── Main nav ── */}
+      {/* ── Main nav — bright white/cream ── */}
       <nav
         ref={navRef}
         style={{
@@ -379,42 +376,24 @@ export default function Navbar() {
           right: 0,
           zIndex: 49,
           backgroundColor: scrolled
-            ? "oklch(0.13 0.022 155 / 0.97)"
-            : "oklch(0.16 0.022 155)",
+            ? "oklch(1 0 0 / 0.97)"
+            : "oklch(1 0 0)",
           backdropFilter: scrolled ? "blur(16px)" : "none",
-          boxShadow: scrolled ? "0 4px 40px oklch(0 0 0 / 0.5)" : "none",
-          borderBottom: "1px solid oklch(0.46 0.20 25 / 0.4)",
+          boxShadow: scrolled
+            ? "0 4px 32px oklch(0.18 0.06 155 / 0.14)"
+            : "0 2px 0 oklch(0.90 0.02 155 / 0.5)",
+          borderBottom: "1.5px solid oklch(0.90 0.02 155)",
           transition: "background-color 0.3s ease, box-shadow 0.3s ease",
           overflow: "visible",
         }}
       >
-        {/* SVG noise texture */}
-        <svg
-          style={{
-            position: "absolute",
-            inset: 0,
-            width: "100%",
-            height: "100%",
-            pointerEvents: "none",
-            opacity: 0.035,
-            zIndex: 0,
-          }}
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <filter id="navNoise">
-            <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch" />
-            <feColorMatrix type="saturate" values="0" />
-          </filter>
-          <rect width="100%" height="100%" filter="url(#navNoise)" />
-        </svg>
-
         {/* Desktop nav */}
         <div
           className="hidden md:flex"
           style={{
             alignItems: "center",
             justifyContent: "space-between",
-            minHeight: "88px",
+            minHeight: "96px",
             padding: "0 2.5rem",
             position: "relative",
             zIndex: 2,
@@ -423,19 +402,16 @@ export default function Navbar() {
         >
           {/* ── Left cluster ── */}
           <div style={{ display: "flex", alignItems: "center", gap: "2.5rem", flex: 1 }}>
-            {/* About */}
             <NavTextLink
               label="About"
               active={isActive("/about")}
               onClick={() => goTo("/about")}
             />
-            {/* Our Work */}
             <NavTextLink
               label="Our Work"
               active={isActive("/our-work")}
               onClick={() => goTo("/our-work")}
             />
-            {/* Maintenance — mega menu trigger */}
             <div
               onMouseEnter={() => handleMegaEnter("maintenance")}
               onMouseLeave={handleMegaLeave}
@@ -451,11 +427,11 @@ export default function Navbar() {
             </div>
           </div>
 
-          {/* ── Centered logo ── */}
+          {/* ── Centered logo — HUGE, bleeds above bar ── */}
           <div
             style={{
               flexShrink: 0,
-              width: "280px",
+              width: "320px",
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
@@ -469,14 +445,14 @@ export default function Navbar() {
                 src={LOGO_NAV}
                 alt="Newport Avenue Landscaping"
                 style={{
-                  height: "180px",
+                  height: "200px",
                   width: "auto",
                   objectFit: "contain",
                   display: "block",
-                  marginTop: "-52px",
+                  marginTop: "-60px",
                   position: "relative",
                   zIndex: 60,
-                  filter: "drop-shadow(0 4px 24px oklch(0 0 0 / 0.65))",
+                  filter: "drop-shadow(0 4px 18px oklch(0.18 0.06 155 / 0.15))",
                 }}
               />
             </button>
@@ -484,7 +460,6 @@ export default function Navbar() {
 
           {/* ── Right cluster ── */}
           <div style={{ display: "flex", alignItems: "center", gap: "2.5rem", flex: 1, justifyContent: "flex-end" }}>
-            {/* Services — mega menu trigger */}
             <div
               onMouseEnter={() => handleMegaEnter("services")}
               onMouseLeave={handleMegaLeave}
@@ -498,13 +473,12 @@ export default function Navbar() {
                 arrowOpen={openMega === "services"}
               />
             </div>
-            {/* Commercial */}
             <NavTextLink
               label="Commercial"
               active={isActive("/commercial")}
               onClick={() => goTo("/commercial")}
             />
-            {/* Get a Quote — pill CTA */}
+            {/* Get a Quote — pill CTA, deep green */}
             <a
               href="/contact"
               onClick={(e) => { e.preventDefault(); goTo("/contact"); }}
@@ -514,9 +488,10 @@ export default function Navbar() {
                 fontWeight: 700,
                 letterSpacing: "0.18em",
                 textTransform: "uppercase",
-                color: "oklch(0.97 0.012 75)",
-                backgroundColor: "oklch(0.46 0.20 25)",
-                padding: "0.55rem 1.4rem",
+                color: "oklch(0.97 0.01 90)",
+                backgroundColor: "oklch(0.22 0.07 155)",
+                padding: "0.65rem 1.6rem",
+                borderRadius: "999px",
                 textDecoration: "none",
                 display: "flex",
                 alignItems: "center",
@@ -525,15 +500,15 @@ export default function Navbar() {
                 whiteSpace: "nowrap",
               }}
               onMouseEnter={(e) => {
-                (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "oklch(0.55 0.22 25)";
+                (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "oklch(0.30 0.09 155)";
                 (e.currentTarget as HTMLAnchorElement).style.transform = "translateY(-1px)";
               }}
               onMouseLeave={(e) => {
-                (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "oklch(0.46 0.20 25)";
+                (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "oklch(0.22 0.07 155)";
                 (e.currentTarget as HTMLAnchorElement).style.transform = "translateY(0)";
               }}
             >
-              Get a Quote
+              GET A QUOTE
               <ArrowRight size={11} />
             </a>
           </div>
@@ -553,7 +528,7 @@ export default function Navbar() {
         >
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            style={{ color: "oklch(0.82 0.003 0)", background: "none", border: "none", cursor: "pointer", padding: "0.25rem" }}
+            style={{ color: "oklch(0.22 0.07 155)", background: "none", border: "none", cursor: "pointer", padding: "0.25rem" }}
             aria-label="Toggle menu"
           >
             {mobileOpen ? <X size={22} /> : <Menu size={22} />}
@@ -566,13 +541,13 @@ export default function Navbar() {
             <img
               src={LOGO_NAV}
               alt="Newport Avenue Landscaping"
-              style={{ height: "42px", width: "auto", objectFit: "contain" }}
+              style={{ height: "44px", width: "auto", objectFit: "contain" }}
             />
           </button>
 
           <a
             href="tel:5416178873"
-            style={{ color: "oklch(0.46 0.20 25)", display: "flex", alignItems: "center" }}
+            style={{ color: "oklch(0.22 0.07 155)", display: "flex", alignItems: "center" }}
           >
             <Phone size={18} />
           </a>
@@ -585,8 +560,8 @@ export default function Navbar() {
             maxHeight: mobileOpen ? "80vh" : "0",
             overflow: "hidden",
             transition: "max-height 0.35s ease",
-            backgroundColor: "oklch(0.11 0.018 155)",
-            borderTop: mobileOpen ? "1px solid oklch(0.20 0.018 155)" : "none",
+            backgroundColor: "oklch(0.98 0.005 90)",
+            borderTop: mobileOpen ? "1px solid oklch(0.90 0.02 155)" : "none",
             position: "relative",
             zIndex: 2,
           }}
@@ -616,7 +591,7 @@ export default function Navbar() {
                     padding: "0.9rem 0",
                     background: "none",
                     border: "none",
-                    borderBottom: "1px solid oklch(0.18 0.018 155)",
+                    borderBottom: "1px solid oklch(0.90 0.02 155)",
                     cursor: "pointer",
                     display: "flex",
                     alignItems: "center",
@@ -626,22 +601,19 @@ export default function Navbar() {
                     fontWeight: 600,
                     letterSpacing: "0.15em",
                     textTransform: "uppercase",
-                    color: "oklch(0.80 0.003 0)",
+                    color: "oklch(0.22 0.07 155)",
                   }}
                 >
                   {item.label}
                   {item.dropdown && (
-                    <span
+                    <ChevronDown
+                      size={14}
                       style={{
-                        fontSize: "0.6rem",
-                        color: "oklch(0.46 0.20 25)",
+                        color: "oklch(0.40 0.12 155)",
                         transform: mobileExpanded === item.label ? "rotate(180deg)" : "rotate(0deg)",
                         transition: "transform 0.2s",
-                        display: "inline-block",
                       }}
-                    >
-                      ▼
-                    </span>
+                    />
                   )}
                 </button>
 
@@ -662,14 +634,14 @@ export default function Navbar() {
                           fontSize: "0.62rem",
                           fontWeight: 500,
                           letterSpacing: "0.08em",
-                          color: "oklch(0.58 0.003 0)",
-                          borderBottom: "1px solid oklch(0.16 0.018 155)",
+                          color: "oklch(0.38 0.04 155)",
+                          borderBottom: "1px solid oklch(0.92 0.01 155)",
                           display: "flex",
                           alignItems: "center",
                           gap: "0.5rem",
                         }}
                       >
-                        <span style={{ color: "oklch(0.46 0.20 25)", fontFamily: "'Cormorant Garamond', serif", fontStyle: "italic" }}>
+                        <span style={{ color: "oklch(0.40 0.12 155)", fontFamily: "'Cormorant Garamond', serif", fontStyle: "italic" }}>
                           {sub.num}
                         </span>
                         {sub.label}
@@ -689,13 +661,14 @@ export default function Navbar() {
                 gap: "0.5rem",
                 marginTop: "1.5rem",
                 padding: "0.9rem",
-                backgroundColor: "oklch(0.46 0.20 25)",
+                backgroundColor: "oklch(0.22 0.07 155)",
+                borderRadius: "8px",
                 textDecoration: "none",
                 fontFamily: "'Montserrat', sans-serif",
                 fontSize: "0.72rem",
                 fontWeight: 700,
                 letterSpacing: "0.15em",
-                color: "oklch(0.97 0.012 75)",
+                color: "oklch(0.97 0.01 90)",
                 textTransform: "uppercase",
               }}
             >
@@ -774,41 +747,42 @@ function NavTextLink({
         position: "relative",
         fontFamily: "'Montserrat', sans-serif",
         fontSize: "0.6rem",
-        fontWeight: 600,
+        fontWeight: 700,
         letterSpacing: "0.18em",
         textTransform: "uppercase",
-        color: active ? "oklch(0.85 0.12 28)" : "oklch(0.78 0.003 0)",
-        transition: "color 0.2s ease",
+        color: active
+          ? "oklch(0.22 0.07 155)"
+          : hovered
+          ? "oklch(0.22 0.07 155)"
+          : "oklch(0.35 0.05 155)",
         display: "flex",
         alignItems: "center",
-        gap: "3px",
-        whiteSpace: "nowrap",
+        gap: "0.3rem",
+        transition: "color 0.15s ease",
       }}
     >
       {label}
       {hasArrow && (
-        <span
+        <ChevronDown
+          size={11}
           style={{
-            fontSize: "0.45rem",
             transform: arrowOpen ? "rotate(180deg)" : "rotate(0deg)",
             transition: "transform 0.2s ease",
-            display: "inline-block",
-            marginTop: "1px",
           }}
-        >
-          ▼
-        </span>
+        />
       )}
-      {/* Animated underline */}
+      {/* Underline indicator */}
       <span
         style={{
           position: "absolute",
-          bottom: 0,
+          bottom: "-2px",
           left: 0,
-          height: "1px",
-          backgroundColor: "oklch(0.46 0.20 25)",
-          width: active || hovered ? "100%" : "0%",
-          transition: "width 0.25s ease",
+          right: 0,
+          height: "2px",
+          backgroundColor: "oklch(0.40 0.12 155)",
+          transform: active || hovered ? "scaleX(1)" : "scaleX(0)",
+          transformOrigin: "left",
+          transition: "transform 0.2s ease",
         }}
       />
     </button>

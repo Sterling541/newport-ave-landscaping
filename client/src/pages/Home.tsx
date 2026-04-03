@@ -22,6 +22,7 @@ import MarqueeBand from "@/components/MarqueeBand";
 import BlueSpruceCursor from "@/components/BlueSpruceCursor";
 import BotanicalBand from "@/components/BotanicalBand";
 import LightingSection from "@/components/LightingSection";
+import OutdoorRoomsSection from "@/components/OutdoorRoomsSection";
 
 export default function Home() {
   return (
@@ -53,6 +54,9 @@ export default function Home() {
 
       <WhoWeServe />
       <ServicesSection />
+
+      {/* Belgard-style interactive outdoor rooms section */}
+      <OutdoorRoomsSection />
 
       {/* Botanical divider before portfolio */}
       <BotanicalBand label="PORTFOLIO" />
