@@ -31,9 +31,11 @@ export default function LightingSection() {
       const sectionH = section.offsetHeight;
       // Animate over first 60% of scroll range, starting when top enters viewport
       const scrollRange = sectionH * 0.60;
+      if (!scrollRange || scrollRange <= 0) return; // guard against division by zero
       const scrolled = vh - rect.top;
       const raw = scrolled / scrollRange;
-      setProgress(Math.max(0, Math.min(1, raw)));
+      const clamped = Math.max(0, Math.min(1, raw));
+      if (!isNaN(clamped)) setProgress(clamped);
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
