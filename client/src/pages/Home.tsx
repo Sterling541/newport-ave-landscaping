@@ -18,6 +18,7 @@ import Footer from "@/components/Footer";
 import FloatingCTA from "@/components/FloatingCTA";
 import PhotoGallery from "@/components/PhotoGallery";
 import WhoWeServe from "@/components/WhoWeServe";
+import ServiceAreaBand from "@/components/ServiceAreaBand";
 
 export default function Home() {
   return (
@@ -34,6 +35,7 @@ export default function Home() {
       <MembershipSection />
       <CTABanner />
       <ReviewsSection />
+      <ServiceAreaBand />
       <ContactSection />
       <Footer />
       <FloatingCTA />

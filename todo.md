@@ -39,6 +39,11 @@
 - [x] Integrate marquee trust strip into /commercial page
 - [x] Update Navbar Maintenance dropdown — Commercial & HOA Maintenance now links to /commercial
 
+## In Progress
+- [x] Research Newport Ave Landscaping service areas
+- [x] Build service area band component for homepage
+- [x] Integrate service area band into homepage at appropriate position
+
 ## Pending / Future
 - [ ] Contact form backend integration (currently UI only)
 - [ ] Membership signup backend integration
