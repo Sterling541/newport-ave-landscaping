@@ -274,6 +274,105 @@ export default function Commercial() {
         </div>
       </div>
 
+      {/* ── CLIENT MARQUEE ────────────────────────────────── */}
+      <div
+        style={{
+          backgroundColor: "oklch(0.97 0.012 85)",
+          borderBottom: "1px solid oklch(0.90 0.010 85)",
+          overflow: "hidden",
+          padding: "22px 0",
+        }}
+      >
+        {/* Section label */}
+        <div
+          className="text-center mb-4 font-label"
+          style={{ color: "oklch(0.55 0.005 0)", fontSize: "0.58rem", letterSpacing: "0.18em" }}
+        >
+          TRUSTED BY CENTRAL OREGON'S LEADING PROPERTY MANAGERS
+        </div>
+
+        {/* Marquee track */}
+        <div style={{ position: "relative", overflow: "hidden" }}>
+          {/* Fade edges */}
+          <div
+            style={{
+              position: "absolute", left: 0, top: 0, bottom: 0, width: "120px", zIndex: 2,
+              background: "linear-gradient(to right, oklch(0.97 0.012 85), transparent)",
+              pointerEvents: "none",
+            }}
+          />
+          <div
+            style={{
+              position: "absolute", right: 0, top: 0, bottom: 0, width: "120px", zIndex: 2,
+              background: "linear-gradient(to left, oklch(0.97 0.012 85), transparent)",
+              pointerEvents: "none",
+            }}
+          />
+
+          {/* Scrolling row — duplicated for seamless loop */}
+          <div
+            className="flex items-center gap-0"
+            style={{
+              animation: "marquee-scroll 38s linear infinite",
+              width: "max-content",
+            }}
+          >
+            {[
+              "Compass Commercial",
+              "NAI Cascade",
+              "Fratzke Commercial",
+              "Northwest Key",
+              "Aperion Management Group",
+              "The Management Trust",
+              "HOA Management Inc.",
+              "High Desert Property Management",
+              "Mile High Management",
+              "Plus Property Management",
+              // duplicate for seamless loop
+              "Compass Commercial",
+              "NAI Cascade",
+              "Fratzke Commercial",
+              "Northwest Key",
+              "Aperion Management Group",
+              "The Management Trust",
+              "HOA Management Inc.",
+              "High Desert Property Management",
+              "Mile High Management",
+              "Plus Property Management",
+            ].map((name, i) => (
+              <div
+                key={i}
+                className="flex items-center flex-shrink-0"
+              >
+                <span
+                  className="font-display"
+                  style={{
+                    fontSize: "clamp(0.85rem, 1.5vw, 1.05rem)",
+                    fontWeight: 300,
+                    color: "oklch(0.35 0.005 0)",
+                    letterSpacing: "0.02em",
+                    whiteSpace: "nowrap",
+                    padding: "0 2.5rem",
+                  }}
+                >
+                  {name}
+                </span>
+                {/* Separator dot */}
+                <span
+                  style={{
+                    width: "4px",
+                    height: "4px",
+                    borderRadius: "50%",
+                    backgroundColor: "oklch(0.46 0.20 25)",
+                    flexShrink: 0,
+                  }}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
       {/* ── INTRO + AERIAL PHOTO ─────────────────────────── */}
       <section className="py-24" style={{ backgroundColor: "oklch(1 0 0)" }}>
         <div className="container">

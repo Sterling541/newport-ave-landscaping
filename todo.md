@@ -33,6 +33,11 @@
 - [x] Add "Commercial Services" button to WhoWeServe CTA strip
 - [x] Upload all RVPark commercial photos to CDN
 
+## In Progress
+- [x] Research Central Oregon property management companies for logo strip
+- [x] Build typographic scrolling marquee strip with real company names
+- [x] Integrate marquee trust strip into /commercial page
+
 ## Pending / Future
 - [ ] Contact form backend integration (currently UI only)
 - [ ] Membership signup backend integration
