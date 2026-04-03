@@ -210,9 +210,24 @@ export default function WhoWeServe() {
             className="font-body font-semibold text-white text-center sm:text-left"
             style={{ fontSize: "1.05rem" }}
           >
-            Ready to work with Central Oregon's largest landscape firm?
+            Ready to work with Central Oregon's most qualified landscape firm?
           </p>
-          <div className="flex gap-3 flex-shrink-0">
+          <div className="flex gap-3 flex-shrink-0 flex-wrap justify-center">
+            <a
+              href="/commercial"
+              style={{
+                whiteSpace: "nowrap",
+                padding: "0.6rem 1.4rem",
+                backgroundColor: "oklch(0.14 0.005 0)",
+                color: "white",
+                fontSize: "0.75rem",
+                letterSpacing: "0.1em",
+                fontWeight: 600,
+                textDecoration: "none",
+              }}
+            >
+              COMMERCIAL SERVICES
+            </a>
             <a
               href="/contact"
               style={{

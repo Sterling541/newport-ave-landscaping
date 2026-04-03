@@ -8,6 +8,7 @@ import { ThemeProvider } from "./contexts/ThemeContext";
 // Main pages
 import Home from "./pages/Home";
 import About from "./pages/About";
+import Commercial from "./pages/Commercial";
 import Maintenance from "./pages/Maintenance";
 import Services from "./pages/Services";
 import OurWork from "./pages/OurWork";
@@ -59,6 +60,7 @@ function Router() {
       {/* Main pages */}
       <Route path={"/"} component={Home} />
       <Route path={"/about"} component={About} />
+      <Route path={"/commercial"} component={Commercial} />
       <Route path={"/maintenance"} component={Maintenance} />
       <Route path={"/services"} component={Services} />
       <Route path={"/install"} component={Services} />

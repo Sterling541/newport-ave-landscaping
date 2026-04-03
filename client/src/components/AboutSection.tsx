@@ -134,7 +134,7 @@ export default function AboutSection() {
               className="font-body leading-relaxed mb-4"
               style={{ color: "oklch(0.38 0.005 0)" }}
             >
-              Newport Avenue Landscaping is Central Oregon's largest full-service
+              Newport Avenue Landscaping is Central Oregon's most qualified full-service
               landscape firm — handling everything from award-winning high-end
               residential design-builds to large-scale commercial developments,
               HOA community maintenance, and government contracts.

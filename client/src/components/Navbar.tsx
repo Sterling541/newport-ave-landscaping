@@ -43,6 +43,7 @@ const navRight = [
   { label: "Maintenance", href: "/maintenance", dropdown: maintenanceItems },
   { label: "Install", href: "/install" },
   { label: "Services", href: "/services", dropdown: servicesItems },
+  { label: "Commercial", href: "/commercial" },
 ];
 
 function DropdownMenu({ items, onNavigate }: { items: { label: string; href: string }[]; onNavigate: (href: string) => void }) {
@@ -336,6 +337,14 @@ export default function Navbar() {
                 ))}
               </div>
             )}
+
+            <button
+              onClick={() => goTo("/commercial")}
+              className="font-nav text-left py-2.5"
+              style={{ color: "oklch(0.80 0.003 0)" }}
+            >
+              Commercial
+            </button>
 
             <button
               onClick={() => goTo("/contact")}

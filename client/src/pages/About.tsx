@@ -31,9 +31,9 @@ const timeline = [
   },
   {
     year: "2022",
-    title: "Largest in Central Oregon",
+    title: "Most Qualified in Central Oregon",
     description:
-      "Growth doubles each year and Newport Ave Landscaping becomes the largest landscaper in Central Oregon with a team of 150+ professionals.",
+      "Growth doubles each year and Newport Ave Landscaping becomes the most qualified full-service landscape firm in Central Oregon with a team of 150+ professionals.",
   },
 ];
 
@@ -142,7 +142,7 @@ export default function About() {
                   My grandfather founded and operated the largest landscaping company in Orange County, California in 1960 — Orange County Landscaping, Inc. After college, I noticed a void of high-quality landscapers in Bend. As a 3rd generation landscape construction professional, I founded Newport Ave Landscaping with the intention of setting a new standard of service and workmanship in the industry.
                 </p>
                 <p>
-                  Today, we've grown to become the largest landscaper in Central Oregon. Our work has been published twice in <em>Architectural Digest</em> magazine, and we've designed outdoor living spaces for top executives, athletes, and celebrities — including Shaun White, Mark Hoppus (Blink-182), Steven Tyler (Aerosmith), Rihanna, Kim Kardashian, Triple D, Candy Spelling, and more.
+                  Today, we've grown to become Central Oregon's most qualified full-service landscape firm. Our work has been published twice in <em>Architectural Digest</em> magazine, and we've designed outdoor living spaces for top executives, athletes, and celebrities — including Shaun White, Mark Hoppus (Blink-182), Steven Tyler (Aerosmith), Rihanna, Kim Kardashian, Triple D, Candy Spelling, and more.
                 </p>
                 <p>
                   I encourage you to look at the testimonials on this website and reviews on Google, Bing, Home Advisor, and the BBB. Thank you for considering Newport Ave Landscaping.

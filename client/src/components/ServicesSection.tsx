@@ -46,7 +46,7 @@ const services = [
     IconComponent: DesignIcon,
     title: "Custom Design & Build",
     description:
-      "Award-winning designers bring your outdoor vision to life. Backed by a team of 150+ professionals — one of Central Oregon's largest landscaping crews.",
+      "Award-winning designers bring your outdoor vision to life. Backed by a team of 150+ professionals — one of Central Oregon's most experienced landscaping crews.",
     href: "/services/landscape-design",
   },
   {
