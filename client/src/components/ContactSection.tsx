@@ -296,7 +296,7 @@ export default function ContactSection() {
                   {
                     icon: MapPin,
                     label: "Address",
-                    value: "1020 SE Paiute Way #100\nBend, OR 97702",
+                    value: "64625 N. HWY 97\nBend, OR 97701",
                     href: null,
                   },
                   {

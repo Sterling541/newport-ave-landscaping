@@ -91,9 +91,9 @@ export default function Footer() {
                 className="font-body text-sm"
                 style={{ color: "oklch(0.55 0.005 0)" }}
               >
-                1020 SE Paiute Way #100
+                64625 N. HWY 97
                 <br />
-                Bend, OR 97702
+                Bend, OR 97701
               </p>
             </div>
           </div>

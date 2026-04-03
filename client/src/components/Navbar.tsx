@@ -120,7 +120,7 @@ export default function Navbar() {
       >
         <div className="container flex items-center justify-between py-2">
           <span className="font-label text-white" style={{ fontSize: "0.65rem", opacity: 0.85 }}>
-            Visits by Appointment Only &nbsp;·&nbsp; 1020 SE Paiute Way #100, Bend, OR
+            Visits by Appointment Only &nbsp;·&nbsp; 64625 N. HWY 97, Bend, OR
           </span>
           <a
             href="tel:5416178873"

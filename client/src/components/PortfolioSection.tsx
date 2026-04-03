@@ -47,7 +47,7 @@ const portfolioItems = [
   },
   {
     title: "Our Nursery & Plant Yard",
-    subtitle: "1020 SE Paiute Way, Bend",
+    subtitle: "64625 N. HWY 97, Bend",
     image: FACILITY_NURSERY,
   },
   {
