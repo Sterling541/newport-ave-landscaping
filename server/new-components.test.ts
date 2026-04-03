@@ -45,6 +45,34 @@ describe("BlueSpruceCursor", () => {
     expect(content).toContain('cursor = ""');
   });
 
+  it("should never render a hand/finger shape — always the spruce SVG", async () => {
+    const fs = await import("fs");
+    const path = await import("path");
+    const filePath = path.resolve(
+      __dirname,
+      "../client/src/components/BlueSpruceCursor.tsx"
+    );
+    const content = fs.readFileSync(filePath, "utf-8");
+    // No hand/finger path data
+    expect(content).not.toContain("M14 2C14 1.4");
+    // Always renders the spruce whorl lines
+    expect(content).toContain("needleOuter");
+    expect(content).toContain("needleInner");
+  });
+
+  it("should use red color on hover (isPointer state)", async () => {
+    const fs = await import("fs");
+    const path = await import("path");
+    const filePath = path.resolve(
+      __dirname,
+      "../client/src/components/BlueSpruceCursor.tsx"
+    );
+    const content = fs.readFileSync(filePath, "utf-8");
+    // Red oklch hue ~25 for pointer state
+    expect(content).toContain("oklch(0.40 0.22 25)");
+    expect(content).toContain("oklch(0.55 0.24 25)");
+  });
+
   it("should use requestAnimationFrame for smooth cursor movement", async () => {
     const fs = await import("fs");
     const path = await import("path");
