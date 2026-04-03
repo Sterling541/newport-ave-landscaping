@@ -306,7 +306,7 @@ export default function About() {
                 className="font-display font-light text-white mb-2"
                 style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)" }}
               >
-                75<span style={{ color: "oklch(0.72 0.12 25)" }}>+</span>
+                150<span style={{ color: "oklch(0.72 0.12 25)" }}>+</span>
               </div>
               <div className="font-label" style={{ color: "oklch(0.60 0.008 0)" }}>
                 Incredibly Hard-Working Landscapers in the Field Every Day
