@@ -30,36 +30,36 @@ export default function ContactSection() {
     <section
       id="contact"
       className="py-24"
-      style={{ backgroundColor: "oklch(0.18 0.005 0)" }}
+      style={{ backgroundColor: "oklch(0.965 0.008 85)" }}
     >
       <div className="container">
         {/* Header */}
         <div className="text-center mb-16">
           <div
             className="font-label mb-4 flex items-center justify-center gap-3"
-            style={{ color: "oklch(0.72 0.12 25)" }}
+            style={{ color: "oklch(0.46 0.20 25)" }}
           >
             <span
               className="inline-block w-8 h-px"
-              style={{ backgroundColor: "oklch(0.72 0.12 25)" }}
+              style={{ backgroundColor: "oklch(0.46 0.20 25)" }}
             />
             Get In Touch
             <span
               className="inline-block w-8 h-px"
-              style={{ backgroundColor: "oklch(0.72 0.12 25)" }}
+              style={{ backgroundColor: "oklch(0.46 0.20 25)" }}
             />
           </div>
           <h2
             className="font-display font-light"
             style={{
               fontSize: "clamp(2rem, 4vw, 3.5rem)",
-              color: "oklch(1 0 0)",
+              color: "oklch(0.18 0.008 0)",
               lineHeight: 1.1,
             }}
           >
             Start Your Outdoor
             <br />
-            <em style={{ color: "oklch(0.72 0.12 25)", fontStyle: "italic" }}>
+            <em style={{ color: "oklch(0.46 0.20 25)", fontStyle: "italic" }}>
               Transformation Today
             </em>
           </h2>
@@ -74,8 +74,8 @@ export default function ContactSection() {
                 style={{ backgroundColor: "oklch(1 0 0)" }}
               >
                 <div
-                  className="font-display text-3xl mb-4"
-                  style={{ color: "oklch(0.46 0.20 25)" }}
+                className="font-display text-2xl mb-6"
+                style={{ color: "oklch(0.46 0.20 25)" }}
                 >
                   Thank You!
                 </div>
@@ -312,8 +312,8 @@ export default function ContactSection() {
                       <div
                         className="w-10 h-10 flex items-center justify-center flex-shrink-0"
                         style={{
-                          backgroundColor: "oklch(0.46 0.20 25 / 0.20)",
-                          color: "oklch(0.72 0.12 25)",
+                          backgroundColor: "oklch(0.46 0.20 25 / 0.12)",
+                          color: "oklch(0.46 0.20 25)",
                         }}
                       >
                         <Icon size={18} strokeWidth={1.5} />
@@ -321,7 +321,7 @@ export default function ContactSection() {
                       <div>
                         <div
                           className="font-label mb-1"
-                          style={{ color: "oklch(0.72 0.12 25)", fontSize: "0.65rem" }}
+                          style={{ color: "oklch(0.46 0.20 25)", fontSize: "0.65rem" }}
                         >
                           {item.label}
                         </div>
@@ -329,12 +329,12 @@ export default function ContactSection() {
                           <a
                             href={item.href}
                             className="font-body text-sm transition-colors"
-                            style={{ color: "oklch(0.85 0.005 0)", whiteSpace: "pre-line" }}
+                            style={{ color: "oklch(0.28 0.005 0)", whiteSpace: "pre-line" }}
                             onMouseEnter={(e) =>
-                              (e.currentTarget.style.color = "oklch(0.72 0.12 25)")
+                              (e.currentTarget.style.color = "oklch(0.46 0.20 25)")
                             }
                             onMouseLeave={(e) =>
-                              (e.currentTarget.style.color = "oklch(0.85 0.005 0)")
+                              (e.currentTarget.style.color = "oklch(0.28 0.005 0)")
                             }
                           >
                             {item.value}
@@ -342,7 +342,7 @@ export default function ContactSection() {
                         ) : (
                           <span
                             className="font-body text-sm"
-                            style={{ color: "oklch(0.85 0.005 0)", whiteSpace: "pre-line" }}
+                            style={{ color: "oklch(0.28 0.005 0)", whiteSpace: "pre-line" }}
                           >
                             {item.value}
                           </span>
@@ -358,19 +358,19 @@ export default function ContactSection() {
             <div
               className="p-6"
               style={{
-                backgroundColor: "oklch(0.25 0.005 0)",
+                backgroundColor: "oklch(0.93 0.012 140)",
                 borderLeft: "3px solid oklch(0.46 0.20 25)",
               }}
             >
               <div
                 className="font-label mb-3"
-                style={{ color: "oklch(0.72 0.12 25)" }}
+                style={{ color: "oklch(0.46 0.20 25)" }}
               >
                 Licensed, Bonded & Insured
               </div>
               <p
                 className="font-body text-xs leading-relaxed"
-                style={{ color: "oklch(0.70 0.005 0)" }}
+                style={{ color: "oklch(0.35 0.005 0)" }}
               >
                 LCB #9153 — "All Phase" license with the Oregon Landscape
                 Contractors Board. Serving residential, commercial, and
@@ -382,7 +382,7 @@ export default function ContactSection() {
             <div>
               <div
                 className="font-label mb-4"
-                style={{ color: "oklch(0.72 0.12 25)" }}
+                style={{ color: "oklch(0.46 0.20 25)" }}
               >
                 Follow Us
               </div>
@@ -393,8 +393,8 @@ export default function ContactSection() {
                   rel="noopener noreferrer"
                   className="px-4 py-2 font-label text-xs transition-colors"
                   style={{
-                    border: "1px solid oklch(0.35 0.005 0)",
-                    color: "oklch(0.70 0.005 0)",
+                    border: "1px solid oklch(0.75 0.005 0)",
+                    color: "oklch(0.35 0.005 0)",
                   }}
                   onMouseEnter={(e) => {
                     (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "oklch(0.46 0.20 25)";
@@ -403,8 +403,8 @@ export default function ContactSection() {
                   }}
                   onMouseLeave={(e) => {
                     (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "transparent";
-                    (e.currentTarget as HTMLAnchorElement).style.color = "oklch(0.70 0.005 0)";
-                    (e.currentTarget as HTMLAnchorElement).style.borderColor = "oklch(0.35 0.005 0)";
+                    (e.currentTarget as HTMLAnchorElement).style.color = "oklch(0.35 0.005 0)";
+                    (e.currentTarget as HTMLAnchorElement).style.borderColor = "oklch(0.75 0.005 0)";
                   }}
                 >
                   Facebook
@@ -415,8 +415,8 @@ export default function ContactSection() {
                   rel="noopener noreferrer"
                   className="px-4 py-2 font-label text-xs transition-colors"
                   style={{
-                    border: "1px solid oklch(0.35 0.005 0)",
-                    color: "oklch(0.70 0.005 0)",
+                    border: "1px solid oklch(0.75 0.005 0)",
+                    color: "oklch(0.35 0.005 0)",
                   }}
                   onMouseEnter={(e) => {
                     (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "oklch(0.46 0.20 25)";
@@ -425,8 +425,8 @@ export default function ContactSection() {
                   }}
                   onMouseLeave={(e) => {
                     (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "transparent";
-                    (e.currentTarget as HTMLAnchorElement).style.color = "oklch(0.70 0.005 0)";
-                    (e.currentTarget as HTMLAnchorElement).style.borderColor = "oklch(0.35 0.005 0)";
+                    (e.currentTarget as HTMLAnchorElement).style.color = "oklch(0.35 0.005 0)";
+                    (e.currentTarget as HTMLAnchorElement).style.borderColor = "oklch(0.75 0.005 0)";
                   }}
                 >
                   Yelp

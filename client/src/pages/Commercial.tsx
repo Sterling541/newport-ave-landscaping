@@ -628,61 +628,61 @@ export default function Commercial() {
         </div>
       </section>
 
-      {/* ── WHO WE SERVE ─────────────────────────────────── */}
+      {/* ── WHO WE SERVE ──────────────────────────────────────────────────── */}
       <section
         className="py-24"
-        style={{ backgroundColor: "oklch(0.14 0.005 0)" }}
+        style={{ backgroundColor: "oklch(0.97 0.010 140)" }}
       >
         <div className="container">
           <FadeIn className="text-center mb-16">
             <div
               className="font-label mb-4 flex items-center justify-center gap-3"
-              style={{ color: "oklch(0.70 0.10 25)" }}
+              style={{ color: "oklch(0.46 0.20 25)" }}
             >
               <span
                 className="inline-block w-8 h-px"
-                style={{ backgroundColor: "oklch(0.70 0.10 25)" }}
+                style={{ backgroundColor: "oklch(0.46 0.20 25)" }}
               />
               Commercial Client Types
               <span
                 className="inline-block w-8 h-px"
-                style={{ backgroundColor: "oklch(0.70 0.10 25)" }}
+                style={{ backgroundColor: "oklch(0.46 0.20 25)" }}
               />
             </div>
             <h2
               className="font-display font-light"
               style={{
                 fontSize: "clamp(1.8rem, 3.5vw, 3rem)",
-                color: "oklch(0.97 0 0)",
+                color: "oklch(0.18 0.008 0)",
                 lineHeight: 1.1,
               }}
             >
               Every Property Type.{" "}
-              <em style={{ color: "oklch(0.70 0.10 25)" }}>Every Scale.</em>
+              <em style={{ color: "oklch(0.46 0.20 25)" }}>Every Scale.</em>
             </h2>
           </FadeIn>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-px" style={{ backgroundColor: "oklch(0.22 0.005 0)" }}>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4" style={{ backgroundColor: "transparent" }}>
             {clientTypes.map((type, i) => {
               const Icon = type.icon;
               return (
                 <FadeIn key={type.label} delay={i * 0.1}>
                   <div
                     className="p-10"
-                    style={{ backgroundColor: "oklch(0.18 0.005 0)" }}
+                    style={{ backgroundColor: "oklch(1 0 0)" }}
                   >
                     <div
                       className="w-12 h-12 flex items-center justify-center mb-6"
                       style={{
-                        backgroundColor: "oklch(0.46 0.20 25 / 0.20)",
-                        color: "oklch(0.70 0.10 25)",
+                        backgroundColor: "oklch(0.46 0.20 25 / 0.12)",
+                        color: "oklch(0.46 0.20 25)",
                       }}
                     >
                       <Icon size={22} strokeWidth={1.5} />
                     </div>
                     <h3
                       className="font-display font-light mb-5"
-                      style={{ fontSize: "1.3rem", color: "oklch(0.97 0 0)" }}
+                      style={{ fontSize: "1.3rem", color: "oklch(0.18 0.008 0)" }}
                     >
                       {type.label}
                     </h3>
@@ -693,14 +693,14 @@ export default function Commercial() {
                             size={14}
                             strokeWidth={2}
                             style={{
-                              color: "oklch(0.70 0.10 25)",
+                              color: "oklch(0.46 0.20 25)",
                               flexShrink: 0,
                               marginTop: "3px",
                             }}
                           />
                           <span
                             className="font-body text-sm"
-                            style={{ color: "oklch(0.72 0.005 0)" }}
+                            style={{ color: "oklch(0.38 0.005 0)" }}
                           >
                             {item}
                           </span>

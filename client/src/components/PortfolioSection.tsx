@@ -162,7 +162,7 @@ export default function PortfolioSection() {
     <section
       id="portfolio"
       className="py-20"
-      style={{ backgroundColor: "oklch(0.97 0.012 85)" }}
+      style={{ backgroundColor: "oklch(0.97 0.010 140)" }}
     >
       <div className="container">
         {/* Header — Southview style: centered, serif, all-caps label */}

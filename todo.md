@@ -63,3 +63,21 @@
 - [ ] Blog CMS or dynamic blog posts
 - [ ] Google Analytics integration
 - [ ] SEO meta tags per page
+
+## Completed — Light/Airy Redesign
+- [x] Audit current index.css and define new light design tokens
+- [x] Update Navbar to light/white background
+- [x] Update HeroSection — brighter overlay, lighter text treatment
+- [x] Update StatsSection — light background
+- [x] Update ServicesSection — white/off-white cards
+- [x] Update AboutSection — lighter palette
+- [x] Update PortfolioSection — lighter background
+- [x] Update MembershipSection — lighter treatment
+- [x] Update ReviewsSection — light card backgrounds
+- [x] Update CTABanner — softer accent treatment
+- [x] Update ContactSection — light background
+- [x] Update Footer — lighter dark tone
+- [x] Update ServiceAreaBand — lighter dark tone
+- [x] Update WhoWeServe — lighter backgrounds
+- [x] Update Commercial page — lighter sections
+- [x] Update CityPageLayout — lighter backgrounds

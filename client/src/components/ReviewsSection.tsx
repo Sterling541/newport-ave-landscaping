@@ -93,7 +93,7 @@ export default function ReviewsSection() {
     <section
       id="reviews"
       className="py-24"
-      style={{ backgroundColor: "oklch(1 0 0)" }}
+      style={{ backgroundColor: "oklch(0.97 0.010 140)" }}
     >
       <div className="container">
         <div

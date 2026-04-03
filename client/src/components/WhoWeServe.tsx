@@ -51,7 +51,7 @@ export default function WhoWeServe() {
   return (
     <section
       className="py-24"
-      style={{ backgroundColor: "oklch(0.14 0.005 0)" }}
+      style={{ backgroundColor: "oklch(0.965 0.008 85)" }}
     >
       <div className="container" ref={ref}>
         {/* Header */}
@@ -65,35 +65,35 @@ export default function WhoWeServe() {
         >
           <div
             className="font-label mb-4 flex items-center justify-center gap-3"
-            style={{ color: "oklch(0.70 0.10 25)" }}
+            style={{ color: "oklch(0.46 0.20 25)" }}
           >
             <span
               className="inline-block w-8 h-px"
-              style={{ backgroundColor: "oklch(0.70 0.10 25)" }}
+              style={{ backgroundColor: "oklch(0.46 0.20 25)" }}
             />
             Who We Serve
             <span
               className="inline-block w-8 h-px"
-              style={{ backgroundColor: "oklch(0.70 0.10 25)" }}
+              style={{ backgroundColor: "oklch(0.46 0.20 25)" }}
             />
           </div>
           <h2
             className="font-display font-light"
             style={{
               fontSize: "clamp(2rem, 4vw, 3rem)",
-              color: "oklch(0.97 0 0)",
-              lineHeight: 1.1,
+                color: "oklch(0.18 0.008 0)",
+                lineHeight: 1.1,
             }}
           >
             One Firm.{" "}
-            <em style={{ color: "oklch(0.70 0.10 25)", fontStyle: "italic" }}>
+            <em style={{ color: "oklch(0.46 0.20 25)", fontStyle: "italic" }}>
               Every Client Type.
             </em>
           </h2>
           <p
             className="font-body mt-4 mx-auto"
             style={{
-              color: "oklch(0.65 0.005 0)",
+              color: "oklch(0.40 0.005 0)",
               maxWidth: "520px",
               lineHeight: 1.7,
             }}
@@ -106,8 +106,8 @@ export default function WhoWeServe() {
 
         {/* Cards */}
         <div
-          className="grid grid-cols-1 md:grid-cols-3 gap-px"
-          style={{ backgroundColor: "oklch(0.22 0.005 0)" }}
+          className="grid grid-cols-1 md:grid-cols-3 gap-4"
+          style={{ backgroundColor: "transparent" }}
         >
           {segments.map((seg, i) => {
             const Icon = seg.icon;

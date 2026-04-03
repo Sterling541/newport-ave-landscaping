@@ -189,11 +189,11 @@ export default function ServicesSection() {
 
   return (
     <>
-      {/* ── Dark section: featured 3-card row ── */}
+      {/* ── Light sage section: featured 3-card row ── */}
       <section
         id="services"
         className="py-20"
-        style={{ backgroundColor: "oklch(0.15 0.005 0)" }}
+        style={{ backgroundColor: "oklch(0.97 0.010 140)" }}
       >
         <div className="container">
           <div
@@ -207,7 +207,7 @@ export default function ServicesSection() {
           >
             <div
               className="font-label mb-4 flex items-center gap-3"
-              style={{ color: "oklch(0.72 0.12 25)" }}
+              style={{ color: "oklch(0.46 0.20 25)" }}
             >
               <span
                 className="inline-block h-px"
@@ -219,12 +219,12 @@ export default function ServicesSection() {
               className="font-display font-light"
               style={{
                 fontSize: "clamp(2rem, 4.5vw, 4rem)",
-                color: "oklch(1 0 0)",
+                color: "oklch(0.18 0.008 0)",
                 lineHeight: 1.05,
               }}
             >
               Improving Life{" "}
-              <em style={{ color: "oklch(0.75 0.10 25)" }}>Outdoors</em>
+              <em style={{ color: "oklch(0.46 0.20 25)" }}>Outdoors</em>
             </h2>
           </div>
 
@@ -285,10 +285,10 @@ export default function ServicesSection() {
         </div>
       </section>
 
-      {/* ── Cream section: full service grid ── */}
+      {/* ── White section: full service grid ── */}
       <section
         className="py-20"
-        style={{ backgroundColor: "oklch(0.97 0.012 85)" }}
+        style={{ backgroundColor: "oklch(1 0 0)" }}
       >
         <div className="container">
           <div className="text-center mb-12">

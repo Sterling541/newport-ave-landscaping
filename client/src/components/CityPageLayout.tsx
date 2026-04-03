@@ -377,13 +377,13 @@ export default function CityPageLayout(props: CityPageProps) {
         </div>
       </section>
 
-      {/* ── NEARBY AREAS ──────────────────────────────────── */}
-      <section className="py-14" style={{ backgroundColor: "oklch(0.12 0.005 0)" }}>
+      {/* ── NEARBY AREAS ──────────────────────────────────────────────────── */}
+      <section className="py-14" style={{ backgroundColor: "oklch(0.965 0.008 85)" }}>
         <div className="container">
           <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
             <span
               className="font-label"
-              style={{ color: "oklch(0.55 0.005 0)", fontSize: "0.60rem", letterSpacing: "0.16em" }}
+              style={{ color: "oklch(0.46 0.20 25)", fontSize: "0.60rem", letterSpacing: "0.16em" }}
             >
               ALSO SERVING NEARBY:
             </span>
@@ -391,7 +391,7 @@ export default function CityPageLayout(props: CityPageProps) {
               <span
                 key={area}
                 className="font-body"
-                style={{ color: "oklch(0.75 0.005 0)", fontSize: "0.88rem" }}
+                style={{ color: "oklch(0.30 0.005 0)", fontSize: "0.88rem" }}
               >
                 {area}
                 <span style={{ color: "oklch(0.46 0.20 25)", margin: "0 6px" }}>·</span>

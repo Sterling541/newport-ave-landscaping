@@ -5,11 +5,11 @@
    Philosophy:
    - Photography-first: let the images do the talking
    - Dark charcoal nav anchors the brand at the top
-   - Cream/off-white (#f7f3ec) for content sections — warm, premium
+   - Pure white + very light sage/warm-grey for content sections
    - Brand red (#D42B2B) used sparingly as the sole accent
    - Restrained serif typography: Cormorant Garamond display, 
      Source Serif 4 body, Montserrat labels
-   - Alternating dark/cream sections for editorial rhythm
+   - Light, airy, open feel — generous whitespace
    ============================================================ */
 
 @import "tailwindcss";
@@ -63,11 +63,12 @@
   --brand-red: oklch(0.46 0.20 25);          /* #D42B2B — used sparingly */
   --brand-red-light: oklch(0.62 0.16 25);    /* Hover state */
   --nav-dark: oklch(0.15 0.005 0);           /* Near-black charcoal nav */
-  --cream: oklch(0.97 0.012 85);             /* Warm cream background */
-  --cream-dark: oklch(0.93 0.015 85);        /* Slightly darker cream */
+  --cream: oklch(0.995 0.003 85);            /* Near-pure white with warmth */
+  --cream-dark: oklch(0.965 0.008 85);       /* Very light warm grey */
+  --section-alt: oklch(0.97 0.010 140);      /* Whisper sage — airy alt sections */
   --charcoal: oklch(0.22 0.008 0);           /* Dark text */
   --charcoal-mid: oklch(0.35 0.006 0);       /* Mid-tone text */
-  --muted-text: oklch(0.55 0.008 0);         /* Muted body text */
+  --muted-text: oklch(0.52 0.008 0);         /* Muted body text */
 
   /* Semantic tokens */
   --primary: var(--brand-red);

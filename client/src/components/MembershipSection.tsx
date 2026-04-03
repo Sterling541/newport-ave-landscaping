@@ -32,7 +32,7 @@ export default function MembershipSection() {
   return (
     <section
       className="py-24 relative overflow-hidden"
-      style={{ backgroundColor: "oklch(0.97 0.012 85)" }}
+      style={{ backgroundColor: "oklch(1 0 0)" }}
     >
       {/* Subtle dot pattern */}
       <div
