@@ -1,168 +1,56 @@
 /* ============================================================
-   NAVBAR — Premium Dark Forest Green
-   - Thin red bottom border line (brand signature)
-   - Animated slide-in underline on nav link hover
-   - SVG noise texture overlay for depth
-   - Logo with subtle drop shadow glow
-   - Frosted glass-style dropdown with red top accent
-   - Teal used NOWHERE — red + off-white only
+   NAVBAR — Extreme Editorial / Studio Job Inspired
+   
+   Design language:
+   - Minimal top bar: just the brand name + a few key links
+   - On hover over "Maintenance" or "Services", a full-width
+     MEGA MENU drops down with editorial photo + massive type
+   - The mega menu uses the same dark forest green + red accents
+   - A thin red line separates the utility bar from the main nav
+   - Logo centered, oversized, bleeds slightly above the bar
+   - "Get a Quote" pill CTA on the right
+   - Scroll: bar compresses and gains backdrop blur
    ============================================================ */
 import { useState, useEffect, useRef } from "react";
 import { useLocation } from "wouter";
-import { Menu, X, Phone, ChevronDown } from "lucide-react";
+import { Menu, X, Phone, ArrowRight } from "lucide-react";
 
 const LOGO_NAV =
   "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/newport-logo-nav-v3_456c5ad6.png";
 
 const maintenanceItems = [
-  { label: "Lawn Service", href: "/services/lawn-service" },
-  { label: "Commercial & HOA Maintenance", href: "/commercial" },
-  { label: "Aeration Services", href: "/services/aeration" },
-  { label: "Spring Activation", href: "/services/sprinkler-activation" },
-  { label: "Sprinkler Blowout", href: "/services/sprinkler-blowout" },
-  { label: "Snow Removal", href: "/services/snow-removal" },
-  { label: "Lawn Fungus Treatment", href: "/services/lawn-fungus" },
+  { label: "Lawn Service", href: "/services/lawn-service", num: "01" },
+  { label: "Commercial & HOA", href: "/commercial", num: "02" },
+  { label: "Aeration Services", href: "/services/aeration", num: "03" },
+  { label: "Spring Activation", href: "/services/sprinkler-activation", num: "04" },
+  { label: "Sprinkler Blowout", href: "/services/sprinkler-blowout", num: "05" },
+  { label: "Snow Removal", href: "/services/snow-removal", num: "06" },
+  { label: "Lawn Fungus Treatment", href: "/services/lawn-fungus", num: "07" },
 ];
 
 const servicesItems = [
-  { label: "Landscape Architecture & Design", href: "/services/landscape-design" },
-  { label: "Irrigation Installation", href: "/services/irrigation" },
-  { label: "Sprinkler Repair & Backflow", href: "/services/sprinkler-repair" },
-  { label: "Paver Patios & Walkways", href: "/services/pavers" },
-  { label: "Water Features", href: "/services/water-features" },
-  { label: "Outdoor Kitchens & Living", href: "/services/outdoor-living" },
-  { label: "Fire Pits & Fireplaces", href: "/services/fire-features" },
-  { label: "Landscape Lighting", href: "/services/landscape-lighting" },
-  { label: "Xeriscaping", href: "/services/xeriscaping" },
+  { label: "Landscape Design", href: "/services/landscape-design", num: "01" },
+  { label: "Irrigation Installation", href: "/services/irrigation", num: "02" },
+  { label: "Sprinkler Repair", href: "/services/sprinkler-repair", num: "03" },
+  { label: "Paver Patios & Walkways", href: "/services/pavers", num: "04" },
+  { label: "Water Features", href: "/services/water-features", num: "05" },
+  { label: "Outdoor Kitchens", href: "/services/outdoor-living", num: "06" },
+  { label: "Fire Pits & Fireplaces", href: "/services/fire-features", num: "07" },
+  { label: "Landscape Lighting", href: "/services/landscape-lighting", num: "08" },
+  { label: "Xeriscaping", href: "/services/xeriscaping", num: "09" },
 ];
 
-const navLeft = [
-  { label: "About", href: "/about" },
-  { label: "Our Work", href: "/our-work" },
-];
+// Mega menu editorial photos (already uploaded)
+const MEGA_PHOTO_MAINTENANCE =
+  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/3771NESuchyBackyardHiResPhotos11-min-min_32e40dc0.jpg";
+const MEGA_PHOTO_SERVICES =
+  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/61826HosmerLakeDrHiResPhotos2-min_f5f331b6.jpg";
 
-const navRight = [
-  { label: "Maintenance", href: "/maintenance", dropdown: maintenanceItems },
-  { label: "Install", href: "/install" },
-  { label: "Services", href: "/services", dropdown: servicesItems },
-  { label: "Commercial", href: "/commercial" },
-];
-
-// Animated underline nav link
-function NavLink({
-  label,
-  active,
-  onClick,
-  children,
-}: {
-  label?: string;
-  active?: boolean;
-  onClick: () => void;
-  children?: React.ReactNode;
-}) {
-  const [hovered, setHovered] = useState(false);
-  return (
-    <button
-      onClick={onClick}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      style={{
-        background: "none",
-        border: "none",
-        padding: "0.25rem 0",
-        cursor: "pointer",
-        position: "relative",
-        fontFamily: "'Montserrat', sans-serif",
-        fontSize: "0.62rem",
-        fontWeight: 600,
-        letterSpacing: "0.18em",
-        textTransform: "uppercase",
-        color: active ? "oklch(0.85 0.12 28)" : "oklch(0.82 0.003 0)",
-        transition: "color 0.2s ease",
-      }}
-    >
-      {children ?? label}
-      {/* Animated underline */}
-      <span
-        style={{
-          position: "absolute",
-          bottom: 0,
-          left: 0,
-          height: "1px",
-          backgroundColor: "oklch(0.46 0.20 25)",
-          width: active ? "100%" : hovered ? "100%" : "0%",
-          transition: "width 0.25s ease",
-        }}
-      />
-    </button>
-  );
-}
-
-function DropdownMenu({
-  items,
-  onNavigate,
-}: {
-  items: { label: string; href: string }[];
-  onNavigate: (href: string) => void;
-}) {
-  return (
-    <div
-      style={{
-        position: "absolute",
-        top: "calc(100% + 14px)",
-        left: "50%",
-        transform: "translateX(-50%)",
-        minWidth: "260px",
-        zIndex: 50,
-        backgroundColor: "oklch(0.13 0.022 155)",
-        borderTop: "2px solid oklch(0.46 0.20 25)",
-        borderBottom: "1px solid oklch(0.20 0.018 155)",
-        borderLeft: "1px solid oklch(0.20 0.018 155)",
-        borderRight: "1px solid oklch(0.20 0.018 155)",
-        boxShadow:
-          "0 20px 60px oklch(0 0 0 / 0.6), 0 4px 16px oklch(0 0 0 / 0.4)",
-        backdropFilter: "blur(12px)",
-        padding: "0.5rem 0",
-      }}
-    >
-      {/* Tiny red dot row at top */}
-      <div
-        style={{
-          display: "flex",
-          gap: "4px",
-          padding: "0.4rem 1.2rem 0.6rem",
-          borderBottom: "1px solid oklch(0.18 0.018 155)",
-          marginBottom: "0.25rem",
-        }}
-      >
-        {[0, 1, 2].map((i) => (
-          <span
-            key={i}
-            style={{
-              width: "4px",
-              height: "4px",
-              borderRadius: "50%",
-              backgroundColor:
-                i === 0
-                  ? "oklch(0.46 0.20 25)"
-                  : "oklch(0.25 0.008 200)",
-            }}
-          />
-        ))}
-      </div>
-
-      {items.map((item) => (
-        <DropdownItem key={item.href} item={item} onNavigate={onNavigate} />
-      ))}
-    </div>
-  );
-}
-
-function DropdownItem({
+function MegaMenuItem({
   item,
   onNavigate,
 }: {
-  item: { label: string; href: string };
+  item: { label: string; href: string; num: string };
   onNavigate: (href: string) => void;
 }) {
   const [hovered, setHovered] = useState(false);
@@ -174,49 +62,205 @@ function DropdownItem({
       style={{
         width: "100%",
         textAlign: "left",
-        padding: "0.55rem 1.2rem",
-        background: hovered ? "oklch(0.18 0.022 155)" : "transparent",
+        background: "none",
         border: "none",
+        borderBottom: "1px solid oklch(0.18 0.018 155)",
+        padding: "0.75rem 0",
         cursor: "pointer",
         display: "flex",
         alignItems: "center",
-        gap: "0.6rem",
-        transition: "background 0.15s ease",
+        gap: "1rem",
+        transition: "padding-left 0.2s ease",
+        paddingLeft: hovered ? "0.5rem" : "0",
       }}
     >
-      {/* Red dash accent on hover */}
       <span
         style={{
-          width: hovered ? "12px" : "0px",
-          height: "1px",
-          backgroundColor: "oklch(0.46 0.20 25)",
+          fontFamily: "'Cormorant Garamond', serif",
+          fontStyle: "italic",
+          fontSize: "0.65rem",
+          color: "oklch(0.46 0.20 25)",
+          minWidth: "24px",
           flexShrink: 0,
-          transition: "width 0.2s ease",
         }}
-      />
+      >
+        {item.num}
+      </span>
       <span
         style={{
           fontFamily: "'Montserrat', sans-serif",
-          fontSize: "0.62rem",
-          fontWeight: 500,
-          letterSpacing: "0.08em",
-          color: hovered ? "oklch(0.93 0.003 0)" : "oklch(0.68 0.003 0)",
-          transition: "color 0.15s ease",
+          fontSize: "0.7rem",
+          fontWeight: hovered ? 700 : 500,
+          letterSpacing: "0.1em",
+          textTransform: "uppercase",
+          color: hovered ? "oklch(0.95 0.003 0)" : "oklch(0.68 0.003 0)",
+          transition: "color 0.15s ease, font-weight 0.15s ease",
+          flex: 1,
         }}
       >
         {item.label}
       </span>
+      <ArrowRight
+        size={12}
+        style={{
+          color: "oklch(0.46 0.20 25)",
+          opacity: hovered ? 1 : 0,
+          transform: hovered ? "translateX(0)" : "translateX(-6px)",
+          transition: "opacity 0.2s ease, transform 0.2s ease",
+        }}
+      />
     </button>
+  );
+}
+
+function MegaMenu({
+  items,
+  photo,
+  headline,
+  subline,
+  onNavigate,
+}: {
+  items: { label: string; href: string; num: string }[];
+  photo: string;
+  headline: string;
+  subline: string;
+  onNavigate: (href: string) => void;
+}) {
+  return (
+    <div
+      style={{
+        position: "fixed",
+        top: "calc(28px + 88px)",
+        left: 0,
+        right: 0,
+        zIndex: 100,
+        backgroundColor: "oklch(0.11 0.018 155)",
+        borderBottom: "2px solid oklch(0.46 0.20 25 / 0.5)",
+        boxShadow: "0 24px 80px oklch(0 0 0 / 0.7)",
+        display: "grid",
+        gridTemplateColumns: "1fr 1fr",
+        overflow: "hidden",
+        animation: "megaMenuIn 0.25s ease forwards",
+      }}
+    >
+      {/* Left: editorial photo panel */}
+      <div style={{ position: "relative", minHeight: "360px", overflow: "hidden" }}>
+        <img
+          src={photo}
+          alt=""
+          style={{
+            position: "absolute",
+            inset: 0,
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            filter: "brightness(0.55) saturate(0.8)",
+          }}
+        />
+        {/* Dark gradient over photo */}
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            background: "linear-gradient(135deg, oklch(0.08 0.018 155 / 0.8) 0%, transparent 60%)",
+          }}
+        />
+        {/* Massive editorial type */}
+        <div
+          style={{
+            position: "absolute",
+            bottom: "2rem",
+            left: "2.5rem",
+            right: "2rem",
+          }}
+        >
+          <p
+            style={{
+              fontFamily: "'Cormorant Garamond', serif",
+              fontStyle: "italic",
+              fontSize: "0.7rem",
+              letterSpacing: "0.3em",
+              color: "oklch(0.72 0.15 65)",
+              textTransform: "uppercase",
+              marginBottom: "0.5rem",
+            }}
+          >
+            {subline}
+          </p>
+          <h3
+            style={{
+              fontFamily: "'Cormorant Garamond', serif",
+              fontWeight: 700,
+              fontSize: "clamp(2.5rem, 5vw, 4rem)",
+              lineHeight: 0.9,
+              color: "oklch(0.97 0.01 75)",
+              textTransform: "uppercase",
+              letterSpacing: "-0.02em",
+            }}
+          >
+            {headline}
+          </h3>
+        </div>
+        {/* Red corner accent */}
+        <div
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "4px",
+            height: "100%",
+            background: "linear-gradient(180deg, oklch(0.46 0.20 25) 0%, transparent 100%)",
+          }}
+        />
+      </div>
+
+      {/* Right: numbered list */}
+      <div
+        style={{
+          padding: "2rem 3rem",
+          borderLeft: "1px solid oklch(0.18 0.018 155)",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+        }}
+      >
+        <div style={{ marginBottom: "1rem" }}>
+          <div
+            style={{
+              display: "flex",
+              gap: "4px",
+              marginBottom: "1.5rem",
+            }}
+          >
+            {[0, 1, 2].map((i) => (
+              <span
+                key={i}
+                style={{
+                  width: i === 0 ? "24px" : "6px",
+                  height: "2px",
+                  backgroundColor: i === 0 ? "oklch(0.46 0.20 25)" : "oklch(0.25 0.008 200)",
+                  display: "block",
+                }}
+              />
+            ))}
+          </div>
+          {items.map((item) => (
+            <MegaMenuItem key={item.href} item={item} onNavigate={onNavigate} />
+          ))}
+        </div>
+      </div>
+    </div>
   );
 }
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const [openMega, setOpenMega] = useState<string | null>(null);
   const [mobileExpanded, setMobileExpanded] = useState<string | null>(null);
   const [location, navigate] = useLocation();
   const navRef = useRef<HTMLElement>(null);
+  const megaTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 40);
@@ -227,7 +271,7 @@ export default function Navbar() {
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (navRef.current && !navRef.current.contains(e.target as Node)) {
-        setOpenDropdown(null);
+        setOpenMega(null);
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
@@ -236,64 +280,87 @@ export default function Navbar() {
 
   const goTo = (href: string) => {
     setMobileOpen(false);
-    setOpenDropdown(null);
+    setOpenMega(null);
     navigate(href);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  const handleMegaEnter = (name: string) => {
+    if (megaTimeoutRef.current) clearTimeout(megaTimeoutRef.current);
+    setOpenMega(name);
+  };
+
+  const handleMegaLeave = () => {
+    megaTimeoutRef.current = setTimeout(() => setOpenMega(null), 180);
+  };
+
+  const isActive = (href: string) =>
+    location === href || location.startsWith(href + "/");
+
   return (
     <>
+      <style>{`
+        @keyframes megaMenuIn {
+          from { opacity: 0; transform: translateY(-8px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+      `}</style>
+
       {/* ── Utility bar ── */}
       <div
-        className="fixed top-0 left-0 right-0 z-30"
         style={{
-          backgroundColor: "oklch(0.11 0.018 155)",
-          borderBottom: "1px solid oklch(0.18 0.018 155)",
+          position: "fixed",
+          top: 0,
+          left: 0,
+          right: 0,
+          zIndex: 50,
+          backgroundColor: "oklch(0.09 0.015 155)",
+          borderBottom: "1px solid oklch(0.16 0.018 155)",
+          height: "28px",
+          display: "flex",
+          alignItems: "center",
         }}
       >
-        <div className="container flex items-center justify-between" style={{ padding: "0.45rem 0" }}>
-          {/* Left: address */}
-          <div style={{ display: "flex", alignItems: "center", gap: "1.2rem" }}>
-            <span
-              style={{
-                fontFamily: "'Montserrat', sans-serif",
-                fontSize: "0.55rem",
-                fontWeight: 500,
-                letterSpacing: "0.12em",
-                color: "oklch(0.50 0.003 0)",
-                textTransform: "uppercase",
-              }}
-            >
-              64625 N. HWY 97, Bend, OR
-            </span>
-            <span style={{ width: "1px", height: "10px", backgroundColor: "oklch(0.22 0.018 155)", display: "block" }} />
-            <span
-              style={{
-                fontFamily: "'Montserrat', sans-serif",
-                fontSize: "0.55rem",
-                fontWeight: 500,
-                letterSpacing: "0.12em",
-                color: "oklch(0.50 0.003 0)",
-                textTransform: "uppercase",
-              }}
-            >
-              Visits by Appointment Only
-            </span>
-          </div>
-
-          {/* Right: phone */}
+        <div
+          style={{
+            width: "100%",
+            maxWidth: "1400px",
+            margin: "0 auto",
+            padding: "0 2rem",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
+        >
+          <span
+            style={{
+              fontFamily: "'Montserrat', sans-serif",
+              fontSize: "0.52rem",
+              fontWeight: 500,
+              letterSpacing: "0.14em",
+              color: "oklch(0.42 0.003 0)",
+              textTransform: "uppercase",
+            }}
+          >
+            64625 N. HWY 97, Bend, OR &nbsp;·&nbsp; Visits by Appointment Only
+          </span>
           <a
             href="tel:5416178873"
-            style={{ textDecoration: "none", display: "flex", alignItems: "center", gap: "0.5rem" }}
+            style={{
+              textDecoration: "none",
+              display: "flex",
+              alignItems: "center",
+              gap: "0.4rem",
+            }}
           >
-            <Phone size={11} style={{ color: "oklch(0.46 0.20 25)" }} />
+            <Phone size={10} style={{ color: "oklch(0.46 0.20 25)" }} />
             <span
               style={{
                 fontFamily: "'Montserrat', sans-serif",
-                fontSize: "0.62rem",
+                fontSize: "0.58rem",
                 fontWeight: 700,
                 letterSpacing: "0.1em",
-                color: "oklch(0.78 0.003 0)",
+                color: "oklch(0.72 0.003 0)",
               }}
             >
               (541) 617-8873
@@ -305,21 +372,23 @@ export default function Navbar() {
       {/* ── Main nav ── */}
       <nav
         ref={navRef}
-        className="fixed left-0 right-0 z-40 transition-all duration-300"
         style={{
+          position: "fixed",
           top: "28px",
+          left: 0,
+          right: 0,
+          zIndex: 49,
           backgroundColor: scrolled
-            ? "oklch(0.14 0.022 155 / 0.98)"
+            ? "oklch(0.13 0.022 155 / 0.97)"
             : "oklch(0.16 0.022 155)",
-          boxShadow: scrolled
-            ? "0 4px 32px oklch(0 0 0 / 0.5)"
-            : "none",
-          borderBottom: "1px solid oklch(0.46 0.20 25 / 0.35)",
+          backdropFilter: scrolled ? "blur(16px)" : "none",
+          boxShadow: scrolled ? "0 4px 40px oklch(0 0 0 / 0.5)" : "none",
+          borderBottom: "1px solid oklch(0.46 0.20 25 / 0.4)",
+          transition: "background-color 0.3s ease, box-shadow 0.3s ease",
           overflow: "visible",
-          backdropFilter: scrolled ? "blur(12px)" : "none",
         }}
       >
-        {/* SVG noise texture overlay */}
+        {/* SVG noise texture */}
         <svg
           style={{
             position: "absolute",
@@ -327,7 +396,7 @@ export default function Navbar() {
             width: "100%",
             height: "100%",
             pointerEvents: "none",
-            opacity: 0.04,
+            opacity: 0.035,
             zIndex: 0,
           }}
           xmlns="http://www.w3.org/2000/svg"
@@ -339,41 +408,54 @@ export default function Navbar() {
           <rect width="100%" height="100%" filter="url(#navNoise)" />
         </svg>
 
-        {/* Thin red bottom accent line */}
-        <div
-          style={{
-            position: "absolute",
-            bottom: 0,
-            left: 0,
-            right: 0,
-            height: "2px",
-            background: "linear-gradient(90deg, transparent 0%, oklch(0.46 0.20 25) 20%, oklch(0.55 0.22 25) 50%, oklch(0.46 0.20 25) 80%, transparent 100%)",
-            zIndex: 1,
-          }}
-        />
-
         {/* Desktop nav */}
         <div
-          className="hidden md:flex items-center justify-between px-8"
-          style={{ minHeight: "88px", overflow: "visible", position: "relative", zIndex: 2 }}
+          className="hidden md:flex"
+          style={{
+            alignItems: "center",
+            justifyContent: "space-between",
+            minHeight: "88px",
+            padding: "0 2.5rem",
+            position: "relative",
+            zIndex: 2,
+            overflow: "visible",
+          }}
         >
-          {/* Left links */}
-          <div className="flex items-center gap-10 flex-1">
-            {navLeft.map((item) => (
-              <NavLink
-                key={item.label}
-                label={item.label}
-                active={location === item.href}
-                onClick={() => goTo(item.href)}
+          {/* ── Left cluster ── */}
+          <div style={{ display: "flex", alignItems: "center", gap: "2.5rem", flex: 1 }}>
+            {/* About */}
+            <NavTextLink
+              label="About"
+              active={isActive("/about")}
+              onClick={() => goTo("/about")}
+            />
+            {/* Our Work */}
+            <NavTextLink
+              label="Our Work"
+              active={isActive("/our-work")}
+              onClick={() => goTo("/our-work")}
+            />
+            {/* Maintenance — mega menu trigger */}
+            <div
+              onMouseEnter={() => handleMegaEnter("maintenance")}
+              onMouseLeave={handleMegaLeave}
+              style={{ position: "relative" }}
+            >
+              <NavTextLink
+                label="Maintenance"
+                active={openMega === "maintenance" || isActive("/maintenance")}
+                onClick={() => goTo("/maintenance")}
+                hasArrow
+                arrowOpen={openMega === "maintenance"}
               />
-            ))}
+            </div>
           </div>
 
-          {/* Centered logo */}
+          {/* ── Centered logo ── */}
           <div
             style={{
               flexShrink: 0,
-              width: "320px",
+              width: "280px",
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
@@ -387,75 +469,91 @@ export default function Navbar() {
                 src={LOGO_NAV}
                 alt="Newport Avenue Landscaping"
                 style={{
-                  height: "190px",
+                  height: "180px",
                   width: "auto",
                   objectFit: "contain",
                   display: "block",
-                  marginTop: "-55px",
+                  marginTop: "-52px",
                   position: "relative",
                   zIndex: 60,
-                  filter: "drop-shadow(0 4px 20px oklch(0 0 0 / 0.6))",
+                  filter: "drop-shadow(0 4px 24px oklch(0 0 0 / 0.65))",
                 }}
               />
             </button>
           </div>
 
-          {/* Right links */}
-          <div className="flex items-center gap-10 flex-1 justify-end">
-            {navRight.map((item) => (
-              <div key={item.label} style={{ position: "relative" }}>
-                {item.dropdown ? (
-                  <>
-                    <NavLink
-                      active={openDropdown === item.label || location.startsWith(item.href)}
-                      onClick={() =>
-                        setOpenDropdown(openDropdown === item.label ? null : item.label)
-                      }
-                    >
-                      <span style={{ display: "flex", alignItems: "center", gap: "3px" }}>
-                        {item.label}
-                        <ChevronDown
-                          size={10}
-                          style={{
-                            transition: "transform 0.2s",
-                            transform:
-                              openDropdown === item.label
-                                ? "rotate(180deg)"
-                                : "rotate(0deg)",
-                            marginTop: "1px",
-                          }}
-                        />
-                      </span>
-                    </NavLink>
-                    {openDropdown === item.label && (
-                      <div
-                        onMouseEnter={() => setOpenDropdown(item.label)}
-                        onMouseLeave={() => setOpenDropdown(null)}
-                      >
-                        <DropdownMenu items={item.dropdown} onNavigate={goTo} />
-                      </div>
-                    )}
-                  </>
-                ) : (
-                  <NavLink
-                    label={item.label}
-                    active={location === item.href}
-                    onClick={() => goTo(item.href)}
-                  />
-                )}
-              </div>
-            ))}
+          {/* ── Right cluster ── */}
+          <div style={{ display: "flex", alignItems: "center", gap: "2.5rem", flex: 1, justifyContent: "flex-end" }}>
+            {/* Services — mega menu trigger */}
+            <div
+              onMouseEnter={() => handleMegaEnter("services")}
+              onMouseLeave={handleMegaLeave}
+              style={{ position: "relative" }}
+            >
+              <NavTextLink
+                label="Services"
+                active={openMega === "services" || isActive("/services")}
+                onClick={() => goTo("/services")}
+                hasArrow
+                arrowOpen={openMega === "services"}
+              />
+            </div>
+            {/* Commercial */}
+            <NavTextLink
+              label="Commercial"
+              active={isActive("/commercial")}
+              onClick={() => goTo("/commercial")}
+            />
+            {/* Get a Quote — pill CTA */}
+            <a
+              href="/contact"
+              onClick={(e) => { e.preventDefault(); goTo("/contact"); }}
+              style={{
+                fontFamily: "'Montserrat', sans-serif",
+                fontSize: "0.58rem",
+                fontWeight: 700,
+                letterSpacing: "0.18em",
+                textTransform: "uppercase",
+                color: "oklch(0.97 0.012 75)",
+                backgroundColor: "oklch(0.46 0.20 25)",
+                padding: "0.55rem 1.4rem",
+                textDecoration: "none",
+                display: "flex",
+                alignItems: "center",
+                gap: "0.4rem",
+                transition: "background-color 0.2s ease, transform 0.15s ease",
+                whiteSpace: "nowrap",
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "oklch(0.55 0.22 25)";
+                (e.currentTarget as HTMLAnchorElement).style.transform = "translateY(-1px)";
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "oklch(0.46 0.20 25)";
+                (e.currentTarget as HTMLAnchorElement).style.transform = "translateY(0)";
+              }}
+            >
+              Get a Quote
+              <ArrowRight size={11} />
+            </a>
           </div>
         </div>
 
         {/* Mobile nav bar */}
         <div
-          className="flex md:hidden items-center justify-between px-4"
-          style={{ minHeight: "68px", position: "relative", zIndex: 2 }}
+          className="flex md:hidden"
+          style={{
+            alignItems: "center",
+            justifyContent: "space-between",
+            minHeight: "68px",
+            padding: "0 1.25rem",
+            position: "relative",
+            zIndex: 2,
+          }}
         >
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            style={{ color: "oklch(0.82 0.003 0)", background: "none", border: "none", cursor: "pointer" }}
+            style={{ color: "oklch(0.82 0.003 0)", background: "none", border: "none", cursor: "pointer", padding: "0.25rem" }}
             aria-label="Toggle menu"
           >
             {mobileOpen ? <X size={22} /> : <Menu size={22} />}
@@ -487,18 +585,26 @@ export default function Navbar() {
             maxHeight: mobileOpen ? "80vh" : "0",
             overflow: "hidden",
             transition: "max-height 0.35s ease",
-            backgroundColor: "oklch(0.12 0.018 155)",
+            backgroundColor: "oklch(0.11 0.018 155)",
             borderTop: mobileOpen ? "1px solid oklch(0.20 0.018 155)" : "none",
             position: "relative",
             zIndex: 2,
           }}
         >
           <div style={{ padding: "1rem 1.5rem 2rem" }}>
-            {([...navLeft, ...navRight] as Array<{ label: string; href: string; dropdown?: { label: string; href: string }[] }>).map((item) => (
+            {(
+              [
+                { label: "About", href: "/about" },
+                { label: "Our Work", href: "/our-work" },
+                { label: "Maintenance", href: "/maintenance", dropdown: maintenanceItems },
+                { label: "Services", href: "/services", dropdown: servicesItems },
+                { label: "Commercial", href: "/commercial" },
+              ] as Array<{ label: string; href: string; dropdown?: { label: string; href: string; num: string }[] }>
+            ).map((item) => (
               <div key={item.label}>
                 <button
                   onClick={() => {
-                    if ("dropdown" in item && item.dropdown) {
+                    if (item.dropdown) {
                       setMobileExpanded(mobileExpanded === item.label ? null : item.label);
                     } else {
                       goTo(item.href);
@@ -524,22 +630,22 @@ export default function Navbar() {
                   }}
                 >
                   {item.label}
-                  {"dropdown" in item && item.dropdown && (
-                    <ChevronDown
-                      size={14}
+                  {item.dropdown && (
+                    <span
                       style={{
-                        transition: "transform 0.2s",
-                        transform:
-                          mobileExpanded === item.label
-                            ? "rotate(180deg)"
-                            : "rotate(0deg)",
+                        fontSize: "0.6rem",
                         color: "oklch(0.46 0.20 25)",
+                        transform: mobileExpanded === item.label ? "rotate(180deg)" : "rotate(0deg)",
+                        transition: "transform 0.2s",
+                        display: "inline-block",
                       }}
-                    />
+                    >
+                      ▼
+                    </span>
                   )}
                 </button>
 
-                {"dropdown" in item && item.dropdown && mobileExpanded === item.label && (
+                {item.dropdown && mobileExpanded === item.label && (
                   <div style={{ paddingLeft: "1rem", paddingBottom: "0.5rem" }}>
                     {item.dropdown.map((sub) => (
                       <button
@@ -558,9 +664,15 @@ export default function Navbar() {
                           letterSpacing: "0.08em",
                           color: "oklch(0.58 0.003 0)",
                           borderBottom: "1px solid oklch(0.16 0.018 155)",
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "0.5rem",
                         }}
                       >
-                        — {sub.label}
+                        <span style={{ color: "oklch(0.46 0.20 25)", fontFamily: "'Cormorant Garamond', serif", fontStyle: "italic" }}>
+                          {sub.num}
+                        </span>
+                        {sub.label}
                       </button>
                     ))}
                   </div>
@@ -568,7 +680,6 @@ export default function Navbar() {
               </div>
             ))}
 
-            {/* Mobile CTA */}
             <a
               href="tel:5416178873"
               style={{
@@ -594,6 +705,112 @@ export default function Navbar() {
           </div>
         </div>
       </nav>
+
+      {/* ── Mega menus (rendered outside nav to avoid overflow clipping) ── */}
+      {openMega === "maintenance" && (
+        <div
+          onMouseEnter={() => handleMegaEnter("maintenance")}
+          onMouseLeave={handleMegaLeave}
+          style={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0, zIndex: 48, pointerEvents: "none" }}
+        >
+          <div style={{ pointerEvents: "auto" }}>
+            <MegaMenu
+              items={maintenanceItems}
+              photo={MEGA_PHOTO_MAINTENANCE}
+              headline={"Year-Round\nCare"}
+              subline="Maintenance Programs"
+              onNavigate={goTo}
+            />
+          </div>
+        </div>
+      )}
+
+      {openMega === "services" && (
+        <div
+          onMouseEnter={() => handleMegaEnter("services")}
+          onMouseLeave={handleMegaLeave}
+          style={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0, zIndex: 48, pointerEvents: "none" }}
+        >
+          <div style={{ pointerEvents: "auto" }}>
+            <MegaMenu
+              items={servicesItems}
+              photo={MEGA_PHOTO_SERVICES}
+              headline={"Transform\nYour Space"}
+              subline="Installation Services"
+              onNavigate={goTo}
+            />
+          </div>
+        </div>
+      )}
     </>
+  );
+}
+
+/* ── Reusable nav text link ── */
+function NavTextLink({
+  label,
+  active,
+  onClick,
+  hasArrow,
+  arrowOpen,
+}: {
+  label: string;
+  active?: boolean;
+  onClick: () => void;
+  hasArrow?: boolean;
+  arrowOpen?: boolean;
+}) {
+  const [hovered, setHovered] = useState(false);
+  return (
+    <button
+      onClick={onClick}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{
+        background: "none",
+        border: "none",
+        padding: "0.25rem 0",
+        cursor: "pointer",
+        position: "relative",
+        fontFamily: "'Montserrat', sans-serif",
+        fontSize: "0.6rem",
+        fontWeight: 600,
+        letterSpacing: "0.18em",
+        textTransform: "uppercase",
+        color: active ? "oklch(0.85 0.12 28)" : "oklch(0.78 0.003 0)",
+        transition: "color 0.2s ease",
+        display: "flex",
+        alignItems: "center",
+        gap: "3px",
+        whiteSpace: "nowrap",
+      }}
+    >
+      {label}
+      {hasArrow && (
+        <span
+          style={{
+            fontSize: "0.45rem",
+            transform: arrowOpen ? "rotate(180deg)" : "rotate(0deg)",
+            transition: "transform 0.2s ease",
+            display: "inline-block",
+            marginTop: "1px",
+          }}
+        >
+          ▼
+        </span>
+      )}
+      {/* Animated underline */}
+      <span
+        style={{
+          position: "absolute",
+          bottom: 0,
+          left: 0,
+          height: "1px",
+          backgroundColor: "oklch(0.46 0.20 25)",
+          width: active || hovered ? "100%" : "0%",
+          transition: "width 0.25s ease",
+        }}
+      />
+    </button>
   );
 }

@@ -83,6 +83,11 @@
 - [ ] Fix hero diagonal line — make it intentional, sharp, and beautiful
 - [ ] Redesign dark green navbar with premium details (texture, micro-type, hover states)
 
+## In Progress — Extreme Editorial Push
+- [ ] Navbar: extreme redesign — mega menu, animated elements, unique hover states
+- [ ] Landscape lighting section: scroll-triggered uplights illuminate a dark house
+- [ ] Homepage: bigger type, bolder layouts, more unexpected compositions
+
 ## Pending / Future
 - [ ] Contact form backend integration (currently UI only)
 - [ ] Membership signup backend integration
