@@ -124,11 +124,14 @@ export default function Navbar() {
           </span>
           <a
             href="tel:5416178873"
-            className="font-label text-white flex items-center gap-2"
-            style={{ textDecoration: "none" }}
+            className="font-label text-white flex items-center gap-2 group"
+            style={{ textDecoration: "none", cursor: "pointer" }}
           >
             <span style={{ fontSize: "0.65rem", opacity: 0.85, letterSpacing: "0.05em" }}>For Service Call:</span>
-            <span className="flex items-center gap-1.5" style={{ fontSize: "0.85rem", fontWeight: 700, letterSpacing: "0.04em" }}>
+            <span
+              className="flex items-center gap-1.5"
+              style={{ fontSize: "0.85rem", fontWeight: 700, letterSpacing: "0.04em", textDecoration: "underline", textUnderlineOffset: "3px", textDecorationColor: "rgba(255,255,255,0.5)" }}
+            >
               <Phone size={13} />
               (541) 617-8873
             </span>
