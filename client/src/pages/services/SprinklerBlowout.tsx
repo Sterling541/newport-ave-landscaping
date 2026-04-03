@@ -13,7 +13,7 @@ export default function SprinklerBlowout() {
       category="Irrigation Services"
       title="Sprinkler Blowout"
       subtitle="Winterization Service"
-      heroImage="https://images.unsplash.com/photo-1547036967-23d11aacaee0?w=1600&q=80"
+      heroImage="https://files.manuscdn.com/user_upload_by_module/session_file/310519663503028182/OAhyShvnyMXUNJqn.jpg"
       heroPosition="center 40%"
       intro="Winterizing your sprinkler system is a must in Central Oregon. With the different sprinkler system setups, piping and air pressures, we suggest letting a professional handle it. We take the time to ensure the system is fully winterized — protecting your investment from freeze damage and costly spring repairs."
       pricing={[

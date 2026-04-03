@@ -13,7 +13,7 @@ export default function FireFeatures() {
       category="Installation Services"
       title="Fire Pits"
       subtitle="& Outdoor Fireplaces"
-      heroImage="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80"
+      heroImage="https://files.manuscdn.com/user_upload_by_module/session_file/310519663503028182/XdRaSxrsEsCUxGCF.jpg"
       heroPosition="center 60%"
       intro="Family gatherings. Ghost stories. Roasting marshmallows with the kids. Dreaming up the future with a good glass of wine. Memories, all made around a fire. Fire pits are one of those must-haves — the non-negotiables of your backyard. The place where everyone gathers to laugh, dream, and stay warm. We'll build it, just to your specifications."
       pricing={[

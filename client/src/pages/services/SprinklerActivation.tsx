@@ -13,7 +13,7 @@ export default function SprinklerActivation() {
       category="Irrigation Services"
       title="Spring Sprinkler"
       subtitle="System Activation"
-      heroImage="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80"
+      heroImage="https://files.manuscdn.com/user_upload_by_module/session_file/310519663503028182/XdRaSxrsEsCUxGCF.jpg"
       heroPosition="center 60%"
       intro="April marks the beginning of the watering season here in Central Oregon. At the beginning of each season, it is always wise to inspect, flush, and optimize your sprinkler system to ensure it is ready to perform at its best. We will send one of our certified Irrigation Technicians to analyze and activate your sprinkler system."
       pricing={[

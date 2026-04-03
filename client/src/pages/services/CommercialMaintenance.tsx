@@ -13,7 +13,7 @@ export default function CommercialMaintenance() {
       category="Commercial Services"
       title="Commercial Landscape"
       subtitle="Maintenance"
-      heroImage="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1600&q=80"
+      heroImage="https://files.manuscdn.com/user_upload_by_module/session_file/310519663503028182/ambqMQAjmNxaGfTz.jpg"
       heroPosition="center 60%"
       intro="We provide lawn care for over 400 commercial properties in Bend, Oregon and the surrounding areas. We work with businesses, property management companies, HOAs, and private investors and have relationships with most of the major players in property management throughout Central Oregon. References provided upon request."
       sections={[

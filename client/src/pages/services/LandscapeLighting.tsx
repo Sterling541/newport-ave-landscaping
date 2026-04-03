@@ -13,7 +13,7 @@ export default function LandscapeLighting() {
       category="Installation Services"
       title="Landscape Lighting"
       subtitle="Bend, Oregon"
-      heroImage="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600&q=80"
+      heroImage="https://files.manuscdn.com/user_upload_by_module/session_file/310519663503028182/RDRaedrdxFWkLZJv.jpg"
       heroPosition="center 60%"
       intro="Our landscape lighting expert is up to date on all certifications and is licensed as a landscape construction professional with the Oregon Landscape Contractors Board. Landscape lighting has become so popular that we are now installing 7–10 landscape lighting systems every month. We offer free proposals and advice."
       sections={[

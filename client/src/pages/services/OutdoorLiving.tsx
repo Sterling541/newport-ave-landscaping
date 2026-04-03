@@ -13,7 +13,7 @@ export default function OutdoorLiving() {
       category="Installation Services"
       title="Outdoor Kitchens"
       subtitle="& Living Spaces"
-      heroImage="https://newportavelandscaping.com/wp-content/uploads/2022/05/south-west-bend-oregon-campground-backyard-pergula-1.jpg"
+      heroImage="https://files.manuscdn.com/user_upload_by_module/session_file/310519663503028182/GnijvQODFDMrKxrg.jpg"
       heroPosition="center 50%"
       intro="Outdoor kitchens and fireplaces have become the focal point of the outdoor living area. If you want to improve the value and sale-ability of your home, or create a more usable and functional backyard, an outdoor living area can do wonders. Your dreams are the limit."
       pricing={[

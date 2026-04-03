@@ -13,7 +13,7 @@ export default function LandscapeDesign() {
       category="Design Services"
       title="Landscape Architecture"
       subtitle="& Design"
-      heroImage="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=1600&q=80"
+      heroImage="https://files.manuscdn.com/user_upload_by_module/session_file/310519663503028182/BtVKYdoDFtosJiYr.jpg"
       heroPosition="center 40%"
       intro="Our design-build process puts forethought into your landscaping. A quality design yields fewer problems, saves time and money over the lifetime of your landscape, and produces an overall higher quality product. If you want landscaping that improves the value of your home, meet with one of our designers today and get started."
       sections={[

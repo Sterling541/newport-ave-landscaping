@@ -13,7 +13,7 @@ export default function Pavers() {
       category="Installation Services"
       title="Paver Patios"
       subtitle="& Walkways"
-      heroImage="https://newportavelandscaping.com/wp-content/uploads/2022/05/awbrey-glen-flagstone-patio-rebuild-3.jpg"
+      heroImage="https://files.manuscdn.com/user_upload_by_module/session_file/310519663503028182/DsCDLoIMQbfZSjuQ.jpg"
       heroPosition="center 50%"
       intro="Paver patios and paver walkways are one of our favorite landscaping projects to design and build. Not only do you get instant aesthetic results, but you also get a product that, if built correctly, will last a lifetime and will vastly improve the value of your home."
       pricing={[

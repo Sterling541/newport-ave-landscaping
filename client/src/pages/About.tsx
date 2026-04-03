@@ -7,7 +7,8 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "wouter";
 import Navbar from "@/components/Navbar";
 
-const TEAM_PHOTO = "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/team_photo_d9a1d108.webp";
+const TEAM_PHOTO = "https://newportavelandscaping.com/wp-content/uploads/2022/08/Newport-Landscaping-2022-Ariel-Dawn-Photography14-683x1024.jpg";
+const FOUNDER_PHOTO = "https://newportavelandscaping.com/wp-content/uploads/2022/08/sterling-portrait.jpg";
 
 const timeline = [
   {
@@ -37,20 +38,21 @@ const timeline = [
 ];
 
 const team = [
-  { name: "Jana", role: "General Manager" },
-  { name: "Mykiah", role: "Front Office" },
-  { name: "Aurora", role: "Project Manager" },
-  { name: "Chris", role: "Project Manager" },
-  { name: "Annelie", role: "Lead Landscape Designer" },
-  { name: "Milton", role: "Maintenance Dept. Manager" },
-  { name: "Francis", role: "Irrigation Technician" },
-  { name: "John", role: "Landscape Consultant" },
-  { name: "Nathan", role: "Landscape Consultant" },
-  { name: "Jesus", role: "Construction Foreman" },
-  { name: "Patrick", role: "Construction Foreman" },
-  { name: "Tommy", role: "Construction Foreman" },
-  { name: "Miguel", role: "Construction Foreman" },
-  { name: "Neri", role: "Maintenance Lead" },
+  { name: "Jana", role: "General Manager", photo: "https://newportavelandscaping.com/wp-content/uploads/2022/08/Jana-General-Manager-683x1024.jpg" },
+  { name: "Mykiah", role: "Front Office", photo: "https://newportavelandscaping.com/wp-content/uploads/2022/08/Mykiah-Front-Office-1-683x1024.jpg" },
+  { name: "Aurora", role: "Project Manager", photo: "https://newportavelandscaping.com/wp-content/uploads/2022/08/Aurora-Project-Manager-683x1024.jpg" },
+  { name: "Chris", role: "Project Manager", photo: "https://newportavelandscaping.com/wp-content/uploads/2022/08/Newport-Landscaping-2022-Ariel-Dawn-Photography17-683x1024.jpg" },
+  { name: "Annelie", role: "Lead Landscape Designer", photo: "https://newportavelandscaping.com/wp-content/uploads/2022/08/Annelie-Lead-Landscape-Designer-683x1024.jpg" },
+  { name: "Milton", role: "Maintenance Dept. Manager", photo: "https://newportavelandscaping.com/wp-content/uploads/2022/08/Milton-Maintenance-Dept.-Manager-1-683x1024.jpg" },
+  { name: "Francis", role: "Irrigation Technician", photo: "https://newportavelandscaping.com/wp-content/uploads/2022/08/Francis-Irrigation-Technition-1-1-683x1024.jpg" },
+  { name: "John", role: "Landscape Consultant", photo: "https://newportavelandscaping.com/wp-content/uploads/2022/08/John-Landscape-Consultant-1-683x1024.jpg" },
+  { name: "Nathan", role: "Landscape Consultant", photo: "https://newportavelandscaping.com/wp-content/uploads/2022/08/Nathan-Landscaping-Consultant-1-683x1024.jpg" },
+  { name: "Jesus", role: "Construction Foreman", photo: "https://newportavelandscaping.com/wp-content/uploads/2022/08/Jesus-Construction-Foreman-1-683x1024.jpg" },
+  { name: "Patrick", role: "Construction Foreman", photo: "https://newportavelandscaping.com/wp-content/uploads/2022/08/Patrick-Construction-Foreman-1-683x1024.jpg" },
+  { name: "Tommy", role: "Construction Foreman", photo: "https://newportavelandscaping.com/wp-content/uploads/2022/08/Tommy-Construction-Foreman-683x1024.jpg" },
+  { name: "Miguel", role: "Construction Foreman", photo: "https://newportavelandscaping.com/wp-content/uploads/2022/08/Miguel-Construction-Foreman-1-683x1024.jpg" },
+  { name: "Miguel Jr.", role: "Construction Foreman", photo: "https://newportavelandscaping.com/wp-content/uploads/2022/08/Miguel-Jr.-Construction-Foreman-1-683x1024.jpg" },
+  { name: "Neri", role: "Maintenance Lead", photo: "https://newportavelandscaping.com/wp-content/uploads/2022/08/Newport-Landscaping-2022-Ariel-Dawn-Photography14-683x1024.jpg" },
 ];
 
 function FadeIn({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) {
@@ -162,30 +164,19 @@ export default function About() {
             </FadeIn>
 
             <FadeIn delay={0.15}>
-              {/* Stats grid */}
-              <div className="grid grid-cols-2 gap-4">
-                {[
-                  { num: "21+", label: "Years in Business" },
-                  { num: "150+", label: "Team Members" },
-                  { num: "2×", label: "Published in Arch Digest" },
-                  { num: "#1", label: "Largest in Central Oregon" },
-                ].map((stat) => (
-                  <div
-                    key={stat.label}
-                    className="p-7"
-                    style={{ backgroundColor: "oklch(0.97 0.012 85)" }}
-                  >
-                    <div
-                      className="font-display font-light mb-1"
-                      style={{ fontSize: "2.8rem", color: "oklch(0.46 0.20 25)", lineHeight: 1 }}
-                    >
-                      {stat.num}
-                    </div>
-                    <div className="font-label" style={{ color: "oklch(0.45 0.008 0)", fontSize: "0.72rem" }}>
-                      {stat.label}
-                    </div>
-                  </div>
-                ))}
+              <div className="relative overflow-hidden" style={{ borderRadius: "1.5rem 0 1.5rem 0" }}>
+                <img
+                  src={FOUNDER_PHOTO}
+                  alt="Sterling West — Founder of Newport Ave Landscaping"
+                  style={{ width: "100%", height: "480px", objectFit: "cover", objectPosition: "center top", display: "block" }}
+                />
+                <div
+                  className="absolute bottom-0 left-0 right-0 p-6"
+                  style={{ background: "linear-gradient(0deg, oklch(0.10 0.005 0 / 0.85) 0%, transparent 100%)" }}
+                >
+                  <div className="font-display font-medium text-white" style={{ fontSize: "1.1rem" }}>Sterling West</div>
+                  <div className="font-label" style={{ color: "oklch(0.72 0.12 25)", fontSize: "0.72rem" }}>Founder &amp; President</div>
+                </div>
               </div>
             </FadeIn>
           </div>
@@ -275,27 +266,30 @@ export default function About() {
             {team.map((member, i) => (
               <FadeIn key={member.name} delay={i * 0.05}>
                 <div
-                  className="p-5 text-center"
-                  style={{ backgroundColor: "oklch(1 0 0)" }}
+                  className="text-center overflow-hidden"
+                  style={{ backgroundColor: "oklch(1 0 0)", borderRadius: "1rem 0 1rem 0" }}
                 >
-                  {/* Avatar placeholder with initials */}
-                  <div
-                    className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-3 font-display font-light text-white"
-                    style={{ backgroundColor: "oklch(0.46 0.20 25)", fontSize: "1.2rem" }}
-                  >
-                    {member.name.charAt(0)}
+                  {/* Real headshot photo */}
+                  <div style={{ height: "180px", overflow: "hidden" }}>
+                    <img
+                      src={member.photo}
+                      alt={`${member.name} — ${member.role}`}
+                      style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top" }}
+                    />
                   </div>
-                  <div
-                    className="font-display font-medium mb-1"
-                    style={{ fontSize: "0.95rem", color: "oklch(0.15 0.005 0)" }}
-                  >
-                    {member.name}
-                  </div>
-                  <div
-                    className="font-label"
-                    style={{ fontSize: "0.65rem", color: "oklch(0.46 0.20 25)" }}
-                  >
-                    {member.role}
+                  <div className="p-4">
+                    <div
+                      className="font-display font-medium mb-1"
+                      style={{ fontSize: "0.95rem", color: "oklch(0.15 0.005 0)" }}
+                    >
+                      {member.name}
+                    </div>
+                    <div
+                      className="font-label"
+                      style={{ fontSize: "0.65rem", color: "oklch(0.46 0.20 25)" }}
+                    >
+                      {member.role}
+                    </div>
                   </div>
                 </div>
               </FadeIn>
