@@ -37,8 +37,6 @@ const servicesItems = [
 const navLeft = [
   { label: "About", href: "/about" },
   { label: "Our Work", href: "/our-work" },
-  { label: "Blog", href: "/blog" },
-  { label: "Contact", href: "/contact" },
 ];
 
 const navRight = [
