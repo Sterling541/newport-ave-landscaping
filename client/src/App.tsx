@@ -14,6 +14,7 @@ import OurWork from "./pages/OurWork";
 import Contact from "./pages/Contact";
 import Blog from "./pages/Blog";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
+import Membership from "./pages/Membership";
 import Terms from "./pages/Terms";
 
 // Maintenance sub-pages
@@ -65,6 +66,7 @@ function Router() {
       <Route path={"/contact"} component={Contact} />
       <Route path={"/blog"} component={Blog} />
       <Route path={"/privacy-policy"} component={PrivacyPolicy} />
+      <Route path={"/membership"} component={Membership} />
       <Route path={"/terms"} component={Terms} />
 
       {/* Maintenance sub-pages */}

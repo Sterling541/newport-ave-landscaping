@@ -10,6 +10,7 @@ import ServicesSection from "@/components/ServicesSection";
 import AboutSection from "@/components/AboutSection";
 import PortfolioSection from "@/components/PortfolioSection";
 import MembershipSection from "@/components/MembershipSection";
+import MembershipBanner from "@/components/MembershipBanner";
 import CTABanner from "@/components/CTABanner";
 import ReviewsSection from "@/components/ReviewsSection";
 import ContactSection from "@/components/ContactSection";
@@ -25,6 +26,7 @@ export default function Home() {
       <ServicesSection />
       <AboutSection />
       <PortfolioSection />
+      <MembershipBanner />
       <MembershipSection />
       <CTABanner />
       <ReviewsSection />
