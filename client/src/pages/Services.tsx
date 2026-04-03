@@ -37,12 +37,12 @@ const residentialServices = [
   {
     title: "Custom Design & Build",
     description: "Work with our award-winning design team to bring your outdoor oasis to life. We handle everything from initial concept through final installation, with a 5-year warranty on main irrigation components for Priority Membership clients.",
-    image: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800&auto=format&fit=crop",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportLandscapingRVParkDay2Photos57_ce65cd27.jpg",
   },
   {
     title: "Patio Pavers & Walkways",
     description: "We are your one-stop shop for all outdoor paving needs — driveways, walkways, patios, pool decks, and more. We work with natural stone, concrete pavers, flagstone, and brick to create surfaces that last decades.",
-    image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&auto=format&fit=crop",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/GLLPatio10_2ffabcfb.jpg",
   },
   {
     title: "Sprinklers & Irrigation",
@@ -57,12 +57,12 @@ const residentialServices = [
   {
     title: "Outdoor Living Areas",
     description: "From outdoor kitchens and fire features to pergolas and covered patios — we design and build complete outdoor living spaces that extend your home and create unforgettable entertaining areas.",
-    image: "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=800&auto=format&fit=crop",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/GLLPatio2_4916fcde.jpg",
   },
   {
     title: "Fire Features",
     description: "Gas fire pits, wood-burning fireplaces, fire bowls, and custom built-in fire features. We integrate fire into your landscape design to create warmth, ambiance, and year-round outdoor enjoyment.",
-    image: "https://images.unsplash.com/photo-1543722530-d2c3201371e7?w=800&auto=format&fit=crop",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/GLLPatio3_7287b20c.jpg",
   },
   {
     title: "Retaining Walls",
@@ -116,7 +116,7 @@ export default function Services() {
         style={{
           height: "clamp(280px, 38vw, 440px)",
           backgroundColor: "oklch(0.12 0.005 0)",
-          backgroundImage: "url(https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=1600&auto=format&fit=crop)",
+          backgroundImage: "url(https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/DWinstall3_9346a59a.jpg)",
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}

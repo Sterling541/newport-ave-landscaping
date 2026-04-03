@@ -23,20 +23,20 @@ const featuredServices = [
   {
     title: "Residential Landscaping",
     subtitle: "Design, Build & Maintain",
-    image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/IMG_1336_4fa29027.JPG",
     href: "/services",
   },
   {
     title: "Commercial Landscape",
     subtitle: "Installation & Maintenance",
-    image: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800&q=80",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportLandscapingRVParkDay2Photos2_8e8d0bb1.jpg",
     href: "/services/commercial-maintenance",
   },
   {
-    title: "HOA & Community",
-    subtitle: "Year-Round Maintenance",
-    image: "https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=800&q=80",
-    href: "/maintenance",
+    title: "Patios & Outdoor Living",
+    subtitle: "Hardscape & Fire Features",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/GLLPatio3_7287b20c.jpg",
+    href: "/services/landscape-design",
   },
 ];
 

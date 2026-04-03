@@ -16,49 +16,49 @@ const FACILITY_SHOWROOM =
 
 const portfolioItems = [
   {
-    title: "Custom Residential Design",
+    title: "Paver Patio & Fire Feature",
     subtitle: "Bend, OR",
-    image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/GLLPatio10_2ffabcfb.jpg",
+  },
+  {
+    title: "Outdoor Living Space",
+    subtitle: "Bend, OR",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/GLLPatio3_7287b20c.jpg",
   },
   {
     title: "Commercial Landscape Installation",
     subtitle: "Central Oregon",
-    image: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800&q=80",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportLandscapingRVParkDay2Photos57_ce65cd27.jpg",
   },
   {
-    title: "HOA Community Maintenance",
-    subtitle: "Redmond, OR",
-    image: "https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=800&q=80",
-  },
-  {
-    title: "Water Feature & Pond",
+    title: "Elevated Patio & Stone Wall",
     subtitle: "Bend, OR",
-    image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/GLLPatio9_9e7ea695.jpg",
   },
   {
-    title: "Paver Patio & Walkway",
-    subtitle: "Sisters, OR",
-    image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80",
+    title: "Patio & Outdoor Dining",
+    subtitle: "Bend, OR",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/GLLPatio1_90e2e0c4.jpg",
   },
   {
-    title: "Outdoor Living Space",
-    subtitle: "Sunriver, OR",
-    image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80",
+    title: "Paver Patio & Cable Railing",
+    subtitle: "Bend, OR",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/GLLPatio2_4916fcde.jpg",
+  },
+  {
+    title: "Tree Planting & Installation",
+    subtitle: "Central Oregon",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportLandscapingRVParkPhotos48_eb8a58d0.jpg",
+  },
+  {
+    title: "Residential Landscaping",
+    subtitle: "Bend, OR",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/IMG_1336_4fa29027.JPG",
   },
   {
     title: "Our Nursery & Plant Yard",
     subtitle: "64625 N. HWY 97, Bend",
     image: FACILITY_NURSERY,
-  },
-  {
-    title: "Our Campus — Aerial View",
-    subtitle: "Bend, Oregon",
-    image: FACILITY_AERIAL,
-  },
-  {
-    title: "Design Showroom & Office",
-    subtitle: "Visit by Appointment",
-    image: FACILITY_SHOWROOM,
   },
 ];
 

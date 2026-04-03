@@ -103,7 +103,7 @@ export default function Contact() {
         <div
           className="absolute inset-0"
           style={{
-            backgroundImage: "url(https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=1600&auto=format&fit=crop)",
+            backgroundImage: "url(https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportLandscapingRVParkPhotos48_eb8a58d0.jpg)",
             backgroundSize: "cover",
             backgroundPosition: "center",
             opacity: 0.3,

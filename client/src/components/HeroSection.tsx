@@ -10,27 +10,27 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 const SLIDES = [
   {
     image:
-      "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/project-backyard_1921c6a5.jpg",
-    eyebrow: "Residential Landscaping",
+      "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/GLLPatio10_2ffabcfb.jpg",
+    eyebrow: "Patios & Outdoor Living",
+    headline: "Spaces Worth\nLiving In.",
+  },
+  {
+    image:
+      "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/GLLPatio3_7287b20c.jpg",
+    eyebrow: "Hardscape & Fire Features",
     headline: "Your Outdoor\nSpace, Perfected.",
   },
   {
     image:
-      "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/project-nines_5290a642.jpg",
+      "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportLandscapingRVParkDay2Photos57_ce65cd27.jpg",
     eyebrow: "Commercial Landscape Installation",
     headline: "Built for\nEvery Scale.",
   },
   {
     image:
-      "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/project-patio_7045a45c.jpg",
-    eyebrow: "Patio & Outdoor Living",
-    headline: "Spaces Worth\nLiving In.",
-  },
-  {
-    image:
-      "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/facility-showroom_fd5f40e4.webp",
+      "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/GLLPatio2_4916fcde.jpg",
     eyebrow: "Central Oregon's Premier Landscaper",
-    headline: "10,000+ Projects\nCompleted.",
+    headline: "Bend's Most Trusted\nLandscape Team.",
   },
 ];
 
