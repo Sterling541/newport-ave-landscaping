@@ -1,6 +1,11 @@
 /* ============================================================
-   CTA BANNER — Sunlit Craftsman Design
-   Full-bleed image with warm overlay and call to action
+   CTA BANNER — Colossal-Inspired Full-Bleed Editorial
+   Features:
+   - Section number label (05) with thin rule
+   - Massive bleed headline that nearly fills the viewport
+   - Cinematic full-bleed aerial image
+   - Pill CTA buttons
+   - Scroll-triggered reveal
    ============================================================ */
 import { useEffect, useRef, useState } from "react";
 
@@ -13,10 +18,8 @@ export default function CTABanner() {
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) setVisible(true);
-      },
-      { threshold: 0.2 }
+      ([entry]) => { if (entry.isIntersecting) setVisible(true); },
+      { threshold: 0.15 }
     );
     if (ref.current) observer.observe(ref.current);
     return () => observer.disconnect();
@@ -25,9 +28,10 @@ export default function CTABanner() {
   return (
     <section
       ref={ref}
-      className="relative py-32 overflow-hidden"
+      className="relative overflow-hidden"
+      style={{ minHeight: "90vh", display: "flex", flexDirection: "column", justifyContent: "flex-end" }}
     >
-      {/* Background */}
+      {/* Background image */}
       <div
         className="absolute inset-0"
         style={{
@@ -36,84 +40,136 @@ export default function CTABanner() {
           backgroundPosition: "center 40%",
         }}
       />
-      {/* Overlay */}
+
+      {/* Gradient overlay — darker at bottom for text legibility */}
       <div
         className="absolute inset-0"
         style={{
-          backgroundColor: "oklch(0.10 0.005 0 / 0.72)",
+          background:
+            "linear-gradient(0deg, oklch(0.06 0.012 155 / 0.95) 0%, oklch(0.06 0.012 155 / 0.55) 50%, oklch(0.06 0.012 155 / 0.15) 100%)",
         }}
       />
 
-      {/* Content */}
-      <div className="container relative z-10 text-center">
+      {/* Content — pinned to bottom */}
+      <div
+        className="container relative z-10"
+        style={{ paddingBottom: "clamp(3rem, 7vw, 6rem)", paddingTop: "clamp(6rem, 15vw, 12rem)" }}
+      >
+        {/* Section label */}
+        <div
+          className="flex items-center gap-4 mb-12"
+          style={{
+            opacity: visible ? 1 : 0,
+            transition: "opacity 0.8s ease",
+          }}
+        >
+          <span className="font-label" style={{ fontSize: "0.65rem", letterSpacing: "0.18em", color: "oklch(0.46 0.20 25)", fontWeight: 700 }}>05</span>
+          <span className="flex-1 h-px" style={{ backgroundColor: "oklch(0.30 0.020 155 / 0.6)" }} />
+          <span className="font-label" style={{ fontSize: "0.60rem", letterSpacing: "0.18em", color: "oklch(0.65 0.020 155)" }}>GET STARTED</span>
+        </div>
+
+        {/* Massive bleed headline */}
         <div
           style={{
             opacity: visible ? 1 : 0,
-            transform: visible ? "translateY(0)" : "translateY(30px)",
-            transition: "opacity 0.8s ease, transform 0.8s ease",
+            transform: visible ? "translateY(0)" : "translateY(40px)",
+            transition: "opacity 0.9s ease 0.1s, transform 0.9s ease 0.1s",
           }}
         >
-          <div
-            className="font-label mb-6 flex items-center justify-center gap-3"
-            style={{ color: "oklch(0.82 0.10 25)" }}
-          >
-            <span
-              className="inline-block w-8 h-px"
-              style={{ backgroundColor: "oklch(0.82 0.10 25)" }}
-            />
-            Bend, Oregon's Premier Landscaping Company
-            <span
-              className="inline-block w-8 h-px"
-              style={{ backgroundColor: "oklch(0.82 0.10 25)" }}
-            />
-          </div>
-
           <h2
-            className="font-display font-light mb-6 mx-auto"
+            className="font-display font-light"
             style={{
-              fontSize: "clamp(2.2rem, 5vw, 4rem)",
-              color: "oklch(1 0 0)",
-              lineHeight: 1.1,
-              maxWidth: "700px",
+              fontSize: "clamp(3.5rem, 10vw, 10rem)",
+              lineHeight: 0.88,
+              letterSpacing: "-0.04em",
+              color: "oklch(0.97 0 0)",
+              marginBottom: "clamp(1.5rem, 3vw, 2.5rem)",
             }}
           >
-            Residential. Commercial.
+            Ready to fall
             <br />
-            <em style={{ color: "oklch(0.82 0.10 25)", fontStyle: "italic" }}>
-              Done Right.
+            in love with{" "}
+            <em
+              style={{
+                color: "oklch(0.80 0.14 25)",
+                fontStyle: "italic",
+                fontWeight: 300,
+              }}
+            >
+              your yard?
             </em>
           </h2>
+        </div>
 
+        {/* Body + CTAs in two-column */}
+        <div
+          className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-8 items-end"
+          style={{
+            opacity: visible ? 1 : 0,
+            transform: visible ? "translateY(0)" : "translateY(24px)",
+            transition: "opacity 0.85s ease 0.28s, transform 0.85s ease 0.28s",
+          }}
+        >
           <p
-            className="font-body text-lg mb-10 mx-auto"
+            className="font-body"
             style={{
-              color: "oklch(0.90 0.005 0)",
-              maxWidth: "560px",
-              lineHeight: 1.7,
+              fontSize: "clamp(1rem, 1.8vw, 1.2rem)",
+              color: "oklch(0.82 0.005 0)",
+              maxWidth: "520px",
+              lineHeight: 1.75,
+              fontWeight: 300,
             }}
           >
-            Whether you're a homeowner looking for a luxury outdoor living space
-            or a property manager overseeing an HOA community — Newport Avenue
-            Landscaping brings the same 150-person team and 21 years of expertise
-            to every project.
+            From a weekend patio project to a full outdoor transformation,
+            our team of 150+ local professionals is ready to make it happen.
+            Let's start with a free conversation about your space.
           </p>
 
-          <div className="flex flex-wrap gap-4 justify-center">
+          <div className="flex flex-wrap gap-3">
             <button
               onClick={() =>
-                document
-                  .querySelector("#contact")
-                  ?.scrollIntoView({ behavior: "smooth" })
+                document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" })
               }
-              className="btn-red"
+              className="font-label flex items-center gap-2 transition-all duration-250"
+              style={{
+                backgroundColor: "oklch(0.46 0.20 25)",
+                color: "oklch(1 0 0)",
+                padding: "0.85rem 2rem",
+                borderRadius: "999px",
+                border: "none",
+                fontSize: "0.65rem",
+                letterSpacing: "0.15em",
+                whiteSpace: "nowrap",
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "oklch(0.38 0.22 25)")}
+              onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "oklch(0.46 0.20 25)")}
             >
-              Start Your Project
+              START YOUR PROJECT +
             </button>
             <a
               href="tel:5416178873"
-              className="btn-outline-white"
+              className="font-label flex items-center gap-2 transition-all duration-250"
+              style={{
+                backgroundColor: "transparent",
+                color: "oklch(0.97 0 0)",
+                padding: "0.85rem 2rem",
+                borderRadius: "999px",
+                border: "1px solid oklch(0.55 0.010 155)",
+                fontSize: "0.65rem",
+                letterSpacing: "0.15em",
+                whiteSpace: "nowrap",
+                textDecoration: "none",
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLAnchorElement).style.borderColor = "oklch(0.80 0.14 25)";
+                (e.currentTarget as HTMLAnchorElement).style.color = "oklch(0.80 0.14 25)";
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLAnchorElement).style.borderColor = "oklch(0.55 0.010 155)";
+                (e.currentTarget as HTMLAnchorElement).style.color = "oklch(0.97 0 0)";
+              }}
             >
-              Call (541) 617-8873
+              CALL (541) 617-8873 →
             </a>
           </div>
         </div>

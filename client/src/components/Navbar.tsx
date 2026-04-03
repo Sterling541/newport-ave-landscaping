@@ -52,8 +52,8 @@ function DropdownMenu({ items, onNavigate }: { items: { label: string; href: str
       className="absolute top-full left-1/2 min-w-[240px] py-2 z-50"
       style={{
         transform: "translateX(-50%)",
-        backgroundColor: "oklch(0.12 0.004 0)",
-        borderTop: "2px solid oklch(0.46 0.20 25)",
+        backgroundColor: "oklch(0.14 0.022 155)",
+        borderTop: "2px solid oklch(0.48 0.18 28)",
         boxShadow: "0 12px 32px oklch(0 0 0 / 0.5)",
       }}
     >
@@ -64,8 +64,8 @@ function DropdownMenu({ items, onNavigate }: { items: { label: string; href: str
           className="w-full text-left px-5 py-2.5 font-nav transition-colors duration-150"
           style={{ color: "oklch(0.78 0.003 0)", fontSize: "0.68rem", letterSpacing: "0.08em" }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.color = "oklch(0.72 0.12 25)";
-            e.currentTarget.style.backgroundColor = "oklch(0.18 0.004 0)";
+            e.currentTarget.style.color = "oklch(0.85 0.12 28)";
+            e.currentTarget.style.backgroundColor = "oklch(0.22 0.025 155)";
           }}
           onMouseLeave={(e) => {
             e.currentTarget.style.color = "oklch(0.78 0.003 0)";
@@ -115,7 +115,7 @@ export default function Navbar() {
       {/* ── Utility bar ── */}
       <div
         className="fixed top-0 left-0 right-0 z-30"
-        style={{ backgroundColor: "oklch(0.46 0.20 25)" }}
+        style={{ backgroundColor: "oklch(0.22 0.028 155)" }}
       >
         <div className="container flex items-center justify-between py-2">
           <span className="font-label text-white" style={{ fontSize: "0.65rem", opacity: 0.85 }}>
@@ -144,7 +144,7 @@ export default function Navbar() {
         className="fixed left-0 right-0 z-40 transition-shadow duration-300"
         style={{
           top: "28px",
-          backgroundColor: "oklch(0.15 0.005 0)",
+          backgroundColor: "oklch(0.18 0.025 155)",
           boxShadow: scrolled ? "0 4px 24px oklch(0 0 0 / 0.35)" : "none",
           overflow: "visible",
         }}
@@ -163,9 +163,9 @@ export default function Navbar() {
                   key={item.label}
                   onClick={() => goTo(item.href)}
                   className="font-nav transition-colors duration-200"
-                  style={{ color: location === item.href ? "oklch(0.72 0.12 25)" : "oklch(0.82 0.003 0)" }}
-                  onMouseEnter={(e) => (e.currentTarget.style.color = "oklch(0.72 0.12 25)")}
-                  onMouseLeave={(e) => (e.currentTarget.style.color = location === item.href ? "oklch(0.72 0.12 25)" : "oklch(0.82 0.003 0)")}
+                  style={{ color: location === item.href ? "oklch(0.85 0.12 28)" : "oklch(0.82 0.003 0)" }}
+                  onMouseEnter={(e) => (e.currentTarget.style.color = "oklch(0.85 0.12 28)")}
+                  onMouseLeave={(e) => (e.currentTarget.style.color = location === item.href ? "oklch(0.85 0.12 28)" : "oklch(0.82 0.003 0)")}
                 >
                   {item.label}
                 </button>
@@ -193,13 +193,13 @@ export default function Navbar() {
                   {item.dropdown ? (
                     <button
                       className="font-nav transition-colors duration-200 flex items-center gap-1"
-                      style={{ color: openDropdown === item.label || location.startsWith(item.href) ? "oklch(0.72 0.12 25)" : "oklch(0.82 0.003 0)" }}
+                      style={{ color: openDropdown === item.label || location.startsWith(item.href) ? "oklch(0.85 0.12 28)" : "oklch(0.82 0.003 0)" }}
                       onMouseEnter={(e) => {
                         setOpenDropdown(item.label);
-                        (e.currentTarget as HTMLElement).style.color = "oklch(0.72 0.12 25)";
+                        (e.currentTarget as HTMLElement).style.color = "oklch(0.85 0.12 28)";
                       }}
                       onMouseLeave={(e) => {
-                        (e.currentTarget as HTMLElement).style.color = openDropdown === item.label || location.startsWith(item.href) ? "oklch(0.72 0.12 25)" : "oklch(0.82 0.003 0)";
+                        (e.currentTarget as HTMLElement).style.color = openDropdown === item.label || location.startsWith(item.href) ? "oklch(0.85 0.12 28)" : "oklch(0.82 0.003 0)";
                       }}
                       onClick={() => setOpenDropdown(openDropdown === item.label ? null : item.label)}
                     >
@@ -216,9 +216,9 @@ export default function Navbar() {
                     <button
                       onClick={() => goTo(item.href)}
                       className="font-nav transition-colors duration-200"
-                      style={{ color: location === item.href ? "oklch(0.72 0.12 25)" : "oklch(0.82 0.003 0)" }}
-                      onMouseEnter={(e) => (e.currentTarget.style.color = "oklch(0.72 0.12 25)")}
-                      onMouseLeave={(e) => (e.currentTarget.style.color = location === item.href ? "oklch(0.72 0.12 25)" : "oklch(0.82 0.003 0)")}
+                      style={{ color: location === item.href ? "oklch(0.85 0.12 28)" : "oklch(0.82 0.003 0)" }}
+                      onMouseEnter={(e) => (e.currentTarget.style.color = "oklch(0.85 0.12 28)")}
+                      onMouseLeave={(e) => (e.currentTarget.style.color = location === item.href ? "oklch(0.85 0.12 28)" : "oklch(0.82 0.003 0)")}
                     >
                       {item.label}
                     </button>
@@ -257,7 +257,7 @@ export default function Navbar() {
             />
           </button>
 
-          <a href="tel:5416178873" className="flex items-center gap-1" style={{ color: "oklch(0.72 0.12 25)" }}>
+          <a href="tel:5416178873" className="flex items-center gap-1" style={{ color: "oklch(0.85 0.12 28)" }}>
             <Phone size={18} />
           </a>
         </div>

@@ -10,7 +10,7 @@ const LOGO_STACKED =
 
 const maintenanceLinks = [
   { label: "Lawn Service", href: "/services/lawn-service" },
-  { label: "Commercial Maintenance", href: "/services/commercial-maintenance" },
+  { label: "Commercial Maintenance", href: "/commercial" },
   { label: "Aeration Services", href: "/services/aeration" },
   { label: "Sprinkler Activation", href: "/services/sprinkler-activation" },
   { label: "Sprinkler Blowout", href: "/services/sprinkler-blowout" },
@@ -47,7 +47,7 @@ export default function Footer() {
   };
 
   return (
-    <footer style={{ backgroundColor: "oklch(0.14 0.005 0)" }}>
+    <footer style={{ backgroundColor: "oklch(0.14 0.022 155)" }}>
       {/* Main footer */}
       <div className="container py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
@@ -73,7 +73,7 @@ export default function Footer() {
                 href="tel:5416178873"
                 className="font-body text-sm block transition-colors"
                 style={{ color: "oklch(0.72 0.005 0)" }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = "oklch(0.72 0.12 25)")}
+                onMouseEnter={(e) => (e.currentTarget.style.color = "oklch(0.85 0.12 28)")}
                 onMouseLeave={(e) => (e.currentTarget.style.color = "oklch(0.72 0.005 0)")}
               >
                 (541) 617-8873
@@ -82,7 +82,7 @@ export default function Footer() {
                 href="mailto:info@newportavelandscaping.com"
                 className="font-body text-sm block transition-colors"
                 style={{ color: "oklch(0.72 0.005 0)" }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = "oklch(0.72 0.12 25)")}
+                onMouseEnter={(e) => (e.currentTarget.style.color = "oklch(0.85 0.12 28)")}
                 onMouseLeave={(e) => (e.currentTarget.style.color = "oklch(0.72 0.005 0)")}
               >
                 info@newportavelandscaping.com
@@ -100,7 +100,7 @@ export default function Footer() {
 
           {/* Maintenance Services */}
           <div>
-            <div className="font-label mb-5" style={{ color: "oklch(0.72 0.12 25)" }}>
+            <div className="font-label mb-5" style={{ color: "oklch(0.85 0.12 28)" }}>
               Maintenance Services
             </div>
             <ul className="space-y-2">
@@ -122,7 +122,7 @@ export default function Footer() {
 
           {/* Landscaping Services */}
           <div>
-            <div className="font-label mb-5" style={{ color: "oklch(0.72 0.12 25)" }}>
+            <div className="font-label mb-5" style={{ color: "oklch(0.85 0.12 28)" }}>
               Landscaping Services
             </div>
             <ul className="space-y-2">
@@ -144,7 +144,7 @@ export default function Footer() {
 
           {/* Quick links & CTA */}
           <div>
-            <div className="font-label mb-5" style={{ color: "oklch(0.72 0.12 25)" }}>
+            <div className="font-label mb-5" style={{ color: "oklch(0.85 0.12 28)" }}>
               Quick Links
             </div>
             <ul className="space-y-2 mb-8">
@@ -174,9 +174,9 @@ export default function Footer() {
       </div>
 
       {/* Bottom bar */}
-      <div className="border-t" style={{ borderColor: "oklch(0.25 0.005 0)" }}>
+      <div className="border-t" style={{ borderColor: "oklch(0.25 0.025 155)" }}>
         <div className="container py-5 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="font-body text-xs" style={{ color: "oklch(0.42 0.005 0)" }}>
+          <p className="font-body text-xs" style={{ color: "oklch(0.45 0.010 155)" }}>
             © 2025 Newport Avenue Landscaping. All Rights Reserved.
           </p>
           <div className="flex gap-6">
@@ -184,7 +184,7 @@ export default function Footer() {
               onClick={() => go("/privacy-policy")}
               className="font-body text-xs transition-colors"
               style={{ color: "oklch(0.42 0.005 0)" }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = "oklch(0.72 0.12 25)")}
+              onMouseEnter={(e) => (e.currentTarget.style.color = "oklch(0.85 0.12 28)")}
               onMouseLeave={(e) => (e.currentTarget.style.color = "oklch(0.42 0.005 0)")}
             >
               Privacy Policy
@@ -193,7 +193,7 @@ export default function Footer() {
               onClick={() => go("/terms")}
               className="font-body text-xs transition-colors"
               style={{ color: "oklch(0.42 0.005 0)" }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = "oklch(0.72 0.12 25)")}
+              onMouseEnter={(e) => (e.currentTarget.style.color = "oklch(0.85 0.12 28)")}
               onMouseLeave={(e) => (e.currentTarget.style.color = "oklch(0.42 0.005 0)")}
             >
               Terms &amp; Conditions

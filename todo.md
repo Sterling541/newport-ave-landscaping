@@ -57,6 +57,18 @@
 - [x] Register all city routes in App.tsx
 - [x] Link city names in ServiceAreaBand to their pages
 
+## In Progress — Captivating Editorial Redesign (Colossal-Inspired)
+- [ ] Hero: massive bleed display type, halftone texture overlay, cinematic dark treatment
+- [ ] Hero: pill CTA buttons with + icon, scroll progress indicator
+- [ ] Stats/Intro: asymmetric editorial split layout, numbered section labels (01, 02...)
+- [ ] Services: editorial numbered section layout with large left headline + right body
+- [ ] Who We Serve: scroll-triggered staggered reveals
+- [ ] Portfolio: editorial masonry/bleed layout
+- [ ] Reviews: large pull-quote treatment
+- [ ] CTA Banner: full-bleed cinematic with massive type
+- [ ] Global: thin horizontal rule section dividers
+- [ ] Global: section label system (small caps + number)
+
 ## Pending / Future
 - [ ] Contact form backend integration (currently UI only)
 - [ ] Membership signup backend integration
@@ -81,3 +93,15 @@
 - [x] Update WhoWeServe — lighter backgrounds
 - [x] Update Commercial page — lighter sections
 - [x] Update CityPageLayout — lighter backgrounds
+
+## In Progress — Premium Consumer Redesign
+- [ ] Audit full consumer experience (hero, stats, services, portfolio, reviews, contact)
+- [ ] Redesign global typography — warmer, more generous, lifestyle-brand feel
+- [ ] Redesign index.css — warmer cream/sand base, richer accent palette
+- [ ] Redesign HeroSection — more emotional, lifestyle-focused copy & layout
+- [ ] Redesign StatsSection — warmer, more impactful number display
+- [ ] Redesign ServicesSection — lifestyle imagery focus, warmer cards
+- [ ] Redesign WhoWeServe — more inviting, less corporate
+- [ ] Redesign ReviewsSection — larger quotes, warmer treatment
+- [ ] Redesign ContactSection — friendlier, more approachable
+- [ ] Redesign Footer — warmer, more brand-forward

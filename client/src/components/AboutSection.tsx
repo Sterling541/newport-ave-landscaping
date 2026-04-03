@@ -18,12 +18,12 @@ const highlights = [
   },
   {
     icon: Shield,
-    title: "#1 Commercial & HOA Contractor",
-    desc: "The most trusted commercial landscape contractor in Central Oregon — HOA communities, commercial properties, and government contracts.",
+    title: "Trusted by Hundreds of Families",
+    desc: "From first-time homeowners to large HOA communities, we treat every property like it's our own.",
   },
   {
     icon: Clock,
-    title: "150+ Professionals On Staff",
+    title: "One Team, Start to Finish",
     desc: "In-house crews, designers, and project managers — no subcontractors, full accountability on every job.",
   },
   {
@@ -52,7 +52,7 @@ export default function AboutSection() {
     <section
       id="about"
       className="py-24 overflow-hidden"
-      style={{ backgroundColor: "oklch(1 0 0)" }}
+      style={{ backgroundColor: "oklch(0.960 0.018 75)" }}
     >
       <div className="container">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center" ref={ref}>
@@ -77,7 +77,7 @@ export default function AboutSection() {
             {/* Floating badge — brand red */}
             <div
               className="absolute -bottom-6 -right-6 p-6 shadow-xl"
-              style={{ backgroundColor: "oklch(0.46 0.20 25)", maxWidth: "200px" }}
+              style={{ backgroundColor: "oklch(0.48 0.18 28)", maxWidth: "200px" }}
             >
               <div
                 className="font-display font-semibold mb-1"
@@ -104,11 +104,11 @@ export default function AboutSection() {
           >
             <div
               className="font-label mb-4 flex items-center gap-3"
-              style={{ color: "oklch(0.46 0.20 25)" }}
+              style={{ color: "oklch(0.48 0.18 28)" }}
             >
               <span
                 className="inline-block w-8 h-px"
-                style={{ backgroundColor: "oklch(0.46 0.20 25)" }}
+                style={{ backgroundColor: "oklch(0.48 0.18 28)" }}
               />
               About Newport Avenue Landscaping
             </div>
@@ -117,36 +117,34 @@ export default function AboutSection() {
               className="font-display font-light mb-6"
               style={{
                 fontSize: "clamp(2rem, 4vw, 3.2rem)",
-                color: "oklch(0.22 0.005 0)",
+                color: "oklch(0.20 0.010 55)",
                 lineHeight: 1.1,
               }}
             >
-              Central Oregon's
+              We Turn Yards Into
               <br />
-              <em style={{ color: "oklch(0.46 0.20 25)", fontStyle: "italic" }}>
-                Premier Landscaping
+              <em style={{ color: "oklch(0.48 0.18 28)", fontStyle: "italic" }}>
+                Places You Love
               </em>
-              <br />
-              Experts
             </h2>
 
             <p
               className="font-body leading-relaxed mb-4"
-              style={{ color: "oklch(0.38 0.005 0)" }}
+              style={{ color: "oklch(0.40 0.010 55)", lineHeight: 1.75 }}
             >
-              Newport Avenue Landscaping is Central Oregon's most qualified full-service
-              landscape firm — handling everything from award-winning high-end
-              residential design-builds to large-scale commercial developments,
-              HOA community maintenance, and government contracts.
+              We started Newport Avenue Landscaping in 2003 with a simple belief:
+              your outdoor space should be one of the best parts of your home. Twenty-one
+              years later, that belief drives everything we do — from the first design
+              conversation to the final walkthrough.
             </p>
             <p
               className="font-body leading-relaxed mb-8"
-              style={{ color: "oklch(0.38 0.005 0)" }}
+              style={{ color: "oklch(0.40 0.010 55)", lineHeight: 1.75 }}
             >
-              With 150+ professionals, in-house designers, and 21+ years of
-              experience, we bring the same standard of craftsmanship and
-              accountability to every project — whether it's a private estate in
-              Broken Top or a 200-unit HOA community in NW Bend.
+              Our team of 150+ in-house professionals handles everything: design,
+              construction, irrigation, maintenance, and more. No subcontractors,
+              no handoffs, no excuses. Just beautiful work and people who stand
+              behind it.
             </p>
 
             {/* Highlights grid */}
@@ -158,7 +156,7 @@ export default function AboutSection() {
                     <div
                       className="w-10 h-10 flex-shrink-0 flex items-center justify-center"
                       style={{
-                        backgroundColor: "oklch(0.96 0.03 25)",
+                        backgroundColor: "oklch(0.975 0.018 75)",
                         color: "oklch(0.46 0.20 25)",
                       }}
                     >
@@ -167,13 +165,13 @@ export default function AboutSection() {
                     <div>
                       <div
                         className="font-body font-semibold text-sm mb-1"
-                        style={{ color: "oklch(0.22 0.005 0)" }}
+                        style={{ color: "oklch(0.20 0.010 55)" }}
                       >
                         {item.title}
                       </div>
                       <div
                         className="font-body text-xs leading-relaxed"
-                        style={{ color: "oklch(0.50 0.005 0)" }}
+                        style={{ color: "oklch(0.45 0.010 55)" }}
                       >
                         {item.desc}
                       </div>
@@ -186,11 +184,11 @@ export default function AboutSection() {
             {/* Quote */}
             <blockquote
               className="border-l-4 pl-5 py-2 mb-8"
-              style={{ borderColor: "oklch(0.46 0.20 25)", backgroundColor: "oklch(0.985 0.003 0)", padding: "1rem 1.25rem" }}
+              style={{ borderColor: "oklch(0.48 0.18 28)", backgroundColor: "oklch(0.975 0.018 75)", padding: "1rem 1.25rem" }}
             >
               <p
                 className="font-display italic text-lg mb-2"
-                style={{ color: "oklch(0.22 0.005 0)" }}
+                style={{ color: "oklch(0.20 0.010 55)" }}
               >
                 "It was an awesome experience start to finish. I can't recommend
                 you guys enough. We love our yard and now spend more time outside

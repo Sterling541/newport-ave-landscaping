@@ -1,15 +1,14 @@
 /* ============================================================
    NEWPORT AVENUE LANDSCAPING — Design System
-   Inspired by: Southview Design editorial aesthetic
+   Premium Lifestyle Brand Aesthetic
    
    Philosophy:
    - Photography-first: let the images do the talking
-   - Dark charcoal nav anchors the brand at the top
-   - Pure white + very light sage/warm-grey for content sections
-   - Brand red (#D42B2B) used sparingly as the sole accent
-   - Restrained serif typography: Cormorant Garamond display, 
-     Source Serif 4 body, Montserrat labels
-   - Light, airy, open feel — generous whitespace
+   - Warm sand/cream base — feels like a sun-drenched Oregon afternoon
+   - Deep forest green nav anchors the brand with nature
+   - Brand red used sparingly as a warm terracotta accent
+   - Generous whitespace — luxury brands breathe
+   - Emotional, lifestyle-first copy and hierarchy
    ============================================================ */
 
 @import "tailwindcss";
@@ -59,16 +58,17 @@
 :root {
   --radius: 0.25rem; /* Very subtle rounding — editorial feel */
 
-  /* Brand colors */
-  --brand-red: oklch(0.46 0.20 25);          /* #D42B2B — used sparingly */
-  --brand-red-light: oklch(0.62 0.16 25);    /* Hover state */
-  --nav-dark: oklch(0.15 0.005 0);           /* Near-black charcoal nav */
-  --cream: oklch(0.995 0.003 85);            /* Near-pure white with warmth */
-  --cream-dark: oklch(0.965 0.008 85);       /* Very light warm grey */
-  --section-alt: oklch(0.97 0.010 140);      /* Whisper sage — airy alt sections */
-  --charcoal: oklch(0.22 0.008 0);           /* Dark text */
-  --charcoal-mid: oklch(0.35 0.006 0);       /* Mid-tone text */
-  --muted-text: oklch(0.52 0.008 0);         /* Muted body text */
+  /* Brand colors — warm, premium, lifestyle */
+  --brand-red: oklch(0.48 0.18 28);          /* Warm terracotta red */
+  --brand-red-light: oklch(0.62 0.14 28);    /* Hover state */
+  --nav-dark: oklch(0.20 0.025 155);         /* Deep forest green nav */
+  --cream: oklch(0.985 0.012 75);            /* Warm sand white */
+  --cream-dark: oklch(0.960 0.018 75);       /* Warm sand — section alt */
+  --section-alt: oklch(0.955 0.022 80);      /* Warm parchment — alt sections */
+  --section-green: oklch(0.96 0.018 140);    /* Whisper sage green */
+  --charcoal: oklch(0.20 0.010 55);          /* Warm dark brown-charcoal */
+  --charcoal-mid: oklch(0.34 0.008 55);      /* Mid warm brown */
+  --muted-text: oklch(0.50 0.010 55);        /* Warm muted body text */
 
   /* Semantic tokens */
   --primary: var(--brand-red);
