@@ -12,7 +12,7 @@
 import { useLocation } from "wouter";
 
 const BADGE_URL =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/membership-badge-nobg_51c1c18d.png";
+  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/priority-badge-original_c531517d.png";
 
 const BG_URL =
   "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/sprinkler-bg2_c113104f.jpg";
@@ -82,7 +82,7 @@ export default function MembershipBanner() {
             src={BADGE_URL}
             alt="Newport Avenue Priority Irrigation Membership Badge"
             style={{
-              width: "clamp(200px, 26vw, 360px)",
+              width: "clamp(260px, 34vw, 480px)",
               height: "auto",
               display: "block",
             }}
@@ -113,9 +113,9 @@ export default function MembershipBanner() {
               margin: 0,
             }}
           >
-            Newport Priority<br />
-            Irrigation<br />
-            Membership:
+            Become a:<br />
+            Priority Irrigation<br />
+            Member Today
           </h2>
 
           {/* Subtitle */}
@@ -131,6 +131,21 @@ export default function MembershipBanner() {
             }}
           >
             Never Worry About Your Sprinklers Again
+          </p>
+
+          {/* Price callout */}
+          <p
+            style={{
+              fontFamily: "'Montserrat', 'Inter', sans-serif",
+              fontWeight: 900,
+              fontSize: "clamp(1.1rem, 2.2vw, 1.7rem)",
+              color: "#FFD700",
+              textShadow: "0 2px 10px rgba(0,0,0,0.6)",
+              margin: 0,
+              letterSpacing: "0.02em",
+            }}
+          >
+            $33 / month
           </p>
 
           {/* Red CTA button — matches old site */}

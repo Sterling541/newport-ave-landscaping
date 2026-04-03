@@ -4,7 +4,8 @@
    Five large watercolor outdoor landscape plant illustrations
    (ornamental grass, blue spruce branch, fern frond, sage shrub,
    blue spruce sapling) with transparent backgrounds that bleed
-   dramatically above and below the thin warm rule band.
+   above the thin warm rule band — but NOT covering it.
+   Plants are shifted down so the band/stripe remains visible.
    ============================================================ */
 
 // Transparent outdoor watercolor landscape plant illustrations
@@ -40,7 +41,7 @@ export default function BotanicalBand({
         zIndex: 10,
         pointerEvents: "none",
         userSelect: "none",
-        marginTop: "220px",
+        marginTop: "180px",
         marginBottom: "60px",
       }}
     >
@@ -59,6 +60,7 @@ export default function BotanicalBand({
           alignItems: "center",
           justifyContent: "center",
           gap: "2rem",
+          zIndex: 2,
         }}
       >
         <div
@@ -93,9 +95,10 @@ export default function BotanicalBand({
       </div>
 
       {/* ── Variant A: grass far-left, shrub left, spruce-tree center-right, fern right ── */}
+      {/* Plants sit BEHIND the band text (zIndex: 1) so the stripe is always readable */}
       {isA && (
         <>
-          {/* FAR LEFT: ornamental grass — tall, bleeds above */}
+          {/* FAR LEFT: ornamental grass — bottom anchored to band top */}
           <img
             src={GRASS_URL}
             alt=""
@@ -103,14 +106,15 @@ export default function BotanicalBand({
             style={{
               position: "absolute",
               left: "clamp(-20px, 2vw, 40px)",
-              top: "-310px",
+              top: "-200px",
               width: "clamp(280px, 26vw, 420px)",
               height: "auto",
               objectFit: "contain",
-              opacity: 0.95,
+              opacity: 0.85,
               transform: "rotate(-6deg)",
               filter: "drop-shadow(0 14px 32px rgba(0,0,0,0.10))",
               pointerEvents: "none",
+              zIndex: 1,
             }}
           />
           {/* LEFT-CENTER: teal sage shrub */}
@@ -121,14 +125,15 @@ export default function BotanicalBand({
             style={{
               position: "absolute",
               left: "clamp(200px, 18vw, 340px)",
-              top: "-260px",
+              top: "-160px",
               width: "clamp(240px, 22vw, 360px)",
               height: "auto",
               objectFit: "contain",
-              opacity: 0.88,
+              opacity: 0.80,
               transform: "rotate(4deg)",
               filter: "drop-shadow(0 12px 28px rgba(0,0,0,0.09))",
               pointerEvents: "none",
+              zIndex: 1,
             }}
           />
           {/* CENTER-RIGHT: blue spruce sapling */}
@@ -139,14 +144,15 @@ export default function BotanicalBand({
             style={{
               position: "absolute",
               right: "clamp(240px, 22vw, 400px)",
-              top: "-340px",
+              top: "-220px",
               width: "clamp(260px, 24vw, 400px)",
               height: "auto",
               objectFit: "contain",
-              opacity: 0.92,
+              opacity: 0.85,
               transform: "rotate(-3deg)",
               filter: "drop-shadow(0 16px 36px rgba(0,0,0,0.11))",
               pointerEvents: "none",
+              zIndex: 1,
             }}
           />
           {/* FAR RIGHT: fern frond */}
@@ -157,14 +163,15 @@ export default function BotanicalBand({
             style={{
               position: "absolute",
               right: "clamp(-20px, 2vw, 40px)",
-              top: "-280px",
+              top: "-180px",
               width: "clamp(260px, 24vw, 390px)",
               height: "auto",
               objectFit: "contain",
-              opacity: 0.90,
+              opacity: 0.82,
               transform: "rotate(8deg) scaleX(-1)",
               filter: "drop-shadow(0 14px 32px rgba(0,0,0,0.10))",
               pointerEvents: "none",
+              zIndex: 1,
             }}
           />
         </>
@@ -181,14 +188,15 @@ export default function BotanicalBand({
             style={{
               position: "absolute",
               left: "clamp(-30px, 1vw, 20px)",
-              top: "-290px",
+              top: "-190px",
               width: "clamp(270px, 25vw, 410px)",
               height: "auto",
               objectFit: "contain",
-              opacity: 0.92,
+              opacity: 0.85,
               transform: "rotate(12deg)",
               filter: "drop-shadow(0 14px 32px rgba(0,0,0,0.11))",
               pointerEvents: "none",
+              zIndex: 1,
             }}
           />
           {/* LEFT-CENTER: fern frond */}
@@ -199,14 +207,15 @@ export default function BotanicalBand({
             style={{
               position: "absolute",
               left: "clamp(180px, 16vw, 320px)",
-              top: "-250px",
+              top: "-155px",
               width: "clamp(230px, 21vw, 350px)",
               height: "auto",
               objectFit: "contain",
-              opacity: 0.85,
+              opacity: 0.80,
               transform: "rotate(-5deg)",
               filter: "drop-shadow(0 12px 28px rgba(0,0,0,0.09))",
               pointerEvents: "none",
+              zIndex: 1,
             }}
           />
           {/* RIGHT-CENTER: ornamental grass */}
@@ -217,14 +226,15 @@ export default function BotanicalBand({
             style={{
               position: "absolute",
               right: "clamp(200px, 19vw, 360px)",
-              top: "-320px",
+              top: "-210px",
               width: "clamp(260px, 24vw, 390px)",
               height: "auto",
               objectFit: "contain",
-              opacity: 0.90,
+              opacity: 0.85,
               transform: "rotate(-7deg)",
               filter: "drop-shadow(0 14px 32px rgba(0,0,0,0.10))",
               pointerEvents: "none",
+              zIndex: 1,
             }}
           />
           {/* FAR RIGHT: teal sage shrub */}
@@ -235,14 +245,15 @@ export default function BotanicalBand({
             style={{
               position: "absolute",
               right: "clamp(-30px, 1vw, 20px)",
-              top: "-270px",
+              top: "-170px",
               width: "clamp(250px, 23vw, 380px)",
               height: "auto",
               objectFit: "contain",
-              opacity: 0.88,
+              opacity: 0.82,
               transform: "rotate(6deg)",
               filter: "drop-shadow(0 12px 28px rgba(0,0,0,0.09))",
               pointerEvents: "none",
+              zIndex: 1,
             }}
           />
         </>

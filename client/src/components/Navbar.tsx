@@ -446,11 +446,11 @@ export default function Navbar() {
                 src={LOGO_NAV}
                 alt="Newport Avenue Landscaping"
                 style={{
-                  height: "300px",
+                  height: "280px",
                   width: "auto",
                   objectFit: "contain",
                   display: "block",
-                  marginTop: "-95px",
+                  marginTop: "-70px",
                   position: "relative",
                   zIndex: 60,
                   filter: "drop-shadow(0 4px 18px oklch(0.18 0.008 30 / 0.15))",
