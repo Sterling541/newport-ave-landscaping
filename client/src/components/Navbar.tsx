@@ -115,7 +115,7 @@ export default function Navbar() {
     <>
       {/* ── Utility bar ── */}
       <div
-        className="fixed top-0 left-0 right-0 z-50"
+        className="fixed top-0 left-0 right-0 z-30"
         style={{ backgroundColor: "oklch(0.46 0.20 25)" }}
       >
         <div className="container flex items-center justify-between py-2">
@@ -147,10 +147,11 @@ export default function Navbar() {
           top: "28px",
           backgroundColor: "oklch(0.15 0.005 0)",
           boxShadow: scrolled ? "0 4px 24px oklch(0 0 0 / 0.35)" : "none",
+          overflow: "visible",
         }}
       >
         {/* Desktop nav */}
-        <div className="hidden md:flex flex-col items-center justify-center px-8" style={{ minHeight: "300px" }}>
+        <div className="hidden md:flex flex-col items-center justify-center px-8" style={{ minHeight: "90px", overflow: "visible" }}>
           <div className="flex items-center justify-between w-full">
 
             {/* Left links */}
@@ -178,7 +179,7 @@ export default function Navbar() {
                 <img
                   src={LOGO_NAV}
                   alt="Newport Avenue Landscaping"
-                  style={{ height: "260px", width: "auto", objectFit: "contain", display: "block", marginTop: "-105px" }}
+                  style={{ height: "200px", width: "auto", objectFit: "contain", display: "block", marginTop: "-60px", position: "relative", zIndex: 60 }}
                 />
               </button>
             </div>
