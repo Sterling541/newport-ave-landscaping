@@ -69,6 +69,15 @@
 - [ ] Global: thin horizontal rule section dividers
 - [ ] Global: section label system (small caps + number)
 
+## In Progress — Crazy Unique Redesign
+- [ ] Reduce teal to rare accent only (1-2 uses max per section)
+- [ ] Hero: rotated oversized text, diagonal photo crop, unexpected layout
+- [ ] Stats: giant 200px+ numbers that bleed off screen, diagonal section cut
+- [ ] Services: stacked full-bleed panels with text overlaid at extreme angles
+- [ ] Reviews: single massive pull-quote with photo behind it, no card UI
+- [ ] CTA: full-bleed with text so large it wraps 3 lines
+- [ ] Global: diagonal section dividers (clip-path cuts)
+
 ## Pending / Future
 - [ ] Contact form backend integration (currently UI only)
 - [ ] Membership signup backend integration

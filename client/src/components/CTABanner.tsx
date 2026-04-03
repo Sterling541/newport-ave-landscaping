@@ -1,177 +1,207 @@
 /* ============================================================
-   CTA BANNER — Colossal-Inspired Full-Bleed Editorial
-   Features:
-   - Section number label (05) with thin rule
-   - Massive bleed headline that nearly fills the viewport
-   - Cinematic full-bleed aerial image
-   - Pill CTA buttons
-   - Scroll-triggered reveal
+   CTA BANNER — Wild Editorial Full-Bleed
+   - Full-viewport-height cinematic photo
+   - Massive type that bleeds off the edges
+   - "TRANSFORM" printed huge, wraps across multiple lines
+   - Red accents only, NO teal
    ============================================================ */
 import { useEffect, useRef, useState } from "react";
 
-const FACILITY_SHOWROOM =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/facility-aerial2_d22fc996.webp";
+const HERO_IMG =
+  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/GLLPatio3_7287b20c.jpg";
 
 export default function CTABanner() {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
+    const obs = new IntersectionObserver(
       ([entry]) => { if (entry.isIntersecting) setVisible(true); },
       { threshold: 0.15 }
     );
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
+    if (ref.current) obs.observe(ref.current);
+    return () => obs.disconnect();
   }, []);
 
   return (
     <section
       ref={ref}
-      className="relative overflow-hidden"
-      style={{ minHeight: "90vh", display: "flex", flexDirection: "column", justifyContent: "flex-end" }}
+      style={{
+        position: "relative",
+        height: "90vh",
+        minHeight: "600px",
+        overflow: "hidden",
+        display: "flex",
+        alignItems: "flex-end",
+      }}
     >
-      {/* Background image */}
+      {/* ── Full-bleed photo ── */}
       <div
-        className="absolute inset-0"
         style={{
-          backgroundImage: `url(${FACILITY_SHOWROOM})`,
+          position: "absolute",
+          inset: 0,
+          backgroundImage: `url(${HERO_IMG})`,
           backgroundSize: "cover",
           backgroundPosition: "center 40%",
+          filter: "brightness(0.35)",
+          transform: visible ? "scale(1.04)" : "scale(1.0)",
+          transition: "transform 1.8s ease",
         }}
       />
 
-      {/* Gradient overlay — darker at bottom for text legibility */}
+      {/* ── Dark gradient overlay ── */}
       <div
-        className="absolute inset-0"
         style={{
+          position: "absolute",
+          inset: 0,
           background:
-            "linear-gradient(0deg, oklch(0.06 0.012 155 / 0.95) 0%, oklch(0.06 0.012 155 / 0.55) 50%, oklch(0.06 0.012 155 / 0.15) 100%)",
+            "linear-gradient(0deg, oklch(0 0 0 / 0.90) 0%, oklch(0 0 0 / 0.30) 55%, transparent 100%)",
         }}
       />
 
-      {/* Content — pinned to bottom */}
+      {/* ── Content ── */}
       <div
-        className="container relative z-10"
-        style={{ paddingBottom: "clamp(3rem, 7vw, 6rem)", paddingTop: "clamp(6rem, 15vw, 12rem)" }}
+        style={{
+          position: "relative",
+          zIndex: 1,
+          width: "100%",
+          padding: "0 clamp(1.5rem, 5vw, 5rem) clamp(3rem, 6vw, 5rem)",
+        }}
       >
         {/* Section label */}
         <div
-          className="flex items-center gap-4 mb-12"
           style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "0.75rem",
+            marginBottom: "2rem",
             opacity: visible ? 1 : 0,
-            transition: "opacity 0.8s ease",
+            transition: "opacity 0.8s ease 0.1s",
           }}
         >
-          <span className="font-label" style={{ fontSize: "0.65rem", letterSpacing: "0.18em", color: "oklch(0.76 0.128 184.6)", fontWeight: 700 }}>05</span>
-          <span className="flex-1 h-px" style={{ backgroundColor: "oklch(0.30 0.020 155 / 0.6)" }} />
-          <span className="font-label" style={{ fontSize: "0.60rem", letterSpacing: "0.18em", color: "oklch(0.65 0.020 155)" }}>GET STARTED</span>
+          <span
+            style={{
+              fontFamily: "'Montserrat', sans-serif",
+              fontSize: "0.5rem",
+              fontWeight: 700,
+              letterSpacing: "0.3em",
+              color: "oklch(0.46 0.20 25)",
+            }}
+          >
+            05
+          </span>
+          <span
+            style={{
+              width: "2rem",
+              height: "1px",
+              backgroundColor: "oklch(0.30 0.008 200)",
+              display: "block",
+            }}
+          />
+          <span
+            style={{
+              fontFamily: "'Montserrat', sans-serif",
+              fontSize: "0.5rem",
+              fontWeight: 600,
+              letterSpacing: "0.25em",
+              color: "oklch(0.45 0.008 200)",
+            }}
+          >
+            START YOUR PROJECT
+          </span>
         </div>
 
         {/* Massive bleed headline */}
-        <div
-          style={{
-            opacity: visible ? 1 : 0,
-            transform: visible ? "translateY(0)" : "translateY(40px)",
-            transition: "opacity 0.9s ease 0.1s, transform 0.9s ease 0.1s",
-          }}
-        >
+        <div style={{ overflow: "visible", marginLeft: "-0.25rem" }}>
           <h2
-            className="font-display font-light"
             style={{
-              fontSize: "clamp(3.5rem, 10vw, 10rem)",
-              lineHeight: 0.88,
-              letterSpacing: "-0.04em",
-              color: "oklch(0.97 0 0)",
-              marginBottom: "clamp(1.5rem, 3vw, 2.5rem)",
+              fontFamily: "'Montserrat', sans-serif",
+              fontSize: "clamp(4rem, 14vw, 15rem)",
+              fontWeight: 900,
+              lineHeight: 0.85,
+              letterSpacing: "-0.05em",
+              color: "oklch(0.97 0.012 75)",
+              opacity: visible ? 1 : 0,
+              transform: visible ? "translateY(0)" : "translateY(60px)",
+              transition: "opacity 0.9s ease 0.2s, transform 0.9s ease 0.2s",
+              whiteSpace: "nowrap",
             }}
           >
-            Ready to fall
-            <br />
-            in love with{" "}
-            <em
-              style={{
-                color: "oklch(0.76 0.128 184.6)",
-                fontStyle: "italic",
-                fontWeight: 300,
-              }}
-            >
-              your yard?
-            </em>
+            TRANSFORM
+          </h2>
+          <h2
+            style={{
+              fontFamily: "'Cormorant Garamond', Georgia, serif",
+              fontSize: "clamp(3rem, 11vw, 12rem)",
+              fontWeight: 300,
+              fontStyle: "italic",
+              lineHeight: 0.92,
+              letterSpacing: "-0.03em",
+              color: "oklch(0.72 0.012 75)",
+              opacity: visible ? 1 : 0,
+              transform: visible ? "translateY(0)" : "translateY(60px)",
+              transition: "opacity 0.9s ease 0.35s, transform 0.9s ease 0.35s",
+            }}
+          >
+            your outdoor space.
           </h2>
         </div>
 
-        {/* Body + CTAs in two-column */}
+        {/* CTA row */}
         <div
-          className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-8 items-end"
           style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "2rem",
+            marginTop: "3rem",
+            flexWrap: "wrap",
             opacity: visible ? 1 : 0,
             transform: visible ? "translateY(0)" : "translateY(24px)",
-            transition: "opacity 0.85s ease 0.28s, transform 0.85s ease 0.28s",
+            transition: "opacity 0.8s ease 0.55s, transform 0.8s ease 0.55s",
           }}
         >
-          <p
-            className="font-body"
+          <button
+            onClick={() =>
+              document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" })
+            }
             style={{
-              fontSize: "clamp(1rem, 1.8vw, 1.2rem)",
-              color: "oklch(0.82 0.005 0)",
-              maxWidth: "520px",
-              lineHeight: 1.75,
-              fontWeight: 300,
+              fontFamily: "'Montserrat', sans-serif",
+              fontSize: "0.58rem",
+              fontWeight: 700,
+              letterSpacing: "0.18em",
+              color: "oklch(0.97 0.012 75)",
+              backgroundColor: "oklch(0.46 0.20 25)",
+              border: "none",
+              borderRadius: "999px",
+              padding: "1rem 2.5rem",
+              cursor: "pointer",
+              transition: "background-color 0.3s ease, transform 0.2s ease",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = "oklch(0.38 0.20 25)";
+              e.currentTarget.style.transform = "scale(1.04)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = "oklch(0.46 0.20 25)";
+              e.currentTarget.style.transform = "scale(1)";
             }}
           >
-            From a weekend patio project to a full outdoor transformation,
-            our team of 150+ local professionals is ready to make it happen.
-            Let's start with a free conversation about your space.
-          </p>
+            GET A FREE QUOTE +
+          </button>
 
-          <div className="flex flex-wrap gap-3">
-            <button
-              onClick={() =>
-                document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" })
-              }
-              className="font-label flex items-center gap-2 transition-all duration-250"
-              style={{
-                backgroundColor: "oklch(0.76 0.128 184.6)",
-                color: "oklch(1 0 0)",
-                padding: "0.85rem 2rem",
-                borderRadius: "999px",
-                border: "none",
-                fontSize: "0.65rem",
-                letterSpacing: "0.15em",
-                whiteSpace: "nowrap",
-              }}
-              onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "oklch(0.38 0.22 25)")}
-              onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "oklch(0.76 0.128 184.6)")}
-            >
-              START YOUR PROJECT +
-            </button>
-            <a
-              href="tel:5416178873"
-              className="font-label flex items-center gap-2 transition-all duration-250"
-              style={{
-                backgroundColor: "transparent",
-                color: "oklch(0.97 0 0)",
-                padding: "0.85rem 2rem",
-                borderRadius: "999px",
-                border: "1px solid oklch(0.55 0.010 155)",
-                fontSize: "0.65rem",
-                letterSpacing: "0.15em",
-                whiteSpace: "nowrap",
-                textDecoration: "none",
-              }}
-              onMouseEnter={(e) => {
-                (e.currentTarget as HTMLAnchorElement).style.borderColor = "oklch(0.76 0.128 184.6)";
-                (e.currentTarget as HTMLAnchorElement).style.color = "oklch(0.76 0.128 184.6)";
-              }}
-              onMouseLeave={(e) => {
-                (e.currentTarget as HTMLAnchorElement).style.borderColor = "oklch(0.55 0.010 155)";
-                (e.currentTarget as HTMLAnchorElement).style.color = "oklch(0.97 0 0)";
-              }}
-            >
-              CALL (541) 617-8873 →
-            </a>
-          </div>
+          <a
+            href="tel:5415489663"
+            style={{
+              fontFamily: "'Montserrat', sans-serif",
+              fontSize: "0.58rem",
+              fontWeight: 600,
+              letterSpacing: "0.12em",
+              color: "oklch(0.65 0.008 200)",
+              textDecoration: "none",
+            }}
+          >
+            OR CALL (541) 548-9663
+          </a>
         </div>
       </div>
     </section>

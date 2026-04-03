@@ -1,286 +1,243 @@
 /* ============================================================
-   REVIEWS SECTION — Colossal-Inspired Editorial Pull-Quote
-   Features:
-   - Section number label (04) with thin rule
-   - Massive pull-quote that dominates the section
-   - Dark background with warm terracotta accents
-   - Staggered mini-card grid below
-   - Pill navigation controls
+   REVIEWS SECTION — Wild Editorial Pull-Quote
+   - One massive quote printed at 4-5vw across full width
+   - Giant opening quotation mark (decorative, red)
+   - Reviewer name + stars below
+   - Rotating quotes with fade transition
+   - Section label: 04 / WHAT CLIENTS SAY
+   - NO teal — red accents only
    ============================================================ */
 import { useEffect, useRef, useState } from "react";
 
-const reviews = [
-  {
-    name: "Michael Geers",
-    text: "Great service! I had major irrigation problems and they fixed them for me way cheaper than I was quoted from 4 other businesses! Highly recommend!",
-    rating: 5,
-    tag: "Irrigation Repair",
-  },
-  {
-    name: "Gary LeFebvre",
-    text: "I called Janna at Newport and she was able to move heaven and earth to get me on the schedule. Aurora showed up the next day and did a very professional and thorough job. I am very grateful and have signed up for your permanent service.",
-    rating: 5,
-    tag: "Sprinkler Service",
-  },
-  {
-    name: "Lisa Krynicki",
-    text: "They showed up exactly when they said they would. The service technician was incredibly friendly, quick, and helpful. What we thought was going to be a huge repair job turned out to be one stuck valve — done in less than an hour.",
-    rating: 5,
-    tag: "Irrigation Service",
-  },
+const REVIEWS = [
   {
     name: "Kelly Meyer",
-    text: "We just can't say enough about how pleased we are with the work Newport Avenue Landscaping did for us. From design to tree removal, new SOD, irrigation, pavers and plants. Our yard looks amazing!",
-    rating: 5,
     tag: "Full Landscape Build",
+    text: "We just can't say enough about how pleased we are with the work Newport Avenue Landscaping did for us. From design to tree removal, new SOD, irrigation, pavers and plants. Our yard looks amazing!",
+    stars: 5,
+  },
+  {
+    name: "Michael Geers",
+    tag: "Irrigation Repair",
+    text: "Great service! I had major irrigation problems and they fixed them for me way cheaper than I was quoted from 4 other businesses! Highly recommend!",
+    stars: 5,
   },
   {
     name: "Melanie Grandjacques",
-    text: "Thanks to Newport Avenue Landscaping for our amazing yard transformation!! Nate, Chris, Francis and crew were so great to work with. Results are beautiful!!",
-    rating: 5,
     tag: "Yard Transformation",
+    text: "Thanks to Newport Avenue Landscaping for our amazing yard transformation!! Nate, Chris, Francis and crew were so great to work with. Results are beautiful!!",
+    stars: 5,
+  },
+  {
+    name: "Gary LeFebvre",
+    tag: "Sprinkler Service",
+    text: "I called Janna at Newport and she was able to move heaven and earth to get me on the schedule. Aurora showed up the next day and did a very professional and thorough job. I am very grateful and have signed up for your permanent service.",
+    stars: 5,
   },
   {
     name: "Jennifer Yarbrough",
-    text: "We used Newport Landscaping for our lawn and could not be happier. The quality of grass cutting was excellent. I love their office staff! Mikaya is amazing!! Super efficient, helpful and kind.",
-    rating: 5,
     tag: "Lawn Maintenance",
+    text: "We used Newport Landscaping for our lawn and could not be happier. The quality of grass cutting was excellent. I love their office staff! Mikaya is amazing!! Super efficient, helpful and kind.",
+    stars: 5,
   },
 ];
 
 export default function ReviewsSection() {
-  const [current, setCurrent] = useState(0);
-  const [animating, setAnimating] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
+  const [active, setActive] = useState(0);
+  const [fading, setFading] = useState(false);
+  const sectionRef = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
+    const obs = new IntersectionObserver(
       ([entry]) => { if (entry.isIntersecting) setVisible(true); },
-      { threshold: 0.12 }
+      { threshold: 0.15 }
     );
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
+    if (sectionRef.current) obs.observe(sectionRef.current);
+    return () => obs.disconnect();
   }, []);
 
+  // Auto-advance every 7s
   useEffect(() => {
-    const interval = setInterval(() => goNext(), 7000);
-    return () => clearInterval(interval);
-  }, [current]);
+    const t = setInterval(() => {
+      setFading(true);
+      setTimeout(() => {
+        setActive((a) => (a + 1) % REVIEWS.length);
+        setFading(false);
+      }, 350);
+    }, 7000);
+    return () => clearInterval(t);
+  }, [active]);
 
-  const goNext = () => {
-    if (animating) return;
-    setAnimating(true);
-    setTimeout(() => { setCurrent((c) => (c + 1) % reviews.length); setAnimating(false); }, 350);
+  const goTo = (i: number) => {
+    if (i === active) return;
+    setFading(true);
+    setTimeout(() => { setActive(i); setFading(false); }, 350);
   };
 
-  const goPrev = () => {
-    if (animating) return;
-    setAnimating(true);
-    setTimeout(() => { setCurrent((c) => (c - 1 + reviews.length) % reviews.length); setAnimating(false); }, 350);
-  };
-
-  const review = reviews[current];
+  const review = REVIEWS[active];
 
   return (
     <section
       id="reviews"
-      ref={ref}
+      ref={sectionRef}
       style={{
-        backgroundColor: "oklch(0.10 0.012 155)",
-        padding: "clamp(4rem, 8vw, 7rem) 0",
+        backgroundColor: "oklch(0.10 0.008 200)",
+        padding: "clamp(5rem, 10vw, 9rem) clamp(1.5rem, 5vw, 5rem)",
+        position: "relative",
+        overflow: "hidden",
       }}
     >
-      <div className="container">
+      {/* ── Section label ── */}
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: "0.75rem",
+          marginBottom: "4rem",
+          opacity: visible ? 1 : 0,
+          transition: "opacity 0.8s ease",
+        }}
+      >
+        <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "0.5rem", fontWeight: 700, letterSpacing: "0.3em", color: "oklch(0.46 0.20 25)" }}>
+          04
+        </span>
+        <span style={{ width: "2rem", height: "1px", backgroundColor: "oklch(0.22 0.008 200)", display: "block" }} />
+        <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "0.5rem", fontWeight: 600, letterSpacing: "0.25em", color: "oklch(0.35 0.008 200)" }}>
+          WHAT CLIENTS SAY
+        </span>
+        <span style={{ flex: 1, height: "1px", backgroundColor: "oklch(0.16 0.008 200)", display: "block" }} />
+      </div>
 
-        {/* ── Section label ── */}
-        <div
-          className="flex items-center gap-4 mb-16"
+      {/* ── Giant decorative quotation mark ── */}
+      <div
+        style={{
+          fontFamily: "'Cormorant Garamond', Georgia, serif",
+          fontSize: "clamp(10rem, 25vw, 22rem)",
+          fontWeight: 700,
+          lineHeight: 0.7,
+          color: "oklch(0.46 0.20 25)",
+          opacity: 0.14,
+          position: "absolute",
+          top: "clamp(3rem, 8vw, 7rem)",
+          left: "clamp(0.5rem, 3vw, 3rem)",
+          userSelect: "none",
+          pointerEvents: "none",
+        }}
+      >
+        "
+      </div>
+
+      {/* ── Massive pull-quote ── */}
+      <div
+        style={{
+          position: "relative",
+          zIndex: 1,
+          maxWidth: "1100px",
+          opacity: visible ? (fading ? 0 : 1) : 0,
+          transform: visible ? (fading ? "translateY(10px)" : "translateY(0)") : "translateY(30px)",
+          transition: fading
+            ? "opacity 0.35s ease, transform 0.35s ease"
+            : "opacity 0.7s ease 0.2s, transform 0.7s ease 0.2s",
+        }}
+      >
+        <blockquote
           style={{
-            opacity: visible ? 1 : 0,
-            transition: "opacity 0.8s ease",
+            fontFamily: "'Cormorant Garamond', 'Playfair Display', Georgia, serif",
+            fontSize: "clamp(1.8rem, 4vw, 4.2rem)",
+            fontWeight: 300,
+            fontStyle: "italic",
+            lineHeight: 1.22,
+            letterSpacing: "-0.02em",
+            color: "oklch(0.95 0.012 75)",
+            margin: 0,
+            paddingLeft: "clamp(2rem, 6vw, 6rem)",
           }}
         >
-          <span className="font-label" style={{ fontSize: "0.65rem", letterSpacing: "0.18em", color: "oklch(0.76 0.128 184.6)", fontWeight: 700 }}>04</span>
-          <span className="flex-1 h-px" style={{ backgroundColor: "oklch(0.22 0.015 155)" }} />
-          <span className="font-label" style={{ fontSize: "0.60rem", letterSpacing: "0.18em", color: "oklch(0.50 0.015 155)" }}>CLIENT STORIES</span>
-        </div>
+          {review.text}
+        </blockquote>
 
-        {/* ── Asymmetric layout: label left, quote right ── */}
-        <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-12 lg:gap-20 items-start mb-16">
-
-          {/* Left: section headline + controls */}
-          <div
-            style={{
-              opacity: visible ? 1 : 0,
-              transform: visible ? "translateY(0)" : "translateY(28px)",
-              transition: "opacity 0.85s ease 0.1s, transform 0.85s ease 0.1s",
-            }}
-          >
-            <h2
-              className="font-display font-light mb-10"
-              style={{
-                fontSize: "clamp(2.2rem, 4vw, 3.5rem)",
-                lineHeight: 0.95,
-                letterSpacing: "-0.03em",
-                color: "oklch(0.96 0 0)",
-              }}
-            >
-              What Our{" "}
-              <em style={{ color: "oklch(0.76 0.128 184.6)", fontStyle: "italic" }}>
-                Clients Say
-              </em>
-            </h2>
-
-            {/* Stars */}
-            <div className="flex gap-1 mb-6">
-              {Array.from({ length: 5 }).map((_, i) => (
-                <span key={i} style={{ color: "oklch(0.70 0.18 55)", fontSize: "16px" }}>★</span>
-              ))}
+        {/* Attribution */}
+        <div
+          style={{
+            marginTop: "2.5rem",
+            paddingLeft: "clamp(2rem, 6vw, 6rem)",
+            display: "flex",
+            alignItems: "center",
+            gap: "1.5rem",
+          }}
+        >
+          <div style={{ width: "2rem", height: "1px", backgroundColor: "oklch(0.46 0.20 25)" }} />
+          <div>
+            <div style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "0.62rem", fontWeight: 700, letterSpacing: "0.12em", color: "oklch(0.97 0.012 75)" }}>
+              {review.name}
             </div>
-
-            {/* Attribution */}
-            <div
-              className="transition-opacity duration-350"
-              style={{ opacity: animating ? 0 : 1 }}
-            >
-              <div
-                className="font-label mb-1"
-                style={{ fontSize: "0.65rem", letterSpacing: "0.15em", color: "oklch(0.76 0.128 184.6)" }}
-              >
-                — {review.name}
-              </div>
-              <div
-                className="font-label"
-                style={{ fontSize: "0.55rem", letterSpacing: "0.12em", color: "oklch(0.45 0.015 155)" }}
-              >
-                {review.tag}
-              </div>
-            </div>
-
-            {/* Pill navigation */}
-            <div className="flex gap-2 mt-10">
-              <button
-                onClick={goPrev}
-                className="flex items-center justify-center transition-all duration-200"
-                style={{
-                  width: "40px",
-                  height: "40px",
-                  borderRadius: "999px",
-                  backgroundColor: "oklch(0.18 0.015 155)",
-                  color: "oklch(0.75 0 0)",
-                  border: "1px solid oklch(0.28 0.015 155)",
-                  fontSize: "16px",
-                }}
-                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "oklch(0.76 0.128 184.6)")}
-                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "oklch(0.18 0.015 155)")}
-              >
-                ←
-              </button>
-              <button
-                onClick={goNext}
-                className="flex items-center justify-center transition-all duration-200"
-                style={{
-                  width: "40px",
-                  height: "40px",
-                  borderRadius: "999px",
-                  backgroundColor: "oklch(0.18 0.015 155)",
-                  color: "oklch(0.75 0 0)",
-                  border: "1px solid oklch(0.28 0.015 155)",
-                  fontSize: "16px",
-                }}
-                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "oklch(0.76 0.128 184.6)")}
-                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "oklch(0.18 0.015 155)")}
-              >
-                →
-              </button>
-            </div>
-
-            {/* Counter */}
-            <div
-              className="font-label mt-4"
-              style={{ fontSize: "0.60rem", letterSpacing: "0.15em", color: "oklch(0.40 0.015 155)" }}
-            >
-              <span style={{ color: "oklch(0.76 0.128 184.6)", fontSize: "0.9rem", fontWeight: 600 }}>
-                {String(current + 1).padStart(2, "0")}
-              </span>
-              {" / "}
-              {String(reviews.length).padStart(2, "0")}
+            <div style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "0.52rem", fontWeight: 400, letterSpacing: "0.1em", color: "oklch(0.40 0.008 200)", marginTop: "0.15rem" }}>
+              {review.tag}
             </div>
           </div>
-
-          {/* Right: massive pull-quote */}
-          <div
-            style={{
-              opacity: visible ? 1 : 0,
-              transform: visible ? "translateY(0)" : "translateY(32px)",
-              transition: "opacity 0.85s ease 0.22s, transform 0.85s ease 0.22s",
-            }}
-          >
-            {/* Giant opening quote mark */}
-            <div
-              className="font-display"
-              style={{
-                fontSize: "clamp(6rem, 12vw, 10rem)",
-                lineHeight: 0.7,
-                color: "oklch(0.76 0.128 184.6)",
-                fontWeight: 300,
-                marginBottom: "-1rem",
-                opacity: 0.6,
-              }}
-            >
-              "
-            </div>
-            <blockquote
-              className="font-display font-light transition-opacity duration-350"
-              style={{
-                fontSize: "clamp(1.5rem, 3.2vw, 2.6rem)",
-                lineHeight: 1.35,
-                letterSpacing: "-0.02em",
-                color: "oklch(0.93 0 0)",
-                fontStyle: "italic",
-                opacity: animating ? 0 : 1,
-              }}
-            >
-              {review.text}
-            </blockquote>
+          {/* Stars */}
+          <div style={{ display: "flex", gap: "0.2rem", marginLeft: "0.5rem" }}>
+            {Array.from({ length: review.stars }).map((_, i) => (
+              <svg key={i} width="12" height="12" viewBox="0 0 24 24" fill="oklch(0.46 0.20 25)">
+                <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26" />
+              </svg>
+            ))}
           </div>
         </div>
+      </div>
 
-        {/* ── Thin rule ── */}
-        <div style={{ height: "1px", backgroundColor: "oklch(0.22 0.015 155)", marginBottom: "3rem" }} />
+      {/* ── Navigation ── */}
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: "1rem",
+          marginTop: "3.5rem",
+          paddingLeft: "clamp(2rem, 6vw, 6rem)",
+        }}
+      >
+        {REVIEWS.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => goTo(i)}
+            style={{
+              width: i === active ? "2.5rem" : "0.5rem",
+              height: "2px",
+              backgroundColor: i === active ? "oklch(0.46 0.20 25)" : "oklch(0.25 0.008 200)",
+              border: "none",
+              padding: 0,
+              cursor: "pointer",
+              transition: "width 0.4s ease, background-color 0.3s ease",
+              borderRadius: "999px",
+            }}
+          />
+        ))}
+        <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "0.5rem", fontWeight: 600, letterSpacing: "0.2em", color: "oklch(0.28 0.008 200)", marginLeft: "0.5rem" }}>
+          {String(active + 1).padStart(2, "0")} / {String(REVIEWS.length).padStart(2, "0")}
+        </span>
+      </div>
 
-        {/* ── Mini review cards ── */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {reviews.slice(0, 3).map((r, i) => (
-            <div
-              key={r.name}
-              className="p-6"
-              style={{
-                backgroundColor: "oklch(0.14 0.012 155)",
-                border: "1px solid oklch(0.20 0.015 155)",
-                borderRadius: "0.5rem",
-                opacity: visible ? 1 : 0,
-                transform: visible ? "translateY(0)" : "translateY(20px)",
-                transition: `opacity 0.7s ease ${0.4 + i * 0.1}s, transform 0.7s ease ${0.4 + i * 0.1}s`,
-              }}
-            >
-              <div className="flex gap-1 mb-3">
-                {Array.from({ length: r.rating }).map((_, j) => (
-                  <span key={j} style={{ color: "oklch(0.70 0.18 55)", fontSize: "11px" }}>★</span>
-                ))}
-              </div>
-              <p
-                className="font-body text-sm leading-relaxed mb-4 line-clamp-3"
-                style={{ color: "oklch(0.72 0.010 155)", fontWeight: 300 }}
-              >
-                "{r.text}"
-              </p>
-              <div className="font-label" style={{ fontSize: "0.58rem", letterSpacing: "0.12em", color: "oklch(0.76 0.128 184.6)" }}>
-                — {r.name}
-              </div>
-            </div>
-          ))}
+      {/* ── Google badge ── */}
+      <div
+        style={{
+          marginTop: "4rem",
+          paddingLeft: "clamp(2rem, 6vw, 6rem)",
+          display: "flex",
+          alignItems: "center",
+          gap: "1rem",
+          opacity: visible ? 1 : 0,
+          transition: "opacity 0.8s ease 0.5s",
+        }}
+      >
+        <div style={{ width: "1px", height: "2.5rem", backgroundColor: "oklch(0.22 0.008 200)" }} />
+        <div>
+          <div style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "0.5rem", fontWeight: 600, letterSpacing: "0.2em", color: "oklch(0.35 0.008 200)" }}>
+            RATED 5.0 ON GOOGLE
+          </div>
+          <div style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "0.5rem", fontWeight: 400, letterSpacing: "0.12em", color: "oklch(0.28 0.008 200)", marginTop: "0.15rem" }}>
+            100+ VERIFIED REVIEWS
+          </div>
         </div>
       </div>
     </section>
