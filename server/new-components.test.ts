@@ -154,9 +154,11 @@ describe("BotanicalBand", () => {
       "../client/src/components/BotanicalBand.tsx"
     );
     const content = fs.readFileSync(filePath, "utf-8");
-    expect(content).toContain("plant-outdoor-1");
-    expect(content).toContain("plant-outdoor-2");
-    expect(content).toContain("plant-outdoor-3");
+    expect(content).toContain("plant-outdoor-1-nobg");
+    expect(content).toContain("plant-outdoor-2-nobg");
+    expect(content).toContain("plant-outdoor-3-nobg");
+    expect(content).toContain("plant-outdoor-4-nobg");
+    expect(content).toContain("plant-outdoor-5-nobg");
   });
 
   it("should use bright cream background (no dark green)", async () => {
