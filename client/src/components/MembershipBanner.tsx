@@ -7,10 +7,10 @@ import { useEffect, useRef, useState } from "react";
 import { useLocation } from "wouter";
 
 const BADGE_URL =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/membership-badge-XZx4Knw2aXFm4uTKtLij98.webp";
+  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/membership-badge-v2_afdcad1b.png";
 
 const BG_URL =
-  "https://images.unsplash.com/photo-1558618047-f4e90e8b1a3b?w=1600&auto=format&fit=crop&q=80";
+  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/sprinkler-bg2_c113104f.jpg";
 
 export default function MembershipBanner() {
   const ref = useRef<HTMLDivElement>(null);
