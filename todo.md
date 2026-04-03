@@ -96,6 +96,10 @@
 - [ ] SEO meta tags per page
 - [x] Fix navbar logo: increase nav bar height so logo is big, bold, fully visible, and inline with nav menu items — no clipping
 - [x] Build dedicated "Everything Residential Maintenance Plan" section with its own full-width layout, prominent heading, and package details
+- [ ] Remove irrigation references from Everything Residential Maintenance Plan (MembershipSection + EverythingPlanSection)
+- [ ] Remove "Ask about financing" from Everything Residential Maintenance Plan
+- [ ] Build dedicated /maintenance/everything-plan page with full content
+- [ ] Register route and link from EverythingPlanSection + nav
 
 ## Completed — Light/Airy Redesign
 - [x] Audit current index.css and define new light design tokens

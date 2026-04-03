@@ -394,7 +394,7 @@ export default function Navbar() {
           style={{
             alignItems: "center",
             justifyContent: "space-between",
-            minHeight: "120px",
+            minHeight: "160px",
             padding: "0 2.5rem",
             position: "relative",
             zIndex: 2,
@@ -446,7 +446,7 @@ export default function Navbar() {
                 src={LOGO_NAV}
                 alt="Newport Avenue Landscaping"
                 style={{
-                  height: "90px",
+                  height: "150px",
                   width: "auto",
                   objectFit: "contain",
                   display: "block",

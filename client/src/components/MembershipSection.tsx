@@ -4,7 +4,7 @@
    understand this is the bundled lawn care pricing card.
    ============================================================ */
 import { useEffect, useRef, useState } from "react";
-import { Check, Droplets } from "lucide-react";
+import { Check } from "lucide-react";
 
 const irrigationFeatures = [
   "Sprinkler system spring activation",
@@ -13,14 +13,6 @@ const irrigationFeatures = [
   "Priority scheduling — no waiting",
   "Dedicated irrigation technician",
   "Annual system health report",
-];
-
-const everythingFeatures = [
-  "Weekly lawn maintenance",
-  "Spring & fall clean-ups",
-  "Annual aeration",
-  "Sprinkler winterization",
-  "Everything in the Irrigation Membership",
 ];
 
 export default function MembershipSection() {
@@ -199,125 +191,6 @@ export default function MembershipSection() {
             </button>
           </div>
 
-          {/* ── Card 2: Everything Plan ── */}
-          <div
-            style={{
-              backgroundColor: "oklch(0.46 0.20 25)",
-              padding: "2.5rem",
-              borderRadius: "1.2rem 0.15rem 1.2rem 0.15rem",
-              display: "flex",
-              flexDirection: "column",
-              position: "relative",
-              overflow: "hidden",
-            }}
-          >
-            {/* Decorative corner */}
-            <div
-              className="absolute top-0 right-0 w-24 h-24 pointer-events-none"
-              style={{
-                background:
-                  "linear-gradient(225deg, oklch(0.38 0.20 25) 0%, transparent 60%)",
-              }}
-            />
-
-            <div
-              className="w-14 h-14 flex items-center justify-center mb-5"
-              style={{
-                backgroundColor: "oklch(1 0 0 / 0.15)",
-                color: "#fff",
-                borderRadius: "1.2rem 0.15rem 1.2rem 0.15rem",
-              }}
-            >
-              <Droplets size={24} strokeWidth={1.5} />
-            </div>
-
-            <div
-              className="font-label mb-1"
-              style={{ color: "oklch(1 0 0 / 0.65)", fontSize: "0.65rem", letterSpacing: "0.2em" }}
-            >
-              Full-Service Bundle
-            </div>
-            <h3
-              className="font-display font-semibold mb-1"
-              style={{ fontSize: "clamp(1.6rem, 3vw, 2.4rem)", color: "#fff", lineHeight: 1.05 }}
-            >
-              Everything
-              <br />
-              Residential
-              <br />
-              <span style={{ fontStyle: "italic", fontWeight: 400 }}>
-                Maintenance Plan
-              </span>
-            </h3>
-            <div
-              className="font-display font-bold mt-3 mb-0"
-              style={{ fontSize: "2.6rem", color: "#fff", lineHeight: 1 }}
-            >
-              $388
-            </div>
-            <div
-              className="font-body text-sm mb-6"
-              style={{ color: "oklch(1 0 0 / 0.65)" }}
-            >
-              / month{" "}
-              <span className="text-xs" style={{ color: "oklch(1 0 0 / 0.50)" }}>
-                (based on min. 1 man hour/week)
-              </span>
-            </div>
-
-            <div
-              className="h-px mb-6"
-              style={{ backgroundColor: "oklch(1 0 0 / 0.20)" }}
-            />
-
-            <ul className="space-y-3 mb-8 flex-1">
-              {everythingFeatures.map((item) => (
-                <li key={item} className="flex items-center gap-3">
-                  <Check
-                    size={14}
-                    style={{ color: "oklch(1 0 0 / 0.80)", flexShrink: 0 }}
-                  />
-                  <span
-                    className="font-body text-sm"
-                    style={{ color: "oklch(1 0 0 / 0.88)" }}
-                  >
-                    {item}
-                  </span>
-                </li>
-              ))}
-            </ul>
-
-            <button
-              onClick={() =>
-                document
-                  .querySelector("#contact")
-                  ?.scrollIntoView({ behavior: "smooth" })
-              }
-              style={{
-                backgroundColor: "transparent",
-                color: "#fff",
-                fontFamily: "'Montserrat', 'Inter', sans-serif",
-                fontWeight: 700,
-                fontSize: "0.75rem",
-                letterSpacing: "0.14em",
-                textTransform: "uppercase",
-                padding: "0.85rem 2rem",
-                borderRadius: "999px 0.15rem 999px 0.15rem",
-                border: "1.5px solid oklch(1 0 0 / 0.50)",
-                cursor: "pointer",
-                width: "100%",
-              }}
-            >
-              Get Started
-            </button>
-
-            <p
-              className="font-body text-xs mt-4 text-center"
-              style={{ color: "oklch(1 0 0 / 0.50)" }}
-            >
-              Ask about our financing options
-            </p>
-          </div>
         </div>
       </div>
     </section>

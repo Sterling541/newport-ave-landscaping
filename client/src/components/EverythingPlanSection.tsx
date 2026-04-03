@@ -27,15 +27,15 @@ const packages = [
   },
   {
     icon: <Wind size={20} strokeWidth={1.5} />,
-    title: "Sprinkler Winterization",
+    title: "Weed Control & Edging",
     description:
-      "Full system blowout before the first freeze — protecting your investment from costly freeze damage.",
+      "Crisp edges and weed-free beds every visit — we keep your property looking sharp from curb to back fence.",
   },
   {
     icon: <Droplets size={20} strokeWidth={1.5} />,
-    title: "Priority Irrigation Membership",
+    title: "Dedicated Crew — Same Team Every Visit",
     description:
-      "Everything in the Priority Irrigation Membership is included — spring activation, mid-season check, and priority scheduling.",
+      "You get the same crew every week. They know your property, your preferences, and your standards.",
   },
 ];
 
@@ -57,18 +57,25 @@ export default function EverythingPlanSection() {
   return (
     <section
       style={{
-        backgroundColor: "oklch(0.15 0.010 30)",
         position: "relative",
         overflow: "hidden",
       }}
     >
-      {/* Subtle texture overlay */}
+      {/* Background photo */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          backgroundImage:
-            "radial-gradient(oklch(1 0 0 / 0.025) 1px, transparent 1px)",
-          backgroundSize: "28px 28px",
+          backgroundImage: "url('https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/maintenance-hero-bg_3219f29e.jpeg')",
+          backgroundSize: "cover",
+          backgroundPosition: "center 40%",
+          backgroundRepeat: "no-repeat",
+        }}
+      />
+      {/* Dark overlay so text stays readable */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: "linear-gradient(135deg, oklch(0.10 0.015 30 / 0.93) 0%, oklch(0.14 0.012 30 / 0.88) 60%, oklch(0.10 0.015 30 / 0.92) 100%)",
         }}
       />
 
@@ -147,8 +154,8 @@ export default function EverythingPlanSection() {
                 }}
               >
                 Stop managing multiple contractors. Our Everything Plan bundles
-                your weekly lawn care, seasonal cleanups, aeration, and full
-                irrigation service into one flat monthly rate — handled by a
+                your weekly lawn care, seasonal cleanups, aeration, and weed
+                control into one flat monthly rate — handled by a
                 single dedicated crew that knows your property.
               </p>
             </div>
@@ -201,12 +208,8 @@ export default function EverythingPlanSection() {
                 >
                   Get Started Today
                 </button>
-                <button
-                  onClick={() =>
-                    document
-                      .querySelector("#contact")
-                      ?.scrollIntoView({ behavior: "smooth" })
-                  }
+                <a
+                  href="/maintenance/everything-plan"
                   style={{
                     backgroundColor: "transparent",
                     color: "oklch(0.85 0.005 0)",
@@ -219,10 +222,13 @@ export default function EverythingPlanSection() {
                     borderRadius: "999px 0.15rem 999px 0.15rem",
                     border: "1.5px solid oklch(1 0 0 / 0.25)",
                     cursor: "pointer",
+                    display: "inline-block",
+                    textDecoration: "none",
+                    textAlign: "center",
                   }}
                 >
-                  Ask About Financing
-                </button>
+                  Learn More
+                </a>
               </div>
             </div>
           </div>
