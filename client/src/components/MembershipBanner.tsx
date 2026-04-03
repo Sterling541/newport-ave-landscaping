@@ -8,7 +8,7 @@ import { useEffect, useRef, useState } from "react";
 import { useLocation } from "wouter";
 
 const BADGE_URL =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/membership-badge-v2_afdcad1b.png";
+  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/membership-badge-nobg_51c1c18d.png";
 
 const BG_URL =
   "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/sprinkler-bg2_c113104f.jpg";
@@ -75,7 +75,7 @@ export default function MembershipBanner() {
             src={BADGE_URL}
             alt="Newport Avenue Priority Irrigation Membership Badge"
             style={{
-              width: "clamp(180px, 20vw, 280px)",
+              width: "clamp(240px, 30vw, 400px)",
               height: "auto",
             }}
           />
