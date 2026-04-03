@@ -77,7 +77,7 @@ export default function AboutSection() {
             {/* Floating badge — brand red */}
             <div
               className="absolute -bottom-6 -right-6 p-6 shadow-xl"
-              style={{ backgroundColor: "oklch(0.48 0.18 28)", maxWidth: "200px" }}
+              style={{ backgroundColor: "oklch(0.76 0.128 184.6)", maxWidth: "200px" }}
             >
               <div
                 className="font-display font-semibold mb-1"
@@ -104,11 +104,11 @@ export default function AboutSection() {
           >
             <div
               className="font-label mb-4 flex items-center gap-3"
-              style={{ color: "oklch(0.48 0.18 28)" }}
+              style={{ color: "oklch(0.76 0.128 184.6)" }}
             >
               <span
                 className="inline-block w-8 h-px"
-                style={{ backgroundColor: "oklch(0.48 0.18 28)" }}
+                style={{ backgroundColor: "oklch(0.76 0.128 184.6)" }}
               />
               About Newport Avenue Landscaping
             </div>
@@ -123,7 +123,7 @@ export default function AboutSection() {
             >
               We Turn Yards Into
               <br />
-              <em style={{ color: "oklch(0.48 0.18 28)", fontStyle: "italic" }}>
+              <em style={{ color: "oklch(0.76 0.128 184.6)", fontStyle: "italic" }}>
                 Places You Love
               </em>
             </h2>
@@ -157,7 +157,7 @@ export default function AboutSection() {
                       className="w-10 h-10 flex-shrink-0 flex items-center justify-center"
                       style={{
                         backgroundColor: "oklch(0.975 0.018 75)",
-                        color: "oklch(0.46 0.20 25)",
+                        color: "oklch(0.76 0.128 184.6)",
                       }}
                     >
                       <Icon size={18} strokeWidth={1.5} />
@@ -184,7 +184,7 @@ export default function AboutSection() {
             {/* Quote */}
             <blockquote
               className="border-l-4 pl-5 py-2 mb-8"
-              style={{ borderColor: "oklch(0.48 0.18 28)", backgroundColor: "oklch(0.975 0.018 75)", padding: "1rem 1.25rem" }}
+              style={{ borderColor: "oklch(0.76 0.128 184.6)", backgroundColor: "oklch(0.975 0.018 75)", padding: "1rem 1.25rem" }}
             >
               <p
                 className="font-display italic text-lg mb-2"
@@ -196,7 +196,7 @@ export default function AboutSection() {
               </p>
               <cite
                 className="font-label not-italic"
-                style={{ color: "oklch(0.46 0.20 25)", fontSize: "0.7rem" }}
+                style={{ color: "oklch(0.76 0.128 184.6)", fontSize: "0.7rem" }}
               >
                 Mark M. — Broken Top
               </cite>

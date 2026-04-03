@@ -53,7 +53,7 @@ function DropdownMenu({ items, onNavigate }: { items: { label: string; href: str
       style={{
         transform: "translateX(-50%)",
         backgroundColor: "oklch(0.14 0.022 155)",
-        borderTop: "2px solid oklch(0.48 0.18 28)",
+        borderTop: "2px solid oklch(0.76 0.128 184.6)",
         boxShadow: "0 12px 32px oklch(0 0 0 / 0.5)",
       }}
     >

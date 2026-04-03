@@ -1,13 +1,31 @@
 /* ============================================================
-   STATS / INTRO SECTION — Colossal-Inspired Editorial Layout
+   EDITORIAL INTRO — Colossal-Inspired Section 01
    Features:
-   - Section number label (01) with thin rule
-   - Massive asymmetric headline — left column dominates
-   - Thin vertical divider between columns
-   - Stats presented as editorial data points
-   - Scroll-triggered reveal with stagger
+   - "SECTION 01" label pill with horizontal rule
+   - Halftone dot circle graphic (left side)
+   - Massive stacked headline that bleeds right
+   - Two-column split: bold statement left, body + stats right
+   - Thin vertical rule between columns
+   - Animated counter stats
+   - Scroll-triggered reveal
    ============================================================ */
 import { useEffect, useRef, useState } from "react";
+
+function useCountUp(target: number, duration = 1800, start = false) {
+  const [value, setValue] = useState(0);
+  useEffect(() => {
+    if (!start) return;
+    let startTime: number | null = null;
+    const step = (timestamp: number) => {
+      if (!startTime) startTime = timestamp;
+      const progress = Math.min((timestamp - startTime) / duration, 1);
+      setValue(Math.floor(progress * target));
+      if (progress < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }, [start, target, duration]);
+  return value;
+}
 
 export default function StatsSection() {
   const ref = useRef<HTMLDivElement>(null);
@@ -15,134 +33,187 @@ export default function StatsSection() {
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) setVisible(true);
-      },
+      ([entry]) => { if (entry.isIntersecting) setVisible(true); },
       { threshold: 0.12 }
     );
     if (ref.current) observer.observe(ref.current);
     return () => observer.disconnect();
   }, []);
 
-  const fadeUp = (delay: number) => ({
-    opacity: visible ? 1 : 0,
-    transform: visible ? "translateY(0)" : "translateY(32px)",
-    transition: `opacity 0.85s ease ${delay}s, transform 0.85s ease ${delay}s`,
-  });
+  const years = useCountUp(21, 1400, visible);
+  const projects = useCountUp(10000, 2000, visible);
+  const team = useCountUp(150, 1600, visible);
 
   return (
     <section
       ref={ref}
       style={{
-        backgroundColor: "oklch(0.985 0.010 75)",
-        padding: "clamp(4rem, 10vw, 8rem) 0",
+        backgroundColor: "oklch(0.10 0.008 200)",
+        paddingTop: "clamp(8rem, 14vw, 13rem)", // Extra top padding to clear the hero photo bleed
+        paddingBottom: "clamp(5rem, 10vw, 9rem)",
+        position: "relative",
+        overflow: "hidden",
       }}
     >
-      <div className="container">
+      {/* ── Halftone dot circle — left decorative ── */}
+      <div
+        style={{
+          position: "absolute",
+          left: "-120px",
+          top: "50%",
+          transform: "translateY(-50%)",
+          width: "500px",
+          height: "500px",
+          borderRadius: "50%",
+          backgroundImage: "radial-gradient(circle, oklch(0.46 0.20 25 / 0.30) 1.5px, transparent 1.5px)",
+          backgroundSize: "16px 16px",
+          pointerEvents: "none",
+          opacity: visible ? 1 : 0,
+          transition: "opacity 1.2s ease",
+        }}
+      />
 
-        {/* ── Section label row ── */}
+      <div className="container" style={{ position: "relative", zIndex: 1 }}>
+        {/* ── Section label ── */}
         <div
-          className="flex items-center gap-4 mb-16"
-          style={fadeUp(0)}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "1rem",
+            marginBottom: "3rem",
+            opacity: visible ? 1 : 0,
+            transition: "opacity 0.8s ease",
+          }}
         >
           <span
-            className="font-label"
             style={{
-              fontSize: "0.65rem",
-              letterSpacing: "0.18em",
-              color: "oklch(0.46 0.20 25)",
+              fontFamily: "'Montserrat', sans-serif",
+              fontSize: "0.58rem",
               fontWeight: 700,
+              letterSpacing: "0.22em",
+              color: "oklch(0.76 0.128 184.6)",
             }}
           >
             01
           </span>
           <span
-            className="flex-1 h-px"
-            style={{ backgroundColor: "oklch(0.85 0.015 75)" }}
+            style={{
+              flex: 1,
+              height: "1px",
+              backgroundColor: "oklch(0.22 0.008 200)",
+            }}
           />
           <span
-            className="font-label"
             style={{
-              fontSize: "0.60rem",
-              letterSpacing: "0.18em",
-              color: "oklch(0.58 0.010 55)",
+              fontFamily: "'Montserrat', sans-serif",
+              fontSize: "0.58rem",
+              fontWeight: 600,
+              letterSpacing: "0.22em",
+              color: "oklch(0.40 0.008 200)",
             }}
           >
             WHO WE ARE
           </span>
         </div>
 
-        {/* ── Asymmetric two-column layout ── */}
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_1px_1fr] gap-0 items-start mb-20">
-
-          {/* Left: Massive headline */}
+        {/* ── Two-column editorial split ── */}
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1px 1fr",
+            gap: "0 3rem",
+            alignItems: "start",
+          }}
+        >
+          {/* LEFT: Massive bleed headline */}
           <div
-            className="lg:pr-16"
-            style={fadeUp(0.1)}
+            style={{
+              opacity: visible ? 1 : 0,
+              transform: visible ? "translateY(0)" : "translateY(40px)",
+              transition: "opacity 0.9s ease 0.1s, transform 0.9s ease 0.1s",
+            }}
           >
             <h2
-              className="font-display font-light"
               style={{
-                fontSize: "clamp(3rem, 7vw, 6.5rem)",
-                lineHeight: 0.92,
-                letterSpacing: "-0.035em",
-                color: "oklch(0.16 0.010 55)",
+                fontFamily: "'Cormorant Garamond', 'Playfair Display', Georgia, serif",
+                fontSize: "clamp(3rem, 6.5vw, 7rem)",
+                fontWeight: 700,
+                lineHeight: 0.88,
+                letterSpacing: "-0.04em",
+                color: "oklch(0.97 0.012 75)",
+                marginBottom: "0.5rem",
               }}
             >
-              Your yard should feel like{" "}
+              Your yard
+              <br />
+              should feel like
+              <br />
               <em
                 style={{
-                  color: "oklch(0.46 0.20 25)",
                   fontStyle: "italic",
                   fontWeight: 300,
+                  color: "oklch(0.76 0.128 184.6)",
+                  letterSpacing: "0.01em",
                 }}
               >
-                the best part of your home.
+                the best part
+                <br />
+                of your home.
               </em>
             </h2>
           </div>
 
-          {/* Vertical divider */}
-          <div
-            className="hidden lg:block self-stretch"
-            style={{ backgroundColor: "oklch(0.85 0.015 75)" }}
-          />
+          {/* Vertical rule */}
+          <div style={{ backgroundColor: "oklch(0.22 0.008 200)", alignSelf: "stretch" }} />
 
-          {/* Right: Body + stats */}
+          {/* RIGHT: Body + stats */}
           <div
-            className="lg:pl-16 pt-10 lg:pt-0"
-            style={fadeUp(0.22)}
+            style={{
+              opacity: visible ? 1 : 0,
+              transform: visible ? "translateY(0)" : "translateY(40px)",
+              transition: "opacity 0.9s ease 0.25s, transform 0.9s ease 0.25s",
+              paddingTop: "0.5rem",
+            }}
           >
             <p
-              className="font-body mb-10"
               style={{
-                fontSize: "1.05rem",
-                color: "oklch(0.38 0.010 55)",
-                fontWeight: 300,
+                fontFamily: "'Source Serif 4', Georgia, serif",
+                fontSize: "clamp(1rem, 1.5vw, 1.1rem)",
                 lineHeight: 1.85,
+                color: "oklch(0.58 0.008 200)",
+                fontWeight: 300,
+                marginBottom: "3rem",
+                maxWidth: "480px",
               }}
             >
               We've been transforming Central Oregon properties since 2003 —
               designing, building, and maintaining landscapes that families
               actually live in. Whether it's a backyard retreat, a water feature,
-              or a full outdoor kitchen, we bring the same craft and care to
-              every single project.
+              or a full outdoor kitchen, we bring the same craft and care to every
+              single project.
             </p>
 
-            {/* Stats as editorial data points */}
-            <div className="grid grid-cols-2 gap-0">
+            {/* Stats grid */}
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "1fr 1fr",
+                gap: "0",
+                marginBottom: "3rem",
+              }}
+            >
               {[
-                { value: "21+", label: "Years in Central Oregon" },
-                { value: "10,000+", label: "Projects Completed" },
-                { value: "150+", label: "Skilled Team Members" },
+                { value: `${years}+`, label: "Years in Central Oregon" },
+                { value: `${projects.toLocaleString()}+`, label: "Projects Completed" },
+                { value: `${team}+`, label: "Skilled Team Members" },
                 { value: "5 ★", label: "Rated by Happy Clients" },
               ].map((stat, i) => (
                 <div
-                  key={stat.label}
-                  className="py-6"
+                  key={i}
                   style={{
-                    borderTop: "1px solid oklch(0.85 0.015 75)",
-                    borderRight: i % 2 === 0 ? "1px solid oklch(0.85 0.015 75)" : "none",
+                    padding: "1.5rem 0",
+                    borderTop: "1px solid oklch(0.22 0.008 200)",
+                    borderRight: i % 2 === 0 ? "1px solid oklch(0.22 0.008 200)" : "none",
                     paddingLeft: i % 2 === 0 ? "0" : "1.5rem",
                     paddingRight: i % 2 === 0 ? "1.5rem" : "0",
                     opacity: visible ? 1 : 0,
@@ -151,81 +222,45 @@ export default function StatsSection() {
                   }}
                 >
                   <div
-                    className="font-display"
                     style={{
-                      fontSize: "clamp(1.6rem, 3vw, 2.4rem)",
-                      color: "oklch(0.46 0.20 25)",
-                      fontWeight: 400,
+                      fontFamily: "'Cormorant Garamond', serif",
+                      fontSize: "clamp(2rem, 3.5vw, 3rem)",
+                      fontWeight: 700,
                       lineHeight: 1,
-                      marginBottom: "0.35rem",
+                      color: "oklch(0.76 0.128 184.6)",
+                      letterSpacing: "-0.02em",
+                      marginBottom: "0.4rem",
                     }}
                   >
                     {stat.value}
                   </div>
                   <div
-                    className="font-label"
                     style={{
-                      fontSize: "0.58rem",
-                      letterSpacing: "0.12em",
-                      color: "oklch(0.52 0.010 55)",
+                      fontFamily: "'Montserrat', sans-serif",
+                      fontSize: "0.55rem",
+                      fontWeight: 600,
+                      letterSpacing: "0.18em",
+                      textTransform: "uppercase",
+                      color: "oklch(0.38 0.008 200)",
                     }}
                   >
-                    {stat.label.toUpperCase()}
+                    {stat.label}
                   </div>
                 </div>
               ))}
             </div>
 
-            {/* CTA row */}
-            <div className="flex flex-wrap gap-3 mt-10" style={fadeUp(0.55)}>
+            {/* CTAs */}
+            <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap" }}>
               <button
-                onClick={() =>
-                  document.querySelector("#services")?.scrollIntoView({ behavior: "smooth" })
-                }
-                className="font-label text-xs tracking-widest flex items-center gap-2 transition-all duration-300"
-                style={{
-                  backgroundColor: "oklch(0.46 0.20 25)",
-                  color: "oklch(1 0 0)",
-                  padding: "0.7rem 1.6rem",
-                  borderRadius: "999px",
-                  border: "none",
-                  letterSpacing: "0.12em",
-                }}
-                onMouseEnter={(e) =>
-                  (e.currentTarget.style.backgroundColor = "oklch(0.38 0.22 25)")
-                }
-                onMouseLeave={(e) =>
-                  (e.currentTarget.style.backgroundColor = "oklch(0.46 0.20 25)")
-                }
+                className="btn-pill-copper"
+                onClick={() => document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" })}
               >
-                SEE OUR SERVICES
-                <span style={{ fontSize: "14px" }}>+</span>
+                GET A FREE QUOTE +
               </button>
-              <button
-                onClick={() =>
-                  document.querySelector("#portfolio")?.scrollIntoView({ behavior: "smooth" })
-                }
-                className="font-label text-xs tracking-widest flex items-center gap-2 transition-all duration-300"
-                style={{
-                  backgroundColor: "transparent",
-                  color: "oklch(0.25 0.010 55)",
-                  padding: "0.7rem 1.6rem",
-                  borderRadius: "999px",
-                  border: "1px solid oklch(0.75 0.010 55)",
-                  letterSpacing: "0.12em",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = "oklch(0.46 0.20 25)";
-                  e.currentTarget.style.color = "oklch(0.46 0.20 25)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = "oklch(0.75 0.010 55)";
-                  e.currentTarget.style.color = "oklch(0.25 0.010 55)";
-                }}
-              >
-                VIEW OUR WORK
-                <span style={{ fontSize: "14px" }}>→</span>
-              </button>
+              <a href="/our-work" className="btn-pill-outline">
+                VIEW OUR WORK →
+              </a>
             </div>
           </div>
         </div>

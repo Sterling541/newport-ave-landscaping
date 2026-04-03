@@ -63,7 +63,7 @@ export default function CTABanner() {
             transition: "opacity 0.8s ease",
           }}
         >
-          <span className="font-label" style={{ fontSize: "0.65rem", letterSpacing: "0.18em", color: "oklch(0.46 0.20 25)", fontWeight: 700 }}>05</span>
+          <span className="font-label" style={{ fontSize: "0.65rem", letterSpacing: "0.18em", color: "oklch(0.76 0.128 184.6)", fontWeight: 700 }}>05</span>
           <span className="flex-1 h-px" style={{ backgroundColor: "oklch(0.30 0.020 155 / 0.6)" }} />
           <span className="font-label" style={{ fontSize: "0.60rem", letterSpacing: "0.18em", color: "oklch(0.65 0.020 155)" }}>GET STARTED</span>
         </div>
@@ -91,7 +91,7 @@ export default function CTABanner() {
             in love with{" "}
             <em
               style={{
-                color: "oklch(0.80 0.14 25)",
+                color: "oklch(0.76 0.128 184.6)",
                 fontStyle: "italic",
                 fontWeight: 300,
               }}
@@ -132,7 +132,7 @@ export default function CTABanner() {
               }
               className="font-label flex items-center gap-2 transition-all duration-250"
               style={{
-                backgroundColor: "oklch(0.46 0.20 25)",
+                backgroundColor: "oklch(0.76 0.128 184.6)",
                 color: "oklch(1 0 0)",
                 padding: "0.85rem 2rem",
                 borderRadius: "999px",
@@ -142,7 +142,7 @@ export default function CTABanner() {
                 whiteSpace: "nowrap",
               }}
               onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "oklch(0.38 0.22 25)")}
-              onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "oklch(0.46 0.20 25)")}
+              onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "oklch(0.76 0.128 184.6)")}
             >
               START YOUR PROJECT +
             </button>
@@ -161,8 +161,8 @@ export default function CTABanner() {
                 textDecoration: "none",
               }}
               onMouseEnter={(e) => {
-                (e.currentTarget as HTMLAnchorElement).style.borderColor = "oklch(0.80 0.14 25)";
-                (e.currentTarget as HTMLAnchorElement).style.color = "oklch(0.80 0.14 25)";
+                (e.currentTarget as HTMLAnchorElement).style.borderColor = "oklch(0.76 0.128 184.6)";
+                (e.currentTarget as HTMLAnchorElement).style.color = "oklch(0.76 0.128 184.6)";
               }}
               onMouseLeave={(e) => {
                 (e.currentTarget as HTMLAnchorElement).style.borderColor = "oklch(0.55 0.010 155)";

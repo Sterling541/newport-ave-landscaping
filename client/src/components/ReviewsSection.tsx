@@ -101,7 +101,7 @@ export default function ReviewsSection() {
             transition: "opacity 0.8s ease",
           }}
         >
-          <span className="font-label" style={{ fontSize: "0.65rem", letterSpacing: "0.18em", color: "oklch(0.46 0.20 25)", fontWeight: 700 }}>04</span>
+          <span className="font-label" style={{ fontSize: "0.65rem", letterSpacing: "0.18em", color: "oklch(0.76 0.128 184.6)", fontWeight: 700 }}>04</span>
           <span className="flex-1 h-px" style={{ backgroundColor: "oklch(0.22 0.015 155)" }} />
           <span className="font-label" style={{ fontSize: "0.60rem", letterSpacing: "0.18em", color: "oklch(0.50 0.015 155)" }}>CLIENT STORIES</span>
         </div>
@@ -127,7 +127,7 @@ export default function ReviewsSection() {
               }}
             >
               What Our{" "}
-              <em style={{ color: "oklch(0.80 0.14 25)", fontStyle: "italic" }}>
+              <em style={{ color: "oklch(0.76 0.128 184.6)", fontStyle: "italic" }}>
                 Clients Say
               </em>
             </h2>
@@ -146,7 +146,7 @@ export default function ReviewsSection() {
             >
               <div
                 className="font-label mb-1"
-                style={{ fontSize: "0.65rem", letterSpacing: "0.15em", color: "oklch(0.46 0.20 25)" }}
+                style={{ fontSize: "0.65rem", letterSpacing: "0.15em", color: "oklch(0.76 0.128 184.6)" }}
               >
                 — {review.name}
               </div>
@@ -172,7 +172,7 @@ export default function ReviewsSection() {
                   border: "1px solid oklch(0.28 0.015 155)",
                   fontSize: "16px",
                 }}
-                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "oklch(0.46 0.20 25)")}
+                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "oklch(0.76 0.128 184.6)")}
                 onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "oklch(0.18 0.015 155)")}
               >
                 ←
@@ -189,7 +189,7 @@ export default function ReviewsSection() {
                   border: "1px solid oklch(0.28 0.015 155)",
                   fontSize: "16px",
                 }}
-                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "oklch(0.46 0.20 25)")}
+                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "oklch(0.76 0.128 184.6)")}
                 onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "oklch(0.18 0.015 155)")}
               >
                 →
@@ -201,7 +201,7 @@ export default function ReviewsSection() {
               className="font-label mt-4"
               style={{ fontSize: "0.60rem", letterSpacing: "0.15em", color: "oklch(0.40 0.015 155)" }}
             >
-              <span style={{ color: "oklch(0.46 0.20 25)", fontSize: "0.9rem", fontWeight: 600 }}>
+              <span style={{ color: "oklch(0.76 0.128 184.6)", fontSize: "0.9rem", fontWeight: 600 }}>
                 {String(current + 1).padStart(2, "0")}
               </span>
               {" / "}
@@ -223,7 +223,7 @@ export default function ReviewsSection() {
               style={{
                 fontSize: "clamp(6rem, 12vw, 10rem)",
                 lineHeight: 0.7,
-                color: "oklch(0.46 0.20 25)",
+                color: "oklch(0.76 0.128 184.6)",
                 fontWeight: 300,
                 marginBottom: "-1rem",
                 opacity: 0.6,
@@ -276,7 +276,7 @@ export default function ReviewsSection() {
               >
                 "{r.text}"
               </p>
-              <div className="font-label" style={{ fontSize: "0.58rem", letterSpacing: "0.12em", color: "oklch(0.46 0.20 25)" }}>
+              <div className="font-label" style={{ fontSize: "0.58rem", letterSpacing: "0.12em", color: "oklch(0.76 0.128 184.6)" }}>
                 — {r.name}
               </div>
             </div>

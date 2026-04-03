@@ -1,7 +1,6 @@
 /* ============================================================
    HOME PAGE — Newport Avenue Landscaping
-   Southview-Inspired Editorial Design
-   Assembles all sections in order
+   Decoupage Scroll Experience
    ============================================================ */
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
@@ -19,13 +18,25 @@ import FloatingCTA from "@/components/FloatingCTA";
 import PhotoGallery from "@/components/PhotoGallery";
 import WhoWeServe from "@/components/WhoWeServe";
 import ServiceAreaBand from "@/components/ServiceAreaBand";
+import MarqueeBand from "@/components/MarqueeBand";
 
 export default function Home() {
   return (
-    <div className="min-h-screen" style={{ backgroundColor: "oklch(1 0 0)" }}>
+    <div
+      className="min-h-screen"
+      style={{
+        backgroundColor: "oklch(0.10 0.008 200)",
+        overflowX: "hidden",
+      }}
+    >
       <Navbar />
+      {/* Hero — photos bleed 120px below into StatsSection */}
       <HeroSection />
-      <StatsSection />
+      {/* StatsSection receives the bleed — sits under hero photo edge */}
+      <div style={{ position: "relative", zIndex: 1 }}>
+        <StatsSection />
+      </div>
+      <MarqueeBand />
       <WhoWeServe />
       <ServicesSection />
       <AboutSection />

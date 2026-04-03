@@ -140,7 +140,7 @@ function ServiceRow({
       {/* Icon */}
       <div
         className="flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center transition-transform duration-300 group-hover:scale-110"
-        style={{ backgroundColor: "oklch(0.48 0.18 28)" }}
+        style={{ backgroundColor: "oklch(0.76 0.128 184.6)" }}
       >
         <service.IconComponent size={26} />
       </div>
@@ -159,7 +159,7 @@ function ServiceRow({
           </h3>
           <span
             className="font-label text-xs opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex-shrink-0"
-            style={{ color: "oklch(0.46 0.20 25)" }}
+            style={{ color: "oklch(0.76 0.128 184.6)" }}
           >
             LEARN MORE →
           </span>
@@ -214,7 +214,7 @@ export default function ServicesSection() {
           >
             <span
               className="font-label"
-              style={{ fontSize: "0.65rem", letterSpacing: "0.18em", color: "oklch(0.46 0.20 25)", fontWeight: 700 }}
+              style={{ fontSize: "0.65rem", letterSpacing: "0.18em", color: "oklch(0.76 0.128 184.6)", fontWeight: 700 }}
             >
               02
             </span>
@@ -248,7 +248,7 @@ export default function ServicesSection() {
               Improving Life{" "}
               <em
                 style={{
-                  color: "oklch(0.80 0.14 25)",
+                  color: "oklch(0.76 0.128 184.6)",
                   fontStyle: "italic",
                   fontWeight: 300,
                 }}
@@ -301,7 +301,7 @@ export default function ServicesSection() {
                   style={{
                     fontSize: "0.60rem",
                     letterSpacing: "0.18em",
-                    color: "oklch(0.55 0.12 25)",
+                    color: "oklch(0.76 0.128 184.6)",
                   }}
                 >
                   {item.num}
@@ -309,7 +309,7 @@ export default function ServicesSection() {
                 <div className="absolute bottom-0 left-0 right-0 p-7">
                   <div
                     className="font-label mb-2"
-                    style={{ fontSize: "0.58rem", letterSpacing: "0.15em", color: "oklch(0.72 0.12 25)" }}
+                    style={{ fontSize: "0.58rem", letterSpacing: "0.15em", color: "oklch(0.76 0.128 184.6)" }}
                   >
                     {item.subtitle}
                   </div>
@@ -321,7 +321,7 @@ export default function ServicesSection() {
                   </div>
                   <div
                     className="font-label mt-3 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                    style={{ fontSize: "0.58rem", letterSpacing: "0.15em", color: "oklch(0.80 0.14 25)" }}
+                    style={{ fontSize: "0.58rem", letterSpacing: "0.15em", color: "oklch(0.76 0.128 184.6)" }}
                   >
                     EXPLORE <span>→</span>
                   </div>
@@ -346,9 +346,9 @@ export default function ServicesSection() {
             <div className="lg:pr-16">
               <div
                 className="font-label mb-3 flex items-center gap-3"
-                style={{ color: "oklch(0.46 0.20 25)", fontSize: "0.60rem", letterSpacing: "0.18em" }}
+                style={{ color: "oklch(0.76 0.128 184.6)", fontSize: "0.60rem", letterSpacing: "0.18em" }}
               >
-                <span className="inline-block h-px w-6" style={{ backgroundColor: "oklch(0.46 0.20 25)" }} />
+                <span className="inline-block h-px w-6" style={{ backgroundColor: "oklch(0.76 0.128 184.6)" }} />
                 COMPLETE SERVICES
               </div>
               <h2
@@ -361,7 +361,7 @@ export default function ServicesSection() {
                 }}
               >
                 Everything your{" "}
-                <em style={{ color: "oklch(0.46 0.20 25)", fontStyle: "italic" }}>
+                <em style={{ color: "oklch(0.76 0.128 184.6)", fontStyle: "italic" }}>
                   property needs.
                 </em>
               </h2>
@@ -378,9 +378,9 @@ export default function ServicesSection() {
               {/* Also available tag */}
               <div
                 className="font-label mb-3 flex items-center gap-3"
-                style={{ color: "oklch(0.46 0.20 25)", fontSize: "0.60rem", letterSpacing: "0.18em" }}
+                style={{ color: "oklch(0.76 0.128 184.6)", fontSize: "0.60rem", letterSpacing: "0.18em" }}
               >
-                <span className="inline-block h-px w-6" style={{ backgroundColor: "oklch(0.46 0.20 25)" }} />
+                <span className="inline-block h-px w-6" style={{ backgroundColor: "oklch(0.76 0.128 184.6)" }} />
                 ALSO AVAILABLE
               </div>
               <div

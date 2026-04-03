@@ -1,14 +1,15 @@
 /* ============================================================
-   NEWPORT AVENUE LANDSCAPING — Design System
-   Premium Lifestyle Brand Aesthetic
-   
+   NEWPORT AVENUE LANDSCAPING — Magazine-Level Design System
+   Colossal-Inspired Editorial Identity
+
    Philosophy:
-   - Photography-first: let the images do the talking
-   - Warm sand/cream base — feels like a sun-drenched Oregon afternoon
-   - Deep forest green nav anchors the brand with nature
-   - Brand red used sparingly as a warm terracotta accent
-   - Generous whitespace — luxury brands breathe
-   - Emotional, lifestyle-first copy and hierarchy
+   - Near-black canvas — images and type pop against darkness
+   - Off-white/cream text — warm, not clinical
+   - Copper/terracotta accent — the brand's warmth
+   - Massive bleed typography — type IS the design
+   - Halftone dot graphics — editorial texture
+   - Custom cursor — every detail matters
+   - Generous whitespace — luxury breathes
    ============================================================ */
 
 @import "tailwindcss";
@@ -56,54 +57,79 @@
 }
 
 :root {
-  --radius: 0.25rem; /* Very subtle rounding — editorial feel */
+  --radius: 0.15rem;
 
-  /* Brand colors — warm, premium, lifestyle */
-  --brand-red: oklch(0.48 0.18 28);          /* Warm terracotta red */
-  --brand-red-light: oklch(0.62 0.14 28);    /* Hover state */
-  --nav-dark: oklch(0.20 0.025 155);         /* Deep forest green nav */
-  --cream: oklch(0.985 0.012 75);            /* Warm sand white */
-  --cream-dark: oklch(0.960 0.018 75);       /* Warm sand — section alt */
-  --section-alt: oklch(0.955 0.022 80);      /* Warm parchment — alt sections */
-  --section-green: oklch(0.96 0.018 140);    /* Whisper sage green */
-  --charcoal: oklch(0.20 0.010 55);          /* Warm dark brown-charcoal */
-  --charcoal-mid: oklch(0.34 0.008 55);      /* Mid warm brown */
-  --muted-text: oklch(0.50 0.010 55);        /* Warm muted body text */
+  /* ── Brand palette ── */
+  --ink:          oklch(0.10 0.008 200);   /* Near-black with a hint of green */
+  --ink-mid:      oklch(0.16 0.010 200);   /* Section backgrounds */
+  --ink-soft:     oklch(0.22 0.010 200);   /* Card backgrounds */
+  --rule:         oklch(0.28 0.008 200);   /* Thin divider lines */
+  --cream:        oklch(0.97 0.012 75);    /* Primary text on dark */
+  --cream-dim:    oklch(0.78 0.010 75);    /* Secondary text on dark */
+  --copper:       oklch(0.76 0.128 184.6);     /* Brand teal #23CABA */
+  --copper-dark:  oklch(0.62 0.120 184.6);     /* Hover state — darker teal */
+  --copper-glow:  oklch(0.76 0.128 184.6 / 0.15); /* Glow effect */
+
+  /* Light section variants (contact, footer) */
+  --light-bg:     oklch(0.985 0.008 75);
+  --light-alt:    oklch(0.965 0.014 80);
 
   /* Semantic tokens */
-  --primary: var(--brand-red);
-  --primary-foreground: oklch(1 0 0);
-  --sidebar-primary: var(--brand-red);
-  --sidebar-primary-foreground: oklch(1 0 0);
-  --chart-1: oklch(0.46 0.20 25);
-  --chart-2: oklch(0.55 0.15 25);
-  --chart-3: oklch(0.62 0.12 25);
-  --chart-4: oklch(0.70 0.08 25);
-  --chart-5: oklch(0.78 0.05 25);
-
-  --background: var(--cream);
-  --foreground: var(--charcoal);
-  --card: oklch(1 0 0);
-  --card-foreground: var(--charcoal);
-  --popover: oklch(1 0 0);
-  --popover-foreground: var(--charcoal);
-  --secondary: var(--cream-dark);
-  --secondary-foreground: var(--charcoal);
-  --muted: var(--cream-dark);
-  --muted-foreground: var(--muted-text);
-  --accent: var(--cream-dark);
-  --accent-foreground: var(--charcoal);
-  --destructive: oklch(0.577 0.245 27.325);
+  --background:   var(--ink);
+  --foreground:   var(--cream);
+  --card:         var(--ink-soft);
+  --card-foreground: var(--cream);
+  --popover:      var(--ink-soft);
+  --popover-foreground: var(--cream);
+  --primary:      var(--copper);
+  --primary-foreground: var(--ink);
+  --secondary:    var(--ink-soft);
+  --secondary-foreground: var(--cream);
+  --muted:        var(--ink-mid);
+  --muted-foreground: var(--cream-dim);
+  --accent:       var(--ink-soft);
+  --accent-foreground: var(--cream);
+  --destructive:  oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.985 0 0);
-  --border: oklch(0.88 0.010 85);
-  --input: oklch(0.88 0.010 85);
-  --ring: var(--brand-red);
-  --sidebar: var(--nav-dark);
-  --sidebar-foreground: oklch(0.90 0.003 0);
-  --sidebar-accent: oklch(0.22 0.005 0);
-  --sidebar-accent-foreground: oklch(0.90 0.003 0);
-  --sidebar-border: oklch(1 0 0 / 0.10);
-  --sidebar-ring: var(--brand-red);
+  --border:       var(--rule);
+  --input:        var(--ink-soft);
+  --ring:         var(--copper);
+  --chart-1: oklch(0.76 0.128 184.6);
+  --chart-2: oklch(0.65 0.110 184.6);
+  --chart-3: oklch(0.54 0.090 184.6);
+  --chart-4: oklch(0.42 0.070 184.6);
+  --chart-5: oklch(0.30 0.050 184.6);
+  --sidebar: var(--ink-mid);
+  --sidebar-foreground: var(--cream);
+  --sidebar-primary: var(--copper);
+  --sidebar-primary-foreground: var(--ink);
+  --sidebar-accent: var(--ink-soft);
+  --sidebar-accent-foreground: var(--cream);
+  --sidebar-border: var(--rule);
+  --sidebar-ring: var(--copper);
+}
+
+/* ── Custom cursor ── */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  cursor: none;
+  scroll-behavior: smooth;
+}
+
+body {
+  cursor: none;
+  background-color: oklch(0.10 0.008 200);
+  color: oklch(0.97 0.012 75);
+  font-family: 'Source Serif 4', Georgia, serif;
+  overflow-x: hidden;
+}
+
+/* Show default cursor on inputs */
+input, textarea, select {
+  cursor: text;
 }
 
 @layer base {
@@ -112,7 +138,6 @@
   }
   body {
     @apply bg-background text-foreground;
-    font-family: 'Source Serif 4', Georgia, serif;
   }
   button:not(:disabled),
   [role="button"]:not([aria-disabled="true"]),
@@ -123,14 +148,14 @@
   select:not(:disabled),
   input[type="checkbox"]:not(:disabled),
   input[type="radio"]:not(:disabled) {
-    @apply cursor-pointer;
+    cursor: none;
   }
 }
 
-/* ── Typography classes ── */
+/* ── Typography ── */
 .font-display {
   font-family: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
 }
 
 .font-body {
@@ -139,95 +164,178 @@
 
 .font-label {
   font-family: 'Montserrat', 'Helvetica Neue', sans-serif;
-  font-size: 0.65rem;
+  font-size: 0.62rem;
   font-weight: 600;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.20em;
   text-transform: uppercase;
 }
 
 .font-nav {
   font-family: 'Montserrat', 'Helvetica Neue', sans-serif;
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.14em;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
 }
 
-/* ── Buttons ──────────────────────────────────────────────────────────────────
-   Leaf / D-shape: matches the Newport Ave leaf icon silhouette
-   Sharp left corners, full semicircle on the right side
-   CSS order: top-left top-right bottom-right bottom-left
-*/
+/* ── Section label system (Colossal-style) ── */
+.section-label {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.58rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: oklch(0.50 0.010 200);
+}
+
+.section-label-num {
+  color: oklch(0.76 0.128 184.6);
+  font-weight: 700;
+}
+
+.section-label-rule {
+  flex: 1;
+  height: 1px;
+  background-color: oklch(0.28 0.008 200);
+}
+
+/* ── Pill / oval CTA buttons (Colossal-style) ── */
+.btn-pill-copper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.85rem 2.2rem;
+  background-color: oklch(0.76 0.128 184.6);
+  color: oklch(0.10 0.008 200);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 999px;
+  transition: background-color 0.25s ease, transform 0.2s ease;
+  white-space: nowrap;
+  text-decoration: none;
+}
+.btn-pill-copper:hover {
+  background-color: oklch(0.62 0.120 184.6);
+  transform: translateY(-1px);
+}
+
+.btn-pill-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.85rem 2.2rem;
+  background-color: transparent;
+  color: oklch(0.97 0.012 75);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  border: 1px solid oklch(0.40 0.008 200);
+  border-radius: 999px;
+  transition: border-color 0.25s ease, color 0.25s ease, transform 0.2s ease;
+  white-space: nowrap;
+  text-decoration: none;
+}
+.btn-pill-outline:hover {
+  border-color: oklch(0.76 0.128 184.6);
+  color: oklch(0.76 0.128 184.6);
+  transform: translateY(-1px);
+}
+
+/* Legacy button classes — kept for secondary pages */
 .btn-red {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  padding: 0.75rem 2.2rem 0.75rem 1.8rem;
-  background-color: oklch(0.46 0.20 25);
-  color: oklch(1 0 0);
+  padding: 0.85rem 2.2rem;
+  background-color: oklch(0.76 0.128 184.6);
+  color: oklch(0.10 0.008 200);
   font-family: 'Montserrat', sans-serif;
-  font-size: 0.68rem;
-  font-weight: 600;
-  letter-spacing: 0.16em;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   border: none;
-  border-radius: 1.2rem 0.15rem 1.2rem 0.15rem;
-  transition: background-color 0.25s ease, transform 0.2s ease, box-shadow 0.2s ease;
-  box-shadow: 3px 3px 0 oklch(0.30 0.18 25);
+  border-radius: 999px;
+  transition: background-color 0.25s ease;
+  white-space: nowrap;
 }
-.btn-red:hover {
-  background-color: oklch(0.38 0.20 25);
-  transform: translateY(-2px);
-  box-shadow: 4px 5px 0 oklch(0.28 0.18 25);
-}
-.btn-red:active {
-  transform: translateY(0);
-  box-shadow: 1px 1px 0 oklch(0.28 0.18 25);
-}
+.btn-red:hover { background-color: oklch(0.62 0.120 184.6); }
 
 .btn-outline-dark {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
   gap: 0.5rem;
-  padding: 0.75rem 2.2rem 0.75rem 1.8rem;
+  padding: 0.85rem 2.2rem;
   background-color: transparent;
-  color: oklch(0.22 0.008 0);
+  color: oklch(0.97 0.012 75);
   font-family: 'Montserrat', sans-serif;
-  font-size: 0.68rem;
+  font-size: 0.62rem;
   font-weight: 600;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  border: 1.5px solid oklch(0.22 0.008 0);
-  border-radius: 1.2rem 0.15rem 1.2rem 0.15rem;
-  transition: background-color 0.25s ease, color 0.25s ease;
+  border: 1px solid oklch(0.40 0.008 200);
+  border-radius: 999px;
+  transition: border-color 0.25s ease, color 0.25s ease;
+  text-decoration: none;
 }
-.btn-outline-dark:hover {
-  background-color: oklch(0.22 0.008 0);
-  color: oklch(1 0 0);
-}
+.btn-outline-dark:hover { border-color: oklch(0.76 0.128 184.6); color: oklch(0.76 0.128 184.6); }
 
 .btn-outline-white {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
   gap: 0.5rem;
-  padding: 0.75rem 2.2rem 0.75rem 1.8rem;
+  padding: 0.85rem 2.2rem;
   background-color: transparent;
-  color: oklch(1 0 0);
+  color: oklch(0.97 0.012 75);
   font-family: 'Montserrat', sans-serif;
-  font-size: 0.68rem;
+  font-size: 0.62rem;
   font-weight: 600;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  border: 1.5px solid oklch(1 0 0 / 0.70);
-  border-radius: 1.2rem 0.15rem 1.2rem 0.15rem;
-  transition: background-color 0.25s ease, border-color 0.25s ease;
+  border: 1px solid oklch(0.60 0.008 0 / 0.6);
+  border-radius: 999px;
+  transition: border-color 0.25s ease;
+  text-decoration: none;
 }
-.btn-outline-white:hover {
-  background-color: oklch(1 0 0 / 0.12);
-  border-color: oklch(1 0 0);
+.btn-outline-white:hover { border-color: oklch(0.97 0.012 75); }
+
+/* ── Photo card ── */
+.photo-card {
+  position: relative;
+  overflow: hidden;
+  cursor: none;
+}
+.photo-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.photo-card:hover img { transform: scale(1.04); }
+.photo-card-label {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 2rem 1.25rem 1.25rem;
+  background: linear-gradient(0deg, oklch(0 0 0 / 0.75) 0%, transparent 100%);
+  color: oklch(0.97 0.012 75);
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 1.1rem;
+  letter-spacing: 0.01em;
 }
 
 /* ── Service card ── */
@@ -236,76 +344,57 @@
   transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 .service-card:hover {
-  box-shadow: 0 8px 32px oklch(0 0 0 / 0.12);
+  box-shadow: 0 8px 32px oklch(0 0 0 / 0.4);
   transform: translateY(-4px);
 }
 
-/* ── Photo card (portfolio) ── */
-.photo-card {
-  position: relative;
-  overflow: hidden;
-  cursor: pointer;
-}
-.photo-card img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.6s ease;
-}
-.photo-card:hover img {
-  transform: scale(1.04);
-}
-.photo-card-label {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 1.5rem 1rem 1rem;
-  background: linear-gradient(0deg, oklch(0 0 0 / 0.65) 0%, transparent 100%);
-  color: oklch(1 0 0);
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  font-size: 1.05rem;
-  letter-spacing: 0.02em;
-  transform: translateY(4px);
-  transition: transform 0.3s ease;
-}
-.photo-card:hover .photo-card-label {
-  transform: translateY(0);
-}
-
+/* ── Container ── */
 @layer components {
   .container {
     width: 100%;
     margin-left: auto;
     margin-right: auto;
-    padding-left: 1rem;
-    padding-right: 1rem;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
   }
-
-  .flex {
-    min-height: 0;
-    min-width: 0;
-  }
-
+  .flex { min-height: 0; min-width: 0; }
   @media (min-width: 640px) {
-    .container {
-      padding-left: 1.5rem;
-      padding-right: 1.5rem;
-    }
+    .container { padding-left: 2rem; padding-right: 2rem; }
   }
-
   @media (min-width: 1024px) {
-    .container {
-      padding-left: 2rem;
-      padding-right: 2rem;
-      max-width: 1280px;
-    }
+    .container { padding-left: 3rem; padding-right: 3rem; max-width: 1400px; }
   }
 }
 
-/* ── Marquee animation for client trust strip ── */
+/* ── Marquee animation ── */
 @keyframes marquee-scroll {
   0%   { transform: translateX(0); }
   100% { transform: translateX(-50%); }
+}
+
+/* ── Halftone dot pattern ── */
+.halftone-dot {
+  background-image: radial-gradient(circle, oklch(0.46 0.20 25 / 0.35) 1px, transparent 1px);
+  background-size: 12px 12px;
+}
+
+/* ── Scroll reveal utility ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Thin horizontal rule ── */
+.rule { height: 1px; background-color: oklch(0.28 0.008 200); }
+
+/* ── Text bleed effect — type that overflows ── */
+.bleed-right {
+  overflow: visible;
+  white-space: nowrap;
 }

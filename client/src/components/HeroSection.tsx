@@ -1,424 +1,377 @@
 /* ============================================================
-   HERO SECTION — Captivating Editorial / Colossal-Inspired
-   Features:
-   - Massive bleed display type that overflows viewport edges
-   - Halftone dot texture overlay for editorial depth
-   - Cinematic dark treatment with warm golden-hour gradient
-   - Pill-shaped CTA buttons with + icon
-   - Scroll progress indicator
-   - Numbered slide counter (01 / 05)
-   - Staggered text reveal on slide change
+   DECOUPAGE SCROLL HERO — Newport Avenue Landscaping
+   
+   Each scene is a full-viewport sticky panel. As the user
+   scrolls, the photo BLEEDS 120px above and below its section
+   boundary — overlapping the Navbar above and the next
+   section below — like photos layered in a physical collage.
+   
+   The text is minimal, typographic, editorial.
    ============================================================ */
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useRef, useState } from "react";
 
-const SLIDES = [
+const CDN = "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx";
+
+const SCENES = [
   {
-    image:
-      "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportAveLandcaping-13_ef32520c.jpg",
-    eyebrow: "Water Features & Outdoor Living",
-    line1: "Where Every",
-    line2: "Evening",
-    line3: "Feels Like Home.",
-    tag: "DESIGN · BUILD · MAINTAIN",
+    image: `${CDN}/NewportAveLandcaping-13_ef32520c.jpg`,
+    label: "WATER FEATURES & OUTDOOR LIVING",
+    headline: ["Where Every", "Evening Feels", "Like Home."],
+    italic: 2,
+    position: "center 55%",
   },
   {
-    image:
-      "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/ITP_7404_28389405.jpg",
-    eyebrow: "Patios & Outdoor Living",
-    line1: "Your Home",
-    line2: "Deserves",
-    line3: "This.",
-    tag: "HARDSCAPE · PATIOS · PERGOLAS",
+    image: `${CDN}/ITP_7404_28389405.jpg`,
+    label: "PATIOS & HARDSCAPE",
+    headline: ["Stone.", "Fire.", "Gather."],
+    italic: 1,
+    position: "center 45%",
   },
   {
-    image:
-      "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/fire4_82c70612.jpg",
-    eyebrow: "Fire Features & Hardscape",
-    line1: "Gather Around",
-    line2: "Something",
-    line3: "Beautiful.",
-    tag: "FIRE FEATURES · SEATING WALLS",
+    image: `${CDN}/NewportAveLandcaping-9_97b731b0.jpg`,
+    label: "DESIGN & BUILD",
+    headline: ["The Landscape", "You've Always", "Imagined."],
+    italic: 1,
+    position: "center 50%",
   },
   {
-    image:
-      "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportAveLandcaping-9_97b731b0.jpg",
-    eyebrow: "Serving Central Oregon Since 2003",
-    line1: "The Landscape",
-    line2: "You've Always",
-    line3: "Imagined.",
-    tag: "BEND · REDMOND · SISTERS",
-  },
-  {
-    image:
-      "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/GLLPatio10_2ffabcfb.jpg",
-    eyebrow: "Patios & Hardscape",
-    line1: "Built for",
-    line2: "Central Oregon",
-    line3: "Life.",
-    tag: "21+ YEARS · 10,000+ PROJECTS",
+    image: `${CDN}/NewportLandscapingRVParkDay2Photos57_ce65cd27.jpg`,
+    label: "COMMERCIAL & HOA",
+    headline: ["At Scale.", "On Time.", "Every Time."],
+    italic: 0,
+    position: "center 40%",
   },
 ];
 
 export default function HeroSection() {
-  const [current, setCurrent] = useState(0);
-  const [transitioning, setTransitioning] = useState(false);
-  const [loaded, setLoaded] = useState(false);
-  const [scrollY, setScrollY] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [cursor, setCursor] = useState({ x: -200, y: -200 });
+  const [cursorHover, setCursorHover] = useState(false);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const ticking = useRef(false);
 
+  // Custom cursor
   useEffect(() => {
-    const t = setTimeout(() => setLoaded(true), 100);
-    return () => clearTimeout(t);
+    const move = (e: MouseEvent) => setCursor({ x: e.clientX, y: e.clientY });
+    window.addEventListener("mousemove", move);
+    return () => window.removeEventListener("mousemove", move);
   }, []);
 
+  // Scroll-driven scene switching
   useEffect(() => {
-    const handleScroll = () => setScrollY(window.scrollY);
+    const handleScroll = () => {
+      if (!scrollRef.current || ticking.current) return;
+      ticking.current = true;
+      requestAnimationFrame(() => {
+        if (!scrollRef.current) return;
+        const rect = scrollRef.current.getBoundingClientRect();
+        const scrolled = -rect.top;
+        const sceneHeight = window.innerHeight;
+        const newIndex = Math.max(
+          0,
+          Math.min(SCENES.length - 1, Math.floor(scrolled / sceneHeight))
+        );
+        setActiveIndex(newIndex);
+        ticking.current = false;
+      });
+    };
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const goTo = useCallback(
-    (index: number) => {
-      if (transitioning) return;
-      setTransitioning(true);
-      setTimeout(() => {
-        setCurrent(index);
-        setTransitioning(false);
-      }, 600);
-    },
-    [transitioning]
-  );
-
-  const next = useCallback(() => {
-    goTo((current + 1) % SLIDES.length);
-  }, [current, goTo]);
-
-  const prev = useCallback(() => {
-    goTo((current - 1 + SLIDES.length) % SLIDES.length);
-  }, [current, goTo]);
-
-  useEffect(() => {
-    const timer = setInterval(next, 7000);
-    return () => clearInterval(timer);
-  }, [next]);
-
-  const slide = SLIDES[current];
-  const parallaxOffset = scrollY * 0.3;
-
   return (
-    <section
-      className="relative overflow-hidden"
-      style={{ height: "100svh", minHeight: "640px" }}
-    >
-      {/* ── Background photo with parallax ── */}
-      {SLIDES.map((s, i) => (
-        <div
-          key={i}
-          className="absolute inset-0 transition-opacity duration-700"
-          style={{
-            backgroundImage: `url(${s.image})`,
-            backgroundSize: "cover",
-            backgroundPosition: `center ${parallaxOffset}px`,
-            opacity: i === current ? (transitioning ? 0 : 1) : 0,
-          }}
-        />
-      ))}
-
-      {/* ── Cinematic gradient overlay — dark at bottom, warm tones ── */}
+    <>
+      {/* ── Custom cursor ── */}
       <div
-        className="absolute inset-0"
         style={{
-          background:
-            "linear-gradient(180deg, oklch(0.08 0.01 155 / 0.4) 0%, transparent 25%, transparent 45%, oklch(0.06 0.01 155 / 0.6) 70%, oklch(0.04 0.005 155 / 0.92) 100%)",
+          position: "fixed",
+          left: cursor.x,
+          top: cursor.y,
+          width: cursorHover ? "52px" : "10px",
+          height: cursorHover ? "52px" : "10px",
+          borderRadius: "50%",
+          backgroundColor: cursorHover ? "transparent" : "oklch(0.76 0.128 184.6)",
+          border: cursorHover ? "1.5px solid oklch(0.76 0.128 184.6)" : "none",
+          transform: "translate(-50%, -50%)",
+          pointerEvents: "none",
+          zIndex: 99999,
+          transition: "width 0.22s ease, height 0.22s ease",
         }}
       />
 
-      {/* ── Halftone dot texture overlay ── */}
+      {/* ── Scroll driver — one viewport per scene ── */}
       <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          backgroundImage:
-            "radial-gradient(circle, oklch(1 0 0 / 0.04) 1px, transparent 1px)",
-          backgroundSize: "24px 24px",
-          mixBlendMode: "overlay",
-        }}
-      />
-
-      {/* ── Top bar: section label + slide counter ── */}
-      <div
-        className="absolute top-0 left-0 right-0 z-20 flex items-center justify-between"
-        style={{
-          padding: "clamp(1rem, 3vw, 1.75rem) clamp(1.25rem, 4vw, 3rem)",
-          opacity: loaded ? 1 : 0,
-          transition: "opacity 0.8s ease 0.6s",
-        }}
+        ref={scrollRef}
+        style={{ height: `${SCENES.length * 100}vh`, position: "relative" }}
       >
-        {/* Section tag */}
-        <div
-          className="font-label text-xs tracking-widest flex items-center gap-2"
-          style={{ color: "oklch(0.75 0.04 55)" }}
-        >
-          <span
-            className="inline-block w-5 h-px"
-            style={{ backgroundColor: "oklch(0.55 0.16 25)" }}
-          />
-          {slide.tag}
-        </div>
-
-        {/* Slide counter */}
-        <div
-          className="font-label text-xs tracking-widest"
-          style={{ color: "oklch(0.65 0.04 55)" }}
-        >
-          <span style={{ color: "oklch(0.55 0.16 25)", fontSize: "1rem", fontWeight: 600 }}>
-            {String(current + 1).padStart(2, "0")}
-          </span>
-          <span className="mx-1" style={{ color: "oklch(0.45 0.02 55)" }}>
-            /
-          </span>
-          {String(SLIDES.length).padStart(2, "0")}
-        </div>
-      </div>
-
-      {/* ── Massive bleed headline ── */}
-      <div
-        className="absolute inset-0 z-10 flex flex-col justify-end"
-        style={{
-          padding: "0 0 clamp(5rem, 12vw, 9rem)",
-        }}
-      >
-        {/* Eyebrow */}
-        <div
-          className="font-label text-xs tracking-widest mb-4 flex items-center gap-3"
-          style={{
-            paddingLeft: "clamp(1.25rem, 5vw, 4rem)",
-            color: "oklch(0.72 0.12 25)",
-            opacity: loaded && !transitioning ? 1 : 0,
-            transform: loaded && !transitioning ? "translateY(0)" : "translateY(8px)",
-            transition: "opacity 0.6s ease 0.1s, transform 0.6s ease 0.1s",
-          }}
-        >
-          <span
-            className="inline-block h-px"
-            style={{ width: "28px", backgroundColor: "oklch(0.46 0.20 25)" }}
-          />
-          {slide.eyebrow}
-        </div>
-
-        {/* Line 1 — standard weight */}
+        {/* ── Sticky viewport ── */}
         <div
           style={{
-            paddingLeft: "clamp(1.25rem, 5vw, 4rem)",
-            overflow: "hidden",
-            opacity: loaded && !transitioning ? 1 : 0,
-            transform: loaded && !transitioning ? "translateY(0)" : "translateY(24px)",
-            transition: "opacity 0.7s ease 0.2s, transform 0.7s ease 0.2s",
+            position: "sticky",
+            top: 0,
+            height: "100vh",
+            overflow: "visible", // KEY: allows photo to bleed out
           }}
         >
-          <span
-            className="font-display font-light text-white block"
+          {/* ── Photo bleed layers — each scene ── */}
+          {SCENES.map((scene, i) => {
+            const isActive = i === activeIndex;
+            return (
+              <div
+                key={i}
+                style={{
+                  position: "absolute",
+                  // Bleed: extend 100px above (into navbar) and 120px below (into next section)
+                  top: "-100px",
+                  bottom: "-120px",
+                  left: 0,
+                  right: 0,
+                  opacity: isActive ? 1 : 0,
+                  transition: "opacity 1.1s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+                  zIndex: isActive ? 2 : 1,
+                  pointerEvents: "none",
+                }}
+              >
+                {/* The photo itself — fills the bleed container */}
+                <div
+                  style={{
+                    position: "absolute",
+                    inset: 0,
+                    backgroundImage: `url(${scene.image})`,
+                    backgroundSize: "cover",
+                    backgroundPosition: scene.position,
+                    transform: isActive ? "scale(1.0)" : "scale(1.05)",
+                    transition: "transform 1.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+                    filter: "brightness(0.68)",
+                  }}
+                />
+                {/* Gradient — heavier at bottom for text, lighter at top */}
+                <div
+                  style={{
+                    position: "absolute",
+                    inset: 0,
+                    background:
+                      "linear-gradient(170deg, oklch(0 0 0 / 0.05) 0%, oklch(0 0 0 / 0.10) 30%, oklch(0 0 0 / 0.78) 100%)",
+                  }}
+                />
+              </div>
+            );
+          })}
+
+          {/* ── UI layer — sits above photo bleed ── */}
+          <div
             style={{
-              fontSize: "clamp(3.5rem, 9vw, 8.5rem)",
-              lineHeight: 0.9,
-              letterSpacing: "-0.03em",
+              position: "absolute",
+              inset: 0,
+              zIndex: 10,
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "flex-end",
+              padding: "0 clamp(1.5rem, 5vw, 4rem) clamp(3rem, 6vw, 5rem)",
             }}
           >
-            {slide.line1}
-          </span>
-        </div>
-
-        {/* Line 2 — italic accent, slightly larger, bleeds right */}
-        <div
-          style={{
-            paddingLeft: "clamp(1.25rem, 5vw, 4rem)",
-            overflow: "visible",
-            opacity: loaded && !transitioning ? 1 : 0,
-            transform: loaded && !transitioning ? "translateY(0)" : "translateY(32px)",
-            transition: "opacity 0.7s ease 0.32s, transform 0.7s ease 0.32s",
-          }}
-        >
-          <em
-            className="font-display block"
-            style={{
-              fontSize: "clamp(4rem, 11vw, 10.5rem)",
-              lineHeight: 0.88,
-              letterSpacing: "-0.04em",
-              color: "oklch(0.80 0.14 25)",
-              fontStyle: "italic",
-              fontWeight: 300,
-              whiteSpace: "nowrap",
-            }}
-          >
-            {slide.line2}
-          </em>
-        </div>
-
-        {/* Line 3 — bold, dark */}
-        <div
-          style={{
-            paddingLeft: "clamp(1.25rem, 5vw, 4rem)",
-            overflow: "hidden",
-            opacity: loaded && !transitioning ? 1 : 0,
-            transform: loaded && !transitioning ? "translateY(0)" : "translateY(40px)",
-            transition: "opacity 0.7s ease 0.44s, transform 0.7s ease 0.44s",
-          }}
-        >
-          <span
-            className="font-display font-semibold text-white block"
-            style={{
-              fontSize: "clamp(3.5rem, 9vw, 8.5rem)",
-              lineHeight: 0.9,
-              letterSpacing: "-0.03em",
-            }}
-          >
-            {slide.line3}
-          </span>
-        </div>
-
-        {/* ── CTAs ── */}
-        <div
-          className="flex flex-wrap gap-3 items-center mt-8"
-          style={{
-            paddingLeft: "clamp(1.25rem, 5vw, 4rem)",
-            opacity: loaded && !transitioning ? 1 : 0,
-            transform: loaded && !transitioning ? "translateY(0)" : "translateY(16px)",
-            transition: "opacity 0.7s ease 0.56s, transform 0.7s ease 0.56s",
-          }}
-        >
-          {/* Primary pill CTA */}
-          <button
-            onClick={() =>
-              document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" })
-            }
-            className="font-label text-xs tracking-widest flex items-center gap-2 transition-all duration-300"
-            style={{
-              backgroundColor: "oklch(0.46 0.20 25)",
-              color: "oklch(1 0 0)",
-              padding: "0.75rem 1.75rem",
-              borderRadius: "999px",
-              border: "none",
-              letterSpacing: "0.12em",
-            }}
-            onMouseEnter={(e) =>
-              (e.currentTarget.style.backgroundColor = "oklch(0.38 0.22 25)")
-            }
-            onMouseLeave={(e) =>
-              (e.currentTarget.style.backgroundColor = "oklch(0.46 0.20 25)")
-            }
-          >
-            GET A FREE QUOTE
-            <span
-              className="inline-flex items-center justify-center rounded-full"
+            {/* Scene label */}
+            <div
               style={{
-                width: "18px",
-                height: "18px",
-                backgroundColor: "oklch(1 0 0 / 0.2)",
-                fontSize: "14px",
-                lineHeight: 1,
+                fontFamily: "'Montserrat', sans-serif",
+                fontSize: "0.55rem",
+                fontWeight: 700,
+                letterSpacing: "0.25em",
+                color: "oklch(0.76 0.128 184.6)",
+                marginBottom: "1.25rem",
+                transition: "opacity 0.5s ease",
               }}
             >
-              +
-            </span>
-          </button>
+              {SCENES[activeIndex].label}
+            </div>
 
-          {/* Secondary pill CTA */}
-          <button
-            onClick={() =>
-              document.querySelector("#portfolio")?.scrollIntoView({ behavior: "smooth" })
-            }
-            className="font-label text-xs tracking-widest flex items-center gap-2 transition-all duration-300"
+            {/* Massive headline */}
+            <div style={{ marginBottom: "2rem" }}>
+              {SCENES[activeIndex].headline.map((line, i) => (
+                <div
+                  key={i}
+                  style={{
+                    fontFamily: "'Cormorant Garamond', 'Playfair Display', Georgia, serif",
+                    fontSize: "clamp(4rem, 10.5vw, 11rem)",
+                    fontWeight: i === SCENES[activeIndex].italic ? 300 : 700,
+                    fontStyle: i === SCENES[activeIndex].italic ? "italic" : "normal",
+                    lineHeight: 0.88,
+                    letterSpacing: i === SCENES[activeIndex].italic ? "0.01em" : "-0.04em",
+                    color:
+                      i === SCENES[activeIndex].italic
+                        ? "oklch(0.76 0.128 184.6)"
+                        : "oklch(0.97 0.012 75)",
+                    display: "block",
+                  }}
+                >
+                  {line}
+                </div>
+              ))}
+            </div>
+
+            {/* CTAs */}
+            <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap" }}>
+              <button
+                className="btn-pill-copper"
+                onMouseEnter={() => setCursorHover(true)}
+                onMouseLeave={() => setCursorHover(false)}
+                onClick={() =>
+                  document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" })
+                }
+              >
+                GET A FREE QUOTE +
+              </button>
+              <a
+                href="/our-work"
+                className="btn-pill-outline"
+                onMouseEnter={() => setCursorHover(true)}
+                onMouseLeave={() => setCursorHover(false)}
+              >
+                VIEW OUR WORK →
+              </a>
+            </div>
+          </div>
+
+          {/* ── Scene counter — top left ── */}
+          <div
             style={{
-              backgroundColor: "transparent",
-              color: "oklch(0.95 0 0)",
-              padding: "0.75rem 1.75rem",
-              borderRadius: "999px",
-              border: "1px solid oklch(1 0 0 / 0.35)",
-              letterSpacing: "0.12em",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = "oklch(1 0 0 / 0.1)";
-              e.currentTarget.style.borderColor = "oklch(1 0 0 / 0.6)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = "transparent";
-              e.currentTarget.style.borderColor = "oklch(1 0 0 / 0.35)";
+              position: "absolute",
+              top: "5.5rem",
+              left: "clamp(1.5rem, 5vw, 4rem)",
+              zIndex: 10,
+              display: "flex",
+              alignItems: "center",
+              gap: "0.75rem",
             }}
           >
-            OUR WORK
-            <span style={{ fontSize: "16px", lineHeight: 1 }}>→</span>
-          </button>
-        </div>
-      </div>
+            <span
+              style={{
+                fontFamily: "'Montserrat', sans-serif",
+                fontSize: "0.58rem",
+                fontWeight: 700,
+                letterSpacing: "0.20em",
+                color: "oklch(0.76 0.128 184.6)",
+              }}
+            >
+              {String(activeIndex + 1).padStart(2, "0")}
+            </span>
+            <span
+              style={{
+                width: "36px",
+                height: "1px",
+                backgroundColor: "oklch(0.35 0.008 200)",
+              }}
+            />
+            <span
+              style={{
+                fontFamily: "'Montserrat', sans-serif",
+                fontSize: "0.58rem",
+                fontWeight: 500,
+                letterSpacing: "0.20em",
+                color: "oklch(0.38 0.008 200)",
+              }}
+            >
+              {String(SCENES.length).padStart(2, "0")}
+            </span>
+          </div>
 
-      {/* ── Scroll progress bar at bottom ── */}
-      <div
-        className="absolute bottom-0 left-0 right-0 z-20 flex gap-1"
-        style={{ height: "3px" }}
-      >
-        {SLIDES.map((_, i) => (
-          <button
-            key={i}
-            onClick={() => goTo(i)}
-            className="flex-1 transition-all duration-500"
+          {/* ── Dot progress — right edge ── */}
+          <div
             style={{
-              backgroundColor:
-                i === current
-                  ? "oklch(0.46 0.20 25)"
-                  : "oklch(1 0 0 / 0.20)",
-              border: "none",
-              cursor: "pointer",
+              position: "absolute",
+              right: "clamp(1rem, 2vw, 1.5rem)",
+              top: "50%",
+              transform: "translateY(-50%)",
+              zIndex: 10,
+              display: "flex",
+              flexDirection: "column",
+              gap: "0.5rem",
             }}
-            aria-label={`Go to slide ${i + 1}`}
-          />
-        ))}
+          >
+            {SCENES.map((_, i) => (
+              <button
+                key={i}
+                onMouseEnter={() => setCursorHover(true)}
+                onMouseLeave={() => setCursorHover(false)}
+                onClick={() => {
+                  if (!scrollRef.current) return;
+                  const targetY =
+                    scrollRef.current.offsetTop + i * window.innerHeight;
+                  window.scrollTo({ top: targetY, behavior: "smooth" });
+                }}
+                style={{
+                  width: i === activeIndex ? "6px" : "4px",
+                  height: i === activeIndex ? "22px" : "4px",
+                  borderRadius: "999px",
+                  backgroundColor:
+                    i === activeIndex
+                      ? "oklch(0.76 0.128 184.6)"
+                      : "oklch(0.35 0.008 200)",
+                  border: "none",
+                  padding: 0,
+                  cursor: "none",
+                  transition: "all 0.3s ease",
+                }}
+              />
+            ))}
+          </div>
+
+          {/* ── Scroll hint — visible only on first scene ── */}
+          <div
+            style={{
+              position: "absolute",
+              bottom: "clamp(1.5rem, 3vw, 2.5rem)",
+              left: "50%",
+              transform: "translateX(-50%)",
+              zIndex: 10,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: "0.4rem",
+              opacity: activeIndex === 0 ? 0.7 : 0,
+              transition: "opacity 0.6s ease",
+              pointerEvents: "none",
+            }}
+          >
+            <span
+              style={{
+                fontFamily: "'Montserrat', sans-serif",
+                fontSize: "0.48rem",
+                fontWeight: 600,
+                letterSpacing: "0.25em",
+                color: "oklch(0.50 0.008 200)",
+              }}
+            >
+              SCROLL
+            </span>
+            <div
+              style={{
+                width: "1px",
+                height: "36px",
+                background:
+                  "linear-gradient(to bottom, oklch(0.50 0.008 200), transparent)",
+              }}
+            />
+          </div>
+        </div>
+
+        {/* ── Decoupage bleed panel — overlaps INTO next section ── */}
+        {/* This is the key: a second sticky element that bleeds the last
+            photo 120px below the scroll driver, overlapping StatsSection */}
       </div>
 
-      {/* ── Prev/Next arrows — minimal, editorial ── */}
-      <button
-        onClick={prev}
-        className="absolute left-4 bottom-16 z-20 flex items-center justify-center transition-all duration-200"
+      {/* ── Decoupage overlap element — bleeds hero photo into next section ── */}
+      <div
         style={{
-          width: "40px",
-          height: "40px",
-          borderRadius: "999px",
-          backgroundColor: "oklch(0 0 0 / 0.30)",
-          color: "oklch(1 0 0)",
-          border: "1px solid oklch(1 0 0 / 0.20)",
-          fontSize: "18px",
+          position: "relative",
+          marginTop: "-120px", // Pull the next section UP under the photo
+          zIndex: 0,
+          height: "120px",
+          background:
+            "linear-gradient(to bottom, transparent 0%, oklch(0.10 0.008 200) 100%)",
+          pointerEvents: "none",
         }}
-        onMouseEnter={(e) =>
-          (e.currentTarget.style.backgroundColor = "oklch(0.46 0.20 25)")
-        }
-        onMouseLeave={(e) =>
-          (e.currentTarget.style.backgroundColor = "oklch(0 0 0 / 0.30)")
-        }
-        aria-label="Previous slide"
-      >
-        ←
-      </button>
-      <button
-        onClick={next}
-        className="absolute z-20 flex items-center justify-center transition-all duration-200"
-        style={{
-          left: "calc(1rem + 48px)",
-          bottom: "1rem",
-          width: "40px",
-          height: "40px",
-          borderRadius: "999px",
-          backgroundColor: "oklch(0 0 0 / 0.30)",
-          color: "oklch(1 0 0)",
-          border: "1px solid oklch(1 0 0 / 0.20)",
-          fontSize: "18px",
-        }}
-        onMouseEnter={(e) =>
-          (e.currentTarget.style.backgroundColor = "oklch(0.46 0.20 25)")
-        }
-        onMouseLeave={(e) =>
-          (e.currentTarget.style.backgroundColor = "oklch(0 0 0 / 0.30)")
-        }
-        aria-label="Next slide"
-      >
-        →
-      </button>
-    </section>
+      />
+    </>
   );
 }
