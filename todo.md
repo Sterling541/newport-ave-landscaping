@@ -37,6 +37,7 @@
 - [x] Research Central Oregon property management companies for logo strip
 - [x] Build typographic scrolling marquee strip with real company names
 - [x] Integrate marquee trust strip into /commercial page
+- [x] Update Navbar Maintenance dropdown — Commercial & HOA Maintenance now links to /commercial
 
 ## Pending / Future
 - [ ] Contact form backend integration (currently UI only)
