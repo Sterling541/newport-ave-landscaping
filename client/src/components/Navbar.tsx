@@ -478,6 +478,11 @@ export default function Navbar() {
               active={isActive("/commercial")}
               onClick={() => goTo("/commercial")}
             />
+            <NavTextLink
+              label="Resources"
+              active={isActive("/resources")}
+              onClick={() => goTo("/resources")}
+            />
             {/* Get a Quote — pill CTA, brand red */}
             <a
               href="/contact"
@@ -574,6 +579,7 @@ export default function Navbar() {
                 { label: "Maintenance", href: "/maintenance", dropdown: maintenanceItems },
                 { label: "Services", href: "/services", dropdown: servicesItems },
                 { label: "Commercial", href: "/commercial" },
+                { label: "Resources", href: "/resources" },
               ] as Array<{ label: string; href: string; dropdown?: { label: string; href: string; num: string }[] }>
             ).map((item) => (
               <div key={item.label}>

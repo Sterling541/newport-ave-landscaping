@@ -142,3 +142,9 @@
 - [x] Fix cursor visibility on Our Work page (cursor gets lost against dark backgrounds)
 - [x] Add Bend Full Yard Transformation project to portfolio with before/after photos
 - [x] Save commercial installation photos (Discovery West Plaza + Nines) to CDN and add best ones to Commercial page
+
+## 25-Page SEO Content Build
+- [ ] Research top 25 high-value local search phrases for Bend/Central Oregon landscaping
+- [ ] Write 25 full SEO content pages (cost guides, how-tos, area pages, service explainers)
+- [ ] Register all 25 pages as routes in App.tsx
+- [ ] Link new pages from relevant service/blog pages and nav

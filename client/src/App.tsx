@@ -14,6 +14,7 @@ import Services from "./pages/Services";
 import OurWork from "./pages/OurWork";
 import Contact from "./pages/Contact";
 import Blog from "./pages/Blog";
+import Resources from "./pages/Resources";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import Membership from "./pages/Membership";
 import Terms from "./pages/Terms";
@@ -56,6 +57,35 @@ import SprinklerWinterizationBend from "./pages/blog/SprinklerWinterizationBend"
 import PaverPatioIdeasBend from "./pages/blog/PaverPatioIdeasBend";
 import LawnCareBendOregon from "./pages/blog/LawnCareBendOregon";
 
+// SEO Resource pages
+import PaverPatioCostBend from "./pages/resources/PaverPatioCostBend";
+import SprinklerSystemCostBend from "./pages/resources/SprinklerSystemCostBend";
+import XeriscapeCostBend from "./pages/resources/XeriscapeCostBend";
+import LandscapeDesignCostBend from "./pages/resources/LandscapeDesignCostBend";
+import RetainingWallCostBend from "./pages/resources/RetainingWallCostBend";
+import SodInstallationCostBend from "./pages/resources/SodInstallationCostBend";
+import OutdoorLightingCostBend from "./pages/resources/OutdoorLightingCostBend";
+import WaterFeatureCostBend from "./pages/resources/WaterFeatureCostBend";
+import LawnMaintenanceCostBend from "./pages/resources/LawnMaintenanceCostBend";
+import FirePitPatioCostBend from "./pages/resources/FirePitPatioCostBend";
+import BestPlantsXeriscapeCentralOregon from "./pages/resources/BestPlantsXeriscapeCentralOregon";
+import WhenToAerateLawnBend from "./pages/resources/WhenToAerateLawnBend";
+import SprinklerWinterizationGuideBend from "./pages/resources/SprinklerWinterizationGuideBend";
+import HowToChooseLandscaperBend from "./pages/resources/HowToChooseLandscaperBend";
+import BendTurfRebateProgram from "./pages/resources/BendTurfRebateProgram";
+import IrrigationRepairBend from "./pages/resources/IrrigationRepairBend";
+import CommercialLandscapingBend from "./pages/resources/CommercialLandscapingBend";
+import SnowRemovalBendResource from "./pages/resources/SnowRemovalBend";
+import LandscapeLightingBend from "./pages/resources/LandscapeLightingBend";
+
+// SEO Neighborhood / Service Area pages
+import AwbreyButteNeighborhood from "./pages/service-areas/AwbreyButteNeighborhood";
+import NorthwestCrossingNeighborhood from "./pages/service-areas/NorthwestCrossingNeighborhood";
+import BrokenTopNeighborhood from "./pages/service-areas/BrokenTopNeighborhood";
+import DiscoveryWestNeighborhood from "./pages/service-areas/DiscoveryWestNeighborhood";
+import SunriverLandscaping from "./pages/service-areas/SunriverLandscaping";
+import RedmondLandscaping from "./pages/service-areas/RedmondLandscaping";
+
 // Portfolio project pages
 import BendFullYardTransformation from "./pages/portfolio/BendFullYardTransformation";
 import AwbreyButteXeriscape from "./pages/portfolio/AwbreyButteXeriscape";
@@ -82,6 +112,7 @@ function Router() {
       <Route path={"/our-work"} component={OurWork} />
       <Route path={"/contact"} component={Contact} />
       <Route path={"/blog"} component={Blog} />
+      <Route path={"/resources"} component={Resources} />
       <Route path={"/privacy-policy"} component={PrivacyPolicy} />
       <Route path={"/membership"} component={Membership} />
       <Route path={"/terms"} component={Terms} />
@@ -136,6 +167,35 @@ function Router() {
       <Route path={"/portfolio/paver-patio-firepit"} component={PaverPatioFirepit} />
       <Route path={"/portfolio/sw-bend-backyard"} component={SWBendBackyard} />
       <Route path={"/portfolio/bend-full-yard-transformation"} component={BendFullYardTransformation} />
+
+      {/* SEO Resource pages */}
+      <Route path={"/resources/paver-patio-cost-bend-oregon"} component={PaverPatioCostBend} />
+      <Route path={"/resources/sprinkler-system-cost-bend-oregon"} component={SprinklerSystemCostBend} />
+      <Route path={"/resources/xeriscape-cost-bend-oregon"} component={XeriscapeCostBend} />
+      <Route path={"/resources/landscape-design-cost-bend-oregon"} component={LandscapeDesignCostBend} />
+      <Route path={"/resources/retaining-wall-cost-bend-oregon"} component={RetainingWallCostBend} />
+      <Route path={"/resources/sod-installation-cost-bend-oregon"} component={SodInstallationCostBend} />
+      <Route path={"/resources/outdoor-lighting-cost-bend-oregon"} component={OutdoorLightingCostBend} />
+      <Route path={"/resources/water-feature-cost-bend-oregon"} component={WaterFeatureCostBend} />
+      <Route path={"/resources/lawn-maintenance-cost-bend-oregon"} component={LawnMaintenanceCostBend} />
+      <Route path={"/resources/fire-pit-patio-cost-bend-oregon"} component={FirePitPatioCostBend} />
+      <Route path={"/resources/best-plants-central-oregon-xeriscape"} component={BestPlantsXeriscapeCentralOregon} />
+      <Route path={"/resources/when-to-aerate-lawn-bend-oregon"} component={WhenToAerateLawnBend} />
+      <Route path={"/resources/sprinkler-winterization-guide-bend"} component={SprinklerWinterizationGuideBend} />
+      <Route path={"/resources/how-to-choose-landscaper-bend-oregon"} component={HowToChooseLandscaperBend} />
+      <Route path={"/resources/bend-oregon-turf-rebate-program"} component={BendTurfRebateProgram} />
+      <Route path={"/resources/irrigation-repair-bend-oregon"} component={IrrigationRepairBend} />
+      <Route path={"/resources/commercial-landscaping-bend-oregon"} component={CommercialLandscapingBend} />
+      <Route path={"/resources/snow-removal-bend-oregon"} component={SnowRemovalBendResource} />
+      <Route path={"/resources/landscape-lighting-bend-oregon"} component={LandscapeLightingBend} />
+
+      {/* SEO Neighborhood / Service Area pages */}
+      <Route path={"/service-areas/awbrey-butte-landscaping"} component={AwbreyButteNeighborhood} />
+      <Route path={"/service-areas/northwest-crossing-landscaping"} component={NorthwestCrossingNeighborhood} />
+      <Route path={"/service-areas/broken-top-landscaping"} component={BrokenTopNeighborhood} />
+      <Route path={"/service-areas/discovery-west-landscaping"} component={DiscoveryWestNeighborhood} />
+      <Route path={"/service-areas/sunriver-landscaping"} component={SunriverLandscaping} />
+      <Route path={"/service-areas/redmond-landscaping"} component={RedmondLandscaping} />
 
       {/* Fallback */}
       <Route path={"/404"} component={NotFound} />
