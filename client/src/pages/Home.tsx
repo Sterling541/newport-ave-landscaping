@@ -16,6 +16,7 @@ import ReviewsSection from "@/components/ReviewsSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 import FloatingCTA from "@/components/FloatingCTA";
+import PhotoGallery from "@/components/PhotoGallery";
 
 export default function Home() {
   return (
@@ -26,6 +27,7 @@ export default function Home() {
       <ServicesSection />
       <AboutSection />
       <PortfolioSection />
+      <PhotoGallery />
       <MembershipBanner />
       <MembershipSection />
       <CTABanner />
