@@ -17,6 +17,7 @@ import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 import FloatingCTA from "@/components/FloatingCTA";
 import PhotoGallery from "@/components/PhotoGallery";
+import WhoWeServe from "@/components/WhoWeServe";
 
 export default function Home() {
   return (
@@ -24,6 +25,7 @@ export default function Home() {
       <Navbar />
       <HeroSection />
       <StatsSection />
+      <WhoWeServe />
       <ServicesSection />
       <AboutSection />
       <PortfolioSection />

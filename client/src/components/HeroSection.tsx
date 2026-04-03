@@ -29,8 +29,8 @@ const SLIDES = [
   {
     image:
       "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportAveLandcaping-9_97b731b0.jpg",
-    eyebrow: "Central Oregon's Premier Landscaper",
-    headline: "Bend's Most Trusted\nLandscape Team.",
+    eyebrow: "Commercial · HOA · Government Contracts",
+    headline: "Central Oregon's\nLargest Landscape Firm.",
   },
   {
     image:

@@ -14,22 +14,22 @@ const highlights = [
   {
     icon: Award,
     title: "Award-Winning Design",
-    desc: "Our landscape design team has earned regional recognition for exceptional outdoor transformations.",
+    desc: "Regional recognition for exceptional residential design-builds — from xeriscape to luxury outdoor living.",
   },
   {
     icon: Shield,
-    title: "Team of 150+",
-    desc: "One of Central Oregon's largest landscaping crews — 150+ dedicated professionals delivering on every project.",
+    title: "#1 Commercial & HOA Contractor",
+    desc: "The most trusted commercial landscape contractor in Central Oregon — HOA communities, commercial properties, and government contracts.",
   },
   {
     icon: Clock,
-    title: "21+ Years Experience",
-    desc: "Over two decades serving Bend and Central Oregon homeowners and businesses.",
+    title: "150+ Professionals On Staff",
+    desc: "In-house crews, designers, and project managers — no subcontractors, full accountability on every job.",
   },
   {
     icon: Star,
-    title: "Licensed & Insured",
-    desc: "LCB #9153 — All Phase license with the Oregon Landscape Contractors Board.",
+    title: "Licensed, Bonded & Insured",
+    desc: "LCB #9153 All Phase — fully licensed with the Oregon Landscape Contractors Board for 21+ years.",
   },
 ];
 
@@ -134,21 +134,19 @@ export default function AboutSection() {
               className="font-body leading-relaxed mb-4"
               style={{ color: "oklch(0.38 0.005 0)" }}
             >
-              Located in beautiful Bend, Oregon, Newport Avenue Landscaping is
-              proud to be the premier landscaping company in Central Oregon. Our
-              team of experienced professionals are passionate about creating
-              stunning outdoor spaces that enhance your home's beauty and add
-              value and functionality.
+              Newport Avenue Landscaping is Central Oregon's largest full-service
+              landscape firm — handling everything from award-winning high-end
+              residential design-builds to large-scale commercial developments,
+              HOA community maintenance, and government contracts.
             </p>
             <p
               className="font-body leading-relaxed mb-8"
               style={{ color: "oklch(0.38 0.005 0)" }}
             >
-              With our award-winning designs and exceptional craftsmanship, we
-              have become the go-to landscaping company for homeowners and
-              businesses alike. No job is too big or small — from small
-              residential projects to large commercial developments and
-              government contracts.
+              With 150+ professionals, in-house designers, and 21+ years of
+              experience, we bring the same standard of craftsmanship and
+              accountability to every project — whether it's a private estate in
+              Broken Top or a 200-unit HOA community in NW Bend.
             </p>
 
             {/* Highlights grid */}

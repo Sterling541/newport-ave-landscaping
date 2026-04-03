@@ -77,10 +77,10 @@ export default function CTABanner() {
               maxWidth: "700px",
             }}
           >
-            Ready to Transform Your
+            Residential. Commercial.
             <br />
             <em style={{ color: "oklch(0.82 0.10 25)", fontStyle: "italic" }}>
-              Outdoor Space?
+              Done Right.
             </em>
           </h2>
 
@@ -88,13 +88,14 @@ export default function CTABanner() {
             className="font-body text-lg mb-10 mx-auto"
             style={{
               color: "oklch(0.90 0.005 0)",
-              maxWidth: "500px",
+              maxWidth: "560px",
               lineHeight: 1.7,
             }}
           >
-            Partner with Central Oregon's premier landscaping team. Award-winning
-            design, exceptional craftsmanship, and a team of 150+ professionals
-            ready to bring your vision to life.
+            Whether you're a homeowner looking for a luxury outdoor living space
+            or a property manager overseeing an HOA community — Newport Avenue
+            Landscaping brings the same 150-person team and 21 years of expertise
+            to every project.
           </p>
 
           <div className="flex flex-wrap gap-4 justify-center">
