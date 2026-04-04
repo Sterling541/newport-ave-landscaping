@@ -69,15 +69,15 @@ const segments = [
     ],
     cta: { label: "HOA LANDSCAPE MANAGEMENT", href: "/commercial#hoa" },
     cta2: { label: "GET A FREE QUOTE", href: "/contact" },
-    photo: `${CDN}/powell-butte-33_75351121.webp`,
-    photoAlt: "Manicured HOA community landscape in Bend, Oregon by Newport Avenue Landscaping",
+    photo: `${CDN}/hoa-neighborhood-aerial_b37395ce.png`,
+    photoAlt: "Aerial view of a manicured HOA neighborhood community landscape managed by Newport Avenue Landscaping",
     accentColor: "oklch(0.55 0.12 145)",
     gradientFrom: "oklch(0.08 0.012 145)",
     stats: [
       { value: "200+", label: "HOA Communities Served" },
       { value: "4 Seasons", label: "Year-Round Service" },
     ],
-    photoLabel: "Powell Butte Community",
+    photoLabel: "HOA Neighborhood Community",
   },
 ];
 
