@@ -1,140 +1,70 @@
-import Navbar from "@/components/Navbar";
-import SEO from "@/components/SEO";
-import { BreadcrumbSchema } from "@/components/SchemaMarkup";
-import { Link } from "wouter";
+import Navbar from '@/components/Navbar';
+import SEO from '@/components/SEO';
+import { BreadcrumbSchema } from '@/components/SchemaMarkup';
+import { Link } from 'wouter';
 
 export default function WaterFeatureCostBend() {
   return (
-    <div className="min-h-screen" style={{ backgroundColor: "oklch(0.97 0.003 0)" }}>
+    <div className="min-h-screen" style={{ backgroundColor: 'oklch(0.97 0.003 0)' }}>
       <SEO
-        title="Water Feature Installation Cost in Bend, Oregon | Newport Ave Landscaping"
-        description="Explore water feature installation costs in Bend, Oregon. Get detailed pricing for pondless waterfalls, ponds, and bubblers, plus insights on maintenance and winterization for Central Oregon's climate. Licensed & Bonded, LCB #9153."
+        title="Water Feature Cost in Bend, OR | Newport Ave Landscaping"
+        description="What water features cost in Bend, Oregon. Pondless waterfalls, koi ponds, fountains, and installation pricing for Central Oregon."
         canonical="https://newportavelandscaping.com/resources/water-feature-cost-bend-oregon"
       />
       <BreadcrumbSchema items={[
-        { name: "Home", url: "/" },
-        { name: "Resources", url: "/resources" },
-        { name: "Water Feature Cost Bend", url: "/resources/water-feature-cost-bend-oregon" },
+        { name: 'Home', url: '/' },
+        { name: 'Resources', url: '/resources' },
+        { name: 'Water Feature Cost in Bend, Oregon', url: '/resources/water-feature-cost-bend-oregon' },
       ]} />
       <Navbar />
-      <div style={{ paddingTop: "328px" }}>
-        {/* Hero banner */}
-        <div
-          className="relative flex items-center justify-center"
-          style={{
-            height: "380px",
-            backgroundImage: "url(https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/ITP_7404_28389405.jpg)",
-            backgroundSize: "cover",
-            backgroundPosition: "center 50%",
-          }}
-        >
-          <div className="absolute inset-0" style={{ backgroundColor: "oklch(0 0 0 / 0.55)" }} />
+      <div style={{ paddingTop: '328px' }}>
+        <div className="relative flex items-center justify-center" style={{ height:'380px',backgroundImage:'url(https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/ITP_7404_28389405.jpg)',backgroundSize:'cover',backgroundPosition:'center 50%' }}>
+          <div className="absolute inset-0" style={{ backgroundColor: 'oklch(0 0 0 / 0.55)' }} />
           <div className="relative text-center container">
-            <p className="font-label mb-3" style={{ color: "oklch(0.72 0.12 25)", fontSize: "0.7rem", letterSpacing: "0.18em" }}>
-              LANDSCAPING &middot; 2026
-            </p>
-            <h1 className="font-display text-white" style={{ fontSize: "clamp(1.8rem, 4vw, 3rem)", maxWidth: "700px", margin: "0 auto" }}>
-              Water Feature Installation Cost in Bend, Oregon
-            </h1>
+            <p className="font-label mb-3" style={{ color:'oklch(0.72 0.12 25)',fontSize:'0.7rem',letterSpacing:'0.18em' }}>OUTDOOR LIVING · BEND, OREGON &middot; 2024</p>
+            <h1 className="font-display text-white" style={{ fontSize:'clamp(1.8rem, 4vw, 3rem)',maxWidth:'700px',margin:'0 auto' }}>Water Feature Cost in Bend, Oregon</h1>
           </div>
         </div>
-
-        {/* Article body */}
         <div className="container py-16 max-w-3xl mx-auto">
-          <div style={{ color: "oklch(0.25 0.005 0)" }}>
-            <p className="mb-6">
-              Enhancing your Central Oregon landscape with a beautiful water feature can transform your outdoor space into a serene oasis. From the tranquil sounds of a pondless waterfall to the vibrant ecosystem of a koi pond, water features add aesthetic appeal and a sense of calm. However, understanding the investment required is crucial, especially in Bend, Oregon, where unique climate considerations and local regulations can influence costs. At Newport Avenue Landscaping, with over 21 years of experience in Central Oregon, we specialize in designing and installing custom water features that thrive in our high desert environment. This guide breaks down the typical costs for various water features in Bend, helping you plan your dream landscape.
-            </p>
+          <div style={{ color: 'oklch(0.25 0.005 0)' }}>
+            <p className="mb-8" style={{ fontSize:'1.05rem',lineHeight:1.85,color:'oklch(0.35 0.005 0)' }}>A water feature adds a completely different dimension to a Bend outdoor space — the sound of moving water, the visual interest of a stream or waterfall, and the wildlife it attracts. Here's what water features cost in Central Oregon and which type is right for your property.</p>
 
-            <h2 className="text-2xl font-bold mb-4">Pondless Waterfalls: Serenity Without the Pond</h2>
-            <p className="mb-4">
-              Pondless waterfalls are a popular choice for homeowners in Bend seeking the soothing sounds and visual appeal of a waterfall without the maintenance of a traditional pond. These systems recirculate water from a hidden underground reservoir, making them ideal for smaller spaces or those concerned about safety for children and pets. In Bend, Oregon, the cost for a pondless waterfall installation typically ranges from <strong>$3,500 to $12,000</strong>. Factors influencing this price include the size and length of the stream, the number of drops, the type of rock used (often locally sourced basalt or river rock), and the complexity of the excavation, especially given Bend's volcanic pumice soil. Our team at Newport Avenue Landscaping ensures proper grading and liner installation to prevent water loss, a critical consideration in our arid climate.
-            </p>
+            <h2 className="text-3xl font-bold mb-4" style={{ color: 'oklch(0.25 0.005 0)' }}>Water Feature Cost in Bend</h2>
+            <div className="overflow-x-auto mb-8"><table className="min-w-full bg-white border border-gray-300"><thead><tr><th className="py-2 px-4 border-b text-left">Feature Type</th><th className="py-2 px-4 border-b text-left">Typical Cost</th><th className="py-2 px-4 border-b text-left">Notes</th></tr></thead><tbody><tr><td className="py-2 px-4 border-b">Bubbling boulder/fountain</td><td className="py-2 px-4 border-b">$1,500–$4,000</td><td className="py-2 px-4 border-b">Simple, low maintenance</td></tr>
+                  <tr><td className="py-2 px-4 border-b">Pondless waterfall (small)</td><td className="py-2 px-4 border-b">$4,000–$8,000</td><td className="py-2 px-4 border-b">Most popular choice in Bend</td></tr>
+                  <tr><td className="py-2 px-4 border-b">Pondless waterfall (large)</td><td className="py-2 px-4 border-b">$8,000–$20,000</td><td className="py-2 px-4 border-b">Multiple tiers, boulders</td></tr>
+                  <tr><td className="py-2 px-4 border-b">Koi pond (basic)</td><td className="py-2 px-4 border-b">$8,000–$15,000</td><td className="py-2 px-4 border-b">With filtration system</td></tr>
+                  <tr><td className="py-2 px-4 border-b">Koi pond (full)</td><td className="py-2 px-4 border-b">$15,000–$40,000+</td><td className="py-2 px-4 border-b">Custom design, premium filtration</td></tr>
+                  <tr><td className="py-2 px-4 border-b">Stream feature</td><td className="py-2 px-4 border-b">$5,000–$15,000</td><td className="py-2 px-4 border-b">Natural-looking, great for slopes</td></tr></tbody></table></div>
 
-            <h2 className="text-2xl font-bold mb-4">Ponds: Ecosystems in Your Backyard</h2>
-            <p className="mb-4">
-              For those desiring a more elaborate water feature, a full-fledged pond can create a captivating ecosystem, attracting local wildlife and providing a habitat for aquatic plants and fish. The cost for pond installation in Bend, Oregon, generally falls between <strong>$5,000 and $20,000</strong>. This wide range accounts for variations in pond size, depth, filtration systems (crucial for maintaining water quality), and the inclusion of features like waterfalls, streams, or aquatic plantings. Larger ponds with advanced biological filtration and intricate rockwork, such as those found in upscale neighborhoods like Broken Top, will naturally be at the higher end of this spectrum. Our expertise ensures your pond is designed to withstand Bend's climate, including proper depth for fish overwintering and robust filtration to handle our dry, dusty summers.
-            </p>
+            <h2 className="text-3xl font-bold mb-4" style={{ color: 'oklch(0.25 0.005 0)' }}>Why Pondless Waterfalls Are Popular in Bend</h2>
+            <p className="mb-4">Pondless waterfalls are our most popular water feature in Central Oregon. They provide all the visual and auditory benefits of a waterfall without the maintenance of a pond — no algae management, no fish care, and no safety concerns for children and pets.</p>
+            <p className="mb-8">The water reservoir is buried underground, so there's no standing water to attract mosquitoes or create a drowning hazard. The system recirculates water continuously, and the pump can be turned off when not in use.</p>
 
-            <h2 className="text-2xl font-bold mb-4">Bubblers and Fountains: Simple Elegance</h2>
-            <p className="mb-4">
-              If you're looking for a more compact and budget-friendly water feature, bubblers and decorative fountains offer a delightful focal point with minimal footprint. These features are perfect for small patios, entryways, or as accents within a larger landscape design. Installation costs for bubblers and fountains in Bend typically range from <strong>$1,500 to $5,000</strong>. The price depends on the size and material of the feature (e.g., natural stone, ceramic, or cast concrete), the pump size, and the complexity of the plumbing and electrical work. They are relatively low maintenance and can be easily winterized, making them a practical choice for Bend's cold winters.
-            </p>
-
-            <h2 className="text-2xl font-bold mb-4">Maintenance and Winterization in Central Oregon</h2>
-            <p className="mb-4">
-              Beyond the initial installation, ongoing maintenance is a key consideration for any water feature in Bend. Our high desert climate, with its freezing winters and warm, dry summers, necessitates specific care. Regular maintenance, including debris removal, pump cleaning, and water treatment, can cost anywhere from <strong>$150 to $500 per visit</strong>, depending on the size and complexity of your feature. Crucially, proper winterization is essential to protect your investment from freezing temperatures, which can easily dip below 0?F. This typically involves draining pumps, removing delicate components, and ensuring lines are clear, costing an additional <strong>$200 to $600 annually</strong>. Newport Avenue Landscaping offers comprehensive maintenance plans to keep your water feature pristine year-round.
-            </p>
-
-            <div className="bg-gray-100 p-6 rounded-lg mb-6">
-              <h3 className="text-xl font-bold mb-2">PRO TIP: Freeze Considerations in Bend Winters</h3>
-              <p>
-                Bend's elevation (around 3,600ft) and high desert climate mean harsh winters with prolonged freezing temperatures. For any water feature, especially those with pumps and plumbing, proper winterization is non-negotiable. Ensure all water is drained from pumps and lines, or consider installing de-icers for ponds with fish. Our team at Newport Avenue Landscaping, LCB #9153, has 21+ years of experience dealing with Central Oregon's unique climate and can provide expert advice and services to protect your water feature through the coldest months.
-              </p>
+            <h2 className="text-3xl font-bold mb-4" style={{ color: 'oklch(0.25 0.005 0)' }}>Winterizing Water Features in Bend</h2>
+            <p className="mb-4">Most water features in Bend need to be winterized before the first hard freeze (around October 15th). Pondless waterfalls and fountains should be drained and the pump stored indoors.</p>
+            <p className="mb-4">Koi ponds can often run year-round with a de-icer to maintain a small open area in the ice. However, the pump and filtration system need to be monitored carefully during extreme cold.</p>
+            <div className="bg-gray-100 p-6 rounded-lg mb-8 border-l-4" style={{ borderColor: 'oklch(0.46 0.20 25)' }}>
+              <p className="font-bold text-lg mb-2" style={{ color: 'oklch(0.25 0.005 0)' }}>PRO TIP</p>
+              <p>A water feature near your patio or outdoor seating area creates a natural sound barrier that masks traffic and neighborhood noise — a significant benefit in Bend's growing urban areas.</p>
+            </div>
+            <div className="p-8 text-center mt-12" style={{ backgroundColor: 'oklch(0.18 0.008 0)' }}>
+              <p className="font-label text-xs mb-3" style={{ color:'oklch(0.46 0.20 25)',letterSpacing:'0.18em' }}>GET STARTED TODAY</p>
+              <h3 className="font-display text-white mb-4" style={{ fontSize:'1.6rem' }}>Get a Free Water Feature Consultation in Bend</h3>
+              <p className="font-body mb-6" style={{ color:'oklch(0.72 0.005 0)',lineHeight:1.7 }}>Our design team will visit your property and help you choose the right water feature for your space and budget.</p>
+              <Link href="/contact"><span className="btn-red inline-block">Schedule Your Free Consultation →</span></Link>
+              <p className="mt-4 text-sm" style={{ color:'oklch(0.60 0.005 0)' }}>Or call us: (541) 617-8873</p>
             </div>
 
-            <h2 className="text-2xl font-bold mb-4">Permits and Regulations in Bend</h2>
-            <p className="mb-4">
-              Before embarking on your water feature project, it's important to understand local permitting requirements in Bend. While small, self-contained features like bubblers often don't require permits, larger installations such as ponds or extensive pondless waterfalls might, especially if they involve significant excavation, electrical work, or impact drainage. Always check with the City of Bend Planning Division for current regulations. Additionally, if your property is part of a Homeowners Association (HOA) in areas like Tetherow or Awbrey Butte, there may be additional architectural review processes or restrictions on water features. Newport Avenue Landscaping can assist you in navigating these requirements to ensure your project is compliant.
-            </p>
-
-            <h2 className="text-2xl font-bold mb-4">Water Feature Cost Table for Bend, Oregon</h2>
-            <div className="overflow-x-auto mb-6">
-              <table className="min-w-full divide-y divide-gray-200">
-                <thead className="bg-gray-50">
-                  <tr>
-                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Water Feature Type</th>
-                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Typical Cost Range (Bend, OR)</th>
-                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Key Considerations</th>
-                  </tr>
-                </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
-                  <tr>
-                    <td className="px-6 py-4 whitespace-nowrap">Pondless Waterfall</td>
-                    <td className="px-6 py-4 whitespace-nowrap">$3,500 - $12,000</td>
-                    <td className="px-6 py-4">Size, rock type, excavation complexity, liner quality.</td>
-                  </tr>
-                  <tr>
-                    <td className="px-6 py-4 whitespace-nowrap">Pond (with filtration)</td>
-                    <td className="px-6 py-4 whitespace-nowrap">$5,000 - $20,000</td>
-                    <td className="px-6 py-4">Size, depth, filtration system, aquatic plants/fish, rockwork.</td>
-                  </tr>
-                  <tr>
-                    <td className="px-6 py-4 whitespace-nowrap">Bubbler/Fountain</td>
-                    <td className="px-6 py-4 whitespace-nowrap">$1,500 - $5,000</td>
-                    <td className="px-6 py-4">Material, size, pump, plumbing, electrical work.</td>
-                  </tr>
-                  <tr>
-                    <td className="px-6 py-4 whitespace-nowrap">Annual Winterization</td>
-                    <td className="px-6 py-4 whitespace-nowrap">$200 - $600</td>
-                    <td className="px-6 py-4">Draining, pump removal, line clearing.</td>
-                  </tr>
-                  <tr>
-                    <td className="px-6 py-4 whitespace-nowrap">Routine Maintenance (per visit)</td>
-                    <td className="px-6 py-4 whitespace-nowrap">$150 - $500</td>
-                    <td className="px-6 py-4">Debris removal, pump cleaning, water treatment.</td>
-                  </tr>
-                </tbody>
-              </table>
+            <div className="mt-12 pt-10" style={{ borderTop: '1px solid oklch(0.88 0.005 0)' }}>
+              <p className="font-label mb-2" style={{ color: 'oklch(0.46 0.20 25)', fontSize: '0.62rem', letterSpacing: '0.18em' }}>YOU MIGHT ALSO LIKE</p>
+              <h2 className="font-display font-light mb-6" style={{ fontSize: 'clamp(1.3rem, 2vw, 1.8rem)', color: 'oklch(0.15 0.005 0)' }}>More Helpful Guides</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <Link href="/resources/faq-water-feature-bend-oregon"><span style={{ display:'block',padding:'1.1rem 1.25rem',backgroundColor:'oklch(1 0 0)',borderLeft:'3px solid oklch(0.46 0.20 25)',textDecoration:'none' }}><div className="font-body" style={{ color:'oklch(0.22 0.008 30)',fontWeight:600,fontSize:'0.85rem',marginBottom:'0.3rem' }}>Water Feature FAQ</div><div className="font-body" style={{ color:'oklch(0.50 0.008 30)',fontSize:'0.75rem',fontWeight:300,lineHeight:1.5 }}>Common questions about water features in Bend.</div></span></Link>
+                <Link href="/resources/paver-patio-cost-bend-oregon"><span style={{ display:'block',padding:'1.1rem 1.25rem',backgroundColor:'oklch(1 0 0)',borderLeft:'3px solid oklch(0.46 0.20 25)',textDecoration:'none' }}><div className="font-body" style={{ color:'oklch(0.22 0.008 30)',fontWeight:600,fontSize:'0.85rem',marginBottom:'0.3rem' }}>Paver Patio Cost in Bend</div><div className="font-body" style={{ color:'oklch(0.50 0.008 30)',fontSize:'0.75rem',fontWeight:300,lineHeight:1.5 }}>Hardscape pricing for Central Oregon projects.</div></span></Link>
+                <Link href="/resources/fire-pit-patio-cost-bend-oregon"><span style={{ display:'block',padding:'1.1rem 1.25rem',backgroundColor:'oklch(1 0 0)',borderLeft:'3px solid oklch(0.46 0.20 25)',textDecoration:'none' }}><div className="font-body" style={{ color:'oklch(0.22 0.008 30)',fontWeight:600,fontSize:'0.85rem',marginBottom:'0.3rem' }}>Fire Pit & Patio Cost Guide</div><div className="font-body" style={{ color:'oklch(0.50 0.008 30)',fontSize:'0.75rem',fontWeight:300,lineHeight:1.5 }}>Budgeting for fire features alongside your outdoor space.</div></span></Link>
+              </div>
             </div>
-
-            <p className="mb-6">
-              Investing in a water feature is an investment in the beauty and tranquility of your Bend home. With careful planning and the right expertise, you can create a stunning focal point that enhances your landscape for years to come. Newport Avenue Landscaping is your trusted partner for water feature design, installation, and maintenance across Bend, Redmond, Sisters, Sunriver, Tumalo, Prineville, La Pine, and Madras. Our licensed and bonded team (LCB #9153) is ready to bring your vision to life.
-            </p>
-
-            {/* CTA Block */}
-            <div className="text-center mt-12 p-8 bg-gradient-to-r from-green-700 to-green-900 text-white rounded-lg shadow-lg">
-              <h3 className="text-3xl font-display mb-4">Ready to Transform Your Landscape?</h3>
-              <p className="text-lg mb-6">
-                Contact Newport Avenue Landscaping today for a personalized consultation and estimate for your water feature project in Central Oregon. Let us help you create the outdoor space of your dreams.
-              </p>
-              <Link href="/contact">
-                <a className="inline-block bg-white text-green-800 font-bold py-3 px-8 rounded-full text-lg hover:bg-gray-200 transition duration-300">
-                  Get Your Free Estimate
-                </a>
-              </Link>
-            </div>
-
           </div>
         </div>
       </div>

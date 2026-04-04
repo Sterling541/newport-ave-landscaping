@@ -92,9 +92,9 @@ export default function DiscoveryWestNeighborhood() {
                 Contact Newport Ave Landscaping today for a personalized consultation.
               </p>
               <Link href="/contact">
-                <a className="inline-block bg-green-700 text-white font-bold py-3 px-8 rounded-full hover:bg-green-800 transition duration-300">
+                <span className="inline-block bg-green-700 text-white font-bold py-3 px-8 rounded-full hover:bg-green-800 transition duration-300">
                   Get a Free Estimate
-                </a>
+                </span>
               </Link>
               <p className="text-sm mt-4" style={{ color: 'oklch(0.25 0.005 0)' }}>
                 Call us at <a href="tel:+15416178873" className="underline">(541) 617-8873</a>

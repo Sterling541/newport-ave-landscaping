@@ -1,3 +1,4 @@
+import { lazy, Suspense } from 'react';
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/NotFound";
@@ -101,6 +102,7 @@ import SWBendBackyard from "./pages/portfolio/SWBendBackyard";
 function Router() {
   // make sure to consider if you need authentication for certain routes
   return (
+    <Suspense fallback={<div />}>
     <Switch>
       {/* Main pages */}
       <Route path={"/"} component={Home} />
@@ -197,13 +199,150 @@ function Router() {
       <Route path={"/service-areas/sunriver-landscaping"} component={SunriverLandscaping} />
       <Route path={"/service-areas/redmond-landscaping"} component={RedmondLandscaping} />
 
+
+      {/* New SEO Resource Pages */}
+      <Route path={"/resources/hoa-landscaping-bend-oregon"} component={lazy(() => import('./pages/resources/BendHOALandscaping'))} />
+      <Route path={"/resources/landscape-transformation-bend-oregon"} component={lazy(() => import('./pages/resources/BendLandscapeBeforeAfter'))} />
+      <Route path={"/resources/landscape-design-ideas-bend-oregon"} component={lazy(() => import('./pages/resources/BendLandscapeDesignIdeas'))} />
+      <Route path={"/resources/landscape-maintenance-plan-bend-oregon"} component={lazy(() => import('./pages/resources/BendLandscapeMaintenancePlan'))} />
+      <Route path={"/resources/landscape-warranty-bend-oregon"} component={lazy(() => import('./pages/resources/BendLandscapeWarranty'))} />
+      <Route path={"/resources/landscaping-company-bend-oregon"} component={lazy(() => import('./pages/resources/BendLandscapingCompanyGuide'))} />
+      <Route path={"/resources/landscaping-cost-guide-bend-oregon"} component={lazy(() => import('./pages/resources/BendLandscapingCostGuide'))} />
+      <Route path={"/resources/landscaping-seasons-bend-oregon"} component={lazy(() => import('./pages/resources/BendLandscapingSeasons'))} />
+      <Route path={"/resources/landscaping-tips-bend-oregon"} component={lazy(() => import('./pages/resources/BendLandscapingTips'))} />
+      <Route path={"/resources/new-construction-landscaping-bend-oregon"} component={lazy(() => import('./pages/resources/BendNewConstructionLandscaping'))} />
+      <Route path={"/resources/landscaping-home-value-bend-oregon"} component={lazy(() => import('./pages/resources/BendPropertyValueLandscaping'))} />
+      <Route path={"/resources/bend-turf-rebate-program"} component={lazy(() => import('./pages/resources/BendTurfRebateProgram'))} />
+      <Route path={"/resources/best-plants-xeriscape-central-oregon"} component={lazy(() => import('./pages/resources/BestPlantsXeriscapeCentralOregon'))} />
+      <Route path={"/resources/boulder-landscaping-cost-bend-oregon"} component={lazy(() => import('./pages/resources/BoulderLandscapingCostBend'))} />
+      <Route path={"/resources/central-oregon-landscaping-guide"} component={lazy(() => import('./pages/resources/CentralOregonLandscapingGuide'))} />
+      <Route path={"/resources/drainage-solutions-cost-bend-oregon"} component={lazy(() => import('./pages/resources/DrainageSolutionsCostBend'))} />
+      <Route path={"/resources/drip-vs-spray-irrigation-bend-oregon"} component={lazy(() => import('./pages/resources/DripVsSprayIrrigationBend'))} />
+      <Route path={"/resources/driveway-paver-cost-bend-oregon"} component={lazy(() => import('./pages/resources/DrivewayPaverCostBend'))} />
+      <Route path={"/resources/fall-landscaping-guide-bend-oregon"} component={lazy(() => import('./pages/resources/FallLandscapingGuideBend'))} />
+      <Route path={"/resources/faq-irrigation-bend-oregon"} component={lazy(() => import('./pages/resources/FaqIrrigationBend'))} />
+      <Route path={"/resources/faq-lawn-care-bend-oregon"} component={lazy(() => import('./pages/resources/FaqLawnCareBend'))} />
+      <Route path={"/resources/faq-outdoor-lighting-bend-oregon"} component={lazy(() => import('./pages/resources/FaqOutdoorLightingBend'))} />
+      <Route path={"/resources/faq-paver-patio-bend-oregon"} component={lazy(() => import('./pages/resources/FaqPaverPatioBend'))} />
+      <Route path={"/resources/faq-retaining-wall-bend-oregon"} component={lazy(() => import('./pages/resources/FaqRetainingWallBend'))} />
+      <Route path={"/resources/faq-snow-removal-bend-oregon"} component={lazy(() => import('./pages/resources/FaqSnowRemovalBend'))} />
+      <Route path={"/resources/faq-water-feature-bend-oregon"} component={lazy(() => import('./pages/resources/FaqWaterFeatureBend'))} />
+      <Route path={"/resources/faq-xeriscape-bend-oregon"} component={lazy(() => import('./pages/resources/FaqXeriscapeBend'))} />
+      <Route path={"/resources/fencing-cost-bend-oregon"} component={lazy(() => import('./pages/resources/FencingCostBend'))} />
+      <Route path={"/resources/how-to-install-drip-irrigation-bend-oregon"} component={lazy(() => import('./pages/resources/HowToInstallDripIrrigationBend'))} />
+      <Route path={"/resources/how-to-maintain-paver-patio-bend-oregon"} component={lazy(() => import('./pages/resources/HowToMaintainPaverPatioBend'))} />
+      <Route path={"/resources/how-to-plant-trees-bend-oregon"} component={lazy(() => import('./pages/resources/HowToPlantTreesBend'))} />
+      <Route path={"/resources/how-to-prevent-lawn-fungus-bend-oregon"} component={lazy(() => import('./pages/resources/HowToPreventLawnFungusBend'))} />
+      <Route path={"/resources/how-to-read-landscape-proposal-bend-oregon"} component={lazy(() => import('./pages/resources/HowToReadLandscapeProposal'))} />
+      <Route path={"/resources/understanding-soil-bend-oregon"} component={lazy(() => import('./pages/resources/HowToReadSoilBend'))} />
+      <Route path={"/resources/how-to-select-pavers-bend-oregon"} component={lazy(() => import('./pages/resources/HowToSelectPaversBend'))} />
+      <Route path={"/resources/how-to-water-lawn-bend-oregon"} component={lazy(() => import('./pages/resources/HowToWaterLawnBend'))} />
+      <Route path={"/resources/how-to-xeriscape-bend-oregon"} component={lazy(() => import('./pages/resources/HowToXeriscapeBend'))} />
+      <Route path={"/resources/landscape-lighting-cost-bend-oregon"} component={lazy(() => import('./pages/resources/LandscapeLightingCostBend2'))} />
+      <Route path={"/resources/landscaping-bend-oregon"} component={lazy(() => import('./pages/resources/LandscapingBendOregonGuide'))} />
+      <Route path={"/resources/mulch-installation-cost-bend-oregon"} component={lazy(() => import('./pages/resources/MulchInstallationCostBend'))} />
+      <Route path={"/resources/native-vs-adapted-plants-bend-oregon"} component={lazy(() => import('./pages/resources/NativeVsAdaptedPlantsBend'))} />
+      <Route path={"/resources/outdoor-kitchen-cost-bend-oregon"} component={lazy(() => import('./pages/resources/OutdoorKitchenCostBend'))} />
+      <Route path={"/resources/paver-walkway-cost-bend-oregon"} component={lazy(() => import('./pages/resources/PaverPatioCostBend2'))} />
+      <Route path={"/resources/pavers-vs-concrete-bend-oregon"} component={lazy(() => import('./pages/resources/PaversVsConcreteBend'))} />
+      <Route path={"/resources/perennial-garden-cost-bend-oregon"} component={lazy(() => import('./pages/resources/PerennialGardenCostBend'))} />
+      <Route path={"/resources/pergola-cost-bend-oregon"} component={lazy(() => import('./pages/resources/PergolaCostBend'))} />
+      <Route path={"/resources/professional-vs-diy-landscaping-bend-oregon"} component={lazy(() => import('./pages/resources/ProfessionalVsDIYLandscapingBend'))} />
+      <Route path={"/resources/sod-vs-seed-bend-oregon"} component={lazy(() => import('./pages/resources/SodVsSeedBend'))} />
+      <Route path={"/resources/spring-landscaping-guide-bend-oregon"} component={lazy(() => import('./pages/resources/SpringLandscapingGuideBend'))} />
+      <Route path={"/resources/sprinkler-winterization-guide-bend-oregon"} component={lazy(() => import('./pages/resources/SprinklerWinterizationGuideBend'))} />
+      <Route path={"/resources/summer-landscaping-guide-bend-oregon"} component={lazy(() => import('./pages/resources/SummerLandscapingGuideBend'))} />
+      <Route path={"/resources/tree-removal-cost-bend-oregon"} component={lazy(() => import('./pages/resources/TreeRemovalCostBend'))} />
+      <Route path={"/resources/winter-landscaping-guide-bend-oregon"} component={lazy(() => import('./pages/resources/WinterLandscapingGuideBend'))} />
+      <Route path={"/resources/xeriscape-vs-traditional-lawn-bend-oregon"} component={lazy(() => import('./pages/resources/XeriscapeVsTraditionalLawnBend'))} />
+
+      {/* New Service Area Pages */}
+      <Route path={"/service-areas/bend-country-club-landscaping"} component={lazy(() => import('./pages/service-areas/BendCountryClubLandscaping'))} />
+      <Route path={"/service-areas/bend-east-side-landscaping"} component={lazy(() => import('./pages/service-areas/BendEastSideLandscaping'))} />
+      <Route path={"/service-areas/bend-south-landscaping"} component={lazy(() => import('./pages/service-areas/BendSouthLandscaping'))} />
+      <Route path={"/service-areas/bend-westside-landscaping"} component={lazy(() => import('./pages/service-areas/BendWestsideLandscaping'))} />
+      <Route path={"/service-areas/brookswood-landscaping"} component={lazy(() => import('./pages/service-areas/BrookswoodLandscaping'))} />
+      <Route path={"/service-areas/century-drive-corridor-landscaping"} component={lazy(() => import('./pages/service-areas/CenturyDriveCorridorLandscaping'))} />
+      <Route path={"/service-areas/crooked-river-ranch"} component={lazy(() => import('./pages/service-areas/CrookedRiverRanchLandscapingHub'))} />
+      <Route path={"/service-areas/culver"} component={lazy(() => import('./pages/service-areas/CulverLandscapingHub'))} />
+      <Route path={"/service-areas/deschutes-river-woods-landscaping"} component={lazy(() => import('./pages/service-areas/DeschutesRiverWoodsLandscaping'))} />
+      <Route path={"/service-areas/hunnell-road-area-landscaping"} component={lazy(() => import('./pages/service-areas/HunnellRoadAreaLandscaping'))} />
+      <Route path={"/service-areas/alfalfa-irrigation"} component={lazy(() => import('./pages/service-areas/IrrigationAlfalfa'))} />
+      <Route path={"/service-areas/crooked-river-ranch-irrigation"} component={lazy(() => import('./pages/service-areas/IrrigationCrookedRiverRanch'))} />
+      <Route path={"/service-areas/culver-irrigation"} component={lazy(() => import('./pages/service-areas/IrrigationCulver'))} />
+      <Route path={"/service-areas/madras-irrigation"} component={lazy(() => import('./pages/service-areas/IrrigationMadras'))} />
+      <Route path={"/service-areas/powell-butte-irrigation"} component={lazy(() => import('./pages/service-areas/IrrigationPowellButte'))} />
+      <Route path={"/service-areas/terrebonne-irrigation"} component={lazy(() => import('./pages/service-areas/IrrigationTerrebonne'))} />
+      <Route path={"/service-areas/la-pine"} component={lazy(() => import('./pages/service-areas/LaPineLandscapingHub'))} />
+      <Route path={"/service-areas/la-pine-landscape-design"} component={lazy(() => import('./pages/service-areas/LandscapeDesignLaPine'))} />
+      <Route path={"/service-areas/prineville-landscape-design"} component={lazy(() => import('./pages/service-areas/LandscapeDesignPrineville'))} />
+      <Route path={"/service-areas/redmond-landscape-design"} component={lazy(() => import('./pages/service-areas/LandscapeDesignRedmond'))} />
+      <Route path={"/service-areas/sisters-landscape-design"} component={lazy(() => import('./pages/service-areas/LandscapeDesignSisters'))} />
+      <Route path={"/service-areas/sunriver-landscape-design"} component={lazy(() => import('./pages/service-areas/LandscapeDesignSunriver'))} />
+      <Route path={"/service-areas/tumalo-landscape-design"} component={lazy(() => import('./pages/service-areas/LandscapeDesignTumalo'))} />
+      <Route path={"/service-areas/larkspur-landscaping"} component={lazy(() => import('./pages/service-areas/LarkspurLandscaping'))} />
+      <Route path={"/service-areas/lava-butte-area-landscaping"} component={lazy(() => import('./pages/service-areas/LavaButteAreaLandscaping'))} />
+      <Route path={"/service-areas/alfalfa-lawn-care"} component={lazy(() => import('./pages/service-areas/LawnCareAlfalfa'))} />
+      <Route path={"/service-areas/crooked-river-ranch-lawn-care"} component={lazy(() => import('./pages/service-areas/LawnCareCrookedRiverRanch'))} />
+      <Route path={"/service-areas/culver-lawn-care"} component={lazy(() => import('./pages/service-areas/LawnCareCulver'))} />
+      <Route path={"/service-areas/la-pine-lawn-care"} component={lazy(() => import('./pages/service-areas/LawnCareLaPine'))} />
+      <Route path={"/service-areas/madras-lawn-care"} component={lazy(() => import('./pages/service-areas/LawnCareMadras'))} />
+      <Route path={"/service-areas/powell-butte-lawn-care"} component={lazy(() => import('./pages/service-areas/LawnCarePowellButte'))} />
+      <Route path={"/service-areas/prineville-lawn-care"} component={lazy(() => import('./pages/service-areas/LawnCarePrineville'))} />
+      <Route path={"/service-areas/redmond-lawn-care"} component={lazy(() => import('./pages/service-areas/LawnCareRedmond'))} />
+      <Route path={"/service-areas/sisters-lawn-care"} component={lazy(() => import('./pages/service-areas/LawnCareSisters'))} />
+      <Route path={"/service-areas/sunriver-lawn-care"} component={lazy(() => import('./pages/service-areas/LawnCareSunriver'))} />
+      <Route path={"/service-areas/terrebonne-lawn-care"} component={lazy(() => import('./pages/service-areas/LawnCareTerrebonne'))} />
+      <Route path={"/service-areas/tumalo-lawn-care"} component={lazy(() => import('./pages/service-areas/LawnCareTumalo'))} />
+      <Route path={"/service-areas/madras"} component={lazy(() => import('./pages/service-areas/MadrasLandscapingHub'))} />
+      <Route path={"/service-areas/murphy-road-area-landscaping"} component={lazy(() => import('./pages/service-areas/MurphyRoadAreaLandscaping'))} />
+      <Route path={"/service-areas/northeast-bend-landscaping"} component={lazy(() => import('./pages/service-areas/NortheastBendLandscaping'))} />
+      <Route path={"/service-areas/old-mill-district-landscaping"} component={lazy(() => import('./pages/service-areas/OldMillDistrictLandscaping'))} />
+      <Route path={"/service-areas/orion-greens-landscaping"} component={lazy(() => import('./pages/service-areas/OrionGreensLandscaping'))} />
+      <Route path={"/service-areas/alfalfa-paver-patio"} component={lazy(() => import('./pages/service-areas/PaverPatioAlfalfa'))} />
+      <Route path={"/service-areas/crooked-river-ranch-paver-patio"} component={lazy(() => import('./pages/service-areas/PaverPatioCrookedRiverRanch'))} />
+      <Route path={"/service-areas/culver-paver-patio"} component={lazy(() => import('./pages/service-areas/PaverPatioCulver'))} />
+      <Route path={"/service-areas/la-pine-paver-patio"} component={lazy(() => import('./pages/service-areas/PaverPatioLaPine'))} />
+      <Route path={"/service-areas/madras-paver-patio"} component={lazy(() => import('./pages/service-areas/PaverPatioMadras'))} />
+      <Route path={"/service-areas/powell-butte-paver-patio"} component={lazy(() => import('./pages/service-areas/PaverPatioPowellButte'))} />
+      <Route path={"/service-areas/prineville-paver-patio"} component={lazy(() => import('./pages/service-areas/PaverPatioPrineville'))} />
+      <Route path={"/service-areas/redmond-paver-patio"} component={lazy(() => import('./pages/service-areas/PaverPatioRedmond'))} />
+      <Route path={"/service-areas/sisters-paver-patio"} component={lazy(() => import('./pages/service-areas/PaverPatioSisters'))} />
+      <Route path={"/service-areas/sunriver-paver-patio"} component={lazy(() => import('./pages/service-areas/PaverPatioSunriver'))} />
+      <Route path={"/service-areas/terrebonne-paver-patio"} component={lazy(() => import('./pages/service-areas/PaverPatioTerrebonne'))} />
+      <Route path={"/service-areas/tumalo-paver-patio"} component={lazy(() => import('./pages/service-areas/PaverPatioTumalo'))} />
+      <Route path={"/service-areas/prineville"} component={lazy(() => import('./pages/service-areas/PrinevilleLandscapingHub'))} />
+      <Route path={"/service-areas/redmond"} component={lazy(() => import('./pages/service-areas/RedmondLandscapingHub'))} />
+      <Route path={"/service-areas/river-west-landscaping"} component={lazy(() => import('./pages/service-areas/RiverWestLandscaping'))} />
+      <Route path={"/service-areas/shevlin-meadows-landscaping"} component={lazy(() => import('./pages/service-areas/ShevlinMeadowsLandscaping'))} />
+      <Route path={"/service-areas/shevlin-park-area-landscaping"} component={lazy(() => import('./pages/service-areas/ShevlinParkAreaLandscaping'))} />
+      <Route path={"/service-areas/sisters"} component={lazy(() => import('./pages/service-areas/SistersLandscapingHub'))} />
+      <Route path={"/service-areas/skyline-ranch-landscaping"} component={lazy(() => import('./pages/service-areas/SkylineRanchLandscaping'))} />
+      <Route path={"/service-areas/southeast-bend-landscaping"} component={lazy(() => import('./pages/service-areas/SoutheastBendLandscaping'))} />
+      <Route path={"/service-areas/la-pine-sprinkler-system"} component={lazy(() => import('./pages/service-areas/SprinklerSystemLaPine'))} />
+      <Route path={"/service-areas/prineville-sprinkler-system"} component={lazy(() => import('./pages/service-areas/SprinklerSystemPrineville'))} />
+      <Route path={"/service-areas/redmond-sprinkler-system"} component={lazy(() => import('./pages/service-areas/SprinklerSystemRedmond'))} />
+      <Route path={"/service-areas/sisters-sprinkler-system"} component={lazy(() => import('./pages/service-areas/SprinklerSystemSisters'))} />
+      <Route path={"/service-areas/sunriver-sprinkler-system"} component={lazy(() => import('./pages/service-areas/SprinklerSystemSunriver'))} />
+      <Route path={"/service-areas/tumalo-sprinkler-system"} component={lazy(() => import('./pages/service-areas/SprinklerSystemTumalo'))} />
+      <Route path={"/service-areas/summit-west-landscaping"} component={lazy(() => import('./pages/service-areas/SummitWestLandscaping'))} />
+      <Route path={"/service-areas/sunriver"} component={lazy(() => import('./pages/service-areas/SunriverLandscapingHub'))} />
+      <Route path={"/service-areas/terrebonne"} component={lazy(() => import('./pages/service-areas/TerrebonneLandscapingHub'))} />
+      <Route path={"/service-areas/tetherow-landscaping"} component={lazy(() => import('./pages/service-areas/TetherowLandscaping'))} />
+      <Route path={"/service-areas/woodriver-village-landscaping"} component={lazy(() => import('./pages/service-areas/WoodriverVillageLandscaping'))} />
+      <Route path={"/service-areas/la-pine-xeriscape"} component={lazy(() => import('./pages/service-areas/XeriscapeLaPine'))} />
+      <Route path={"/service-areas/prineville-xeriscape"} component={lazy(() => import('./pages/service-areas/XeriscapePrineville'))} />
+      <Route path={"/service-areas/redmond-xeriscape"} component={lazy(() => import('./pages/service-areas/XeriscapeRedmond'))} />
+      <Route path={"/service-areas/sisters-xeriscape"} component={lazy(() => import('./pages/service-areas/XeriscapeSisters'))} />
+      <Route path={"/service-areas/sunriver-xeriscape"} component={lazy(() => import('./pages/service-areas/XeriscapeSunriver'))} />
+      <Route path={"/service-areas/tumalo-xeriscape"} component={lazy(() => import('./pages/service-areas/XeriscapeTumalo'))} />
       {/* Fallback */}
       <Route path={"/404"} component={NotFound} />
       <Route component={NotFound} />
     </Switch>
+    </Suspense>
   );
 }
-
 function App() {
   return (
     <ErrorBoundary>

@@ -51,7 +51,7 @@ export default function SprinklerWinterizationBend() {
               Unlike the Willamette Valley where winters are mild and wet, Central Oregon's high desert climate brings hard, sustained freezes. Bend averages its first freeze around October 7th, and temperatures regularly drop into the single digits in December and January. Water expands approximately 9% when it freezes — enough to split PVC pipes, crack poly tubing, shatter backflow preventers, and destroy spray heads.
             </p>
             <p className="font-body mb-8" style={{ lineHeight: 1.8 }}>
-              The most expensive damage typically occurs in the backflow preventer — the brass or bronze device that prevents irrigation water from flowing back into your drinking water supply. Backflow preventers are exposed above ground and are the first component to freeze. Replacement costs range from $300 to $800 for parts and labor. Cracked mainlines buried underground can cost $500–$2,000+ to locate and repair. A professional winterization costs $75–$150. The math is simple.
+              The most expensive damage typically occurs in the backflow preventer — the brass or bronze device that prevents irrigation water from flowing back into your drinking water supply. Backflow preventers are exposed above ground and are the first component to freeze. Replacement costs range from $300 to $800 for parts and labor. Cracked mainlines buried underground can cost $500–$2,000+ to locate and repair. A professional winterization costs $140/tech hour. The math is simple.
             </p>
 
             <h2 className="font-display mb-4" style={{ fontSize: "1.8rem", color: "oklch(0.15 0.005 0)" }}>
@@ -109,9 +109,75 @@ export default function SprinklerWinterizationBend() {
                 Our Priority Irrigation Membership includes both spring activation and fall winterization — plus priority scheduling so you're never scrambling before a freeze. Contact us today to get on the schedule.
               </p>
               <Link href="/contact">
-                <a className="btn-red inline-block">Schedule Winterization →</a>
+                <span className="btn-red inline-block">Schedule Winterization →</span>
               </Link>
             </div>
+          {/* ── You might also like / Related Services ── */}
+            <div className="mt-12 pt-10" style={{ borderTop: "1px solid oklch(0.88 0.005 0)" }}>
+              <p className="font-label mb-2" style={{ color: "oklch(0.46 0.20 25)", fontSize: "0.62rem", letterSpacing: "0.18em" }}>
+                RELATED SERVICES
+              </p>
+              <h2 className="font-display font-light mb-6" style={{ fontSize: "clamp(1.3rem, 2vw, 1.8rem)", color: "oklch(0.15 0.005 0)" }}>
+                Explore Our Services
+              </h2>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <Link href="/services/sprinkler-blowout">
+                  <span
+                    style={{
+                      display: "block",
+                      padding: "1.1rem 1.25rem",
+                      backgroundColor: "oklch(1 0 0)",
+                      borderLeft: "3px solid oklch(0.46 0.20 25)",
+                      textDecoration: "none",
+                    }}
+                  >
+                    <div className="font-body" style={{ color: "oklch(0.22 0.008 30)", fontWeight: 600, fontSize: "0.85rem", marginBottom: "0.3rem" }}>
+                      Sprinkler Blowout Service
+                    </div>
+                    <div className="font-body" style={{ color: "oklch(0.50 0.008 30)", fontSize: "0.75rem", fontWeight: 300, lineHeight: 1.5 }}>
+                      Professional fall winterization for Bend sprinkler systems.
+                    </div>
+                  </span>
+                </Link>
+                <Link href="/services/sprinkler-activation">
+                  <span
+                    style={{
+                      display: "block",
+                      padding: "1.1rem 1.25rem",
+                      backgroundColor: "oklch(1 0 0)",
+                      borderLeft: "3px solid oklch(0.46 0.20 25)",
+                      textDecoration: "none",
+                    }}
+                  >
+                    <div className="font-body" style={{ color: "oklch(0.22 0.008 30)", fontWeight: 600, fontSize: "0.85rem", marginBottom: "0.3rem" }}>
+                      Spring Activation
+                    </div>
+                    <div className="font-body" style={{ color: "oklch(0.50 0.008 30)", fontSize: "0.75rem", fontWeight: 300, lineHeight: 1.5 }}>
+                      Get your irrigation system ready for the season.
+                    </div>
+                  </span>
+                </Link>
+                <Link href="/services/sprinkler-repair">
+                  <span
+                    style={{
+                      display: "block",
+                      padding: "1.1rem 1.25rem",
+                      backgroundColor: "oklch(1 0 0)",
+                      borderLeft: "3px solid oklch(0.46 0.20 25)",
+                      textDecoration: "none",
+                    }}
+                  >
+                    <div className="font-body" style={{ color: "oklch(0.22 0.008 30)", fontWeight: 600, fontSize: "0.85rem", marginBottom: "0.3rem" }}>
+                      Sprinkler Repair & Backflow
+                    </div>
+                    <div className="font-body" style={{ color: "oklch(0.50 0.008 30)", fontSize: "0.75rem", fontWeight: 300, lineHeight: 1.5 }}>
+                      Fast, certified irrigation repairs in Central Oregon.
+                    </div>
+                  </span>
+                </Link>
+              </div>
+            </div>
+
           </div>
         </div>
       </div>

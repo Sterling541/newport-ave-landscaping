@@ -110,9 +110,75 @@ export default function XeriscapeBend() {
                 Our design team has completed hundreds of xeriscape transformations across Bend, Redmond, and Sisters. We'll assess your property, discuss your vision, and provide a detailed proposal — at no cost.
               </p>
               <Link href="/contact">
-                <a className="btn-red inline-block">Schedule Your Free Consultation →</a>
+                <span className="btn-red inline-block">Schedule Your Free Consultation →</span>
               </Link>
             </div>
+          {/* ── You might also like / Related Services ── */}
+            <div className="mt-12 pt-10" style={{ borderTop: "1px solid oklch(0.88 0.005 0)" }}>
+              <p className="font-label mb-2" style={{ color: "oklch(0.46 0.20 25)", fontSize: "0.62rem", letterSpacing: "0.18em" }}>
+                RELATED SERVICES
+              </p>
+              <h2 className="font-display font-light mb-6" style={{ fontSize: "clamp(1.3rem, 2vw, 1.8rem)", color: "oklch(0.15 0.005 0)" }}>
+                Explore Our Services
+              </h2>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <Link href="/services/xeriscaping">
+                  <span
+                    style={{
+                      display: "block",
+                      padding: "1.1rem 1.25rem",
+                      backgroundColor: "oklch(1 0 0)",
+                      borderLeft: "3px solid oklch(0.46 0.20 25)",
+                      textDecoration: "none",
+                    }}
+                  >
+                    <div className="font-body" style={{ color: "oklch(0.22 0.008 30)", fontWeight: 600, fontSize: "0.85rem", marginBottom: "0.3rem" }}>
+                      Xeriscaping Services
+                    </div>
+                    <div className="font-body" style={{ color: "oklch(0.50 0.008 30)", fontSize: "0.75rem", fontWeight: 300, lineHeight: 1.5 }}>
+                      Our full xeriscape design and installation service in Central Oregon.
+                    </div>
+                  </span>
+                </Link>
+                <Link href="/services/landscape-design">
+                  <span
+                    style={{
+                      display: "block",
+                      padding: "1.1rem 1.25rem",
+                      backgroundColor: "oklch(1 0 0)",
+                      borderLeft: "3px solid oklch(0.46 0.20 25)",
+                      textDecoration: "none",
+                    }}
+                  >
+                    <div className="font-body" style={{ color: "oklch(0.22 0.008 30)", fontWeight: 600, fontSize: "0.85rem", marginBottom: "0.3rem" }}>
+                      Landscape Design
+                    </div>
+                    <div className="font-body" style={{ color: "oklch(0.50 0.008 30)", fontSize: "0.75rem", fontWeight: 300, lineHeight: 1.5 }}>
+                      Custom landscape architecture and design for Bend homes.
+                    </div>
+                  </span>
+                </Link>
+                <Link href="/services/irrigation">
+                  <span
+                    style={{
+                      display: "block",
+                      padding: "1.1rem 1.25rem",
+                      backgroundColor: "oklch(1 0 0)",
+                      borderLeft: "3px solid oklch(0.46 0.20 25)",
+                      textDecoration: "none",
+                    }}
+                  >
+                    <div className="font-body" style={{ color: "oklch(0.22 0.008 30)", fontWeight: 600, fontSize: "0.85rem", marginBottom: "0.3rem" }}>
+                      Irrigation Installation
+                    </div>
+                    <div className="font-body" style={{ color: "oklch(0.50 0.008 30)", fontSize: "0.75rem", fontWeight: 300, lineHeight: 1.5 }}>
+                      Water-efficient drip and sprinkler systems for xeriscape landscapes.
+                    </div>
+                  </span>
+                </Link>
+              </div>
+            </div>
+
           </div>
         </div>
       </div>

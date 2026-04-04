@@ -118,9 +118,75 @@ export default function LawnCareBendOregon() {
                 Our Everything Plan covers weekly mowing, spring and fall cleanups, annual aeration, fertilization, and weed control — everything your Bend lawn needs, year-round, starting at $388/month.
               </p>
               <Link href="/contact">
-                <a className="btn-red inline-block">Get a Free Lawn Care Quote →</a>
+                <span className="btn-red inline-block">Get a Free Lawn Care Quote →</span>
               </Link>
             </div>
+          {/* ── You might also like / Related Services ── */}
+            <div className="mt-12 pt-10" style={{ borderTop: "1px solid oklch(0.88 0.005 0)" }}>
+              <p className="font-label mb-2" style={{ color: "oklch(0.46 0.20 25)", fontSize: "0.62rem", letterSpacing: "0.18em" }}>
+                RELATED SERVICES
+              </p>
+              <h2 className="font-display font-light mb-6" style={{ fontSize: "clamp(1.3rem, 2vw, 1.8rem)", color: "oklch(0.15 0.005 0)" }}>
+                Explore Our Services
+              </h2>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <Link href="/services/lawn-service">
+                  <span
+                    style={{
+                      display: "block",
+                      padding: "1.1rem 1.25rem",
+                      backgroundColor: "oklch(1 0 0)",
+                      borderLeft: "3px solid oklch(0.46 0.20 25)",
+                      textDecoration: "none",
+                    }}
+                  >
+                    <div className="font-body" style={{ color: "oklch(0.22 0.008 30)", fontWeight: 600, fontSize: "0.85rem", marginBottom: "0.3rem" }}>
+                      Lawn Service
+                    </div>
+                    <div className="font-body" style={{ color: "oklch(0.50 0.008 30)", fontSize: "0.75rem", fontWeight: 300, lineHeight: 1.5 }}>
+                      Weekly mowing, edging, cleanup, and full lawn maintenance.
+                    </div>
+                  </span>
+                </Link>
+                <Link href="/services/aeration">
+                  <span
+                    style={{
+                      display: "block",
+                      padding: "1.1rem 1.25rem",
+                      backgroundColor: "oklch(1 0 0)",
+                      borderLeft: "3px solid oklch(0.46 0.20 25)",
+                      textDecoration: "none",
+                    }}
+                  >
+                    <div className="font-body" style={{ color: "oklch(0.22 0.008 30)", fontWeight: 600, fontSize: "0.85rem", marginBottom: "0.3rem" }}>
+                      Aeration Services
+                    </div>
+                    <div className="font-body" style={{ color: "oklch(0.50 0.008 30)", fontSize: "0.75rem", fontWeight: 300, lineHeight: 1.5 }}>
+                      Core aeration to keep Bend lawns healthy and green.
+                    </div>
+                  </span>
+                </Link>
+                <Link href="/services/irrigation">
+                  <span
+                    style={{
+                      display: "block",
+                      padding: "1.1rem 1.25rem",
+                      backgroundColor: "oklch(1 0 0)",
+                      borderLeft: "3px solid oklch(0.46 0.20 25)",
+                      textDecoration: "none",
+                    }}
+                  >
+                    <div className="font-body" style={{ color: "oklch(0.22 0.008 30)", fontWeight: 600, fontSize: "0.85rem", marginBottom: "0.3rem" }}>
+                      Irrigation Installation
+                    </div>
+                    <div className="font-body" style={{ color: "oklch(0.50 0.008 30)", fontSize: "0.75rem", fontWeight: 300, lineHeight: 1.5 }}>
+                      Smart sprinkler systems to keep your lawn watered efficiently.
+                    </div>
+                  </span>
+                </Link>
+              </div>
+            </div>
+
           </div>
         </div>
       </div>

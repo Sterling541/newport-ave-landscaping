@@ -89,9 +89,9 @@ export default function NorthwestCrossingNeighborhood() {
                 Contact Newport Ave Landscaping today for a personalized consultation. Let us help you create the outdoor oasis you've always dreamed of, perfectly suited for your NWX home.
               </p>
               <Link href="/contact">
-                <a className="inline-block bg-green-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-green-700 transition duration-300">
+                <span className="inline-block bg-green-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-green-700 transition duration-300">
                   Get Your Free Estimate Today
-                </a>
+                </span>
               </Link>
               <p className="text-green-700 mt-2">Or call us directly at <a href="tel:+15416178873" className="underline">(541) 617-8873</a></p>
             </div>

@@ -91,14 +91,80 @@ export default function SnowRemovalBend() {
                 Don't let Bend's winter weather catch you off guard. Contact Newport Ave Landscaping today for a personalized snow removal plan tailored to your residential or commercial property. We're here to keep your pathways clear and safe.
               </p>
               <Link href="/contact">
-                <a className="inline-block bg-green-700 text-white font-bold py-3 px-8 rounded-full hover:bg-green-800 transition duration-300">
+                <span className="inline-block bg-green-700 text-white font-bold py-3 px-8 rounded-full hover:bg-green-800 transition duration-300">
                   Get a Free Estimate
-                </a>
+                </span>
               </Link>
               <p className="text-sm mt-4" style={{ color: "oklch(0.4 0.005 0)" }}>
                 Call us at (541) 617-8873
               </p>
             </div>
+          {/* ── You might also like / Related Services ── */}
+            <div className="mt-12 pt-10" style={{ borderTop: "1px solid oklch(0.88 0.005 0)" }}>
+              <p className="font-label mb-2" style={{ color: "oklch(0.46 0.20 25)", fontSize: "0.62rem", letterSpacing: "0.18em" }}>
+                YOU MIGHT ALSO LIKE
+              </p>
+              <h2 className="font-display font-light mb-6" style={{ fontSize: "clamp(1.3rem, 2vw, 1.8rem)", color: "oklch(0.15 0.005 0)" }}>
+                More Helpful Guides
+              </h2>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <Link href="/resources/lawn-maintenance-cost-bend-oregon">
+                  <span
+                    style={{
+                      display: "block",
+                      padding: "1.1rem 1.25rem",
+                      backgroundColor: "oklch(1 0 0)",
+                      borderLeft: "3px solid oklch(0.46 0.20 25)",
+                      textDecoration: "none",
+                    }}
+                  >
+                    <div className="font-body" style={{ color: "oklch(0.22 0.008 30)", fontWeight: 600, fontSize: "0.85rem", marginBottom: "0.3rem" }}>
+                      Lawn Maintenance Cost in Bend
+                    </div>
+                    <div className="font-body" style={{ color: "oklch(0.50 0.008 30)", fontSize: "0.75rem", fontWeight: 300, lineHeight: 1.5 }}>
+                      What lawn care and maintenance services cost in Central Oregon.
+                    </div>
+                  </span>
+                </Link>
+                <Link href="/resources/commercial-landscaping-bend-oregon">
+                  <span
+                    style={{
+                      display: "block",
+                      padding: "1.1rem 1.25rem",
+                      backgroundColor: "oklch(1 0 0)",
+                      borderLeft: "3px solid oklch(0.46 0.20 25)",
+                      textDecoration: "none",
+                    }}
+                  >
+                    <div className="font-body" style={{ color: "oklch(0.22 0.008 30)", fontWeight: 600, fontSize: "0.85rem", marginBottom: "0.3rem" }}>
+                      Commercial Landscaping in Bend
+                    </div>
+                    <div className="font-body" style={{ color: "oklch(0.50 0.008 30)", fontSize: "0.75rem", fontWeight: 300, lineHeight: 1.5 }}>
+                      What commercial property maintenance costs and what to expect.
+                    </div>
+                  </span>
+                </Link>
+                <Link href="/resources/sprinkler-winterization-guide-bend-oregon">
+                  <span
+                    style={{
+                      display: "block",
+                      padding: "1.1rem 1.25rem",
+                      backgroundColor: "oklch(1 0 0)",
+                      borderLeft: "3px solid oklch(0.46 0.20 25)",
+                      textDecoration: "none",
+                    }}
+                  >
+                    <div className="font-body" style={{ color: "oklch(0.22 0.008 30)", fontWeight: 600, fontSize: "0.85rem", marginBottom: "0.3rem" }}>
+                      Sprinkler Winterization Guide
+                    </div>
+                    <div className="font-body" style={{ color: "oklch(0.50 0.008 30)", fontSize: "0.75rem", fontWeight: 300, lineHeight: 1.5 }}>
+                      Step-by-step blowout and winterization guide for Bend homeowners.
+                    </div>
+                  </span>
+                </Link>
+              </div>
+            </div>
+
           </div>
         </div>
       </div>

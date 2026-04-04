@@ -83,9 +83,9 @@ export default function SunriverLandscaping() {
                 Let Newport Ave Landscaping transform your outdoor space into a thriving, SROA-compliant oasis. With over two decades of experience in Central Oregon, we're your trusted partner for all landscaping needs.
               </p>
               <Link href="/contact">
-                <a className="inline-block bg-white text-green-700 font-bold py-3 px-8 rounded-full hover:bg-gray-200 transition duration-300">
+                <span className="inline-block bg-white text-green-700 font-bold py-3 px-8 rounded-full hover:bg-gray-200 transition duration-300">
                   Get Your Free Consultation Today
-                </a>
+                </span>
               </Link>
             </div>
           </div>

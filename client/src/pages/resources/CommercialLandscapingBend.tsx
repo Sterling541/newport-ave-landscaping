@@ -84,11 +84,77 @@ export default function CommercialLandscapingBend() {
 
             <div className="mt-8 text-center">
               <Link href="/contact">
-                <a className="inline-block bg-green-700 text-white font-bold py-3 px-6 rounded-lg hover:bg-green-800 transition duration-300">
+                <span className="inline-block bg-green-700 text-white font-bold py-3 px-6 rounded-lg hover:bg-green-800 transition duration-300">
                   Contact Us Today!
-                </a>
+                </span>
               </Link>
             </div>
+          {/* ── You might also like / Related Services ── */}
+            <div className="mt-12 pt-10" style={{ borderTop: "1px solid oklch(0.88 0.005 0)" }}>
+              <p className="font-label mb-2" style={{ color: "oklch(0.46 0.20 25)", fontSize: "0.62rem", letterSpacing: "0.18em" }}>
+                YOU MIGHT ALSO LIKE
+              </p>
+              <h2 className="font-display font-light mb-6" style={{ fontSize: "clamp(1.3rem, 2vw, 1.8rem)", color: "oklch(0.15 0.005 0)" }}>
+                More Helpful Guides
+              </h2>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <Link href="/resources/lawn-maintenance-cost-bend-oregon">
+                  <span
+                    style={{
+                      display: "block",
+                      padding: "1.1rem 1.25rem",
+                      backgroundColor: "oklch(1 0 0)",
+                      borderLeft: "3px solid oklch(0.46 0.20 25)",
+                      textDecoration: "none",
+                    }}
+                  >
+                    <div className="font-body" style={{ color: "oklch(0.22 0.008 30)", fontWeight: 600, fontSize: "0.85rem", marginBottom: "0.3rem" }}>
+                      Lawn Maintenance Cost in Bend
+                    </div>
+                    <div className="font-body" style={{ color: "oklch(0.50 0.008 30)", fontSize: "0.75rem", fontWeight: 300, lineHeight: 1.5 }}>
+                      What lawn care and maintenance services cost in Central Oregon.
+                    </div>
+                  </span>
+                </Link>
+                <Link href="/resources/snow-removal-bend-oregon">
+                  <span
+                    style={{
+                      display: "block",
+                      padding: "1.1rem 1.25rem",
+                      backgroundColor: "oklch(1 0 0)",
+                      borderLeft: "3px solid oklch(0.46 0.20 25)",
+                      textDecoration: "none",
+                    }}
+                  >
+                    <div className="font-body" style={{ color: "oklch(0.22 0.008 30)", fontWeight: 600, fontSize: "0.85rem", marginBottom: "0.3rem" }}>
+                      Snow Removal in Bend
+                    </div>
+                    <div className="font-body" style={{ color: "oklch(0.50 0.008 30)", fontSize: "0.75rem", fontWeight: 300, lineHeight: 1.5 }}>
+                      What commercial and residential snow removal costs in Central Oregon.
+                    </div>
+                  </span>
+                </Link>
+                <Link href="/resources/how-to-choose-landscaper-bend-oregon">
+                  <span
+                    style={{
+                      display: "block",
+                      padding: "1.1rem 1.25rem",
+                      backgroundColor: "oklch(1 0 0)",
+                      borderLeft: "3px solid oklch(0.46 0.20 25)",
+                      textDecoration: "none",
+                    }}
+                  >
+                    <div className="font-body" style={{ color: "oklch(0.22 0.008 30)", fontWeight: 600, fontSize: "0.85rem", marginBottom: "0.3rem" }}>
+                      How to Choose a Landscaper in Bend
+                    </div>
+                    <div className="font-body" style={{ color: "oklch(0.50 0.008 30)", fontSize: "0.75rem", fontWeight: 300, lineHeight: 1.5 }}>
+                      Questions to ask, red flags to avoid, and what to look for.
+                    </div>
+                  </span>
+                </Link>
+              </div>
+            </div>
+
           </div>
         </div>
       </div>

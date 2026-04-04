@@ -40,11 +40,11 @@ const serviceAreas = [
 function ResourceCard({ title, href, desc }: { title: string; href: string; desc: string }) {
   return (
     <Link href={href}>
-      <a className="block p-5 rounded-lg border transition-all hover:shadow-md" style={{ borderColor: "oklch(0.85 0.005 0)", backgroundColor: "white" }}>
+      <span className="block p-5 rounded-lg border transition-all hover:shadow-md" style={{ borderColor: "oklch(0.85 0.005 0)", backgroundColor: "white" }}>
         <h3 className="font-semibold mb-2" style={{ color: "oklch(0.15 0.005 0)", fontSize: "0.95rem" }}>{title}</h3>
         <p className="text-sm" style={{ color: "oklch(0.45 0.005 0)" }}>{desc}</p>
         <span className="inline-block mt-3 text-xs font-semibold" style={{ color: "oklch(0.45 0.12 145)" }}>Read guide →</span>
-      </a>
+      </span>
     </Link>
   );
 }
@@ -119,9 +119,9 @@ export default function Resources() {
             <h3 className="font-display text-2xl text-white mb-3">Ready to Start Your Project?</h3>
             <p className="text-white/70 mb-6 max-w-lg mx-auto">Newport Avenue Landscaping — Licensed &amp; Bonded (LCB #9153) · 21+ Years in Central Oregon · Free Estimates</p>
             <Link href="/contact">
-              <a className="inline-block px-8 py-3 font-semibold rounded-md text-white" style={{ backgroundColor: "oklch(0.45 0.12 145)" }}>
+              <span className="inline-block px-8 py-3 font-semibold rounded-md text-white" style={{ backgroundColor: "oklch(0.45 0.12 145)" }}>
                 Get a Free Estimate
-              </a>
+              </span>
             </Link>
           </div>
         </div>

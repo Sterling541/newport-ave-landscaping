@@ -167,13 +167,79 @@ export default function PaverPatioCostBend() {
                 Contact Newport Avenue Landscaping today for a free consultation on your paver patio project in Bend, Oregon. Let our licensed & bonded team (LCB #9153) bring your vision to life with quality craftsmanship and local expertise.
               </p>
               <Link href="/contact">
-                <a className="inline-block px-8 py-3 text-white font-semibold rounded-md" style={{ backgroundColor: "oklch(0.72 0.12 25)" }}>
+                <span className="inline-block px-8 py-3 text-white font-semibold rounded-md" style={{ backgroundColor: "oklch(0.72 0.12 25)" }}>
                   Get Your Free Quote Today!
-                </a>
+                </span>
               </Link>
               <p className="mt-4 text-sm" style={{ color: "oklch(0.25 0.005 0)" }}>
                 Call us at: (541) 617-8873
               </p>
+            </div>
+
+          {/* ── You might also like / Related Services ── */}
+            <div className="mt-12 pt-10" style={{ borderTop: "1px solid oklch(0.88 0.005 0)" }}>
+              <p className="font-label mb-2" style={{ color: "oklch(0.46 0.20 25)", fontSize: "0.62rem", letterSpacing: "0.18em" }}>
+                YOU MIGHT ALSO LIKE
+              </p>
+              <h2 className="font-display font-light mb-6" style={{ fontSize: "clamp(1.3rem, 2vw, 1.8rem)", color: "oklch(0.15 0.005 0)" }}>
+                More Helpful Guides
+              </h2>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <Link href="/resources/fire-pit-patio-cost-bend-oregon">
+                  <span
+                    style={{
+                      display: "block",
+                      padding: "1.1rem 1.25rem",
+                      backgroundColor: "oklch(1 0 0)",
+                      borderLeft: "3px solid oklch(0.46 0.20 25)",
+                      textDecoration: "none",
+                    }}
+                  >
+                    <div className="font-body" style={{ color: "oklch(0.22 0.008 30)", fontWeight: 600, fontSize: "0.85rem", marginBottom: "0.3rem" }}>
+                      Fire Pit & Patio Cost Guide
+                    </div>
+                    <div className="font-body" style={{ color: "oklch(0.50 0.008 30)", fontSize: "0.75rem", fontWeight: 300, lineHeight: 1.5 }}>
+                      Budgeting for a fire pit or outdoor fireplace alongside your patio.
+                    </div>
+                  </span>
+                </Link>
+                <Link href="/resources/retaining-wall-cost-bend-oregon">
+                  <span
+                    style={{
+                      display: "block",
+                      padding: "1.1rem 1.25rem",
+                      backgroundColor: "oklch(1 0 0)",
+                      borderLeft: "3px solid oklch(0.46 0.20 25)",
+                      textDecoration: "none",
+                    }}
+                  >
+                    <div className="font-body" style={{ color: "oklch(0.22 0.008 30)", fontWeight: 600, fontSize: "0.85rem", marginBottom: "0.3rem" }}>
+                      Retaining Wall Cost in Bend
+                    </div>
+                    <div className="font-body" style={{ color: "oklch(0.50 0.008 30)", fontSize: "0.75rem", fontWeight: 300, lineHeight: 1.5 }}>
+                      What retaining wall installation costs in Central Oregon.
+                    </div>
+                  </span>
+                </Link>
+                <Link href="/resources/landscape-design-cost-bend-oregon">
+                  <span
+                    style={{
+                      display: "block",
+                      padding: "1.1rem 1.25rem",
+                      backgroundColor: "oklch(1 0 0)",
+                      borderLeft: "3px solid oklch(0.46 0.20 25)",
+                      textDecoration: "none",
+                    }}
+                  >
+                    <div className="font-body" style={{ color: "oklch(0.22 0.008 30)", fontWeight: 600, fontSize: "0.85rem", marginBottom: "0.3rem" }}>
+                      Landscape Design Cost in Bend
+                    </div>
+                    <div className="font-body" style={{ color: "oklch(0.50 0.008 30)", fontSize: "0.75rem", fontWeight: 300, lineHeight: 1.5 }}>
+                      Full-yard design and installation pricing for Bend homeowners.
+                    </div>
+                  </span>
+                </Link>
+              </div>
             </div>
 
           </div>

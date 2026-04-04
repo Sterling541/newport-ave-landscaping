@@ -98,9 +98,9 @@ export default function AwbreyButteNeighborhood() {
                 Newport Avenue Landscaping offers expert design and installation for the unique challenges of Awbrey Butte. Let's create your dream landscape.
               </p>
               <Link href="/contact">
-                <a className="inline-block bg-green-700 text-white font-bold py-3 px-8 rounded-full hover:bg-green-800 transition duration-300">
+                <span className="inline-block bg-green-700 text-white font-bold py-3 px-8 rounded-full hover:bg-green-800 transition duration-300">
                   Get a Free Consultation
-                </a>
+                </span>
               </Link>
               <p className="text-sm mt-4" style={{ color: "oklch(0.25 0.005 0)" }}>
                 Call us: (541) 617-8873

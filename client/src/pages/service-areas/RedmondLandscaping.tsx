@@ -141,9 +141,9 @@ export default function RedmondLandscaping() {
                 Whether you're planning a new landscape for your Redmond home or business, or need expert maintenance for an existing property, Newport Ave Landscaping is here to help. Contact us today for a consultation and let's create an outdoor space you'll love.
               </p>
               <Link href="/contact">
-                <a className="inline-block bg-green-700 text-white font-bold py-3 px-8 rounded-full hover:bg-green-800 transition duration-300">
+                <span className="inline-block bg-green-700 text-white font-bold py-3 px-8 rounded-full hover:bg-green-800 transition duration-300">
                   Get a Free Estimate
-                </a>
+                </span>
               </Link>
               <p className="mt-4 text-sm" style={{ color: "oklch(0.4 0.005 0)" }}>
                 Call us at (541) 617-8873 or fill out our online contact form.

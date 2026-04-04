@@ -1,152 +1,76 @@
-
-import Navbar from "@/components/Navbar";
-import SEO from "@/components/SEO";
-import { BreadcrumbSchema } from "@/components/SchemaMarkup";
-import { Link } from "wouter";
+import Navbar from '@/components/Navbar';
+import SEO from '@/components/SEO';
+import { BreadcrumbSchema } from '@/components/SchemaMarkup';
+import { Link } from 'wouter';
 
 export default function RetainingWallCostBend() {
   return (
-    <div className="min-h-screen" style={{ backgroundColor: "oklch(0.97 0.003 0)" }}>
+    <div className="min-h-screen" style={{ backgroundColor: 'oklch(0.97 0.003 0)' }}>
       <SEO
-        title="Retaining Wall Cost in Bend, Oregon | Newport Ave Landscaping"
-        description="Explore retaining wall costs in Bend, Oregon. Get per-linear-foot pricing, material insights (concrete, stone, timber), permit details, and drainage needs for volcanic soil."
+        title="Retaining Wall Cost in Bend, OR | Newport Ave Landscaping"
+        description="What retaining walls cost in Bend, Oregon. Materials, installation, and what affects pricing for Central Oregon properties."
         canonical="https://newportavelandscaping.com/resources/retaining-wall-cost-bend-oregon"
       />
       <BreadcrumbSchema items={[
-        { name: "Home", url: "/" },
-        { name: "Resources", url: "/resources" },
-        { name: "Retaining Wall Cost Bend Oregon", url: "/resources/retaining-wall-cost-bend-oregon" },
+        { name: 'Home', url: '/' },
+        { name: 'Resources', url: '/resources' },
+        { name: 'Retaining Wall Cost in Bend, Oregon', url: '/resources/retaining-wall-cost-bend-oregon' },
       ]} />
       <Navbar />
-      <div style={{ paddingTop: "328px" }}>
-        {/* Hero banner */}
-        <div
-          className="relative flex items-center justify-center"
-          style={{
-            height: "380px",
-            backgroundImage: "url(https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/ITP_7404_28389405.jpg)",
-            backgroundSize: "cover",
-            backgroundPosition: "center 50%",
-          }}
-        >
-          <div className="absolute inset-0" style={{ backgroundColor: "oklch(0 0 0 / 0.55)" }} />
+      <div style={{ paddingTop: '328px' }}>
+        <div className="relative flex items-center justify-center" style={{ height:'380px',backgroundImage:'url(https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/ITP_7404_28389405.jpg)',backgroundSize:'cover',backgroundPosition:'center 50%' }}>
+          <div className="absolute inset-0" style={{ backgroundColor: 'oklch(0 0 0 / 0.55)' }} />
           <div className="relative text-center container">
-            <p className="font-label mb-3" style={{ color: "oklch(0.72 0.12 25)", fontSize: "0.7rem", letterSpacing: "0.18em" }}>
-              HARDSCAPE &middot; 2026
-            </p>
-            <h1 className="font-display text-white" style={{ fontSize: "clamp(1.8rem, 4vw, 3rem)", maxWidth: "700px", margin: "0 auto" }}>
-              Retaining Wall Cost in Bend, Oregon: Your Comprehensive Guide
-            </h1>
+            <p className="font-label mb-3" style={{ color:'oklch(0.72 0.12 25)',fontSize:'0.7rem',letterSpacing:'0.18em' }}>HARDSCAPE GUIDE · BEND, OREGON &middot; 2024</p>
+            <h1 className="font-display text-white" style={{ fontSize:'clamp(1.8rem, 4vw, 3rem)',maxWidth:'700px',margin:'0 auto' }}>Retaining Wall Cost in Bend, Oregon</h1>
           </div>
         </div>
-
-        {/* Article body */}
         <div className="container py-16 max-w-3xl mx-auto">
-          <div style={{ color: "oklch(0.25 0.005 0)" }}>
-            <p className="mb-6">
-              Building a retaining wall in Bend, Oregon, is more than just a landscaping project; it's an investment in your property's stability, aesthetics, and functionality. Given Bend's unique high desert environment, characterized by its 3,600ft elevation and volcanic pumice soil, understanding the specific costs and considerations is crucial. Whether you're looking to prevent erosion, create usable terraced spaces on a sloped yard, or simply enhance your outdoor living area, this guide will break down the factors influencing retaining wall costs in Central Oregon, helping you plan your project effectively.
-            </p>
+          <div style={{ color: 'oklch(0.25 0.005 0)' }}>
+            <p className="mb-8" style={{ fontSize:'1.05rem',lineHeight:1.85,color:'oklch(0.35 0.005 0)' }}>Retaining walls are one of the most functional and visually impactful features in a Bend landscape. Whether you're managing a sloped yard, preventing erosion, or creating level planting areas, here's what retaining wall installation costs in Central Oregon.</p>
 
-            <h2 className="text-3xl font-bold mb-4">Understanding Retaining Wall Costs in Bend, Oregon</h2>
-            <p className="mb-6">
-              The cost of a retaining wall in Bend, Oregon, can vary significantly, typically ranging from <strong>$40 to $150+ per linear foot</strong>. This broad range accounts for numerous variables, including material choice, wall height and length, site accessibility, excavation requirements, and the complexity of the design. For instance, a simple, low-height wall for a garden bed will naturally cost less than a tall, engineered wall designed to manage significant slopes or heavy loads. Labor costs in Central Oregon also play a role, reflecting the expertise required for proper installation, especially given the region's challenging soil conditions.
-            </p>
+            <h2 className="text-3xl font-bold mb-4" style={{ color: 'oklch(0.25 0.005 0)' }}>Retaining Wall Cost in Bend by Material</h2>
+            <div className="overflow-x-auto mb-8"><table className="min-w-full bg-white border border-gray-300"><thead><tr><th className="py-2 px-4 border-b text-left">Material</th><th className="py-2 px-4 border-b text-left">Cost per Sq Ft (face)</th><th className="py-2 px-4 border-b text-left">Best For</th></tr></thead><tbody><tr><td className="py-2 px-4 border-b">Concrete block (Allan Block)</td><td className="py-2 px-4 border-b">$30–$55</td><td className="py-2 px-4 border-b">Most projects, great value</td></tr>
+                  <tr><td className="py-2 px-4 border-b">Natural basalt</td><td className="py-2 px-4 border-b">$45–$80</td><td className="py-2 px-4 border-b">Natural look, very durable</td></tr>
+                  <tr><td className="py-2 px-4 border-b">Boulders</td><td className="py-2 px-4 border-b">$40–$70</td><td className="py-2 px-4 border-b">Informal, natural appearance</td></tr>
+                  <tr><td className="py-2 px-4 border-b">Poured concrete</td><td className="py-2 px-4 border-b">$35–$65</td><td className="py-2 px-4 border-b">Structural walls, clean look</td></tr>
+                  <tr><td className="py-2 px-4 border-b">Timber (railroad ties)</td><td className="py-2 px-4 border-b">$20–$35</td><td className="py-2 px-4 border-b">Low cost, shorter lifespan</td></tr></tbody></table></div>
 
-            <h2 className="text-3xl font-bold mb-4">Material Choices and Their Impact on Price</h2>
-            <p className="mb-6">
-              The selection of materials is one of the primary drivers of retaining wall costs. Each material offers distinct aesthetic and structural properties, along with varying price points:
-            </p>
-            <ul className="list-disc list-inside mb-6 ml-4">
-              <li className="mb-2"><strong>Concrete Blocks (Segmental Retaining Walls - SRW):</strong> A popular and versatile choice, offering durability and a range of styles. Costs typically fall in the <strong>$40-$80 per linear foot</strong> range.</li>
-              <li className="mb-2"><strong>Natural Stone (Dry-stacked or Mortared):</strong> Provides a classic, rustic look that blends beautifully with Bend's natural surroundings. This option can be more labor-intensive, pushing costs to <strong>$80-$150+ per linear foot</strong>, especially for local basalt or river rock.</li>
-              <li className="mb-2"><strong>Treated Timber or Railroad Ties:</strong> A more economical option, often used for smaller, less critical walls. Expect costs from <strong>$35-$65 per linear foot</strong>. However, timber walls have a shorter lifespan compared to stone or concrete.</li>
-              <li className="mb-2"><strong>Poured Concrete:</strong> Offers maximum strength and design flexibility, often used for very tall or heavily loaded walls. Costs can range from <strong>$70-$120+ per linear foot</strong>, depending on finishes and reinforcement.</li>
+            <h2 className="text-3xl font-bold mb-4" style={{ color: 'oklch(0.25 0.005 0)' }}>What Affects Retaining Wall Cost in Bend</h2>
+            <ul className="list-disc pl-5 mb-8 space-y-1">
+              <li>Wall height (taller walls require engineered design and permits)</li>
+              <li>Wall length</li>
+              <li>Material choice</li>
+              <li>Site access for equipment</li>
+              <li>Drainage system behind the wall</li>
+              <li>Permits and engineering (required for walls over 4 ft)</li>
+              <li>Excavation and grading complexity</li>
             </ul>
 
-            <h3 className="text-2xl font-bold mb-4">Retaining Wall Cost Table (Per Linear Foot in Bend, OR)</h3>
-            <div className="overflow-x-auto mb-6">
-              <table className="min-w-full bg-white border border-gray-300">
-                <thead>
-                  <tr>
-                    <th className="py-2 px-4 border-b text-left">Material Type</th>
-                    <th className="py-2 px-4 border-b text-left">Typical Cost Range (per linear foot)</th>
-                    <th className="py-2 px-4 border-b text-left">Notes</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td className="py-2 px-4 border-b">Concrete Blocks (SRW)</td>
-                    <td className="py-2 px-4 border-b">$40 - $80</td>
-                    <td className="py-2 px-4 border-b">Versatile, durable, wide style selection</td>
-                  </tr>
-                  <tr>
-                    <td className="py-2 px-4 border-b">Natural Stone</td>
-                    <td className="py-2 px-4 border-b">$80 - $150+</td>
-                    <td className="py-2 px-4 border-b">Premium aesthetic, labor-intensive</td>
-                  </tr>
-                  <tr>
-                    <td className="py-2 px-4 border-b">Treated Timber</td>
-                    <td className="py-2 px-4 border-b">$35 - $65</td>
-                    <td className="py-2 px-4 border-b">Economical, shorter lifespan</td>
-                  </tr>
-                  <tr>
-                    <td className="py-2 px-4 border-b">Poured Concrete</td>
-                    <td className="py-2 px-4 border-b">$70 - $120+</td>
-                    <td className="py-2 px-4 border-b">Maximum strength, custom designs</td>
-                  </tr>
-                </tbody>
-              </table>
+            <h2 className="text-3xl font-bold mb-4" style={{ color: 'oklch(0.25 0.005 0)' }}>Drainage: The Most Important Part of Any Retaining Wall</h2>
+            <p className="mb-4">The most common cause of retaining wall failure is inadequate drainage. Without proper drainage behind the wall, hydrostatic pressure builds up and pushes the wall outward — eventually causing it to lean or collapse.</p>
+            <p className="mb-4">We install a drainage system behind every retaining wall we build: perforated pipe at the base, clean drain rock, and filter fabric to prevent soil migration. This is non-negotiable for a wall that will last.</p>
+            <div className="bg-gray-100 p-6 rounded-lg mb-8 border-l-4" style={{ borderColor: 'oklch(0.46 0.20 25)' }}>
+              <p className="font-bold text-lg mb-2" style={{ color: 'oklch(0.25 0.005 0)' }}>PRO TIP</p>
+              <p>In Bend's volcanic soil, drainage is especially important. Our sandy, rocky soil drains quickly, but when water is trapped behind a wall without proper drainage, it can cause significant pressure.</p>
+            </div>
+            <div className="p-8 text-center mt-12" style={{ backgroundColor: 'oklch(0.18 0.008 0)' }}>
+              <p className="font-label text-xs mb-3" style={{ color:'oklch(0.46 0.20 25)',letterSpacing:'0.18em' }}>GET STARTED TODAY</p>
+              <h3 className="font-display text-white mb-4" style={{ fontSize:'1.6rem' }}>Get a Free Retaining Wall Quote in Bend</h3>
+              <p className="font-body mb-6" style={{ color:'oklch(0.72 0.005 0)',lineHeight:1.7 }}>Our design team will assess your slope, discuss your options, and provide a detailed proposal at no cost.</p>
+              <Link href="/contact"><span className="btn-red inline-block">Get Your Free Retaining Wall Quote →</span></Link>
+              <p className="mt-4 text-sm" style={{ color:'oklch(0.60 0.005 0)' }}>Or call us: (541) 617-8873</p>
             </div>
 
-            <h2 className="text-3xl font-bold mb-4">Permit Requirements for Retaining Walls in Bend</h2>
-            <p className="mb-6">
-              In Bend, Oregon, obtaining a permit is often required for retaining walls, particularly those exceeding a certain height. Generally, any retaining wall over <strong>4 feet in height</strong> (measured from the bottom of the footing to the top of the wall) will require a building permit from the City of Bend. This is to ensure structural integrity and public safety. Even smaller walls might require permits if they are supporting a significant load, are near property lines, or impact drainage. It's always best to consult with a licensed contractor like Newport Avenue Landscaping, LCB #9153, who can navigate the local permitting process and ensure your project complies with all city codes and regulations.
-            </p>
-
-            <div className="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 mb-6" role="alert">
-              <p className="font-bold">PRO TIP: Check Local Regulations Early</p>
-              <p>Before starting any retaining wall project in Bend, always verify the latest permit requirements with the City of Bend's planning department or consult with a local, licensed landscaping professional. Failing to secure necessary permits can lead to costly delays, fines, or even the forced removal of your wall.</p>
+            <div className="mt-12 pt-10" style={{ borderTop: '1px solid oklch(0.88 0.005 0)' }}>
+              <p className="font-label mb-2" style={{ color: 'oklch(0.46 0.20 25)', fontSize: '0.62rem', letterSpacing: '0.18em' }}>YOU MIGHT ALSO LIKE</p>
+              <h2 className="font-display font-light mb-6" style={{ fontSize: 'clamp(1.3rem, 2vw, 1.8rem)', color: 'oklch(0.15 0.005 0)' }}>More Helpful Guides</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <Link href="/resources/faq-retaining-wall-bend-oregon"><span style={{ display:'block',padding:'1.1rem 1.25rem',backgroundColor:'oklch(1 0 0)',borderLeft:'3px solid oklch(0.46 0.20 25)',textDecoration:'none' }}><div className="font-body" style={{ color:'oklch(0.22 0.008 30)',fontWeight:600,fontSize:'0.85rem',marginBottom:'0.3rem' }}>Retaining Wall FAQ</div><div className="font-body" style={{ color:'oklch(0.50 0.008 30)',fontSize:'0.75rem',fontWeight:300,lineHeight:1.5 }}>Common questions about retaining walls in Bend.</div></span></Link>
+                <Link href="/resources/drainage-solutions-cost-bend-oregon"><span style={{ display:'block',padding:'1.1rem 1.25rem',backgroundColor:'oklch(1 0 0)',borderLeft:'3px solid oklch(0.46 0.20 25)',textDecoration:'none' }}><div className="font-body" style={{ color:'oklch(0.22 0.008 30)',fontWeight:600,fontSize:'0.85rem',marginBottom:'0.3rem' }}>Drainage Solutions in Bend</div><div className="font-body" style={{ color:'oklch(0.50 0.008 30)',fontSize:'0.75rem',fontWeight:300,lineHeight:1.5 }}>Drainage problem solutions for Central Oregon.</div></span></Link>
+                <Link href="/resources/landscape-design-cost-bend-oregon"><span style={{ display:'block',padding:'1.1rem 1.25rem',backgroundColor:'oklch(1 0 0)',borderLeft:'3px solid oklch(0.46 0.20 25)',textDecoration:'none' }}><div className="font-body" style={{ color:'oklch(0.22 0.008 30)',fontWeight:600,fontSize:'0.85rem',marginBottom:'0.3rem' }}>Landscape Design Cost in Bend</div><div className="font-body" style={{ color:'oklch(0.50 0.008 30)',fontSize:'0.75rem',fontWeight:300,lineHeight:1.5 }}>Full-yard design and installation pricing.</div></span></Link>
+              </div>
             </div>
-
-            <h2 className="text-3xl font-bold mb-4">Drainage Solutions for Bend's Volcanic Pumice Soil</h2>
-            <p className="mb-6">
-              Bend's unique volcanic pumice soil presents specific challenges and opportunities for retaining wall construction. While pumice offers excellent drainage in some respects, its fine, granular nature can also lead to instability if not properly managed. Effective drainage behind a retaining wall is paramount to prevent hydrostatic pressure buildup, which can cause walls to crack, bulge, or even fail. In Central Oregon, this often means:
-            </p>
-            <ul className="list-disc list-inside mb-6 ml-4">
-              <li className="mb-2"><strong>Gravel Backfill:</strong> Using a layer of clean, coarse gravel directly behind the wall to allow water to percolate freely.</li>
-              <li className="mb-2"><strong>Perforated Drain Pipes (French Drains):</strong> Installing a drain pipe at the base of the wall, wrapped in filter fabric and surrounded by gravel, to collect and divert water away.</li>
-              <li className="mb-2"><strong>Geotextile Fabric:</strong> Separating the backfill material from the native pumice soil to prevent fine particles from clogging the drainage system.</li>
-            </ul>
-            <p className="mb-6">
-              Newport Avenue Landscaping has over 21 years of experience working with Central Oregon's distinct soil types, ensuring that your retaining wall is built with robust drainage solutions designed to last.
-            </p>
-
-            <h2 className="text-3xl font-bold mb-4">Typical Retaining Wall Project Ranges in Central Oregon</h2>
-            <p className="mb-6">
-              While per-linear-foot costs provide a good baseline, understanding typical project ranges can help homeowners budget more accurately. A small decorative garden wall might cost anywhere from <strong>$2,000 to $5,000</strong>. Medium-sized functional walls, perhaps for a terraced yard or to manage a moderate slope, could range from <strong>$5,000 to $15,000</strong>. Larger, engineered retaining walls, especially those over 4 feet high or involving complex site work, can easily exceed <strong>$15,000 to $30,000+</strong>. These figures include materials, labor, excavation, and basic drainage. Factors like extensive landscaping, integrated lighting, or specialized finishes will add to the overall investment. Our team serves Bend, Redmond, Sisters, Sunriver, Tumalo, Prineville, and La Pine, providing tailored solutions for every budget and need.
-            </p>
-
-            <h2 className="text-3xl font-bold mb-4">Why Choose Newport Avenue Landscaping for Your Bend Retaining Wall?</h2>
-            <p className="mb-6">
-              When it comes to a critical landscape feature like a retaining wall, choosing an experienced and reputable contractor is essential. Newport Avenue Landscaping is a licensed and bonded company (LCB #9153) with over 21 years of dedicated service in Central Oregon. Our deep understanding of local conditions, from the high desert climate to the unique volcanic soils, ensures that your retaining wall is not only aesthetically pleasing but also structurally sound and built to withstand the elements. We pride ourselves on delivering practical advice and high-quality craftsmanship to homeowners across Bend and surrounding areas. For a free consultation and estimate, contact us today.
-            </p>
-
-            {/* CTA BLOCK at bottom */}
-            <div className="text-center py-10 bg-gray-50 rounded-lg mt-10">
-              <h3 className="text-3xl font-bold mb-4" style={{ color: "oklch(0.25 0.005 0)" }}>Ready to Build Your Retaining Wall?</h3>
-              <p className="mb-6 text-lg">
-                Let Newport Avenue Landscaping bring your vision to life with expert design and installation.
-              </p>
-              <Link href="/contact">
-                <a className="inline-block bg-green-700 text-white font-bold py-3 px-8 rounded-full hover:bg-green-800 transition duration-300">
-                  Get a Free Estimate Today
-                </a>
-              </Link>
-              <p className="mt-4 text-sm" style={{ color: "oklch(0.4 0.005 0)" }}>
-                Call us at <a href="tel:+15416178873" className="underline">(541) 617-8873</a>
-              </p>
-            </div>
-
           </div>
         </div>
       </div>
