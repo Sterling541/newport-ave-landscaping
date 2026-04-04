@@ -72,6 +72,15 @@ export default function OutdoorLiving() {
       ]}
       relatedLinks={relatedLinks}
       resourceLinks={resourceLinks}
+      schemaUrl="/services/outdoor-living"
+      schemaName="Outdoor Living Spaces"
+      schemaDescription="Custom outdoor kitchens, living spaces, and covered patios in Bend, Oregon. Design and installation by Newport Avenue Landscaping."
+      faqs={[
+          { question: "How much does an outdoor kitchen cost in Bend?", answer: "Outdoor kitchen projects in Bend range from $8,000 for a basic built-in grill with counter space to $40,000+ for a fully equipped outdoor kitchen with refrigeration, sink, pizza oven, and bar seating. The wide range reflects differences in appliance quality, countertop materials, and the complexity of the structure. We design to your budget and lifestyle." },
+          { question: "What outdoor living features are most popular in Bend?", answer: "The most popular outdoor living additions in Bend include covered pergolas and shade structures (essential for our sunny summers), outdoor kitchens and grilling stations, fire pits and fireplaces for cool evenings, paver patios with seating walls, and integrated landscape lighting. Many clients combine several of these into a complete outdoor room." },
+          { question: "How long does outdoor living space construction take?", answer: "A typical outdoor living project in Bend takes 2–6 weeks from start to finish, depending on scope. Simple paver patios with a fire pit take 1–2 weeks. Full outdoor kitchens with structural pergolas and electrical work take 4–8 weeks. We provide a detailed schedule before work begins." },
+          { question: "Do outdoor kitchens hold up to Central Oregon weather?", answer: "Yes — when properly designed and built with appropriate materials. We use stainless steel appliances rated for outdoor use, weather-resistant cabinetry, and sealed countertops that handle freeze-thaw cycles. Covered structures protect appliances from direct precipitation. We have built outdoor kitchens throughout Bend that have performed flawlessly for 10+ years." },
+      ]}
     />
   );
 }

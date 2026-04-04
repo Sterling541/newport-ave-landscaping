@@ -16,6 +16,7 @@ import OurWork from "./pages/OurWork";
 import Contact from "./pages/Contact";
 import Blog from "./pages/Blog";
 import Resources from "./pages/Resources";
+import ServiceAreas from "./pages/ServiceAreas";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import Membership from "./pages/Membership";
 import Terms from "./pages/Terms";
@@ -99,6 +100,61 @@ import EastBendLandscape from "./pages/portfolio/EastBendLandscape";
 import NWBendBackyard from "./pages/portfolio/NWBendBackyard";
 import PaverPatioFirepit from "./pages/portfolio/PaverPatioFirepit";
 import SWBendBackyard from "./pages/portfolio/SWBendBackyard";
+
+const RedmondPavers = lazy(() => import("@/pages/service-areas/RedmondPavers"));
+const RedmondIrrigation = lazy(() => import("@/pages/service-areas/RedmondIrrigation"));
+const RedmondXeriscaping = lazy(() => import("@/pages/service-areas/RedmondXeriscaping"));
+const RedmondLandscapeDesign = lazy(() => import("@/pages/service-areas/RedmondLandscapeDesign"));
+const RedmondLawnService = lazy(() => import("@/pages/service-areas/RedmondLawnService"));
+const RedmondSnowRemoval = lazy(() => import("@/pages/service-areas/RedmondSnowRemoval"));
+const SistersPavers = lazy(() => import("@/pages/service-areas/SistersPavers"));
+const SistersIrrigation = lazy(() => import("@/pages/service-areas/SistersIrrigation"));
+const SistersXeriscaping = lazy(() => import("@/pages/service-areas/SistersXeriscaping"));
+const SistersLandscapeDesign = lazy(() => import("@/pages/service-areas/SistersLandscapeDesign"));
+const SistersLawnService = lazy(() => import("@/pages/service-areas/SistersLawnService"));
+const SistersSnowRemoval = lazy(() => import("@/pages/service-areas/SistersSnowRemoval"));
+const SunriverPavers = lazy(() => import("@/pages/service-areas/SunriverPavers"));
+const SunriverIrrigation = lazy(() => import("@/pages/service-areas/SunriverIrrigation"));
+const SunriverXeriscaping = lazy(() => import("@/pages/service-areas/SunriverXeriscaping"));
+const SunriverLandscapeDesign = lazy(() => import("@/pages/service-areas/SunriverLandscapeDesign"));
+const SunriverLawnService = lazy(() => import("@/pages/service-areas/SunriverLawnService"));
+const SunriverSnowRemoval = lazy(() => import("@/pages/service-areas/SunriverSnowRemoval"));
+const LaPinePavers = lazy(() => import("@/pages/service-areas/LaPinePavers"));
+const LaPineIrrigation = lazy(() => import("@/pages/service-areas/LaPineIrrigation"));
+const LaPineXeriscaping = lazy(() => import("@/pages/service-areas/LaPineXeriscaping"));
+const LaPineLandscapeDesign = lazy(() => import("@/pages/service-areas/LaPineLandscapeDesign"));
+const LaPineLawnService = lazy(() => import("@/pages/service-areas/LaPineLawnService"));
+const LaPineSnowRemoval = lazy(() => import("@/pages/service-areas/LaPineSnowRemoval"));
+const PrinevillePavers = lazy(() => import("@/pages/service-areas/PrinevillePavers"));
+const PrinevilleIrrigation = lazy(() => import("@/pages/service-areas/PrinevilleIrrigation"));
+const PrinevilleXeriscaping = lazy(() => import("@/pages/service-areas/PrinevilleXeriscaping"));
+const PrinevilleLandscapeDesign = lazy(() => import("@/pages/service-areas/PrinevilleLandscapeDesign"));
+const PrinevilleLawnService = lazy(() => import("@/pages/service-areas/PrinevilleLawnService"));
+const PrinevilleSnowRemoval = lazy(() => import("@/pages/service-areas/PrinevilleSnowRemoval"));
+const MadrasPavers = lazy(() => import("@/pages/service-areas/MadrasPavers"));
+const MadrasIrrigation = lazy(() => import("@/pages/service-areas/MadrasIrrigation"));
+const MadrasXeriscaping = lazy(() => import("@/pages/service-areas/MadrasXeriscaping"));
+const MadrasLandscapeDesign = lazy(() => import("@/pages/service-areas/MadrasLandscapeDesign"));
+const MadrasLawnService = lazy(() => import("@/pages/service-areas/MadrasLawnService"));
+const MadrasSnowRemoval = lazy(() => import("@/pages/service-areas/MadrasSnowRemoval"));
+const TumaloPavers = lazy(() => import("@/pages/service-areas/TumaloPavers"));
+const TumaloIrrigation = lazy(() => import("@/pages/service-areas/TumaloIrrigation"));
+const TumaloXeriscaping = lazy(() => import("@/pages/service-areas/TumaloXeriscaping"));
+const TumaloLandscapeDesign = lazy(() => import("@/pages/service-areas/TumaloLandscapeDesign"));
+const TumaloLawnService = lazy(() => import("@/pages/service-areas/TumaloLawnService"));
+const TumaloSnowRemoval = lazy(() => import("@/pages/service-areas/TumaloSnowRemoval"));
+const TerrebonnePavers = lazy(() => import("@/pages/service-areas/TerrebonnePavers"));
+const TerrebonneIrrigation = lazy(() => import("@/pages/service-areas/TerrebonneIrrigation"));
+const TerrebonneXeriscaping = lazy(() => import("@/pages/service-areas/TerrebonneXeriscaping"));
+const TerrebonneLandscapeDesign = lazy(() => import("@/pages/service-areas/TerrebonneLandscapeDesign"));
+const TerrebonneLawnService = lazy(() => import("@/pages/service-areas/TerrebonneLawnService"));
+const TerrebonneSnowRemoval = lazy(() => import("@/pages/service-areas/TerrebonneSnowRemoval"));
+const NaturalStoneVsConcretePayersBend = lazy(() => import("@/pages/resources/NaturalStoneVsConcretePayersBend"));
+const GasVsPropaneFirePitBend = lazy(() => import("@/pages/resources/GasVsPropaneFirePitBend"));
+const OldBendLandscaping = lazy(() => import("@/pages/service-areas/OldBendLandscaping"));
+const IrrigationFAQBend = lazy(() => import("@/pages/resources/IrrigationFAQBend"));
+const PaverFAQBend = lazy(() => import("@/pages/resources/PaverFAQBend"));
+const XeriscapeFAQBend = lazy(() => import("@/pages/resources/XeriscapeFAQBend"));
 function Router() {
   // make sure to consider if you need authentication for certain routes
   return (
@@ -115,6 +171,7 @@ function Router() {
       <Route path={"/contact"} component={Contact} />
       <Route path={"/blog"} component={Blog} />
       <Route path={"/resources"} component={Resources} />
+      <Route path={"/service-areas"} component={ServiceAreas} />
       <Route path={"/privacy-policy"} component={PrivacyPolicy} />
       <Route path={"/membership"} component={Membership} />
       <Route path={"/terms"} component={Terms} />
@@ -339,7 +396,62 @@ function Router() {
       {/* Fallback */}
       <Route path={"/404"} component={NotFound} />
       <Route component={NotFound} />
-    </Switch>
+    
+          <Route path="/service-areas/redmond-pavers" component={RedmondPavers} />
+          <Route path="/service-areas/redmond-irrigation" component={RedmondIrrigation} />
+          <Route path="/service-areas/redmond-xeriscape" component={RedmondXeriscaping} />
+          <Route path="/service-areas/redmond-landscape-design" component={RedmondLandscapeDesign} />
+          <Route path="/service-areas/redmond-lawn-care" component={RedmondLawnService} />
+          <Route path="/service-areas/redmond-snow-removal" component={RedmondSnowRemoval} />
+          <Route path="/service-areas/sisters-pavers" component={SistersPavers} />
+          <Route path="/service-areas/sisters-irrigation" component={SistersIrrigation} />
+          <Route path="/service-areas/sisters-xeriscape" component={SistersXeriscaping} />
+          <Route path="/service-areas/sisters-landscape-design" component={SistersLandscapeDesign} />
+          <Route path="/service-areas/sisters-lawn-care" component={SistersLawnService} />
+          <Route path="/service-areas/sisters-snow-removal" component={SistersSnowRemoval} />
+          <Route path="/service-areas/sunriver-pavers" component={SunriverPavers} />
+          <Route path="/service-areas/sunriver-irrigation" component={SunriverIrrigation} />
+          <Route path="/service-areas/sunriver-xeriscape" component={SunriverXeriscaping} />
+          <Route path="/service-areas/sunriver-landscape-design" component={SunriverLandscapeDesign} />
+          <Route path="/service-areas/sunriver-lawn-care" component={SunriverLawnService} />
+          <Route path="/service-areas/sunriver-snow-removal" component={SunriverSnowRemoval} />
+          <Route path="/service-areas/la-pine-pavers" component={LaPinePavers} />
+          <Route path="/service-areas/la-pine-irrigation" component={LaPineIrrigation} />
+          <Route path="/service-areas/la-pine-xeriscape" component={LaPineXeriscaping} />
+          <Route path="/service-areas/la-pine-landscape-design" component={LaPineLandscapeDesign} />
+          <Route path="/service-areas/la-pine-lawn-care" component={LaPineLawnService} />
+          <Route path="/service-areas/la-pine-snow-removal" component={LaPineSnowRemoval} />
+          <Route path="/service-areas/prineville-pavers" component={PrinevillePavers} />
+          <Route path="/service-areas/prineville-irrigation" component={PrinevilleIrrigation} />
+          <Route path="/service-areas/prineville-xeriscape" component={PrinevilleXeriscaping} />
+          <Route path="/service-areas/prineville-landscape-design" component={PrinevilleLandscapeDesign} />
+          <Route path="/service-areas/prineville-lawn-care" component={PrinevilleLawnService} />
+          <Route path="/service-areas/prineville-snow-removal" component={PrinevilleSnowRemoval} />
+          <Route path="/service-areas/madras-pavers" component={MadrasPavers} />
+          <Route path="/service-areas/madras-irrigation" component={MadrasIrrigation} />
+          <Route path="/service-areas/madras-xeriscape" component={MadrasXeriscaping} />
+          <Route path="/service-areas/madras-landscape-design" component={MadrasLandscapeDesign} />
+          <Route path="/service-areas/madras-lawn-care" component={MadrasLawnService} />
+          <Route path="/service-areas/madras-snow-removal" component={MadrasSnowRemoval} />
+          <Route path="/service-areas/tumalo-pavers" component={TumaloPavers} />
+          <Route path="/service-areas/tumalo-irrigation" component={TumaloIrrigation} />
+          <Route path="/service-areas/tumalo-xeriscape" component={TumaloXeriscaping} />
+          <Route path="/service-areas/tumalo-landscape-design" component={TumaloLandscapeDesign} />
+          <Route path="/service-areas/tumalo-lawn-care" component={TumaloLawnService} />
+          <Route path="/service-areas/tumalo-snow-removal" component={TumaloSnowRemoval} />
+          <Route path="/service-areas/terrebonne-pavers" component={TerrebonnePavers} />
+          <Route path="/service-areas/terrebonne-irrigation" component={TerrebonneIrrigation} />
+          <Route path="/service-areas/terrebonne-xeriscape" component={TerrebonneXeriscaping} />
+          <Route path="/service-areas/terrebonne-landscape-design" component={TerrebonneLandscapeDesign} />
+          <Route path="/service-areas/terrebonne-lawn-care" component={TerrebonneLawnService} />
+          <Route path="/service-areas/terrebonne-snow-removal" component={TerrebonneSnowRemoval} />
+          <Route path="/resources/natural-stone-vs-concrete-pavers-bend-oregon" component={NaturalStoneVsConcretePayersBend} />
+          <Route path="/resources/gas-vs-propane-fire-pit-bend-oregon" component={GasVsPropaneFirePitBend} />
+          <Route path="/service-areas/old-bend-landscaping-oregon" component={OldBendLandscaping} />
+          <Route path="/resources/irrigation-faq-bend-oregon" component={IrrigationFAQBend} />
+          <Route path="/resources/paver-patio-faq-bend-oregon" component={PaverFAQBend} />
+          <Route path="/resources/xeriscape-faq-bend-oregon" component={XeriscapeFAQBend} />
+</Switch>
     </Suspense>
   );
 }

@@ -74,6 +74,15 @@ export default function WaterFeatures() {
       ]}
       relatedLinks={relatedLinks}
       resourceLinks={resourceLinks}
+      schemaUrl="/services/water-features"
+      schemaName="Water Features"
+      schemaDescription="Custom ponds, waterfalls, and water features in Bend, Oregon. Design, installation, and maintenance by Newport Avenue Landscaping."
+      faqs={[
+          { question: "How much does a water feature cost in Bend?", answer: "Water features in Bend range from $1,500 for a simple pondless waterfall to $15,000+ for a large koi pond with waterfalls and extensive landscaping. A medium-sized pondless waterfall with natural stone typically costs $3,000–$6,000 installed. Koi ponds with filtration systems start around $5,000 and scale up with size and complexity." },
+          { question: "What type of water feature is best for Central Oregon?", answer: "Pondless waterfalls are extremely popular in Bend because they provide the soothing sound of moving water without the maintenance of a full pond. They are also safer for households with young children. Koi ponds are a beautiful focal point for larger properties. Bubbling rock features and container water gardens are lower-maintenance options for smaller spaces." },
+          { question: "Do water features work in Central Oregon winters?", answer: "Most water features in Bend need to be winterized before hard freezes. Pondless waterfalls can often run through mild winters but should be shut down when temperatures consistently drop below freezing. Koi ponds require special preparation to protect fish through winter. We provide winterization services and can advise on the best approach for your specific feature." },
+          { question: "How much maintenance does a water feature require?", answer: "Maintenance requirements vary by type. Pondless waterfalls need occasional cleaning of the basin and pump (a few hours per year). Koi ponds require regular water testing, filter cleaning, feeding, and seasonal care. We offer water feature maintenance programs to keep your feature running cleanly and efficiently." },
+      ]}
     />
   );
 }

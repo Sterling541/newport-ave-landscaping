@@ -67,6 +67,16 @@ export default function SprinklerBlowout() {
       ]}
       relatedLinks={relatedLinks}
       resourceLinks={resourceLinks}
+      schemaUrl="/services/sprinkler-blowout"
+      schemaName="Sprinkler Winterization"
+      schemaDescription="Professional sprinkler blowout and winterization service in Bend, Oregon. $140/tech hour. Schedule before the first freeze."
+      faqs={[
+          { question: "How much does a sprinkler blowout cost in Bend?", answer: "Sprinkler winterization in Bend is billed at $140 per tech hour with a one-hour minimum. Most residential blowouts take 30–60 minutes depending on the number of zones. We use commercial-grade compressors to ensure every zone is fully cleared of water." },
+          { question: "When should I winterize my sprinkler system in Bend?", answer: "In Central Oregon, the first hard freeze (below 28°F) typically arrives in late October or early November. We recommend scheduling your blowout in September or October to beat the rush. Once nighttime temperatures consistently drop below freezing, any water left in your pipes can expand and crack them — repairs cost far more than a blowout." },
+          { question: "What happens if I skip the blowout?", answer: "Water left in irrigation pipes and heads during a freeze expands and can crack PVC pipe, split poly tubing, break spray heads, and damage valve bodies. A single freeze event can cause $500–$3,000 in repair costs. A blowout costs a fraction of that and takes less than an hour." },
+          { question: "Do you also do spring activation?", answer: "Yes — we offer sprinkler system spring startup and activation at the same $140/tech hour rate. We check all zones, test heads, adjust coverage, inspect the backflow preventer, and program your controller for the season. Scheduling spring activation and fall blowout together saves time and ensures your system runs perfectly all season." },
+          { question: "Can I blow out my own sprinklers?", answer: "It is possible but not recommended. Homeowners often use undersized compressors that cannot fully clear all zones, leaving water in the lines. Over-pressurizing can also damage heads and valves. Our commercial compressors deliver the correct CFM for complete evacuation without equipment damage." },
+      ]}
     />
   );
 }

@@ -73,6 +73,15 @@ export default function LandscapeDesign() {
       ]}
       relatedLinks={relatedLinks}
       resourceLinks={resourceLinks}
+      schemaUrl="/services/landscape-design"
+      schemaName="Landscape Design"
+      schemaDescription="Custom landscape design in Bend, Oregon. Full-service design and installation for residential and commercial properties."
+      faqs={[
+          { question: "How much does landscape design cost in Bend?", answer: "Landscape design fees in Bend vary based on project scope. We offer complimentary initial consultations to discuss your vision and budget. Full design packages for larger residential projects typically range from $500–$2,500 for the design phase, which is often credited toward installation. Many clients find the design investment pays for itself through better plant selection, reduced waste, and a cohesive final result." },
+          { question: "What is included in a landscape design?", answer: "Our landscape design process includes an on-site consultation, site analysis (sun exposure, soil, drainage, existing plants), a custom design plan with plant selection and placement, material recommendations, and a detailed project estimate. We create designs that work with Central Oregon's climate, water availability, and your lifestyle." },
+          { question: "How long does a landscape design project take?", answer: "The design phase typically takes 2–4 weeks from initial consultation to final plan. Installation timelines depend on project scope — smaller projects may be completed in a few days, while larger landscape transformations can take several weeks. We provide a detailed schedule before work begins." },
+          { question: "Do you design xeriscapes and water-wise landscapes?", answer: "Yes — water-wise design is one of our specialties. Central Oregon's dry summers make drought-tolerant landscaping both practical and beautiful. We design landscapes using native plants, ornamental grasses, and low-water perennials that thrive without supplemental irrigation once established." },
+      ]}
     />
   );
 }

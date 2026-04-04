@@ -55,6 +55,15 @@ export default function SnowRemoval() {
       ]}
       relatedLinks={relatedLinks}
       resourceLinks={resourceLinks}
+      schemaUrl="/services/snow-removal"
+      schemaName="Snow Removal"
+      schemaDescription="Residential and commercial snow removal in Bend, Oregon. Driveway plowing, walkway clearing, and de-icing."
+      faqs={[
+          { question: "Do you do residential snow removal in Bend?", answer: "Yes — we offer residential snow removal for driveways, walkways, and entryways in Bend and surrounding areas. We offer both seasonal contracts and per-event service. Seasonal contracts provide priority scheduling and predictable costs." },
+          { question: "How much does snow removal cost in Bend?", answer: "Residential snow removal pricing depends on driveway size and service type. Per-event driveway clearing typically starts at $50–$100 for a standard residential driveway. Seasonal contracts are priced based on your property's square footage and the scope of service. Contact us for a custom quote." },
+          { question: "When do you start snow removal after a storm?", answer: "For seasonal contract customers, we begin service when snowfall reaches a trigger depth (typically 2 inches) and continue until all contracted areas are cleared. We work through the night and early morning to ensure driveways and walkways are clear before the morning commute." },
+          { question: "Do you use salt or sand for de-icing?", answer: "We use a combination of products depending on conditions and surface type. Concrete and pavers can be damaged by rock salt, so we use calcium chloride or magnesium chloride blends that are effective at lower temperatures and less damaging to surfaces. We also use sand for traction on steep driveways." },
+      ]}
     />
   );
 }

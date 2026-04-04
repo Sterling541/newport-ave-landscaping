@@ -69,6 +69,15 @@ export default function Aeration() {
       ]}
       relatedLinks={relatedLinks}
       resourceLinks={resourceLinks}
+      schemaUrl="/services/aeration"
+      schemaName="Lawn Aeration Service"
+      schemaDescription="Core aeration and overseeding in Bend, Oregon. Improve soil compaction, water penetration, and lawn health."
+      faqs={[
+          { question: "When should I aerate my lawn in Bend?", answer: "The best time to aerate in Central Oregon is early fall (late August through September) when cool-season grasses are actively growing and can recover quickly. Spring aeration (April–May) is also effective. Avoid aerating during summer heat stress or when the ground is frozen." },
+          { question: "How much does lawn aeration cost in Bend?", answer: "Lawn aeration in Bend typically costs $75–$200 for a residential property, depending on lawn size. We often recommend combining aeration with overseeding for maximum benefit — the aeration holes provide ideal seed-to-soil contact for germination." },
+          { question: "How often should I aerate my lawn?", answer: "Most Bend lawns benefit from annual aeration, especially those with heavy clay soil or high foot traffic. Lawns with sandy soil may only need aeration every 2–3 years. Signs your lawn needs aeration include water pooling on the surface, hard compacted soil, and thinning grass despite regular fertilization." },
+          { question: "What is the difference between core aeration and spike aeration?", answer: "Core aeration removes small plugs of soil from the lawn, creating channels for air, water, and nutrients to reach roots. Spike aeration simply punches holes without removing soil — it can actually increase compaction over time. We use core aeration equipment exclusively for the best results." },
+      ]}
     />
   );
 }

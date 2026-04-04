@@ -5,6 +5,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "wouter";
 import Navbar from "@/components/Navbar";
+import { Helmet } from "react-helmet-async";
 
 export function FadeIn({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -39,6 +40,11 @@ interface ServiceSection {
   accent?: boolean;
 }
 
+interface FAQItem {
+  question: string;
+  answer: string;
+}
+
 interface ServicePageProps {
   category: string;
   title: string;
@@ -50,6 +56,10 @@ interface ServicePageProps {
   pricing?: { label: string; value: string }[];
   relatedLinks?: { label: string; href: string }[];
   resourceLinks?: { label: string; href: string; description?: string }[];
+  faqs?: FAQItem[];
+  schemaName?: string;
+  schemaDescription?: string;
+  schemaUrl?: string;
 }
 
 export default function ServicePageLayout({
@@ -63,9 +73,59 @@ export default function ServicePageLayout({
   pricing,
   relatedLinks,
   resourceLinks,
+  faqs,
+  schemaName,
+  schemaDescription,
+  schemaUrl,
 }: ServicePageProps) {
+  const serviceSchema = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: schemaName || title,
+    description: schemaDescription || intro,
+    url: schemaUrl ? `https://newportavelandscaping.com${schemaUrl}` : undefined,
+    provider: {
+      "@type": "LocalBusiness",
+      "@id": "https://newportavelandscaping.com/#business",
+      name: "Newport Avenue Landscaping",
+      telephone: "+15416178873",
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: "Bend",
+        addressRegion: "OR",
+        addressCountry: "US",
+      },
+    },
+    areaServed: [
+      { "@type": "City", name: "Bend" },
+      { "@type": "City", name: "Redmond" },
+      { "@type": "City", name: "Sisters" },
+      { "@type": "City", name: "Sunriver" },
+      { "@type": "City", name: "Tumalo" },
+    ],
+    serviceType: schemaName || title,
+  };
+
+  const faqSchema = faqs && faqs.length > 0 ? {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.answer,
+      },
+    })),
+  } : null;
+
   return (
     <div style={{ backgroundColor: "oklch(0.97 0.012 85)" }}>
+      <Helmet>
+        {schemaUrl && <link rel="canonical" href={`https://newportavelandscaping.com${schemaUrl}`} />}
+        <script type="application/ld+json">{JSON.stringify(serviceSchema)}</script>
+        {faqSchema && <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>}
+      </Helmet>
       <Navbar />
 
       {/* ── Hero ── */}
@@ -300,6 +360,48 @@ export default function ServicePageLayout({
         </section>
       )}
 
+      {/* ── Service Areas ── */}
+      <section className="py-14" style={{ backgroundColor: "oklch(0.97 0.012 85)" }}>
+        <div className="container">
+          <FadeIn>
+            <div className="font-label mb-2" style={{ color: "oklch(0.46 0.20 25)", fontSize: "0.62rem" }}>WE SERVE</div>
+            <h2 className="font-display font-light mb-6" style={{ color: "oklch(0.15 0.005 0)", fontSize: "clamp(1.2rem, 2vw, 1.6rem)" }}>
+              Central Oregon Service Areas
+            </h2>
+            <div className="flex flex-wrap gap-2">
+              {[
+                { label: "Bend", href: "/service-areas" },
+                { label: "Redmond", href: "/service-areas/redmond" },
+                { label: "Sisters", href: "/service-areas/sisters" },
+                { label: "Sunriver", href: "/service-areas/sunriver" },
+                { label: "La Pine", href: "/service-areas/la-pine" },
+                { label: "Tumalo", href: "/service-areas/tumalo" },
+                { label: "Terrebonne", href: "/service-areas/terrebonne" },
+                { label: "Madras", href: "/service-areas/madras" },
+                { label: "Prineville", href: "/service-areas/prineville" },
+                { label: "Crooked River Ranch", href: "/service-areas/crooked-river-ranch" },
+                { label: "Culver", href: "/service-areas/culver" },
+              ].map((area) => (
+                <Link
+                  key={area.href}
+                  href={area.href}
+                  className="font-label px-4 py-2 transition-all"
+                  style={{
+                    backgroundColor: "oklch(0.22 0.008 30)",
+                    color: "oklch(0.92 0.05 25)",
+                    fontSize: "0.68rem",
+                    letterSpacing: "0.07em",
+                    textDecoration: "none",
+                    borderRadius: "0.15rem",
+                  }}
+                >
+                  {area.label}
+                </Link>
+              ))}
+            </div>
+          </FadeIn>
+        </div>
+      </section>
       {/* ── Related Services ── */}
       {relatedLinks && relatedLinks.length > 0 && (
         <section className="py-14" style={{ backgroundColor: "oklch(0.15 0.005 0)" }}>

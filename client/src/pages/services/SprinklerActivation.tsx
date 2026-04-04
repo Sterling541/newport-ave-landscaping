@@ -65,6 +65,15 @@ export default function SprinklerActivation() {
       ]}
       relatedLinks={relatedLinks}
       resourceLinks={resourceLinks}
+      schemaUrl="/services/sprinkler-activation"
+      schemaName="Sprinkler System Spring Activation"
+      schemaDescription="Spring sprinkler system startup and activation in Bend, Oregon. Zone checks, head adjustments, controller programming. $140/tech hour."
+      faqs={[
+          { question: "When should I turn on my sprinklers in Bend?", answer: "In Central Oregon, we recommend activating your irrigation system in late April or early May, after the risk of hard frost has passed. Turning on your system too early risks freeze damage to above-ground components. Our technicians monitor local frost forecasts and can advise on the optimal timing for your property." },
+          { question: "What is included in a spring sprinkler activation?", answer: "Our spring activation service includes pressurizing the system, checking all zones for proper operation, inspecting and adjusting spray heads and rotors, testing the backflow preventer, checking for leaks or broken heads, and programming your controller for the season. We leave you with a fully operational system ready for summer." },
+          { question: "How much does spring sprinkler startup cost in Bend?", answer: "Spring activation is billed at $140 per tech hour with a one-hour minimum. Most residential activations take 45–90 minutes. Any repairs needed are quoted separately before work begins." },
+          { question: "My sprinklers were not blown out last fall — what should I do?", answer: "If your system was not properly winterized, there is a risk of cracked pipes or damaged heads. We recommend a full inspection before pressurizing the system in spring. Our technicians will check for damage and make any necessary repairs before activating the system." },
+      ]}
     />
   );
 }

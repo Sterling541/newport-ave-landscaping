@@ -66,6 +66,15 @@ export default function FireFeatures() {
       ]}
       relatedLinks={relatedLinks}
       resourceLinks={resourceLinks}
+      schemaUrl="/services/fire-features"
+      schemaName="Fire Pits and Outdoor Fireplaces"
+      schemaDescription="Custom fire pit and outdoor fireplace installation in Bend, Oregon. Natural gas, propane, and wood-burning options."
+      faqs={[
+          { question: "How much does a fire pit cost in Bend, Oregon?", answer: "A custom built-in fire pit in Bend typically costs $2,500–$15,000 depending on size, materials, and fuel type. A simple gas fire pit ring set in a paver patio starts around $2,500–$4,000. A full masonry fireplace with seating walls and a paver surround can reach $10,000–$20,000. Prefabricated fire pit inserts are a cost-effective option starting around $1,500 installed." },
+          { question: "Natural gas vs. propane vs. wood-burning fire pit — which is best?", answer: "Natural gas is the most convenient option if you have a gas line — no refilling, instant ignition, and consistent flame. Propane offers similar convenience without needing a gas line but requires tank refills. Wood-burning fire pits provide the authentic campfire experience and are often preferred for ambiance, but require wood storage and more cleanup. We can install any type and help you choose based on your property and preferences." },
+          { question: "Do I need a permit for a fire pit in Bend?", answer: "Bend does not require a permit for most residential fire pits, but there are setback requirements from structures and property lines. Gas fire pit installations that connect to your home's gas line require a licensed plumber for the gas connection. We coordinate all required trades and ensure your installation meets local codes." },
+          { question: "Can a fire pit be used year-round in Central Oregon?", answer: "Yes — one of the great benefits of an outdoor fire feature in Bend is that it extends your outdoor living season well into fall and even winter. On cool spring and fall evenings, a fire pit makes outdoor entertaining comfortable when it would otherwise be too cold. We design fire features with year-round use in mind." },
+      ]}
     />
   );
 }

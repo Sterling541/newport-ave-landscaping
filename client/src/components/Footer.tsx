@@ -35,6 +35,7 @@ const quickLinks = [
   { label: "Services", href: "/services" },
   { label: "Maintenance", href: "/maintenance" },
   { label: "Blog", href: "/blog" },
+  { label: "Service Areas", href: "/service-areas" },
   { label: "Contact Us", href: "/contact" },
 ];
 const resourceArticleLinks = [
@@ -140,7 +141,7 @@ export default function Footer() {
               <img
                 src={LOGO_STACKED}
                 alt="Newport Avenue Landscaping"
-                className="h-24 w-auto"
+                className="h-40 w-auto"
                 style={{ filter: "brightness(0) invert(1)" }}
               />
             </button>

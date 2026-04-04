@@ -69,6 +69,16 @@ export default function SprinklerRepair() {
       ]}
       relatedLinks={relatedLinks}
       resourceLinks={resourceLinks}
+      schemaUrl="/services/sprinkler-repair"
+      schemaName="Sprinkler System Repair"
+      schemaDescription="Expert sprinkler repair, troubleshooting, and backflow testing in Bend, Oregon. $140/tech hour. Same-week scheduling available."
+      faqs={[
+          { question: "How much does sprinkler repair cost in Bend?", answer: "Newport Avenue Landscaping charges $140 per tech hour for sprinkler repair, troubleshooting, backflow testing, and irrigation service calls, with a one-hour minimum. Parts and materials are billed separately. Most repair visits are completed in 1–2 hours. We provide a clear estimate before starting any work." },
+          { question: "What are the most common sprinkler problems in Central Oregon?", answer: "The most common issues we see in Bend include broken or clogged spray heads (often from lawn mowers or freeze damage), stuck or leaking valves, controller programming errors, broken lateral lines from digging or frost heaving, and backflow preventer failures. Most repairs can be completed in a single visit." },
+          { question: "How do I know if my sprinkler system has a leak?", answer: "Signs of a sprinkler leak include unexpectedly high water bills, soggy or waterlogged areas in your yard, dry patches despite regular watering, and visible water pooling near valve boxes. If you notice any of these, call us for a diagnostic visit — catching leaks early prevents significant water waste and lawn damage." },
+          { question: "Do you do backflow preventer testing in Bend?", answer: "Yes — we test, repair, and certify backflow prevention assemblies for both residential and commercial properties in Bend and throughout Deschutes County. Oregon law requires annual backflow testing on irrigation systems connected to the municipal water supply. We provide certified test reports that can be submitted to the City of Bend." },
+          { question: "Can you repair any brand of sprinkler system?", answer: "Yes — our technicians are trained on all major irrigation brands including Rain Bird, Hunter, Toro, Orbit, Rainmaster, and Weathermatic. We stock common replacement parts on our service vehicles to handle most repairs in a single visit." },
+      ]}
     />
   );
 }

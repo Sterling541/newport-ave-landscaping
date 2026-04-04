@@ -88,6 +88,15 @@ export default function LawnService() {
       ]}
       relatedLinks={relatedLinks}
       resourceLinks={resourceLinks}
+      schemaUrl="/services/lawn-service"
+      schemaName="Lawn Maintenance Service"
+      schemaDescription="Weekly and bi-weekly lawn maintenance in Bend, Oregon. Mowing, edging, blowing, fertilization, and weed control."
+      faqs={[
+          { question: "How much does lawn service cost in Bend, Oregon?", answer: "Residential lawn maintenance in Bend typically starts at $45–$65 per visit for a standard-sized yard, with pricing based on lot size, frequency, and services included. We offer weekly and bi-weekly schedules. Commercial properties are priced by square footage and scope. Contact us for a free quote." },
+          { question: "What is included in your lawn maintenance service?", answer: "Our standard lawn maintenance includes mowing at the correct height for your grass type, string trimming around obstacles and edges, edging along hard surfaces, and blowing clippings off driveways and walkways. We also offer add-on services including fertilization, weed control, aeration, and overseeding." },
+          { question: "Do you offer year-round lawn service in Bend?", answer: "Yes — we offer year-round maintenance programs. In summer, we focus on mowing, watering, and fertilization. In fall, we add leaf cleanup and aeration. In winter, we offer cleanup and preparation services. Spring service includes dethatching, fertilization, and pre-emergent weed control." },
+          { question: "What type of grass grows best in Bend?", answer: "Central Oregon's high desert climate is best suited to cool-season grasses. Kentucky bluegrass and tall fescue are the most common lawn grasses in Bend. They thrive in our spring and fall conditions but require supplemental irrigation during our dry summers. We can advise on the best grass mix for your specific site conditions and water budget." },
+      ]}
     />
   );
 }

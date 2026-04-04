@@ -71,6 +71,15 @@ export default function LawnFungus() {
       ]}
       relatedLinks={relatedLinks}
       resourceLinks={resourceLinks}
+      schemaUrl="/services/lawn-fungus"
+      schemaName="Lawn Fungus Treatment"
+      schemaDescription="Lawn fungus diagnosis and treatment in Bend, Oregon. Dollar spot, brown patch, rust, and other turf diseases."
+      faqs={[
+          { question: "What are the most common lawn fungus problems in Bend?", answer: "The most common turf diseases we treat in Central Oregon include dollar spot (small tan spots), brown patch (large brown circles), necrotic ring spot (dead rings in bluegrass), rust (orange powder on grass blades), and red thread (pink-red patches). Each requires a different treatment approach, which is why proper diagnosis is important." },
+          { question: "How do I know if my lawn has fungus or just drought stress?", answer: "Drought stress typically causes uniform browning that follows irrigation patterns — areas farthest from sprinkler heads go brown first. Fungal disease usually creates irregular patterns: circles, rings, patches, or spots that do not follow irrigation coverage. Fungal damage often appears in the morning when dew is present. If you are unsure, we offer diagnostic visits to identify the problem." },
+          { question: "How much does lawn fungus treatment cost in Bend?", answer: "Fungus treatment costs depend on the disease type, lawn size, and severity. Most residential treatments range from $150–$400 for a standard application. Severe or recurring infections may require multiple applications. We identify the specific disease before recommending a treatment plan." },
+          { question: "Can I prevent lawn fungus in Bend?", answer: "Yes — most fungal diseases in Bend are preventable with good cultural practices: water in the morning (not evening) so grass dries before nightfall, avoid overwatering, maintain proper mowing height, aerate annually to reduce thatch, and fertilize appropriately. We can evaluate your lawn care program and recommend adjustments to reduce disease pressure." },
+      ]}
     />
   );
 }

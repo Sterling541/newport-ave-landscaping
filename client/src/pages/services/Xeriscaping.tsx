@@ -76,6 +76,16 @@ export default function Xeriscaping() {
         { label: "Retaining Walls & Drainage", href: "/services" },
       ]}
       resourceLinks={resourceLinks}
+      schemaUrl="/services/xeriscaping"
+      schemaName="Xeriscape Landscaping"
+      schemaDescription="Water-wise xeriscape landscaping in Bend, Oregon. Drought-tolerant plants, decorative rock, and low-maintenance designs."
+      faqs={[
+          { question: "How much does xeriscaping cost in Bend?", answer: "Xeriscape projects in Bend typically cost $3,000–$20,000 depending on the size of the area, the extent of existing lawn removal, soil amendment needs, and plant and rock material choices. While the upfront cost is comparable to traditional landscaping, xeriscapes save significantly on water bills and maintenance costs over time." },
+          { question: "How much water does xeriscaping save?", answer: "A well-designed xeriscape in Central Oregon can reduce outdoor water use by 50–75% compared to a traditional lawn. In Bend, where summer water bills can run $100–$200/month for irrigation, that represents $600–$1,500 in annual savings. Many Bend homeowners recoup the cost of xeriscaping within 3–5 years through water savings alone." },
+          { question: "Does xeriscaping look good or does it just look like rocks?", answer: "Modern xeriscape design is beautiful — it is nothing like the gravel-and-cactus stereotype. In Bend, we use a rich palette of ornamental grasses, drought-tolerant perennials (lavender, salvia, yarrow, penstemon), native shrubs, and decorative boulders to create landscapes that look lush and intentional. Many of our xeriscape projects are the most visually striking yards in their neighborhoods." },
+          { question: "Will the City of Bend give me a rebate for xeriscaping?", answer: "Bend's water utility has offered lawn conversion rebates in the past to encourage water-wise landscaping. Rebate programs change year to year — we recommend checking with the City of Bend Water Conservation office for current incentives. We can help you document your project for rebate applications." },
+          { question: "What plants work best for xeriscaping in Bend?", answer: "Top performers for Bend xeriscapes include lavender, Russian sage, blue oat grass, Karl Foerster feather reed grass, penstemon, yarrow, sedum, Apache plume, rabbitbrush, and native bunchgrasses. We select plants based on your specific sun exposure, soil type, and aesthetic preferences." },
+      ]}
     />
   );
 }

@@ -70,6 +70,16 @@ export default function Irrigation() {
       ]}
       relatedLinks={relatedLinks}
       resourceLinks={resourceLinks}
+      schemaUrl="/services/irrigation"
+      schemaName="Sprinkler System Installation"
+      schemaDescription="Professional irrigation system design and installation in Bend, Oregon. Smart controllers, drip irrigation, and full lawn sprinkler systems."
+      faqs={[
+          { question: "How much does a sprinkler system cost in Bend, Oregon?", answer: "A residential sprinkler system in Bend typically costs $3,500–$12,000 installed, depending on yard size, number of zones, and controller type. Smart Wi-Fi controllers add $200–$500 but pay for themselves in water savings within 1–2 seasons. We provide detailed quotes after a free on-site assessment." },
+          { question: "When is the best time to install a sprinkler system in Bend?", answer: "Spring (April–June) and fall (August–September) are the ideal installation windows in Central Oregon. Spring installation means your system is ready before summer heat arrives. Fall installation takes advantage of cooler weather and softer ground. We also install systems year-round when conditions allow." },
+          { question: "Do I need a permit for a sprinkler system in Bend?", answer: "Most residential sprinkler system installations in Bend do not require a permit, but systems connecting to the municipal water supply require a backflow prevention device that must be tested annually. We handle all backflow preventer installation and can coordinate the required annual testing." },
+          { question: "What is drip irrigation and should I use it?", answer: "Drip irrigation delivers water directly to plant root zones through low-flow emitters, reducing evaporation by 30–50% compared to spray heads. It is ideal for garden beds, shrubs, trees, and xeriscape plantings. We typically combine drip zones with traditional spray zones in a single system to serve both lawn and planting areas efficiently." },
+          { question: "How long does sprinkler system installation take?", answer: "Most residential installations in Bend take 1–2 days. We trench, lay pipe, install heads and valves, program the controller, and walk you through operation before we leave. Larger commercial or multi-zone residential systems may take 2–4 days." },
+      ]}
     />
   );
 }
