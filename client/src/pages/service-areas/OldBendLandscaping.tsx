@@ -11,7 +11,7 @@ export default function OldBendLandscaping() {
         <script type="application/ld+json">{`{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Do you work in Old Bend?","acceptedAnswer":{"@type":"Answer","text":"Yes — we serve all of Bend including the historic central neighborhoods. We are familiar with the unique landscape characteristics and challenges of older Bend properties."}},{"@type":"Question","name":"Can you replace an old irrigation system in Old Bend?","acceptedAnswer":{"@type":"Answer","text":"Yes — irrigation system replacement is one of our most common projects in older Bend neighborhoods. We can replace aging systems with modern, water-efficient designs that provide better coverage and use significantly less water."}}]}`}</script>
       </Helmet>
       <Navbar />
-      <section style={{ background: "oklch(0.15 0.005 0)", padding: "5rem 0 3rem" }}>
+      <section style={{ background: "oklch(0.15 0.005 0)", padding: "5rem 0 3rem", marginTop: "204px" }}>
         <div style={{ maxWidth: "860px", margin: "0 auto", padding: "0 1.5rem" }}>
           <nav style={{ marginBottom: "1.5rem" }}><a href="/" style={{ color: "oklch(0.72 0.12 25)", textDecoration: "none", fontFamily: "var(--font-label)", fontSize: "0.65rem", letterSpacing: "0.08em" }}>Service Areas</a> <span style={{ color: "oklch(0.55 0.008 0)", fontFamily: "var(--font-label)", fontSize: "0.65rem" }}>› Old Bend Landscaping Oregon</span></nav>
           <h1 style={{ fontFamily: "var(--font-display)", fontWeight: 300, color: "#fff", fontSize: "clamp(1.8rem, 4vw, 3rem)", lineHeight: 1.1, marginBottom: "1rem" }}>

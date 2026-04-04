@@ -17,7 +17,7 @@ export default function XeriscapeBend() {
         { name: "Xeriscape Landscaping in Bend, Oregon", url: "/blog/xeriscape-landscaping-bend-oregon" },
       ]} />
       <Navbar />
-      <div style={{ paddingTop: "328px" }}>
+      <div style={{ paddingTop: "204px" }}>
         <div
           className="relative flex items-center justify-center"
           style={{

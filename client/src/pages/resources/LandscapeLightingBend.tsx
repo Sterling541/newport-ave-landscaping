@@ -17,7 +17,7 @@ export default function LandscapeLightingBend() {
         { name: "Landscape Lighting", url: "/resources/landscape-lighting-bend-oregon" },
       ]} />
       <Navbar />
-      <div style={{ paddingTop: "328px" }}>
+      <div style={{ paddingTop: "204px" }}>
         {/* Hero banner */}
         <div
           className="relative flex items-center justify-center"

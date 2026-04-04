@@ -35,7 +35,7 @@ const photos = [
   },
   // Row 2
   {
-    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportAveLandcaping-9_97b731b0.jpg",
+    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/water-feature-sunset_f7b219d3.jpg",
     title: "Pond & Patio with Landscape Lighting",
     category: "Water Features",
     span: "col-span-2 row-span-2",
@@ -188,7 +188,7 @@ export default function PhotoGallery() {
         >
           {photos.slice(0, 11).map((photo, i) => (
             <FadeIn
-              key={photo.src}
+              key={i}
               delay={i * 0.03}
               className={photo.span}
             >

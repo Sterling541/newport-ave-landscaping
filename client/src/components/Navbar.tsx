@@ -402,7 +402,7 @@ export default function Navbar() {
         }
       `}</style>
 
-      {/* ── Utility bar — time-of-day dynamic color strip ── */}
+      {/* ── Utility bar — permanent sky blue strip ── */}
       <div
         style={{
           position: "fixed",
@@ -410,12 +410,11 @@ export default function Navbar() {
           left: 0,
           right: 0,
           zIndex: 50,
-          backgroundColor: timeTheme.bg,
-          borderBottom: `2px solid ${timeTheme.border}`,
+          backgroundColor: "oklch(0.30 0.08 240)",
+          borderBottom: "2px solid oklch(0.55 0.16 240)",
           height: "44px",
           display: "flex",
           alignItems: "center",
-          transition: "background-color 1.5s ease, border-color 1.5s ease",
         }}
       >
         <div
@@ -437,10 +436,9 @@ export default function Navbar() {
               fontSize: "0.6rem",
               fontWeight: 500,
               letterSpacing: "0.12em",
-              color: timeTheme.addressColor,
+              color: "oklch(0.85 0.04 240)",
               textTransform: "uppercase",
               whiteSpace: "nowrap",
-              transition: "color 1.5s ease",
             }}
             className="hidden sm:block"
           >
@@ -457,16 +455,15 @@ export default function Navbar() {
                 gap: "0.5rem",
               }}
             >
-              <Phone size={13} style={{ color: timeTheme.phoneIcon, transition: "color 1.5s ease" }} />
+              <Phone size={13} style={{ color: "oklch(0.75 0.14 240)" }} />
               <span
                 style={{
                   fontFamily: "'Montserrat', sans-serif",
                   fontSize: "0.72rem",
                   fontWeight: 800,
                   letterSpacing: "0.08em",
-                  color: timeTheme.phoneColor,
+                  color: "oklch(0.97 0.01 75)",
                   whiteSpace: "nowrap",
-                  transition: "color 1.5s ease",
                 }}
               >
                 (541) 617-8873
@@ -482,8 +479,8 @@ export default function Navbar() {
                 fontWeight: 700,
                 letterSpacing: "0.14em",
                 textTransform: "uppercase",
-                color: timeTheme.btnText,
-                backgroundColor: timeTheme.btnBg,
+                color: "oklch(0.12 0.04 240)",
+                backgroundColor: "oklch(0.65 0.16 240)",
                 padding: "0.35rem 1rem",
                 borderRadius: "1.8rem 0.2rem 1.8rem 0.2rem",
                 textDecoration: "none",
@@ -493,8 +490,8 @@ export default function Navbar() {
                 whiteSpace: "nowrap",
                 transition: "background-color 0.2s ease",
               }}
-              onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = timeTheme.btnHover)}
-              onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = timeTheme.btnBg)}
+              onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "oklch(0.55 0.16 240)")}
+              onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "oklch(0.65 0.16 240)")}
             >
               Schedule Services
               <ArrowRight size={10} />

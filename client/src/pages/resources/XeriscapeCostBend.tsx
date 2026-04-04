@@ -17,7 +17,7 @@ export default function XeriscapeCostBend() {
         { name: 'Xeriscape Cost in Bend, Oregon: A Complete Guide', url: '/resources/xeriscape-cost-bend-oregon' },
       ]} />
       <Navbar />
-      <div style={{ paddingTop: '328px' }}>
+      <div style={{ paddingTop: '204px' }}>
         <div className="relative flex items-center justify-center" style={{ height:'380px',backgroundImage:'url(https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/ITP_7558_e52a40c9.jpg',backgroundSize:'cover',backgroundPosition:'center 50%' }}>
           <div className="absolute inset-0" style={{ backgroundColor: 'oklch(0 0 0 / 0.55)' }} />
           <div className="relative text-center container">

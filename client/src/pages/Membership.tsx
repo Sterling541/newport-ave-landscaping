@@ -105,7 +105,7 @@ export default function Membership() {
       {/* ── Hero — badge + sprinkler banner ── */}
       <section
         className="relative overflow-hidden"
-        style={{ minHeight: "clamp(220px, 22vw, 320px)" }}
+        style={{ minHeight: "clamp(220px, 22vw, 320px)", marginTop: "204px" }}
       >
         <div
           className="absolute inset-0"

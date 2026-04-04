@@ -182,7 +182,7 @@ export default function OurWork() {
       <section
         className="relative flex items-end"
         style={{
-          height: "clamp(280px, 38vw, 440px)",
+          height: "clamp(280px, 38vw, 440px)", marginTop: "204px",
           backgroundImage: `url(${MCGRATH_PHOTOS[4]})`,
           backgroundSize: "cover",
           backgroundPosition: "center",

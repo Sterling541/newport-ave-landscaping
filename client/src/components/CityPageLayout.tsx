@@ -245,12 +245,11 @@ export default function CityPageLayout(props: CityPageProps) {
 
       <Navbar />
 
-      {/* ── HERO ──────────────────────────────────────────── */}
+      {/* ── HERO ─────────────────────────────────────────────── */}
       <section
         className="relative flex items-end"
-        style={{ minHeight: "clamp(420px, 55vh, 640px)" }}
-      >
-        <div
+        style={{ minHeight: "clamp(420px, 55vh, 640px)", marginTop: "204px" }}
+      >      <div
           className="absolute inset-0"
           style={{
             backgroundImage: `url(${heroImage})`,

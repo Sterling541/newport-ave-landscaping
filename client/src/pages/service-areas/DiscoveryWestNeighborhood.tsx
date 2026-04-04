@@ -17,7 +17,7 @@ export default function DiscoveryWestNeighborhood() {
         { name: 'Discovery West Landscaping', url: '/service-areas/discovery-west-landscaping' },
       ]} />
       <Navbar />
-      <div style={{ paddingTop: '328px' }}>
+      <div style={{ paddingTop: '204px' }}>
         {/* Hero banner */}
         <div
           className="relative flex items-center justify-center"

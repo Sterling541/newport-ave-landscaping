@@ -17,7 +17,7 @@ export default function CommercialLandscapingBend() {
         { name: "Commercial Landscaping Bend Oregon", url: "/resources/commercial-landscaping-bend-oregon" },
       ]} />
       <Navbar />
-      <div style={{ paddingTop: "328px" }}>
+      <div style={{ paddingTop: "204px" }}>
         {/* Hero banner */}
         <div
           className="relative flex items-center justify-center"

@@ -18,7 +18,7 @@ export default function AwbreyButteNeighborhood() {
         { name: "Awbrey Butte Landscaping", url: "/service-areas/awbrey-butte-landscaping" },
       ]} />
       <Navbar />
-      <div style={{ paddingTop: "328px" }}>
+      <div style={{ paddingTop: "204px" }}>
         {/* Hero banner */}
         <div
           className="relative flex items-center justify-center"

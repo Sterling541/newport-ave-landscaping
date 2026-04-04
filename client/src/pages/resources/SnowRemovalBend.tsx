@@ -17,7 +17,7 @@ export default function SnowRemovalBend() {
         { name: "Snow Removal Bend Oregon", url: "/resources/snow-removal-bend-oregon" },
       ]} />
       <Navbar />
-      <div style={{ paddingTop: "328px" }}>
+      <div style={{ paddingTop: "204px" }}>
         {/* Hero banner */}
         <div
           className="relative flex items-center justify-center"

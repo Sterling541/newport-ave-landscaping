@@ -17,7 +17,7 @@ export default function IrrigationRepairBend() {
         { name: "Irrigation Repair Bend Oregon", url: "/resources/irrigation-repair-bend-oregon" },
       ]} />
       <Navbar />
-      <div style={{ paddingTop: "328px" }}>
+      <div style={{ paddingTop: "204px" }}>
         {/* Hero banner */}
         <div
           className="relative flex items-center justify-center"

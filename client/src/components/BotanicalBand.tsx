@@ -38,7 +38,7 @@ export default function BotanicalBand({
         position: "relative",
         height: "80px",
         overflow: "visible",
-        zIndex: 10,
+        zIndex: 5,
         pointerEvents: "none",
         userSelect: "none",
         marginTop: "180px",

@@ -310,7 +310,7 @@ export default function ServiceAreas() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(SCHEMA) }}
       />
       <Navbar />
-      <div style={{ paddingTop: '328px' }}>
+      <div style={{ paddingTop: '204px' }}>
         {/* Hero */}
         <div
           className="relative flex items-center justify-center"

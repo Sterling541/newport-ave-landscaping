@@ -17,7 +17,7 @@ export default function LawnCareBendOregon() {
         { name: "Lawn Care in Bend, Oregon", url: "/blog/lawn-care-bend-oregon" },
       ]} />
       <Navbar />
-      <div style={{ paddingTop: "328px" }}>
+      <div style={{ paddingTop: "204px" }}>
         <div
           className="relative flex items-center justify-center"
           style={{

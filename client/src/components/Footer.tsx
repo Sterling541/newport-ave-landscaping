@@ -111,7 +111,7 @@ function FooterLink({ href, label }: { href: string; label: string }) {
       <Link
         href={href}
         style={linkStyle}
-        onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "oklch(0.85 0.005 0)")}
+        onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "oklch(0.75 0.12 240)")}
         onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "oklch(0.55 0.005 0)")}
       >
         {label}
@@ -173,7 +173,7 @@ export default function Footer() {
 
           {/* Maintenance Services */}
           <div>
-            <div className="font-label mb-5" style={{ color: "oklch(0.85 0.12 28)", fontSize: "0.62rem", letterSpacing: "0.1em" }}>
+            <div className="font-label mb-5" style={{ color: "oklch(0.62 0.12 240)", fontSize: "0.62rem", letterSpacing: "0.1em" }}>
               Maintenance Services
             </div>
             <ul className="space-y-2">
@@ -183,7 +183,7 @@ export default function Footer() {
 
           {/* Landscaping Services */}
           <div>
-            <div className="font-label mb-5" style={{ color: "oklch(0.85 0.12 28)", fontSize: "0.62rem", letterSpacing: "0.1em" }}>
+            <div className="font-label mb-5" style={{ color: "oklch(0.62 0.12 240)", fontSize: "0.62rem", letterSpacing: "0.1em" }}>
               Landscaping Services
             </div>
             <ul className="space-y-2">
@@ -193,7 +193,7 @@ export default function Footer() {
 
           {/* Cities We Serve */}
           <div>
-            <div className="font-label mb-5" style={{ color: "oklch(0.85 0.12 28)", fontSize: "0.62rem", letterSpacing: "0.1em" }}>
+            <div className="font-label mb-5" style={{ color: "oklch(0.62 0.12 240)", fontSize: "0.62rem", letterSpacing: "0.1em" }}>
               Cities We Serve
             </div>
             <ul className="space-y-2">
@@ -203,20 +203,20 @@ export default function Footer() {
 
           {/* Quick Links */}
           <div>
-            <div className="font-label mb-5" style={{ color: "oklch(0.85 0.12 28)", fontSize: "0.62rem", letterSpacing: "0.1em" }}>
+            <div className="font-label mb-5" style={{ color: "oklch(0.62 0.12 240)", fontSize: "0.62rem", letterSpacing: "0.1em" }}>
               Quick Links
             </div>
             <ul className="space-y-2 mb-8">
               {quickLinks.map((link) => <FooterLink key={link.href + link.label} href={link.href} label={link.label} />)}
             </ul>
-            <Link href="/contact" className="btn-red" style={{ display: "inline-block", textDecoration: "none" }}>
+            <Link href="/contact" style={{ display: "inline-block", textDecoration: "none", padding: "0.6rem 1.2rem", backgroundColor: "oklch(0.30 0.08 240)", color: "oklch(1 0 0)", fontFamily: "'Montserrat', sans-serif", fontSize: "0.6rem", fontWeight: 700, letterSpacing: "0.12em" }}>
               Get a Free Quote
             </Link>
           </div>
 
           {/* Resource Articles */}
           <div>
-            <div className="font-label mb-5" style={{ color: "oklch(0.85 0.12 28)", fontSize: "0.62rem", letterSpacing: "0.1em" }}>
+            <div className="font-label mb-5" style={{ color: "oklch(0.62 0.12 240)", fontSize: "0.62rem", letterSpacing: "0.1em" }}>
               Guides &amp; Cost Estimates
             </div>
             <ul className="space-y-2">
@@ -226,7 +226,7 @@ export default function Footer() {
 
           {/* Blog Articles */}
           <div>
-            <div className="font-label mb-5" style={{ color: "oklch(0.85 0.12 28)", fontSize: "0.62rem", letterSpacing: "0.1em" }}>
+            <div className="font-label mb-5" style={{ color: "oklch(0.62 0.12 240)", fontSize: "0.62rem", letterSpacing: "0.1em" }}>
               Blog &amp; Insights
             </div>
             <ul className="space-y-2">

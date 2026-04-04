@@ -172,10 +172,10 @@ export default function Commercial() {
     <div className="min-h-screen" style={{ backgroundColor: "oklch(1 0 0)" }}>
       <Navbar />
 
-      {/* ── HERO ─────────────────────────────────────────── */}
+      {/* ── HERO ─────────────────────────────────────────────── */}
       <section
         className="relative flex items-end"
-        style={{ minHeight: "clamp(480px, 60vh, 700px)" }}
+        style={{ minHeight: "clamp(480px, 60vh, 700px)", marginTop: "204px" }}
       >
         {/* Background */}
         <div
@@ -942,10 +942,10 @@ export default function Commercial() {
         </div>
       </section>
 
-      {/* ── FINAL CTA ────────────────────────────────────── */}
+      {/* ── FINAL CTA ──────────────────────────────────── */}
       <section
         className="py-20"
-        style={{ backgroundColor: "oklch(0.46 0.20 25)" }}
+        style={{ backgroundColor: "oklch(0.30 0.08 240)" }}
       >
         <div className="container text-center">
           <h2
@@ -980,7 +980,7 @@ export default function Commercial() {
               style={{
                 padding: "0.85rem 2rem",
                 backgroundColor: "oklch(1 0 0)",
-                color: "oklch(0.46 0.20 25)",
+                color: "oklch(0.30 0.08 240)",
                 fontSize: "0.75rem",
                 letterSpacing: "0.12em",
                 fontWeight: 700,

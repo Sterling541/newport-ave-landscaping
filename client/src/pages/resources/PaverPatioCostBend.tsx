@@ -17,7 +17,7 @@ export default function PaverPatioCostBend() {
         { name: "Paver Patio Cost in Bend Oregon", url: "/resources/paver-patio-cost-bend-oregon" },
       ]} />
       <Navbar />
-      <div style={{ paddingTop: "328px" }}>
+      <div style={{ paddingTop: "204px" }}>
         {/* Hero banner */}
         <div
           className="relative flex items-center justify-center"

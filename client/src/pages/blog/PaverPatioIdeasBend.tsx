@@ -17,7 +17,7 @@ export default function PaverPatioIdeasBend() {
         { name: "Paver Patio Ideas for Bend, Oregon Homes", url: "/blog/paver-patio-ideas-bend-oregon" },
       ]} />
       <Navbar />
-      <div style={{ paddingTop: "328px" }}>
+      <div style={{ paddingTop: "204px" }}>
         <div
           className="relative flex items-center justify-center"
           style={{

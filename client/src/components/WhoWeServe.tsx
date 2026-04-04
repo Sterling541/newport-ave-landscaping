@@ -65,7 +65,7 @@ export default function WhoWeServe() {
   return (
     <section
       className="py-24"
-      style={{ backgroundColor: "oklch(0.11 0.008 0)" }}
+      style={{ backgroundColor: "oklch(0.11 0.008 0)", position: "relative", zIndex: 20 }}
     >
       <div className="container" ref={ref}>
 

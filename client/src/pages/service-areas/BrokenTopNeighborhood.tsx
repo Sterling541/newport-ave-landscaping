@@ -17,7 +17,7 @@ export default function BrokenTopNeighborhood() {
         { name: "Broken Top Landscaping", url: "/service-areas/broken-top-landscaping" },
       ]} />
       <Navbar />
-      <div style={{ paddingTop: "328px" }}>
+      <div style={{ paddingTop: "204px" }}>
         {/* Hero banner */}
         <div
           className="relative flex items-center justify-center"

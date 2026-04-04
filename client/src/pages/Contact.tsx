@@ -96,7 +96,7 @@ export default function Contact() {
       <section
         className="relative flex items-end"
         style={{
-          height: "clamp(220px, 28vw, 340px)",
+          height: "clamp(220px, 28vw, 340px)", marginTop: "204px",
           backgroundColor: "oklch(0.12 0.005 0)",
         }}
       >

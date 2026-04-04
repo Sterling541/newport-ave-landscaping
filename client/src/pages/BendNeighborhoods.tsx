@@ -111,7 +111,7 @@ export default function BendNeighborhoods() {
       {/* ── Hero ── */}
       <section
         className="pt-32 pb-20"
-        style={{ background: "linear-gradient(135deg, oklch(0.12 0.005 0) 0%, oklch(0.22 0.008 30) 100%)" }}
+        style={{ background: "linear-gradient(135deg, oklch(0.12 0.005 0) 0%, oklch(0.22 0.008 30) 100%)", marginTop: "204px" }}
       >
         <div className="container">
           <nav className="mb-8 flex items-center gap-2" style={{ fontSize: "0.72rem" }}>

@@ -17,7 +17,7 @@ export default function SprinklerSystemTumalo() {
         { name: 'Sprinkler System Installation in Tumalo', url: '/service-areas/tumalo-sprinkler-system' },
       ]} />
       <Navbar />
-      <div style={{ paddingTop: '328px' }}>
+      <div style={{ paddingTop: '204px' }}>
         <div className="relative flex items-center justify-center" style={{ height:'380px',backgroundImage:'url(https://files.manuscdn.com/user_upload_by_module/session_file/310519663503028182/QuZbCMdvWnmWDtAV.jpg',backgroundSize:'cover',backgroundPosition:'center 50%' }}>
           <div className="absolute inset-0" style={{ backgroundColor: 'oklch(0 0 0 / 0.55)' }} />
           <div className="relative text-center container">

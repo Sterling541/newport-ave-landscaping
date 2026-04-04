@@ -90,7 +90,7 @@ export default function About() {
       <section
         className="relative flex items-end"
         style={{
-          height: "clamp(320px, 45vw, 520px)",
+          height: "clamp(320px, 45vw, 520px)", marginTop: "204px",
           backgroundColor: "oklch(0.12 0.005 0)",
         }}
       >

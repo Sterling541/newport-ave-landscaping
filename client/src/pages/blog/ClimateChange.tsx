@@ -7,7 +7,7 @@ export default function ClimateChange() {
   return (
     <div className="min-h-screen" style={{ backgroundColor: "oklch(0.97 0.003 0)" }}>
       <Navbar />
-      <div style={{ paddingTop: "328px" }}>
+      <div style={{ paddingTop: "204px" }}>
         {/* Hero */}
         <div
           className="relative flex items-center justify-center"

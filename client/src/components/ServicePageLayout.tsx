@@ -145,7 +145,8 @@ export default function ServicePageLayout({
       <section
         className="relative flex items-end"
         style={{
-          height: "clamp(280px, 38vw, 460px)",
+          height: "clamp(480px, 60vw, 660px)",
+          marginTop: "204px",
           backgroundImage: `url(${heroImage})`,
           backgroundSize: "cover",
           backgroundPosition: heroPosition,

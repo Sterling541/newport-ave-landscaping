@@ -114,7 +114,7 @@ export default function Services() {
       <section
         className="relative flex items-end"
         style={{
-          height: "clamp(280px, 38vw, 440px)",
+          height: "clamp(280px, 38vw, 440px)", marginTop: "204px",
           backgroundColor: "oklch(0.12 0.005 0)",
           backgroundImage: "url(https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NinesProject3_602cdeb8.jpg",
           backgroundSize: "cover",

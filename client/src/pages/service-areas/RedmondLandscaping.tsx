@@ -17,7 +17,7 @@ export default function RedmondLandscaping() {
         { name: "Redmond Landscaping", url: "/service-areas/redmond-landscaping" },
       ]} />
       <Navbar />
-      <div style={{ paddingTop: "328px" }}>
+      <div style={{ paddingTop: "204px" }}>
         {/* Hero banner */}
         <div
           className="relative flex items-center justify-center"

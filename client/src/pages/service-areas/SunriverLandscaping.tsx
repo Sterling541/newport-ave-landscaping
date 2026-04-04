@@ -17,7 +17,7 @@ export default function SunriverLandscaping() {
         { name: "Sunriver Landscaping", url: "/service-areas/sunriver-landscaping" },
       ]} />
       <Navbar />
-      <div style={{ paddingTop: "328px" }}>
+      <div style={{ paddingTop: "204px" }}>
         {/* Hero banner */}
         <div
           className="relative flex items-center justify-center"
