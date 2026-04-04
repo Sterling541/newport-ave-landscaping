@@ -49,6 +49,7 @@ interface ServicePageProps {
   sections: ServiceSection[];
   pricing?: { label: string; value: string }[];
   relatedLinks?: { label: string; href: string }[];
+  resourceLinks?: { label: string; href: string; description?: string }[];
 }
 
 export default function ServicePageLayout({
@@ -61,6 +62,7 @@ export default function ServicePageLayout({
   sections,
   pricing,
   relatedLinks,
+  resourceLinks,
 }: ServicePageProps) {
   return (
     <div style={{ backgroundColor: "oklch(0.97 0.012 85)" }}>
@@ -239,6 +241,64 @@ export default function ServicePageLayout({
           </FadeIn>
         </div>
       </section>
+
+      {/* ── Related Resources ── */}
+      {resourceLinks && resourceLinks.length > 0 && (
+        <section className="py-16" style={{ backgroundColor: "oklch(0.97 0.012 85)" }}>
+          <div className="container">
+            <FadeIn>
+              <div className="font-label mb-2" style={{ color: "oklch(0.46 0.20 25)", fontSize: "0.62rem" }}>
+                HELPFUL RESOURCES
+              </div>
+              <h2
+                className="font-display font-light mb-8"
+                style={{ color: "oklch(0.15 0.005 0)", fontSize: "clamp(1.4rem, 2.5vw, 2rem)" }}
+              >
+                Guides & Cost Estimates
+              </h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {resourceLinks.map((link) => (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    style={{
+                      display: "block",
+                      padding: "1.25rem 1.5rem",
+                      backgroundColor: "oklch(1 0 0)",
+                      borderLeft: "3px solid oklch(0.46 0.20 25)",
+                      textDecoration: "none",
+                      transition: "box-shadow 0.2s ease, transform 0.2s ease",
+                    }}
+                    onMouseEnter={(e) => {
+                      (e.currentTarget as HTMLAnchorElement).style.boxShadow = "0 4px 20px oklch(0.18 0.008 30 / 0.12)";
+                      (e.currentTarget as HTMLAnchorElement).style.transform = "translateY(-2px)";
+                    }}
+                    onMouseLeave={(e) => {
+                      (e.currentTarget as HTMLAnchorElement).style.boxShadow = "none";
+                      (e.currentTarget as HTMLAnchorElement).style.transform = "translateY(0)";
+                    }}
+                  >
+                    <div
+                      className="font-body"
+                      style={{ color: "oklch(0.22 0.008 30)", fontWeight: 600, fontSize: "0.88rem", marginBottom: link.description ? "0.4rem" : 0 }}
+                    >
+                      {link.label}
+                    </div>
+                    {link.description && (
+                      <div
+                        className="font-body"
+                        style={{ color: "oklch(0.50 0.008 30)", fontSize: "0.78rem", fontWeight: 300, lineHeight: 1.5 }}
+                      >
+                        {link.description}
+                      </div>
+                    )}
+                  </Link>
+                ))}
+              </div>
+            </FadeIn>
+          </div>
+        </section>
+      )}
 
       {/* ── Related Services ── */}
       {relatedLinks && relatedLinks.length > 0 && (

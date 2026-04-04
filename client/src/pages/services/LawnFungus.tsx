@@ -7,6 +7,19 @@ const relatedLinks = [
   { label: "Irrigation Installation", href: "/services/irrigation" },
 ];
 
+const resourceLinks = [
+  {
+    label: "When to Aerate Your Lawn in Bend",
+    href: "/resources/when-to-aerate-lawn-bend-oregon",
+    description: "Best timing for aeration in Central Oregon's high desert climate.",
+  },
+  {
+    label: "Lawn Maintenance Cost in Bend, OR",
+    href: "/resources/lawn-maintenance-cost-bend-oregon",
+    description: "What lawn care and maintenance services cost in Central Oregon.",
+  },
+];
+
 export default function LawnFungus() {
   return (
     <ServicePageLayout
@@ -57,6 +70,7 @@ export default function LawnFungus() {
         },
       ]}
       relatedLinks={relatedLinks}
+      resourceLinks={resourceLinks}
     />
   );
 }

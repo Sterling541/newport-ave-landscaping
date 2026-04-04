@@ -7,6 +7,19 @@ const relatedLinks = [
   { label: "Landscape Design", href: "/services/landscape-design" },
 ];
 
+const resourceLinks = [
+  {
+    label: "Fire Pit & Patio Cost Guide",
+    href: "/resources/fire-pit-patio-cost-bend-oregon",
+    description: "Budgeting for a fire pit or outdoor fireplace in Central Oregon.",
+  },
+  {
+    label: "How Much Do Pavers Cost in Bend, OR?",
+    href: "/resources/paver-patio-cost-bend-oregon",
+    description: "2024 pricing guide: materials, labor, and what affects your total.",
+  },
+];
+
 export default function FireFeatures() {
   return (
     <ServicePageLayout
@@ -52,6 +65,7 @@ export default function FireFeatures() {
         },
       ]}
       relatedLinks={relatedLinks}
+      resourceLinks={resourceLinks}
     />
   );
 }

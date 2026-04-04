@@ -6,6 +6,14 @@ const relatedLinks = [
   { label: "Sprinkler Blowout", href: "/services/sprinkler-blowout" },
 ];
 
+const resourceLinks = [
+  {
+    label: "Snow Removal in Bend, OR",
+    href: "/resources/snow-removal-bend-oregon",
+    description: "What commercial and residential snow removal costs in Central Oregon.",
+  },
+];
+
 export default function SnowRemoval() {
   return (
     <ServicePageLayout
@@ -46,6 +54,7 @@ export default function SnowRemoval() {
         },
       ]}
       relatedLinks={relatedLinks}
+      resourceLinks={resourceLinks}
     />
   );
 }

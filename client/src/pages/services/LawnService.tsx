@@ -7,6 +7,24 @@ const relatedLinks = [
   { label: "Snow Removal", href: "/services/snow-removal" },
 ];
 
+const resourceLinks = [
+  {
+    label: "Lawn Maintenance Cost in Bend, OR",
+    href: "/resources/lawn-maintenance-cost-bend-oregon",
+    description: "What lawn care and maintenance services cost in Central Oregon.",
+  },
+  {
+    label: "When to Aerate Your Lawn in Bend",
+    href: "/resources/when-to-aerate-lawn-bend-oregon",
+    description: "Best timing for aeration in Central Oregon's high desert climate.",
+  },
+  {
+    label: "Sod Installation Cost in Bend",
+    href: "/resources/sod-installation-cost-bend-oregon",
+    description: "Pricing for sod installation and lawn renovation in Bend.",
+  },
+];
+
 export default function LawnService() {
   return (
     <ServicePageLayout
@@ -69,6 +87,7 @@ export default function LawnService() {
         },
       ]}
       relatedLinks={relatedLinks}
+      resourceLinks={resourceLinks}
     />
   );
 }

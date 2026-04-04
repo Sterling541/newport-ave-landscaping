@@ -7,6 +7,19 @@ const relatedLinks = [
   { label: "Lawn Service", href: "/services/lawn-service" },
 ];
 
+const resourceLinks = [
+  {
+    label: "Sprinkler System Cost in Bend, OR",
+    href: "/resources/sprinkler-system-cost-bend-oregon",
+    description: "Full pricing breakdown for irrigation systems in Central Oregon.",
+  },
+  {
+    label: "How to Winterize Your Sprinklers in Bend",
+    href: "/resources/sprinkler-winterization-guide-bend-oregon",
+    description: "Step-by-step guide to blowout and winterization before the first freeze.",
+  },
+];
+
 export default function SprinklerActivation() {
   return (
     <ServicePageLayout
@@ -51,6 +64,7 @@ export default function SprinklerActivation() {
         },
       ]}
       relatedLinks={relatedLinks}
+      resourceLinks={resourceLinks}
     />
   );
 }

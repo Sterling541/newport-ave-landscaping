@@ -7,6 +7,19 @@ const relatedLinks = [
   { label: "Landscape Design", href: "/services/landscape-design" },
 ];
 
+const resourceLinks = [
+  {
+    label: "Water Feature Cost in Bend, OR",
+    href: "/resources/water-feature-cost-bend-oregon",
+    description: "Pricing for ponds, waterfalls, and water features in Central Oregon.",
+  },
+  {
+    label: "Fire Pit & Patio Cost Guide",
+    href: "/resources/fire-pit-patio-cost-bend-oregon",
+    description: "Budgeting for outdoor living features in Bend.",
+  },
+];
+
 export default function WaterFeatures() {
   return (
     <ServicePageLayout
@@ -60,6 +73,7 @@ export default function WaterFeatures() {
         },
       ]}
       relatedLinks={relatedLinks}
+      resourceLinks={resourceLinks}
     />
   );
 }

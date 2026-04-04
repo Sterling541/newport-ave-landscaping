@@ -1,5 +1,23 @@
 import ServicePageLayout from "@/components/ServicePageLayout";
 
+const resourceLinks = [
+  {
+    label: "Xeriscape Cost in Bend, OR",
+    href: "/resources/xeriscape-cost-bend-oregon",
+    description: "What water-wise landscaping costs in Central Oregon.",
+  },
+  {
+    label: "Best Plants for Xeriscaping in Central Oregon",
+    href: "/resources/best-plants-xeriscape-central-oregon",
+    description: "Native and drought-tolerant plants that thrive in Bend's climate.",
+  },
+  {
+    label: "Bend Turf Rebate Program",
+    href: "/resources/bend-turf-rebate-program",
+    description: "How to get rebates for replacing grass with drought-tolerant landscaping.",
+  },
+];
+
 export default function Xeriscaping() {
   return (
     <ServicePageLayout
@@ -57,6 +75,7 @@ export default function Xeriscaping() {
         { label: "Pavers & Walkways", href: "/services/pavers" },
         { label: "Retaining Walls & Drainage", href: "/services" },
       ]}
+      resourceLinks={resourceLinks}
     />
   );
 }

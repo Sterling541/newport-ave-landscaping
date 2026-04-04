@@ -7,6 +7,19 @@ const relatedLinks = [
   { label: "Commercial Maintenance", href: "/services/commercial-maintenance" },
 ];
 
+const resourceLinks = [
+  {
+    label: "Sprinkler Repair in Bend, OR",
+    href: "/resources/irrigation-repair-bend-oregon",
+    description: "Common sprinkler issues, repair costs, and when to call a pro.",
+  },
+  {
+    label: "Sprinkler System Cost in Bend, OR",
+    href: "/resources/sprinkler-system-cost-bend-oregon",
+    description: "Full pricing breakdown for irrigation systems in Central Oregon.",
+  },
+];
+
 export default function SprinklerRepair() {
   return (
     <ServicePageLayout
@@ -55,6 +68,7 @@ export default function SprinklerRepair() {
         },
       ]}
       relatedLinks={relatedLinks}
+      resourceLinks={resourceLinks}
     />
   );
 }

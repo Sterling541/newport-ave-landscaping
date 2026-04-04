@@ -7,6 +7,24 @@ const relatedLinks = [
   { label: "Irrigation Installation", href: "/services/irrigation" },
 ];
 
+const resourceLinks = [
+  {
+    label: "Landscape Design Cost in Bend, OR",
+    href: "/resources/landscape-design-cost-bend-oregon",
+    description: "What landscape design and installation costs in Central Oregon.",
+  },
+  {
+    label: "How to Choose a Landscaper in Bend",
+    href: "/resources/how-to-choose-landscaper-bend-oregon",
+    description: "Questions to ask, red flags to avoid, and what to look for.",
+  },
+  {
+    label: "Best Plants for Xeriscaping in Central Oregon",
+    href: "/resources/best-plants-xeriscape-central-oregon",
+    description: "Native and drought-tolerant plants that thrive in Bend's climate.",
+  },
+];
+
 export default function LandscapeDesign() {
   return (
     <ServicePageLayout
@@ -54,6 +72,7 @@ export default function LandscapeDesign() {
         },
       ]}
       relatedLinks={relatedLinks}
+      resourceLinks={resourceLinks}
     />
   );
 }

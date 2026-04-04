@@ -7,6 +7,24 @@ const relatedLinks = [
   { label: "Landscape Design", href: "/services/landscape-design" },
 ];
 
+const resourceLinks = [
+  {
+    label: "How Much Do Pavers Cost in Bend, OR?",
+    href: "/resources/paver-patio-cost-bend-oregon",
+    description: "2024 pricing guide: materials, labor, and what affects your total.",
+  },
+  {
+    label: "Fire Pit & Patio Cost Guide",
+    href: "/resources/fire-pit-patio-cost-bend-oregon",
+    description: "Budgeting for a fire pit or outdoor fireplace in Central Oregon.",
+  },
+  {
+    label: "Retaining Wall Cost in Bend",
+    href: "/resources/retaining-wall-cost-bend-oregon",
+    description: "What to expect for retaining wall installation pricing.",
+  },
+];
+
 export default function Pavers() {
   return (
     <ServicePageLayout
@@ -62,6 +80,7 @@ export default function Pavers() {
         },
       ]}
       relatedLinks={relatedLinks}
+      resourceLinks={resourceLinks}
     />
   );
 }

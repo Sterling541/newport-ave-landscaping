@@ -7,6 +7,24 @@ const relatedLinks = [
   { label: "Landscape Design", href: "/services/landscape-design" },
 ];
 
+const resourceLinks = [
+  {
+    label: "Fire Pit & Patio Cost Guide",
+    href: "/resources/fire-pit-patio-cost-bend-oregon",
+    description: "Budgeting for a fire pit or outdoor fireplace in Central Oregon.",
+  },
+  {
+    label: "How Much Do Pavers Cost in Bend, OR?",
+    href: "/resources/paver-patio-cost-bend-oregon",
+    description: "2024 pricing guide: materials, labor, and what affects your total.",
+  },
+  {
+    label: "Landscape Design Cost in Bend, OR",
+    href: "/resources/landscape-design-cost-bend-oregon",
+    description: "What landscape design and installation costs in Central Oregon.",
+  },
+];
+
 export default function OutdoorLiving() {
   return (
     <ServicePageLayout
@@ -53,6 +71,7 @@ export default function OutdoorLiving() {
         },
       ]}
       relatedLinks={relatedLinks}
+      resourceLinks={resourceLinks}
     />
   );
 }

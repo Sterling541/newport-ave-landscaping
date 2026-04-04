@@ -7,6 +7,19 @@ const relatedLinks = [
   { label: "Irrigation Installation", href: "/services/irrigation" },
 ];
 
+const resourceLinks = [
+  {
+    label: "Landscape Lighting Cost in Bend, OR",
+    href: "/resources/outdoor-lighting-cost-bend-oregon",
+    description: "What outdoor and landscape lighting installation costs in Central Oregon.",
+  },
+  {
+    label: "Landscape Lighting Ideas for Bend Homes",
+    href: "/resources/landscape-lighting-bend-oregon",
+    description: "Design ideas, fixture types, and tips for Central Oregon properties.",
+  },
+];
+
 export default function LandscapeLighting() {
   return (
     <ServicePageLayout
@@ -56,6 +69,7 @@ export default function LandscapeLighting() {
         },
       ]}
       relatedLinks={relatedLinks}
+      resourceLinks={resourceLinks}
     />
   );
 }

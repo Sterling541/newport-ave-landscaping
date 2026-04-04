@@ -7,6 +7,24 @@ const relatedLinks = [
   { label: "Irrigation Installation", href: "/services/irrigation" },
 ];
 
+const resourceLinks = [
+  {
+    label: "Commercial Landscaping in Bend, OR",
+    href: "/resources/commercial-landscaping-bend-oregon",
+    description: "What commercial property maintenance costs and what to expect.",
+  },
+  {
+    label: "Lawn Maintenance Cost in Bend, OR",
+    href: "/resources/lawn-maintenance-cost-bend-oregon",
+    description: "What lawn care and maintenance services cost in Central Oregon.",
+  },
+  {
+    label: "Snow Removal in Bend, OR",
+    href: "/resources/snow-removal-bend-oregon",
+    description: "What commercial and residential snow removal costs in Central Oregon.",
+  },
+];
+
 export default function CommercialMaintenance() {
   return (
     <ServicePageLayout
@@ -62,6 +80,7 @@ export default function CommercialMaintenance() {
         },
       ]}
       relatedLinks={relatedLinks}
+      resourceLinks={resourceLinks}
     />
   );
 }
