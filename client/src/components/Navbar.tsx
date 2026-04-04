@@ -39,9 +39,9 @@ const servicesItems = [
   { label: "Xeriscaping", href: "/services/xeriscaping", num: "09" },
 ];
 
-// Maintenance mega menu — lush residential lawn maintenance photo
+// Maintenance mega menu — Newport Ave residential lawn & maintenance photo
 const MEGA_PHOTO_MAINTENANCE =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/maintenance-hero-bg_a7f3c2e1.jpg";
+  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportAveLandcaping-13_ef32520c.jpg";
 // Services mega menu — Discovery West Plaza commercial installation (polished hardscape)
 const MEGA_PHOTO_SERVICES =
   "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/DiscoveryWestPlazaHiResPhotos55_79ba9dd5.jpg";
@@ -66,7 +66,7 @@ function MegaMenuItem({
         background: "none",
         border: "none",
         borderBottom: "1px solid oklch(0.92 0.006 75)",
-        padding: "0.7rem 0",
+        padding: "0.5rem 0",
         cursor: "pointer",
         display: "flex",
         alignItems: "center",
@@ -131,7 +131,7 @@ function MegaMenu({
     <div
       style={{
         position: "fixed",
-        top: "calc(28px + 96px)",
+        top: "calc(44px + 96px)",
         left: 0,
         right: 0,
         zIndex: 100,
@@ -140,12 +140,12 @@ function MegaMenu({
         boxShadow: "0 24px 80px oklch(0 0 0 / 0.18)",
         display: "grid",
         gridTemplateColumns: "1fr 1fr",
-        overflow: "hidden",
+        overflow: "visible",
         animation: "megaMenuIn 0.25s ease forwards",
       }}
     >
       {/* Left: editorial photo panel */}
-      <div style={{ position: "relative", minHeight: "360px", overflow: "hidden" }}>
+      <div style={{ position: "relative", minHeight: "380px", overflow: "hidden" }}>
         <img
           src={photo}
           alt=""
@@ -217,15 +217,16 @@ function MegaMenu({
       {/* Right: numbered list */}
       <div
         style={{
-          padding: "2rem 3rem",
+          padding: "1.5rem 3rem",
           borderLeft: "1px solid oklch(0.90 0.006 75)",
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
           backgroundColor: "oklch(0.98 0.005 90)",
+          overflowY: "auto",
         }}
       >
-        <div style={{ marginBottom: "1rem" }}>
+        <div style={{ marginBottom: "0.5rem" }}>
           <div
             style={{
               display: "flex",
@@ -311,7 +312,7 @@ export default function Navbar() {
         }
       `}</style>
 
-      {/* ── Utility bar — bright cream strip at very top ── */}
+      {/* ── Utility bar — deep green prominent strip at very top ── */}
       <div
         style={{
           position: "fixed",
@@ -319,9 +320,9 @@ export default function Navbar() {
           left: 0,
           right: 0,
           zIndex: 50,
-          backgroundColor: "oklch(0.97 0.006 75)",
-          borderBottom: "1px solid oklch(0.90 0.006 75)",
-          height: "28px",
+          backgroundColor: "oklch(0.22 0.06 145)",
+          borderBottom: "2px solid oklch(0.46 0.20 25)",
+          height: "44px",
           display: "flex",
           alignItems: "center",
         }}
@@ -335,42 +336,77 @@ export default function Navbar() {
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
+            gap: "1rem",
           }}
         >
+          {/* Left: address */}
           <span
             style={{
               fontFamily: "'Montserrat', sans-serif",
-              fontSize: "0.52rem",
+              fontSize: "0.6rem",
               fontWeight: 500,
-              letterSpacing: "0.14em",
-              color: "oklch(0.38 0.008 30)",
+              letterSpacing: "0.12em",
+              color: "oklch(0.85 0.02 145)",
               textTransform: "uppercase",
+              whiteSpace: "nowrap",
             }}
+            className="hidden sm:block"
           >
             64625 N. HWY 97, Bend, OR &nbsp;·&nbsp; Visits by Appointment Only
           </span>
-          <a
-            href="tel:5416178873"
-            style={{
-              textDecoration: "none",
-              display: "flex",
-              alignItems: "center",
-              gap: "0.4rem",
-            }}
-          >
-            <Phone size={10} style={{ color: "oklch(0.46 0.20 25)" }} />
-            <span
+          {/* Right: phone + schedule button */}
+          <div style={{ display: "flex", alignItems: "center", gap: "1.2rem", marginLeft: "auto" }}>
+            <a
+              href="tel:5416178873"
               style={{
-                fontFamily: "'Montserrat', sans-serif",
-                fontSize: "0.58rem",
-                fontWeight: 700,
-                letterSpacing: "0.1em",
-                color: "oklch(0.18 0.008 30)",
+                textDecoration: "none",
+                display: "flex",
+                alignItems: "center",
+                gap: "0.5rem",
               }}
             >
-              (541) 617-8873
-            </span>
-          </a>
+              <Phone size={13} style={{ color: "oklch(0.72 0.18 145)" }} />
+              <span
+                style={{
+                  fontFamily: "'Montserrat', sans-serif",
+                  fontSize: "0.72rem",
+                  fontWeight: 800,
+                  letterSpacing: "0.08em",
+                  color: "oklch(0.97 0.01 75)",
+                  whiteSpace: "nowrap",
+                }}
+              >
+                (541) 617-8873
+              </span>
+            </a>
+            <a
+              href="https://docs.google.com/forms/d/e/1FAIpQLScKAhqy_uVLgw4fuIKZeuMcJhpRtMbHFKLollYC11ZsfeG5hA/viewform?usp=header"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                fontFamily: "'Montserrat', sans-serif",
+                fontSize: "0.6rem",
+                fontWeight: 700,
+                letterSpacing: "0.14em",
+                textTransform: "uppercase",
+                color: "oklch(0.22 0.06 145)",
+                backgroundColor: "oklch(0.72 0.18 145)",
+                padding: "0.35rem 1rem",
+                borderRadius: "1.8rem 0.2rem 1.8rem 0.2rem",
+                textDecoration: "none",
+                display: "flex",
+                alignItems: "center",
+                gap: "0.35rem",
+                whiteSpace: "nowrap",
+                transition: "background-color 0.2s ease",
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "oklch(0.62 0.18 145)")}
+              onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "oklch(0.72 0.18 145)")}
+            >
+              Schedule Services
+              <ArrowRight size={10} />
+            </a>
+          </div>
         </div>
       </div>
 
@@ -379,7 +415,7 @@ export default function Navbar() {
         ref={navRef}
         style={{
           position: "fixed",
-          top: "28px",
+          top: "44px",
           left: 0,
           right: 0,
           zIndex: 49,
@@ -738,7 +774,7 @@ export default function Navbar() {
               top: 0,
               left: 0,
               right: 0,
-              height: "calc(28px + 96px + 400px)",
+              height: "calc(44px + 96px + 400px)",
               pointerEvents: "auto",
             }}
           >
