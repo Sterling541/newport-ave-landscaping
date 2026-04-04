@@ -225,6 +225,10 @@ export default function WhoWeServe() {
                   maxWidth: "600px",
                   marginLeft: i % 2 === 0 ? "0" : "auto",
                   marginRight: i % 2 === 0 ? "auto" : "0",
+                  backgroundColor: "oklch(0.06 0.005 0 / 0.65)",
+                  backdropFilter: "blur(2px)",
+                  borderRadius: "0.5rem",
+                  padding: "2rem 2.5rem",
                 }}
               >
                 {/* Large dominant segment label */}
@@ -237,6 +241,7 @@ export default function WhoWeServe() {
                       lineHeight: 0.9,
                       letterSpacing: "-0.02em",
                       textTransform: "uppercase",
+                      textShadow: "0 2px 20px oklch(0 0 0 / 0.6)",
                     }}
                   >
                     {seg.tag}
@@ -257,6 +262,7 @@ export default function WhoWeServe() {
                     color: "oklch(1 0 0)",
                     lineHeight: 1.05,
                     whiteSpace: "pre-line",
+                    textShadow: "0 2px 12px oklch(0 0 0 / 0.5)",
                   }}
                 >
                   {seg.headline}
