@@ -131,7 +131,7 @@ function MegaMenu({
     <div
       style={{
         position: "fixed",
-        top: "calc(44px + 96px)",
+        top: "calc(44px + 160px)",
         left: 0,
         right: 0,
         zIndex: 100,
@@ -867,7 +867,7 @@ export default function Navbar() {
               top: 0,
               left: 0,
               right: 0,
-              height: "calc(44px + 96px + 400px)",
+              height: "calc(44px + 160px + 400px)",
               pointerEvents: "auto",
             }}
           >
