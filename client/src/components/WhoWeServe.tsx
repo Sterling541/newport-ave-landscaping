@@ -186,7 +186,7 @@ export default function WhoWeServe() {
                 height: "100%",
                 objectFit: "cover",
                 objectPosition: "center 35%",
-                filter: "brightness(0.55) saturate(1.1)",
+                filter: "brightness(0.75) saturate(1.1)",
               }}
             />
 
@@ -196,8 +196,8 @@ export default function WhoWeServe() {
                 position: "absolute",
                 inset: 0,
                 background: i % 2 === 0
-                  ? `linear-gradient(to right, ${seg.gradientFrom} 0%, ${seg.gradientFrom} 40%, oklch(0.10 0.005 0 / 0.65) 70%, transparent 100%)`
-                  : `linear-gradient(to left, ${seg.gradientFrom} 0%, ${seg.gradientFrom} 40%, oklch(0.10 0.005 0 / 0.65) 70%, transparent 100%)`,
+                  ? `linear-gradient(to right, ${seg.gradientFrom} 0%, ${seg.gradientFrom} 30%, oklch(0.10 0.005 0 / 0.30) 60%, transparent 100%)`
+                  : `linear-gradient(to left, ${seg.gradientFrom} 0%, ${seg.gradientFrom} 30%, oklch(0.10 0.005 0 / 0.30) 60%, transparent 100%)`,
                 pointerEvents: "none",
               }}
             />
@@ -206,7 +206,7 @@ export default function WhoWeServe() {
               style={{
                 position: "absolute",
                 inset: 0,
-                background: "linear-gradient(to top, oklch(0.08 0.005 0 / 0.80) 0%, transparent 50%)",
+                background: "linear-gradient(to top, oklch(0.08 0.005 0 / 0.50) 0%, transparent 50%)",
                 pointerEvents: "none",
               }}
             />
