@@ -227,30 +227,27 @@ export default function WhoWeServe() {
                   marginRight: i % 2 === 0 ? "auto" : "0",
                 }}
               >
-                {/* Tag */}
-                <div className="mb-4">
-                  <span
-                    className="font-label px-3 py-1"
+                {/* Large dominant segment label */}
+                <div className="mb-5">
+                  <div
+                    className="font-display font-light"
                     style={{
-                      backgroundColor: `${seg.accentColor}33`,
+                      fontSize: "clamp(3rem, 7vw, 6rem)",
                       color: seg.accentColor,
-                      border: `1px solid ${seg.accentColor}66`,
-                      borderRadius: "1.2rem 0.15rem 1.2rem 0.15rem",
-                      letterSpacing: "0.12em",
-                      fontSize: "0.58rem",
+                      lineHeight: 0.9,
+                      letterSpacing: "-0.02em",
+                      textTransform: "uppercase",
                     }}
                   >
-                    {seg.tag.toUpperCase()}
-                  </span>
+                    {seg.tag}
+                  </div>
+                  <div
+                    className="font-label mt-2"
+                    style={{ color: "oklch(0.60 0.005 0)", fontSize: "0.62rem", letterSpacing: "0.18em" }}
+                  >
+                    {seg.label.toUpperCase()}
+                  </div>
                 </div>
-
-                {/* Label */}
-                <p
-                  className="font-label mb-3"
-                  style={{ color: "oklch(0.65 0.005 0)", fontSize: "0.62rem", letterSpacing: "0.16em" }}
-                >
-                  {seg.label.toUpperCase()}
-                </p>
 
                 {/* Headline */}
                 <h3
