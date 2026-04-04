@@ -91,8 +91,17 @@ const MCGRATH_PHOTOS = [
   "https://files.manuscdn.com/user_upload_by_module/session_file/310519663503028182/CrNsPnwGSyMrKqea.jpg",
 ];
 
-// Legacy portfolio from existing site (scraped)
 const CDN = "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx";
+
+// Awbrey Butte — luxury outdoor living using GLL Patio CDN images
+const AWBREY_PHOTOS = [
+  `${CDN}/GLLPatio1_90e2e0c4.jpg`,
+  `${CDN}/GLLPatio2_4916fcde.jpg`,
+  `${CDN}/GLLPatio9_9e7ea695.jpg`,
+  `${CDN}/GLLPatio10_2ffabcfb.jpg`,
+];
+
+// Legacy portfolio from existing site (scraped)
 const LEGACY_PROJECTS = [
   { title: "Bend Full Yard Transformation", category: "Design & Build · Xeriscape · Pavers", img: `${CDN}/proj-bend-after-backyard1_c8556c78.jpg`, href: "/portfolio/bend-full-yard-transformation" },
   { title: "Broken Top Water Feature & Sunken Fire Pit", category: "Water Features · Fire Features", img: "https://newportavelandscaping.com/wp-content/uploads/2022/05/Brokentop-Water-Feature-and-Sunken-Fire-Pit-After-Picture.jpg", href: "/portfolio/broken-top-water-feature" },
@@ -128,9 +137,17 @@ const PROJECTS = [
     id: "mcgrath",
     name: "East Bend Design & Build",
     location: "Bend, Oregon",
-    description: "A large-scale design & build project showcasing paver patios, retaining walls, fire feature, and full irrigation system installation.",
+    description: "A large-scale design & build project in East Bend showcasing paver patios, retaining walls, fire feature, and full irrigation system installation.",
     tags: ["Design & Build", "Pavers", "Fire Feature", "Irrigation"],
     photos: MCGRATH_PHOTOS,
+  },
+  {
+    id: "awbrey",
+    name: "Awbrey Butte Outdoor Living",
+    location: "Bend, Oregon",
+    description: "A luxury outdoor living transformation in Awbrey Butte — one of Bend's most prestigious neighborhoods. Custom patio design, premium hardscape, and integrated plantings that complement the elevated terrain and mountain views.",
+    tags: ["Outdoor Living", "Luxury Residential", "Hardscape", "Awbrey Butte"],
+    photos: AWBREY_PHOTOS,
   },
 ];
 

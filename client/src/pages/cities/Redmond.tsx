@@ -15,32 +15,32 @@ export default function RedmondPage() {
       communityNote="Redmond's landscape character is defined by its dry high-desert climate and a surge of new construction, demanding resilient and water-wise landscaping solutions. As a City of Redmond Preferred Vendor, our expertise in adapting to these conditions is officially recognized — ensuring vibrant, sustainable outdoor living areas for every property type."
       services={[
         {
-          icon: "leaf",
+          icon: "maintenance",
           name: "Landscape Design & Build",
           description: "In Redmond's burgeoning neighborhoods, our design and build services craft custom landscapes that enhance curb appeal and outdoor living. We focus on drought-tolerant plantings and efficient layouts perfect for new constructions and existing homes alike.",
         },
         {
-          icon: "droplets",
+          icon: "sprinklers",
           name: "Irrigation Systems",
           description: "Efficient irrigation is crucial for Redmond's dry climate, and we design and install smart systems that conserve water while keeping your landscape lush. From drip systems for new subdivisions to optimizing existing agricultural setups, we ensure your plants receive precise hydration.",
         },
         {
-          icon: "wrench",
+          icon: "design",
           name: "Property Maintenance",
           description: "Keep your Redmond property looking its best with our comprehensive landscape maintenance programs, tailored for both residential and commercial needs. We handle everything from seasonal clean-ups in newer developments to ongoing care for larger properties with agricultural ties.",
         },
         {
-          icon: "flame",
+          icon: "outdoor",
           name: "Outdoor Living Spaces",
           description: "Extend your living space outdoors in Redmond with custom patios, fire pits, and outdoor kitchens, perfect for enjoying the high-desert evenings. We create inviting areas for relaxation and entertainment that complement Redmond's lifestyle.",
         },
         {
-          icon: "sun",
+          icon: "architecture",
           name: "Hardscaping & Patios",
           description: "Our hardscaping solutions, including durable patios and walkways, are designed to withstand Redmond's climate while adding functional beauty to your property. We use materials that blend seamlessly with the high-desert aesthetic and new construction styles.",
         },
         {
-          icon: "snowflake",
+          icon: "commercial",
           name: "Water Features",
           description: "Introduce tranquility to your Redmond landscape with custom water features, from serene ponds to elegant fountains. These features provide a refreshing contrast to the dry environment and enhance any outdoor space.",
         },

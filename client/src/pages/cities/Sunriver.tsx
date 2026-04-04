@@ -3,32 +3,32 @@ import CityPageLayout, { type CityService } from "@/components/CityPageLayout";
 const SunriverPage = () => {
   const services: CityService[] = [
     {
-      icon: "leaf",
+      icon: "maintenance",
       name: "Custom Landscape Design",
       description: "We craft bespoke landscape designs that integrate seamlessly with Sunriver's natural aesthetic and HOA guidelines. Our designs enhance property value and outdoor enjoyment for both residents and vacationers.",
     },
     {
-      icon: "droplets",
+      icon: "sprinklers",
       name: "Efficient Irrigation Systems",
       description: "Given Sunriver's high-desert climate, water-wise irrigation is crucial for maintaining lush landscapes. We design, install, and maintain efficient systems tailored to Sunriver's specific environmental needs, ensuring optimal plant health with minimal water usage.",
     },
     {
-      icon: "wrench",
+      icon: "design",
       name: "Year-Round Property Maintenance",
       description: "From spring clean-ups to winter preparation, our comprehensive maintenance services keep Sunriver properties immaculate throughout the seasons. We ensure landscapes remain vibrant and well-kept, meeting the high expectations of this resort community.",
     },
     {
-      icon: "flame",
+      icon: "outdoor",
       name: "Outdoor Living Spaces",
       description: "Enhance your Sunriver experience with custom outdoor living areas, including patios, fire pits, and entertainment zones. We create inviting spaces perfect for enjoying the unique outdoor lifestyle of this resort community.",
     },
     {
-      icon: "sun",
+      icon: "architecture",
       name: "Native & Drought-Tolerant Plantings",
       description: "We specialize in selecting and installing plants that thrive in Sunriver's specific climate and soil conditions. Our focus on native and drought-tolerant species ensures beautiful, sustainable landscapes that require less water and maintenance.",
     },
     {
-      icon: "snowflake",
+      icon: "commercial",
       name: "HOA Compliance & Consulting",
       description: "Navigating Sunriver's HOA regulations can be complex; we offer expert consulting and ensure all landscape projects meet community standards. Our experience guarantees a smooth process and results that exceed expectations while adhering to guidelines.",
     },

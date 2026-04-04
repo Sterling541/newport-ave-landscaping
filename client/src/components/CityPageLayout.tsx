@@ -17,14 +17,24 @@ import {
   MapPin,
   Phone,
   ChevronRight,
+  Star,
   Leaf,
   Droplets,
   Wrench,
   Flame,
   Sun,
   Snowflake,
-  Star,
 } from "lucide-react";
+import {
+  SprinklersIcon,
+  DesignIcon,
+  PaversIcon,
+  MaintenanceIcon,
+  WaterIcon,
+  OutdoorIcon,
+  CommercialHOAIcon,
+  LandscapeArchitectureIcon,
+} from "@/components/ServiceIcons";
 
 // ── FadeIn helper ────────────────────────────────────────────
 function FadeIn({
@@ -63,7 +73,8 @@ function FadeIn({
 
 // ── Types ─────────────────────────────────────────────────────
 export interface CityService {
-  icon: "leaf" | "droplets" | "wrench" | "flame" | "sun" | "snowflake";
+  icon: "leaf" | "droplets" | "wrench" | "flame" | "sun" | "snowflake"
+    | "sprinklers" | "design" | "pavers" | "maintenance" | "water" | "outdoor" | "commercial" | "architecture";
   name: string;
   description: string;
   href?: string; // internal link to service page
@@ -93,14 +104,29 @@ export interface CityPageProps {
   faqs?: { question: string; answer: string }[];
 }
 
-const ICON_MAP = {
-  leaf: Leaf,
-  droplets: Droplets,
-  wrench: Wrench,
-  flame: Flame,
-  sun: Sun,
-  snowflake: Snowflake,
-};
+// Custom SVG icon wrapper — renders ServiceIcons with consistent sizing
+function ServiceIconWrapper({ icon, accentColor }: { icon: CityService["icon"]; accentColor: string }) {
+  // Wrap in a colored container div since ServiceIcons use fill="white" internally
+  const wrapStyle: React.CSSProperties = { filter: `drop-shadow(0 0 0 ${accentColor})`, display: "flex", alignItems: "center", justifyContent: "center" };
+  switch (icon) {
+    case "sprinklers": return <div style={wrapStyle}><SprinklersIcon size={22} /></div>;
+    case "design": return <div style={wrapStyle}><DesignIcon size={22} /></div>;
+    case "pavers": return <div style={wrapStyle}><PaversIcon size={22} /></div>;
+    case "maintenance": return <div style={wrapStyle}><MaintenanceIcon size={22} /></div>;
+    case "water": return <div style={wrapStyle}><WaterIcon size={22} /></div>;
+    case "outdoor": return <div style={wrapStyle}><OutdoorIcon size={22} /></div>;
+    case "commercial": return <div style={wrapStyle}><CommercialHOAIcon size={22} /></div>;
+    case "architecture": return <div style={wrapStyle}><LandscapeArchitectureIcon size={22} /></div>;
+    // Legacy Lucide fallbacks
+    case "leaf": return <Leaf size={20} strokeWidth={1.5} style={{ color: accentColor }} />;
+    case "droplets": return <Droplets size={20} strokeWidth={1.5} style={{ color: accentColor }} />;
+    case "wrench": return <Wrench size={20} strokeWidth={1.5} style={{ color: accentColor }} />;
+    case "flame": return <Flame size={20} strokeWidth={1.5} style={{ color: accentColor }} />;
+    case "sun": return <Sun size={20} strokeWidth={1.5} style={{ color: accentColor }} />;
+    case "snowflake": return <Snowflake size={20} strokeWidth={1.5} style={{ color: accentColor }} />;
+    default: return <Leaf size={20} strokeWidth={1.5} style={{ color: accentColor }} />;
+  }
+}
 
 const BASE_URL = "https://newportavelandscaping.com";
 const SITE_NAME = "Newport Avenue Landscaping";
@@ -501,7 +527,6 @@ export default function CityPageLayout(props: CityPageProps) {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {services.map((svc, i) => {
-              const Icon = ICON_MAP[svc.icon];
               const card = (
                 <div
                   className="h-full"
@@ -526,11 +551,11 @@ export default function CityPageLayout(props: CityPageProps) {
                     style={{
                       width: "44px",
                       height: "44px",
-                      backgroundColor: "oklch(0.96 0.025 25)",
+                      backgroundColor: "oklch(0.12 0.005 0)",
                       borderRadius: "2px",
                     }}
                   >
-                    <Icon size={20} strokeWidth={1.5} style={{ color: "oklch(0.46 0.20 25)" }} />
+                    <ServiceIconWrapper icon={svc.icon} accentColor="oklch(0.46 0.20 25)" />
                   </div>
                   <h3
                     className="font-display font-light mb-2"

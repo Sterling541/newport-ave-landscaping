@@ -3,32 +3,32 @@ import { CityService } from "@/components/CityPageLayout";
 
 const services: CityService[] = [
   {
-    icon: "leaf",
+    icon: "maintenance",
     name: "Landscape Design & Installation",
     description: "For Tumalo's expansive properties, our landscape design integrates seamlessly with the natural high desert environment. We create custom outdoor spaces that enhance both beauty and functionality for your acreage.",
   },
   {
-    icon: "droplets",
+    icon: "sprinklers",
     name: "Irrigation & Water Management",
     description: "Given Tumalo's irrigation district, efficient water use is paramount. We design and install smart irrigation systems, ensuring your large property thrives while conserving precious resources.",
   },
   {
-    icon: "wrench",
+    icon: "design",
     name: "Property Maintenance",
     description: "Maintaining larger properties in Tumalo requires specialized care. Our comprehensive maintenance services keep your acreage, from lawns to gardens, looking pristine year-round.",
   },
   {
-    icon: "flame",
+    icon: "outdoor",
     name: "Outdoor Living Spaces",
     description: "Extend your living space into Tumalo's beautiful outdoors with custom patios, fire pits, and outdoor kitchens. We craft inviting areas perfect for enjoying the rural tranquility and starry nights.",
   },
   {
-    icon: "sun",
+    icon: "architecture",
     name: "Native & Drought-Tolerant Planting",
     description: "We select native and drought-tolerant plants that flourish in Tumalo's high desert climate and complement its rural charm. Our planting schemes are designed for beauty and sustainability on larger lots.",
   },
   {
-    icon: "snowflake",
+    icon: "commercial",
     name: "Water Features & Ponds",
     description: "Enhance your Tumalo property with the serene sounds and visual appeal of custom water features. From naturalistic ponds to elegant fountains, we create unique aquatic elements for your rural oasis.",
   },

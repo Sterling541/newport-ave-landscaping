@@ -15,32 +15,32 @@ export default function MadrasPage() {
       communityNote="Madras, as the seat of Jefferson County, experiences a warmer and drier climate compared to other Central Oregon cities, influencing plant selection and irrigation strategies. The community's agricultural roots and growing residential and commercial sectors demand versatile and resilient landscaping solutions."
       services={[
         {
-          icon: "leaf",
+          icon: "maintenance",
           name: "Custom Landscape Design",
           description: "We create bespoke landscape designs that complement Madras's unique agricultural heritage and warmer climate. Our designs focus on drought-tolerant plants and efficient irrigation systems to ensure beauty and sustainability.",
         },
         {
-          icon: "droplets",
+          icon: "sprinklers",
           name: "Efficient Irrigation Systems",
           description: "Given Madras's drier conditions, water-wise irrigation is paramount. We design, install, and maintain efficient systems that conserve water while keeping your landscapes lush and healthy, perfectly suited for the local environment.",
         },
         {
-          icon: "wrench",
+          icon: "design",
           name: "Comprehensive Landscape Maintenance",
           description: "From regular lawn care to seasonal clean-ups, our maintenance services keep Madras properties looking their best year-round. We tailor our approach to address the specific needs of both residential and commercial landscapes in this growing community.",
         },
         {
-          icon: "flame",
+          icon: "outdoor",
           name: "Outdoor Living Spaces",
           description: "Enhance your Madras property with custom outdoor living areas, including patios, fire pits, and pergolas. We design spaces that allow you to fully enjoy the warmer climate and beautiful Central Oregon surroundings.",
         },
         {
-          icon: "sun",
+          icon: "architecture",
           name: "Drought-Tolerant Plantings",
           description: "Specializing in plant selections that thrive in Madras's warmer and drier conditions, we create beautiful, sustainable landscapes. Our expertise ensures your garden remains vibrant with minimal water usage, reflecting the local ecosystem.",
         },
         {
-          icon: "snowflake",
+          icon: "commercial",
           name: "Seasonal Color & Enhancements",
           description: "Keep your Madras landscape vibrant throughout the seasons with our expert planting and enhancement services. We select flowers and foliage that flourish in the local climate, adding continuous beauty to your property.",
         },

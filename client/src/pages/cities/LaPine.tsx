@@ -15,32 +15,32 @@ const LaPinePage = () => {
       communityNote="La Pine's distinct character, marked by its high elevation, colder winters, and prevalence of rural lots, demands a specialized approach to landscaping. Our team is adept at designing and maintaining landscapes that thrive in this environment, from winter-hardy plantings to efficient irrigation solutions for diverse property types."
       services={[
         {
-          icon: "snowflake",
+          icon: "commercial",
           name: "Winter-Hardy Landscaping",
           description: "We specialize in selecting and installing plants that can withstand La Pine's colder winters and high elevation. Our designs focus on resilience and beauty, ensuring your landscape remains vibrant year-round.",
         },
         {
-          icon: "leaf",
+          icon: "maintenance",
           name: "Rural Property Design",
           description: "Understanding the unique needs of rural lots, we create expansive and functional landscapes that blend seamlessly with the natural surroundings. From large acreage to more modest properties, we design spaces for enjoyment and sustainability.",
         },
         {
-          icon: "droplets",
+          icon: "sprinklers",
           name: "Efficient Irrigation Systems",
           description: "Given the varied property types in La Pine, we design and install irrigation systems that are both water-efficient and effective. This ensures proper hydration for your landscape while conserving precious resources.",
         },
         {
-          icon: "sun",
+          icon: "architecture",
           name: "Outdoor Living Spaces",
           description: "Enhance your outdoor recreation with custom patios, fire pits, and gathering areas perfect for La Pine's active community. We create inviting spaces for relaxation and entertainment, extending your home's living area.",
         },
         {
-          icon: "wrench",
+          icon: "design",
           name: "Property Maintenance & Care",
           description: "Our comprehensive maintenance services keep your La Pine property looking its best throughout the seasons. We handle everything from pruning and fertilization to seasonal clean-ups, tailored to the local climate.",
         },
         {
-          icon: "flame",
+          icon: "outdoor",
           name: "Fire-Resistant Landscaping",
           description: "With La Pine's natural setting, we incorporate fire-wise landscaping principles into our designs to protect your home. We help you choose appropriate plants and materials to create defensible space.",
         },

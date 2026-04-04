@@ -15,37 +15,37 @@ export default function BendPage() {
       communityNote="Bend's unique high-desert climate — hot, dry summers and cold winters — demands a landscaping partner who truly understands the environment. We design with drought-tolerant natives, install smart irrigation systems, and build outdoor living spaces that take full advantage of Central Oregon's 300 days of sunshine."
       services={[
         {
-          icon: "leaf",
+          icon: "maintenance",
           name: "Residential Lawn & Landscape Maintenance",
           description: "Weekly lawn service, pruning, fertilization, weed control, and seasonal clean-ups for Bend homes. We service neighborhoods from Broken Top to SE Bend.",
           href: "/services/lawn-service",
         },
         {
-          icon: "droplets",
+          icon: "sprinklers",
           name: "Irrigation Installation & Repair",
           description: "Full sprinkler system design, installation, spring activation, blowout, and year-round repair for Bend's sandy soils and dry summers.",
           href: "/services/irrigation",
         },
         {
-          icon: "wrench",
+          icon: "design",
           name: "Landscape Design & Installation",
           description: "Custom landscape design, grading, planting, sod installation, and hardscape construction for new builds and full renovations throughout Bend.",
           href: "/services/landscape-design",
         },
         {
-          icon: "flame",
+          icon: "outdoor",
           name: "Fire Pits, Fireplaces & Outdoor Living",
           description: "Custom outdoor kitchens, fire pits, pergolas, and living spaces that make the most of Bend's spectacular outdoor lifestyle.",
           href: "/services/fire-features",
         },
         {
-          icon: "sun",
+          icon: "architecture",
           name: "Xeriscaping & Native Plantings",
           description: "Water-wise landscape design using drought-tolerant plants suited to Bend's high-desert climate — beautiful and sustainable.",
           href: "/services/xeriscaping",
         },
         {
-          icon: "snowflake",
+          icon: "commercial",
           name: "Snow Removal",
           description: "Commercial and residential snow plowing, de-icing, and ice management for Bend properties throughout the winter season.",
           href: "/services/snow-removal",
