@@ -193,7 +193,7 @@ export default function StatsSection() {
                 fontWeight: 900,
                 lineHeight: 0.85,
                 letterSpacing: "-0.06em",
-                color: "oklch(0.14 0.008 30)",
+                color: "oklch(0.18 0.10 185)",
                 position: "absolute",
                 right: "-4rem",
                 top: "-1rem",
@@ -211,13 +211,13 @@ export default function StatsSection() {
               </div>
               <div
                 style={{
-                  fontFamily: "'Cormorant Garamond', Georgia, serif",
-                  fontSize: "clamp(2rem, 4vw, 3.8rem)",
-                  fontWeight: 700,
-                  color: "oklch(0.95 0.012 75)",
-                  lineHeight: 1,
-                  opacity: visible ? 1 : 0,
-                  transition: "opacity 0.8s ease 0.2s",
+                fontFamily: "'Cormorant Garamond', Georgia, serif",
+                fontSize: "clamp(2rem, 4vw, 3.8rem)",
+                fontWeight: 700,
+                color: "oklch(0.60 0.14 185)",
+                lineHeight: 1,
+                opacity: visible ? 1 : 0,
+                transition: "opacity 0.8s ease 0.2s",
                 }}
               >
                 {years}+ Years
@@ -237,7 +237,7 @@ export default function StatsSection() {
                 fontFamily: "'Cormorant Garamond', Georgia, serif",
                 fontSize: "clamp(2rem, 4vw, 3.8rem)",
                 fontWeight: 700,
-                color: "oklch(0.95 0.012 75)",
+                color: "oklch(0.60 0.14 185)",
                 lineHeight: 1,
                 opacity: visible ? 1 : 0,
                 transition: "opacity 0.8s ease 0.35s",
@@ -259,7 +259,7 @@ export default function StatsSection() {
                 fontFamily: "'Cormorant Garamond', Georgia, serif",
                 fontSize: "clamp(2rem, 4vw, 3.8rem)",
                 fontWeight: 700,
-                color: "oklch(0.95 0.012 75)",
+                color: "oklch(0.60 0.14 185)",
                 lineHeight: 1,
                 opacity: visible ? 1 : 0,
                 transition: "opacity 0.8s ease 0.5s",

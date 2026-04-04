@@ -111,7 +111,7 @@ function FooterLink({ href, label }: { href: string; label: string }) {
       <Link
         href={href}
         style={linkStyle}
-        onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "oklch(0.75 0.12 240)")}
+        onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "oklch(0.60 0.14 185)")}
         onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "oklch(0.55 0.005 0)")}
       >
         {label}
@@ -149,7 +149,7 @@ export default function Footer() {
                 href="tel:5416178873"
                 className="font-body text-sm block transition-colors"
                 style={{ color: "oklch(0.72 0.005 0)", textDecoration: "none" }}
-                onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "oklch(0.85 0.12 28)")}
+                onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "oklch(0.60 0.14 185)")}
                 onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "oklch(0.72 0.005 0)")}
               >
                 (541) 617-8873
@@ -158,7 +158,7 @@ export default function Footer() {
                 href="mailto:info@newportavelandscaping.com"
                 className="font-body text-sm block transition-colors"
                 style={{ color: "oklch(0.72 0.005 0)", textDecoration: "none" }}
-                onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "oklch(0.85 0.12 28)")}
+                onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "oklch(0.60 0.14 185)")}
                 onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "oklch(0.72 0.005 0)")}
               >
                 info@newportavelandscaping.com
@@ -247,7 +247,7 @@ export default function Footer() {
               href="/privacy-policy"
               className="font-body text-xs transition-colors"
               style={{ color: "oklch(0.42 0.005 0)", textDecoration: "none" }}
-              onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "oklch(0.85 0.12 28)")}
+              onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "oklch(0.60 0.14 185)")}
               onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "oklch(0.42 0.005 0)")}
             >
               Privacy Policy
@@ -256,7 +256,7 @@ export default function Footer() {
               href="/terms"
               className="font-body text-xs transition-colors"
               style={{ color: "oklch(0.42 0.005 0)", textDecoration: "none" }}
-              onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "oklch(0.85 0.12 28)")}
+              onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "oklch(0.60 0.14 185)")}
               onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "oklch(0.42 0.005 0)")}
             >
               Terms &amp; Conditions

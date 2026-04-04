@@ -319,7 +319,7 @@ export default function WhoWeServe() {
                       >
                         <div
                           className="font-display"
-                          style={{ color: seg.accentColor, fontSize: "1.4rem", fontWeight: 600, lineHeight: 1.1 }}
+                          style={{ color: "oklch(0.60 0.14 185)", fontSize: "1.4rem", fontWeight: 600, lineHeight: 1.1 }}
                         >
                           {s.value}
                         </div>
