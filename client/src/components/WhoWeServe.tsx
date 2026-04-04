@@ -32,8 +32,8 @@ const segments = [
   },
   {
     id: "commercial",
-    tag: "Property Managers",
-    label: "Commercial Properties",
+    tag: "Commercial",
+    label: "Commercial Builders",
     headline: "Scale Without\nCompromise.",
     body: "Central Oregon's leading commercial landscape contractor. We manage retail centers, office parks, mixed-use developments, and government facilities — with dedicated account teams and full in-house crews.",
     bullets: [
@@ -57,7 +57,7 @@ const segments = [
   },
   {
     id: "hoa",
-    tag: "HOA Boards",
+    tag: "HOA",
     label: "HOA Communities",
     headline: "Community Pride,\nYear-Round.",
     body: "Newport Avenue manages more HOA landscape maintenance contracts in Central Oregon than any other firm. Reliable, consistent, and always on schedule — so your community always looks its best, every season.",
