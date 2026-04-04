@@ -261,6 +261,7 @@ export default function Navbar() {
   const [mobileExpanded, setMobileExpanded] = useState<string | null>(null);
   const [location, navigate] = useLocation();
   const navRef = useRef<HTMLElement>(null);
+  const megaMenuRef = useRef<HTMLDivElement>(null);
   const megaTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
@@ -271,7 +272,9 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
-      if (navRef.current && !navRef.current.contains(e.target as Node)) {
+      const inNav = navRef.current?.contains(e.target as Node);
+      const inMega = megaMenuRef.current?.contains(e.target as Node);
+      if (!inNav && !inMega) {
         setOpenMega(null);
       }
     };
@@ -292,8 +295,8 @@ export default function Navbar() {
   };
 
   const handleMegaLeave = () => {
-    // 420ms gives users time to move mouse from nav trigger down into the dropdown
-    megaTimeoutRef.current = setTimeout(() => setOpenMega(null), 420);
+    // 600ms gives users ample time to move mouse from nav trigger into the dropdown
+    megaTimeoutRef.current = setTimeout(() => setOpenMega(null), 600);
   };
 
   const isActive = (href: string) =>
@@ -709,59 +712,55 @@ export default function Navbar() {
         </div>
       </nav>
 
-      {/* ── Mega menus (rendered outside nav to avoid overflow clipping) ── */}
-
-      {/* Invisible bridge: fills the gap between nav bar bottom and mega menu top
-          so the mouse doesn't briefly leave both elements and trigger the close timeout */}
+      {/* ── Mega menus ── */}
+      {/* Single stable overlay: pointerEvents none on full screen, auto only on
+          a tall invisible strip from nav bar top through menu bottom. This eliminates
+          the gap that caused glitchy close-on-mouse-move behavior. */}
       {openMega && (
         <div
-          onMouseEnter={() => handleMegaEnter(openMega)}
-          onMouseLeave={handleMegaLeave}
           style={{
             position: "fixed",
-            top: "calc(28px + 96px)",
+            top: 0,
             left: 0,
             right: 0,
-            height: "28px",
-            zIndex: 99,
-            pointerEvents: "auto",
-            background: "transparent",
+            bottom: 0,
+            zIndex: 48,
+            pointerEvents: "none",
           }}
-        />
-      )}
-
-      {openMega === "maintenance" && (
-        <div
-          onMouseEnter={() => handleMegaEnter("maintenance")}
-          onMouseLeave={handleMegaLeave}
-          style={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0, zIndex: 48, pointerEvents: "none" }}
         >
-          <div style={{ pointerEvents: "auto" }}>
-            <MegaMenu
-              items={maintenanceItems}
-              photo={MEGA_PHOTO_MAINTENANCE}
-              headline={"Year-Round\nCare"}
-              subline="Maintenance Programs"
-              onNavigate={goTo}
-            />
-          </div>
-        </div>
-      )}
-
-      {openMega === "services" && (
-        <div
-          onMouseEnter={() => handleMegaEnter("services")}
-          onMouseLeave={handleMegaLeave}
-          style={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0, zIndex: 48, pointerEvents: "none" }}
-        >
-          <div style={{ pointerEvents: "auto" }}>
-            <MegaMenu
-              items={servicesItems}
-              photo={MEGA_PHOTO_SERVICES}
-              headline={"Transform\nYour Space"}
-              subline="Installation Services"
-              onNavigate={goTo}
-            />
+          {/* Tall interactive zone: from page top through nav bar + full menu height */}
+          <div
+            ref={megaMenuRef}
+            onMouseEnter={() => handleMegaEnter(openMega)}
+            onMouseLeave={handleMegaLeave}
+            style={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              right: 0,
+              height: "calc(28px + 96px + 400px)",
+              pointerEvents: "auto",
+            }}
+          >
+            {/* Menu panel rendered inside the interactive zone — no gap possible */}
+            {openMega === "maintenance" && (
+              <MegaMenu
+                items={maintenanceItems}
+                photo={MEGA_PHOTO_MAINTENANCE}
+                headline={"Year-Round\nCare"}
+                subline="Maintenance Programs"
+                onNavigate={goTo}
+              />
+            )}
+            {openMega === "services" && (
+              <MegaMenu
+                items={servicesItems}
+                photo={MEGA_PHOTO_SERVICES}
+                headline={"Transform\nYour Space"}
+                subline="Installation Services"
+                onNavigate={goTo}
+              />
+            )}
           </div>
         </div>
       )}
