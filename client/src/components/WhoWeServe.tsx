@@ -1,9 +1,11 @@
 /* ============================================================
-   WHO WE SERVE — Redesigned Editorial Layout
+   WHO WE SERVE — Editorial Split-Panel Layout
    "One Firm. Every Client Type."
-   Clean numbered cards on dark background, no photo overlays
+   Dark numbered cards with right-side project photo accent
    ============================================================ */
 import { useEffect, useRef, useState } from "react";
+
+const CDN = "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx";
 
 const segments = [
   {
@@ -14,6 +16,8 @@ const segments = [
     proof: "Broken Top · Awbrey Butte · NW Crossing",
     accent: "oklch(0.56 0.18 25)",
     tag: "Homeowners",
+    photo: `${CDN}/water-feature-sunset_f7b219d3.jpg`,
+    photoAlt: "Custom water feature at sunset — Newport Avenue Landscaping residential project",
   },
   {
     number: "02",
@@ -23,6 +27,8 @@ const segments = [
     proof: "Government Contracts · Retail Centers · Office Parks",
     accent: "oklch(0.68 0.14 28)",
     tag: "Property Managers",
+    photo: `${CDN}/NewportLandscapingRVParkDay2Photos57_ce65cd27.jpg`,
+    photoAlt: "Large-scale commercial landscaping project by Newport Avenue Landscaping",
   },
   {
     number: "03",
@@ -32,6 +38,8 @@ const segments = [
     proof: "200+ HOA Communities Served · Irrigation · Snow",
     accent: "oklch(0.72 0.10 60)",
     tag: "HOA Boards",
+    photo: `${CDN}/powell-butte-1_21624e54.webp`,
+    photoAlt: "Manicured HOA community landscape in Bend, Oregon by Newport Avenue Landscaping",
   },
 ];
 
@@ -42,7 +50,7 @@ export default function WhoWeServe() {
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => { if (entry.isIntersecting) setVisible(true); },
-      { threshold: 0.08 }
+      { threshold: 0.06 }
     );
     if (ref.current) observer.observe(ref.current);
     return () => observer.disconnect();
@@ -55,7 +63,7 @@ export default function WhoWeServe() {
     >
       <div className="container" ref={ref}>
 
-        {/* Header */}
+        {/* ── Header ──────────────────────────────────────── */}
         <div
           className="mb-16"
           style={{
@@ -97,107 +105,153 @@ export default function WhoWeServe() {
           </div>
         </div>
 
-        {/* Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-px" style={{ backgroundColor: "oklch(0.22 0.005 0)" }}>
+        {/* ── Cards ───────────────────────────────────────── */}
+        <div className="flex flex-col gap-px" style={{ backgroundColor: "oklch(0.22 0.005 0)" }}>
           {segments.map((seg, i) => (
             <div
               key={seg.label}
-              className="flex flex-col"
+              className="grid grid-cols-1 lg:grid-cols-5"
               style={{
                 backgroundColor: "oklch(0.14 0.006 0)",
-                padding: "clamp(1.8rem, 3vw, 2.8rem)",
                 opacity: visible ? 1 : 0,
                 transform: visible ? "translateY(0)" : "translateY(36px)",
-                transition: `opacity 0.7s ease ${i * 0.12}s, transform 0.7s ease ${i * 0.12}s`,
+                transition: `opacity 0.7s ease ${i * 0.15}s, transform 0.7s ease ${i * 0.15}s`,
               }}
             >
-              {/* Number + tag row */}
-              <div className="flex items-start justify-between mb-8">
-                <span
-                  className="font-display"
+              {/* ── Text panel (3 cols) ── */}
+              <div
+                className="lg:col-span-3 flex flex-col"
+                style={{ padding: "clamp(2rem, 3.5vw, 3.2rem)" }}
+              >
+                {/* Number + tag row */}
+                <div className="flex items-start justify-between mb-8">
+                  <span
+                    className="font-display"
+                    style={{
+                      fontSize: "clamp(3.5rem, 6vw, 5.5rem)",
+                      color: "oklch(0.20 0.005 0)",
+                      lineHeight: 1,
+                      fontWeight: 300,
+                      userSelect: "none",
+                      letterSpacing: "-0.02em",
+                    }}
+                  >
+                    {seg.number}
+                  </span>
+                  <span
+                    className="font-label px-3 py-1 rounded-full mt-2"
+                    style={{
+                      backgroundColor: `${seg.accent}22`,
+                      color: seg.accent,
+                      border: `1px solid ${seg.accent}55`,
+                      letterSpacing: "0.1em",
+                      fontSize: "0.58rem",
+                      whiteSpace: "nowrap",
+                    }}
+                  >
+                    {seg.tag}
+                  </span>
+                </div>
+
+                {/* Label */}
+                <p
+                  className="font-label mb-3"
+                  style={{ color: "oklch(0.50 0.005 0)", fontSize: "0.62rem", letterSpacing: "0.14em" }}
+                >
+                  {seg.label.toUpperCase()}
+                </p>
+
+                {/* Headline */}
+                <h3
+                  className="font-display font-light mb-5"
                   style={{
-                    fontSize: "clamp(3.5rem, 6vw, 5.5rem)",
-                    color: "oklch(0.20 0.005 0)",
-                    lineHeight: 1,
-                    fontWeight: 300,
-                    userSelect: "none",
-                    letterSpacing: "-0.02em",
+                    fontSize: "clamp(1.6rem, 2.8vw, 2.2rem)",
+                    color: "oklch(0.97 0 0)",
+                    lineHeight: 1.1,
                   }}
                 >
-                  {seg.number}
-                </span>
-                <span
-                  className="font-label px-3 py-1 rounded-full mt-2"
+                  {seg.headline}
+                </h3>
+
+                {/* Accent divider */}
+                <div
+                  className="mb-6"
+                  style={{ width: "2.5rem", height: "2px", backgroundColor: seg.accent }}
+                />
+
+                {/* Body */}
+                <p
+                  className="font-body flex-1"
+                  style={{ color: "oklch(0.65 0.005 0)", lineHeight: 1.78, fontSize: "0.9rem" }}
+                >
+                  {seg.body}
+                </p>
+
+                {/* Proof line */}
+                <div
+                  className="font-label mt-8 pt-5"
                   style={{
-                    backgroundColor: `${seg.accent}22`,
-                    color: seg.accent,
-                    border: `1px solid ${seg.accent}55`,
-                    letterSpacing: "0.1em",
+                    color: "oklch(0.40 0.005 0)",
                     fontSize: "0.58rem",
-                    whiteSpace: "nowrap",
+                    letterSpacing: "0.1em",
+                    borderTop: "1px solid oklch(0.22 0.005 0)",
                   }}
                 >
-                  {seg.tag}
-                </span>
+                  {seg.proof}
+                </div>
               </div>
 
-              {/* Label */}
-              <p
-                className="font-label mb-3"
-                style={{ color: "oklch(0.50 0.005 0)", fontSize: "0.62rem", letterSpacing: "0.14em" }}
-              >
-                {seg.label.toUpperCase()}
-              </p>
-
-              {/* Headline */}
-              <h3
-                className="font-display font-light mb-5"
-                style={{
-                  fontSize: "clamp(1.6rem, 2.8vw, 2.2rem)",
-                  color: "oklch(0.97 0 0)",
-                  lineHeight: 1.1,
-                }}
-              >
-                {seg.headline}
-              </h3>
-
-              {/* Accent divider */}
+              {/* ── Photo panel (2 cols) ── */}
               <div
-                className="mb-6"
-                style={{ width: "2.5rem", height: "2px", backgroundColor: seg.accent }}
-              />
-
-              {/* Body */}
-              <p
-                className="font-body flex-1"
-                style={{ color: "oklch(0.65 0.005 0)", lineHeight: 1.78, fontSize: "0.9rem" }}
+                className="lg:col-span-2 relative overflow-hidden"
+                style={{ minHeight: "clamp(240px, 30vw, 420px)" }}
               >
-                {seg.body}
-              </p>
-
-              {/* Proof line */}
-              <div
-                className="font-label mt-8 pt-5"
-                style={{
-                  color: "oklch(0.40 0.005 0)",
-                  fontSize: "0.58rem",
-                  letterSpacing: "0.1em",
-                  borderTop: "1px solid oklch(0.22 0.005 0)",
-                }}
-              >
-                {seg.proof}
+                <img
+                  src={seg.photo}
+                  alt={seg.photoAlt}
+                  loading="lazy"
+                  style={{
+                    position: "absolute",
+                    inset: 0,
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                    objectPosition: "center",
+                    filter: "brightness(0.88) saturate(1.05)",
+                  }}
+                />
+                {/* Subtle left-edge gradient to blend into text panel */}
+                <div
+                  style={{
+                    position: "absolute",
+                    inset: 0,
+                    background: "linear-gradient(to right, oklch(0.14 0.006 0) 0%, transparent 30%)",
+                    pointerEvents: "none",
+                  }}
+                />
+                {/* Accent color bottom strip */}
+                <div
+                  style={{
+                    position: "absolute",
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    height: "3px",
+                    backgroundColor: seg.accent,
+                  }}
+                />
               </div>
             </div>
           ))}
         </div>
 
-        {/* Bottom CTA strip */}
+        {/* ── Bottom CTA strip ────────────────────────────── */}
         <div
           className="mt-px p-8 flex flex-col sm:flex-row items-center justify-between gap-6"
           style={{
             backgroundColor: "oklch(0.56 0.18 25)",
             opacity: visible ? 1 : 0,
-            transition: "opacity 0.7s ease 0.5s",
+            transition: "opacity 0.7s ease 0.6s",
           }}
         >
           <p

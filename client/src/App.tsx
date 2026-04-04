@@ -451,6 +451,10 @@ function Router() {
           <Route path="/resources/irrigation-faq-bend-oregon" component={IrrigationFAQBend} />
           <Route path="/resources/paver-patio-faq-bend-oregon" component={PaverFAQBend} />
           <Route path="/resources/xeriscape-faq-bend-oregon" component={XeriscapeFAQBend} />
+          <Route path="/resources/lawn-care-cost-bend-oregon" component={lazy(() => import('./pages/resources/LawnCareCostBend'))} />
+          <Route path="/resources/lawn-aeration-cost-bend-oregon" component={lazy(() => import('./pages/resources/AerationCostBend'))} />
+          <Route path="/resources/backflow-preventer-testing-bend-oregon" component={lazy(() => import('./pages/resources/BackflowTestingBend'))} />
+          <Route path="/resources/lawn-fungus-treatment-bend-oregon" component={lazy(() => import('./pages/resources/LawnFungusTreatmentBend'))} />
 </Switch>
     </Suspense>
   );
