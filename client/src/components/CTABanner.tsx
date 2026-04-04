@@ -172,7 +172,7 @@ export default function CTABanner() {
               color: "oklch(0.97 0.012 75)",
               backgroundColor: "oklch(0.46 0.20 25)",
               border: "none",
-              borderRadius: "999px",
+              borderRadius: "1.8rem 0.2rem 1.8rem 0.2rem",
               padding: "1rem 2.5rem",
               cursor: "pointer",
               transition: "background-color 0.3s ease, transform 0.2s ease",

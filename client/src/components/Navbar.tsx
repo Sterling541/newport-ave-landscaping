@@ -39,10 +39,12 @@ const servicesItems = [
   { label: "Xeriscaping", href: "/services/xeriscaping", num: "09" },
 ];
 
+// Maintenance mega menu — lush residential lawn maintenance photo
 const MEGA_PHOTO_MAINTENANCE =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/3771NESuchyBackyardHiResPhotos11-min-min_32e40dc0.jpg";
+  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/maintenance-hero-bg_a7f3c2e1.jpg";
+// Services mega menu — Discovery West Plaza commercial installation (polished hardscape)
 const MEGA_PHOTO_SERVICES =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/61826HosmerLakeDrHiResPhotos2-min_f5f331b6.jpg";
+  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/DiscoveryWestPlazaHiResPhotos55_79ba9dd5.jpg";
 
 function MegaMenuItem({
   item,
@@ -289,7 +291,8 @@ export default function Navbar() {
   };
 
   const handleMegaLeave = () => {
-    megaTimeoutRef.current = setTimeout(() => setOpenMega(null), 180);
+    // 420ms gives users time to move mouse from nav trigger down into the dropdown
+    megaTimeoutRef.current = setTimeout(() => setOpenMega(null), 420);
   };
 
   const isActive = (href: string) =>
@@ -483,6 +486,11 @@ export default function Navbar() {
               active={isActive("/resources")}
               onClick={() => goTo("/resources")}
             />
+            <NavTextLink
+              label="Service Areas"
+              active={isActive("/service-areas")}
+              onClick={() => goTo("/service-areas")}
+            />
             {/* Get a Quote — pill CTA, brand red */}
             <a
               href="/contact"
@@ -496,7 +504,7 @@ export default function Navbar() {
                 color: "oklch(1 0 0)",
                 backgroundColor: "oklch(0.46 0.20 25)",
                 padding: "0.65rem 1.6rem",
-                borderRadius: "999px",
+                borderRadius: "1.8rem 0.2rem 1.8rem 0.2rem",
                 textDecoration: "none",
                 display: "flex",
                 alignItems: "center",
@@ -580,6 +588,7 @@ export default function Navbar() {
                 { label: "Services", href: "/services", dropdown: servicesItems },
                 { label: "Commercial", href: "/commercial" },
                 { label: "Resources", href: "/resources" },
+                { label: "Service Areas", href: "/service-areas" },
               ] as Array<{ label: string; href: string; dropdown?: { label: string; href: string; num: string }[] }>
             ).map((item) => (
               <div key={item.label}>
@@ -686,6 +695,26 @@ export default function Navbar() {
       </nav>
 
       {/* ── Mega menus (rendered outside nav to avoid overflow clipping) ── */}
+
+      {/* Invisible bridge: fills the gap between nav bar bottom and mega menu top
+          so the mouse doesn't briefly leave both elements and trigger the close timeout */}
+      {openMega && (
+        <div
+          onMouseEnter={() => handleMegaEnter(openMega)}
+          onMouseLeave={handleMegaLeave}
+          style={{
+            position: "fixed",
+            top: "calc(28px + 96px)",
+            left: 0,
+            right: 0,
+            height: "28px",
+            zIndex: 99,
+            pointerEvents: "auto",
+            background: "transparent",
+          }}
+        />
+      )}
+
       {openMega === "maintenance" && (
         <div
           onMouseEnter={() => handleMegaEnter("maintenance")}

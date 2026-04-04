@@ -482,7 +482,7 @@ export default function HeroSection() {
                 color: "oklch(0.10 0.008 30)",
                 backgroundColor: "oklch(0.97 0.012 75)",
                 border: "none",
-                borderRadius: "999px",
+                borderRadius: "1.8rem 0.2rem 1.8rem 0.2rem",
                 padding: "0.9rem 2.2rem",
                 cursor: "pointer",
                 transition: "transform 0.2s ease, background-color 0.2s ease",
@@ -507,13 +507,14 @@ export default function HeroSection() {
                 color: "oklch(0.97 0.012 75)",
                 backgroundColor: "transparent",
                 border: "1.5px solid oklch(0.97 0.012 75 / 0.45)",
-                borderRadius: "999px",
+                borderRadius: "1.8rem 0.2rem 1.8rem 0.2rem",
                 padding: "0.9rem 2.2rem",
                 cursor: "pointer",
                 textDecoration: "none",
                 transition: "border-color 0.2s ease, transform 0.2s ease",
                 whiteSpace: "nowrap",
-                display: "inline-block",
+                display: "inline-flex",
+                alignItems: "center",
               }}
               onMouseEnter={(e) => {
                 (e.currentTarget as HTMLElement).style.borderColor = "oklch(0.97 0.012 75)";

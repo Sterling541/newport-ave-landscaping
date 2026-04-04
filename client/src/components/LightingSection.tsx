@@ -284,7 +284,8 @@ export default function LightingSection() {
             <a
               href="/services/landscape-lighting"
               style={{
-                display: "inline-block",
+                display: "inline-flex",
+                alignItems: "center",
                 fontFamily: "'Montserrat', sans-serif",
                 fontWeight: 700,
                 fontSize: "0.58rem",
@@ -294,7 +295,7 @@ export default function LightingSection() {
                 backgroundColor: "oklch(0.80 0.14 66)",
                 padding: "0.9rem 2.5rem",
                 textDecoration: "none",
-                borderRadius: "999px",
+                borderRadius: "1.8rem 0.2rem 1.8rem 0.2rem",
                 transition: "background-color 0.2s ease, transform 0.2s ease",
               }}
               onMouseEnter={(e) => {

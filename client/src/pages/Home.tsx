@@ -20,7 +20,6 @@ import PhotoGallery from "@/components/PhotoGallery";
 import WhoWeServe from "@/components/WhoWeServe";
 import ServiceAreaBand from "@/components/ServiceAreaBand";
 import MarqueeBand from "@/components/MarqueeBand";
-import BlueSpruceCursor from "@/components/BlueSpruceCursor";
 import BotanicalBand from "@/components/BotanicalBand";
 import LightingSection from "@/components/LightingSection";
 import OutdoorRoomsSection from "@/components/OutdoorRoomsSection";
@@ -44,8 +43,6 @@ export default function Home() {
       />
       <LocalBusinessSchema />
 
-      {/* Custom blue spruce cursor — mounts once, hides default cursor */}
-      <BlueSpruceCursor />
 
       <Navbar />
 

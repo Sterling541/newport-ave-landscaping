@@ -164,7 +164,7 @@ export default function MembershipBanner() {
               letterSpacing: "0.12em",
               textTransform: "uppercase",
               padding: "clamp(10px, 1.2vw, 14px) clamp(24px, 3vw, 40px)",
-              borderRadius: "999px",
+              borderRadius: "1.8rem 0.2rem 1.8rem 0.2rem",
               border: "none",
               cursor: "pointer",
               boxShadow: "0 4px 20px rgba(0,0,0,0.35)",

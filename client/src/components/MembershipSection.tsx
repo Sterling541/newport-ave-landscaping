@@ -181,7 +181,7 @@ export default function MembershipSection() {
                 letterSpacing: "0.14em",
                 textTransform: "uppercase",
                 padding: "0.85rem 2rem",
-                borderRadius: "999px 0.15rem 999px 0.15rem",
+                borderRadius: "1.8rem 0.2rem 1.8rem 0.2rem",
                 border: "none",
                 cursor: "pointer",
                 width: "100%",

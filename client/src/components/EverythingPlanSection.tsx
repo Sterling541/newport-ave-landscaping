@@ -201,7 +201,7 @@ export default function EverythingPlanSection() {
                     letterSpacing: "0.14em",
                     textTransform: "uppercase",
                     padding: "1rem 2.5rem",
-                    borderRadius: "999px 0.15rem 999px 0.15rem",
+                    borderRadius: "1.8rem 0.2rem 1.8rem 0.2rem",
                     border: "none",
                     cursor: "pointer",
                   }}
@@ -219,7 +219,7 @@ export default function EverythingPlanSection() {
                     letterSpacing: "0.14em",
                     textTransform: "uppercase",
                     padding: "1rem 2rem",
-                    borderRadius: "999px 0.15rem 999px 0.15rem",
+                    borderRadius: "1.8rem 0.2rem 1.8rem 0.2rem",
                     border: "1.5px solid oklch(1 0 0 / 0.25)",
                     cursor: "pointer",
                     display: "inline-block",

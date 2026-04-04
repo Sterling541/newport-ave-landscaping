@@ -272,7 +272,7 @@ export default function OutdoorRoomsSection() {
                 color: "oklch(0.97 0.01 90)",
                 backgroundColor: "oklch(0.22 0.008 30)",
                 padding: "0.85rem 1.8rem",
-                borderRadius: "999px",
+                borderRadius: "1.8rem 0.2rem 1.8rem 0.2rem",
                 textDecoration: "none",
                 transition: "background-color 0.2s ease, transform 0.15s ease",
               }}
