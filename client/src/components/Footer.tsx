@@ -36,6 +36,7 @@ const quickLinks = [
   { label: "Maintenance", href: "/maintenance" },
   { label: "Blog", href: "/blog" },
   { label: "Service Areas", href: "/service-areas" },
+    { label: "Bend Neighborhoods", href: "/bend-neighborhoods" },
   { label: "Contact Us", href: "/contact" },
 ];
 const resourceArticleLinks = [
