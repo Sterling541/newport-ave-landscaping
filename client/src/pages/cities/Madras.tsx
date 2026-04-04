@@ -5,7 +5,7 @@ export default function MadrasPage() {
     <CityPageLayout
       city="Madras"
       region="Central Oregon"
-      heroImage="https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEHxx/NewportLandscapingRVParkDay2Photos57_ce65cd27.jpg"
+      heroImage="https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportLandscapingRVParkDay2Photos2_8e8d0bb1.jpg"
       heroPosition="center 60%"
       tagline="Cultivating Madras's Green Spaces"
       seoTitle="Landscaping Company Madras Oregon | Newport Avenue Landscaping"

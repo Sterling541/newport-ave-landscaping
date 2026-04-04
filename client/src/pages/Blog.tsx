@@ -7,7 +7,7 @@ const posts = [
     title: "Xeriscape Landscaping in Bend, Oregon: The Complete Guide",
     excerpt: "Drought-tolerant plants, design principles, and real cost savings for Central Oregon's high desert climate. Reduce outdoor water use by up to 60%.",
     date: "March 2024",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/ITP_7404_28389405.jpg",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/ITP_7558_e52a40c9.jpg",
     category: "Xeriscape & Water Conservation",
   },
   {
@@ -15,7 +15,7 @@ const posts = [
     title: "Sprinkler Winterization in Bend, Oregon: What You Need to Know",
     excerpt: "When to winterize your sprinklers, what happens if you don't, and how our certified technicians protect your system every fall before Bend's first hard freeze.",
     date: "September 2024",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/GLLPatio3_7287b20c.jpg",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/GLLPatio2_4916fcde.jpg",
     category: "Irrigation",
   },
   {
@@ -23,7 +23,7 @@ const posts = [
     title: "Paver Patio Ideas for Bend, Oregon Homes",
     excerpt: "Belgard & Unilock paver styles, layout patterns, fire pit integration, and outdoor kitchen ideas for Central Oregon's outdoor lifestyle.",
     date: "April 2024",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportAveLandcaping-13_ef32520c.jpg",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportAveLandcaping-9_97b731b0.jpg",
     category: "Hardscape & Outdoor Living",
   },
   {
@@ -31,7 +31,7 @@ const posts = [
     title: "Lawn Care in Bend, Oregon: The Complete Seasonal Guide",
     excerpt: "Watering schedules, fertilization timing, aeration, overseeding, and weed control — everything you need for a healthy lawn in Central Oregon's high desert.",
     date: "February 2024",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/maintenance-hero-bg_a7f3c2e1.jpg",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/ITP_7385_f2bbba86.jpg",
     category: "Lawn Care",
   },
   {

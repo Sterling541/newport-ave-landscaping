@@ -285,7 +285,7 @@ export default function StatsSection() {
           style={{
             position: "absolute",
             inset: 0,
-            backgroundImage: `url(${CDN}/ITP_7385_f2bbba86.jpg)`,
+            backgroundImage: `url(${CDN}/ITP_7385_f2bbba86.jpg`,
             backgroundSize: "cover",
             backgroundPosition: "center 60%",
             filter: "brightness(0.50)",

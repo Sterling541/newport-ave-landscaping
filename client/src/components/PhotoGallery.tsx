@@ -10,7 +10,7 @@ import { X, ChevronLeft, ChevronRight } from "lucide-react";
 const photos = [
   // Row 1 — hero shots
   {
-    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportAveLandcaping-13_ef32520c.jpg",
+    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportAveLandcaping-9_97b731b0.jpg",
     title: "Flagstone Patio & Stream at Sunset",
     category: "Water Features",
     span: "col-span-2 row-span-2",
@@ -66,7 +66,7 @@ const photos = [
     span: "col-span-1 row-span-1",
   },
   {
-    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/GLLPatio3_7287b20c.jpg",
+    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/GLLPatio2_4916fcde.jpg",
     title: "Fire Pit at Sunset",
     category: "Hardscape",
     span: "col-span-1 row-span-1",

@@ -18,7 +18,7 @@ const ROOMS = [
     tagline: "The Sound of Serenity",
     description:
       "Custom ponds, pondless waterfalls, bubbling boulders, and stream beds that bring the sound and movement of water to your backyard. Designed for Central Oregon's climate.",
-    img: `${CDN}/NewportAveLandcaping-13_ef32520c.jpg`,
+    img: `${CDN}/NewportAveLandcaping-9_97b731b0.jpg`,
     accent: "oklch(0.46 0.20 25)",
   },
   {
@@ -48,7 +48,7 @@ const ROOMS = [
     tagline: "The Foundation of Outdoor Living",
     description:
       "Belgard, Techo-Bloc, and natural stone paver installations for patios, walkways, driveways, and pool decks. Precision-set for Central Oregon's freeze-thaw cycles.",
-    img: `${CDN}/ITP_7404_28389405.jpg`,
+    img: `${CDN}/ITP_7558_e52a40c9.jpg`,
     accent: "oklch(0.46 0.20 25)",
   },
   {

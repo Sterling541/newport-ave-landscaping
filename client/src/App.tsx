@@ -19,6 +19,7 @@ import Contact from "./pages/Contact";
 import Blog from "./pages/Blog";
 import Resources from "./pages/Resources";
 import ServiceAreas from "./pages/ServiceAreas";
+import BendNeighborhoods from "./pages/BendNeighborhoods";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import Membership from "./pages/Membership";
 import Terms from "./pages/Terms";
@@ -177,6 +178,7 @@ function Router() {
       <Route path={"/blog"} component={Blog} />
       <Route path={"/resources"} component={Resources} />
       <Route path={"/service-areas"} component={ServiceAreas} />
+      <Route path={"/bend-neighborhoods"} component={BendNeighborhoods} />
       <Route path={"/privacy-policy"} component={PrivacyPolicy} />
       <Route path={"/membership"} component={Membership} />
       <Route path={"/terms"} component={Terms} />

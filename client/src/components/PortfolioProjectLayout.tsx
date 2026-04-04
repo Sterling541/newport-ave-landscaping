@@ -124,7 +124,7 @@ export default function PortfolioProjectLayout({
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {images.map((img, i) => (
                 <div key={i} className="overflow-hidden" style={{ borderRadius: "1.2rem 0.15rem 1.2rem 0.15rem", aspectRatio: "4/3" }}>
-                  <img src={img.src} alt={img.alt} className="w-full h-full object-cover transition-transform duration-500 hover:scale-105" />
+                  <img src={img.src} alt={img.alt} className="w-full h-full object-cover transition-transform duration-500 hover:scale-105" loading="lazy" />
                 </div>
               ))}
             </div>
@@ -186,7 +186,7 @@ export default function PortfolioProjectLayout({
                   style={{ textDecoration: "none", display: "block" }}
                 >
                   <div className="overflow-hidden" style={{ borderRadius: "1.2rem 0.15rem 1.2rem 0.15rem", aspectRatio: "4/3", marginBottom: "0.75rem" }}>
-                    <img src={p.image} alt={p.title} className="w-full h-full object-cover transition-transform duration-500 hover:scale-105" />
+                    <img src={p.image} alt={p.title} className="w-full h-full object-cover transition-transform duration-500 hover:scale-105" loading="lazy" />
                   </div>
                   <p style={{ fontFamily: "'Lato', sans-serif", fontSize: "0.9rem", color: "oklch(0.88 0 0)", fontWeight: 600 }}>{p.title}</p>
                 </Link>

@@ -21,7 +21,7 @@ const CDN = "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUap
 
 const SCENES = [
   {
-    img: `${CDN}/NewportAveLandcaping-13_ef32520c.jpg`,
+    img: `${CDN}/NewportAveLandcaping-9_97b731b0.jpg`,
     category: "WATER FEATURES & OUTDOOR LIVING",
     line1: "Where Every",
     line2: "Evening Feels",
@@ -37,7 +37,7 @@ const SCENES = [
     sub: "Custom fire pits, fireplaces & outdoor kitchens",
   },
   {
-    img: `${CDN}/ITP_7404_28389405.jpg`,
+    img: `${CDN}/ITP_7558_e52a40c9.jpg`,
     category: "DESIGN & BUILD",
     line1: "Your Vision.",
     line2: "Our Craft.",

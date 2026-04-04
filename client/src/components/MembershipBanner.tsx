@@ -15,7 +15,7 @@ const BADGE_URL =
   "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/priority-badge-original_c531517d.png";
 
 const BG_URL =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/sprinkler-bg2_c113104f.jpg";
+  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/ITP_7558_e52a40c9.jpg";
 
 export default function MembershipBanner() {
   const [, navigate] = useLocation();

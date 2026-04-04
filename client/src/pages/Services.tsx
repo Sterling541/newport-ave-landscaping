@@ -37,7 +37,7 @@ const residentialServices = [
   {
     title: "Custom Design & Build",
     description: "Work with our award-winning design team to bring your outdoor oasis to life. We handle everything from initial concept through final installation, with a 5-year warranty on main irrigation components for Priority Membership clients.",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportLandscapingRVParkDay2Photos57_ce65cd27.jpg",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportLandscapingRVParkDay2Photos2_8e8d0bb1.jpg",
   },
   {
     title: "Patio Pavers & Walkways",
@@ -62,7 +62,7 @@ const residentialServices = [
   {
     title: "Fire Features",
     description: "Gas fire pits, wood-burning fireplaces, fire bowls, and custom built-in fire features. We integrate fire into your landscape design to create warmth, ambiance, and year-round outdoor enjoyment.",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/GLLPatio3_7287b20c.jpg",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/GLLPatio2_4916fcde.jpg",
   },
   {
     title: "Retaining Walls",
@@ -116,7 +116,7 @@ export default function Services() {
         style={{
           height: "clamp(280px, 38vw, 440px)",
           backgroundColor: "oklch(0.12 0.005 0)",
-          backgroundImage: "url(https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/DWinstall3_9346a59a.jpg)",
+          backgroundImage: "url(https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NinesProject3_602cdeb8.jpg",
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
