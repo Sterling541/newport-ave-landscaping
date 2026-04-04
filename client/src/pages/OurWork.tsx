@@ -110,7 +110,7 @@ const LEGACY_PROJECTS = [
 const PROJECTS = [
   {
     id: "suchy",
-    name: "3771 NE Suchy Backyard",
+    name: "Petrosa Neighborhood Backyard",
     location: "Bend, Oregon",
     description: "A complete backyard transformation featuring custom hardscaping, lush plantings, and an outdoor living area designed for Central Oregon's lifestyle.",
     tags: ["Outdoor Living", "Hardscape", "Planting Design"],
@@ -118,7 +118,7 @@ const PROJECTS = [
   },
   {
     id: "hosmer",
-    name: "61826 Hosmer Lake Dr",
+    name: "Westage Neighborhood Landscape",
     location: "Bend, Oregon",
     description: "Expansive residential landscape installation with natural stone features, irrigated lawn, and seamlessly integrated water-wise plantings.",
     tags: ["Landscape Installation", "Irrigation", "Stone Work"],
@@ -126,7 +126,7 @@ const PROJECTS = [
   },
   {
     id: "mcgrath",
-    name: "64486 McGrath Road",
+    name: "East Bend Design & Build",
     location: "Bend, Oregon",
     description: "A large-scale design & build project showcasing paver patios, retaining walls, fire feature, and full irrigation system installation.",
     tags: ["Design & Build", "Pavers", "Fire Feature", "Irrigation"],
@@ -141,6 +141,15 @@ export default function OurWork() {
   const [lightbox, setLightbox] = useState<LightboxState | null>(null);
   const [activeTab, setActiveTab] = useState<"featured" | "legacy">("featured");
   const [activeProject, setActiveProject] = useState<string | null>(null);
+  const [expandedProjects, setExpandedProjects] = useState<Set<string>>(new Set());
+
+  const toggleExpand = (id: string) => {
+    setExpandedProjects((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id); else next.add(id);
+      return next;
+    });
+  };
 
   const openLightbox = (projectId: string, index: number, isLegacy = false) => {
     setLightbox({ projectId, index, isLegacy });
@@ -262,7 +271,7 @@ export default function OurWork() {
                     fontSize: "0.60rem",
                   }}
                 >
-                  {p.name.split(" ").slice(0, 3).join(" ")}
+                  {p.name}
                 </button>
               ))}
             </div>
@@ -298,31 +307,59 @@ export default function OurWork() {
               </div>
             </FadeIn>
 
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-              {project.photos.map((url, idx) => (
-                <FadeIn key={idx} delay={idx * 0.03}>
-                  <button
-                    onClick={() => openLightbox(project.id, idx)}
-                    className="photo-card group w-full"
-                    style={{
-                      aspectRatio: idx === 0 ? "16/9" : "4/3",
-                      display: "block",
-                      gridColumn: idx === 0 ? "span 2" : undefined,
-                    }}
-                  >
-                    <img
-                      src={url}
-                      alt={`${project.name} — photo ${idx + 1}`}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                      loading="lazy"
-                    />
-                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center" style={{ backgroundColor: "oklch(0.22 0.10 240 / 0.55)" }}>
-                      <span className="font-label text-white" style={{ letterSpacing: "0.15em", fontSize: "0.65rem" }}>View</span>
+            {(() => {
+              const isExpanded = expandedProjects.has(project.id);
+              const visiblePhotos = isExpanded ? project.photos : project.photos.slice(0, 4);
+              return (
+                <>
+                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+                    {visiblePhotos.map((url, idx) => (
+                      <FadeIn key={idx} delay={idx * 0.03}>
+                        <button
+                          onClick={() => openLightbox(project.id, idx)}
+                          className="photo-card group w-full"
+                          style={{
+                            aspectRatio: idx === 0 ? "16/9" : "4/3",
+                            display: "block",
+                            gridColumn: idx === 0 ? "span 2" : undefined,
+                          }}
+                        >
+                          <img
+                            src={url}
+                            alt={`${project.name} — photo ${idx + 1}`}
+                            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                            loading="lazy"
+                          />
+                          <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center" style={{ backgroundColor: "oklch(0.22 0.10 240 / 0.55)" }}>
+                            <span className="font-label text-white" style={{ letterSpacing: "0.15em", fontSize: "0.65rem" }}>View</span>
+                          </div>
+                        </button>
+                      </FadeIn>
+                    ))}
+                  </div>
+                  {project.photos.length > 4 && (
+                    <div className="text-center mt-6">
+                      <button
+                        onClick={() => toggleExpand(project.id)}
+                        className="font-label transition-all duration-200"
+                        style={{
+                          padding: "0.6rem 1.8rem",
+                          border: "1.5px solid oklch(0.55 0.16 240 / 0.50)",
+                          borderRadius: "12px 0 12px 0",
+                          color: "oklch(0.72 0.14 240)",
+                          backgroundColor: "transparent",
+                          fontSize: "0.62rem",
+                          letterSpacing: "0.12em",
+                          cursor: "pointer",
+                        }}
+                      >
+                        {isExpanded ? `SHOW LESS` : `VIEW ALL ${project.photos.length} PHOTOS`}
+                      </button>
                     </div>
-                  </button>
-                </FadeIn>
-              ))}
-            </div>
+                  )}
+                </>
+              );
+            })()}
           </div>
         </section>
       ))}
