@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "wouter";
 import Navbar from "@/components/Navbar";
 import { Helmet } from "react-helmet-async";
+import TrustBar from "@/components/TrustBar";
 
 export function FadeIn({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -122,7 +123,19 @@ export default function ServicePageLayout({
   return (
     <div style={{ backgroundColor: "oklch(0.97 0.012 85)" }}>
       <Helmet>
+        <title>{(schemaName || title)} in Bend, Oregon | Newport Avenue Landscaping</title>
+        <meta name="description" content={(schemaDescription || intro).slice(0, 160)} />
         {schemaUrl && <link rel="canonical" href={`https://newportavelandscaping.com${schemaUrl}`} />}
+        <meta property="og:title" content={`${schemaName || title} in Bend, Oregon | Newport Avenue Landscaping`} />
+        <meta property="og:description" content={(schemaDescription || intro).slice(0, 160)} />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content={heroImage} />
+        {schemaUrl && <meta property="og:url" content={`https://newportavelandscaping.com${schemaUrl}`} />}
+        <meta property="og:site_name" content="Newport Avenue Landscaping" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={`${schemaName || title} in Bend, Oregon | Newport Avenue Landscaping`} />
+        <meta name="twitter:description" content={(schemaDescription || intro).slice(0, 160)} />
+        <meta name="twitter:image" content={heroImage} />
         <script type="application/ld+json">{JSON.stringify(serviceSchema)}</script>
         {faqSchema && <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>}
       </Helmet>
@@ -162,6 +175,7 @@ export default function ServicePageLayout({
         </div>
       </section>
 
+      <TrustBar />
       {/* ── Intro ── */}
       <section className="py-16" style={{ backgroundColor: "oklch(1 0 0)" }}>
         <div className="container">

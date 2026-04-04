@@ -19,6 +19,7 @@ import FloatingCTA from "@/components/FloatingCTA";
 import PhotoGallery from "@/components/PhotoGallery";
 import WhoWeServe from "@/components/WhoWeServe";
 import ServiceAreaBand from "@/components/ServiceAreaBand";
+import TrustBar from "@/components/TrustBar";
 import MarqueeBand from "@/components/MarqueeBand";
 import BotanicalBand from "@/components/BotanicalBand";
 import LightingSection from "@/components/LightingSection";
@@ -48,6 +49,7 @@ export default function Home() {
 
       {/* Hero — photos bleed 120px below into StatsSection */}
       <HeroSection />
+      <TrustBar />
 
       {/* StatsSection receives the bleed — sits under hero photo edge */}
       <div style={{ position: "relative", zIndex: 1 }}>

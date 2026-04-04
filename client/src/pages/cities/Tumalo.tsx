@@ -42,6 +42,9 @@ const TumaloPage = () => {
       heroImage="https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportAveLandcaping-9_97b731b0.jpg"
       heroPosition="center 40%"
       tagline="Acreage & Farmstead Landscaping"
+      seoTitle="Landscaping Company Tumalo Oregon | Newport Avenue Landscaping"
+      seoDescription="Tumalo, Oregon's trusted landscaping company. Lawn care, irrigation, acreage landscaping & xeriscaping in Tumalo, OR. Licensed & Bonded LCB #9153. Free estimates."
+      canonicalPath="/landscaping/tumalo"
       intro="Newport Avenue Landscaping proudly serves the rural community of Tumalo, just north of Bend. We specialize in creating and maintaining beautiful, functional landscapes for acreage properties and hobby farms, understanding the unique needs of this agricultural-influenced area."
       communityNote="Tumalo's landscape is characterized by larger lots, often with irrigation needs due to its district, and a blend of residential and agricultural aesthetics. Our expertise in water management and diverse planting suits the high desert climate and varied property types."
       services={services}
@@ -53,13 +56,23 @@ const TumaloPage = () => {
         "Proven track record with hobby farms and residential estates",
       ]}
       nearbyAreas={[
-        "Bend",
-        "Redmond",
-        "Sisters",
-        "Powell Butte",
-        "Couch Market",
+        { label: "Bend", href: "/landscaping/bend" },
+        { label: "Redmond", href: "/landscaping/redmond" },
+        { label: "Sisters", href: "/landscaping/sisters" },
+        { label: "Powell Butte", href: "/service-areas/powell-butte-lawn-care" },
+        { label: "Couch Market", href: "/service-areas" },
       ]}
       ctaNote="Ready to transform your Tumalo acreage? Contact Newport Avenue Landscaping today for a personalized consultation and discover the potential of your property."
+      faqs={[
+        {
+          question: "Does Newport Avenue Landscaping serve Tumalo, Oregon?",
+          answer: "Yes. Newport Avenue Landscaping serves Tumalo and surrounding rural Central Oregon communities. We specialize in large-lot and acreage landscaping, irrigation district management, and farmstead landscape design.",
+        },
+        {
+          question: "Do you handle large acreage landscaping in Tumalo?",
+          answer: "Yes — acreage and large-lot landscaping is one of our specialties. We design and maintain landscapes for hobby farms, rural estates, and large residential properties throughout Tumalo and the Tumalo irrigation district.",
+        },
+      ]}
     />
   );
 };

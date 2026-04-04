@@ -8,6 +8,9 @@ export default function MadrasPage() {
       heroImage="https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEHxx/NewportLandscapingRVParkDay2Photos57_ce65cd27.jpg"
       heroPosition="center 60%"
       tagline="Cultivating Madras's Green Spaces"
+      seoTitle="Landscaping Company Madras Oregon | Newport Avenue Landscaping"
+      seoDescription="Madras, Oregon's trusted landscaping company. Lawn care, irrigation, drought-tolerant design & landscape installation in Madras, OR. Licensed & Bonded LCB #9153. Free estimates."
+      canonicalPath="/landscaping/madras"
       intro="Newport Avenue Landscaping proudly serves the vibrant community of Madras, bringing expert landscape design and maintenance to its diverse residential, commercial, and agricultural properties. Our team understands the unique environmental factors of Jefferson County, ensuring every project thrives in Madras's distinct climate."
       communityNote="Madras, as the seat of Jefferson County, experiences a warmer and drier climate compared to other Central Oregon cities, influencing plant selection and irrigation strategies. The community's agricultural roots and growing residential and commercial sectors demand versatile and resilient landscaping solutions."
       services={[
@@ -51,13 +54,24 @@ export default function MadrasPage() {
         "Strong local reputation built on quality and customer satisfaction in Jefferson County",
       ]}
       nearbyAreas={[
-        "Redmond",
-        "Prineville",
-        "Culver",
-        "Metolius",
-        "Terrebonne",
+        { label: "Redmond", href: "/landscaping/redmond" },
+        { label: "Prineville", href: "/landscaping/prineville" },
+        { label: "Culver", href: "/service-areas" },
+        { label: "Metolius", href: "/service-areas" },
+        { label: "Terrebonne", href: "/service-areas/terrebonne" },
+        { label: "Bend", href: "/landscaping/bend" },
       ]}
       ctaNote="Ready to transform your Madras property? Contact Newport Avenue Landscaping today for a personalized consultation and discover how we can enhance your outdoor space in Jefferson County."
+      faqs={[
+        {
+          question: "Does Newport Avenue Landscaping serve Madras, Oregon?",
+          answer: "Yes. Newport Avenue Landscaping serves Madras and Jefferson County. We provide lawn care, irrigation, drought-tolerant landscape design, outdoor living spaces, and commercial maintenance throughout Madras and the surrounding communities.",
+        },
+        {
+          question: "What landscaping services are available in Madras, OR?",
+          answer: "We offer custom landscape design, efficient irrigation systems, comprehensive lawn maintenance, outdoor living spaces (patios, fire pits, pergolas), drought-tolerant plantings, and seasonal color programs for Madras residential and commercial properties.",
+        },
+      ]}
     />
   );
 }

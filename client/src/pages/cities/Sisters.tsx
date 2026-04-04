@@ -8,6 +8,9 @@ export default function SistersPage() {
       heroImage="https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportAveLandcaping-9_97b731b0.jpg"
       heroPosition="center 40%"
       tagline="Mountain Landscape Artisans"
+      seoTitle="Landscaping Company Sisters Oregon | Newport Avenue Landscaping"
+      seoDescription="Sisters, Oregon's trusted landscaping company. Lawn care, irrigation, landscape design & xeriscaping in Sisters, OR. Licensed & Bonded LCB #9153. Free estimates."
+      canonicalPath="/landscaping/sisters"
       intro="In the charming mountain town of Sisters, Newport Avenue Landscaping crafts bespoke outdoor spaces that harmonize with the natural beauty of the Cascade foothills. We specialize in creating stunning landscapes for resort and vacation homes, ensuring every design reflects the rustic elegance and serene environment of this unique community."
       communityNote="Sisters' distinct character, marked by its majestic ponderosa pines and upscale vacation properties, demands a nuanced approach to landscaping. Our expertise lies in designing and maintaining environments that thrive in the high-desert mountain climate while preserving the town's beloved natural aesthetic."
       services={[
@@ -51,14 +54,24 @@ export default function SistersPage() {
         "Personalized service that respects the serene and natural character of the community",
       ]}
       nearbyAreas={[
-        "Bend",
-        "Redmond",
-        "Sunriver",
-        "Black Butte Ranch",
-        "Camp Sherman",
-        "Tumalo",
+        { label: "Bend", href: "/landscaping/bend" },
+        { label: "Redmond", href: "/landscaping/redmond" },
+        { label: "Sunriver", href: "/landscaping/sunriver" },
+        { label: "Tumalo", href: "/landscaping/tumalo" },
+        { label: "Black Butte Ranch", href: "/service-areas" },
+        { label: "Camp Sherman", href: "/service-areas" },
       ]}
       ctaNote="Ready to transform your Sisters property into a mountain oasis? Contact Newport Avenue Landscaping today for a personalized consultation and discover the difference our expertise can make in this beautiful community."
+      faqs={[
+        {
+          question: "Does Newport Avenue Landscaping serve Sisters, Oregon?",
+          answer: "Yes. Newport Avenue Landscaping serves Sisters and the surrounding Cascade foothills communities. We provide lawn care, irrigation, landscape design, native plantings, outdoor living spaces, and snow removal for both full-time residents and vacation homeowners in Sisters.",
+        },
+        {
+          question: "What plants work best for landscaping in Sisters, Oregon?",
+          answer: "Sisters' high-desert mountain climate is ideal for ponderosa pine, Oregon grape, bitterbrush, sage, native bunch grasses, and drought-tolerant perennials. We specialize in native and adapted plant selections that thrive in Sisters' unique ecosystem while reducing water use.",
+        },
+      ]}
     />
   );
 }

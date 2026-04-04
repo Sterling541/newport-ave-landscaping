@@ -8,6 +8,9 @@ export default function RedmondPage() {
       heroImage="https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportAveLandcaping-9_97b731b0.jpg"
       heroPosition="center 40%"
       tagline="High Desert Landscape Experts"
+      seoTitle="Landscaping Company Redmond Oregon | Newport Avenue Landscaping"
+      seoDescription="Redmond's trusted landscaping company since 2005. Lawn care, irrigation, landscape design, xeriscaping & snow removal in Redmond, OR. Licensed & Bonded LCB #9153. Free estimates."
+      canonicalPath="/landscaping/redmond"
       intro="Newport Avenue Landscaping proudly serves the rapidly growing community of Redmond, bringing expert landscape design and installation to its newer subdivisions and established neighborhoods. We specialize in creating beautiful, functional outdoor spaces that thrive in Redmond's unique high-desert environment, perfectly complementing both modern homes and properties with agricultural roots."
       communityNote="Redmond's landscape character is defined by its dry high-desert climate and a surge of new construction, demanding resilient and water-wise landscaping solutions. Our expertise in adapting to these conditions ensures vibrant, sustainable outdoor living areas for every property type."
       services={[
@@ -51,13 +54,28 @@ export default function RedmondPage() {
         "Innovative designs that blend modern aesthetics with Redmond's agricultural heritage",
       ]}
       nearbyAreas={[
-        "Bend",
-        "Sisters",
-        "Tumalo",
-        "Prineville",
-        "Terrebonne",
+        { label: "Bend", href: "/landscaping/bend" },
+        { label: "Sisters", href: "/landscaping/sisters" },
+        { label: "Tumalo", href: "/landscaping/tumalo" },
+        { label: "Prineville", href: "/landscaping/prineville" },
+        { label: "Terrebonne", href: "/service-areas/terrebonne" },
+        { label: "Madras", href: "/landscaping/madras" },
       ]}
       ctaNote="Ready to transform your Redmond property? Contact Newport Avenue Landscaping today for a consultation and let us bring your outdoor vision to life in this vibrant city."
+      faqs={[
+        {
+          question: "Does Newport Avenue Landscaping serve Redmond, Oregon?",
+          answer: "Yes — Newport Avenue Landscaping has served Redmond, Oregon since 2005. We provide full-service landscaping including lawn care, irrigation, landscape design, xeriscaping, paver patios, snow removal, and commercial maintenance throughout Redmond and Jefferson County.",
+        },
+        {
+          question: "How much does lawn care cost in Redmond, Oregon?",
+          answer: "Lawn care in Redmond typically runs $50–$110 per visit for a standard residential property. Monthly maintenance programs are available. We provide free estimates for all Redmond properties.",
+        },
+        {
+          question: "Do you install irrigation systems in Redmond, OR?",
+          answer: "Yes. We design and install complete sprinkler and drip irrigation systems in Redmond. We also offer spring activation, fall blowout, and year-round repair services. Redmond's sandy high-desert soils require efficient irrigation — we design systems specifically for the local climate.",
+        },
+      ]}
     />
   );
 }

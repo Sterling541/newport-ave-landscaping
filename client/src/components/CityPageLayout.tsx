@@ -1,12 +1,17 @@
 /* ============================================================
    CITY PAGE LAYOUT — Newport Avenue Landscaping
    Reusable template for all city/community landing pages.
-   Each city gets unique content via props.
+   SEO-optimized: per-page title, description, canonical URL,
+   LocalBusiness + Service + BreadcrumbList + FAQPage schema,
+   internal links to service pages and nearby area pages,
+   and conversion-focused trust + CTA blocks.
    ============================================================ */
 import { useEffect, useRef, useState } from "react";
-import { useLocation } from "wouter";
+import { useLocation, Link } from "wouter";
+import { Helmet } from "react-helmet-async";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import TrustBar from "@/components/TrustBar";
 import {
   CheckCircle2,
   MapPin,
@@ -18,6 +23,7 @@ import {
   Flame,
   Sun,
   Snowflake,
+  Star,
 } from "lucide-react";
 
 // ── FadeIn helper ────────────────────────────────────────────
@@ -60,20 +66,31 @@ export interface CityService {
   icon: "leaf" | "droplets" | "wrench" | "flame" | "sun" | "snowflake";
   name: string;
   description: string;
+  href?: string; // internal link to service page
+}
+
+export interface NearbyArea {
+  label: string;
+  href: string; // internal link to that city/service-area page
 }
 
 export interface CityPageProps {
   city: string;
-  region: string; // e.g. "Central Oregon"
+  region: string;
   heroImage: string;
   heroPosition?: string;
-  tagline: string; // short italic hero subtitle
-  intro: string; // 2-3 sentence intro paragraph
-  communityNote: string; // 1-2 sentences about the community itself
+  tagline: string;
+  intro: string;
+  communityNote: string;
   services: CityService[];
-  whyUs: string[]; // 4-6 bullet points
-  nearbyAreas: string[]; // neighboring communities we also serve
-  ctaNote?: string; // optional extra CTA note
+  whyUs: string[];
+  nearbyAreas: NearbyArea[] | string[]; // support both old string[] and new NearbyArea[]
+  ctaNote?: string;
+  // SEO props
+  seoTitle?: string;
+  seoDescription?: string;
+  canonicalPath?: string; // e.g. "/landscaping/bend"
+  faqs?: { question: string; answer: string }[];
 }
 
 const ICON_MAP = {
@@ -84,6 +101,9 @@ const ICON_MAP = {
   sun: Sun,
   snowflake: Snowflake,
 };
+
+const BASE_URL = "https://newportavelandscaping.com";
+const SITE_NAME = "Newport Avenue Landscaping";
 
 // ── Component ─────────────────────────────────────────────────
 export default function CityPageLayout(props: CityPageProps) {
@@ -99,12 +119,130 @@ export default function CityPageLayout(props: CityPageProps) {
     whyUs,
     nearbyAreas,
     ctaNote,
+    seoTitle,
+    seoDescription,
+    canonicalPath,
+    faqs,
   } = props;
 
   const [, navigate] = useLocation();
 
+  // Build SEO values
+  const pageTitle = seoTitle || `${city} Landscaping Company | ${SITE_NAME}`;
+  const pageDesc = seoDescription ||
+    `Newport Avenue Landscaping — ${city}'s trusted landscaping company since 2005. Lawn care, irrigation, landscape design, xeriscaping & more in ${city}, ${region}. Licensed & Bonded LCB #9153. Free estimates.`;
+  const canonical = canonicalPath ? `${BASE_URL}${canonicalPath}` : undefined;
+
+  // Structured data
+  const localBusinessSchema = {
+    "@context": "https://schema.org",
+    "@type": ["LocalBusiness", "LandscapeService"],
+    "@id": `${BASE_URL}/#business`,
+    name: SITE_NAME,
+    url: BASE_URL,
+    telephone: "+15416178873",
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "64625 N. HWY 97 #100",
+      addressLocality: "Bend",
+      addressRegion: "OR",
+      postalCode: "97701",
+      addressCountry: "US",
+    },
+    areaServed: { "@type": "City", name: city },
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: "4.9",
+      reviewCount: "127",
+      bestRating: "5",
+    },
+  };
+
+  const serviceSchema = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: `Landscaping Services in ${city}, Oregon`,
+    description: pageDesc,
+    url: canonical || `${BASE_URL}/landscaping/${city.toLowerCase().replace(/\s+/g, "-")}`,
+    provider: {
+      "@type": "LocalBusiness",
+      "@id": `${BASE_URL}/#business`,
+      name: SITE_NAME,
+    },
+    areaServed: { "@type": "City", name: city, addressRegion: "OR" },
+    serviceType: "Landscaping",
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: BASE_URL },
+      { "@type": "ListItem", position: 2, name: "Service Areas", item: `${BASE_URL}/service-areas` },
+      { "@type": "ListItem", position: 3, name: `${city} Landscaping`, item: canonical || `${BASE_URL}/landscaping/${city.toLowerCase()}` },
+    ],
+  };
+
+  const faqSchema = faqs && faqs.length > 0 ? {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: { "@type": "Answer", text: faq.answer },
+    })),
+  } : null;
+
+  // Normalize nearbyAreas to NearbyArea[]
+  const normalizedNearby: NearbyArea[] = nearbyAreas.map((a) =>
+    typeof a === "string"
+      ? { label: a, href: `/service-areas/${a.toLowerCase().replace(/\s+/g, "-")}` }
+      : a
+  );
+
+  // All service internal links
+  const allServiceLinks = [
+    { label: "Lawn Care & Maintenance", href: "/services/lawn-service" },
+    { label: "Landscape Design", href: "/services/landscape-design" },
+    { label: "Irrigation Installation", href: "/services/irrigation" },
+    { label: "Sprinkler Repair", href: "/services/sprinkler-repair" },
+    { label: "Sprinkler Activation", href: "/services/sprinkler-activation" },
+    { label: "Sprinkler Blowout", href: "/services/sprinkler-blowout" },
+    { label: "Pavers & Walkways", href: "/services/pavers" },
+    { label: "Xeriscaping", href: "/services/xeriscaping" },
+    { label: "Water Features", href: "/services/water-features" },
+    { label: "Outdoor Living Spaces", href: "/services/outdoor-living" },
+    { label: "Fire Pits & Fireplaces", href: "/services/fire-features" },
+    { label: "Landscape Lighting", href: "/services/landscape-lighting" },
+    { label: "Snow Removal", href: "/services/snow-removal" },
+    { label: "Aeration", href: "/services/aeration" },
+    { label: "Lawn Fungus Treatment", href: "/services/lawn-fungus" },
+    { label: "Commercial Maintenance", href: "/commercial" },
+  ];
+
   return (
     <div className="min-h-screen" style={{ backgroundColor: "oklch(1 0 0)" }}>
+      {/* ── SEO HEAD ──────────────────────────────────────── */}
+      <Helmet>
+        <title>{pageTitle}</title>
+        <meta name="description" content={pageDesc} />
+        {canonical && <link rel="canonical" href={canonical} />}
+        <meta property="og:title" content={pageTitle} />
+        <meta property="og:description" content={pageDesc} />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content={heroImage} />
+        {canonical && <meta property="og:url" content={canonical} />}
+        <meta property="og:site_name" content={SITE_NAME} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={pageTitle} />
+        <meta name="twitter:description" content={pageDesc} />
+        <meta name="twitter:image" content={heroImage} />
+        <script type="application/ld+json">{JSON.stringify(localBusinessSchema)}</script>
+        <script type="application/ld+json">{JSON.stringify(serviceSchema)}</script>
+        <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
+        {faqSchema && <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>}
+      </Helmet>
+
       <Navbar />
 
       {/* ── HERO ──────────────────────────────────────────── */}
@@ -128,6 +266,26 @@ export default function CityPageLayout(props: CityPageProps) {
           }}
         />
         <div className="relative z-10 container pb-14 pt-28">
+          {/* Breadcrumb */}
+          <nav aria-label="Breadcrumb" className="mb-4">
+            <ol className="flex items-center gap-2 flex-wrap" style={{ listStyle: "none", padding: 0, margin: 0 }}>
+              <li>
+                <Link href="/" style={{ color: "oklch(0.72 0.12 25)", fontSize: "0.65rem", fontFamily: "'Montserrat', sans-serif", letterSpacing: "0.1em", textDecoration: "none" }}>
+                  Home
+                </Link>
+              </li>
+              <li style={{ color: "oklch(0.50 0.005 0)", fontSize: "0.65rem" }}>›</li>
+              <li>
+                <Link href="/service-areas" style={{ color: "oklch(0.72 0.12 25)", fontSize: "0.65rem", fontFamily: "'Montserrat', sans-serif", letterSpacing: "0.1em", textDecoration: "none" }}>
+                  Service Areas
+                </Link>
+              </li>
+              <li style={{ color: "oklch(0.50 0.005 0)", fontSize: "0.65rem" }}>›</li>
+              <li style={{ color: "oklch(0.85 0.005 0)", fontSize: "0.65rem", fontFamily: "'Montserrat', sans-serif", letterSpacing: "0.1em" }}>
+                {city}
+              </li>
+            </ol>
+          </nav>
           <div
             className="font-label mb-3 flex items-center gap-3"
             style={{ color: "oklch(0.72 0.12 25)" }}
@@ -144,8 +302,7 @@ export default function CityPageLayout(props: CityPageProps) {
               maxWidth: "680px",
             }}
           >
-            {city} Landscaping &amp;
-            <br />
+            {city} Landscaping &amp;{" "}
             <em style={{ color: "oklch(0.72 0.12 25)", fontStyle: "italic" }}>
               {tagline}
             </em>
@@ -165,11 +322,11 @@ export default function CityPageLayout(props: CityPageProps) {
           <div className="flex flex-wrap gap-4">
             <button
               onClick={() => navigate("/contact")}
-              className="btn-primary"
+              className="btn-pill-copper"
             >
               Get a Free Quote
             </button>
-            <a href="tel:5416178873" className="btn-outline-light">
+            <a href="tel:5416178873" className="btn-outline-white">
               (541) 617-8873
             </a>
           </div>
@@ -198,8 +355,8 @@ export default function CityPageLayout(props: CityPageProps) {
           </div>
         </div>
       </div>
-
-      {/* ── INTRO ─────────────────────────────────────────── */}
+      <TrustBar />
+      {/* ── INTRO ────────────────────────────────────────────────── */}
       <section className="py-20" style={{ backgroundColor: "oklch(1 0 0)" }}>
         <div className="container">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
@@ -292,6 +449,17 @@ export default function CityPageLayout(props: CityPageProps) {
                       </li>
                     ))}
                   </ul>
+                  {/* Star rating trust signal */}
+                  <div className="mt-5 pt-5 flex items-center gap-3" style={{ borderTop: "1px solid oklch(0.88 0.005 0)" }}>
+                    <div className="flex gap-0.5">
+                      {[1,2,3,4,5].map((s) => (
+                        <Star key={s} size={13} fill="oklch(0.72 0.18 60)" stroke="none" />
+                      ))}
+                    </div>
+                    <span className="font-label" style={{ fontSize: "0.60rem", color: "oklch(0.45 0.005 0)", letterSpacing: "0.12em" }}>
+                      4.9 / 5 — 127+ GOOGLE REVIEWS
+                    </span>
+                  </div>
                 </div>
               </div>
             </FadeIn>
@@ -318,7 +486,7 @@ export default function CityPageLayout(props: CityPageProps) {
               <h2
                 className="font-display font-light"
                 style={{
-                  fontSize: "clamp(1.7rem, 3vw, 2.6rem)",
+                  fontSize: "clamp(1.6rem, 3vw, 2.6rem)",
                   color: "oklch(0.12 0.005 0)",
                   lineHeight: 1.1,
                 }}
@@ -335,41 +503,64 @@ export default function CityPageLayout(props: CityPageProps) {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {services.map((svc, i) => {
               const Icon = ICON_MAP[svc.icon];
-              return (
-                <FadeIn key={svc.name} delay={i * 0.07}>
+              const card = (
+                <div
+                  className="h-full"
+                  style={{
+                    backgroundColor: "oklch(1 0 0)",
+                    border: "1px solid oklch(0.90 0.005 0)",
+                    borderRadius: "2px",
+                    padding: "28px 24px",
+                    transition: "box-shadow 0.2s ease, transform 0.2s ease",
+                  }}
+                  onMouseEnter={(e) => {
+                    (e.currentTarget as HTMLElement).style.boxShadow = "0 4px 20px oklch(0.18 0.008 30 / 0.10)";
+                    (e.currentTarget as HTMLElement).style.transform = "translateY(-2px)";
+                  }}
+                  onMouseLeave={(e) => {
+                    (e.currentTarget as HTMLElement).style.boxShadow = "none";
+                    (e.currentTarget as HTMLElement).style.transform = "translateY(0)";
+                  }}
+                >
                   <div
-                    className="h-full"
+                    className="mb-4 flex items-center justify-center"
                     style={{
-                      backgroundColor: "oklch(1 0 0)",
-                      border: "1px solid oklch(0.90 0.005 0)",
+                      width: "44px",
+                      height: "44px",
+                      backgroundColor: "oklch(0.96 0.025 25)",
                       borderRadius: "2px",
-                      padding: "28px 24px",
                     }}
                   >
-                    <div
-                      className="mb-4 flex items-center justify-center"
-                      style={{
-                        width: "44px",
-                        height: "44px",
-                        backgroundColor: "oklch(0.96 0.025 25)",
-                        borderRadius: "2px",
-                      }}
-                    >
-                      <Icon size={20} strokeWidth={1.5} style={{ color: "oklch(0.46 0.20 25)" }} />
-                    </div>
-                    <h3
-                      className="font-display font-light mb-2"
-                      style={{ fontSize: "1.15rem", color: "oklch(0.12 0.005 0)" }}
-                    >
-                      {svc.name}
-                    </h3>
-                    <p
-                      className="font-body"
-                      style={{ color: "oklch(0.45 0.005 0)", fontSize: "0.88rem", lineHeight: 1.7 }}
-                    >
-                      {svc.description}
-                    </p>
+                    <Icon size={20} strokeWidth={1.5} style={{ color: "oklch(0.46 0.20 25)" }} />
                   </div>
+                  <h3
+                    className="font-display font-light mb-2"
+                    style={{ fontSize: "1.15rem", color: "oklch(0.12 0.005 0)" }}
+                  >
+                    {svc.name}
+                  </h3>
+                  <p
+                    className="font-body"
+                    style={{ color: "oklch(0.45 0.005 0)", fontSize: "0.88rem", lineHeight: 1.7 }}
+                  >
+                    {svc.description}
+                  </p>
+                  {svc.href && (
+                    <div className="mt-3">
+                      <span style={{ color: "oklch(0.46 0.20 25)", fontSize: "0.68rem", fontFamily: "'Montserrat', sans-serif", fontWeight: 600, letterSpacing: "0.1em" }}>
+                        Learn more →
+                      </span>
+                    </div>
+                  )}
+                </div>
+              );
+              return (
+                <FadeIn key={svc.name} delay={i * 0.07}>
+                  {svc.href ? (
+                    <Link href={svc.href} style={{ textDecoration: "none", display: "block", height: "100%" }}>
+                      {card}
+                    </Link>
+                  ) : card}
                 </FadeIn>
               );
             })}
@@ -377,27 +568,116 @@ export default function CityPageLayout(props: CityPageProps) {
         </div>
       </section>
 
-      {/* ── NEARBY AREAS ──────────────────────────────────────────────────── */}
+      {/* ── ALL SERVICES INTERNAL LINK BLOCK ──────────────── */}
+      <section className="py-14" style={{ backgroundColor: "oklch(0.15 0.005 0)" }}>
+        <div className="container">
+          <FadeIn>
+            <div className="font-label mb-6" style={{ color: "oklch(0.72 0.12 25)", fontSize: "0.62rem", letterSpacing: "0.18em" }}>
+              FULL SERVICE MENU — {city.toUpperCase()}, OREGON
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {allServiceLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "0.3rem",
+                    padding: "0.5rem 1rem",
+                    backgroundColor: "oklch(0.22 0.008 30)",
+                    color: "oklch(0.85 0.005 0)",
+                    fontFamily: "'Montserrat', sans-serif",
+                    fontSize: "0.65rem",
+                    fontWeight: 500,
+                    letterSpacing: "0.08em",
+                    textDecoration: "none",
+                    borderRadius: "0.15rem",
+                    transition: "background-color 0.2s ease",
+                  }}
+                  onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "oklch(0.46 0.20 25)"; }}
+                  onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "oklch(0.22 0.008 30)"; }}
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </div>
+          </FadeIn>
+        </div>
+      </section>
+
+      {/* ── FAQ SECTION ───────────────────────────────────── */}
+      {faqs && faqs.length > 0 && (
+        <section className="py-20" style={{ backgroundColor: "oklch(1 0 0)" }}>
+          <div className="container">
+            <FadeIn>
+              <div className="font-label mb-2" style={{ color: "oklch(0.46 0.20 25)", fontSize: "0.62rem" }}>
+                FREQUENTLY ASKED QUESTIONS
+              </div>
+              <h2 className="font-display font-light mb-10" style={{ fontSize: "clamp(1.5rem, 2.5vw, 2.2rem)", color: "oklch(0.12 0.005 0)" }}>
+                {city} Landscaping FAQ
+              </h2>
+              <div className="space-y-6 max-w-3xl">
+                {faqs.map((faq, i) => (
+                  <FadeIn key={i} delay={i * 0.05}>
+                    <div style={{ borderLeft: "3px solid oklch(0.46 0.20 25)", paddingLeft: "1.25rem" }}>
+                      <h3 className="font-body mb-2" style={{ fontWeight: 600, fontSize: "0.95rem", color: "oklch(0.18 0.005 0)" }}>
+                        {faq.question}
+                      </h3>
+                      <p className="font-body" style={{ color: "oklch(0.42 0.005 0)", fontSize: "0.9rem", lineHeight: 1.75 }}>
+                        {faq.answer}
+                      </p>
+                    </div>
+                  </FadeIn>
+                ))}
+              </div>
+            </FadeIn>
+          </div>
+        </section>
+      )}
+
+      {/* ── NEARBY AREAS — now with real internal links ───── */}
       <section className="py-14" style={{ backgroundColor: "oklch(0.965 0.008 85)" }}>
         <div className="container">
-          <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
-            <span
-              className="font-label"
-              style={{ color: "oklch(0.46 0.20 25)", fontSize: "0.60rem", letterSpacing: "0.16em" }}
-            >
-              ALSO SERVING NEARBY:
-            </span>
-            {nearbyAreas.map((area) => (
-              <span
-                key={area}
-                className="font-body"
-                style={{ color: "oklch(0.30 0.005 0)", fontSize: "0.88rem" }}
-              >
-                {area}
-                <span style={{ color: "oklch(0.46 0.20 25)", margin: "0 6px" }}>·</span>
-              </span>
-            ))}
-          </div>
+          <FadeIn>
+            <div className="font-label mb-4" style={{ color: "oklch(0.46 0.20 25)", fontSize: "0.60rem", letterSpacing: "0.16em" }}>
+              ALSO SERVING NEARBY COMMUNITIES
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {normalizedNearby.map((area) => (
+                <Link
+                  key={area.label}
+                  href={area.href}
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "0.3rem",
+                    padding: "0.45rem 1rem",
+                    backgroundColor: "oklch(1 0 0)",
+                    border: "1px solid oklch(0.85 0.005 0)",
+                    color: "oklch(0.30 0.005 0)",
+                    fontFamily: "'Montserrat', sans-serif",
+                    fontSize: "0.68rem",
+                    fontWeight: 500,
+                    textDecoration: "none",
+                    borderRadius: "0.15rem",
+                    transition: "border-color 0.2s ease, color 0.2s ease",
+                  }}
+                  onMouseEnter={(e) => {
+                    (e.currentTarget as HTMLAnchorElement).style.borderColor = "oklch(0.46 0.20 25)";
+                    (e.currentTarget as HTMLAnchorElement).style.color = "oklch(0.46 0.20 25)";
+                  }}
+                  onMouseLeave={(e) => {
+                    (e.currentTarget as HTMLAnchorElement).style.borderColor = "oklch(0.85 0.005 0)";
+                    (e.currentTarget as HTMLAnchorElement).style.color = "oklch(0.30 0.005 0)";
+                  }}
+                >
+                  <MapPin size={10} strokeWidth={2} />
+                  {area.label}
+                </Link>
+              ))}
+            </div>
+          </FadeIn>
         </div>
       </section>
 
@@ -445,12 +725,12 @@ export default function CityPageLayout(props: CityPageProps) {
             <div className="flex flex-wrap gap-4 justify-center mt-6">
               <button
                 onClick={() => navigate("/contact")}
-                className="btn-primary"
+                className="btn-pill-copper"
               >
                 Request a Free Quote
                 <ChevronRight size={14} className="ml-1" />
               </button>
-              <a href="tel:5416178873" className="btn-outline">
+              <a href="tel:5416178873" className="btn-outline-dark">
                 (541) 617-8873
               </a>
             </div>

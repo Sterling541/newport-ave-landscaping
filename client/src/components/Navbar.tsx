@@ -55,8 +55,9 @@ function MegaMenuItem({
 }) {
   const [hovered, setHovered] = useState(false);
   return (
-    <button
-      onClick={() => onNavigate(item.href)}
+    <a
+      href={item.href}
+      onClick={(e) => { e.preventDefault(); onNavigate(item.href); }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
@@ -72,6 +73,7 @@ function MegaMenuItem({
         gap: "1rem",
         transition: "padding-left 0.2s ease",
         paddingLeft: hovered ? "0.5rem" : "0",
+        textDecoration: "none",
       }}
     >
       <span
@@ -108,11 +110,10 @@ function MegaMenuItem({
           transform: hovered ? "translateX(0)" : "translateX(-6px)",
           transition: "opacity 0.2s ease, transform 0.2s ease",
         }}
-      />
-    </button>
+       />
+    </a>
   );
 }
-
 function MegaMenu({
   items,
   photo,
@@ -408,11 +409,13 @@ export default function Navbar() {
           <div style={{ display: "flex", alignItems: "center", gap: "2.5rem", flex: 1 }}>
             <NavTextLink
               label="About"
+              href="/about"
               active={isActive("/about")}
               onClick={() => goTo("/about")}
             />
             <NavTextLink
               label="Our Work"
+              href="/our-work"
               active={isActive("/our-work")}
               onClick={() => goTo("/our-work")}
             />
@@ -423,6 +426,7 @@ export default function Navbar() {
             >
               <NavTextLink
                 label="Maintenance"
+                href="/maintenance"
                 active={openMega === "maintenance" || isActive("/maintenance")}
                 onClick={() => goTo("/maintenance")}
                 hasArrow
@@ -441,13 +445,14 @@ export default function Navbar() {
               alignItems: "center",
             }}
           >
-            <button
-              onClick={() => goTo("/")}
-              style={{ background: "none", border: "none", cursor: "pointer", padding: 0 }}
+            <a
+              href="/"
+              onClick={(e) => { e.preventDefault(); goTo("/"); }}
+              style={{ background: "none", border: "none", cursor: "pointer", padding: 0, display: "block", textDecoration: "none" }}
             >
               <img
                 src={LOGO_NAV}
-                alt="Newport Avenue Landscaping"
+                alt="Newport Avenue Landscaping — Bend, Oregon Landscaping Company"
                 style={{
                   height: "150px",
                   width: "auto",
@@ -458,7 +463,7 @@ export default function Navbar() {
                   filter: "drop-shadow(0 4px 18px oklch(0.18 0.008 30 / 0.15))",
                 }}
               />
-            </button>
+            </a>
           </div>
 
           {/* ── Right cluster ── */}
@@ -470,6 +475,7 @@ export default function Navbar() {
             >
               <NavTextLink
                 label="Services"
+                href="/services"
                 active={openMega === "services" || isActive("/services")}
                 onClick={() => goTo("/services")}
                 hasArrow
@@ -478,16 +484,19 @@ export default function Navbar() {
             </div>
             <NavTextLink
               label="Commercial"
+              href="/commercial"
               active={isActive("/commercial")}
               onClick={() => goTo("/commercial")}
             />
             <NavTextLink
               label="Resources"
+              href="/resources"
               active={isActive("/resources")}
               onClick={() => goTo("/resources")}
             />
             <NavTextLink
               label="Service Areas"
+              href="/service-areas"
               active={isActive("/service-areas")}
               onClick={() => goTo("/service-areas")}
             />
@@ -592,11 +601,14 @@ export default function Navbar() {
               ] as Array<{ label: string; href: string; dropdown?: { label: string; href: string; num: string }[] }>
             ).map((item) => (
               <div key={item.label}>
-                <button
-                  onClick={() => {
+                <a
+                  href={item.href}
+                  onClick={(e) => {
                     if (item.dropdown) {
+                      e.preventDefault();
                       setMobileExpanded(mobileExpanded === item.label ? null : item.label);
                     } else {
+                      e.preventDefault();
                       goTo(item.href);
                     }
                   }}
@@ -617,6 +629,7 @@ export default function Navbar() {
                     letterSpacing: "0.15em",
                     textTransform: "uppercase",
                     color: "oklch(0.22 0.008 30)",
+                    textDecoration: "none",
                   }}
                 >
                   {item.label}
@@ -630,14 +643,15 @@ export default function Navbar() {
                       }}
                     />
                   )}
-                </button>
+                </a>
 
                 {item.dropdown && mobileExpanded === item.label && (
                   <div style={{ paddingLeft: "1rem", paddingBottom: "0.5rem" }}>
                     {item.dropdown.map((sub) => (
-                      <button
+                      <a
                         key={sub.href}
-                        onClick={() => goTo(sub.href)}
+                        href={sub.href}
+                        onClick={(e) => { e.preventDefault(); goTo(sub.href); }}
                         style={{
                           width: "100%",
                           textAlign: "left",
@@ -654,13 +668,14 @@ export default function Navbar() {
                           display: "flex",
                           alignItems: "center",
                           gap: "0.5rem",
+                          textDecoration: "none",
                         }}
                       >
                         <span style={{ color: "oklch(0.40 0.008 30)", fontFamily: "'Cormorant Garamond', serif", fontStyle: "italic" }}>
                           {sub.num}
                         </span>
                         {sub.label}
-                      </button>
+                      </a>
                     ))}
                   </div>
                 )}
@@ -757,45 +772,44 @@ export default function Navbar() {
 /* ── Reusable nav text link ── */
 function NavTextLink({
   label,
+  href,
   active,
   onClick,
   hasArrow,
   arrowOpen,
 }: {
   label: string;
+  href?: string;
   active?: boolean;
   onClick: () => void;
   hasArrow?: boolean;
   arrowOpen?: boolean;
 }) {
   const [hovered, setHovered] = useState(false);
-  return (
-    <button
-      onClick={onClick}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      style={{
-        background: "none",
-        border: "none",
-        padding: "0.25rem 0",
-        cursor: "pointer",
-        position: "relative",
-        fontFamily: "'Montserrat', sans-serif",
-        fontSize: "0.6rem",
-        fontWeight: 700,
-        letterSpacing: "0.18em",
-        textTransform: "uppercase",
-        color: active
-          ? "oklch(0.22 0.008 30)"
-          : hovered
-          ? "oklch(0.22 0.008 30)"
-          : "oklch(0.35 0.008 30)",
-        display: "flex",
-        alignItems: "center",
-        gap: "0.3rem",
-        transition: "color 0.15s ease",
-      }}
-    >
+  const sharedStyle: React.CSSProperties = {
+    background: "none",
+    border: "none",
+    padding: "0.25rem 0",
+    cursor: "pointer",
+    position: "relative",
+    fontFamily: "'Montserrat', sans-serif",
+    fontSize: "0.6rem",
+    fontWeight: 700,
+    letterSpacing: "0.18em",
+    textTransform: "uppercase",
+    color: active
+      ? "oklch(0.22 0.008 30)"
+      : hovered
+      ? "oklch(0.22 0.008 30)"
+      : "oklch(0.35 0.008 30)",
+    display: "flex",
+    alignItems: "center",
+    gap: "0.3rem",
+    transition: "color 0.15s ease",
+    textDecoration: "none",
+  };
+  const inner = (
+    <>
       {label}
       {hasArrow && (
         <ChevronDown
@@ -820,6 +834,29 @@ function NavTextLink({
           transition: "transform 0.2s ease",
         }}
       />
+    </>
+  );
+  if (href) {
+    return (
+      <a
+        href={href}
+        onClick={(e) => { e.preventDefault(); onClick(); }}
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+        style={sharedStyle}
+      >
+        {inner}
+      </a>
+    );
+  }
+  return (
+    <button
+      onClick={onClick}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={sharedStyle}
+    >
+      {inner}
     </button>
   );
 }
