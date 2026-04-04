@@ -27,8 +27,14 @@ const segments = [
     proof: "Government Contracts · Retail Centers · Office Parks",
     accent: "oklch(0.68 0.14 28)",
     tag: "Property Managers",
-    photo: `${CDN}/NewportLandscapingRVParkDay2Photos57_ce65cd27.jpg`,
-    photoAlt: "Large-scale commercial landscaping project by Newport Avenue Landscaping",
+    photo: `${CDN}/DiscoveryWestPlazaHiResPhotos55_79ba9dd5.jpg`,
+    photoAlt: "Discovery West Plaza commercial landscape installation by Newport Avenue Landscaping",
+    photoLabel: "Discovery West Plaza",
+    stats: [
+      { value: "50+", label: "Commercial Clients" },
+      { value: "21", label: "Years in Business" },
+      { value: "LCB #9153", label: "Licensed & Bonded" },
+    ],
   },
   {
     number: "03",
@@ -204,7 +210,7 @@ export default function WhoWeServe() {
               {/* ── Photo panel (2 cols) ── */}
               <div
                 className="lg:col-span-2 relative overflow-hidden"
-                style={{ minHeight: "clamp(240px, 30vw, 420px)" }}
+                style={{ minHeight: "clamp(260px, 32vw, 480px)" }}
               >
                 <img
                   src={seg.photo}
@@ -216,8 +222,8 @@ export default function WhoWeServe() {
                     width: "100%",
                     height: "100%",
                     objectFit: "cover",
-                    objectPosition: "center",
-                    filter: "brightness(0.88) saturate(1.05)",
+                    objectPosition: "center 40%",
+                    filter: "brightness(0.88) saturate(1.08)",
                   }}
                 />
                 {/* Subtle left-edge gradient to blend into text panel */}
@@ -229,6 +235,83 @@ export default function WhoWeServe() {
                     pointerEvents: "none",
                   }}
                 />
+                {/* Project name badge — shown only when photoLabel exists */}
+                {(seg as any).photoLabel && (
+                  <div
+                    style={{
+                      position: "absolute",
+                      bottom: "1rem",
+                      right: "1rem",
+                      backgroundColor: "oklch(0.10 0.005 0 / 0.82)",
+                      backdropFilter: "blur(6px)",
+                      border: "1px solid oklch(0.30 0.005 0)",
+                      padding: "0.35rem 0.75rem",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "0.4rem",
+                    }}
+                  >
+                    <span
+                      style={{
+                        width: "5px",
+                        height: "5px",
+                        borderRadius: "50%",
+                        backgroundColor: seg.accent,
+                        flexShrink: 0,
+                      }}
+                    />
+                    <span
+                      className="font-label"
+                      style={{
+                        color: "oklch(0.80 0.005 0)",
+                        fontSize: "0.56rem",
+                        letterSpacing: "0.12em",
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      {(seg as any).photoLabel.toUpperCase()}
+                    </span>
+                  </div>
+                )}
+                {/* Stats overlay — shown only when stats exist */}
+                {(seg as any).stats && (
+                  <div
+                    style={{
+                      position: "absolute",
+                      top: "1rem",
+                      right: "1rem",
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: "0.5rem",
+                    }}
+                  >
+                    {(seg as any).stats.map((s: any) => (
+                      <div
+                        key={s.label}
+                        style={{
+                          backgroundColor: "oklch(0.10 0.005 0 / 0.82)",
+                          backdropFilter: "blur(6px)",
+                          border: `1px solid ${seg.accent}44`,
+                          padding: "0.4rem 0.7rem",
+                          textAlign: "right",
+                        }}
+                      >
+                        <div
+                          className="font-display"
+                          style={{ color: seg.accent, fontSize: "1rem", fontWeight: 600, lineHeight: 1.1 }}
+                        >
+                          {s.value}
+                        </div>
+                        <div
+                          className="font-label"
+                          style={{ color: "oklch(0.55 0.005 0)", fontSize: "0.5rem", letterSpacing: "0.1em" }}
+                        >
+                          {s.label.toUpperCase()}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
                 {/* Accent color bottom strip */}
                 <div
                   style={{
