@@ -190,13 +190,13 @@ export default function OurWork() {
       >
         <div className="absolute inset-0" style={{ background: "linear-gradient(0deg, oklch(0.10 0.005 0 / 0.95) 0%, oklch(0 0 0 / 0.35) 70%)" }} />
         <div className="container relative pb-14" style={{ paddingTop: "clamp(200px, 22vw, 280px)" }}>
-          <div className="font-label mb-3 flex items-center gap-3" style={{ color: "oklch(0.72 0.12 25)" }}>
-            <span className="inline-block h-px w-7" style={{ backgroundColor: "oklch(0.46 0.20 25)" }} />
+          <div className="font-label mb-3 flex items-center gap-3" style={{ color: "oklch(0.72 0.14 240)" }}>
+            <span className="inline-block h-px w-7" style={{ backgroundColor: "oklch(0.65 0.16 240)" }} />
             Portfolio
           </div>
           <h1 className="font-display font-light text-white" style={{ fontSize: "clamp(2.4rem, 6vw, 5rem)", lineHeight: 1.0 }}>
             Our Work<br />
-            <em style={{ color: "oklch(0.75 0.10 25)" }}>Central Oregon</em>
+            <em style={{ color: "oklch(0.72 0.14 240)" }}>Central Oregon</em>
           </h1>
           <p className="font-body mt-4" style={{ color: "oklch(0.72 0.008 0)", fontWeight: 300, maxWidth: "520px" }}>
             Real projects. Real craftsmanship. Browse our portfolio of residential and commercial landscaping work across Central Oregon.
@@ -212,9 +212,9 @@ export default function OurWork() {
             className="font-nav px-6 py-2.5 transition-all duration-200"
             style={{
               borderRadius: "1.2rem 0.15rem 1.2rem 0.15rem",
-              backgroundColor: activeTab === "featured" ? "oklch(0.46 0.20 25)" : "transparent",
+              backgroundColor: activeTab === "featured" ? "oklch(0.38 0.14 240)" : "transparent",
               color: activeTab === "featured" ? "oklch(1 0 0)" : "oklch(0.65 0.008 0)",
-              border: activeTab === "featured" ? "none" : "1.5px solid oklch(0.35 0.005 0)",
+              border: activeTab === "featured" ? "1.5px solid oklch(0.55 0.16 240)" : "1.5px solid oklch(0.35 0.005 0)",
               fontSize: "0.65rem",
             }}
           >
@@ -225,9 +225,9 @@ export default function OurWork() {
             className="font-nav px-6 py-2.5 transition-all duration-200"
             style={{
               borderRadius: "1.2rem 0.15rem 1.2rem 0.15rem",
-              backgroundColor: activeTab === "legacy" ? "oklch(0.46 0.20 25)" : "transparent",
+              backgroundColor: activeTab === "legacy" ? "oklch(0.38 0.14 240)" : "transparent",
               color: activeTab === "legacy" ? "oklch(1 0 0)" : "oklch(0.65 0.008 0)",
-              border: activeTab === "legacy" ? "none" : "1.5px solid oklch(0.35 0.005 0)",
+              border: activeTab === "legacy" ? "1.5px solid oklch(0.55 0.16 240)" : "1.5px solid oklch(0.35 0.005 0)",
               fontSize: "0.65rem",
             }}
           >
@@ -277,7 +277,7 @@ export default function OurWork() {
             <FadeIn>
               <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
                 <div>
-                  <span className="font-label block mb-2" style={{ color: "oklch(0.46 0.20 25)" }}>{project.location}</span>
+                  <span className="font-label block mb-2" style={{ color: "oklch(0.65 0.16 240)" }}>{project.location}</span>
                   <h2 className="font-display font-light text-white" style={{ fontSize: "clamp(1.8rem, 3vw, 2.6rem)", lineHeight: 1.1 }}>
                     {project.name}
                   </h2>
@@ -286,7 +286,7 @@ export default function OurWork() {
                   </p>
                   <div className="flex flex-wrap gap-2 mt-3">
                     {project.tags.map((tag) => (
-                      <span key={tag} className="font-label px-3 py-1" style={{ backgroundColor: "oklch(0.46 0.20 25 / 0.18)", color: "oklch(0.72 0.12 25)", borderRadius: "1.2rem 0.15rem 1.2rem 0.15rem", fontSize: "0.58rem" }}>
+                      <span key={tag} className="font-label px-3 py-1" style={{ backgroundColor: "oklch(0.38 0.14 240 / 0.22)", color: "oklch(0.72 0.14 240)", borderRadius: "1.2rem 0.15rem 1.2rem 0.15rem", fontSize: "0.58rem", border: "1px solid oklch(0.55 0.16 240 / 0.30)" }}>
                         {tag}
                       </span>
                     ))}
@@ -316,7 +316,7 @@ export default function OurWork() {
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                       loading="lazy"
                     />
-                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center" style={{ backgroundColor: "oklch(0 0 0 / 0.40)" }}>
+                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center" style={{ backgroundColor: "oklch(0.22 0.10 240 / 0.55)" }}>
                       <span className="font-label text-white" style={{ letterSpacing: "0.15em", fontSize: "0.65rem" }}>View</span>
                     </div>
                   </button>
@@ -355,7 +355,7 @@ export default function OurWork() {
                       onError={(e) => { (e.target as HTMLImageElement).style.opacity = "0.3"; }}
                     />
                     <div className="absolute bottom-0 left-0 right-0 p-4" style={{ background: "linear-gradient(0deg, oklch(0.10 0.005 0 / 0.88) 0%, transparent 100%)" }}>
-                      <div className="font-label mb-0.5" style={{ color: "oklch(0.72 0.12 25)", fontSize: "0.58rem" }}>{project.category}</div>
+                      <div className="font-label mb-0.5" style={{ color: "oklch(0.72 0.14 240)", fontSize: "0.58rem" }}>{project.category}</div>
                       <div className="font-display font-light text-white" style={{ fontSize: "0.9rem", lineHeight: 1.2 }}>{project.title}</div>
                     </div>
                   </button>
@@ -367,16 +367,37 @@ export default function OurWork() {
       )}
 
       {/* ── CTA ── */}
-      <section className="py-20 text-center" style={{ backgroundColor: "oklch(0.46 0.20 25)" }}>
+      <section className="py-20 text-center" style={{ background: "linear-gradient(135deg, oklch(0.16 0.08 240) 0%, oklch(0.26 0.10 240) 50%, oklch(0.20 0.07 240) 100%)" }}>
         <div className="container">
           <FadeIn>
+            <div className="font-label mb-4 flex items-center justify-center gap-3" style={{ color: "oklch(0.65 0.16 240)" }}>
+              <span className="inline-block h-px w-8" style={{ backgroundColor: "oklch(0.65 0.16 240)" }} />
+              START YOUR PROJECT
+              <span className="inline-block h-px w-8" style={{ backgroundColor: "oklch(0.65 0.16 240)" }} />
+            </div>
             <h2 className="font-display font-light text-white mb-4" style={{ fontSize: "clamp(1.8rem, 3.5vw, 3rem)" }}>
               Ready to Create Your Dream Yard?
             </h2>
-            <p className="font-body mb-8 mx-auto" style={{ color: "oklch(0.92 0.05 25)", fontWeight: 300, maxWidth: "480px" }}>
+            <p className="font-body mb-8 mx-auto" style={{ color: "oklch(0.80 0.06 240)", fontWeight: 300, maxWidth: "480px" }}>
               Let's start a conversation about your outdoor vision. Our award-winning design team is ready.
             </p>
-            <Link href="/contact" className="btn-red inline-flex">
+            <Link href="/contact"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "0.5rem",
+                fontFamily: "'Montserrat', sans-serif",
+                fontSize: "0.72rem",
+                fontWeight: 700,
+                letterSpacing: "0.14em",
+                textTransform: "uppercase",
+                color: "oklch(0.12 0.06 240)",
+                backgroundColor: "oklch(0.65 0.16 240)",
+                padding: "0.85rem 2.2rem",
+                borderRadius: "1.8rem 0.2rem 1.8rem 0.2rem",
+                textDecoration: "none",
+              }}
+            >
               Get a Free Quote
             </Link>
           </FadeIn>
