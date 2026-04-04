@@ -984,7 +984,8 @@ export default function Commercial() {
                 fontSize: "0.75rem",
                 letterSpacing: "0.12em",
                 fontWeight: 700,
-                border: "none",
+                border: "1.5px solid oklch(0.46 0.20 25)",
+                borderRadius: "12px 0 12px 0",
                 cursor: "pointer",
               }}
             >
@@ -994,8 +995,10 @@ export default function Commercial() {
               href="tel:5416178873"
               style={{
                 padding: "0.85rem 2rem",
-                border: "1px solid oklch(1 0 0)",
-                color: "oklch(1 0 0)",
+                backgroundColor: "oklch(1 0 0)",
+                border: "1.5px solid oklch(0.46 0.20 25)",
+                borderRadius: "12px 0 12px 0",
+                color: "oklch(0.30 0.08 240)",
                 fontSize: "0.75rem",
                 letterSpacing: "0.12em",
                 fontWeight: 700,
