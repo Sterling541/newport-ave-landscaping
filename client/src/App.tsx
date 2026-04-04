@@ -102,6 +102,9 @@ import EastBendLandscape from "./pages/portfolio/EastBendLandscape";
 import NWBendBackyard from "./pages/portfolio/NWBendBackyard";
 import PaverPatioFirepit from "./pages/portfolio/PaverPatioFirepit";
 import SWBendBackyard from "./pages/portfolio/SWBendBackyard";
+import AwbreyButtePatio from "./pages/portfolio/AwbreyButtePatio";
+import NWBendLighting from "./pages/portfolio/NWBendLighting";
+import WestsideOutdoorLiving from "./pages/portfolio/WestsideOutdoorLiving";
 
 const RedmondPavers = lazy(() => import("@/pages/service-areas/RedmondPavers"));
 const RedmondIrrigation = lazy(() => import("@/pages/service-areas/RedmondIrrigation"));
@@ -228,6 +231,9 @@ function Router() {
       <Route path={"/portfolio/paver-patio-firepit"} component={PaverPatioFirepit} />
       <Route path={"/portfolio/sw-bend-backyard"} component={SWBendBackyard} />
       <Route path={"/portfolio/bend-full-yard-transformation"} component={BendFullYardTransformation} />
+      <Route path={"/portfolio/awbrey-butte-patio"} component={AwbreyButtePatio} />
+      <Route path={"/portfolio/nw-bend-lighting"} component={NWBendLighting} />
+      <Route path={"/portfolio/westside-outdoor-living"} component={WestsideOutdoorLiving} />
 
       {/* SEO Resource pages */}
       <Route path={"/resources/paver-patio-cost-bend-oregon"} component={PaverPatioCostBend} />

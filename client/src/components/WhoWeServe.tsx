@@ -16,8 +16,8 @@ const segments = [
     proof: "Broken Top · Awbrey Butte · NW Crossing",
     accent: "oklch(0.56 0.18 25)",
     tag: "Homeowners",
-    photo: `${CDN}/water-feature-sunset_f7b219d3.jpg`,
-    photoAlt: "Custom water feature at sunset — Newport Avenue Landscaping residential project",
+    photo: `${CDN}/GLLPatio1_90e2e0c4.jpg`,
+    photoAlt: "Luxury outdoor patio and landscaping by Newport Avenue Landscaping — Bend, Oregon",
   },
   {
     number: "02",

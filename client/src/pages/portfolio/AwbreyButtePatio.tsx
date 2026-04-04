@@ -1,0 +1,49 @@
+import PortfolioProjectLayout from "@/components/PortfolioProjectLayout";
+
+export default function AwbreyButtePatio() {
+  return (
+    <PortfolioProjectLayout
+      title="Awbrey Butte Patio Extension and Wall"
+      subtitle="HARDSCAPE · OUTDOOR LIVING"
+      heroImage="https://newportavelandscaping.com/wp-content/uploads/2022/05/awbrey-butte-patio-extension-and-wall-bend-oregon.jpg"
+      description={`The client wanted the existing patio extended, high spots from tree roots repaired, and a wall built for privacy and continuity. They also wanted their hot tub better incorporated into the backyard.\n\nWe excavated and extended the current patio using Vista pavers in a Walnut blend. We then built approximately 30 linear feet of freestanding wall using "Chateau Wall" blocks (made by Western Interlock) in a walnut blend to enclose the new patio and add a sense of privacy and security.\n\nWe were initially concerned that the back of the curved wall would have unattractive gaps, but the end product came out looking fantastic. Finally, a concrete hot tub pad was poured and all electrical was extended — we always recommend pouring a concrete pad rather than setting a spa directly on pavers.`}
+      details={[
+        { label: "LOCATION", value: "Awbrey Butte, Bend, OR" },
+        { label: "PROJECT TYPE", value: "Patio Extension & Retaining Wall" },
+        { label: "SERVICES", value: "Paver Installation, Freestanding Wall, Hot Tub Pad, Electrical Extension" },
+        { label: "TIME TO COMPLETION", value: "1 week" },
+        { label: "MATERIALS", value: "Walnut Vista Pavers, Walnut Chateau Wall Blocks (Western Interlock), Concrete" },
+        { label: "INVESTMENT", value: "$12,000 – $15,000" },
+      ]}
+      images={[
+        {
+          src: "https://newportavelandscaping.com/wp-content/uploads/2022/05/awbrey-butte-patio-extension-and-wall-bend-oregon.jpg",
+          alt: "Awbrey Butte patio extension with Walnut Vista pavers and Chateau Wall — Bend, Oregon",
+        },
+        {
+          src: "https://newportavelandscaping.com/wp-content/uploads/2022/05/awbrey-butte-patio-wall-hot-tub-pad-bend-oregon.jpg",
+          alt: "Freestanding Chateau Wall and hot tub concrete pad — Awbrey Butte, Bend, OR",
+        },
+      ]}
+      prevProject={{ title: "Awbrey Butte Xeriscape", href: "/portfolio/awbrey-butte-xeriscape" }}
+      nextProject={{ title: "Awbrey Glenn Flagstone Patio", href: "/portfolio/awbrey-glenn-flagstone" }}
+      relatedProjects={[
+        {
+          title: "Paver Patio & Gas Firepit",
+          href: "/portfolio/paver-patio-firepit",
+          image: "https://newportavelandscaping.com/wp-content/uploads/2022/05/paver-patio-gas-firepit-bend-oregon-after.jpg",
+        },
+        {
+          title: "Awbrey Glenn Flagstone Patio",
+          href: "/portfolio/awbrey-glenn-flagstone",
+          image: "https://newportavelandscaping.com/wp-content/uploads/2022/05/awbrey-glenn-flagstone-patio-walkway-bend-oregon-after.jpg",
+        },
+        {
+          title: "Westside Outdoor Living Space",
+          href: "/portfolio/westside-outdoor-living",
+          image: "https://newportavelandscaping.com/wp-content/uploads/2022/05/westside-outdoor-living-space-bend-oregon-after.jpg",
+        },
+      ]}
+    />
+  );
+}
