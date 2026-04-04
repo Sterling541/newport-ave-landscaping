@@ -255,8 +255,93 @@ function MegaMenu({
   );
 }
 
+// ── Time-of-day color palettes ──
+function getTimeOfDayTheme() {
+  const hour = new Date().getHours();
+  if (hour >= 5 && hour < 9) {
+    // Dawn / early morning: soft peach-gold sky
+    return {
+      bg: "oklch(0.38 0.10 55)",          // warm amber-brown
+      border: "oklch(0.62 0.18 55)",       // golden amber
+      addressColor: "oklch(0.92 0.06 55)", // warm cream
+      phoneColor: "oklch(0.97 0.02 75)",   // bright white
+      phoneIcon: "oklch(0.82 0.14 55)",    // gold
+      btnBg: "oklch(0.72 0.18 55)",        // golden amber button
+      btnText: "oklch(0.18 0.04 55)",      // dark brown text
+      btnHover: "oklch(0.62 0.18 55)",
+      label: "Good Morning",
+    };
+  } else if (hour >= 9 && hour < 12) {
+    // Mid-morning: crisp sky blue
+    return {
+      bg: "oklch(0.30 0.08 240)",          // deep sky blue
+      border: "oklch(0.55 0.16 240)",      // bright blue
+      addressColor: "oklch(0.85 0.04 240)",
+      phoneColor: "oklch(0.97 0.01 75)",
+      phoneIcon: "oklch(0.75 0.14 240)",
+      btnBg: "oklch(0.65 0.16 240)",       // sky blue button
+      btnText: "oklch(0.12 0.04 240)",
+      btnHover: "oklch(0.55 0.16 240)",
+      label: "Good Morning",
+    };
+  } else if (hour >= 12 && hour < 15) {
+    // Midday: bright warm terracotta/copper — matches brand
+    return {
+      bg: "oklch(0.32 0.10 30)",           // deep copper-brown
+      border: "oklch(0.55 0.20 30)",       // copper accent
+      addressColor: "oklch(0.88 0.05 30)",
+      phoneColor: "oklch(0.97 0.01 75)",
+      phoneIcon: "oklch(0.72 0.18 30)",
+      btnBg: "oklch(0.62 0.20 30)",        // copper button
+      btnText: "oklch(0.15 0.04 30)",
+      btnHover: "oklch(0.52 0.20 30)",
+      label: "Good Afternoon",
+    };
+  } else if (hour >= 15 && hour < 18) {
+    // Afternoon: warm sage green — outdoors, nature
+    return {
+      bg: "oklch(0.28 0.08 145)",          // deep sage
+      border: "oklch(0.50 0.18 145)",      // sage green
+      addressColor: "oklch(0.85 0.04 145)",
+      phoneColor: "oklch(0.97 0.01 75)",
+      phoneIcon: "oklch(0.70 0.16 145)",
+      btnBg: "oklch(0.60 0.18 145)",       // sage green button
+      btnText: "oklch(0.12 0.04 145)",
+      btnHover: "oklch(0.50 0.18 145)",
+      label: "Good Afternoon",
+    };
+  } else if (hour >= 18 && hour < 21) {
+    // Evening: sunset orange-rose
+    return {
+      bg: "oklch(0.28 0.10 20)",           // deep sunset red-brown
+      border: "oklch(0.52 0.22 20)",       // sunset orange
+      addressColor: "oklch(0.88 0.06 20)",
+      phoneColor: "oklch(0.97 0.01 75)",
+      phoneIcon: "oklch(0.72 0.20 20)",
+      btnBg: "oklch(0.62 0.22 20)",        // sunset orange button
+      btnText: "oklch(0.14 0.04 20)",
+      btnHover: "oklch(0.52 0.22 20)",
+      label: "Good Evening",
+    };
+  } else {
+    // Night: deep navy/midnight
+    return {
+      bg: "oklch(0.18 0.06 260)",          // deep midnight navy
+      border: "oklch(0.40 0.14 260)",      // indigo
+      addressColor: "oklch(0.75 0.04 260)",
+      phoneColor: "oklch(0.97 0.01 75)",
+      phoneIcon: "oklch(0.65 0.14 260)",
+      btnBg: "oklch(0.55 0.16 260)",       // indigo button
+      btnText: "oklch(0.97 0.01 75)",
+      btnHover: "oklch(0.45 0.16 260)",
+      label: "Good Evening",
+    };
+  }
+}
+
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
+  const [timeTheme, setTimeTheme] = useState(getTimeOfDayTheme);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openMega, setOpenMega] = useState<string | null>(null);
   const [mobileExpanded, setMobileExpanded] = useState<string | null>(null);
@@ -269,6 +354,11 @@ export default function Navbar() {
     const handleScroll = () => setScrolled(window.scrollY > 40);
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+  // Refresh time-of-day theme every minute so it transitions as hours change
+  useEffect(() => {
+    const interval = setInterval(() => setTimeTheme(getTimeOfDayTheme()), 60_000);
+    return () => clearInterval(interval);
   }, []);
 
   useEffect(() => {
@@ -312,7 +402,7 @@ export default function Navbar() {
         }
       `}</style>
 
-      {/* ── Utility bar — deep green prominent strip at very top ── */}
+      {/* ── Utility bar — time-of-day dynamic color strip ── */}
       <div
         style={{
           position: "fixed",
@@ -320,11 +410,12 @@ export default function Navbar() {
           left: 0,
           right: 0,
           zIndex: 50,
-          backgroundColor: "oklch(0.22 0.06 145)",
-          borderBottom: "2px solid oklch(0.46 0.20 25)",
+          backgroundColor: timeTheme.bg,
+          borderBottom: `2px solid ${timeTheme.border}`,
           height: "44px",
           display: "flex",
           alignItems: "center",
+          transition: "background-color 1.5s ease, border-color 1.5s ease",
         }}
       >
         <div
@@ -346,9 +437,10 @@ export default function Navbar() {
               fontSize: "0.6rem",
               fontWeight: 500,
               letterSpacing: "0.12em",
-              color: "oklch(0.85 0.02 145)",
+              color: timeTheme.addressColor,
               textTransform: "uppercase",
               whiteSpace: "nowrap",
+              transition: "color 1.5s ease",
             }}
             className="hidden sm:block"
           >
@@ -365,15 +457,16 @@ export default function Navbar() {
                 gap: "0.5rem",
               }}
             >
-              <Phone size={13} style={{ color: "oklch(0.72 0.18 145)" }} />
+              <Phone size={13} style={{ color: timeTheme.phoneIcon, transition: "color 1.5s ease" }} />
               <span
                 style={{
                   fontFamily: "'Montserrat', sans-serif",
                   fontSize: "0.72rem",
                   fontWeight: 800,
                   letterSpacing: "0.08em",
-                  color: "oklch(0.97 0.01 75)",
+                  color: timeTheme.phoneColor,
                   whiteSpace: "nowrap",
+                  transition: "color 1.5s ease",
                 }}
               >
                 (541) 617-8873
@@ -389,8 +482,8 @@ export default function Navbar() {
                 fontWeight: 700,
                 letterSpacing: "0.14em",
                 textTransform: "uppercase",
-                color: "oklch(0.22 0.06 145)",
-                backgroundColor: "oklch(0.72 0.18 145)",
+                color: timeTheme.btnText,
+                backgroundColor: timeTheme.btnBg,
                 padding: "0.35rem 1rem",
                 borderRadius: "1.8rem 0.2rem 1.8rem 0.2rem",
                 textDecoration: "none",
@@ -400,8 +493,8 @@ export default function Navbar() {
                 whiteSpace: "nowrap",
                 transition: "background-color 0.2s ease",
               }}
-              onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "oklch(0.62 0.18 145)")}
-              onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "oklch(0.72 0.18 145)")}
+              onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = timeTheme.btnHover)}
+              onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = timeTheme.btnBg)}
             >
               Schedule Services
               <ArrowRight size={10} />
