@@ -8,7 +8,7 @@ import { Link } from "wouter";
 import Navbar from "@/components/Navbar";
 
 const TEAM_PHOTO = "https://newportavelandscaping.com/wp-content/uploads/2022/08/Newport-Landscaping-2022-Ariel-Dawn-Photography14-683x1024.jpg";
-const FOUNDER_PHOTO = "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/sterling-portrait-enhanced_f22e8cfa.jpg";
+const FOUNDER_PHOTO = "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/sterling-portrait-ai-eXS97aQdn5ee7xPqCRh5pa.webp";
 
 const timeline = [
   {

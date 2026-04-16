@@ -1,4 +1,14 @@
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useEffect } from 'react';
+import { useLocation } from 'wouter';
+
+// Scroll to top on every route change
+function ScrollToTop() {
+  const [location] = useLocation();
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }, [location]);
+  return null;
+}
 import MobileCTABar from "@/components/MobileCTABar";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -473,6 +483,7 @@ function App() {
     <ErrorBoundary>
       <ThemeProvider defaultTheme="light">
         <TooltipProvider>
+          <ScrollToTop />
           <MobileCTABar />
           <Toaster />
           <Router />
