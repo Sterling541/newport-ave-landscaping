@@ -41,7 +41,7 @@ const CREW_IRRIGATION =
 const CREW_SOIL =
   "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportLandscapingRVParkPhotos16_5e801b45.jpg";
 const HOA_COMMUNITY =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/hoa-mower-clean-pants-v3_64b13255.png";
+  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/hoa-central-oregon-aerial-FqxDA5HTtAdmvC4C8zTkoF.webp";
 const CREW_DAY2_11 =
   "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportLandscapingRVParkDay2Photos11_f8570f3e.jpg";
 const CREW_DAY2_25 =
@@ -863,7 +863,7 @@ export default function Commercial() {
       {/* ── HOA PHOTO SECTION ────────────────────────────── */}
       <section
         className="py-24"
-        style={{ backgroundColor: "oklch(0.97 0.012 85)" }}
+        style={{ backgroundColor: "oklch(1 0 0)" }}
       >
         <div className="container">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
