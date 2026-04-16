@@ -110,6 +110,8 @@ function PortfolioCard({
         <img
           src={item.image}
           alt={item.title}
+          loading="lazy"
+          decoding="async"
           className="w-full h-full object-cover"
           style={{
             transform: hovered ? "scale(1.05)" : "scale(1)",

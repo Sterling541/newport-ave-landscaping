@@ -1,32 +1,39 @@
 /* ============================================================
    HOME PAGE — Newport Avenue Landscaping
    Studio Job-Inspired Editorial Experience
+   Below-fold sections are lazy-loaded for performance
    ============================================================ */
+import { Suspense, lazy } from "react";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
-import StatsSection from "@/components/StatsSection";
-import ServicesSection from "@/components/ServicesSection";
-import AboutSection from "@/components/AboutSection";
-import PortfolioSection from "@/components/PortfolioSection";
-import MembershipSection from "@/components/MembershipSection";
-import EverythingPlanSection from "@/components/EverythingPlanSection";
-import MembershipBanner from "@/components/MembershipBanner";
-import CTABanner from "@/components/CTABanner";
-import ReviewsSection from "@/components/ReviewsSection";
-import ContactSection from "@/components/ContactSection";
-import Footer from "@/components/Footer";
-import FloatingCTA from "@/components/FloatingCTA";
-import PhotoGallery from "@/components/PhotoGallery";
-import WhoWeServe from "@/components/WhoWeServe";
-import ServiceAreaBand from "@/components/ServiceAreaBand";
 import TrustBar from "@/components/TrustBar";
-import MarqueeBand from "@/components/MarqueeBand";
-import BotanicalBand from "@/components/BotanicalBand";
-import LightingSection from "@/components/LightingSection";
-import OutdoorRoomsSection from "@/components/OutdoorRoomsSection";
-import EditorialQuote from "@/components/EditorialQuote";
+import StatsSection from "@/components/StatsSection";
 import SEO from "@/components/SEO";
 import { LocalBusinessSchema } from "@/components/SchemaMarkup";
+import FloatingCTA from "@/components/FloatingCTA";
+
+// Lazy-load all below-fold sections
+const MarqueeBand = lazy(() => import("@/components/MarqueeBand"));
+const BotanicalBand = lazy(() => import("@/components/BotanicalBand"));
+const WhoWeServe = lazy(() => import("@/components/WhoWeServe"));
+const ServicesSection = lazy(() => import("@/components/ServicesSection"));
+const OutdoorRoomsSection = lazy(() => import("@/components/OutdoorRoomsSection"));
+const EditorialQuote = lazy(() => import("@/components/EditorialQuote"));
+const AboutSection = lazy(() => import("@/components/AboutSection"));
+const PortfolioSection = lazy(() => import("@/components/PortfolioSection"));
+const PhotoGallery = lazy(() => import("@/components/PhotoGallery"));
+const LightingSection = lazy(() => import("@/components/LightingSection"));
+const MembershipBanner = lazy(() => import("@/components/MembershipBanner"));
+const MembershipSection = lazy(() => import("@/components/MembershipSection"));
+const EverythingPlanSection = lazy(() => import("@/components/EverythingPlanSection"));
+const CTABanner = lazy(() => import("@/components/CTABanner"));
+const ReviewsSection = lazy(() => import("@/components/ReviewsSection"));
+const ServiceAreaBand = lazy(() => import("@/components/ServiceAreaBand"));
+const ContactSection = lazy(() => import("@/components/ContactSection"));
+const Footer = lazy(() => import("@/components/Footer"));
+
+// Lightweight fallback — invisible, just holds space
+const SectionFallback = () => <div style={{ minHeight: "200px" }} />;
 
 export default function Home() {
   return (
@@ -44,10 +51,8 @@ export default function Home() {
       />
       <LocalBusinessSchema />
 
-
+      {/* Critical above-fold — loaded immediately */}
       <Navbar />
-
-      {/* Hero — photos bleed 120px below into StatsSection */}
       <HeroSection />
       <TrustBar />
 
@@ -56,48 +61,51 @@ export default function Home() {
         <StatsSection />
       </div>
 
-      {/* Red scrolling marquee band */}
-      <MarqueeBand />
+      {/* All below-fold sections are lazy-loaded */}
+      <Suspense fallback={<SectionFallback />}>
+        <MarqueeBand />
+      </Suspense>
 
-      {/* Botanical divider — watercolor plants */}
-      <BotanicalBand variant="a" />
+      <Suspense fallback={<SectionFallback />}>
+        <BotanicalBand variant="a" />
+        <WhoWeServe />
+        <ServicesSection />
+      </Suspense>
 
-      <WhoWeServe />
-      <ServicesSection />
+      <Suspense fallback={<SectionFallback />}>
+        <OutdoorRoomsSection />
+        <EditorialQuote
+          quote="Every great outdoor space starts with a vision — and ends with a place you never want to leave."
+          attribution="Newport Avenue Landscaping"
+        />
+      </Suspense>
 
-      {/* Belgard-style interactive outdoor rooms section */}
-      <OutdoorRoomsSection />
+      <Suspense fallback={<SectionFallback />}>
+        <BotanicalBand label="PORTFOLIO  ◆  150+ PROJECTS" variant="b" />
+        <AboutSection />
+        <PortfolioSection />
+        <PhotoGallery />
+      </Suspense>
 
-      {/* Editorial quote divider */}
-      <EditorialQuote
-        quote="Every great outdoor space starts with a vision — and ends with a place you never want to leave."
-        attribution="Newport Avenue Landscaping"
-      />
+      <Suspense fallback={<SectionFallback />}>
+        <LightingSection />
+        <EditorialQuote
+          quote="Your sprinklers. Our responsibility. Zero worry."
+          attribution="Newport Priority Irrigation Membership"
+        />
+        <MembershipBanner />
+        <MembershipSection />
+        <EverythingPlanSection />
+      </Suspense>
 
-      {/* Botanical divider before portfolio */}
-      <BotanicalBand label="PORTFOLIO  ◆  150+ PROJECTS" variant="b" />
+      <Suspense fallback={<SectionFallback />}>
+        <CTABanner />
+        <ReviewsSection />
+        <ServiceAreaBand />
+        <ContactSection />
+        <Footer />
+      </Suspense>
 
-      <AboutSection />
-      <PortfolioSection />
-      <PhotoGallery />
-
-      {/* Scroll-triggered landscape lighting section */}
-      <LightingSection />
-
-      {/* Editorial quote before membership */}
-      <EditorialQuote
-        quote="Your sprinklers. Our responsibility. Zero worry."
-        attribution="Newport Priority Irrigation Membership"
-      />
-
-      <MembershipBanner />
-      <MembershipSection />
-      <EverythingPlanSection />
-      <CTABanner />
-      <ReviewsSection />
-      <ServiceAreaBand />
-      <ContactSection />
-      <Footer />
       <FloatingCTA />
     </div>
   );

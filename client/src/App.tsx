@@ -1,5 +1,4 @@
 import { lazy, Suspense } from 'react';
-import BlueSpruceCursor from "@/components/BlueSpruceCursor";
 import MobileCTABar from "@/components/MobileCTABar";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -474,7 +473,6 @@ function App() {
     <ErrorBoundary>
       <ThemeProvider defaultTheme="light">
         <TooltipProvider>
-          <BlueSpruceCursor />
           <MobileCTABar />
           <Toaster />
           <Router />
