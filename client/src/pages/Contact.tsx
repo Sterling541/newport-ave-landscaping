@@ -123,7 +123,7 @@ export default function Contact() {
             style={{ fontSize: "clamp(2.4rem, 6vw, 5rem)", lineHeight: 1.0 }}
           >
             Contact<br />
-            <em style={{ color: "oklch(0.75 0.10 25)" }}>Newport Ave</em>
+            <em style={{ color: "oklch(0.75 0.10 25)" }}>Newport</em>
           </h1>
         </div>
       </section>
@@ -326,19 +326,10 @@ export default function Contact() {
                   <div className="space-y-3 p-7" style={{ backgroundColor: "oklch(0.15 0.005 0)" }}>
                     <div>
                       <div className="font-label mb-1" style={{ color: "oklch(0.72 0.12 25)", fontSize: "0.62rem" }}>
-                        CCB LICENSE
-                      </div>
-                      <div className="font-body text-white" style={{ fontWeight: 300 }}>
-                        #182234
-                      </div>
-                    </div>
-                    <div style={{ height: "1px", backgroundColor: "oklch(0.25 0.005 0)" }} />
-                    <div>
-                      <div className="font-label mb-1" style={{ color: "oklch(0.72 0.12 25)", fontSize: "0.62rem" }}>
                         LANDSCAPE CONTRACTOR LICENSE
                       </div>
                       <div className="font-body text-white" style={{ fontWeight: 300 }}>
-                        #8283
+                        LCB #9153
                       </div>
                     </div>
                     <div style={{ height: "1px", backgroundColor: "oklch(0.25 0.005 0)" }} />

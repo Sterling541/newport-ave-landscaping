@@ -115,7 +115,7 @@ export default function About() {
             className="font-display font-light text-white"
             style={{ fontSize: "clamp(2.4rem, 6vw, 5rem)", lineHeight: 1.0 }}
           >
-            About Newport Ave<br />
+            About Newport<br />
             <em style={{ color: "oklch(0.75 0.10 25)" }}>Landscaping</em>
           </h1>
         </div>

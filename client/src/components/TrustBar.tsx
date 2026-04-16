@@ -65,7 +65,7 @@ const TRUST_ITEMS = [
     ),
     value: "Licensed",
     label: "& Bonded",
-    sub: "Oregon CCB #123456",
+    sub: "Oregon LCB #9153",
     highlight: false,
   },
   {
