@@ -7,6 +7,7 @@ import { useEffect, useRef, useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { trpc } from "@/lib/trpc";
+import SEO from "@/components/SEO";
 
 function FadeIn({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -89,9 +90,13 @@ export default function Contact() {
   };
 
   return (
-    <div style={{ backgroundColor: "oklch(0.97 0.012 85)" }}>
+     <div style={{ backgroundColor: "oklch(0.97 0.012 85)" }}>
+      <SEO
+        title="Contact Newport Avenue Landscaping | Free Quote Bend, Oregon"
+        description="Request a free landscaping quote in Bend, Redmond, or Tumalo, Oregon. Call (541) 617-8873 or submit online — we respond within 1 business day. LCB #9153."
+        canonical="/contact"
+      />
       <Navbar />
-
       {/* ── Hero ── */}
       <section
         className="relative flex items-end"

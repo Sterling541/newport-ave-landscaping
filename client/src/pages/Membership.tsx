@@ -8,6 +8,7 @@ import { useLocation } from "wouter";
 import { Check, Droplets, ChevronDown } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import SEO from "@/components/SEO";
 
 function FadeIn({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -100,8 +101,12 @@ export default function Membership() {
 
   return (
     <div style={{ backgroundColor: "oklch(0.97 0.012 85)" }}>
+      <SEO
+        title="Priority Irrigation Membership | Newport Avenue Landscaping Bend"
+        description="Newport Avenue's Priority Irrigation Membership — guaranteed spring activation, fall blowout, mid-season checks & 5-year warranty on main components. Bend, OR. LCB #9153."
+        canonical="/membership"
+      />
       <Navbar />
-
       {/* ── Hero — badge + sprinkler banner ── */}
       <section
         className="relative overflow-hidden"

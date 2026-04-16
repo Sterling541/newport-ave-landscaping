@@ -6,6 +6,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "wouter";
 import Navbar from "@/components/Navbar";
+import SEO from "@/components/SEO";
 
 const TEAM_PHOTO = "https://newportavelandscaping.com/wp-content/uploads/2022/08/Newport-Landscaping-2022-Ariel-Dawn-Photography14-683x1024.jpg";
 const FOUNDER_PHOTO = "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/sterling-portrait-ai-eXS97aQdn5ee7xPqCRh5pa.webp";
@@ -84,6 +85,11 @@ function FadeIn({ children, delay = 0, className = "" }: { children: React.React
 export default function About() {
   return (
     <div style={{ backgroundColor: "oklch(0.97 0.012 85)" }}>
+      <SEO
+        title="About Newport Avenue Landscaping | Bend, Oregon Since 2005"
+        description="Meet Sterling West and the Newport Avenue team — Central Oregon's most experienced full-service landscape contractor. 150+ professionals, 21+ years serving Bend, OR. LCB #9153."
+        canonical="/about"
+      />
       <Navbar />
 
       {/* ── Hero ── */}

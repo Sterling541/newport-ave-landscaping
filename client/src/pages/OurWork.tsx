@@ -8,6 +8,7 @@ import { Link, useLocation } from "wouter";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
+import SEO from "@/components/SEO";
 
 function FadeIn({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -201,9 +202,13 @@ export default function OurWork() {
     : PROJECTS;
 
   return (
-    <div style={{ backgroundColor: "oklch(0.12 0.005 0)" }}>
+     <div style={{ backgroundColor: "oklch(0.12 0.005 0)" }}>
+      <SEO
+        title="Our Work | Landscaping Portfolio Bend Oregon | Newport Avenue"
+        description="Browse Newport Avenue Landscaping's project portfolio — paver patios, custom backyard designs, water features & commercial installs in Bend, OR. Real photos from real Central Oregon projects."
+        canonical="/our-work"
+      />
       <Navbar />
-
       {/* ── Hero ── */}
       <section
         className="relative flex items-end"

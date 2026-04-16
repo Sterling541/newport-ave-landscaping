@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import { useLocation } from "wouter";
+import SEO from "@/components/SEO";
 
 const posts = [
   {
@@ -65,6 +66,11 @@ export default function Blog() {
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: "oklch(0.97 0.003 0)" }}>
+      <SEO
+        title="Landscaping Blog | Central Oregon Tips & Guides | Newport Avenue"
+        description="Expert landscaping guides for Central Oregon homeowners: xeriscaping, irrigation, pavers, lawn care, fire features & seasonal maintenance tips from Newport Avenue Landscaping."
+        canonical="/blog"
+      />
       <Navbar />
       <div style={{ paddingTop: "204px" }}>
         {/* Hero */}

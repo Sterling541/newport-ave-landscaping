@@ -6,6 +6,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "wouter";
 import Navbar from "@/components/Navbar";
+import SEO from "@/components/SEO";
 
 function FadeIn({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -108,6 +109,11 @@ const commercialServices = [
 export default function Services() {
   return (
     <div style={{ backgroundColor: "oklch(0.97 0.012 85)" }}>
+      <SEO
+        title="Landscaping Services Bend Oregon | Design, Install & Maintenance"
+        description="Full-service landscaping in Bend, OR: custom design & build, pavers, irrigation, xeriscaping, water features, outdoor living, lighting & snow removal. LCB #9153. Free estimates."
+        canonical="/services"
+      />
       <Navbar />
 
       {/* ── Hero ── */}

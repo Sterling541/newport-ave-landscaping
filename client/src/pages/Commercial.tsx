@@ -9,6 +9,7 @@ import { useEffect, useRef, useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { useLocation } from "wouter";
+import SEO from "@/components/SEO";
 import {
   Building2,
   Trees,
@@ -170,9 +171,13 @@ export default function Commercial() {
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: "oklch(1 0 0)" }}>
+      <SEO
+        title="Commercial Landscaping Bend Oregon | HOA & Property Management"
+        description="Commercial landscaping, HOA maintenance & property management services in Central Oregon. Newport Avenue manages more HOA contracts than any other firm. LCB #9153. Free bid."
+        canonical="/commercial"
+      />
       <Navbar />
-
-      {/* ── HERO ─────────────────────────────────────────────── */}
+      {/* ── HEROO ─────────────────────────────────────────────── */}
       <section
         className="relative flex items-end"
         style={{ minHeight: "clamp(480px, 60vh, 700px)", marginTop: "204px" }}

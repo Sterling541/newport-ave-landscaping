@@ -6,6 +6,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "wouter";
 import Navbar from "@/components/Navbar";
+import SEO from "@/components/SEO";
 
 function FadeIn({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -140,9 +141,13 @@ const maintenanceServices = [
 
 export default function Maintenance() {
   return (
-    <div style={{ backgroundColor: "oklch(0.97 0.012 85)" }}>
+     <div style={{ backgroundColor: "oklch(0.97 0.012 85)" }}>
+      <SEO
+        title="Lawn Care & Landscape Maintenance Bend Oregon | Newport Avenue"
+        description="Professional lawn care, sprinkler maintenance, snow removal & commercial landscape services in Bend, OR. Weekly service, seasonal programs & irrigation management. LCB #9153."
+        canonical="/maintenance"
+      />
       <Navbar />
-
       {/* ── Hero ── */}
       <section
         className="relative flex items-end"
