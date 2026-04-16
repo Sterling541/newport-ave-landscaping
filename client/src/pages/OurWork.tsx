@@ -331,14 +331,13 @@ export default function OurWork() {
                 <>
                   <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
                     {visiblePhotos.map((url, idx) => (
-                      <FadeIn key={idx} delay={idx * 0.03}>
+                      <FadeIn key={idx} delay={idx * 0.03} className={idx === 0 ? "col-span-2" : ""}>
                         <button
                           onClick={() => openLightbox(project.id, idx)}
                           className="photo-card group w-full"
                           style={{
                             aspectRatio: idx === 0 ? "16/9" : "4/3",
                             display: "block",
-                            gridColumn: idx === 0 ? "span 2" : undefined,
                           }}
                         >
                           <img
