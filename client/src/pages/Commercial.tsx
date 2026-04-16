@@ -41,7 +41,7 @@ const CREW_IRRIGATION =
 const CREW_SOIL =
   "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportLandscapingRVParkPhotos16_5e801b45.jpg";
 const HOA_COMMUNITY =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/hoa-mower-khaki-v2-8v8WZ3StAsTNtnGjeRukZ7.webp";
+  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/hoa-mower-clean-pants-v3_64b13255.png";
 const CREW_DAY2_11 =
   "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportLandscapingRVParkDay2Photos11_f8570f3e.jpg";
 const CREW_DAY2_25 =
