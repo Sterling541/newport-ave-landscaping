@@ -1,104 +1,147 @@
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import { BreadcrumbSchema } from "@/components/SchemaMarkup";
 import { Link } from "wouter";
 
+const HERO_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/northwest-crossing-hero-QrqsGH69m29uDesjwDk8W8.webp";
+
 export default function NorthwestCrossingNeighborhood() {
   return (
-    <div className="min-h-screen" style={{ backgroundColor: "oklch(0.97 0.003 0)" }}>
+    <div className="min-h-screen" style={{ backgroundColor: "oklch(0.985 0.006 80)" }}>
       <SEO
-        title="Landscaping in Northwest Crossing Bend Oregon | Newport Ave Landscaping"
-        description="Expert landscaping services in Northwest Crossing, Bend, Oregon. Specializing in NWX ARC approval, HOA-compliant designs, and sustainable solutions for your home."
+        title="NorthWest Crossing Landscaping — Bend, Oregon | Newport Avenue Landscaping"
+        description="Expert landscaping for NorthWest Crossing homes in Bend, OR. ARC approval assistance, HOA-compliant designs, drought-tolerant plantings, and irrigation. LCB #9153. Free consultation."
         canonical="https://newportavelandscaping.com/service-areas/northwest-crossing-landscaping"
       />
       <BreadcrumbSchema items={[
         { name: "Home", url: "/" },
         { name: "Service Areas", url: "/service-areas" },
-        { name: "Northwest Crossing Landscaping", url: "/service-areas/northwest-crossing-landscaping" },
+        { name: "NorthWest Crossing Landscaping", url: "/service-areas/northwest-crossing-landscaping" },
       ]} />
       <Navbar />
+
+      {/* ── HERO ── */}
       <div style={{ paddingTop: "204px" }}>
-        {/* Hero banner */}
         <div
           className="relative flex items-center justify-center"
           style={{
-            height: "380px",
-            backgroundImage: "url(https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/ITP_7558_e52a40c9.jpg",
+            height: "420px",
+            backgroundImage: `url(${HERO_IMG})`,
             backgroundSize: "cover",
-            backgroundPosition: "center 50%",
+            backgroundPosition: "center 45%",
           }}
         >
-          <div className="absolute inset-0" style={{ backgroundColor: "oklch(0 0 0 / 0.55)" }} />
+          <div className="absolute inset-0" style={{ backgroundColor: "oklch(0 0 0 / 0.48)" }} />
           <div className="relative text-center container">
             <p className="font-label mb-3" style={{ color: "oklch(0.72 0.12 25)", fontSize: "0.7rem", letterSpacing: "0.18em" }}>
-              SERVICE AREA &middot; 2026
+              NEIGHBORHOOD LANDSCAPING &middot; BEND, OREGON
             </p>
-            <h1 className="font-display text-white" style={{ fontSize: "clamp(1.8rem, 4vw, 3rem)", maxWidth: "700px", margin: "0 auto" }}>
-              Expert Landscaping Services in Northwest Crossing, Bend Oregon
+            <h1 className="font-display text-white" style={{ fontSize: "clamp(2rem, 4.5vw, 3.2rem)", maxWidth: "760px", margin: "0 auto", lineHeight: 1.15 }}>
+              NorthWest Crossing Landscaping
             </h1>
-          </div>
-        </div>
-
-        {/* Article body */}
-        <div className="container py-16 max-w-3xl mx-auto">
-          <div style={{ color: "oklch(0.25 0.005 0)" }}>
-            <p className="mb-6">
-              Welcome to Newport Ave Landscaping, your trusted partner for exceptional landscaping services in Bend, Oregon, with a specialized focus on the unique charm and requirements of the Northwest Crossing neighborhood. Nestled in the high desert at an elevation of approximately 3,600 feet, Northwest Crossing presents a distinct set of challenges and opportunities for creating beautiful, sustainable outdoor spaces. Our team understands the local climate, the volcanic pumice soil, and the specific aesthetic guidelines that make NWX so desirable. With over 21 years of experience serving Central Oregon, including communities like Redmond, Sisters, Sunriver, Tumalo, Prineville, and La Pine, we are intimately familiar with what it takes to design, install, and maintain landscapes that thrive here.
+            <p className="mt-4 font-body" style={{ color: "oklch(0.88 0.006 75)", fontSize: "1.05rem", maxWidth: "560px", margin: "1rem auto 0" }}>
+              ARC-compliant designs, drought-tolerant plantings &amp; year-round maintenance for Bend's most walkable neighborhood.
             </p>
-
-            <h2 className="text-2xl font-bold mb-4">Understanding Northwest Crossing's Unique Landscape & Design Aesthetic</h2>
-            <p className="mb-6">
-              Northwest Crossing is renowned for its distinctive craftsman and modern architectural styles, which extend to its outdoor living spaces. The neighborhood's design aesthetic emphasizes natural materials, clean lines, and a harmonious integration with the surrounding high desert environment. This means landscaping in NWX isn't just about curb appeal; it's about creating a cohesive look that complements your home and adheres to community standards. Given Bend's Zone 6b climate, characterized by hot, dry summers and cold winters, selecting the right plants is crucial. We specialize in drought-tolerant, native, and adapted species that can withstand these conditions while enhancing the beauty of your property.
-            </p>
-
-            <h2 className="text-2xl font-bold mb-4">Navigating the NWX ARC Approval Process for Landscape Changes</h2>
-            <p className="mb-6">
-              One of the most critical aspects of any landscape project in Northwest Crossing is the Architectural Review Committee (ARC) approval process. The NWX ARC ensures that all exterior modifications, including landscaping, maintain the neighborhood's high standards and aesthetic integrity. This process can be complex, requiring detailed plans and adherence to specific guidelines. Newport Ave Landscaping has extensive experience working with the NWX ARC. We can guide you through every step, from initial design concepts to final submission, ensuring your project meets all requirements and receives timely approval. Our goal is to make this process as smooth and stress-free as possible for you.
-            </p>
-
-            <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-6">
-              <p className="font-bold text-yellow-800">PRO TIP: NWX ARC Submissions</p>
-              <p className="text-yellow-700">When preparing your landscape plans for NWX ARC review, always include detailed plant lists (botanical and common names), irrigation plans, material samples, and clear site diagrams. Early consultation with Newport Ave Landscaping can help streamline this process significantly, avoiding common pitfalls and delays.</p>
-            </div>
-
-            <h2 className="text-2xl font-bold mb-4">HOA-Compliant Plant Selections for Sustainable NWX Gardens</h2>
-            <p className="mb-6">
-              Choosing the right plants is paramount for a successful and HOA-compliant landscape in Northwest Crossing. Our expertise lies in identifying species that not only thrive in Bend's unique climate but also align with the NWX aesthetic and water conservation principles. We recommend a variety of native and adapted plants such as various types of sage (Salvia spp.), ornamental grasses like Blue Fescue (Festuca glauca), Lavender (Lavandula spp.), and certain conifer varieties that add texture and year-round interest. These selections are typically low-maintenance, water-wise, and contribute to the overall ecological health of the Central Oregon environment, often reducing long-term irrigation costs which can range from $2,000 to $5,000 for a new system, or $200-$500 for seasonal adjustments.
-            </p>
-
-            <h2 className="text-2xl font-bold mb-4">Comprehensive Landscaping Services for Northwest Crossing Homes</h2>
-            <p className="mb-6">
-              Newport Ave Landscaping offers a full spectrum of services tailored to the needs of Northwest Crossing homeowners. From routine maintenance to complex installations, we ensure your landscape remains pristine and vibrant. Our services include:
-            </p>
-            <ul className="list-disc list-inside mb-6 ml-4">
-              <li><strong>Regular Landscape Maintenance:</strong> Mowing, pruning, weeding, and general upkeep to keep your property looking its best. Monthly maintenance packages typically range from $150-$400 depending on property size and complexity.</li>
-              <li><strong>Efficient Irrigation Systems:</strong> Design, installation, and repair of water-efficient irrigation systems, crucial for the high desert climate.</li>
-              <li><strong>Seasonal Cleanups:</strong> Spring and fall cleanups to prepare your landscape for changing seasons, including leaf removal and debris hauling.</li>
-              <li><strong>Hardscaping & Outdoor Living:</strong> Creation of patios, walkways, fire pits, and other features that enhance usability and appeal, with projects ranging from $5,000 to $30,000+.</li>
-              <li><strong>New Landscape Design & Installation:</strong> From concept to completion, we create custom landscapes that reflect your vision and adhere to NWX guidelines.</li>
-            </ul>
-
-            <h2 className="text-2xl font-bold mb-4">Why Choose Newport Ave Landscaping for Your NWX Home?</h2>
-            <p className="mb-6">
-              Choosing Newport Ave Landscaping means partnering with a team that not only understands the art and science of landscaping but also the specific nuances of the Northwest Crossing community. We are a licensed and bonded company (LCB #9153), with a proven track record of over 21 years in Central Oregon. Our deep local knowledge, commitment to quality, and meticulous attention to detail ensure that your landscape project, whether it's a small enhancement or a complete overhaul, is handled with the utmost professionalism. We pride ourselves on creating beautiful, sustainable, and HOA-compliant outdoor spaces that enhance your home's value and your quality of life. Our service area extends beyond Bend to include Redmond, Sisters, Sunriver, Tumalo, Prineville, and La Pine, but our roots run deep in Bend.
-            </p>
-
-            <div className="bg-green-50 border-l-4 border-green-400 p-4 mb-6 text-center">
-              <h3 className="text-xl font-bold text-green-800 mb-2">Ready to Transform Your Northwest Crossing Landscape?</h3>
-              <p className="text-green-700 mb-4">
-                Contact Newport Ave Landscaping today for a personalized consultation. Let us help you create the outdoor oasis you've always dreamed of, perfectly suited for your NWX home.
-              </p>
-              <Link href="/contact">
-                <span className="inline-block bg-green-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-green-700 transition duration-300">
-                  Get Your Free Estimate Today
-                </span>
-              </Link>
-              <p className="text-green-700 mt-2">Or call us directly at <a href="tel:+15416178873" className="underline">(541) 617-8873</a></p>
-            </div>
-
           </div>
         </div>
       </div>
+
+      {/* ── BODY ── */}
+      <div className="container py-16 max-w-3xl mx-auto">
+        <div style={{ color: "oklch(0.25 0.005 0)" }}>
+
+          {/* Intro */}
+          <p className="mb-8" style={{ fontSize: "1.05rem", lineHeight: 1.85, color: "oklch(0.35 0.005 0)" }}>
+            NorthWest Crossing is Bend's most intentionally designed neighborhood — craftsman and modern homes, wide sidewalks, mature street trees, and a community culture that takes outdoor aesthetics seriously. The NWX Architectural Review Committee (ARC) enforces those standards with a detailed approval process for any landscape change. Newport Avenue Landscaping has navigated the NWX ARC hundreds of times. We handle the design, the documentation, and the submission so you don't have to.
+          </p>
+
+          {/* Services */}
+          <h2 className="text-3xl font-bold mb-4" style={{ color: "oklch(0.25 0.005 0)" }}>Services We Provide in NorthWest Crossing</h2>
+          <ul className="list-disc pl-5 mb-8 space-y-1">
+            <li>ARC design review preparation and submission support</li>
+            <li>Drought-tolerant and native plant installation</li>
+            <li>Landscape design and full-yard installation</li>
+            <li>Smart irrigation system design, installation, and repair</li>
+            <li>Custom paver patios, walkways, and outdoor living spaces</li>
+            <li>Seasonal color programs and annual bed rotations</li>
+            <li>Year-round maintenance — mowing, pruning, fertilization</li>
+            <li>Spring and fall cleanups</li>
+          </ul>
+
+          {/* ARC section */}
+          <h2 className="text-3xl font-bold mb-4" style={{ color: "oklch(0.25 0.005 0)" }}>Navigating the NWX ARC Approval Process</h2>
+          <p className="mb-4">
+            The NorthWest Crossing ARC requires detailed plans before any significant landscape change — botanical plant lists, irrigation diagrams, material samples, and site drawings. Incomplete submissions get rejected, which delays your project by weeks. Our design team prepares complete, ARC-ready packages that get approved the first time.
+          </p>
+          <p className="mb-8">
+            We've worked with the NWX ARC long enough to know exactly what reviewers look for and what triggers a rejection. That experience saves you time and money before a single shovel hits the ground.
+          </p>
+
+          {/* Pro tip */}
+          <div className="bg-gray-100 p-6 rounded-lg mb-8 border-l-4" style={{ borderColor: "oklch(0.46 0.20 25)" }}>
+            <p className="font-bold text-lg mb-2" style={{ color: "oklch(0.25 0.005 0)" }}>PRO TIP: ARC Submissions</p>
+            <p>
+              Always include both botanical and common names in your NWX plant list — the ARC requires both. Also submit a scaled site plan showing setbacks from property lines and existing trees. Newport Avenue handles all of this as part of our standard design process.
+            </p>
+          </div>
+
+          {/* Plant selection */}
+          <h2 className="text-3xl font-bold mb-4" style={{ color: "oklch(0.25 0.005 0)" }}>Plant Selection for NWX's High Desert Climate</h2>
+          <p className="mb-8">
+            NorthWest Crossing sits at 3,600 feet in USDA Zone 6b — hot, dry summers and cold winters with limited rainfall. The NWX ARC also favors water-wise, native-compatible plantings that blend with the high desert surroundings. Our go-to palette for NWX includes Blue Fescue, various sages, Lavender, Kinnikinnick, Serviceberry, and drought-tolerant ornamental grasses — all ARC-approved and proven in Bend's climate.
+          </p>
+
+          {/* Why Newport */}
+          <h2 className="text-3xl font-bold mb-4" style={{ color: "oklch(0.25 0.005 0)" }}>Why NWX Homeowners Choose Newport Avenue</h2>
+          <p className="mb-4">
+            We maintain more properties in NorthWest Crossing than any other landscaping company in Bend. Our crews work in the neighborhood every week — they know the streets, the soil, and the neighbors. We show up on schedule, communicate throughout the project, and back every hardscape installation with a 5-year warranty.
+          </p>
+          <p className="mb-8">
+            We're licensed with the Oregon Landscape Contractors Board (LCB #9153), fully insured, and have a team of 150+ employees. Large enough to handle any scope, local enough to care about every detail.
+          </p>
+
+          {/* CTA block */}
+          <div className="p-8 text-center mt-12" style={{ backgroundColor: "oklch(0.18 0.008 0)" }}>
+            <p className="font-label text-xs mb-3" style={{ color: "oklch(0.46 0.20 25)", letterSpacing: "0.18em" }}>GET STARTED TODAY</p>
+            <h3 className="font-display text-white mb-4" style={{ fontSize: "1.6rem" }}>Free Consultation for NWX Homeowners</h3>
+            <p className="font-body mb-6" style={{ color: "oklch(0.72 0.005 0)", lineHeight: 1.7 }}>
+              Our design team will walk your property, assess your landscape, and deliver a complete ARC-ready proposal — no pressure, no obligation.
+            </p>
+            <Link href="/contact"><span className="btn-red inline-block">Schedule Your Free Consultation →</span></Link>
+            <p className="mt-4 text-sm" style={{ color: "oklch(0.60 0.005 0)" }}>Or call us: (541) 617-8873</p>
+          </div>
+
+          {/* Related links */}
+          <div className="mt-12 pt-10" style={{ borderTop: "1px solid oklch(0.88 0.005 0)" }}>
+            <p className="font-label mb-2" style={{ color: "oklch(0.46 0.20 25)", fontSize: "0.62rem", letterSpacing: "0.18em" }}>YOU MIGHT ALSO LIKE</p>
+            <h2 className="font-display font-light mb-6" style={{ fontSize: "clamp(1.3rem, 2vw, 1.8rem)", color: "oklch(0.15 0.005 0)" }}>More Neighborhood Guides</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <Link href="/service-areas/awbrey-butte-landscaping">
+                <span style={{ display: "block", padding: "1.1rem 1.25rem", backgroundColor: "oklch(1 0 0)", borderLeft: "3px solid oklch(0.46 0.20 25)", textDecoration: "none" }}>
+                  <div className="font-body" style={{ color: "oklch(0.22 0.008 30)", fontWeight: 600, fontSize: "0.85rem", marginBottom: "0.3rem" }}>Awbrey Butte</div>
+                  <div className="font-body" style={{ color: "oklch(0.50 0.008 30)", fontSize: "0.75rem", fontWeight: 300, lineHeight: 1.5 }}>Hillside design, fire-wise solutions, and HOA compliance.</div>
+                </span>
+              </Link>
+              <Link href="/service-areas/broken-top-landscaping">
+                <span style={{ display: "block", padding: "1.1rem 1.25rem", backgroundColor: "oklch(1 0 0)", borderLeft: "3px solid oklch(0.46 0.20 25)", textDecoration: "none" }}>
+                  <div className="font-body" style={{ color: "oklch(0.22 0.008 30)", fontWeight: 600, fontSize: "0.85rem", marginBottom: "0.3rem" }}>Broken Top</div>
+                  <div className="font-body" style={{ color: "oklch(0.50 0.008 30)", fontSize: "0.75rem", fontWeight: 300, lineHeight: 1.5 }}>Luxury estate landscaping inside Bend's premier gated community.</div>
+                </span>
+              </Link>
+              <Link href="/service-areas/bend-westside-landscaping">
+                <span style={{ display: "block", padding: "1.1rem 1.25rem", backgroundColor: "oklch(1 0 0)", borderLeft: "3px solid oklch(0.46 0.20 25)", textDecoration: "none" }}>
+                  <div className="font-body" style={{ color: "oklch(0.22 0.008 30)", fontWeight: 600, fontSize: "0.85rem", marginBottom: "0.3rem" }}>Bend's Westside</div>
+                  <div className="font-body" style={{ color: "oklch(0.50 0.008 30)", fontSize: "0.75rem", fontWeight: 300, lineHeight: 1.5 }}>Full-service landscaping across Bend's west side neighborhoods.</div>
+                </span>
+              </Link>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <Footer />
     </div>
   );
 }
