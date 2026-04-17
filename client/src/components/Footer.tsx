@@ -28,6 +28,8 @@ const landscapingLinks = [
   { label: "Landscape Design", href: "/services/landscape-design" },
   { label: "Landscape Lighting", href: "/services/landscape-lighting" },
   { label: "Xeriscaping", href: "/services/xeriscaping" },
+  { label: "Retaining Walls", href: "/services/retaining-walls" },
+  { label: "Drainage Solutions", href: "/services/drainage" },
 ];
 
 const cityLinks = [
@@ -52,6 +54,7 @@ const quickLinks = [
   { label: "Service Areas", href: "/service-areas" },
   { label: "Contact Us", href: "/contact" },
   { label: "Get a Free Quote", href: "/contact" },
+  { label: "Careers", href: "/careers" },
 ];
 
 const resourceArticleLinks = [

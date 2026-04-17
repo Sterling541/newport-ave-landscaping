@@ -37,6 +37,8 @@ const servicesItems = [
   { label: "Fire Pits & Fireplaces", href: "/services/fire-features", num: "07" },
   { label: "Landscape Lighting", href: "/services/landscape-lighting", num: "08" },
   { label: "Xeriscaping", href: "/services/xeriscaping", num: "09" },
+  { label: "Retaining Walls", href: "/services/retaining-walls", num: "10" },
+  { label: "Drainage Solutions", href: "/services/drainage", num: "11" },
 ];
 
 // Maintenance mega menu — Newport Ave residential lawn & maintenance photo
@@ -629,6 +631,12 @@ export default function Navbar() {
               active={isActive("/service-areas")}
               onClick={() => goTo("/service-areas")}
             />
+            <NavTextLink
+              label="Careers"
+              href="/careers"
+              active={isActive("/careers")}
+              onClick={() => goTo("/careers")}
+            />
             {/* Get a Quote — pill CTA, brand red */}
             <a
               href="/contact"
@@ -727,6 +735,7 @@ export default function Navbar() {
                 { label: "Commercial", href: "/commercial" },
                 { label: "Resources", href: "/resources" },
                 { label: "Service Areas", href: "/service-areas" },
+                { label: "Careers", href: "/careers" },
               ] as Array<{ label: string; href: string; dropdown?: { label: string; href: string; num: string }[] }>
             ).map((item) => (
               <div key={item.label}>

@@ -148,3 +148,14 @@
 - [ ] Write 25 full SEO content pages (cost guides, how-tos, area pages, service explainers)
 - [ ] Register all 25 pages as routes in App.tsx
 - [ ] Link new pages from relevant service/blog pages and nav
+
+## Session — April 17, 2026 (Resumed from context handoff)
+- [x] Create Drainage.tsx service page (French drains, dry creek beds, catch basins, grading)
+- [x] Create Careers.tsx page (job listings, benefits, culture, application CTA)
+- [x] Wire RetainingWalls, Drainage, Careers into App.tsx router
+- [x] Add Retaining Walls and Drainage Solutions to Navbar Services mega menu (desktop + mobile)
+- [x] Add Careers link to Navbar (desktop + mobile)
+- [x] Add Careers link to Footer quickLinks
+- [x] Add Retaining Walls and Drainage Solutions to Footer landscapingLinks
+- [x] Make Services.tsx residential service cards into clickable links with "Learn More →" CTA
+- [x] Fix RetainingWalls.tsx resource URL slug (boulder-landscaping-cost-bend → boulder-landscaping-cost-bend-oregon)

@@ -52,6 +52,9 @@ import OutdoorLiving from "./pages/services/OutdoorLiving";
 import FireFeatures from "./pages/services/FireFeatures";
 import LandscapeLighting from "./pages/services/LandscapeLighting";
 import Xeriscaping from "./pages/services/Xeriscaping";
+import RetainingWalls from "./pages/services/RetainingWalls";
+import Drainage from "./pages/services/Drainage";
+import Careers from "./pages/Careers";
 
 // City landing pages
 import BendPage from "./pages/cities/Bend";
@@ -211,6 +214,11 @@ function Router() {
       <Route path={"/services/fire-features"} component={FireFeatures} />
       <Route path={"/services/landscape-lighting"} component={LandscapeLighting} />
       <Route path={"/services/xeriscaping"} component={Xeriscaping} />
+      <Route path={"/services/retaining-walls"} component={RetainingWalls} />
+      <Route path={"/services/drainage"} component={Drainage} />
+
+      {/* Careers */}
+      <Route path={"/careers"} component={Careers} />
 
       {/* City landing pages */}
       <Route path={"/landscaping/bend"} component={BendPage} />

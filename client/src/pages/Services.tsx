@@ -37,51 +37,61 @@ function FadeIn({ children, delay = 0, className = "" }: { children: React.React
 const residentialServices = [
   {
     title: "Custom Design & Build",
+    href: "/services/landscape-design",
     description: "Work with our award-winning design team to bring your outdoor oasis to life. We handle everything from initial concept through final installation, with a 5-year warranty on main irrigation components for Priority Membership clients.",
     image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportLandscapingRVParkDay2Photos2_8e8d0bb1.jpg",
   },
   {
     title: "Patio Pavers & Walkways",
+    href: "/services/pavers",
     description: "We are your one-stop shop for all outdoor paving needs — driveways, walkways, patios, pool decks, and more. We work with natural stone, concrete pavers, flagstone, and brick to create surfaces that last decades.",
     image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/GLLPatio10_2ffabcfb.jpg",
   },
   {
     title: "Sprinklers & Irrigation",
+    href: "/services/irrigation",
     description: "With a full-time team dedicated exclusively to sprinkler installation and maintenance, we design and install efficient irrigation systems that keep your landscape thriving while conserving water.",
     image: "https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=800&auto=format&fit=crop",
   },
   {
     title: "Water Features",
+    href: "/services/water-features",
     description: "Ponds, streams, pondless waterfalls, fountains, and any other water feature you can dream up. Our water feature specialists create living, breathing focal points that transform any outdoor space.",
     image: "https://images.unsplash.com/photo-1563911892437-1feda0179e1b?w=800&auto=format&fit=crop",
   },
   {
     title: "Outdoor Living Areas",
+    href: "/services/outdoor-living",
     description: "From outdoor kitchens and fire features to pergolas and covered patios — we design and build complete outdoor living spaces that extend your home and create unforgettable entertaining areas.",
     image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/GLLPatio2_4916fcde.jpg",
   },
   {
     title: "Fire Features",
+    href: "/services/fire-features",
     description: "Gas fire pits, wood-burning fireplaces, fire bowls, and custom built-in fire features. We integrate fire into your landscape design to create warmth, ambiance, and year-round outdoor enjoyment.",
     image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/GLLPatio2_4916fcde.jpg",
   },
   {
     title: "Retaining Walls",
+    href: "/services/retaining-walls",
     description: "Structural and decorative retaining walls in natural stone, concrete block, and timber. We solve drainage and grade challenges while adding beautiful architectural elements to your landscape.",
     image: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800&auto=format&fit=crop",
   },
   {
     title: "Landscape Lighting",
+    href: "/services/landscape-lighting",
     description: "Professional low-voltage LED landscape lighting that highlights your home's architecture, illuminates pathways, and creates dramatic nighttime ambiance. Energy-efficient and built to last.",
     image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&auto=format&fit=crop",
   },
   {
     title: "Xeriscaping",
+    href: "/services/xeriscaping",
     description: "Water-wise landscaping designed specifically for Central Oregon's high desert climate. Beautiful, low-maintenance landscapes using native plants, decorative rock, and efficient irrigation.",
     image: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800&auto=format&fit=crop",
   },
   {
     title: "Drainage Solutions",
+    href: "/services/drainage",
     description: "French drains, dry creek beds, catch basins, and grading solutions to protect your property from water damage. We solve drainage problems permanently and beautifully.",
     image: "https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=800&auto=format&fit=crop",
   },
@@ -199,29 +209,34 @@ export default function Services() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {residentialServices.map((service, i) => (
               <FadeIn key={service.title} delay={(i % 4) * 0.08}>
-                <div
-                  className="flex gap-0 overflow-hidden"
-                  style={{ backgroundColor: "oklch(1 0 0)" }}
-                >
+                <Link href={service.href}>
                   <div
-                    className="flex-shrink-0 w-2"
-                    style={{ backgroundColor: i % 3 === 0 ? "oklch(0.46 0.20 25)" : i % 3 === 1 ? "oklch(0.15 0.005 0)" : "oklch(0.72 0.12 25)" }}
-                  />
-                  <div className="p-7">
-                    <h3
-                      className="font-display font-light mb-3"
-                      style={{ fontSize: "1.2rem", color: "oklch(0.15 0.005 0)" }}
-                    >
-                      {service.title}
-                    </h3>
-                    <p
-                      className="font-body"
-                      style={{ color: "oklch(0.45 0.008 0)", lineHeight: 1.75, fontWeight: 300, fontSize: "0.92rem" }}
-                    >
-                      {service.description}
-                    </p>
+                    className="flex gap-0 overflow-hidden group cursor-pointer transition-shadow hover:shadow-md"
+                    style={{ backgroundColor: "oklch(1 0 0)" }}
+                  >
+                    <div
+                      className="flex-shrink-0 w-2"
+                      style={{ backgroundColor: i % 3 === 0 ? "oklch(0.46 0.20 25)" : i % 3 === 1 ? "oklch(0.15 0.005 0)" : "oklch(0.72 0.12 25)" }}
+                    />
+                    <div className="p-7 flex-1">
+                      <h3
+                        className="font-display font-light mb-3 group-hover:text-[oklch(0.46_0.20_25)] transition-colors"
+                        style={{ fontSize: "1.2rem", color: "oklch(0.15 0.005 0)" }}
+                      >
+                        {service.title}
+                      </h3>
+                      <p
+                        className="font-body"
+                        style={{ color: "oklch(0.45 0.008 0)", lineHeight: 1.75, fontWeight: 300, fontSize: "0.92rem" }}
+                      >
+                        {service.description}
+                      </p>
+                      <div className="mt-3 font-label text-[oklch(0.46_0.20_25)] flex items-center gap-1" style={{ fontSize: "0.65rem" }}>
+                        Learn More →
+                      </div>
+                    </div>
                   </div>
-                </div>
+                </Link>
               </FadeIn>
             ))}
           </div>

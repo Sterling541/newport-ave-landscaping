@@ -38,22 +38,23 @@ const timeline = [
   },
 ];
 
+const CDN = "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx";
 const team = [
-  { name: "Jana", role: "General Manager", photo: "https://newportavelandscaping.com/wp-content/uploads/2022/08/Jana-General-Manager-683x1024.jpg" },
-  { name: "Mykiah", role: "Front Office", photo: "https://newportavelandscaping.com/wp-content/uploads/2022/08/Mykiah-Front-Office-1-683x1024.jpg" },
-  { name: "Aurora", role: "Project Manager", photo: "https://newportavelandscaping.com/wp-content/uploads/2022/08/Aurora-Project-Manager-683x1024.jpg" },
-  { name: "Chris", role: "Project Manager", photo: "https://newportavelandscaping.com/wp-content/uploads/2022/08/Newport-Landscaping-2022-Ariel-Dawn-Photography17-683x1024.jpg" },
-  { name: "Annelie", role: "Lead Landscape Designer", photo: "https://newportavelandscaping.com/wp-content/uploads/2022/08/Annelie-Lead-Landscape-Designer-683x1024.jpg" },
-  { name: "Milton", role: "Maintenance Dept. Manager", photo: "https://newportavelandscaping.com/wp-content/uploads/2022/08/Milton-Maintenance-Dept.-Manager-1-683x1024.jpg" },
-  { name: "Francis", role: "Irrigation Technician", photo: "https://newportavelandscaping.com/wp-content/uploads/2022/08/Francis-Irrigation-Technition-1-1-683x1024.jpg" },
-  { name: "John", role: "Landscape Consultant", photo: "https://newportavelandscaping.com/wp-content/uploads/2022/08/John-Landscape-Consultant-1-683x1024.jpg" },
-  { name: "Nathan", role: "Landscape Consultant", photo: "https://newportavelandscaping.com/wp-content/uploads/2022/08/Nathan-Landscaping-Consultant-1-683x1024.jpg" },
-  { name: "Jesus", role: "Construction Foreman", photo: "https://newportavelandscaping.com/wp-content/uploads/2022/08/Jesus-Construction-Foreman-1-683x1024.jpg" },
-  { name: "Patrick", role: "Construction Foreman", photo: "https://newportavelandscaping.com/wp-content/uploads/2022/08/Patrick-Construction-Foreman-1-683x1024.jpg" },
-  { name: "Tommy", role: "Construction Foreman", photo: "https://newportavelandscaping.com/wp-content/uploads/2022/08/Tommy-Construction-Foreman-683x1024.jpg" },
-  { name: "Miguel", role: "Construction Foreman", photo: "https://newportavelandscaping.com/wp-content/uploads/2022/08/Miguel-Construction-Foreman-1-683x1024.jpg" },
-  { name: "Miguel Jr.", role: "Construction Foreman", photo: "https://newportavelandscaping.com/wp-content/uploads/2022/08/Miguel-Jr.-Construction-Foreman-1-683x1024.jpg" },
-  { name: "Neri", role: "Maintenance Lead", photo: "https://newportavelandscaping.com/wp-content/uploads/2022/08/Newport-Landscaping-2022-Ariel-Dawn-Photography14-683x1024.jpg" },
+  { name: "Jana", role: "General Manager", photo: `${CDN}/jana_288ba6d2.jpg` },
+  { name: "Mykiah", role: "Front Office", photo: `${CDN}/mykiah_c5827e9e.jpg` },
+  { name: "Aurora", role: "Project Manager", photo: `${CDN}/aurora_ece6d98e.jpg` },
+  { name: "Chris", role: "Project Manager", photo: `${CDN}/chris_ef87712c.jpg` },
+  { name: "Annelie", role: "Lead Landscape Designer", photo: `${CDN}/annelie_b391729e.jpg` },
+  { name: "Milton", role: "Maintenance Dept. Manager", photo: `${CDN}/milton_20cd3e98.jpg` },
+  { name: "Francis", role: "Irrigation Technician", photo: `${CDN}/francis_cf91fcf3.jpg` },
+  { name: "John", role: "Landscape Consultant", photo: `${CDN}/john_cbd8568a.jpg` },
+  { name: "Nathan", role: "Landscape Consultant", photo: `${CDN}/nathan_751cedd4.jpg` },
+  { name: "Jesus", role: "Construction Foreman", photo: `${CDN}/jesus_ce498865.jpg` },
+  { name: "Patrick", role: "Construction Foreman", photo: `${CDN}/patrick_d8adde10.jpg` },
+  { name: "Tommy", role: "Construction Foreman", photo: `${CDN}/tommy_01635e68.jpg` },
+  { name: "Miguel", role: "Construction Foreman", photo: `${CDN}/miguel_e78e38ce.jpg` },
+  { name: "Miguel Jr.", role: "Construction Foreman", photo: `${CDN}/miguel-jr_2042b338.jpg` },
+  { name: "Neri", role: "Maintenance Lead", photo: `${CDN}/neri_761c04b2.jpg` },
 ];
 
 function FadeIn({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) {
