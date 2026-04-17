@@ -16,11 +16,9 @@ import FloatingCTA from "@/components/FloatingCTA";
 const MarqueeBand = lazy(() => import("@/components/MarqueeBand"));
 const BotanicalBand = lazy(() => import("@/components/BotanicalBand"));
 const WhoWeServe = lazy(() => import("@/components/WhoWeServe"));
-const ServicesSection = lazy(() => import("@/components/ServicesSection"));
 const OutdoorRoomsSection = lazy(() => import("@/components/OutdoorRoomsSection"));
 const EditorialQuote = lazy(() => import("@/components/EditorialQuote"));
 const AboutSection = lazy(() => import("@/components/AboutSection"));
-const PortfolioSection = lazy(() => import("@/components/PortfolioSection"));
 const PhotoGallery = lazy(() => import("@/components/PhotoGallery"));
 const LightingSection = lazy(() => import("@/components/LightingSection"));
 const MembershipBanner = lazy(() => import("@/components/MembershipBanner"));
@@ -69,7 +67,6 @@ export default function Home() {
       <Suspense fallback={<SectionFallback />}>
         <BotanicalBand variant="a" />
         <WhoWeServe />
-        <ServicesSection />
       </Suspense>
 
       <Suspense fallback={<SectionFallback />}>
@@ -83,7 +80,6 @@ export default function Home() {
       <Suspense fallback={<SectionFallback />}>
         <BotanicalBand label="PORTFOLIO  ◆  150+ PROJECTS" variant="b" />
         <AboutSection />
-        <PortfolioSection />
         <PhotoGallery />
       </Suspense>
 
