@@ -50,6 +50,8 @@ interface ServicePageProps {
   category: string;
   title: string;
   subtitle?: string;
+  seoTitle?: string;
+  seoDescription?: string;
   heroImage: string;
   heroPosition?: string;
   intro: string;
@@ -67,6 +69,8 @@ export default function ServicePageLayout({
   category,
   title,
   subtitle,
+  seoTitle,
+  seoDescription,
   heroImage,
   heroPosition = "center",
   intro,
@@ -123,18 +127,18 @@ export default function ServicePageLayout({
   return (
     <div style={{ backgroundColor: "oklch(0.97 0.012 85)" }}>
       <Helmet>
-        <title>{(schemaName || title)} in Bend, Oregon | Newport Avenue Landscaping</title>
-        <meta name="description" content={(schemaDescription || intro).slice(0, 160)} />
+        <title>{seoTitle || `${schemaName || title} in Bend, Oregon | Newport Avenue Landscaping`}</title>
+        <meta name="description" content={seoDescription || (schemaDescription || intro).slice(0, 160)} />
         {schemaUrl && <link rel="canonical" href={`https://newportavelandscaping.com${schemaUrl}`} />}
-        <meta property="og:title" content={`${schemaName || title} in Bend, Oregon | Newport Avenue Landscaping`} />
-        <meta property="og:description" content={(schemaDescription || intro).slice(0, 160)} />
+        <meta property="og:title" content={seoTitle || `${schemaName || title} in Bend, Oregon | Newport Avenue Landscaping`} />
+        <meta property="og:description" content={seoDescription || (schemaDescription || intro).slice(0, 160)} />
         <meta property="og:type" content="website" />
         <meta property="og:image" content={heroImage} />
         {schemaUrl && <meta property="og:url" content={`https://newportavelandscaping.com${schemaUrl}`} />}
         <meta property="og:site_name" content="Newport Avenue Landscaping" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={`${schemaName || title} in Bend, Oregon | Newport Avenue Landscaping`} />
-        <meta name="twitter:description" content={(schemaDescription || intro).slice(0, 160)} />
+        <meta name="twitter:title" content={seoTitle || `${schemaName || title} in Bend, Oregon | Newport Avenue Landscaping`} />
+        <meta name="twitter:description" content={seoDescription || (schemaDescription || intro).slice(0, 160)} />
         <meta name="twitter:image" content={heroImage} />
         <script type="application/ld+json">{JSON.stringify(serviceSchema)}</script>
         {faqSchema && <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>}

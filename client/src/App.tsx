@@ -339,6 +339,9 @@ function Router() {
       <Route path={"/resources/tree-removal-cost-bend-oregon"} component={lazy(() => import('./pages/resources/TreeRemovalCostBend'))} />
       <Route path={"/resources/winter-landscaping-guide-bend-oregon"} component={lazy(() => import('./pages/resources/WinterLandscapingGuideBend'))} />
       <Route path={"/resources/xeriscape-vs-traditional-lawn-bend-oregon"} component={lazy(() => import('./pages/resources/XeriscapeVsTraditionalLawnBend'))} />
+      <Route path={"/resources/best-grass-bend-oregon"} component={lazy(() => import('./pages/resources/BestGrassBendOregon'))} />
+      <Route path={"/resources/when-to-plant-bend-oregon"} component={lazy(() => import('./pages/resources/WhenToPlantBendOregon'))} />
+      <Route path={"/resources/brown-lawn-bend-oregon"} component={lazy(() => import('./pages/resources/BrownLawnBendOregon'))} />
 
       {/* New Service Area Pages */}
       <Route path={"/service-areas/bend-country-club-landscaping"} component={lazy(() => import('./pages/service-areas/BendCountryClubLandscaping'))} />

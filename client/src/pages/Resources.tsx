@@ -7,7 +7,7 @@ export default function Resources() {
     <div style={{ backgroundColor: "oklch(0.97 0.012 85)", minHeight: "100vh" }}>
       <Helmet>
         <title>Landscaping Resources &amp; Guides for Bend, Oregon | Newport Avenue Landscaping</title>
-        <meta name="description" content="Free landscaping guides, cost estimates, how-tos, and seasonal tips for Bend, Oregon homeowners. 88 articles covering irrigation, pavers, xeriscape, lawn care, and more from Newport Avenue Landscaping — 21 years of Central Oregon expertise." />
+        <meta name="description" content="Free landscaping guides, cost estimates, how-tos, and seasonal tips for Bend, Oregon homeowners. 91 articles covering irrigation, pavers, xeriscape, lawn care, and more from Newport Avenue Landscaping — 21 years of Central Oregon expertise." />
         <link rel="canonical" href="https://newportavelandscaping.com/resources" />
         <script type="application/ld+json">{`{
           "@context": "https://schema.org",
@@ -32,7 +32,7 @@ export default function Resources() {
             Landscaping Knowledge<br />for Central Oregon
           </h1>
           <p style={{ color: "oklch(0.72 0.12 25)", fontWeight: 300, fontSize: "1rem", maxWidth: "600px", lineHeight: 1.7, marginBottom: "2rem" }}>
-            88 free guides, cost estimates, how-tos, and seasonal tips written by Newport Avenue Landscaping — 21 years of Central Oregon expertise in one place.
+            91 free guides, cost estimates, how-tos, and seasonal tips written by Newport Avenue Landscaping — 21 years of Central Oregon expertise in one place.
           </p>
           <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem" }}>
             <a href="#cost-guides" style={{ fontFamily: "var(--font-label)", fontSize: "0.68rem", color: "oklch(0.72 0.12 25)", textDecoration: "none", letterSpacing: "0.08em", borderBottom: "1px solid oklch(0.46 0.20 25)", paddingBottom: "2px" }}>COST GUIDES</a>
@@ -145,7 +145,7 @@ export default function Resources() {
             <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 300, color: "oklch(0.15 0.005 0)", fontSize: "clamp(1.2rem, 2.5vw, 1.7rem)", margin: 0 }}>
               How-To Guides
             </h2>
-            <span style={{ fontFamily: "var(--font-label)", fontSize: "0.62rem", color: "oklch(0.55 0.008 0)", letterSpacing: "0.06em" }}>10 ARTICLES</span>
+            <span style={{ fontFamily: "var(--font-label)", fontSize: "0.62rem", color: "oklch(0.55 0.008 0)", letterSpacing: "0.06em" }}>13 ARTICLES</span>
           </div>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: "0.75rem" }}>
             
@@ -175,6 +175,15 @@ export default function Resources() {
               </a>
               <a href="/resources/how-to-xeriscape-bend-oregon" style={{ display: "flex", flexDirection: "column", padding: "1.1rem 1.25rem", background: "oklch(1 0 0)", borderLeft: "3px solid oklch(0.46 0.20 25)", textDecoration: "none", color: "oklch(0.22 0.008 30)", fontWeight: 600, fontSize: "0.85rem", lineHeight: 1.4, gap: "0.25rem", transition: "transform 0.15s, box-shadow 0.15s" }}>
                 How to Xeriscape in Bend, Oregon
+              </a>
+              <a href="/resources/best-grass-bend-oregon" style={{ display: "flex", flexDirection: "column", padding: "1.1rem 1.25rem", background: "oklch(1 0 0)", borderLeft: "3px solid oklch(0.46 0.20 25)", textDecoration: "none", color: "oklch(0.22 0.008 30)", fontWeight: 600, fontSize: "0.85rem", lineHeight: 1.4, gap: "0.25rem", transition: "transform 0.15s, box-shadow 0.15s" }}>
+                Best Grass for Bend, Oregon | What Grows in Central Oregon
+              </a>
+              <a href="/resources/when-to-plant-bend-oregon" style={{ display: "flex", flexDirection: "column", padding: "1.1rem 1.25rem", background: "oklch(1 0 0)", borderLeft: "3px solid oklch(0.46 0.20 25)", textDecoration: "none", color: "oklch(0.22 0.008 30)", fontWeight: 600, fontSize: "0.85rem", lineHeight: 1.4, gap: "0.25rem", transition: "transform 0.15s, box-shadow 0.15s" }}>
+                When to Plant in Bend, Oregon | Planting Calendar for Zone 6a
+              </a>
+              <a href="/resources/brown-lawn-bend-oregon" style={{ display: "flex", flexDirection: "column", padding: "1.1rem 1.25rem", background: "oklch(1 0 0)", borderLeft: "3px solid oklch(0.46 0.20 25)", textDecoration: "none", color: "oklch(0.22 0.008 30)", fontWeight: 600, fontSize: "0.85rem", lineHeight: 1.4, gap: "0.25rem", transition: "transform 0.15s, box-shadow 0.15s" }}>
+                Why Is My Lawn Turning Brown in Bend? | Diagnosis &amp; Fix
               </a>
               <a href="/resources/professional-vs-diy-landscaping-bend-oregon" style={{ display: "flex", flexDirection: "column", padding: "1.1rem 1.25rem", background: "oklch(1 0 0)", borderLeft: "3px solid oklch(0.46 0.20 25)", textDecoration: "none", color: "oklch(0.22 0.008 30)", fontWeight: 600, fontSize: "0.85rem", lineHeight: 1.4, gap: "0.25rem", transition: "transform 0.15s, box-shadow 0.15s" }}>
                 Professional vs. DIY Landscaping in Bend, OR | Newport Ave

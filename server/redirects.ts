@@ -87,8 +87,7 @@ const REDIRECTS: Record<string, string> = {
   "/about-us/": "/about",
   "/contact-us": "/contact",
   "/contact-us/": "/contact",
-  "/careers": "/about",
-  "/careers/": "/about",
+  // /careers has its own dedicated page — no redirect needed
 
   // === RESOURCES / BLOG ===
   "/lawn-fungus": "/resources/lawn-fungus",

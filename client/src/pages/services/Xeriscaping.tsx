@@ -24,6 +24,8 @@ export default function Xeriscaping() {
       category="LANDSCAPING SERVICES"
       title="Xeriscaping"
       subtitle="Water-Wise Landscaping for Central Oregon"
+      seoTitle="Xeriscape Landscaping Bend Oregon | Water-Wise & Drought-Tolerant Design | Newport Avenue"
+      seoDescription="Water-wise xeriscape landscaping in Bend, Oregon. Drought-tolerant plants, decorative rock, and low-maintenance designs for Central Oregon's climate. LCB #9153."
       heroImage="https://newportavelandscaping.com/wp-content/uploads/2022/05/awbrey-butte-xeriscape-landscaping-renovation-day-shot.jpg"
       intro="Xeriscaping is the art of creating beautiful, sustainable landscapes that thrive with minimal water. In Central Oregon's high-desert climate, xeriscaping isn't just an environmental choice — it's a smart investment that reduces your water bill, lowers maintenance requirements, and creates a landscape that looks stunning year-round without constant irrigation."
       sections={[

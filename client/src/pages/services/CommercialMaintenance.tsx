@@ -31,6 +31,8 @@ export default function CommercialMaintenance() {
       category="Commercial Services"
       title="Commercial Landscape"
       subtitle="Maintenance"
+      seoTitle="Commercial Landscaping Bend Oregon | HOA & Office Park Maintenance | Newport Avenue"
+      seoDescription="Commercial landscape maintenance for HOAs, office parks, and retail properties in Bend, Oregon. Weekly service, seasonal cleanups, and irrigation management. LCB #9153."
       heroImage="https://files.manuscdn.com/user_upload_by_module/session_file/310519663503028182/ambqMQAjmNxaGfTz.jpg"
       heroPosition="center 60%"
       intro="We provide lawn care for over 400 commercial properties in Bend, Oregon and the surrounding areas. We work with businesses, property management companies, HOAs, and private investors and have relationships with most of the major players in property management throughout Central Oregon. References provided upon request."

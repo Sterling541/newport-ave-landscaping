@@ -26,6 +26,8 @@ export default function Aeration() {
       category="Maintenance Services"
       title="Aeration Services"
       subtitle="Bend, Oregon"
+      seoTitle="Lawn Aeration Bend Oregon | Core Aeration & Overseeding | Newport Avenue"
+      seoDescription="Professional lawn aeration and overseeding in Bend, Oregon. Relieve soil compaction, improve water penetration, and thicken your turf. From $97/service. LCB #9153."
       heroImage="https://files.manuscdn.com/user_upload_by_module/session_file/310519663503028182/BJQnCBIWBSxkYjCM.jpg"
       heroPosition="center 50%"
       intro="Aeration is the process of taking small plugs or cores — usually one to six inches long — out of the lawn. Over time, the soil under your grass compacts, making it difficult for the lawn roots to breathe, feed, and grow. Plug Aeration is used to increase the health of the lawn by decompacting the soil and also helps manage or eradicate fungus and other lawn diseases."

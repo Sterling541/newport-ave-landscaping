@@ -31,6 +31,8 @@ export default function Pavers() {
       category="Installation Services"
       title="Paver Patios"
       subtitle="& Walkways"
+      seoTitle="Paver Patio Bend Oregon | Paver Installation & Walkways | Newport Avenue Landscaping"
+      seoDescription="Custom paver patio and walkway installation in Bend, Oregon. Natural stone, concrete pavers, and retaining walls. 5-year installation warranty. LCB #9153."
       heroImage="https://files.manuscdn.com/user_upload_by_module/session_file/310519663503028182/DsCDLoIMQbfZSjuQ.jpg"
       heroPosition="center 50%"
       intro="Paver patios and paver walkways are one of our favorite landscaping projects to design and build. Not only do you get instant aesthetic results, but you also get a product that, if built correctly, will last a lifetime and will vastly improve the value of your home."

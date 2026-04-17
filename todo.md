@@ -159,3 +159,20 @@
 - [x] Add Retaining Walls and Drainage Solutions to Footer landscapingLinks
 - [x] Make Services.tsx residential service cards into clickable links with "Learn More →" CTA
 - [x] Fix RetainingWalls.tsx resource URL slug (boulder-landscaping-cost-bend → boulder-landscaping-cost-bend-oregon)
+
+## Session — April 17, 2026 (SEO Domination Sprint)
+
+- [x] Inject optimized seoTitle + seoDescription into all 16 service pages
+- [x] Add seoTitle/seoDescription props to ServicePageLayout component
+- [x] Rewrite RetainingWalls.tsx with full FAQ schema, expanded content, and optimized SEO props
+- [x] Rewrite Drainage.tsx with full FAQ schema, expanded content, and optimized SEO props
+- [x] Strengthen Maintenance.tsx SEO title/description for lawn care keywords
+- [x] Strengthen Bend, Redmond, Sisters city page SEO titles and descriptions
+- [x] Create new resource page: /resources/best-grass-bend-oregon
+- [x] Create new resource page: /resources/when-to-plant-bend-oregon
+- [x] Create new resource page: /resources/brown-lawn-bend-oregon
+- [x] Wire all three new resource pages into App.tsx router
+- [x] Add all three new pages to Resources.tsx index (now 91 articles)
+- [x] Add all three new URLs to sitemap.xml
+- [x] Remove stale /careers redirect pointing to /about
+- [x] Competitive SEO analysis report delivered (PDF + MD)

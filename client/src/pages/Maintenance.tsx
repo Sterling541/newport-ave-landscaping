@@ -143,8 +143,8 @@ export default function Maintenance() {
   return (
      <div style={{ backgroundColor: "oklch(0.97 0.012 85)" }}>
       <SEO
-        title="Lawn Care & Landscape Maintenance Bend Oregon | Newport Avenue"
-        description="Professional lawn care, sprinkler maintenance, snow removal & commercial landscape services in Bend, OR. Weekly service, seasonal programs & irrigation management. LCB #9153."
+        title="Lawn Care Bend Oregon | Mowing, Cleanup & Maintenance | Newport Avenue"
+        description="Bend Oregon's lawn care experts since 2005. Weekly mowing from $97/service, spring & fall cleanups, sprinkler maintenance, snow removal & full-service landscape maintenance programs. LCB #9153."
         canonical="/maintenance"
       />
       <Navbar />
@@ -172,8 +172,8 @@ export default function Maintenance() {
             className="font-display font-light text-white"
             style={{ fontSize: "clamp(2.4rem, 6vw, 5rem)", lineHeight: 1.0 }}
           >
-            Keeping Your Property<br />
-            <em style={{ color: "oklch(0.75 0.10 25)" }}>Looking Its Best</em>
+            Lawn Care &amp; Landscape Maintenance<br />
+            <em style={{ color: "oklch(0.75 0.10 25)" }}>Bend, Oregon</em>
           </h1>
         </div>
       </section>
