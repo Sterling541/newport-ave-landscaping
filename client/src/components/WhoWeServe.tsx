@@ -1,19 +1,19 @@
 /* ============================================================
-   WHO WE SERVE — Full-Bleed Image Panels
-   "One Firm. Every Client Type."
-   Each segment is a full-bleed hero panel with overlaid copy,
-   bold stats, and a direct CTA — built to convert at a glance.
+   WHO WE SERVE — Clean Bright Tabbed Section
+   White background, pill tabs, photo + content split card.
+   Same great content, completely reinvented visual treatment.
    ============================================================ */
 import { useEffect, useRef, useState } from "react";
+import { useLocation } from "wouter";
 
 const CDN = "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx";
 
 const segments = [
   {
     id: "residential",
-    tag: "Homeowners",
-    label: "High-End Residential",
-    headline: "Your Home,\nElevated.",
+    tab: "Homeowners",
+    label: "HIGH-END RESIDENTIAL",
+    headline: "Your Home, Elevated.",
     body: "From luxury outdoor living rooms and custom water features to full estate landscaping — we design and build spaces that reflect your lifestyle and dramatically increase your property's value.",
     bullets: [
       "Custom design & build — no cookie-cutter packages",
@@ -21,20 +21,19 @@ const segments = [
       "Full irrigation, lighting & planting design",
       "Serving Broken Top, Awbrey Butte, NW Crossing & more",
     ],
-    cta: { label: "VIEW RESIDENTIAL SERVICES", href: "/services" },
-    cta2: { label: "GET A FREE ESTIMATE", href: "/contact" },
+    cta: { label: "View Residential Services", href: "/services" },
+    cta2: { label: "Get a Free Estimate", href: "/contact" },
     photo: `${CDN}/GLLPatio1_90e2e0c4.jpg`,
     photoAlt: "Luxury outdoor patio and landscaping by Newport Avenue Landscaping — Bend, Oregon",
-    accentColor: "oklch(0.56 0.18 25)",
-    gradientFrom: "oklch(0.08 0.008 25)",
+    accent: "oklch(0.50 0.18 25)",
+    accentBg: "oklch(0.97 0.012 25)",
     stats: null,
-    photoLabel: "Broken Top Residence",
   },
   {
     id: "commercial",
-    tag: "Commercial",
-    label: "Commercial Builders",
-    headline: "Scale Without\nCompromise.",
+    tab: "Commercial",
+    label: "COMMERCIAL PROPERTIES",
+    headline: "Scale Without Compromise.",
     body: "Central Oregon's leading commercial landscape contractor. We manage retail centers, office parks, mixed-use developments, and government facilities — with dedicated account teams and full in-house crews.",
     bullets: [
       "Dedicated commercial account managers",
@@ -42,24 +41,23 @@ const segments = [
       "Government, retail & mixed-use experience",
       "Respond within one business day, guaranteed",
     ],
-    cta: { label: "REQUEST A COMMERCIAL BID", href: "/commercial" },
+    cta: { label: "Request a Commercial Bid", href: "/commercial" },
     cta2: { label: "(541) 617-8873", href: "tel:5416178873" },
     photo: `${CDN}/DiscoveryWestPlazaHiResPhotos55_79ba9dd5.jpg`,
     photoAlt: "Discovery West Plaza commercial landscape installation by Newport Avenue Landscaping",
-    accentColor: "oklch(0.42 0.14 240)",
-    gradientFrom: "oklch(0.08 0.012 240)",
+    accent: "oklch(0.42 0.14 240)",
+    accentBg: "oklch(0.97 0.008 240)",
     stats: [
       { value: "50+", label: "Commercial Clients" },
-      { value: "21", label: "Years in Business" },
+      { value: "21 Yrs", label: "In Business" },
       { value: "LCB #9153", label: "Licensed & Bonded" },
     ],
-    photoLabel: "Discovery West Plaza",
   },
   {
     id: "hoa",
-    tag: "HOA",
-    label: "HOA Communities",
-    headline: "Community Pride,\nYear-Round.",
+    tab: "HOA Communities",
+    label: "HOA & COMMUNITY MANAGEMENT",
+    headline: "Community Pride, Year-Round.",
     body: "Newport Avenue manages more HOA landscape maintenance contracts in Central Oregon than any other firm. Reliable, consistent, and always on schedule — so your community always looks its best, every season.",
     bullets: [
       "More HOA contracts than any firm in Central Oregon",
@@ -67,114 +65,125 @@ const segments = [
       "Irrigation management & seasonal color programs",
       "Transparent reporting for board meetings",
     ],
-    cta: { label: "HOA LANDSCAPE MANAGEMENT", href: "/commercial#hoa" },
-    cta2: { label: "GET A FREE QUOTE", href: "/contact" },
+    cta: { label: "HOA Landscape Management", href: "/commercial#hoa" },
+    cta2: { label: "Get a Free Quote", href: "/contact" },
     photo: `${CDN}/hoa-neighborhood-aerial_b37395ce.png`,
     photoAlt: "Aerial view of a manicured HOA neighborhood community landscape managed by Newport Avenue Landscaping",
-    accentColor: "oklch(0.55 0.12 145)",
-    gradientFrom: "oklch(0.08 0.012 145)",
+    accent: "oklch(0.42 0.14 145)",
+    accentBg: "oklch(0.97 0.010 145)",
     stats: [
-      { value: "200+", label: "HOA Communities Served" },
+      { value: "200+", label: "HOA Communities" },
       { value: "4 Seasons", label: "Year-Round Service" },
     ],
-    photoLabel: "HOA Neighborhood Community",
   },
 ];
 
-function FadeIn({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) {
-  const ref = useRef<HTMLDivElement>(null);
+export default function WhoWeServe() {
+  const [active, setActive] = useState(0);
+  const [, navigate] = useLocation();
+  const sectionRef = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => { if (entry.isIntersecting) setVisible(true); },
-      { threshold: 0.06 }
+      { threshold: 0.05 }
     );
-    if (ref.current) observer.observe(ref.current);
+    if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
   }, []);
-  return (
-    <div
-      ref={ref}
-      className={className}
-      style={{
-        opacity: visible ? 1 : 0,
-        transform: visible ? "translateY(0)" : "translateY(28px)",
-        transition: `opacity 0.75s ease ${delay}s, transform 0.75s ease ${delay}s`,
-      }}
-    >
-      {children}
-    </div>
-  );
-}
 
-export default function WhoWeServe() {
-  const headerRef = useRef<HTMLDivElement>(null);
-  const [headerVisible, setHeaderVisible] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setHeaderVisible(true); },
-      { threshold: 0.06 }
-    );
-    if (headerRef.current) observer.observe(headerRef.current);
-    return () => observer.disconnect();
-  }, []);
+  const seg = segments[active];
 
   return (
     <section
-      style={{ backgroundColor: "oklch(0.10 0.008 0)", position: "relative", zIndex: 20 }}
+      ref={sectionRef}
+      style={{
+        backgroundColor: "oklch(1 0 0)",
+        position: "relative",
+        zIndex: 20,
+        opacity: visible ? 1 : 0,
+        transform: visible ? "translateY(0)" : "translateY(32px)",
+        transition: "opacity 0.8s ease, transform 0.8s ease",
+      }}
     >
-      {/* ── Section Header ───────────────────────────────────── */}
-      <div
-        className="container py-16"
-        ref={headerRef}
-        style={{
-          opacity: headerVisible ? 1 : 0,
-          transform: headerVisible ? "translateY(0)" : "translateY(24px)",
-          transition: "opacity 0.7s ease, transform 0.7s ease",
-        }}
-      >
-        <div
-          className="font-label mb-5 flex items-center gap-3"
-          style={{ color: "oklch(0.56 0.18 25)", fontSize: "0.65rem", letterSpacing: "0.18em" }}
-        >
-          <span className="inline-block w-8 h-px" style={{ backgroundColor: "oklch(0.56 0.18 25)" }} />
-          WHO WE SERVE
-        </div>
-        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
+      {/* Top red accent line */}
+      <div style={{ height: "3px", backgroundColor: "oklch(0.50 0.18 25)" }} />
+
+      <div className="container py-16 lg:py-20">
+
+        {/* ── Section header ── */}
+        <div className="mb-10">
+          <div
+            className="font-label mb-3 flex items-center gap-3"
+            style={{ color: "oklch(0.50 0.18 25)", fontSize: "0.65rem", letterSpacing: "0.18em" }}
+          >
+            <span className="inline-block w-8 h-px" style={{ backgroundColor: "oklch(0.50 0.18 25)" }} />
+            WHO WE SERVE
+          </div>
           <h2
             className="font-display font-light"
             style={{
-              fontSize: "clamp(2.2rem, 5vw, 3.8rem)",
-              color: "oklch(0.97 0 0)",
-              lineHeight: 1.05,
-              maxWidth: "600px",
+              fontSize: "clamp(2rem, 4.5vw, 3.2rem)",
+              color: "oklch(0.12 0.005 0)",
+              lineHeight: 1.1,
             }}
           >
             One Firm.{" "}
-            <em style={{ color: "oklch(0.72 0.16 28)", fontStyle: "italic" }}>
+            <em style={{ color: "oklch(0.50 0.18 25)", fontStyle: "italic" }}>
               Every Client Type.
             </em>
           </h2>
-          <p
-            className="font-body lg:max-w-xs"
-            style={{ color: "oklch(0.62 0.005 0)", lineHeight: 1.7, fontSize: "0.92rem" }}
-          >
-            Whether you are a homeowner, a property manager, or an HOA board
-            member — Newport Avenue has the team, the equipment, and the
-            experience to handle your project at any scale.
-          </p>
         </div>
-      </div>
 
-      {/* ── Full-Bleed Panels ─────────────────────────────────── */}
-      {segments.map((seg, i) => (
-        <FadeIn key={seg.id} delay={i * 0.1}>
+        {/* ── Pill tabs ── */}
+        <div className="flex flex-wrap gap-2 mb-10">
+          {segments.map((s, i) => (
+            <button
+              key={s.id}
+              onClick={() => setActive(i)}
+              style={{
+                padding: "0.55rem 1.4rem",
+                borderRadius: "999px",
+                fontSize: "0.78rem",
+                fontWeight: 600,
+                letterSpacing: "0.04em",
+                fontFamily: "var(--font-label, sans-serif)",
+                border: active === i ? "2px solid oklch(0.50 0.18 25)" : "2px solid oklch(0.88 0.005 0)",
+                backgroundColor: active === i ? "oklch(0.50 0.18 25)" : "oklch(1 0 0)",
+                color: active === i ? "oklch(1 0 0)" : "oklch(0.35 0.005 0)",
+                cursor: "pointer",
+                transition: "all 0.2s ease",
+              }}
+            >
+              {s.tab}
+            </button>
+          ))}
+        </div>
+
+        {/* ── Content card ── */}
+        <div
+          key={seg.id}
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+            gap: "0",
+            borderRadius: "1rem",
+            overflow: "hidden",
+            boxShadow: "0 4px 40px oklch(0 0 0 / 0.08)",
+            border: "1px solid oklch(0.92 0.005 0)",
+            animation: "fadeSlideIn 0.35s ease",
+          }}
+          className="flex flex-col lg:grid"
+        >
+          {/* Photo side */}
           <div
-            className="relative overflow-hidden"
-            style={{ minHeight: "clamp(520px, 60vw, 720px)" }}
+            style={{
+              position: "relative",
+              minHeight: "360px",
+              overflow: "hidden",
+            }}
           >
-            {/* Background photo */}
             <img
               src={seg.photo}
               alt={seg.photoAlt}
@@ -186,293 +195,175 @@ export default function WhoWeServe() {
                 height: "100%",
                 objectFit: "cover",
                 objectPosition: "center 35%",
-                filter: "brightness(0.75) saturate(1.1)",
               }}
             />
-
-            {/* Dark gradient overlay — stronger on left for text readability */}
+            {/* Subtle bottom gradient for label */}
             <div
               style={{
                 position: "absolute",
-                inset: 0,
-                background: i % 2 === 0
-                  ? `linear-gradient(to right, ${seg.gradientFrom} 0%, ${seg.gradientFrom} 30%, oklch(0.10 0.005 0 / 0.30) 60%, transparent 100%)`
-                  : `linear-gradient(to left, ${seg.gradientFrom} 0%, ${seg.gradientFrom} 30%, oklch(0.10 0.005 0 / 0.30) 60%, transparent 100%)`,
-                pointerEvents: "none",
+                bottom: 0,
+                left: 0,
+                right: 0,
+                height: "80px",
+                background: "linear-gradient(to top, oklch(0 0 0 / 0.45), transparent)",
               }}
             />
-            {/* Bottom gradient for text safety */}
-            <div
-              style={{
-                position: "absolute",
-                inset: 0,
-                background: "linear-gradient(to top, oklch(0.08 0.005 0 / 0.50) 0%, transparent 50%)",
-                pointerEvents: "none",
-              }}
-            />
+          </div>
 
-            {/* Accent color top strip */}
-            <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "3px", backgroundColor: seg.accentColor }} />
-
-            {/* Content */}
+          {/* Text side */}
+          <div
+            style={{
+              backgroundColor: "oklch(0.99 0.003 75)",
+              padding: "clamp(2rem, 4vw, 3rem)",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+            }}
+          >
+            {/* Label */}
             <div
-              className="container relative h-full flex items-center"
-              style={{ paddingTop: "4rem", paddingBottom: "4rem" }}
+              className="font-label mb-3"
+              style={{ color: seg.accent, fontSize: "0.62rem", letterSpacing: "0.18em" }}
             >
-              <div
-                className="flex flex-col"
-                style={{
-                  maxWidth: "600px",
-                  marginLeft: i % 2 === 0 ? "0" : "auto",
-                  marginRight: i % 2 === 0 ? "auto" : "0",
-                  backgroundColor: "oklch(0.06 0.005 0 / 0.65)",
-                  backdropFilter: "blur(2px)",
-                  borderRadius: "0.5rem",
-                  padding: "2rem 2.5rem",
-                }}
-              >
-                {/* Large dominant segment label */}
-                <div className="mb-5">
-                  <div
-                    className="font-display font-light"
-                    style={{
-                      fontSize: "clamp(3rem, 7vw, 6rem)",
-                      color: seg.accentColor,
-                      lineHeight: 0.9,
-                      letterSpacing: "-0.02em",
-                      textTransform: "uppercase",
-                      textShadow: "0 2px 20px oklch(0 0 0 / 0.6)",
-                    }}
-                  >
-                    {seg.tag}
-                  </div>
-                  <div
-                    className="font-label mt-2"
-                    style={{ color: "oklch(0.60 0.005 0)", fontSize: "0.62rem", letterSpacing: "0.18em" }}
-                  >
-                    {seg.label.toUpperCase()}
-                  </div>
-                </div>
-
-                {/* Headline */}
-                <h3
-                  className="font-display font-light mb-4"
-                  style={{
-                    fontSize: "clamp(2.2rem, 4.5vw, 3.6rem)",
-                    color: "oklch(1 0 0)",
-                    lineHeight: 1.05,
-                    whiteSpace: "pre-line",
-                    textShadow: "0 2px 12px oklch(0 0 0 / 0.5)",
-                  }}
-                >
-                  {seg.headline}
-                </h3>
-
-                {/* Accent divider */}
-                <div className="mb-5" style={{ width: "3rem", height: "2px", backgroundColor: seg.accentColor }} />
-
-                {/* Body */}
-                <p
-                  className="font-body mb-6"
-                  style={{ color: "oklch(0.82 0.005 0)", lineHeight: 1.75, fontSize: "0.95rem" }}
-                >
-                  {seg.body}
-                </p>
-
-                {/* Bullet points */}
-                <ul className="mb-8 flex flex-col gap-2">
-                  {seg.bullets.map((b) => (
-                    <li key={b} className="flex items-start gap-2.5">
-                      <span
-                        style={{
-                          width: "5px",
-                          height: "5px",
-                          borderRadius: "50%",
-                          backgroundColor: seg.accentColor,
-                          flexShrink: 0,
-                          marginTop: "0.45rem",
-                        }}
-                      />
-                      <span
-                        className="font-body"
-                        style={{ color: "oklch(0.78 0.005 0)", fontSize: "0.88rem", lineHeight: 1.5 }}
-                      >
-                        {b}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-
-                {/* Stats row (if present) */}
-                {seg.stats && (
-                  <div className="flex flex-wrap gap-4 mb-8">
-                    {seg.stats.map((s) => (
-                      <div
-                        key={s.label}
-                        style={{
-                          backgroundColor: "oklch(0.08 0.005 0 / 0.75)",
-                          backdropFilter: "blur(8px)",
-                          border: `1px solid ${seg.accentColor}44`,
-                          padding: "0.6rem 1rem",
-                          minWidth: "100px",
-                        }}
-                      >
-                        <div
-                          className="font-display"
-                          style={{ color: "oklch(0.60 0.14 185)", fontSize: "1.4rem", fontWeight: 600, lineHeight: 1.1 }}
-                        >
-                          {s.value}
-                        </div>
-                        <div
-                          className="font-label"
-                          style={{ color: "oklch(0.60 0.005 0)", fontSize: "0.52rem", letterSpacing: "0.1em", marginTop: "2px" }}
-                        >
-                          {s.label.toUpperCase()}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                )}
-
-                {/* CTA buttons */}
-                <div className="flex flex-wrap gap-3">
-                  <a
-                    href={seg.cta.href}
-                    className="font-label transition-all duration-200"
-                    style={{
-                      padding: "0.75rem 1.6rem",
-                      backgroundColor: seg.accentColor,
-                      color: "oklch(1 0 0)",
-                      fontSize: "0.62rem",
-                      letterSpacing: "0.12em",
-                      textDecoration: "none",
-                      borderRadius: "12px 0 12px 0",
-                      border: `1.5px solid ${seg.accentColor}`,
-                      display: "inline-block",
-                    }}
-                  >
-                    {seg.cta.label}
-                  </a>
-                  <a
-                    href={seg.cta2.href}
-                    className="font-label transition-all duration-200"
-                    style={{
-                      padding: "0.75rem 1.6rem",
-                      backgroundColor: "oklch(1 0 0)",
-                      color: "oklch(0.25 0.10 25)",
-                      fontSize: "0.62rem",
-                      letterSpacing: "0.12em",
-                      textDecoration: "none",
-                      borderRadius: "12px 0 12px 0",
-                      border: "1.5px solid oklch(0.56 0.18 25)",
-                      display: "inline-block",
-                    }}
-                  >
-                    {seg.cta2.label}
-                  </a>
-                </div>
-              </div>
+              {seg.label}
             </div>
 
-            {/* Photo label badge */}
-            {seg.photoLabel && (
-              <div
-                style={{
-                  position: "absolute",
-                  bottom: "1.5rem",
-                  right: "1.5rem",
-                  backgroundColor: "oklch(0.08 0.005 0 / 0.82)",
-                  backdropFilter: "blur(6px)",
-                  border: `1px solid ${seg.accentColor}44`,
-                  padding: "0.4rem 0.85rem",
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "0.4rem",
-                }}
-              >
-                <span style={{ width: "5px", height: "5px", borderRadius: "50%", backgroundColor: seg.accentColor, flexShrink: 0 }} />
-                <span
-                  className="font-label"
-                  style={{ color: "oklch(0.75 0.005 0)", fontSize: "0.54rem", letterSpacing: "0.12em", whiteSpace: "nowrap" }}
+            {/* Headline */}
+            <h3
+              className="font-display font-light mb-4"
+              style={{
+                fontSize: "clamp(1.6rem, 3vw, 2.4rem)",
+                color: "oklch(0.12 0.005 0)",
+                lineHeight: 1.1,
+              }}
+            >
+              {seg.headline}
+            </h3>
+
+            {/* Accent rule */}
+            <div
+              style={{
+                width: "3rem",
+                height: "2px",
+                backgroundColor: seg.accent,
+                marginBottom: "1.25rem",
+              }}
+            />
+
+            {/* Body */}
+            <p
+              className="font-body mb-5"
+              style={{ color: "oklch(0.38 0.005 0)", lineHeight: 1.75, fontSize: "0.95rem" }}
+            >
+              {seg.body}
+            </p>
+
+            {/* Bullets */}
+            <ul className="mb-6 space-y-2">
+              {seg.bullets.map((b) => (
+                <li
+                  key={b}
+                  className="flex items-start gap-2 font-body"
+                  style={{ color: "oklch(0.30 0.005 0)", fontSize: "0.88rem", lineHeight: 1.5 }}
                 >
-                  {seg.photoLabel.toUpperCase()}
-                </span>
+                  <span
+                    style={{
+                      display: "inline-block",
+                      width: "6px",
+                      height: "6px",
+                      borderRadius: "50%",
+                      backgroundColor: seg.accent,
+                      marginTop: "0.45rem",
+                      flexShrink: 0,
+                    }}
+                  />
+                  {b}
+                </li>
+              ))}
+            </ul>
+
+            {/* Stats row */}
+            {seg.stats && (
+              <div className="flex flex-wrap gap-6 mb-6 pt-4" style={{ borderTop: "1px solid oklch(0.92 0.005 0)" }}>
+                {seg.stats.map((st) => (
+                  <div key={st.label}>
+                    <div
+                      className="font-display"
+                      style={{ fontSize: "1.4rem", color: seg.accent, fontWeight: 700, lineHeight: 1 }}
+                    >
+                      {st.value}
+                    </div>
+                    <div
+                      className="font-label"
+                      style={{ fontSize: "0.58rem", letterSpacing: "0.14em", color: "oklch(0.55 0.005 0)", marginTop: "0.2rem" }}
+                    >
+                      {st.label.toUpperCase()}
+                    </div>
+                  </div>
+                ))}
               </div>
             )}
-          </div>
-        </FadeIn>
-      ))}
 
-      {/* ── Bottom CTA strip ────────────────────────────────── */}
-      <FadeIn delay={0.3}>
-        <div
-          className="flex flex-col sm:flex-row items-center justify-between gap-6"
-          style={{
-            backgroundColor: "oklch(0.56 0.18 25)",
-            padding: "2rem clamp(1.5rem, 5vw, 4rem)",
-          }}
-        >
-          <p
-            className="font-body font-semibold text-white text-center sm:text-left"
-            style={{ fontSize: "1.05rem" }}
-          >
-            Ready to work with Central Oregon's most qualified landscape firm?
-          </p>
-          <div className="flex gap-3 flex-shrink-0 flex-wrap justify-center">
-            <a
-              href="/commercial"
-              style={{
-                whiteSpace: "nowrap",
-                padding: "0.65rem 1.5rem",
-                backgroundColor: "oklch(0.14 0.005 0)",
-                color: "white",
-                fontSize: "0.68rem",
-                letterSpacing: "0.1em",
-                fontWeight: 600,
-                textDecoration: "none",
-                borderRadius: "12px 0 12px 0",
-                border: "1.5px solid oklch(0.56 0.18 25 / 0.5)",
-              }}
-            >
-              COMMERCIAL SERVICES
-            </a>
-            <a
-              href="/contact"
-              style={{
-                whiteSpace: "nowrap",
-                padding: "0.65rem 1.5rem",
-                backgroundColor: "oklch(1 0 0)",
-                color: "oklch(0.25 0.10 25)",
-                fontSize: "0.68rem",
-                letterSpacing: "0.1em",
-                fontWeight: 600,
-                textDecoration: "none",
-                borderRadius: "12px 0 12px 0",
-                border: "1.5px solid oklch(0.56 0.18 25)",
-              }}
-            >
-              GET A FREE QUOTE
-            </a>
-            <a
-              href="tel:5416178873"
-              style={{
-                whiteSpace: "nowrap",
-                padding: "0.65rem 1.5rem",
-                backgroundColor: "transparent",
-                color: "white",
-                fontSize: "0.68rem",
-                letterSpacing: "0.1em",
-                fontWeight: 600,
-                textDecoration: "none",
-                borderRadius: "12px 0 12px 0",
-                border: "1.5px solid oklch(1 0 0 / 0.5)",
-              }}
-            >
-              (541) 617-8873
-            </a>
+            {/* CTAs */}
+            <div className="flex flex-wrap gap-3">
+              <button
+                onClick={() => navigate(seg.cta.href)}
+                style={{
+                  padding: "0.7rem 1.6rem",
+                  backgroundColor: seg.accent,
+                  color: "oklch(1 0 0)",
+                  fontSize: "0.72rem",
+                  fontWeight: 700,
+                  letterSpacing: "0.08em",
+                  fontFamily: "var(--font-label, sans-serif)",
+                  border: "none",
+                  borderRadius: "0.25rem",
+                  cursor: "pointer",
+                  transition: "opacity 0.2s",
+                }}
+                onMouseEnter={e => (e.currentTarget.style.opacity = "0.85")}
+                onMouseLeave={e => (e.currentTarget.style.opacity = "1")}
+              >
+                {seg.cta.label.toUpperCase()}
+              </button>
+              <button
+                onClick={() => {
+                  if (seg.cta2.href.startsWith("tel:")) {
+                    window.location.href = seg.cta2.href;
+                  } else {
+                    navigate(seg.cta2.href);
+                  }
+                }}
+                style={{
+                  padding: "0.7rem 1.6rem",
+                  backgroundColor: "transparent",
+                  color: "oklch(0.25 0.005 0)",
+                  fontSize: "0.72rem",
+                  fontWeight: 700,
+                  letterSpacing: "0.08em",
+                  fontFamily: "var(--font-label, sans-serif)",
+                  border: "2px solid oklch(0.82 0.005 0)",
+                  borderRadius: "0.25rem",
+                  cursor: "pointer",
+                  transition: "border-color 0.2s",
+                }}
+                onMouseEnter={e => (e.currentTarget.style.borderColor = seg.accent)}
+                onMouseLeave={e => (e.currentTarget.style.borderColor = "oklch(0.82 0.005 0)")}
+              >
+                {seg.cta2.label.toUpperCase()}
+              </button>
+            </div>
           </div>
         </div>
-      </FadeIn>
+
+      </div>
+
+      <style>{`
+        @keyframes fadeSlideIn {
+          from { opacity: 0; transform: translateY(12px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+      `}</style>
     </section>
   );
 }

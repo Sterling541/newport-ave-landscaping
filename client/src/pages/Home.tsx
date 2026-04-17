@@ -16,8 +16,6 @@ import FloatingCTA from "@/components/FloatingCTA";
 const MarqueeBand = lazy(() => import("@/components/MarqueeBand"));
 const BotanicalBand = lazy(() => import("@/components/BotanicalBand"));
 const WhoWeServe = lazy(() => import("@/components/WhoWeServe"));
-const OutdoorRoomsSection = lazy(() => import("@/components/OutdoorRoomsSection"));
-const EditorialQuote = lazy(() => import("@/components/EditorialQuote"));
 const AboutSection = lazy(() => import("@/components/AboutSection"));
 const PhotoGallery = lazy(() => import("@/components/PhotoGallery"));
 const LightingSection = lazy(() => import("@/components/LightingSection"));
@@ -70,14 +68,6 @@ export default function Home() {
       </Suspense>
 
       <Suspense fallback={<SectionFallback />}>
-        <OutdoorRoomsSection />
-        <EditorialQuote
-          quote="Every great outdoor space starts with a vision — and ends with a place you never want to leave."
-          attribution="Newport Avenue Landscaping"
-        />
-      </Suspense>
-
-      <Suspense fallback={<SectionFallback />}>
         <BotanicalBand label="PORTFOLIO  ◆  150+ PROJECTS" variant="b" />
         <AboutSection />
         <PhotoGallery />
@@ -85,10 +75,6 @@ export default function Home() {
 
       <Suspense fallback={<SectionFallback />}>
         <LightingSection />
-        <EditorialQuote
-          quote="Your sprinklers. Our responsibility. Zero worry."
-          attribution="Newport Priority Irrigation Membership"
-        />
         <MembershipBanner />
         <MembershipSection />
         <EverythingPlanSection />
