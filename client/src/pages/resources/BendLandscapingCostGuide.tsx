@@ -46,12 +46,12 @@ export default function BendLandscapingCostGuide() {
                   <tr><td className="py-2 px-4 border-b">Perennial garden (per sq ft)</td><td className="py-2 px-4 border-b">$10–$25/sq ft</td></tr></tbody></table></div>
 
             <h2 className="text-3xl font-bold mb-4" style={{ color: 'oklch(0.25 0.005 0)' }}>Irrigation and Maintenance Costs in Bend</h2>
-            <div className="overflow-x-auto mb-8"><table className="min-w-full bg-white border border-gray-300"><thead><tr><th className="py-2 px-4 border-b text-left">Service</th><th className="py-2 px-4 border-b text-left">Typical Cost Range</th></tr></thead><tbody><tr><td className="py-2 px-4 border-b">New sprinkler system</td><td className="py-2 px-4 border-b">$2,500–$8,000</td></tr>
+            <div className="overflow-x-auto mb-8"><table className="min-w-full bg-white border border-gray-300"><thead><tr><th className="py-2 px-4 border-b text-left">Service</th><th className="py-2 px-4 border-b text-left">Typical Cost Range</th></tr></thead><tbody><tr><td className="py-2 px-4 border-b">New sprinkler system</td><td className="py-2 px-4 border-b">$1,600–$2,000/zone</td></tr>
                   <tr><td className="py-2 px-4 border-b">Sprinkler repair</td><td className="py-2 px-4 border-b">$140/tech hour+</td></tr>
                   <tr><td className="py-2 px-4 border-b">Fall winterization</td><td className="py-2 px-4 border-b">$140/tech hour</td></tr>
-                  <tr><td className="py-2 px-4 border-b">Weekly mowing</td><td className="py-2 px-4 border-b">$45–$95/visit</td></tr>
+                  <tr><td className="py-2 px-4 border-b">Weekly mowing</td><td className="py-2 px-4 border-b">From $97/service</td></tr>
                   <tr><td className="py-2 px-4 border-b">Everything Maintenance Plan</td><td className="py-2 px-4 border-b">From $388/month</td></tr>
-                  <tr><td className="py-2 px-4 border-b">Spring/fall cleanup</td><td className="py-2 px-4 border-b">$200–$600 each</td></tr></tbody></table></div>
+                  <tr><td className="py-2 px-4 border-b">Spring/fall cleanup</td><td className="py-2 px-4 border-b">Starting at $600</td></tr></tbody></table></div>
             <div className="p-8 text-center mt-12" style={{ backgroundColor: 'oklch(0.18 0.008 0)' }}>
               <p className="font-label text-xs mb-3" style={{ color:'oklch(0.46 0.20 25)',letterSpacing:'0.18em' }}>GET STARTED TODAY</p>
               <h3 className="font-display text-white mb-4" style={{ fontSize:'1.6rem' }}>Get a Free Quote for Your Bend Landscaping Project</h3>
