@@ -176,3 +176,19 @@
 - [x] Add all three new URLs to sitemap.xml
 - [x] Remove stale /careers redirect pointing to /about
 - [x] Competitive SEO analysis report delivered (PDF + MD)
+
+## Session — April 17, 2026 (City Depth + FAQ Schema Sprint)
+
+- [ ] Deepen Bend city page to 1,200+ words with neighborhood + service content
+- [ ] Deepen Redmond city page to 1,200+ words
+- [ ] Deepen Sisters city page to 1,200+ words
+- [ ] Deepen Sunriver city page to 1,200+ words
+- [ ] Deepen Tumalo city page to 1,200+ words
+- [ ] Deepen Prineville city page to 1,200+ words
+- [ ] Deepen La Pine city page to 1,200+ words
+- [ ] Deepen Madras city page to 1,200+ words
+- [ ] Add FAQ schema to LawnCareCostBend resource page
+- [ ] Add FAQ schema to SprinklerSystemCostBend resource page
+- [ ] Add FAQ schema to PaverPatioCostBend resource page
+- [ ] Add FAQ schema to XeriscapeCostBend resource page
+- [ ] Add FAQ schema to LawnMaintenanceCostBend resource page

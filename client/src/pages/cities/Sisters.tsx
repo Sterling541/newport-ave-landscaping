@@ -7,70 +7,45 @@ export default function SistersPage() {
       region="Central Oregon"
       heroImage="https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportAveLandcaping-9_97b731b0.jpg"
       heroPosition="center 40%"
-      tagline="Mountain Landscape Artisans"
-      seoTitle="Landscaping Sisters Oregon | Lawn Care, Irrigation & Design | Newport Avenue"
-      seoDescription="Sisters Oregon landscaping experts since 2005. Lawn care, irrigation installation, landscape design, native plantings & xeriscaping for mountain homes. LCB #9153. Free estimates."
+      tagline="Expert Landscaping and Lawn Care Services in Sisters, Oregon"
+      seoTitle="Sisters Landscaping Oregon | Sisters Lawn Care & Design - Newport Avenue Landscaping"
+      seoDescription="Transform your Sisters, Oregon property with Newport Avenue Landscaping. We offer comprehensive lawn care, design, and irrigation services. LCB#9153. Get a free estimate today!"
       canonicalPath="/landscaping/sisters"
-      intro="In the charming mountain town of Sisters, Newport Avenue Landscaping crafts bespoke outdoor spaces that harmonize with the natural beauty of the Cascade foothills. We specialize in creating stunning landscapes for resort and vacation homes, ensuring every design reflects the rustic elegance and serene environment of this unique community."
-      communityNote="Sisters' distinct character, marked by its majestic ponderosa pines and upscale vacation properties, demands a nuanced approach to landscaping. Our expertise lies in designing and maintaining environments that thrive in the high-desert mountain climate while preserving the town's beloved natural aesthetic."
+      intro="Newport Avenue Landscaping has proudly served the Sisters community for many years, bringing our expertise in high-desert landscaping to homes and businesses across Black Butte Ranch, the Camp Sherman area, and downtown Sisters. We understand the unique charm and natural beauty of this region, from the Ponderosa pine forests to the stunning mountain views. Our dedicated team is committed to enhancing Sisters\' distinctive landscape, creating outdoor spaces that thrive in its specific climate while reflecting the serene, rustic elegance that defines this beloved Central Oregon town. We bring unparalleled craftsmanship and local knowledge to every project, ensuring your Sisters property stands out with sustainable and beautiful landscaping solutions."
+      communityNote="Sisters, Oregon, situated at a higher elevation than Bend, presents a unique set of landscaping considerations due to its Zone 6a climate, heavier snowfall, and a notably shorter growing season. The ponderosa pine forest setting, while beautiful, also influences soil composition and plant choices, often requiring drought-tolerant and cold-hardy species. These environmental factors necessitate a thoughtful approach to irrigation, plant selection, and seasonal maintenance to ensure landscapes remain vibrant and healthy throughout the year. Understanding these local nuances is crucial for successful landscaping in Sisters, allowing us to design and maintain outdoor spaces that are both stunning and resilient."
       services={[
-        {
-          icon: "maintenance",
-          name: "Custom Landscape Design",
-          description: "We design custom landscapes that blend seamlessly with Sisters' natural environment, incorporating native plants and rustic elements. Our designs enhance the beauty of your mountain retreat, from cozy cabins to expansive vacation homes.",
-        },
-        {
-          icon: "sprinklers",
-          name: "Efficient Irrigation Systems",
-          description: "Given Sisters' high-desert climate, efficient water management is crucial for healthy landscapes. We install and maintain smart irrigation systems tailored to conserve water and nourish your plants effectively.",
-        },
-        {
-          icon: "design",
-          name: "Property Landscape Maintenance",
-          description: "For both full-time residents and vacation homeowners in Sisters, we offer comprehensive landscape maintenance services. Our team ensures your property remains pristine and inviting year-round, reflecting the high standards of the community.",
-        },
-        {
-          icon: "outdoor",
-          name: "Outdoor Living & Fire Features",
-          description: "Enhance your Sisters outdoor experience with custom patios, fire pits, and outdoor kitchens, perfect for enjoying cool mountain evenings. We create inviting spaces for relaxation and entertainment, extending your living area into the natural surroundings.",
-        },
-        {
-          icon: "architecture",
-          name: "Native Plant & Tree Installation",
-          description: "We specialize in selecting and installing native plants and trees, including the iconic ponderosa pines, that thrive in Sisters' unique ecosystem. Our installations focus on sustainability and enhancing the natural appeal of your property.",
-        },
-        {
-          icon: "commercial",
-          name: "Winterization & Snow Management",
-          description: "Prepare your Sisters property for the colder months with our expert winterization services, protecting your landscape from harsh conditions. We also offer snow management solutions to keep your pathways and driveways clear and safe.",
-        },
+        { icon: "maintenance", name: "Sisters Lawn Care & Maintenance", description: "Keep your Sisters lawn pristine with our comprehensive lawn care and maintenance services, tailored to the local climate and soil conditions. From regular mowing and fertilization to aeration and seasonal cleanups, we ensure your turf remains healthy and vibrant throughout Sisters\' distinct growing season. Our team understands the specific needs of Sisters\' landscapes, providing expert care that promotes lushness and resilience against local environmental factors.", href: "/services/lawn-service" },
+        { icon: "sprinklers", name: "Sisters Irrigation Systems", description: "Efficient irrigation is vital for Sisters\' landscapes, especially with its unique climate and shorter growing season. We design, install, and maintain smart irrigation systems that conserve water while ensuring your plants receive optimal hydration. Our solutions are customized for the Sisters area, addressing specific elevation and soil characteristics to maximize efficiency and promote sustainable water use for your property.", href: "/services/irrigation" },
+        { icon: "design", name: "Sisters Landscape Design & Installation", description: "Transform your Sisters property with a custom landscape design that harmonizes with the natural beauty of the ponderosa pine forests and mountain views. Our design team specializes in creating outdoor living spaces that thrive in Sisters\' Zone 6a climate, incorporating native and adapted plants, hardscaping, and water features. We bring your vision to life with meticulous installation, crafting a unique and sustainable landscape for your Sisters home or business.", href: "/services/landscape-design" },
+        { icon: "outdoor", name: "Sisters Outdoor Living & Hardscaping", description: "Enhance your Sisters outdoor lifestyle with custom hardscaping and outdoor living features, designed to withstand the local climate and complement the rustic aesthetic. From inviting patios and walkways to cozy fire pits and outdoor kitchens, we create functional and beautiful spaces for relaxation and entertainment. Our designs integrate seamlessly with Sisters\' natural environment, providing durable and attractive additions to your property.", href: "/services/fire-features" },
+        { icon: "architecture", name: "Sisters Xeriscaping & Sustainable Landscaping", description: "Embrace water-wise and sustainable landscaping practices in Sisters with our expert xeriscaping services, ideal for the high-desert environment. We specialize in designing and installing landscapes that require minimal irrigation, utilizing drought-tolerant plants, native species, and efficient water management techniques. Our sustainable solutions help you conserve water, reduce maintenance, and create a beautiful, eco-friendly outdoor space that thrives in Sisters\' unique conditions.", href: "/services/xeriscaping" },
+        { icon: "commercial", name: "Sisters Commercial Landscaping & Snow Removal", description: "Newport Avenue Landscaping provides comprehensive commercial landscaping services for businesses in Sisters, ensuring your property maintains a professional and inviting appearance year-round. We also offer reliable snow removal services, crucial for navigating Sisters\' heavier snowfall and ensuring safe access for your customers and employees. Our commercial solutions are tailored to the specific needs of Sisters\' businesses, offering efficient and high-quality outdoor management.", href: "/services/snow-removal" },
       ]}
       whyUs={[
-        "Deep understanding of Sisters' unique mountain climate and ecology",
-        "Expertise in designing for rustic, natural, and upscale aesthetics",
-        "Specialization in resort and vacation home landscaping needs",
-        "Commitment to sustainable practices and native plant integration",
-        "Proven track record of enhancing property value and curb appeal in Sisters",
-        "Personalized service that respects the serene and natural character of the community",
+        "With nearly two decades in business since 2005, Newport Avenue Landscaping brings extensive experience to every project in Sisters, ensuring proven results.",
+        "We are fully licensed, bonded, and insured, holding Oregon Landscape Contractor Bond #9153 (LCB #9153), providing peace of mind for all Sisters clients.",
+        "Our team comprises over 150 dedicated in-house staff, meaning no subcontractors and consistent, high-quality service for your Sisters property.",
+        "We possess deep, specific knowledge of Sisters\' unique climate, soil, and environmental factors, allowing us to create landscapes that truly thrive here.",
+        "As a company that never uses subcontractors, we maintain strict quality control and accountability, delivering superior craftsmanship on every Sisters project.",
+        "We offer transparent, no-obligation free estimates for all landscaping and lawn care services in Sisters, helping you plan your project with confidence.",
       ]}
       nearbyAreas={[
         { label: "Bend", href: "/landscaping/bend" },
         { label: "Redmond", href: "/landscaping/redmond" },
-        { label: "Sunriver", href: "/landscaping/sunriver" },
         { label: "Tumalo", href: "/landscaping/tumalo" },
-        { label: "Black Butte Ranch", href: "/service-areas" },
-        { label: "Camp Sherman", href: "/service-areas" },
+        { label: "Black Butte Ranch", href: "/landscaping/black-butte-ranch" },
+        { label: "Camp Sherman", href: "/landscaping/camp-sherman" },
+        { label: "Sunriver", href: "/landscaping/sunriver" },
+        { label: "La Pine", href: "/landscaping/la-pine" },
       ]}
-      ctaNote="Ready to transform your Sisters property into a mountain oasis? Contact Newport Avenue Landscaping today for a personalized consultation and discover the difference our expertise can make in this beautiful community."
+      ctaNote="Ready to transform your Sisters property? Contact Newport Avenue Landscaping today for a free, no-obligation estimate. We pride ourselves on prompt response times and offer seasonal programs specifically designed for Sisters\' unique climate, ensuring your landscape remains beautiful and healthy year-round. Let us bring our local expertise and dedicated service to your Sisters home or business."
       faqs={[
-        {
-          question: "Does Newport Avenue Landscaping serve Sisters, Oregon?",
-          answer: "Yes. Newport Avenue Landscaping serves Sisters and the surrounding Cascade foothills communities. We provide lawn care, irrigation, landscape design, native plantings, outdoor living spaces, and snow removal for both full-time residents and vacation homeowners in Sisters.",
-        },
-        {
-          question: "What plants work best for landscaping in Sisters, Oregon?",
-          answer: "Sisters' high-desert mountain climate is ideal for ponderosa pine, Oregon grape, bitterbrush, sage, native bunch grasses, and drought-tolerant perennials. We specialize in native and adapted plant selections that thrive in Sisters' unique ecosystem while reducing water use.",
-        },
+        { question: "How much does landscaping cost in Sisters, Oregon?", answer: "Landscaping costs in Sisters, Oregon, vary based on project scope and materials. For general lawn care services, homeowners can expect to pay from $97 per service, ensuring your Sisters lawn stays pristine. Larger projects like seasonal cleanups typically range from $600, while irrigation system installations can be between $1,600-$2,000 per zone, crucial for Sisters\' unique climate. Full landscape design and installation projects, tailored to the Sisters environment, can range from $15,000 to $80,000+, depending on complexity and features. We provide detailed, transparent estimates for all Sisters landscaping needs." },
+        { question: "What landscaping services does Newport Avenue offer in Sisters?", answer: "Newport Avenue Landscaping offers a comprehensive suite of services specifically designed for the Sisters, Oregon, community. This includes expert lawn care and maintenance, custom landscape design and installation, and efficient irrigation system design and repair. We also specialize in creating stunning outdoor living spaces, hardscaping, and sustainable xeriscaping solutions perfect for Sisters\' high-desert climate. For our commercial clients, we provide full-service landscaping and essential snow removal, ensuring properties are well-maintained year-round. Our offerings are tailored to meet the unique demands of Sisters\' diverse landscapes." },
+        { question: "Is Newport Avenue Landscaping licensed and insured in Oregon?", answer: "Yes. Newport Avenue Landscaping holds Oregon Landscape Contractor Bond #9153 (LCB #9153). We are fully licensed, bonded, and insured for all residential and commercial landscaping work in Sisters and throughout Central Oregon." },
+        { question: "Do you offer free estimates in Sisters, Oregon?", answer: "Absolutely! Newport Avenue Landscaping is pleased to offer free, no-obligation estimates for all our landscaping services in Sisters, Oregon. We believe in transparent pricing and will schedule a convenient site visit to thoroughly assess your property and discuss your specific landscaping goals. Our team will provide a detailed proposal, ensuring you have all the information needed to make informed decisions about your Sisters landscaping project. Contact us today to schedule your complimentary consultation and see how we can enhance your outdoor space." },
+        { question: "What areas of Sisters do you serve?", answer: "Newport Avenue Landscaping proudly serves the entire Sisters, Oregon, area, extending our expert services to various neighborhoods and communities. This includes the beautiful Black Butte Ranch, the serene Camp Sherman area, the vibrant downtown Sisters, and the peaceful Tollgate and Indian Ford areas. We also cater to properties along the McKenzie Highway corridor and other residential and commercial zones within or near Sisters. Our deep understanding of these specific locales allows us to provide tailored landscaping solutions that truly fit the character and environmental needs of each area." },
+        { question: "How does Sisters\' heavy snowfall impact landscaping and what services do you offer to manage it?", answer: "Sisters\' higher elevation and significant snowfall present unique challenges for landscaping, requiring specific strategies to protect plants and maintain property access. Heavy snow can compact soil, damage delicate plantings, and create drainage issues upon melting. Newport Avenue Landscaping offers specialized winterization services, including protective coverings for sensitive plants and dormant pruning to prepare your landscape for the cold. Crucially, we also provide efficient and reliable snow removal services for both residential and commercial properties in Sisters, ensuring driveways, walkways, and commercial access points remain clear and safe throughout the winter months. Our proactive approach helps mitigate snow-related damage and keeps your Sisters property functional and beautiful even in the deepest winter." },
       ]}
     />
   );

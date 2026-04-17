@@ -7,78 +7,45 @@ export default function RedmondPage() {
       region="Central Oregon"
       heroImage="https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportAveLandcaping-9_97b731b0.jpg"
       heroPosition="center 40%"
-      tagline="Redmond's City-Preferred Landscape Contractor"
-      seoTitle="Landscaping Redmond Oregon | Lawn Care, Irrigation & Design | Newport Avenue"
-      seoDescription="Redmond Oregon's top-rated landscaping company. City of Redmond Preferred Vendor. Lawn care, irrigation installation, landscape design, xeriscaping & snow removal since 2005. LCB #9153. Free estimates."
+      tagline="Expert Landscaping & Lawn Care in Redmond, Oregon: Enhancing High-Desert Beauty"
+      seoTitle="Redmond Landscaping Oregon | Redmond Lawn Care | Newport Avenue Landscaping"
+      seoDescription="Transform your Redmond property with Newport Avenue Landscaping. We offer expert lawn care, landscape design, and irrigation services. LCB#9153. Free estimates!"
       canonicalPath="/landscaping/redmond"
-      intro="Newport Avenue Landscaping is proud to be one of only two contractors selected as a City of Redmond Preferred Landscape Vendor — a rigorous vetting process that recognizes our commitment to quality, reliability, and professionalism. We have proudly served the rapidly growing community of Redmond since 2005, bringing expert landscape design and installation to its newer subdivisions and established neighborhoods. We specialize in creating beautiful, functional outdoor spaces that thrive in Redmond's unique high-desert environment, perfectly complementing both modern homes and properties with agricultural roots."
-      communityNote="Redmond's landscape character is defined by its dry high-desert climate and a surge of new construction, demanding resilient and water-wise landscaping solutions. As a City of Redmond Preferred Vendor, our expertise in adapting to these conditions is officially recognized — ensuring vibrant, sustainable outdoor living areas for every property type."
+      intro="Newport Avenue Landscaping has proudly served the rapidly growing community of Redmond, Oregon, for many years, bringing our expertise in high-desert landscaping to homes and businesses across the city. We understand the unique demands of Redmond's environment, from the Dry Canyon area to Eagle Crest Resort and the bustling downtown. Our deep roots in Central Oregon allow us to craft stunning, sustainable landscapes that thrive in Redmond's distinct climate, enhancing curb appeal and outdoor living spaces. We are committed to delivering unparalleled quality and service, ensuring every project reflects Redmond's vibrant spirit and our dedication to excellence."
+      communityNote="Redmond's high-desert climate, characterized by slightly warmer and drier conditions than neighboring Bend, presents unique landscaping opportunities and challenges. Situated in USDA Zone 6b, the city experiences hot, dry summers and cold winters, with a shorter growing season compared to more temperate regions. The volcanic soil, often enriched by new construction, requires careful amendment and irrigation strategies to support diverse plant life. Understanding these local nuances is crucial for successful landscaping, allowing us to select drought-tolerant species and design systems that conserve water while maintaining lush, beautiful outdoor environments."
       services={[
-        {
-          icon: "maintenance",
-          name: "Landscape Design & Build",
-          description: "In Redmond's burgeoning neighborhoods, our design and build services craft custom landscapes that enhance curb appeal and outdoor living. We focus on drought-tolerant plantings and efficient layouts perfect for new constructions and existing homes alike.",
-        },
-        {
-          icon: "sprinklers",
-          name: "Irrigation Systems",
-          description: "Efficient irrigation is crucial for Redmond's dry climate, and we design and install smart systems that conserve water while keeping your landscape lush. From drip systems for new subdivisions to optimizing existing agricultural setups, we ensure your plants receive precise hydration.",
-        },
-        {
-          icon: "design",
-          name: "Property Maintenance",
-          description: "Keep your Redmond property looking its best with our comprehensive landscape maintenance programs, tailored for both residential and commercial needs. We handle everything from seasonal clean-ups in newer developments to ongoing care for larger properties with agricultural ties.",
-        },
-        {
-          icon: "outdoor",
-          name: "Outdoor Living Spaces",
-          description: "Extend your living space outdoors in Redmond with custom patios, fire pits, and outdoor kitchens, perfect for enjoying the high-desert evenings. We create inviting areas for relaxation and entertainment that complement Redmond's lifestyle.",
-        },
-        {
-          icon: "architecture",
-          name: "Hardscaping & Patios",
-          description: "Our hardscaping solutions, including durable patios and walkways, are designed to withstand Redmond's climate while adding functional beauty to your property. We use materials that blend seamlessly with the high-desert aesthetic and new construction styles.",
-        },
-        {
-          icon: "commercial",
-          name: "Water Features",
-          description: "Introduce tranquility to your Redmond landscape with custom water features, from serene ponds to elegant fountains. These features provide a refreshing contrast to the dry environment and enhance any outdoor space.",
-        },
+        { icon: "maintenance", name: "Redmond Lawn & Yard Maintenance", description: "Keep your Redmond lawn pristine with our comprehensive maintenance services, tailored to the specific needs of high-desert grasses and local soil conditions. We provide regular mowing, fertilization, aeration, and seasonal clean-ups to ensure your yard remains healthy and vibrant throughout the year. Our team understands Redmond's climate, offering solutions that promote robust growth and water efficiency for your turf.", href: "/services/lawn-service" },
+        { icon: "sprinklers", name: "Efficient Redmond Irrigation Systems", description: "Optimize your water usage with our custom-designed irrigation systems, perfect for Redmond's dry climate and diverse landscapes. We specialize in smart irrigation solutions, including drip systems and efficient sprinklers, ensuring every plant receives the right amount of water without waste. Our installations and repairs are built to last, providing reliable hydration for your Redmond property.", href: "/services/irrigation" },
+        { icon: "design", name: "Custom Redmond Landscape Design", description: "Transform your Redmond property into an outdoor oasis with our bespoke landscape design services, blending aesthetic appeal with ecological resilience. We create personalized designs that reflect your vision while incorporating native and drought-tolerant plants suited for Redmond's Zone 6b climate. From initial concept to final blueprint, our designers craft spaces that are both beautiful and sustainable for your high-desert home.", href: "/services/landscape-design" },
+        { icon: "outdoor", name: "Redmond Outdoor Living Spaces", description: "Extend your living area outdoors with our custom outdoor living solutions, perfect for enjoying Redmond's abundant sunshine and scenic views. We design and install patios, pergolas, outdoor kitchens, and fire features that enhance your lifestyle and complement your home's architecture. Create the ultimate entertainment or relaxation space tailored to Redmond's unique outdoor environment.", href: "/services/fire-features" },
+        { icon: "architecture", name: "Redmond Xeriscaping & Water-Wise Gardens", description: "Embrace sustainable landscaping in Redmond with our expert xeriscaping services, designed to create stunning, low-water gardens that thrive in the high desert. We utilize drought-tolerant plants, efficient irrigation, and thoughtful hardscaping to minimize water consumption and maintenance. Our xeriscape designs are not only environmentally responsible but also beautiful, reflecting Redmond's natural beauty.", href: "/services/xeriscaping" },
+        { icon: "commercial", name: "Commercial Landscaping in Redmond", description: "Newport Avenue Landscaping provides comprehensive commercial landscaping services for businesses and developments across Redmond, ensuring your property makes a professional and inviting impression. We handle everything from large-scale installations for new construction in areas like Juniper Ridge to ongoing maintenance for established commercial properties. Our team delivers reliable, high-quality solutions that enhance your business's curb appeal and functionality.", href: "/services/snow-removal" },
       ]}
       whyUs={[
-        "🏛️ One of only 2 City of Redmond Preferred Landscape Vendors — a rigorous city-vetted distinction",
-        "Serving Redmond since 2005 — 21+ years of high-desert landscaping expertise",
-        "Deep understanding of Redmond's high-desert climate, soil conditions, and water restrictions",
-        "Expertise in water-wise and sustainable landscaping for new constructions and established properties",
-        "Licensed & Bonded (LCB #9153) — fully insured for residential and commercial work",
-        "Strong relationships with local suppliers for quality materials suited to Redmond's environment",
+        "Over 19 years of dedicated landscaping experience in Central Oregon, including extensive work in Redmond's unique high-desert environment.",
+        "Fully licensed, bonded, and insured with Oregon Landscape Contractor Bond #9153 (LCB #9153), ensuring professional and compliant service.",
+        "A robust team of 150+ in-house staff, guaranteeing consistent quality and timely project completion without relying on subcontractors.",
+        "Deep understanding of Redmond's specific climate, soil conditions, and local plant palettes, leading to thriving and sustainable landscapes.",
+        "Commitment to transparent communication and client satisfaction, providing detailed proposals and responsive service for every Redmond project.",
+        "Offering complimentary, no-obligation estimates for all landscaping and lawn care services in Redmond, making it easy to start your project."
       ]}
       nearbyAreas={[
         { label: "Bend", href: "/landscaping/bend" },
-        { label: "Sisters", href: "/landscaping/sisters" },
-        { label: "Tumalo", href: "/landscaping/tumalo" },
+        { label: "Terrebonne", href: "/landscaping/terrebonne" },
+        { label: "Crooked River Ranch", href: "/landscaping/crooked-river-ranch" },
         { label: "Prineville", href: "/landscaping/prineville" },
-        { label: "Terrebonne", href: "/service-areas/terrebonne" },
-        { label: "Madras", href: "/landscaping/madras" },
+        { label: "Tumalo", href: "/landscaping/tumalo" },
+        { label: "Sisters", href: "/landscaping/sisters" },
+        { label: "Powell Butte", href: "/landscaping/powell-butte" }
       ]}
-      ctaNote="Ready to work with Redmond's city-preferred landscape contractor? Contact Newport Avenue Landscaping today for a free consultation and let us bring your outdoor vision to life."
+      ctaNote="Ready to enhance your Redmond property's outdoor appeal? Contact Newport Avenue Landscaping today for a free, no-obligation estimate. Our team is known for quick response times and can discuss seasonal programs perfectly suited for Redmond's climate. Let us bring our local expertise to your next landscaping project, creating a beautiful and sustainable outdoor space you'll love."
       faqs={[
-        {
-          question: "Is Newport Avenue Landscaping a City of Redmond preferred vendor?",
-          answer: "Yes — Newport Avenue Landscaping is one of only two contractors officially selected as a City of Redmond Preferred Landscape Vendor. This designation is awarded through a rigorous vetting process and recognizes our track record of quality, professionalism, and reliability serving Redmond properties.",
-        },
-        {
-          question: "Does Newport Avenue Landscaping serve Redmond, Oregon?",
-          answer: "Yes — Newport Avenue Landscaping has served Redmond, Oregon since 2005. We provide full-service landscaping including lawn care, irrigation, landscape design, xeriscaping, paver patios, snow removal, and commercial maintenance throughout Redmond and Jefferson County.",
-        },
-        {
-          question: "How much does lawn care cost in Redmond, Oregon?",
-          answer: "Lawn care in Redmond typically runs $50–$110 per visit for a standard residential property. Monthly maintenance programs are available. We provide free estimates for all Redmond properties.",
-        },
-        {
-          question: "Do you install irrigation systems in Redmond, OR?",
-          answer: "Yes. We design and install complete sprinkler and drip irrigation systems in Redmond. We also offer spring activation, fall blowout, and year-round repair services. Redmond's sandy high-desert soils require efficient irrigation — we design systems specifically for the local climate.",
-        },
+        { question: "How much does landscaping cost in Redmond, Oregon?", answer: "Landscaping costs in Redmond vary widely based on project scope and materials. For basic lawn care, expect services to start from $97 per visit, ensuring your turf stays healthy and manicured. Larger projects like yard cleanups typically range from $600, while irrigation system installations can cost between $1,600-$2,000 per zone, depending on complexity and technology. Full landscape design and installation projects, which transform entire properties, can range from $15,000 to $80,000+, reflecting the custom nature and extensive work involved in creating a dream outdoor space in Redmond." },
+        { question: "What landscaping services does Newport Avenue offer in Redmond?", answer: "Newport Avenue Landscaping provides a comprehensive suite of services tailored for Redmond's unique environment. Our offerings include expert lawn and yard maintenance, custom landscape design and installation, and efficient irrigation system design, installation, and repair. We also specialize in creating stunning outdoor living spaces, water features, and sustainable xeriscaping solutions. For commercial clients, we offer full-service landscaping and snow removal, ensuring your Redmond property is always at its best." },
+        { question: "Is Newport Avenue Landscaping licensed and insured in Oregon?", answer: "Yes. Newport Avenue Landscaping holds Oregon Landscape Contractor Bond #9153 (LCB #9153). We are fully licensed, bonded, and insured for all residential and commercial landscaping work in Redmond and throughout Central Oregon. This ensures peace of mind for our clients, knowing their projects are handled by a reputable and compliant professional team. Our commitment to legal and ethical practices is unwavering." },
+        { question: "Do you offer free estimates in Redmond, Oregon?", answer: "Absolutely! Newport Avenue Landscaping is pleased to offer free, no-obligation estimates for all our landscaping and lawn care services in Redmond. Simply contact us to schedule a convenient site visit, where our experts will assess your property and discuss your vision. We pride ourselves on a quick response time, often able to provide an estimate within a few business days, allowing you to plan your project efficiently." },
+        { question: "What areas of Redmond do you serve?", answer: "We proudly serve all areas of Redmond, Oregon, bringing our expert landscaping services to a wide range of neighborhoods and developments. This includes the Dry Canyon area, the prestigious Eagle Crest Resort, Juniper Ridge, and Rimrock West. We also cater to properties in the Forked Horn Butte area and throughout downtown Redmond. Our team is familiar with the specific needs and characteristics of each of these local communities." },
+        { question: "How does Redmond's new construction boom affect landscaping choices?", answer: "Redmond's rapid growth and extensive new construction present both opportunities and challenges for landscaping. Many new homes are built on raw land, often with compacted or nutrient-poor soil, requiring significant amendment and preparation before planting. We specialize in transforming these new construction sites into established, vibrant landscapes, focusing on soil health, proper drainage, and plant selection that thrives in Redmond's high-desert conditions. Our designs often incorporate low-maintenance, water-wise solutions that are ideal for busy new homeowners and the local climate." }
       ]}
     />
   );

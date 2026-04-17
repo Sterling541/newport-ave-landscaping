@@ -1,76 +1,51 @@
 import CityPageLayout from "@/components/CityPageLayout";
 
-export default function CityPage() {
+export default function PrinevillePage() {
   return (
     <CityPageLayout
       city="Prineville"
       region="Central Oregon"
-      heroImage="https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportLandscapingRVParkPhotos50_5ba97805.jpg"
+      heroImage="https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportAveLandcaping-9_97b731b0.jpg"
       heroPosition="center 40%"
-      tagline="Prineville's Trusted Landscape Partner"
-      seoTitle="Landscaping Company Prineville Oregon | Newport Avenue Landscaping"
-      seoDescription="Prineville, Oregon's trusted landscaping company. Lawn care, irrigation, drought-tolerant design & landscape installation in Prineville, OR. Licensed & Bonded LCB #9153. Free estimates."
+      tagline="Expert Landscaping & Lawn Care Services in Prineville, Oregon"
+      seoTitle="Prineville Landscaping Oregon | Prineville Lawn Care Services"
+      seoDescription="Newport Avenue Landscaping offers premier lawn care, landscape design, and irrigation services in Prineville, Oregon. LCB#9153. Get your free estimate today!"
       canonicalPath="/landscaping/prineville"
-      intro="Newport Avenue Landscaping proudly extends its comprehensive landscaping services to the vibrant community of Prineville. We understand the unique blend of rural charm and emerging tech presence that defines this Crook County seat, offering tailored solutions that enhance both residential and commercial properties."
-      communityNote="Prineville's drier climate and ranching heritage present distinct landscaping challenges and opportunities. Our expertise in drought-tolerant designs and robust outdoor spaces is perfectly suited to the working-class and growing tech communities here."
+      intro="Newport Avenue Landscaping has proudly served the Prineville community for many years, bringing our expertise and passion for outdoor spaces to homes and businesses across Crook County. We understand the unique charm of Prineville, from the historic downtown to the expansive properties near Ochoco Reservoir and the newer developments around Meadow Lakes Golf Course. Our team is dedicated to enhancing the natural beauty of this high-desert landscape, creating stunning and sustainable outdoor environments that thrive in Prineville's distinct climate. We are committed to delivering exceptional results that reflect the spirit of this vibrant Central Oregon city, ensuring every project, big or small, receives our full attention and unparalleled craftsmanship."
+      communityNote="Prineville's climate, characterized by warmer summers and colder winters than Bend, presents specific landscaping considerations for local homeowners and businesses. Situated in USDA Zone 6a, the area experiences a more continental climate with less annual precipitation, necessitating thoughtful plant selection and efficient irrigation strategies. The local soil, often a mix of volcanic ash and clay, requires careful amendment to support healthy plant growth and proper drainage. Understanding these unique environmental factors, from the shorter growing season to the specific challenges of Crook County's terrain, is crucial for successful landscaping in Prineville. Newport Avenue Landscaping leverages this local knowledge to design and maintain landscapes that are both beautiful and resilient, perfectly adapted to Prineville's conditions."
       services={[
-        {
-          icon: "maintenance",
-          name: "Drought-Tolerant Design",
-          description: "Given Prineville's drier climate, we specialize in creating beautiful, sustainable landscapes that thrive with minimal water. Our designs incorporate native and adapted plants, ensuring your property remains vibrant and resilient.",
-        },
-        {
-          icon: "sprinklers",
-          name: "Efficient Irrigation Systems",
-          description: "Water conservation is key in Prineville, and our advanced irrigation systems are designed for maximum efficiency. We install and maintain smart systems that deliver water precisely where and when it's needed, reducing waste and promoting healthy growth.",
-        },
-        {
-          icon: "design",
-          name: "Hardscaping & Outdoor Living",
-          description: "Enhance your Prineville property with custom hardscaping features like patios, walkways, and retaining walls. We create durable and aesthetically pleasing outdoor living spaces that complement the rugged beauty of the high desert.",
-        },
-        {
-          icon: "outdoor",
-          name: "Fire-Wise Landscaping",
-          description: "Protecting your Prineville home from wildfire risks is paramount. Our fire-wise landscaping strategies help create defensible spaces around your property, using strategic plant selection and layout to minimize fuel.",
-        },
-        {
-          icon: "architecture",
-          name: "Property Maintenance",
-          description: "From regular upkeep to seasonal cleanups, our team provides comprehensive property maintenance services for Prineville residents and businesses. We ensure your landscape remains healthy, tidy, and attractive throughout the year.",
-        },
-        {
-          icon: "commercial",
-          name: "Winterization Services",
-          description: "Prepare your Prineville landscape for the colder months with our expert winterization services. We protect your irrigation systems and sensitive plantings, ensuring they withstand the winter and flourish in the spring.",
-        },
+        { icon: "maintenance", name: "Prineville Lawn & Yard Maintenance", description: "Keep your Prineville property looking its best year-round with our comprehensive lawn and yard maintenance programs. We offer tailored services including mowing, edging, blowing, and seasonal cleanups designed to thrive in Prineville's specific climate and soil conditions. Our team ensures your lawn remains healthy and vibrant, reflecting the beauty of your Central Oregon home.", href: "/services/lawn-service" },
+        { icon: "sprinklers", name: "Efficient Prineville Irrigation Systems", description: "Given Prineville's drier climate and specific water conservation needs, an efficient irrigation system is paramount for a healthy landscape. We design, install, and maintain smart irrigation solutions, including drip systems and precise sprinkler setups, to ensure your plants receive optimal hydration without waste. Our systems are tailored to Prineville's less frequent precipitation patterns, promoting water-wise gardening.", href: "/services/irrigation" },
+        { icon: "design", name: "Custom Prineville Landscape Design", description: "Transform your Prineville outdoor space into a personalized oasis with our expert landscape design services. We specialize in creating custom designs that blend seamlessly with Prineville's natural high-desert aesthetic, incorporating native and drought-tolerant plants suitable for the local climate. From conceptualization to installation, we bring your vision to life, enhancing your property's curb appeal and functionality.", href: "/services/landscape-design" },
+        { icon: "outdoor", name: "Prineville Outdoor Living & Fire Features", description: "Extend your living space outdoors with custom outdoor living areas and cozy fire features, perfect for enjoying Prineville's beautiful evenings. We design and install patios, walkways, outdoor kitchens, and custom fire pits or fireplaces that complement your home's architecture and the local environment. Create a welcoming gathering space for family and friends in your Prineville backyard.", href: "/services/fire-features" },
+        { icon: "architecture", name: "Sustainable Prineville Xeriscaping", description: "Embrace water-wise landscaping with our xeriscaping solutions, ideal for Prineville's arid conditions and commitment to sustainability. We create beautiful, low-maintenance landscapes using drought-tolerant plants, efficient irrigation, and thoughtful hardscaping elements. Our xeriscaping designs reduce water consumption while enhancing the natural beauty of your Prineville property, making it both eco-friendly and stunning.", href: "/services/xeriscaping" },
+        { icon: "commercial", name: "Commercial Landscaping in Prineville", description: "Newport Avenue Landscaping provides comprehensive commercial landscaping services for businesses and properties throughout Prineville. We understand the importance of a professional and inviting exterior for your commercial space, from regular maintenance to large-scale landscape installations. Our team ensures your business makes a lasting positive impression, reflecting the quality and care you put into your operations.", href: "/services/snow-removal" },
       ]}
       whyUs={[
-        "Deep understanding of Prineville's unique climate and soil conditions",
-        "Expertise in water-wise and sustainable landscaping practices",
-        "Proven track record with both residential and commercial properties",
-        "Dedicated to enhancing the natural beauty of Crook County",
-        "Reliable service tailored to the working-class and growing tech communities",
-        "Strong commitment to customer satisfaction and long-term landscape health",
+        "Over 19 years of dedicated service in Central Oregon, including the Prineville community, since 2005.",
+        "Oregon Landscape Contractor Bond #9153 (LCB #9153), fully licensed, bonded, and insured for your peace of mind.",
+        "A robust team of 150+ in-house staff, ensuring consistent quality and timely project completion without relying on subcontractors.",
+        "Deep understanding of Prineville's unique climate, soil, and local landscaping challenges, guaranteeing tailored solutions.",
+        "Commitment to excellence with no subcontractors, meaning every aspect of your project is handled by our experienced team.",
+        "Complimentary, no-obligation estimates for all Prineville residents and businesses, making your landscaping journey easy to start."
       ]}
       nearbyAreas={[
         { label: "Bend", href: "/landscaping/bend" },
         { label: "Redmond", href: "/landscaping/redmond" },
+        { label: "Crooked River Ranch", href: "/landscaping/crooked-river-ranch" },
+        { label: "Powell Butte", href: "/landscaping/powell-butte" },
+        { label: "Madras", href: "/landscaping/madras" },
         { label: "Sisters", href: "/landscaping/sisters" },
-        { label: "Tumalo", href: "/landscaping/tumalo" },
-        { label: "Powell Butte", href: "/service-areas/powell-butte-lawn-care" },
-        { label: "Post", href: "/service-areas" },
+        { label: "Tumalo", href: "/landscaping/tumalo" }
       ]}
-      ctaNote="Ready to transform your Prineville property? Contact Newport Avenue Landscaping today for a personalized consultation and discover how we can bring your outdoor vision to life in Prineville."
+      ctaNote="Ready to transform your Prineville outdoor space? Contact Newport Avenue Landscaping today for a free, no-obligation estimate. We pride ourselves on prompt response times and offer seasonal programs specifically designed for Prineville's climate, ensuring your landscape flourishes year-round. Let us bring our local expertise and commitment to quality to your next landscaping project in Crook County."
       faqs={[
-        {
-          question: "Does Newport Avenue Landscaping serve Prineville, Oregon?",
-          answer: "Yes. Newport Avenue Landscaping serves Prineville and Crook County. We provide lawn care, irrigation, drought-tolerant landscape design, hardscaping, fire-wise landscaping, and commercial maintenance throughout Prineville.",
-        },
-        {
-          question: "What is fire-wise landscaping and do you offer it in Prineville?",
-          answer: "Fire-wise landscaping creates defensible space around your home by selecting fire-resistant plants, maintaining proper spacing, and reducing combustible materials near structures. We offer fire-wise landscape design and installation throughout Prineville and Crook County.",
-        },
+        { question: "How much does landscaping cost in Prineville, Oregon?", answer: "Landscaping costs in Prineville can vary widely based on the scope and complexity of the project, as well as the specific materials chosen. For basic lawn care services, Prineville residents can expect to pay from $97 per service. Larger projects like seasonal cleanups typically start around $600, while irrigation system installations can range from $1,600 to $2,000 per zone depending on the system type and property size. For a full landscape design and installation, including hardscaping and planting, projects can range from $15,000 to $80,000+, reflecting the investment in creating a truly custom outdoor environment tailored to Prineville's unique conditions." },
+        { question: "What landscaping services does Newport Avenue offer in Prineville?", answer: "Newport Avenue Landscaping provides a comprehensive suite of services tailored for the Prineville community. Our offerings include expert lawn and yard maintenance, custom landscape design and installation, efficient irrigation system design and repair, and the creation of stunning outdoor living spaces with fire features. We also specialize in sustainable xeriscaping solutions perfect for Prineville's climate, and offer dedicated commercial landscaping services to businesses throughout Crook County. Whatever your outdoor needs, our experienced team is equipped to deliver exceptional results." },
+        { question: "Is Newport Avenue Landscaping licensed and insured in Oregon?", answer: "Yes. Newport Avenue Landscaping holds Oregon Landscape Contractor Bond #9153 (LCB #9153). We are fully licensed, bonded, and insured for all residential and commercial landscaping work in Prineville and throughout Central Oregon." },
+        { question: "Do you offer free estimates in Prineville, Oregon?", answer: "Absolutely! Newport Avenue Landscaping is pleased to offer free, no-obligation estimates for all prospective clients in Prineville. We typically respond to inquiries within 24-48 hours to schedule a convenient site visit. During this visit, our experts will assess your property, discuss your vision, and provide a detailed proposal tailored to your specific landscaping needs and the unique characteristics of your Prineville home or business." },
+        { question: "What areas of Prineville do you serve?", answer: "Newport Avenue Landscaping proudly serves all neighborhoods and areas within Prineville and the surrounding Crook County region. This includes properties near the Ochoco Reservoir, along the Crooked River area, throughout downtown Prineville, and in newer subdivisions like those near Meadow Lakes Golf Course. We also extend our services to rural acreage properties and communities such as Juniper Acres, ensuring comprehensive coverage for all your landscaping requirements in and around Prineville." },
+        { question: "How does Prineville's climate impact plant choices for landscaping?", answer: "Prineville's distinct high-desert climate, with its warmer summers, colder winters, and lower annual precipitation compared to other Central Oregon cities, significantly influences optimal plant selection. We recommend and utilize a variety of drought-tolerant and native species that are well-adapted to USDA Zone 6a conditions and the local soil composition. Our designs prioritize plants that can withstand temperature extremes and require less water, ensuring your landscape remains vibrant and healthy with minimal intervention, perfectly suited to Prineville's environmental characteristics." },
       ]}
     />
   );

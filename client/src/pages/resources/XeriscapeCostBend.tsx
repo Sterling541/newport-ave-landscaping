@@ -1,6 +1,6 @@
 import Navbar from '@/components/Navbar';
 import SEO from '@/components/SEO';
-import { BreadcrumbSchema } from '@/components/SchemaMarkup';
+import { BreadcrumbSchema, FAQSchema } from '@/components/SchemaMarkup';
 import { Link } from 'wouter';
 
 export default function XeriscapeCostBend() {
@@ -15,6 +15,14 @@ export default function XeriscapeCostBend() {
         { name: 'Home', url: '/' },
         { name: 'Resources', url: '/resources' },
         { name: 'Xeriscape Cost in Bend, Oregon: A Complete Guide', url: '/resources/xeriscape-cost-bend-oregon' },
+      ]} />
+      <FAQSchema faqs={[
+        { question: 'How much does xeriscape landscaping cost in Bend, Oregon?', answer: 'Xeriscape installation in Bend typically costs $8 to $20 per square foot depending on the scope of work. A full front yard conversion of 1,500 square feet runs $12,000 to $30,000. Partial conversions or adding drought-tolerant planting beds start around $3,000 to $8,000. Costs vary based on the amount of hardscape, plant selection, irrigation upgrades, and soil amendment needed.' },
+        { question: 'Does xeriscape really save water in Bend?', answer: 'Yes. A properly designed xeriscape in Bend can reduce outdoor water use by 50 to 75 percent compared to a traditional turf lawn. Bend receives only about 11 inches of rain per year, so most landscape water comes from irrigation. Replacing turf with native and drought-adapted plants dramatically reduces irrigation demand, often cutting water bills by $200 to $600 per season.' },
+        { question: 'What plants work best for xeriscape in Bend, Oregon?', answer: 'The best xeriscape plants for Bend include native sagebrush, rabbitbrush, bitterbrush, and penstemon. Ornamental grasses like blue oat grass and feather reed grass perform well. For color, Russian sage, lavender, and catmint are excellent choices. Succulents like sedums and hens-and-chicks are also popular. All of these are adapted to Bend Zone 6a climate and low precipitation.' },
+        { question: 'Will xeriscape hurt my home value in Bend?', answer: 'No. In Bend, well-designed xeriscape landscaping is widely accepted and can actually increase home value by improving curb appeal while reducing maintenance costs. Buyers in Central Oregon increasingly value low-water landscapes. The key is professional design that looks intentional and attractive rather than simply removing lawn without replacing it with something appealing.' },
+        { question: 'How long does xeriscape installation take in Bend?', answer: 'A typical xeriscape project in Bend takes 1 to 3 weeks depending on size and complexity. This includes removing existing turf, amending soil, installing drip irrigation, placing rock or mulch groundcover, and planting. Spring from April to May and fall from September to October are the best times to install xeriscape in Bend, as plants establish more easily in moderate temperatures.' },
+        { question: 'Is Newport Avenue Landscaping licensed for xeriscape in Oregon?', answer: 'Yes. Newport Avenue Landscaping holds Oregon Landscape Contractor Bond #9153 (LCB #9153) and is fully licensed, bonded, and insured for all xeriscape design and installation in Bend and throughout Central Oregon. We have completed hundreds of water-wise landscape projects across the region.' },
       ]} />
       <Navbar />
       <div style={{ paddingTop: '204px' }}>

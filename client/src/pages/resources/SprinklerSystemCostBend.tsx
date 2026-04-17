@@ -1,6 +1,6 @@
 import Navbar from '@/components/Navbar';
 import SEO from '@/components/SEO';
-import { BreadcrumbSchema } from '@/components/SchemaMarkup';
+import { BreadcrumbSchema, FAQSchema } from '@/components/SchemaMarkup';
 import { Link } from 'wouter';
 
 export default function SprinklerSystemCostBend() {
@@ -15,6 +15,14 @@ export default function SprinklerSystemCostBend() {
         { name: 'Home', url: '/' },
         { name: 'Resources', url: '/resources' },
         { name: 'Sprinkler System Cost in Bend, Oregon', url: '/resources/sprinkler-system-cost-bend-oregon' },
+      ]} />
+      <FAQSchema faqs={[
+        { question: 'How much does a sprinkler system cost in Bend, Oregon?', answer: 'Sprinkler system installation in Bend costs $1,600 to $2,000 per zone, depending on zone size and components. A typical 5-zone residential system runs $8,000 to $10,000 installed. An 8-zone system for an average Bend home is $12,800 to $16,000. Larger properties with 10 or more zones range from $16,000 to $24,000+. These prices include design, trenching, heads, controller, and backflow preventer.' },
+        { question: 'How much does sprinkler system repair cost in Bend?', answer: 'Sprinkler repair in Bend is billed at $140 per tech hour. Most repair calls for broken heads, stuck valves, or minor leaks take one to two hours, so typical repair visits run $140 to $280. Spring activation and inspection is also $140 per tech hour. Fall winterization blowout is similarly priced at $140 per tech hour.' },
+        { question: 'When should I winterize my sprinkler system in Bend?', answer: 'In Bend, sprinkler systems should be winterized before the first hard freeze, which typically arrives in late October or early November. We recommend scheduling your blowout appointment in September or early October to ensure availability. Leaving water in your system through a Bend winter risks cracked pipes, broken heads, and costly repairs in spring.' },
+        { question: 'How many zones does a typical Bend home need?', answer: 'Most single-family homes in Bend need 6 to 10 irrigation zones. A typical layout includes 1-2 zones for the front lawn, 1-2 zones for the back lawn, 2-3 drip zones for planting beds, and 1 zone for trees or shrubs. Larger properties with extensive landscaping, slopes, or multiple turf areas may need 12 or more zones.' },
+        { question: 'Does Newport Avenue Landscaping offer smart irrigation controllers in Bend?', answer: 'Yes. We install and program smart irrigation controllers that adjust watering schedules based on local weather data, soil type, and plant needs. Smart controllers can reduce water use by 30-50% compared to traditional timer-based systems. Adding a smart controller to an existing system costs $200 to $500 installed.' },
+        { question: 'Is Newport Avenue Landscaping licensed for irrigation work in Oregon?', answer: 'Yes. Newport Avenue Landscaping holds Oregon Landscape Contractor Bond #9153 (LCB #9153) and is fully licensed, bonded, and insured for all irrigation installation and repair work throughout Bend and Central Oregon. All irrigation work is performed by our in-house crews.' },
       ]} />
       <Navbar />
       <div style={{ paddingTop: '204px' }}>

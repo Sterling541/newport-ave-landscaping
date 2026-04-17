@@ -1,6 +1,6 @@
 import Navbar from '@/components/Navbar';
 import SEO from '@/components/SEO';
-import { BreadcrumbSchema } from '@/components/SchemaMarkup';
+import { BreadcrumbSchema, FAQSchema } from '@/components/SchemaMarkup';
 import { Link } from 'wouter';
 
 export default function LawnMaintenanceCostBend() {
@@ -15,6 +15,14 @@ export default function LawnMaintenanceCostBend() {
         { name: 'Home', url: '/' },
         { name: 'Resources', url: '/resources' },
         { name: 'Lawn Maintenance Cost in Bend, Oregon', url: '/resources/lawn-maintenance-cost-bend-oregon' },
+      ]} />
+      <FAQSchema faqs={[
+        { question: 'How much does lawn maintenance cost in Bend, Oregon?', answer: 'Weekly lawn mowing and edging in Bend starts at $97 per service. Spring and fall cleanups start at $600 each. Core aeration runs $150 to $400 depending on lawn size. A full-service Everything Plan that covers mowing, cleanups, aeration, and fertilization starts at $388 per month. Newport Avenue provides free estimates for all lawn care services in Bend and Central Oregon.' },
+        { question: 'What is included in a lawn maintenance program in Bend?', answer: 'A standard lawn maintenance program in Bend includes weekly mowing at the correct height, string trimming around obstacles, edging along hard surfaces, and blowing clippings off driveways and walkways. Our Everything Plan adds spring and fall cleanups, annual core aeration, a 4-application fertilization program, and pre-emergent weed control twice per year.' },
+        { question: 'When does lawn care season start in Bend, Oregon?', answer: 'Lawn care season in Bend typically starts in April when grass begins actively growing after the last frost. The first visit of the season often includes cleanup of winter debris, a pre-emergent weed control application, and the first fertilization of the year. Weekly mowing continues through October, with fall cleanup in late October or November.' },
+        { question: 'How often should I mow my lawn in Bend?', answer: 'During the active growing season from May through September, most Bend lawns benefit from weekly mowing. Cool-season grasses like Kentucky bluegrass and tall fescue grow most actively in spring and fall, and may only need bi-weekly mowing during midsummer heat. Mowing at the correct height of 3 to 3.5 inches for bluegrass is more important than frequency.' },
+        { question: 'Does Newport Avenue Landscaping offer lawn care in all of Bend?', answer: 'Yes. Newport Avenue Landscaping provides lawn care services throughout all of Bend, including Awbrey Butte, NorthWest Crossing, Broken Top, Discovery West, SE Bend, SW Bend, River West, Brookswood, Larkspur, and surrounding areas. We also serve Redmond, Sisters, Sunriver, Tumalo, and all of Central Oregon.' },
+        { question: 'Is Newport Avenue Landscaping licensed for lawn care in Oregon?', answer: 'Yes. Newport Avenue Landscaping holds Oregon Landscape Contractor Bond #9153 (LCB #9153) and is fully licensed, bonded, and insured for all lawn care and maintenance services throughout Bend and Central Oregon. All work is performed by our in-house crews with no subcontractors.' },
       ]} />
       <Navbar />
       <div style={{ paddingTop: '204px' }}>
