@@ -11,7 +11,7 @@ export default function SunriverIrrigation() {
         <script type="application/ld+json">{`{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Do you serve Sunriver, Oregon?","acceptedAnswer":{"@type":"Answer","text":"Yes — Newport Avenue Landscaping serves Sunriver, Oregon and all of Central Oregon including Bend, Redmond, Sisters, Sunriver, La Pine, Prineville, Madras, Tumalo, and Terrebonne. We do not charge extra for travel within our service area."}},{"@type":"Question","name":"How much does sprinkler system installation cost in Sunriver, Oregon?","acceptedAnswer":{"@type":"Answer","text":"Sprinkler System Installation in Sunriver, Oregon is priced consistently with our Bend rates. Projects typically range from $3,500–$12,000 depending on scope and materials. Contact us for a free on-site estimate."}},{"@type":"Question","name":"How do I schedule sprinkler system installation in Sunriver, Oregon?","acceptedAnswer":{"@type":"Answer","text":"Call us at (541) 617-8873 or use our online contact form to schedule a free consultation. We serve Sunriver OR regularly and can typically schedule a site visit within 1–2 weeks."}},{"@type":"Question","name":"Are you licensed and insured for work in Sunriver, Oregon?","acceptedAnswer":{"@type":"Answer","text":"Yes — Newport Avenue Landscaping is fully licensed, bonded, and insured for all work throughout Oregon, including Sunriver, Oregon. We carry general liability insurance and workers compensation coverage on all projects."}}]}`}</script>
       </Helmet>
       <Navbar />
-      <section style={{ background: "oklch(0.15 0.005 0)", padding: "5rem 0 3rem", marginTop: "204px" }}>
+      <section style={{ background: `linear-gradient(rgba(0,0,0,0.62), rgba(0,0,0,0.62)), url(https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=1600&q=80) center/cover no-repeat`, padding: "5rem 0 3rem", marginTop: "204px" }}>
         <div style={{ maxWidth: "860px", margin: "0 auto", padding: "0 1.5rem" }}>
           <nav style={{ marginBottom: "1.5rem" }}><a href="/" style={{ color: "oklch(0.72 0.12 25)", textDecoration: "none", fontFamily: "var(--font-label)", fontSize: "0.65rem", letterSpacing: "0.08em" }}>Service Areas</a> <span style={{ color: "oklch(0.55 0.008 0)", fontFamily: "var(--font-label)", fontSize: "0.65rem" }}>› Sunriver Irrigation</span></nav>
           <h1 style={{ fontFamily: "var(--font-display)", fontWeight: 300, color: "#fff", fontSize: "clamp(1.8rem, 4vw, 3rem)", lineHeight: 1.1, marginBottom: "1rem" }}>
@@ -85,11 +85,11 @@ export default function SunriverIrrigation() {
         </div>
       </section>
 
-      <section style={{ background: "oklch(0.15 0.005 0)", padding: "3rem 0" }}>
+      <section style={{ background: `linear-gradient(rgba(0,0,0,0.62), rgba(0,0,0,0.62)), url(https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=1600&q=80) center/cover no-repeat`, padding: "3rem 0" }}>
         <div style={{ maxWidth: "860px", margin: "0 auto", padding: "0 1.5rem" }}>
           <div style={{ fontFamily: "var(--font-label)", color: "oklch(0.72 0.12 25)", fontSize: "0.62rem", marginBottom: "1rem" }}>YOU MIGHT ALSO LIKE</div>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))", gap: "0.75rem" }}>
-            <a href="/resources/irrigation-cost-bend-oregon" style={{ display: "block", padding: "1rem 1.25rem", background: "oklch(1 0 0)", borderLeft: "3px solid oklch(0.46 0.20 25)", textDecoration: "none", color: "oklch(0.22 0.008 30)", fontWeight: 600, fontSize: "0.88rem" }}>Sprinkler System Installation Cost Guide</a><a href="/service-areas" style={{ display: "block", padding: "1rem 1.25rem", background: "oklch(1 0 0)", borderLeft: "3px solid oklch(0.46 0.20 25)", textDecoration: "none", color: "oklch(0.22 0.008 30)", fontWeight: 600, fontSize: "0.88rem" }}>Service Areas Overview</a>
+            <a href="/resources/sprinkler-system-cost-bend-oregon" style={{ display: "block", padding: "1rem 1.25rem", background: "oklch(1 0 0)", borderLeft: "3px solid oklch(0.46 0.20 25)", textDecoration: "none", color: "oklch(0.22 0.008 30)", fontWeight: 600, fontSize: "0.88rem" }}>Sprinkler System Installation Cost Guide</a><a href="/service-areas" style={{ display: "block", padding: "1rem 1.25rem", background: "oklch(1 0 0)", borderLeft: "3px solid oklch(0.46 0.20 25)", textDecoration: "none", color: "oklch(0.22 0.008 30)", fontWeight: 600, fontSize: "0.88rem" }}>Service Areas Overview</a>
           </div>
         </div>
       </section>

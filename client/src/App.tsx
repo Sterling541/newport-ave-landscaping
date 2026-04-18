@@ -500,6 +500,9 @@ function Router() {
           <Route path="/resources/lawn-care-cost-bend-oregon" component={lazy(() => import('./pages/resources/LawnCareCostBend'))} />
           <Route path="/resources/lawn-aeration-cost-bend-oregon" component={lazy(() => import('./pages/resources/AerationCostBend'))} />
           <Route path="/resources/backflow-preventer-testing-bend-oregon" component={lazy(() => import('./pages/resources/BackflowTestingBend'))} />
+          <Route path="/resources/snow-removal-cost-bend-oregon" component={lazy(() => import('./pages/resources/SnowRemovalCostBend'))} />
+          <Route path="/resources/irrigation-repair-cost-bend-oregon" component={lazy(() => import('./pages/resources/IrrigationRepairCostBend'))} />
+          <Route path="/resources/commercial-landscaping-cost-bend-oregon" component={lazy(() => import('./pages/resources/CommercialLandscapingCostBend'))} />
           <Route path="/resources/lawn-fungus-treatment-bend-oregon" component={lazy(() => import('./pages/resources/LawnFungusTreatmentBend'))} />
 </Switch>
     </Suspense>

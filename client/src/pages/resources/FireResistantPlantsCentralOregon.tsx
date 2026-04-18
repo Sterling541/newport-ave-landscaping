@@ -70,7 +70,7 @@ const FireResistantPlantsCentralOregon: React.FC = () => {
       <Navbar />
 
       {/* Hero Section - Dark Background */}
-      <section style={{ backgroundColor: 'oklch(0.15 0.005 0)', color: 'oklch(1 0 0)', padding: '4rem 0' }}>
+      <section style={{ background: `linear-gradient(rgba(0,0,0,0.60), rgba(0,0,0,0.60)), url(https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1600&q=80) center/cover no-repeat`, color: 'oklch(1 0 0)', padding: '4rem 0' }}>
         <div className="container" style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 1rem' }}>
           <p style={{ fontSize: '0.875rem', color: 'oklch(0.97 0.012 85)', marginBottom: '0.5rem' }}>
             Home &gt; Resources &gt; Fire-Resistant Plants for Central Oregon

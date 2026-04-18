@@ -14,7 +14,7 @@ export default function LawnFungusTreatmentBend() {
       <Navbar />
 
       {/* Hero */}
-      <section style={{ background: "oklch(0.15 0.005 0)", padding: "5rem 0 3rem", marginTop: "0" }}>
+      <section style={{ background: `linear-gradient(rgba(0,0,0,0.60), rgba(0,0,0,0.60)), url(https://newportavelandscaping.com/wp-content/uploads/2023/01/brown-patch-lawn-fungus-1024x681.jpg) center/cover no-repeat`, padding: "5rem 0 3rem", marginTop: "0" }}>
         <div style={{ maxWidth: "860px", margin: "0 auto", padding: "0 1.5rem" }}>
           <nav style={{ marginBottom: "1.5rem" }}>
             <a href="/" style={{ color: "oklch(0.72 0.12 25)", textDecoration: "none", fontFamily: "var(--font-label)", fontSize: "0.65rem", letterSpacing: "0.08em" }}>Home</a> / <a href="/resources" style={{ color: "oklch(0.72 0.12 25)", textDecoration: "none", fontFamily: "var(--font-label)", fontSize: "0.65rem", letterSpacing: "0.08em" }}>Resources</a>

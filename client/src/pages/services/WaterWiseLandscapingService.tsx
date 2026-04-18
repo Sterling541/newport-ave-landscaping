@@ -79,7 +79,7 @@ export default function WaterWiseLandscapingService() {
       ]}
       relatedLinks={[
         { label: "Irrigation Systems", href: "/services/irrigation" },
-        { label: "Xeriscape & Drought-Tolerant Landscaping", href: "/services/xeriscape" },
+        { label: "Xeriscape & Drought-Tolerant Landscaping", href: "/services/xeriscaping" },
         { label: "Landscape Design", href: "/services/landscape-design" },
         { label: "Commercial Landscaping", href: "/services/commercial" },
       ]}

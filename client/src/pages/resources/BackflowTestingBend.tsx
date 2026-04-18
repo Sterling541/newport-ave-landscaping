@@ -14,7 +14,7 @@ export default function BackflowTestingBend() {
       <Navbar />
 
       {/* Hero */}
-      <section style={{ background: "oklch(0.15 0.005 0)", padding: "5rem 0 3rem", marginTop: "0" }}>
+      <section style={{ background: `linear-gradient(rgba(0,0,0,0.60), rgba(0,0,0,0.60)), url(https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=1600&q=80) center/cover no-repeat`, padding: "5rem 0 3rem", marginTop: "0" }}>
         <div style={{ maxWidth: "860px", margin: "0 auto", padding: "0 1.5rem" }}>
           <nav style={{ marginBottom: "1.5rem" }}>
             <a href="/" style={{ color: "oklch(0.72 0.12 25)", textDecoration: "none", fontFamily: "var(--font-label)", fontSize: "0.65rem", letterSpacing: "0.08em" }}>Home</a> / <a href="/resources" style={{ color: "oklch(0.72 0.12 25)", textDecoration: "none", fontFamily: "var(--font-label)", fontSize: "0.65rem", letterSpacing: "0.08em" }}>Resources</a>
@@ -117,7 +117,7 @@ export default function BackflowTestingBend() {
         <div style={{ maxWidth: "860px", margin: "0 auto", padding: "0 1.5rem" }}>
           <div style={{ fontFamily: "var(--font-label)", color: "oklch(0.72 0.12 25)", fontSize: "0.62rem", marginBottom: "1rem" }}>YOU MIGHT ALSO LIKE</div>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))", gap: "0.75rem" }}>
-            <a key="0" href="/resources/irrigation-repair-cost-bend-oregon" style={{ display: "block", padding: "1rem 1.25rem", background: "oklch(1 0 0)", borderLeft: "3px solid oklch(0.46 0.20 25)", textDecoration: "none", color: "oklch(0.22 0.008 30)", fontWeight: 600, fontSize: "0.88rem" }}>Sprinkler Repair Cost Guide</a><a key="1" href="/resources/sprinkler-system-cost-bend-oregon" style={{ display: "block", padding: "1rem 1.25rem", background: "oklch(1 0 0)", borderLeft: "3px solid oklch(0.46 0.20 25)", textDecoration: "none", color: "oklch(0.22 0.008 30)", fontWeight: 600, fontSize: "0.88rem" }}>Sprinkler System Cost Guide</a><a key="2" href="/resources/sprinkler-blowout-guide-bend-oregon" style={{ display: "block", padding: "1rem 1.25rem", background: "oklch(1 0 0)", borderLeft: "3px solid oklch(0.46 0.20 25)", textDecoration: "none", color: "oklch(0.22 0.008 30)", fontWeight: 600, fontSize: "0.88rem" }}>Sprinkler Blowout Guide</a>
+            <a key="0" href="/resources/irrigation-repair-cost-bend-oregon" style={{ display: "block", padding: "1rem 1.25rem", background: "oklch(1 0 0)", borderLeft: "3px solid oklch(0.46 0.20 25)", textDecoration: "none", color: "oklch(0.22 0.008 30)", fontWeight: 600, fontSize: "0.88rem" }}>Sprinkler Repair Cost Guide</a><a key="1" href="/resources/sprinkler-system-cost-bend-oregon" style={{ display: "block", padding: "1rem 1.25rem", background: "oklch(1 0 0)", borderLeft: "3px solid oklch(0.46 0.20 25)", textDecoration: "none", color: "oklch(0.22 0.008 30)", fontWeight: 600, fontSize: "0.88rem" }}>Sprinkler System Cost Guide</a><a key="2" href="/resources/sprinkler-winterization-guide-bend-oregon" style={{ display: "block", padding: "1rem 1.25rem", background: "oklch(1 0 0)", borderLeft: "3px solid oklch(0.46 0.20 25)", textDecoration: "none", color: "oklch(0.22 0.008 30)", fontWeight: 600, fontSize: "0.88rem" }}>Sprinkler Blowout Guide</a>
           </div>
         </div>
       </section>

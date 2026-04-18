@@ -270,3 +270,15 @@
 ## Session — April 18, 2026 (Pricing Disclaimer)
 - [x] Add pricing disclaimer to ServicePageLayout (covers all 20 service pages with pricing tables)
 - [x] Add pricing disclaimer to 72 resource pages with dollar amounts (67 standard + 5 fragment-pattern pages)
+
+## Session — April 18, 2026 (404 Fix + Image Overhaul)
+- [ ] Audit all internal links and fix 404s (Paver Patio Sunriver and others)
+- [ ] Replace irrelevant hero/section images with topic-appropriate ones across all pages
+- [ ] Add inline images to resource pages that currently have no images
+
+## Session — April 18, 2026 (404 Audit + Image Overhaul)
+- [x] Audit all internal links and fix 404s (including Paver Patio Sunriver)
+- [x] Add routes for 3 unrouted resource pages (SnowRemovalCostBend, IrrigationRepairCostBend, CommercialLandscapingCostBend)
+- [x] Replace irrelevant hero images on 14 service pages with topic-appropriate Unsplash photos
+- [x] Add hero background images to 49 service-area pages (previously solid dark backgrounds)
+- [x] Add hero background images to 21 resource pages with no images (13 via background pattern, 7 via backgroundColor pattern, 1 via variable pattern)

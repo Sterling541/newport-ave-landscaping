@@ -28,7 +28,7 @@ export default function WaterFeatures() {
       subtitle="Bend, Oregon"
       seoTitle="Water Features Bend Oregon | Ponds, Waterfalls & Koi Ponds | Newport Avenue"
       seoDescription="Custom ponds, waterfalls, and water features in Bend, Oregon. Design, installation, and maintenance by Newport Avenue Landscaping. Transform your outdoor space. LCB #9153."
-      heroImage="https://files.manuscdn.com/user_upload_by_module/session_file/310519663503028182/OAhyShvnyMXUNJqn.jpg"
+      heroImage="https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=1600&q=80"
       heroPosition="center 40%"
       intro="Want to take your yard to the next level? Add sound. Water features don't just look nice — they bring the relaxation factor to the next level by adding another sense: sound. Did you know the optimal sound of falling water is 24 inches? The further the water falls, the higher the volume. Now, tell us another landscaper that thinks about those details when designing your stream, pond, or water feature."
       pricing={[

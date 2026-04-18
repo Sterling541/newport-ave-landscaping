@@ -82,12 +82,12 @@ export default function BendWateringRestrictions() {
 
           <h3 className="text-2xl font-bold mb-3">How We Help You Conserve Water:</h3>
           <ul className="list-disc list-inside mb-6 ml-4">
-            <li><strong>Xeriscape & Turf Conversion:</strong> We specialize in transforming water-intensive lawns into stunning, low-water landscapes. This not only drastically cuts down on your water use but can also help you qualify for the City of Bend's Turf Replacement Rebate program. Learn more about our <Link href="/services/xeriscape" className="text-blue-600 hover:underline">xeriscape services</Link>.</li>
+            <li><strong>Xeriscape & Turf Conversion:</strong> We specialize in transforming water-intensive lawns into stunning, low-water landscapes. This not only drastically cuts down on your water use but can also help you qualify for the City of Bend's Turf Replacement Rebate program. Learn more about our <Link href="/services/xeriscaping" className="text-blue-600 hover:underline">xeriscape services</Link>.</li>
             <li><strong>Smart Irrigation & Drip Systems:</strong> Upgrade to modern irrigation technology with smart controllers that adjust watering based on weather, soil conditions, and plant needs. Drip irrigation delivers water directly to plant roots, minimizing waste. Explore our <Link href="/services/irrigation" className="text-blue-600 hover:underline">irrigation solutions</Link>.</li>
             <li><strong>Spring Activation & Audits:</strong> As spring arrives, ensure your irrigation system is running efficiently. Our spring activation service includes a thorough audit to identify leaks, inefficiencies, and areas for improvement, helping you start the season water-wise.</li>
             <li><strong>Irrigation Repair:</strong> A leaky or malfunctioning irrigation system can waste thousands of gallons of water. Our expert team provides prompt and effective <Link href="/services/irrigation" className="text-blue-600 hover:underline">irrigation repair services</Link> to keep your system operating at peak efficiency.</li>
             <li><strong>Landscape Design for Water Efficiency:</strong> Our <Link href="/services/landscape-design" className="text-blue-600 hover:underline">landscape design services</Link> prioritize native and drought-tolerant plants, strategic plant placement, and efficient irrigation to create beautiful, sustainable outdoor spaces that require less water.</li>
-            <li><strong>Ongoing Maintenance:</strong> A water-wise landscape requires proper care to stay efficient and beautiful. Our <Link href="/services/maintenance" className="text-blue-600 hover:underline">maintenance services</Link> include regular irrigation check-ups, pruning, and other tasks to ensure your landscape thrives while conserving water.</li>
+            <li><strong>Ongoing Maintenance:</strong> A water-wise landscape requires proper care to stay efficient and beautiful. Our <Link href="/maintenance" className="text-blue-600 hover:underline">maintenance services</Link> include regular irrigation check-ups, pruning, and other tasks to ensure your landscape thrives while conserving water.</li>
           </ul>
 
           <h2 className="text-3xl font-bold mb-4">City of Bend Water Conservation Programs & Rebates</h2>
@@ -171,7 +171,7 @@ export default function BendWateringRestrictions() {
         </div>
       </div>
       {/* ── Pricing Disclaimer ── */}
-      <section style={{ background: "oklch(0.13 0.005 0)", padding: "1.25rem 0" }}>
+      <section style={{ background: `linear-gradient(rgba(0,0,0,0.60), rgba(0,0,0,0.60)), url(https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=1600&q=80) center/cover no-repeat`, padding: "1.25rem 0" }}>
         <div style={{ maxWidth: "860px", margin: "0 auto", padding: "0 1.5rem" }}>
           <p style={{ color: "oklch(0.50 0.008 0)", fontSize: "0.70rem", lineHeight: 1.6, fontWeight: 300, margin: 0 }}>
             <strong style={{ color: "oklch(0.62 0.008 0)", fontWeight: 500 }}>Pricing Disclaimer:</strong> All prices shown are typical market ranges for general planning purposes only and do not constitute a binding quote or guarantee of cost. Actual costs depend on site conditions, property size, scope of work, and materials. Advertised flat rates are firm as stated. All other estimates require a free on-site assessment. <a href="/contact" style={{ color: "oklch(0.72 0.12 25)", textDecoration: "underline" }}>Contact us for a written estimate.</a>

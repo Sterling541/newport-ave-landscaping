@@ -209,7 +209,7 @@ export default function EverythingPlanSection() {
                   Get Started Today
                 </button>
                 <a
-                  href="/maintenance/everything-plan"
+                  href="/membership"
                   style={{
                     backgroundColor: "transparent",
                     color: "oklch(0.85 0.005 0)",

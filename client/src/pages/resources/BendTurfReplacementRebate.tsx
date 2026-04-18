@@ -79,7 +79,7 @@ export default function BendTurfReplacementRebate() {
             <h2 className="text-3xl font-bold text-gray-900 mb-4">Beyond the Rebate: The Benefits of Water-Wise Landscaping</h2>
             <p className="text-lg text-gray-700 mb-4">Converting your turf isn't just about the rebate; it's an investment in a more sustainable, beautiful, and low-maintenance landscape. Water-wise landscaping, often referred to as xeriscaping, utilizes drought-tolerant plants, efficient irrigation methods, and thoughtful design to create vibrant outdoor spaces that thrive in Bend's climate.</p>
             <h3 className="text-2xl font-bold text-gray-900 mb-3">Xeriscape and Turf Conversion</h3>
-            <p className="text-lg text-gray-700 mb-4">Xeriscaping is a landscaping method that reduces or eliminates the need for supplemental water from irrigation. By choosing native and drought-tolerant plants, you can significantly cut down on water consumption while still enjoying a lush and attractive yard. Our <Link href="/services/xeriscape" className="text-blue-600 hover:underline">xeriscape services</Link> focus on creating designs that are both aesthetically pleasing and environmentally responsible, helping you qualify for the rebate and enjoy long-term water savings.</p>
+            <p className="text-lg text-gray-700 mb-4">Xeriscaping is a landscaping method that reduces or eliminates the need for supplemental water from irrigation. By choosing native and drought-tolerant plants, you can significantly cut down on water consumption while still enjoying a lush and attractive yard. Our <Link href="/services/xeriscaping" className="text-blue-600 hover:underline">xeriscape services</Link> focus on creating designs that are both aesthetically pleasing and environmentally responsible, helping you qualify for the rebate and enjoy long-term water savings.</p>
 
             <h3 className="text-2xl font-bold text-gray-900 mb-3">Smart Irrigation and Drip Systems</h3>
             <p className="text-lg text-gray-700 mb-4">Efficient irrigation is key to any water-wise landscape. Drip irrigation systems deliver water directly to the plant roots, minimizing evaporation and runoff. Smart irrigation controllers adjust watering schedules based on weather conditions, ensuring your plants receive exactly the right amount of water. Newport Avenue Landscaping specializes in <Link href="/services/irrigation" className="text-blue-600 hover:underline">smart irrigation and drip installation</Link>, optimizing your water use and further reducing your utility bills.</p>
@@ -97,7 +97,7 @@ export default function BendTurfReplacementRebate() {
               <li><strong>Rebate Qualification Assistance:</strong> We understand the City of Bend's requirements and will help ensure your project meets all criteria for the $3/sq ft rebate.</li>
               <li><strong>Professional Installation:</strong> Our experienced team handles all aspects of the conversion, from turf removal to plant installation and drip irrigation setup.</li>
               <li><strong>Documentation Support:</strong> We assist with gathering the necessary documentation for your rebate application, making the process straightforward.</li>
-              <li><strong>Ongoing Maintenance & Support:</strong> Beyond installation, we offer <Link href="/services/maintenance" className="text-blue-600 hover:underline">maintenance services</Link>, including spring activation and irrigation audits, to keep your new landscape thriving.</li>
+              <li><strong>Ongoing Maintenance & Support:</strong> Beyond installation, we offer <Link href="/maintenance" className="text-blue-600 hover:underline">maintenance services</Link>, including spring activation and irrigation audits, to keep your new landscape thriving.</li>
             </ul>
             <p className="text-lg text-gray-700">Let us help you turn your lawn into a beautiful, water-saving oasis while securing your City of Bend rebate.</p>
           </section>
@@ -131,7 +131,7 @@ export default function BendTurfReplacementRebate() {
         </div>
       </div>
       {/* ── Pricing Disclaimer ── */}
-      <section style={{ background: "oklch(0.13 0.005 0)", padding: "1.25rem 0" }}>
+      <section style={{ background: `linear-gradient(rgba(0,0,0,0.60), rgba(0,0,0,0.60)), url(https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80) center/cover no-repeat`, padding: "1.25rem 0" }}>
         <div style={{ maxWidth: "860px", margin: "0 auto", padding: "0 1.5rem" }}>
           <p style={{ color: "oklch(0.50 0.008 0)", fontSize: "0.70rem", lineHeight: 1.6, fontWeight: 300, margin: 0 }}>
             <strong style={{ color: "oklch(0.62 0.008 0)", fontWeight: 500 }}>Pricing Disclaimer:</strong> All prices shown are typical market ranges for general planning purposes only and do not constitute a binding quote or guarantee of cost. Actual costs depend on site conditions, property size, scope of work, and materials. Advertised flat rates are firm as stated. All other estimates require a free on-site assessment. <a href="/contact" style={{ color: "oklch(0.72 0.12 25)", textDecoration: "underline" }}>Contact us for a written estimate.</a>
