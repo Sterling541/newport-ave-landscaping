@@ -101,7 +101,7 @@ export default function FirewiseLandscaping() {
           list: [
             "Free site assessment and zone-by-zone risk evaluation",
             "Removal of high-risk plants: juniper, manzanita, arborvitae, ladder fuels",
-            "Tree pruning to raise canopy height (lowest limbs 6–10 ft from ground)",
+            "Tree pruning to raise canopy height (lowest limbs to at least twice the height of surrounding understory vegetation, typically 6+ ft from ground)",
             "Irrigation system assessment and upgrade to cover Zone 1 and Zone 2",
             "Soil preparation and fire-resistant replanting",
             "Gravel and rock mulch installation within 5 feet of structure",
@@ -112,7 +112,7 @@ export default function FirewiseLandscaping() {
           heading: "Juniper Removal: Central Oregon's #1 Fire Risk",
           body: [
             "Western juniper is the most dangerous plant in Central Oregon landscapes. It contains highly volatile oils that cause it to burn intensely and spread embers rapidly. A single large juniper near your home can act as a torch that ignites your roof, deck, or siding before firefighters can respond. Juniper is also extremely common in Bend-area landscapes — many properties have multiple mature trees within the critical Zone 1 area.",
-            "We remove junipers of all sizes, from small ornamental plantings to large mature trees. Removal includes cutting, chipping or hauling debris, and stump grinding. We can also selectively prune junipers that are located in Zone 2 or Zone 3 where complete removal isn't necessary — raising the canopy height and removing dead wood significantly reduces their fire risk without eliminating them entirely.",
+            "We remove junipers of all sizes, from small ornamental plantings to large mature trees. Removal includes cutting, chipping or hauling debris, and stump grinding. We can also selectively prune junipers that are located in Zone 2 or Zone 3 where complete removal isn't necessary — raising the canopy height (limbs to 2x understory height) and removing dead wood significantly reduces their fire risk without eliminating them entirely.",
           ],
           accent: true,
         },

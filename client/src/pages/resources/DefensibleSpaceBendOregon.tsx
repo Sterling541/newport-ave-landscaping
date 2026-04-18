@@ -27,7 +27,7 @@ const DefensibleSpaceBendOregon = () => {
     },
     {
       question: "What should I do in Zone 1 (0-30 feet from my home)?",
-      answer: "In Zone 1, you should maintain well-irrigated, low-flammability plants. Ensure there is no wood mulch within 5 feet of any structure (Zone 0). Prune trees to a 6-10 foot canopy height to remove ladder fuels, and regularly clear pine needles and debris from roofs and gutters."
+      answer: "In Zone 1, you should maintain well-irrigated, low-flammability plants. Ensure there is no wood mulch within 5 feet of any structure (Zone 0). Prune tree limbs to at least twice the height of surrounding understory vegetation (typically 6+ ft) to remove ladder fuels, and regularly clear pine needles and debris from roofs and gutters."
     }
   ];
 
@@ -113,7 +113,7 @@ const DefensibleSpaceBendOregon = () => {
               <ul style={{ paddingLeft: "20px", marginBottom: "0" }}>
                 <li style={{ marginBottom: "10px" }}><strong>Planting:</strong> Use well-irrigated, low-flammability plants. Keep lawns mowed and hydrated.</li>
                 <li style={{ marginBottom: "10px" }}><strong>Spacing:</strong> Ensure adequate spacing between plant beds to prevent fire from jumping.</li>
-                <li><strong>Maintenance:</strong> Prune trees to a canopy height of 6-10 feet from the ground to eliminate \"ladder fuels\" that allow ground fires to climb into the tree canopy.</li>
+                <li><strong>Maintenance:</strong> Prune tree limbs to at least twice the height of surrounding understory brush (typically 6+ ft from ground) to eliminate \"ladder fuels\" that allow ground fires to climb into the tree canopy.</li>
               </ul>
             </div>
 
@@ -214,7 +214,7 @@ const DefensibleSpaceBendOregon = () => {
                   <tr style={{ borderBottom: "1px solid oklch(0.9 0 0)", backgroundColor: "oklch(0.97 0.012 85)" }}>
                     <td style={{ padding: "15px", fontWeight: "bold" }}>Zone 1 (Intermediate)</td>
                     <td style={{ padding: "15px" }}>5 - 30 ft</td>
-                    <td style={{ padding: "15px" }}>Well-irrigated, fire-resistant plants. Prune trees 6-10 ft up.</td>
+                    <td style={{ padding: "15px" }}>Well-irrigated, fire-resistant plants. Prune tree limbs to 2x understory height (6+ ft).</td>
                   </tr>
                   <tr style={{ borderBottom: "1px solid oklch(0.9 0 0)" }}>
                     <td style={{ padding: "15px", fontWeight: "bold" }}>Zone 2 (Extended)</td>

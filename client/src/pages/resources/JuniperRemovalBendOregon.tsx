@@ -149,7 +149,7 @@ const JuniperRemovalBendOregon = () => {
           </p>
           <ul style={{ fontSize: '1.1rem', lineHeight: '1.6', marginBottom: '1rem', listStyleType: 'disc', paddingLeft: '20px' }}>
             <li style={{ marginBottom: '0.5rem' }}>
-              <strong>Zone 1 (0-30 feet from structures):</strong> This is the most critical zone. Within this area, vegetation should be well-irrigated and consist of low-flammability plants. No wood mulch should be within 5 feet of the structure, and trees should be pruned to a 6-10 foot canopy height. Junipers in this zone are extremely dangerous and should be removed.
+              <strong>Zone 1 (0-30 feet from structures):</strong> This is the most critical zone. Within this area, vegetation should be well-irrigated and consist of low-flammability plants. No wood mulch should be within 5 feet of the structure, and trees should be pruned so the lowest limbs are at least twice the height of surrounding understory vegetation (typically 6+ ft from ground). Junipers in this zone are extremely dangerous and should be removed.
             </li>
             <li style={{ marginBottom: '0.5rem' }}>
               <strong>Zone 2 (30-100 feet from structures):</strong> In this zone, low-flammability plants are still recommended, and trees should be well-spaced with no touching canopies. While some junipers might exist here, they should be thinned and maintained to prevent continuous fuel paths.

@@ -66,6 +66,8 @@ import TumaloPage from "./pages/cities/Tumalo";
 import PrinevillePage from "./pages/cities/Prineville";
 import LaPinePage from "./pages/cities/LaPine";
 import MadrasPage from "./pages/cities/Madras";
+import EagleCrestPage from "./pages/cities/EagleCrest";
+import PowellButtePage from "./pages/cities/PowellButte";
 
 // Blog posts
 import ClimateChange from "./pages/blog/ClimateChange";
@@ -257,6 +259,8 @@ function Router() {
       <Route path={"/landscaping/prineville"} component={PrinevillePage} />
       <Route path={"/landscaping/la-pine"} component={LaPinePage} />
       <Route path={"/landscaping/madras"} component={MadrasPage} />
+      <Route path={"/landscaping/eagle-crest"} component={EagleCrestPage} />
+      <Route path={"/landscaping/powell-butte"} component={PowellButtePage} />
 
       {/* Blog posts */}
       <Route path={"/blog/climate-change-landscaping"} component={ClimateChange} />

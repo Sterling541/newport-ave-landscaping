@@ -106,7 +106,7 @@ const FireResistantPlantsCentralOregon: React.FC = () => {
             Zone 1: The Immediate Zone (0-30 feet from your home)
           </h3>
           <p style={{ fontSize: '1.125rem', lineHeight: '1.7', marginBottom: '1.5rem' }}>
-            This is the most critical zone, extending 0 to 30 feet from your home. Within this area, the goal is to eliminate highly flammable materials and maintain plants with low flammability. Key practices include ensuring plants are well-irrigated, avoiding wood mulch within 5 feet of any structure, and pruning tree canopies to a height of 6-10 feet from the ground. This zone acts as a buffer, preventing flames from directly reaching your home.
+            This is the most critical zone, extending 0 to 30 feet from your home. Within this area, the goal is to eliminate highly flammable materials and maintain plants with low flammability. Key practices include ensuring plants are well-irrigated, avoiding wood mulch within 5 feet of any structure, and pruning tree limbs to at least twice the height of surrounding understory brush (typically 6+ ft from ground). This zone acts as a buffer, preventing flames from directly reaching your home.
           </p>
           <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.75rem', fontWeight: 'bold', marginBottom: '1rem' }}>
             Zone 2: The Intermediate Zone (30-100 feet from your home)

@@ -298,3 +298,16 @@
 - [x] Strengthen internal linking: SEO landing pages added to Footer quickLinks
 - [x] Wire all new pages into App.tsx routes and sitemap
 - [x] TypeScript check: 0 errors
+
+## Session — April 17, 2026 (Eagle Crest + Powell Butte + Review Schema)
+- [x] Fix canopy lift height language on FirewiseLandscaping.tsx (and 3 other files) — now reads "lowest limbs to at least twice the height of surrounding understory vegetation, typically 6+ ft from ground"
+- [x] Build Eagle Crest neighborhood page (/landscaping/eagle-crest) — 1,400+ words, 6 services, 6 FAQs, HOA + WUI + vacation rental focus
+- [x] Build Powell Butte neighborhood page (/landscaping/powell-butte) — 1,400+ words, 6 services, 6 FAQs, rural/ranch/large-lot focus
+- [x] Wire Eagle Crest and Powell Butte into App.tsx routes
+- [x] Update Footer cityLinks to point Eagle Crest and Powell Butte to new /landscaping/* routes
+- [x] Update ServiceAreaBand to link Eagle Crest and Powell Butte to new /landscaping/* routes
+- [x] Add Eagle Crest and Powell Butte URLs to sitemap.xml (weekly changefreq, 0.7 priority)
+- [x] Add AggregateRating + Review schema to ServicePageLayout — auto-applied to all 20 service pages (4.9 stars, 127 reviews, 3 sample reviews)
+- [x] Add AggregateRatingSchema component to SchemaMarkup.tsx for standalone use
+- [x] Confirm homepage already has AggregateRating in LocalBusinessSchema (4.9 stars, 127 reviews)
+- [x] TypeScript check: 0 errors
