@@ -13,7 +13,7 @@ export default function SeasonalGuide() {
           className="relative flex items-center justify-center"
           style={{
             height: "380px",
-            backgroundImage: "url(https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=1600&q=80)",
+            backgroundImage: "url(https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/water-feature-sunset_f7b219d3.jpg",
             backgroundSize: "cover",
             backgroundPosition: "center 50%",
           }}

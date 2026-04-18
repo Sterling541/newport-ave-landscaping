@@ -28,7 +28,7 @@ export default function SprinklerActivation() {
       subtitle="System Activation"
       seoTitle="Sprinkler Activation Bend Oregon | Spring Sprinkler Startup Service | Newport Avenue"
       seoDescription="Spring sprinkler system startup and activation in Bend, Oregon. Zone checks, head adjustments, and controller programming. $140/tech hour. Schedule now. LCB #9153."
-      heroImage="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=1600&q=80"
+      heroImage="https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/ITP_7558_e52a40c9.jpg"
       heroPosition="center 60%"
       intro="April marks the beginning of the watering season here in Central Oregon. At the beginning of each season, it is always wise to inspect, flush, and optimize your sprinkler system to ensure it is ready to perform at its best. We will send one of our certified Irrigation Technicians to analyze and activate your sprinkler system."
       pricing={[

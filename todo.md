@@ -311,3 +311,18 @@
 - [x] Add AggregateRatingSchema component to SchemaMarkup.tsx for standalone use
 - [x] Confirm homepage already has AggregateRating in LocalBusinessSchema (4.9 stars, 127 reviews)
 - [x] TypeScript check: 0 errors
+
+## Session — April 17, 2026 (Image Overhaul — Remove All Irrelevant Stock Photos)
+- [x] Audit all Unsplash photo IDs used across the site (found 3 bad ones used 123+ times total)
+- [x] photo-1558618666 (mechanic/machinery close-up) — replaced with maintenance-hero-bg CDN photo
+- [x] photo-1416879595882 (flower field) — replaced with landscaping-native CDN photo
+- [x] photo-1600566753190 (generic interior) — replaced with GLLPatio1 CDN photo
+- [x] All remaining Unsplash photos replaced with real Newport Ave CDN photos
+- [x] Service pages: each now uses a topic-matched CDN photo (fire7, water-feature-sunset, ITP irrigation, GLLPatio, forest-home4, hoa-aerial, etc.)
+- [x] Service-area pages (49 pages): all bad photos replaced
+- [x] Resource pages (72 pages): all bad photos replaced
+- [x] SEO landing pages: all bad photos replaced
+- [x] Blog/OurWork pages: all bad photos replaced
+- [x] Zero Unsplash photos remaining anywhere in the project
+- [x] Fixed sed-broken template literals in 57 resource/service-area pages (restored ) center/cover no-repeat backtick)
+- [x] TypeScript check: 0 errors

@@ -5,7 +5,7 @@ export default function PowellButtePage() {
     <CityPageLayout
       city="Powell Butte"
       region="Central Oregon"
-      heroImage="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=1600&q=80"
+      heroImage="https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/landscaping-native_fa3d1cfe.jpg"
       heroPosition="center 40%"
       tagline="Rural Landscaping Specialists for Powell Butte Ranches, Farms & Horse Properties — Central Oregon Experts"
       seoTitle="Powell Butte Landscaping Oregon | Lawn Care & Design for Rural Properties"

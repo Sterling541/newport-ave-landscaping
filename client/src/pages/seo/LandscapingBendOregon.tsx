@@ -10,14 +10,14 @@ import { Link } from "wouter";
 const HERO_IMG = "https://newportavelandscaping.com/wp-content/uploads/2022/05/awbrey-butte-xeriscape-landscaping-renovation-day-shot.jpg";
 
 const SERVICES = [
-  { title: "Landscape Design", desc: "Full-service design from concept to installation — custom plans for Bend's high-desert climate.", href: "/services/landscape-design", img: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800&q=80" },
-  { title: "Irrigation Systems", desc: "Smart sprinkler installation, drip systems, and seasonal activation/blowout services.", href: "/services/irrigation", img: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800&q=80" },
-  { title: "Paver Patios", desc: "Concrete and natural stone pavers for patios, walkways, driveways, and pool decks.", href: "/services/pavers", img: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&q=80" },
+  { title: "Landscape Design", desc: "Full-service design from concept to installation — custom plans for Bend's high-desert climate.", href: "/services/landscape-design", img: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/landscaping-native_fa3d1cfe.jpg" },
+  { title: "Irrigation Systems", desc: "Smart sprinkler installation, drip systems, and seasonal activation/blowout services.", href: "/services/irrigation", img: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/landscaping-native_fa3d1cfe.jpg" },
+  { title: "Paver Patios", desc: "Concrete and natural stone pavers for patios, walkways, driveways, and pool decks.", href: "/services/pavers", img: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/GLLPatio1_90e2e0c4.jpg" },
   { title: "Xeriscaping", desc: "Water-wise landscape transformations using drought-tolerant plants and efficient irrigation.", href: "/services/xeriscaping", img: "https://newportavelandscaping.com/wp-content/uploads/2022/05/awbrey-butte-xeriscape-landscaping-renovation-day-shot.jpg" },
   { title: "Retaining Walls", desc: "Boulder, block, and natural stone retaining walls for slope stabilization and terracing.", href: "/services/retaining-walls", img: "https://newportavelandscaping.com/wp-content/uploads/2022/08/retaining-wall-landscape-design-bend-oregon.jpg" },
-  { title: "Outdoor Living", desc: "Fire pits, pergolas, outdoor kitchens, and living spaces built for Central Oregon living.", href: "/services/outdoor-living", img: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&q=80" },
-  { title: "Lawn Care & Maintenance", desc: "Weekly mowing, aeration, fertilization, and seasonal cleanup for residential and commercial properties.", href: "/maintenance", img: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80" },
-  { title: "Firewise Landscaping", desc: "Defensible space creation, juniper removal, and fire-resistant replanting for WUI properties.", href: "/services/firewise-landscaping", img: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&q=80" },
+  { title: "Outdoor Living", desc: "Fire pits, pergolas, outdoor kitchens, and living spaces built for Central Oregon living.", href: "/services/outdoor-living", img: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/GLLPatio1_90e2e0c4.jpg" },
+  { title: "Lawn Care & Maintenance", desc: "Weekly mowing, aeration, fertilization, and seasonal cleanup for residential and commercial properties.", href: "/maintenance", img: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/maintenance-hero-bg_3219f29e.jpeg" },
+  { title: "Firewise Landscaping", desc: "Defensible space creation, juniper removal, and fire-resistant replanting for WUI properties.", href: "/services/firewise-landscaping", img: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/forest-home4_9324e5db.jpg" },
 ];
 
 const FAQS = [

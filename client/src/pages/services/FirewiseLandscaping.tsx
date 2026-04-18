@@ -76,7 +76,7 @@ export default function FirewiseLandscaping() {
       subtitle="Defensible Space for Bend, Oregon"
       seoTitle="Firewise Landscaping Bend Oregon | Defensible Space Contractor | Newport Avenue"
       seoDescription="Firewise landscaping and defensible space services in Bend, Oregon. Juniper removal, fire-resistant replanting, and zone-based vegetation management for Deschutes County homeowners. Free assessment. LCB #9153."
-      heroImage="https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1600&q=80"
+      heroImage="https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/forest-home4_9324e5db.jpg"
       heroPosition="center 40%"
       intro="Wildfire is no longer a distant threat in Central Oregon — it's a present reality. Deschutes County adopted new fire hardening requirements in April 2026, and a defensible space ordinance is actively being drafted for local adoption. Newport Avenue Landscaping offers complete firewise transformations: we assess your property's fire risk, remove hazardous vegetation like juniper and manzanita, upgrade your irrigation to maintain Zone 1 moisture levels, and replant with fire-resistant species that are beautiful, drought-tolerant, and appropriate for Central Oregon's high desert. We don't just clear brush — we rebuild your landscape to protect your home."
       pricing={[

@@ -452,8 +452,8 @@ export default function OurWork() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <FadeIn delay={0.05}>
               <BeforeAfterSlider
-                beforeSrc="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80"
-                afterSrc="https://images.unsplash.com/photo-1585320806297-9794b3e4aaae?w=800&q=80"
+                beforeSrc="https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/maintenance-hero-bg_3219f29e.jpeg"
+                afterSrc="https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/water-feature-sunset_f7b219d3.jpg"
                 beforeAlt="Overgrown backyard before landscaping in Bend Oregon"
                 afterAlt="Beautiful xeriscape patio after Newport Avenue Landscaping"
                 caption="Awbrey Butte Xeriscape — overgrown lawn replaced with water-wise native plantings and flagstone patio"
@@ -461,8 +461,8 @@ export default function OurWork() {
             </FadeIn>
             <FadeIn delay={0.10}>
               <BeforeAfterSlider
-                beforeSrc="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800&q=80"
-                afterSrc="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80"
+                beforeSrc="https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/landscaping-native_fa3d1cfe.jpg"
+                afterSrc="https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/GLLPatio9_9e7ea695.jpg"
                 beforeAlt="Bare dirt yard before landscaping in Bend Oregon"
                 afterAlt="Finished paver patio and landscape design by Newport Avenue Landscaping"
                 caption="Broken Top Paver Patio — bare dirt transformed into a full outdoor living space with pavers, lighting, and plantings"
@@ -470,8 +470,8 @@ export default function OurWork() {
             </FadeIn>
             <FadeIn delay={0.15}>
               <BeforeAfterSlider
-                beforeSrc="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=80"
-                afterSrc="https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=800&q=80"
+                beforeSrc="https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/maintenance-hero-bg_3219f29e.jpeg"
+                afterSrc="https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/landscaping-native_fa3d1cfe.jpg"
                 beforeAlt="Dry rocky slope before retaining wall installation in Bend"
                 afterAlt="Finished retaining wall and landscape terracing by Newport Avenue Landscaping"
                 caption="Westside Retaining Wall — steep rocky slope stabilized with natural basalt retaining walls and drought-tolerant plantings"
@@ -479,8 +479,8 @@ export default function OurWork() {
             </FadeIn>
             <FadeIn delay={0.20}>
               <BeforeAfterSlider
-                beforeSrc="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800&q=80"
-                afterSrc="https://images.unsplash.com/photo-1567016432779-094069958ea5?w=800&q=80"
+                beforeSrc="https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/landscaping-native_fa3d1cfe.jpg"
+                afterSrc="https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/water-feature-sunset_f7b219d3.jpg"
                 beforeAlt="Neglected front yard before landscaping in Sunriver Oregon"
                 afterAlt="Finished Sunriver front yard with irrigation and native plants"
                 caption="Sunriver Irrigation Install — full drip and spray system installed with smart controller and native plant beds"

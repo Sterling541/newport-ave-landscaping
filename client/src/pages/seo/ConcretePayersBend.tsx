@@ -7,7 +7,7 @@ import Footer from "@/components/Footer";
 import { Helmet } from "react-helmet-async";
 import { Link } from "wouter";
 
-const HERO_IMG = "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=1400&q=80";
+const HERO_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/GLLPatio1_90e2e0c4.jpg";
 
 const BENEFITS = [
   { title: "Freeze-Thaw Rated", desc: "ASTM C936-certified concrete pavers are engineered for Bend's hard-freeze winters — they expand and contract without cracking." },

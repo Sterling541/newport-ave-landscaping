@@ -96,7 +96,7 @@ const JuniperRemovalBendOregon = () => {
 
       {/* Hero Section */}
       <section style={{
-        background: `linear-gradient(rgba(0,0,0,0.62), rgba(0,0,0,0.62)), url(https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1600&q=80) center/cover no-repeat`,
+        background: `linear-gradient(rgba(0,0,0,0.62), rgba(0,0,0,0.62)), url(https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/forest-home4_9324e5db.jpg) center/cover no-repeat`,
         color: lightBg2,
         padding: '4rem 1rem',
         textAlign: 'center'

@@ -28,7 +28,7 @@ export default function SprinklerBlowout() {
       subtitle="Winterization Service"
       seoTitle="Sprinkler Blowout Bend Oregon | Winterization Service | Newport Avenue Landscaping"
       seoDescription="Professional sprinkler blowout and winterization in Bend, Oregon. $140/tech hour. Protect your irrigation system before the first freeze. Schedule early. LCB #9153."
-      heroImage="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=1600&q=80"
+      heroImage="https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/ITP_7385_f2bbba86.jpg"
       heroPosition="center 40%"
       intro="Winterizing your sprinkler system is a must in Central Oregon. With the different sprinkler system setups, piping and air pressures, we suggest letting a professional handle it. We take the time to ensure the system is fully winterized — protecting your investment from freeze damage and costly spring repairs."
       pricing={[

@@ -8,7 +8,7 @@ export default function WaterWiseLandscapingService() {
       subtitle="Drought-tolerant design, efficient irrigation, and turf replacement — built for Bend's high desert climate."
       seoTitle="Water-Wise Landscaping Bend Oregon | Xeriscape & Turf Replacement | Newport Avenue"
       seoDescription="Expert water-wise landscaping in Bend, OR. Xeriscape conversions, drip irrigation, smart controllers, and City of Bend Turf Replacement Rebate assistance. LCB #9153. Call (541) 617-8873."
-      heroImage="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80"
+      heroImage="https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/landscaping-native_fa3d1cfe.jpg"
       heroPosition="center"
       schemaName="Water-Wise Landscaping Services"
       schemaDescription="Newport Avenue Landscaping provides water-wise landscaping services in Bend, Oregon including xeriscape design, turf replacement, drip irrigation installation, smart controller upgrades, and City of Bend Turf Replacement Rebate assistance."

@@ -51,13 +51,13 @@ const residentialServices = [
     title: "Sprinklers & Irrigation",
     href: "/services/irrigation",
     description: "With a full-time team dedicated exclusively to sprinkler installation and maintenance, we design and install efficient irrigation systems that keep your landscape thriving while conserving water.",
-    image: "https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=800&auto=format&fit=crop",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/water-feature-sunset_f7b219d3.jpg",
   },
   {
     title: "Water Features",
     href: "/services/water-features",
     description: "Ponds, streams, pondless waterfalls, fountains, and any other water feature you can dream up. Our water feature specialists create living, breathing focal points that transform any outdoor space.",
-    image: "https://images.unsplash.com/photo-1563911892437-1feda0179e1b?w=800&auto=format&fit=crop",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/ITP_7385_f2bbba86.jpg",
   },
   {
     title: "Outdoor Living Areas",
@@ -75,25 +75,25 @@ const residentialServices = [
     title: "Retaining Walls",
     href: "/services/retaining-walls",
     description: "Structural and decorative retaining walls in natural stone, concrete block, and timber. We solve drainage and grade challenges while adding beautiful architectural elements to your landscape.",
-    image: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800&auto=format&fit=crop",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/landscaping-native_fa3d1cfe.jpg",
   },
   {
     title: "Landscape Lighting",
     href: "/services/landscape-lighting",
     description: "Professional low-voltage LED landscape lighting that highlights your home's architecture, illuminates pathways, and creates dramatic nighttime ambiance. Energy-efficient and built to last.",
-    image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&auto=format&fit=crop",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/maintenance-hero-bg_3219f29e.jpeg",
   },
   {
     title: "Xeriscaping",
     href: "/services/xeriscaping",
     description: "Water-wise landscaping designed specifically for Central Oregon's high desert climate. Beautiful, low-maintenance landscapes using native plants, decorative rock, and efficient irrigation.",
-    image: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800&auto=format&fit=crop",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/landscaping-native_fa3d1cfe.jpg",
   },
   {
     title: "Drainage Solutions",
     href: "/services/drainage",
     description: "French drains, dry creek beds, catch basins, and grading solutions to protect your property from water damage. We solve drainage problems permanently and beautifully.",
-    image: "https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=800&auto=format&fit=crop",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/water-feature-sunset_f7b219d3.jpg",
   },
 ];
 

@@ -40,7 +40,7 @@ const posts = [
     title: "The Impact of Climate Change on Landscaping",
     excerpt: "As global climate patterns shift, the landscape around us must adapt to new environmental stresses and weather conditions. Learn how Newport Ave Landscaping is staying ahead of these changes.",
     date: "January 2024",
-    image: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800&q=80",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/landscaping-native_fa3d1cfe.jpg",
     category: "Lawn Care Tips",
   },
   {
@@ -48,7 +48,7 @@ const posts = [
     title: "Your Seasonal Guide to Landscaping Maintenance",
     excerpt: "A comprehensive guide to keeping your Central Oregon landscape healthy through every season — from spring activation to fall blowout and winter prep.",
     date: "February 2024",
-    image: "https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=800&q=80",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/water-feature-sunset_f7b219d3.jpg",
     category: "Seasonal Tips",
   },
   {
