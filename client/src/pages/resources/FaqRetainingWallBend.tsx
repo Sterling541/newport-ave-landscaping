@@ -1,6 +1,6 @@
 import Navbar from '@/components/Navbar';
 import SEO from '@/components/SEO';
-import { BreadcrumbSchema } from '@/components/SchemaMarkup';
+import { BreadcrumbSchema, FAQSchema } from '@/components/SchemaMarkup';
 import { Link } from 'wouter';
 
 export default function FaqRetainingWallBend() {
@@ -15,6 +15,14 @@ export default function FaqRetainingWallBend() {
         { name: 'Home', url: '/' },
         { name: 'Resources', url: '/resources' },
         { name: 'Retaining Wall FAQ: Bend, Oregon Homeowners Ask', url: '/resources/faq-retaining-wall-bend-oregon' },
+      ]} />
+      <FAQSchema faqs={[
+        { question: 'How much does a retaining wall cost in Bend, Oregon?', answer: 'Retaining wall costs in Bend range from $3,000 to $40,000 or more depending on height, length, and material. A simple 2-foot decorative wall in concrete block typically costs $3,000 to $8,000. A structural wall 4 or more feet tall in natural basalt boulder can reach $15,000 to $40,000. Newport Avenue provides free on-site estimates for all retaining wall projects in Bend and Central Oregon.' },
+        { question: 'What materials are best for retaining walls in Bend?', answer: 'The most popular retaining wall materials in Bend are natural basalt boulders, concrete block systems like Allan Block and Versa-Lok, and dry-stacked natural stone. Basalt boulders are ideal for a natural Central Oregon aesthetic and handle freeze-thaw cycles extremely well. Concrete block systems offer the most flexibility in height and design. Timber walls are not recommended in Bend due to the wet-dry cycle accelerating rot.' },
+        { question: 'Do I need a permit for a retaining wall in Bend?', answer: 'In Bend, retaining walls over 4 feet in height measured from the bottom of the footing typically require a building permit and an engineered design. Walls under 4 feet generally do not require a permit but should still be built to proper standards with adequate drainage and compacted backfill. Newport Avenue handles all permit applications and coordinates with structural engineers as needed.' },
+        { question: 'How long does retaining wall installation take in Bend?', answer: 'A typical residential retaining wall in Bend takes 3 to 10 days to install depending on length, height, and material. Boulder walls require heavy equipment and take longer than block walls of the same size. Engineered walls requiring permits add 2 to 4 weeks for the permit approval process before construction can begin. Newport Avenue manages the entire process from design through installation.' },
+        { question: 'What drainage is needed behind a retaining wall in Bend?', answer: 'Proper drainage is critical for retaining wall longevity in Bend. All walls should have a gravel drainage layer behind them, a perforated drain pipe at the base of the wall, and weep holes or gaps in the wall face to allow water to escape. Without proper drainage, hydrostatic pressure builds up behind the wall and can cause failure within a few years. Newport Avenue includes drainage as a standard part of all retaining wall installations.' },
+        { question: 'Is Newport Avenue Landscaping licensed for retaining wall construction in Oregon?', answer: 'Yes. Newport Avenue Landscaping holds Oregon Landscape Contractor Bond #9153 (LCB #9153) and is fully licensed, bonded, and insured for all retaining wall design and construction in Bend and throughout Central Oregon. We have built hundreds of retaining walls across the region over our 21-plus years in business.' },
       ]} />
       <Navbar />
       <div style={{ paddingTop: '204px' }}>

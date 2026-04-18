@@ -1,6 +1,6 @@
 import Navbar from '@/components/Navbar';
 import SEO from '@/components/SEO';
-import { BreadcrumbSchema } from '@/components/SchemaMarkup';
+import { BreadcrumbSchema, FAQSchema } from '@/components/SchemaMarkup';
 import { Link } from 'wouter';
 
 export default function FaqOutdoorLightingBend() {
@@ -15,6 +15,14 @@ export default function FaqOutdoorLightingBend() {
         { name: 'Home', url: '/' },
         { name: 'Resources', url: '/resources' },
         { name: 'Outdoor Lighting FAQ: Bend, Oregon Homeowners Ask', url: '/resources/faq-outdoor-lighting-bend-oregon' },
+      ]} />
+      <FAQSchema faqs={[
+        { question: 'How much does outdoor landscape lighting cost in Bend, Oregon?', answer: 'Outdoor landscape lighting installation in Bend typically costs $2,000 to $8,000 for a standard residential system with 10 to 20 fixtures. A basic pathway and accent package starts around $1,500. Larger systems with architectural uplighting, deck lighting, and smart controls can reach $10,000 to $20,000. Newport Avenue provides free lighting design consultations and detailed proposals for all Bend properties.' },
+        { question: 'What type of outdoor lighting is best for Bend\'s climate?', answer: 'LED fixtures are the best choice for Bend\'s climate because they handle freeze-thaw cycles well, use 75 percent less energy than halogen, and last 25,000 to 50,000 hours. Brass and copper fixtures are the most durable in Bend\'s environment. Avoid zinc or aluminum fixtures in areas with irrigation overspray, as they corrode quickly. All Newport Avenue lighting installations use commercial-grade LED fixtures with a lifetime warranty.' },
+        { question: 'Do outdoor lights need to be professionally installed in Bend?', answer: 'Low-voltage landscape lighting (12V systems) can technically be DIY-installed, but professional installation ensures proper transformer sizing, correct wire gauge for run length, optimal fixture placement for visual impact, and weatherproof connections that last. Line-voltage systems (120V) require a licensed electrician. Newport Avenue handles both low-voltage landscape lighting and line-voltage installations throughout Bend.' },
+        { question: 'How do I maintain outdoor landscape lights in Bend?', answer: 'Landscape lighting in Bend requires minimal maintenance. We recommend cleaning fixture lenses once per year in spring, adjusting fixture aim after any landscaping changes, replacing any failed bulbs promptly to avoid transformer overload, and checking wire connections every 2 to 3 years. Newport Avenue offers annual lighting tune-up service for all systems we install.' },
+        { question: 'Can outdoor lighting be added to an existing landscape in Bend?', answer: 'Yes. Outdoor lighting can be added to any existing landscape at any time. The most common approach is a low-voltage LED system with a transformer mounted near an outdoor outlet. Newport Avenue designs lighting retrofits for existing landscapes throughout Bend, and can often complete a standard residential installation in one day.' },
+        { question: 'What is the best time of year to install outdoor lighting in Bend?', answer: 'Outdoor lighting can be installed year-round in Bend, but spring and fall are the most popular times. Spring installation lets you enjoy the lights all summer, and fall installation ensures your home looks its best during the holiday season. Avoid installation during frozen ground conditions in December and January, as trenching for wire burial becomes difficult.' },
       ]} />
       <Navbar />
       <div style={{ paddingTop: '204px' }}>

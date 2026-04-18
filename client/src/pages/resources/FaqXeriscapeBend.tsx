@@ -1,6 +1,6 @@
 import Navbar from '@/components/Navbar';
 import SEO from '@/components/SEO';
-import { BreadcrumbSchema } from '@/components/SchemaMarkup';
+import { BreadcrumbSchema, FAQSchema } from '@/components/SchemaMarkup';
 import { Link } from 'wouter';
 
 export default function FaqXeriscapeBend() {
@@ -15,6 +15,14 @@ export default function FaqXeriscapeBend() {
         { name: 'Home', url: '/' },
         { name: 'Resources', url: '/resources' },
         { name: 'Xeriscape FAQ: Everything Bend Homeowners Ask', url: '/resources/faq-xeriscape-bend-oregon' },
+      ]} />
+      <FAQSchema faqs={[
+        { question: 'What exactly is xeriscape landscaping?', answer: 'Xeriscape (from the Greek xeros meaning dry) is a landscaping approach that minimizes water use through plant selection, soil improvement, efficient irrigation, and mulching. It does not mean a yard full of rocks and cacti. A well-designed xeriscape can be lush, colorful, and full of life. In Bend\'s high desert climate, xeriscape typically means replacing water-hungry turf with drought-tolerant native and adapted plants, decorative rock, drip irrigation, and thoughtful hardscape.' },
+        { question: 'How much water does xeriscape actually save in Bend?', answer: 'Most Bend homeowners see outdoor water use drop by 50 to 70 percent after a xeriscape conversion. In dollar terms, that is typically $600 to $1,500 per year in Bend, depending on current irrigation usage. The savings are highest in the first few years after installation, when traditional landscapes require the most supplemental irrigation. Once established, usually 2 to 3 years, xeriscape plants need minimal watering beyond natural rainfall.' },
+        { question: 'Does Bend have a turf rebate program for xeriscape?', answer: 'Yes. The City of Bend\'s water utility offers rebates for converting irrigated turf to water-wise landscaping. Rebate amounts vary by program year but typically range from $0.50 to $1.00 per square foot of turf removed. Newport Avenue helps clients navigate the rebate application process as part of our xeriscape installation service. We can help you document the project and submit the required before-and-after photos.' },
+        { question: 'How much does xeriscape installation cost in Bend?', answer: 'Xeriscape installation in Bend typically costs $8 to $20 per square foot depending on scope. A full front yard conversion of 1,500 square feet runs $12,000 to $30,000. Partial conversions or adding drought-tolerant planting beds start around $3,000 to $8,000. Costs vary based on the amount of hardscape, plant selection, irrigation upgrades, and soil amendment needed. Newport Avenue provides free xeriscape consultations and detailed proposals.' },
+        { question: 'What plants work best for xeriscape in Bend, Oregon?', answer: 'The best xeriscape plants for Bend include native sagebrush, rabbitbrush, bitterbrush, and penstemon. Ornamental grasses like blue oat grass and feather reed grass perform well. For color, Russian sage, lavender, and catmint are excellent choices. Succulents like sedums and hens-and-chicks are also popular. All of these are adapted to Bend\'s Zone 6a climate and low precipitation of about 11 inches per year.' },
+        { question: 'Will xeriscape hurt my home value in Bend?', answer: 'No. In Bend, well-designed xeriscape landscaping is widely accepted and can actually increase home value by improving curb appeal while reducing maintenance costs. Buyers in Central Oregon increasingly value low-water landscapes. The key is professional design that looks intentional and attractive rather than simply removing lawn without replacing it with something appealing. Newport Avenue designs xeriscapes that enhance curb appeal and complement the Central Oregon aesthetic.' },
       ]} />
       <Navbar />
       <div style={{ paddingTop: '204px' }}>

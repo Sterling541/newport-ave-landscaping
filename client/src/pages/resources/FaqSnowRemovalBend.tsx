@@ -1,6 +1,6 @@
 import Navbar from '@/components/Navbar';
 import SEO from '@/components/SEO';
-import { BreadcrumbSchema } from '@/components/SchemaMarkup';
+import { BreadcrumbSchema, FAQSchema } from '@/components/SchemaMarkup';
 import { Link } from 'wouter';
 
 export default function FaqSnowRemovalBend() {
@@ -15,6 +15,14 @@ export default function FaqSnowRemovalBend() {
         { name: 'Home', url: '/' },
         { name: 'Resources', url: '/resources' },
         { name: 'Snow Removal FAQ: Bend, Oregon Homeowners and Businesses Ask', url: '/resources/faq-snow-removal-bend-oregon' },
+      ]} />
+      <FAQSchema faqs={[
+        { question: 'How much does snow removal cost in Bend, Oregon?', answer: 'Residential snow removal in Bend typically costs $50 to $150 per visit for a standard driveway and walkways. Seasonal contracts for residential properties run $500 to $1,500 per season depending on property size and service level. Commercial snow removal is priced by property size and service requirements. Newport Avenue offers per-event pricing, seasonal contracts, and priority service agreements for both residential and commercial clients.' },
+        { question: 'When does snow removal season start in Bend?', answer: 'Snow removal season in Bend typically runs from November through March, with the heaviest snowfall months being December, January, and February. Bend averages 30 or more inches of snow per year, with some winters bringing 60 or more inches. Newport Avenue activates snow removal crews and equipment in late October and remains on call through April for late-season storms.' },
+        { question: 'How quickly does Newport Avenue respond to snow events in Bend?', answer: 'Newport Avenue monitors weather forecasts 24 hours a day during winter and pre-positions equipment before major storms. Priority contract clients are served first, typically within 2 to 4 hours of significant accumulation. Our goal is to have all contract clients cleared before the start of the business day. Per-event clients are served as quickly as possible after priority clients are complete.' },
+        { question: 'Does Newport Avenue offer commercial snow removal in Bend?', answer: 'Yes. Newport Avenue provides commercial snow removal services for office parks, retail centers, HOAs, medical facilities, and other commercial properties throughout Bend and Central Oregon. Commercial services include plowing, shoveling, ice treatment, and sand application. We offer seasonal contracts with guaranteed response times for commercial clients.' },
+        { question: 'What is included in a residential snow removal service in Bend?', answer: 'A standard residential snow removal service in Bend includes driveway plowing or shoveling, front walkway clearing, porch and entry steps, and ice treatment on high-risk surfaces. We can also clear back patios, side gates, and secondary walkways on request. Newport Avenue uses professional-grade equipment and ice melt products that are safe for concrete, pavers, and landscaping.' },
+        { question: 'Do I need a seasonal snow removal contract in Bend?', answer: 'A seasonal contract is the best option if you want guaranteed service and priority response during storms. Per-event pricing is available for homeowners who prefer flexibility, but availability cannot be guaranteed during major storm events when all crews are committed to contract clients. Newport Avenue recommends seasonal contracts for elderly homeowners, rental properties, and anyone who cannot be without access during a storm.' },
       ]} />
       <Navbar />
       <div style={{ paddingTop: '204px' }}>

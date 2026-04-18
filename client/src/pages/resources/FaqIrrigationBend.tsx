@@ -1,6 +1,6 @@
 import Navbar from '@/components/Navbar';
 import SEO from '@/components/SEO';
-import { BreadcrumbSchema } from '@/components/SchemaMarkup';
+import { BreadcrumbSchema, FAQSchema } from '@/components/SchemaMarkup';
 import { Link } from 'wouter';
 
 export default function FaqIrrigationBend() {
@@ -15,6 +15,14 @@ export default function FaqIrrigationBend() {
         { name: 'Home', url: '/' },
         { name: 'Resources', url: '/resources' },
         { name: 'Sprinkler System FAQ: Your Questions Answered', url: '/resources/faq-irrigation-bend-oregon' },
+      ]} />
+      <FAQSchema faqs={[
+        { question: 'How often should I run my sprinkler system in Bend, Oregon?', answer: 'In Bend, most lawns need 1 to 1.5 inches of water per week during the growing season from May through September. That typically means running each zone 2 to 3 times per week in summer, adjusting for heat waves and cooler periods. Smart controllers that use local weather data are the most efficient approach and can reduce water use by 20 to 30 percent.' },
+        { question: 'When should I turn on my sprinkler system in Bend?', answer: 'The safe date to activate your sprinkler system in Bend is typically around May 1st, after the last hard frost. Turning on your system too early risks freeze damage to heads, valves, and backflow preventers. Newport Avenue offers spring activation service starting in late April, including a full inspection and adjustment of all zones.' },
+        { question: 'When should I winterize my sprinkler system in Bend?', answer: 'Sprinkler systems in Bend should be winterized by October 15th to avoid freeze damage. Bend\'s first hard freeze typically arrives in mid-October. Winterization involves blowing out all water from the pipes and heads using compressed air. Newport Avenue offers fall winterization service starting in September, and we recommend scheduling early as slots fill quickly.' },
+        { question: 'How much does irrigation repair cost in Bend?', answer: 'Irrigation repair in Bend is billed at $140 per technician hour, which includes diagnosis and repair. Most service calls take 1 to 2 hours. Common repairs include replacing broken heads ($15 to $40 per head plus labor), fixing valve solenoids ($30 to $80 plus labor), and repairing broken lateral lines ($50 to $150 plus labor depending on depth and access.' },
+        { question: 'What is a backflow preventer and do I need one in Bend?', answer: 'A backflow preventer is a device that stops irrigation water from flowing back into your home\'s drinking water supply. In Bend, Oregon, backflow preventers are required by code on all irrigation systems connected to the municipal water supply. They must be tested annually by a certified backflow tester. Newport Avenue provides annual backflow testing and certification throughout Central Oregon.' },
+        { question: 'How many zones does a typical Bend home need?', answer: 'Most residential properties in Bend need 6 to 10 irrigation zones. A typical layout includes separate zones for front lawn, back lawn, front drip beds, back drip beds, and any side yard areas. Larger properties with multiple lawn areas, vegetable gardens, or extensive planting beds may need 12 or more zones. Newport Avenue designs systems to match your property\'s specific layout and water pressure.' },
       ]} />
       <Navbar />
       <div style={{ paddingTop: '204px' }}>

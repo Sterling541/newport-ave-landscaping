@@ -1,6 +1,6 @@
 import Navbar from '@/components/Navbar';
 import SEO from '@/components/SEO';
-import { BreadcrumbSchema } from '@/components/SchemaMarkup';
+import { BreadcrumbSchema, FAQSchema } from '@/components/SchemaMarkup';
 import { Link } from 'wouter';
 
 export default function FaqLawnCareBend() {
@@ -15,6 +15,14 @@ export default function FaqLawnCareBend() {
         { name: 'Home', url: '/' },
         { name: 'Resources', url: '/resources' },
         { name: 'Lawn Care FAQ: Your Bend Lawn Questions Answered', url: '/resources/faq-lawn-care-bend-oregon' },
+      ]} />
+      <FAQSchema faqs={[
+        { question: 'How often should I mow my lawn in Bend, Oregon?', answer: 'During the active growing season from May through September, most Bend lawns benefit from weekly mowing. Cool-season grasses like Kentucky bluegrass and tall fescue grow most actively in spring and fall, and may only need bi-weekly mowing during midsummer heat. Never remove more than one-third of the blade in a single mowing. The ideal mowing height for bluegrass in Bend is 3 to 3.5 inches.' },
+        { question: 'When should I fertilize my lawn in Bend?', answer: 'In Bend, a 4-application fertilization program works best: early spring in April with a pre-emergent and starter fertilizer, late spring in June with a slow-release nitrogen, midsummer in July or August with a low-nitrogen summer formula, and fall in September or October with a winterizer high in potassium. Avoid fertilizing during drought stress or extreme heat above 90 degrees.' },
+        { question: 'What type of grass grows best in Bend, Oregon?', answer: 'Kentucky bluegrass is the most common lawn grass in Bend and performs well in the region\'s cold winters and warm summers. Tall fescue is a good alternative for shadier areas or homeowners who want a lower-maintenance lawn. Fine fescue blends work well in drier, shadier spots. Warm-season grasses like bermuda and zoysia do not perform well in Bend\'s Zone 6a climate.' },
+        { question: 'How much does lawn care cost in Bend?', answer: 'Weekly mowing and edging in Bend starts at $97 per service. Spring and fall cleanups start at $600 each. Core aeration runs $150 to $400 depending on lawn size. A full-service Everything Plan covering mowing, cleanups, aeration, and fertilization starts at $388 per month. Newport Avenue provides free estimates for all lawn care services in Bend and Central Oregon.' },
+        { question: 'When should I aerate my lawn in Bend?', answer: 'The best time to aerate a lawn in Bend is early fall from late August through September, when cool-season grasses are entering their peak fall growth period and can recover quickly. Spring aeration in April is also effective. Core aeration should be done when the soil is moist but not saturated, and is most beneficial for compacted soils or lawns with heavy thatch buildup.' },
+        { question: 'Does Newport Avenue Landscaping offer lawn care contracts in Bend?', answer: 'Yes. Newport Avenue offers weekly lawn care service contracts for the full season from April through October, as well as our Everything Plan which covers all aspects of lawn maintenance year-round. We serve all neighborhoods in Bend including Awbrey Butte, NorthWest Crossing, Broken Top, Discovery West, and surrounding areas, as well as Redmond, Sisters, and Sunriver.' },
       ]} />
       <Navbar />
       <div style={{ paddingTop: '204px' }}>

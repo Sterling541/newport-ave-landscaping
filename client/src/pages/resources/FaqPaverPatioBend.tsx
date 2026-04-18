@@ -1,6 +1,6 @@
 import Navbar from '@/components/Navbar';
 import SEO from '@/components/SEO';
-import { BreadcrumbSchema } from '@/components/SchemaMarkup';
+import { BreadcrumbSchema, FAQSchema } from '@/components/SchemaMarkup';
 import { Link } from 'wouter';
 
 export default function FaqPaverPatioBend() {
@@ -15,6 +15,14 @@ export default function FaqPaverPatioBend() {
         { name: 'Home', url: '/' },
         { name: 'Resources', url: '/resources' },
         { name: 'Paver Patio FAQ: Your Questions Answered', url: '/resources/faq-paver-patio-bend-oregon' },
+      ]} />
+      <FAQSchema faqs={[
+        { question: 'How much does a paver patio cost in Bend, Oregon?', answer: 'Paver patio installation in Bend typically costs $18 to $35 per square foot installed, depending on paver material, pattern complexity, base preparation, and site access. A 400-square-foot patio runs $7,200 to $14,000. Premium materials like natural stone or large-format pavers can push costs to $40 to $55 per square foot. Newport Avenue provides free on-site estimates for all paver projects in Bend.' },
+        { question: 'What type of pavers hold up best in Bend\'s freeze-thaw climate?', answer: 'Concrete pavers with a minimum compressive strength of 8,000 PSI are the most reliable choice for Bend\'s freeze-thaw cycles. Tumbled concrete pavers are especially popular because their rounded edges hide any minor chipping from frost. Natural basalt and granite also perform well. Avoid travertine and softer limestone in Bend, as they absorb water and can spall under repeated freezing.' },
+        { question: 'How long does paver patio installation take in Bend?', answer: 'A typical residential paver patio in Bend takes 3 to 7 days to install, depending on size, complexity, and site conditions. This includes excavation, base compaction, sand setting bed, paver installation, and polymeric sand jointing. Larger projects with steps, walls, or drainage features may take 1 to 2 weeks. Newport Avenue schedules paver projects from April through October.' },
+        { question: 'Do pavers require sealing in Bend?', answer: 'Sealing is optional but recommended for pavers in Bend. A penetrating sealer applied every 2 to 3 years protects against staining from pine sap, bird droppings, and organic material, enhances color, and reduces weed growth in joints. Wet-look sealers are popular for natural stone. Newport Avenue offers paver sealing as a standalone service for both new and existing patio installations.' },
+        { question: 'Can I install pavers over an existing concrete patio in Bend?', answer: 'In some cases, yes. If the existing concrete is structurally sound, level, and drains properly, pavers can be installed over it using a thin-set mortar bed. However, this approach adds height, may create drainage challenges, and is not suitable for all sites. Newport Avenue evaluates each project individually and recommends the approach that provides the best long-term result.' },
+        { question: 'How do I maintain a paver patio in Bend?', answer: 'Paver patios in Bend require minimal maintenance. We recommend re-sanding joints with polymeric sand every 3 to 5 years, sealing every 2 to 3 years, checking for frost heave each spring and re-leveling any shifted pavers, and removing organic debris promptly to prevent staining. Individual pavers can be replaced without disturbing the entire surface if one is damaged.' },
       ]} />
       <Navbar />
       <div style={{ paddingTop: '204px' }}>
