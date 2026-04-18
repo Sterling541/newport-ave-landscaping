@@ -352,8 +352,13 @@ function Router() {
       <Route path={"/resources/defensible-space-bend-oregon"} component={lazy(() => import('./pages/resources/DefensibleSpaceBendOregon'))} />
       <Route path={"/resources/deschutes-county-fire-hardening-requirements"} component={lazy(() => import('./pages/resources/DeschutesFireHardeningR327'))} />
       <Route path={"/resources/fire-resistant-plants-central-oregon"} component={lazy(() => import('./pages/resources/FireResistantPlantsCentralOregon'))} />
-      <Route path={"/resources/juniper-removal-bend-oregon"} component={lazy(() => import('./pages/resources/JuniperRemovalBendOregon'))} />
-
+       <Route path={"/resources/juniper-removal-bend-oregon"} component={lazy(() => import('./pages/resources/JuniperRemovalBendOregon'))} />
+      {/* Water-Wise Landscaping */}
+      <Route path={"/services/water-wise-landscaping"} component={lazy(() => import('./pages/services/WaterWiseLandscapingService'))} />
+      <Route path={"/resources/bend-watering-restrictions"} component={lazy(() => import('./pages/resources/BendWateringRestrictions'))} />
+      <Route path={"/resources/bend-turf-replacement-rebate"} component={lazy(() => import('./pages/resources/BendTurfReplacementRebate'))} />
+      <Route path={"/resources/water-wise-landscaping-bend-oregon"} component={lazy(() => import('./pages/resources/WaterWiseLandscapingBend'))} />
+      <Route path={"/resources/waterwise-communities-bend-hoa"} component={lazy(() => import('./pages/resources/WaterWiseCommunitiesBend'))} />
       {/* New Service Area Pages */}
       <Route path={"/service-areas/bend-country-club-landscaping"} component={lazy(() => import('./pages/service-areas/BendCountryClubLandscaping'))} />
       <Route path={"/service-areas/bend-east-side-landscaping"} component={lazy(() => import('./pages/service-areas/BendEastSideLandscaping'))} />

@@ -566,6 +566,73 @@ export default function HeroSection() {
               </span>
             ))}
           </div>
+
+          {/* ── Firewise Assessment CTA ── */}
+          <div
+            style={{
+              marginTop: "1.75rem",
+              display: "flex",
+              alignItems: "center",
+              gap: "1rem",
+              flexWrap: "wrap",
+              background: "oklch(0.18 0.015 25 / 0.75)",
+              border: "1px solid oklch(0.55 0.20 25 / 0.6)",
+              borderLeft: "3px solid oklch(0.55 0.20 25)",
+              borderRadius: "0.25rem",
+              padding: "0.75rem 1.25rem",
+              backdropFilter: "blur(4px)",
+              maxWidth: "560px",
+            }}
+          >
+            <span style={{ fontSize: "1.1rem" }}>🔥</span>
+            <div style={{ flex: 1 }}>
+              <p style={{
+                fontFamily: "'Montserrat', sans-serif",
+                fontSize: "0.52rem",
+                fontWeight: 700,
+                letterSpacing: "0.14em",
+                color: "oklch(0.92 0.06 25)",
+                margin: "0 0 0.2rem",
+                textTransform: "uppercase",
+              }}>
+                NEW — Deschutes County R327 Fire Hardening Now Required
+              </p>
+              <p style={{
+                fontFamily: "'Montserrat', sans-serif",
+                fontSize: "0.48rem",
+                fontWeight: 400,
+                color: "oklch(0.72 0.012 30)",
+                margin: 0,
+                lineHeight: 1.6,
+              }}>
+                Is your property compliant? We assess, remove hazardous vegetation, and replant with fire-resistant species.
+              </p>
+            </div>
+            <a
+              href="/services/firewise-landscaping"
+              style={{
+                fontFamily: "'Montserrat', sans-serif",
+                fontSize: "0.48rem",
+                fontWeight: 700,
+                letterSpacing: "0.14em",
+                color: "oklch(0.10 0.008 30)",
+                backgroundColor: "oklch(0.55 0.20 25)",
+                border: "none",
+                borderRadius: "1.8rem 0.2rem 1.8rem 0.2rem",
+                padding: "0.6rem 1.4rem",
+                cursor: "pointer",
+                textDecoration: "none",
+                whiteSpace: "nowrap",
+                display: "inline-flex",
+                alignItems: "center",
+                transition: "transform 0.2s ease",
+              }}
+              onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.transform = "scale(1.04)"; }}
+              onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.transform = "scale(1)"; }}
+            >
+              GET FIREWISE ASSESSMENT →
+            </a>
+          </div>
         </div>
       </div>
 

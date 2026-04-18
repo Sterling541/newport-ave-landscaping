@@ -7,7 +7,7 @@ export default function Resources() {
     <div style={{ backgroundColor: "oklch(0.97 0.012 85)", minHeight: "100vh" }}>
       <Helmet>
         <title>Landscaping Resources &amp; Guides for Bend, Oregon | Newport Avenue Landscaping</title>
-        <meta name="description" content="Free landscaping guides, cost estimates, how-tos, and seasonal tips for Bend, Oregon homeowners. 95 articles covering irrigation, pavers, xeriscape, lawn care, and more from Newport Avenue Landscaping — 21 years of Central Oregon expertise." />
+        <meta name="description" content="Free landscaping guides, cost estimates, how-tos, and seasonal tips for Bend, Oregon homeowners. 100 articles covering irrigation, pavers, xeriscape, lawn care, and more from Newport Avenue Landscaping — 21 years of Central Oregon expertise." />
         <link rel="canonical" href="https://newportavelandscaping.com/resources" />
         <script type="application/ld+json">{`{
           "@context": "https://schema.org",
@@ -32,7 +32,7 @@ export default function Resources() {
             Landscaping Knowledge<br />for Central Oregon
           </h1>
           <p style={{ color: "oklch(0.72 0.12 25)", fontWeight: 300, fontSize: "1rem", maxWidth: "600px", lineHeight: 1.7, marginBottom: "2rem" }}>
-            95 free guides, cost estimates, how-tos, and seasonal tips written by Newport Avenue Landscaping — 21 years of Central Oregon expertise in one place.
+            100 free guides, cost estimates, how-tos, and seasonal tips written by Newport Avenue Landscaping — 21 years of Central Oregon expertise in one place.
           </p>
           <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem" }}>
             <a href="#cost-guides" style={{ fontFamily: "var(--font-label)", fontSize: "0.68rem", color: "oklch(0.72 0.12 25)", textDecoration: "none", letterSpacing: "0.08em", borderBottom: "1px solid oklch(0.46 0.20 25)", paddingBottom: "2px" }}>COST GUIDES</a>
@@ -399,6 +399,37 @@ export default function Resources() {
           </div>
         </div>
           
+        <div style={{ marginBottom: "3rem" }}>
+          <div style={{ display: "flex", alignItems: "baseline", gap: "0.75rem", marginBottom: "1rem", borderBottom: "1px solid oklch(0.88 0.008 0)", paddingBottom: "0.6rem" }}>
+            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 300, color: "oklch(0.15 0.005 0)", fontSize: "clamp(1.2rem, 2.5vw, 1.7rem)", margin: 0 }}>
+              Water Conservation &amp; Rebates
+            </h2>
+            <span style={{ fontFamily: "var(--font-label)", fontSize: "0.62rem", color: "oklch(0.55 0.008 0)", letterSpacing: "0.06em" }}>5 GUIDES</span>
+          </div>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: "0.75rem" }}>
+            <a href="/resources/bend-watering-restrictions" style={{ display: "flex", flexDirection: "column", padding: "1.1rem 1.25rem", background: "oklch(1 0 0)", borderLeft: "3px solid oklch(0.46 0.20 25)", textDecoration: "none", color: "oklch(0.22 0.008 30)", fontWeight: 600, fontSize: "0.85rem", lineHeight: 1.4, gap: "0.25rem", transition: "transform 0.15s, box-shadow 0.15s" }}>
+              Bend Watering Restrictions — Odd/Even Rules & Hours
+              <span style={{ fontWeight: 400, fontSize: "0.75rem", color: "oklch(0.50 0.008 30)" }}>City of Bend official watering schedule</span>
+            </a>
+            <a href="/resources/bend-turf-replacement-rebate" style={{ display: "flex", flexDirection: "column", padding: "1.1rem 1.25rem", background: "oklch(1 0 0)", borderLeft: "3px solid oklch(0.46 0.20 25)", textDecoration: "none", color: "oklch(0.22 0.008 30)", fontWeight: 600, fontSize: "0.85rem", lineHeight: 1.4, gap: "0.25rem", transition: "transform 0.15s, box-shadow 0.15s" }}>
+              Bend Turf Replacement Rebate — $3/sq ft (2026 Season Open)
+              <span style={{ fontWeight: 400, fontSize: "0.75rem", color: "oklch(0.50 0.008 30)" }}>Get up to $3,000 to replace your lawn</span>
+            </a>
+            <a href="/resources/water-wise-landscaping-bend-oregon" style={{ display: "flex", flexDirection: "column", padding: "1.1rem 1.25rem", background: "oklch(1 0 0)", borderLeft: "3px solid oklch(0.46 0.20 25)", textDecoration: "none", color: "oklch(0.22 0.008 30)", fontWeight: 600, fontSize: "0.85rem", lineHeight: 1.4, gap: "0.25rem", transition: "transform 0.15s, box-shadow 0.15s" }}>
+              Water-Wise Landscaping in Bend, Oregon
+              <span style={{ fontWeight: 400, fontSize: "0.75rem", color: "oklch(0.50 0.008 30)" }}>Design strategies for Central Oregon's dry climate</span>
+            </a>
+            <a href="/resources/waterwise-communities-bend-hoa" style={{ display: "flex", flexDirection: "column", padding: "1.1rem 1.25rem", background: "oklch(1 0 0)", borderLeft: "3px solid oklch(0.46 0.20 25)", textDecoration: "none", color: "oklch(0.22 0.008 30)", fontWeight: 600, fontSize: "0.85rem", lineHeight: 1.4, gap: "0.25rem", transition: "transform 0.15s, box-shadow 0.15s" }}>
+              WaterWise Communities — HOA &amp; Commercial Rebates
+              <span style={{ fontWeight: 400, fontSize: "0.75rem", color: "oklch(0.50 0.008 30)" }}>50% match up to $10,000 for HOAs</span>
+            </a>
+            <a href="/services/water-wise-landscaping" style={{ display: "flex", flexDirection: "column", padding: "1.1rem 1.25rem", background: "oklch(1 0 0)", borderLeft: "3px solid oklch(0.46 0.20 25)", textDecoration: "none", color: "oklch(0.22 0.008 30)", fontWeight: 600, fontSize: "0.85rem", lineHeight: 1.4, gap: "0.25rem", transition: "transform 0.15s, box-shadow 0.15s" }}>
+              Water-Wise Landscaping Services — Bend, OR
+              <span style={{ fontWeight: 400, fontSize: "0.75rem", color: "oklch(0.50 0.008 30)" }}>Drought-tolerant design &amp; irrigation upgrades</span>
+            </a>
+          </div>
+        </div>
+
         <div style={{ marginBottom: "3rem" }}>
           <div style={{ display: "flex", alignItems: "baseline", gap: "0.75rem", marginBottom: "1rem", borderBottom: "1px solid oklch(0.88 0.008 0)", paddingBottom: "0.6rem" }}>
             <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 300, color: "oklch(0.15 0.005 0)", fontSize: "clamp(1.2rem, 2.5vw, 1.7rem)", margin: 0 }}>

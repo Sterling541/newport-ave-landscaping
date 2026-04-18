@@ -222,3 +222,29 @@
 - [ ] Add Fire-Wise Landscaping to Navbar Services mega menu
 - [ ] Add fire-wise pages to sitemap
 - [ ] Add fire-wise pages to Resources index
+
+## Session — April 18, 2026 (Water-Wise + Firewise Suggestions)
+
+- [ ] Add "Get a Firewise Assessment" CTA to homepage hero
+- [ ] Build /resources/firewise-landscaping-cost-bend-oregon cost guide
+- [ ] Add Defensible Space Guide and R327 guide to Navbar Resources dropdown
+- [ ] Research Bend watering restrictions and City water-wise program (accurate data)
+- [ ] Research Deschutes County water conservation rules
+- [ ] Build water-wise landscaping service page
+- [ ] Build /resources/bend-watering-restrictions resource page
+- [ ] Build /resources/water-wise-landscaping-bend-oregon resource page
+- [ ] Build /resources/drought-tolerant-landscaping-bend resource page
+- [ ] Build /resources/irrigation-efficiency-bend-oregon resource page
+- [ ] Wire all water-wise pages into nav, footer, sitemap, Resources index
+
+## Session — April 18, 2026 (Portfolio Scrape + Our Work)
+- [x] Fix WaterWiseLandscapingService.tsx TypeScript error
+- [x] Wire all 5 water-wise pages into App.tsx routes
+- [x] Add water-wise pages to Navbar, Footer, Resources index, sitemap
+- [ ] Remove Careers from main nav (keep page, just remove nav link)
+- [x] Scrape all portfolio projects from newportavelandscaping.com
+- [ ] Upload all portfolio images to CDN (using direct WP URLs instead)
+- [x] Build individual project detail pages (14 pages via PortfolioProjectLayout)
+- [x] Build Our Work gallery index page (OurWork.tsx with featured + legacy tabs)
+- [x] Wire Our Work into nav, footer, sitemap
+- [ ] Add project links to relevant service pages

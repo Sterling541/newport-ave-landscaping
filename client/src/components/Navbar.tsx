@@ -40,7 +40,26 @@ const servicesItems = [
   { label: "Retaining Walls", href: "/services/retaining-walls", num: "10" },
   { label: "Drainage Solutions", href: "/services/drainage", num: "11" },
   { label: "Firewise Landscaping", href: "/services/firewise-landscaping", num: "12" },
+  { label: "Water-Wise Landscaping", href: "/services/water-wise-landscaping", num: "13" },
 ];
+
+// Resources mega menu — featured fire-wise and water-wise guides
+const resourcesItems = [
+  { label: "Defensible Space Guide — Bend, OR", href: "/resources/defensible-space-bend-oregon", num: "01" },
+  { label: "Deschutes County R327 Requirements", href: "/resources/deschutes-county-fire-hardening-requirements", num: "02" },
+  { label: "Fire-Resistant Plants — Central Oregon", href: "/resources/fire-resistant-plants-central-oregon", num: "03" },
+  { label: "Juniper Removal Guide — Bend", href: "/resources/juniper-removal-bend-oregon", num: "04" },
+  { label: "Bend Watering Restrictions", href: "/resources/bend-watering-restrictions", num: "05" },
+  { label: "Water-Wise Landscaping — Bend", href: "/resources/water-wise-landscaping-bend-oregon", num: "06" },
+  { label: "Bend Turf Replacement Rebate ($3/sqft)", href: "/resources/bend-turf-replacement-rebate", num: "07" },
+  { label: "WaterWise Communities — HOA Rebates", href: "/resources/waterwise-communities-bend-hoa", num: "08" },
+  { label: "Sprinkler System Cost — Bend", href: "/resources/sprinkler-system-cost-bend-oregon", num: "09" },
+  { label: "Lawn Care Cost — Bend", href: "/resources/lawn-care-cost-bend-oregon", num: "10" },
+  { label: "Paver Patio Cost — Bend", href: "/resources/paver-patio-cost-bend-oregon", num: "11" },
+  { label: "All 100 Guides →", href: "/resources", num: "→" },
+];
+const MEGA_PHOTO_RESOURCES =
+  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportAveLandcaping-9_97b731b0.jpg";
 
 // Maintenance mega menu — Newport Ave residential lawn & maintenance photo
 const MEGA_PHOTO_MAINTENANCE =
@@ -620,23 +639,25 @@ export default function Navbar() {
               active={isActive("/commercial")}
               onClick={() => goTo("/commercial")}
             />
-            <NavTextLink
-              label="Resources"
-              href="/resources"
-              active={isActive("/resources")}
-              onClick={() => goTo("/resources")}
-            />
+            <div
+              onMouseEnter={() => handleMegaEnter("resources")}
+              onMouseLeave={handleMegaLeave}
+              style={{ position: "relative" }}
+            >
+              <NavTextLink
+                label="Resources"
+                href="/resources"
+                active={openMega === "resources" || isActive("/resources")}
+                onClick={() => goTo("/resources")}
+                hasArrow
+                arrowOpen={openMega === "resources"}
+              />
+            </div>
             <NavTextLink
               label="Service Areas"
               href="/service-areas"
               active={isActive("/service-areas")}
               onClick={() => goTo("/service-areas")}
-            />
-            <NavTextLink
-              label="Careers"
-              href="/careers"
-              active={isActive("/careers")}
-              onClick={() => goTo("/careers")}
             />
             {/* Get a Quote — pill CTA, brand red */}
             <a
@@ -736,7 +757,6 @@ export default function Navbar() {
                 { label: "Commercial", href: "/commercial" },
                 { label: "Resources", href: "/resources" },
                 { label: "Service Areas", href: "/service-areas" },
-                { label: "Careers", href: "/careers" },
               ] as Array<{ label: string; href: string; dropdown?: { label: string; href: string; num: string }[] }>
             ).map((item) => (
               <div key={item.label}>
@@ -894,6 +914,15 @@ export default function Navbar() {
                 photo={MEGA_PHOTO_SERVICES}
                 headline={"Transform\nYour Space"}
                 subline="Installation Services"
+                onNavigate={goTo}
+              />
+            )}
+            {openMega === "resources" && (
+              <MegaMenu
+                items={resourcesItems}
+                photo={MEGA_PHOTO_RESOURCES}
+                headline={"Know Before\nYou Grow"}
+                subline="Free Guides & Cost Estimates"
                 onNavigate={goTo}
               />
             )}

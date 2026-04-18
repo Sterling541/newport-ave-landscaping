@@ -115,6 +115,9 @@ const LEGACY_PROJECTS = [
   { title: "Awbrey Glenn Flagstone Patio & Walkway", category: "Pavers · Walkways", img: "https://newportavelandscaping.com/wp-content/uploads/2022/05/awbrey-glen-flagstone-front-walkway-after-photo-1.jpg", href: "/portfolio/awbrey-glenn-flagstone" },
   { title: "SW Bend Backyard Landscaping", category: "Outdoor Living · Design & Build", img: "https://newportavelandscaping.com/wp-content/uploads/2022/05/south-west-bend-oregon-campground-backyard-full-view-2.jpg", href: "/portfolio/sw-bend-backyard" },
   { title: "Backyard Landscape Renovation", category: "Full Renovation · Design & Build", img: "https://newportavelandscaping.com/wp-content/uploads/2022/05/south-east-bend-oregon-backyard-landscape-renovation-after-photo-1-2-768x512.jpg", href: "/portfolio/backyard-renovation" },
+  { title: "Awbrey Butte Patio Extension & Wall", category: "Pavers · Retaining Walls · Outdoor Living", img: "https://newportavelandscaping.com/wp-content/uploads/2022/09/awbrey-butte-freestanding-wall-pavers-patio-extension.jpg", href: "/portfolio/awbrey-butte-patio" },
+  { title: "NW Bend Landscape Lighting", category: "Landscape Lighting · Water Features", img: "https://newportavelandscaping.com/wp-content/uploads/2022/05/nw-bend-landscape-lighting-photo-1.jpg", href: "/portfolio/nw-bend-lighting" },
+  { title: "Westside Outdoor Living Space", category: "Outdoor Living · Water Features · Fire Features", img: "https://newportavelandscaping.com/wp-content/uploads/2022/05/Bend-Oregon-Westside-Outdoor-Before-Picture.jpg", href: "/portfolio/westside-outdoor-living" },
 ];
 
 const PROJECTS = [

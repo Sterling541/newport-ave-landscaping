@@ -31,6 +31,7 @@ const landscapingLinks = [
   { label: "Retaining Walls", href: "/services/retaining-walls" },
   { label: "Drainage Solutions", href: "/services/drainage" },
   { label: "Firewise Landscaping", href: "/services/firewise-landscaping" },
+  { label: "Water-Wise Landscaping", href: "/services/water-wise-landscaping" },
 ];
 
 const cityLinks = [
