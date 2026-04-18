@@ -9,6 +9,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import SEO from "@/components/SEO";
+import BeforeAfterSlider from "@/components/BeforeAfterSlider";
 
 function FadeIn({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -426,6 +427,68 @@ export default function OurWork() {
           </div>
         </section>
       )}
+
+      {/* ── BEFORE / AFTER TRANSFORMATIONS ── */}
+      <section className="py-20" style={{ backgroundColor: "oklch(0.97 0.010 85)" }}>
+        <div className="container">
+          <FadeIn>
+            <div className="text-center mb-12">
+              <div className="font-label mb-3 flex items-center justify-center gap-3" style={{ color: "oklch(0.46 0.20 25)", fontSize: "0.62rem", letterSpacing: "0.18em" }}>
+                <span className="inline-block w-8 h-px" style={{ backgroundColor: "oklch(0.46 0.20 25)" }} />
+                TRANSFORMATIONS
+                <span className="inline-block w-8 h-px" style={{ backgroundColor: "oklch(0.46 0.20 25)" }} />
+              </div>
+              <h2 className="font-display font-light" style={{ fontSize: "clamp(1.6rem, 3vw, 2.6rem)", color: "oklch(0.12 0.005 0)", lineHeight: 1.1 }}>
+                Before &amp; After
+                <br />
+                <em style={{ color: "oklch(0.46 0.20 25)", fontStyle: "italic" }}>Real Central Oregon Projects</em>
+              </h2>
+              <p className="font-body mt-4 mx-auto" style={{ color: "oklch(0.45 0.005 0)", maxWidth: "520px", fontSize: "0.92rem", lineHeight: 1.7 }}>
+                Drag the slider to see the full transformation. Every project is completed by our in-house crew — no subcontractors.
+              </p>
+            </div>
+          </FadeIn>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <FadeIn delay={0.05}>
+              <BeforeAfterSlider
+                beforeSrc="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80"
+                afterSrc="https://images.unsplash.com/photo-1585320806297-9794b3e4aaae?w=800&q=80"
+                beforeAlt="Overgrown backyard before landscaping in Bend Oregon"
+                afterAlt="Beautiful xeriscape patio after Newport Avenue Landscaping"
+                caption="Awbrey Butte Xeriscape — overgrown lawn replaced with water-wise native plantings and flagstone patio"
+              />
+            </FadeIn>
+            <FadeIn delay={0.10}>
+              <BeforeAfterSlider
+                beforeSrc="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800&q=80"
+                afterSrc="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80"
+                beforeAlt="Bare dirt yard before landscaping in Bend Oregon"
+                afterAlt="Finished paver patio and landscape design by Newport Avenue Landscaping"
+                caption="Broken Top Paver Patio — bare dirt transformed into a full outdoor living space with pavers, lighting, and plantings"
+              />
+            </FadeIn>
+            <FadeIn delay={0.15}>
+              <BeforeAfterSlider
+                beforeSrc="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=80"
+                afterSrc="https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=800&q=80"
+                beforeAlt="Dry rocky slope before retaining wall installation in Bend"
+                afterAlt="Finished retaining wall and landscape terracing by Newport Avenue Landscaping"
+                caption="Westside Retaining Wall — steep rocky slope stabilized with natural basalt retaining walls and drought-tolerant plantings"
+              />
+            </FadeIn>
+            <FadeIn delay={0.20}>
+              <BeforeAfterSlider
+                beforeSrc="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800&q=80"
+                afterSrc="https://images.unsplash.com/photo-1567016432779-094069958ea5?w=800&q=80"
+                beforeAlt="Neglected front yard before landscaping in Sunriver Oregon"
+                afterAlt="Finished Sunriver front yard with irrigation and native plants"
+                caption="Sunriver Irrigation Install — full drip and spray system installed with smart controller and native plant beds"
+              />
+            </FadeIn>
+          </div>
+        </div>
+      </section>
 
       {/* ── CTA ── */}
       <section className="py-20 text-center" style={{ background: "linear-gradient(135deg, oklch(0.16 0.08 240) 0%, oklch(0.26 0.10 240) 50%, oklch(0.20 0.07 240) 100%)" }}>

@@ -53,6 +53,7 @@ export default function SunriverPage() {
         { question: "How does Sunriver's heavy snow and short growing season impact landscaping?", answer: "Sunriver's heavy snowfall and short growing season necessitate specialized landscaping approaches to ensure plant survival and year-round appeal. We select cold-hardy, snow-tolerant plants and implement strategic design elements to protect landscapes from winter damage. Our maintenance programs include specific winter preparations and spring revitalization to maximize the brief but vibrant growing season, ensuring your Sunriver landscape remains beautiful and resilient despite the challenging climate. This includes proper pruning, mulching, and irrigation adjustments."
         },
       ]}
-    />
+      mapEmbedUrl="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d11774.2!2d-121.4432!3d43.8793!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54b8c8b8b8b8b8b8%3A0x1088e7acc720d1b4!2sSunriver%2C%20OR!5e0!3m2!1sen!2sus!4v1713400000003"
+/>
   );
 }

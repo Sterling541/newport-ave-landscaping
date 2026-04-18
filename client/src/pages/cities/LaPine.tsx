@@ -47,6 +47,7 @@ export default function LaPinePage() {
         { question: "How do you manage La Pine's short growing season and late frosts?", answer: "Managing La Pine's short growing season and late frosts requires careful planning and plant selection, which is a cornerstone of our approach. We prioritize cold-hardy, native, and adapted plant species that are proven to thrive in USDA Zone 5b conditions and can withstand unexpected temperature drops well into June. Our team also implements strategies like proper mulching to extend soil warmth, and we time installations carefully to avoid frost damage to new plantings." },
         { question: "Do you do fire-wise landscaping in La Pine?", answer: "Yes -- fire-wise landscaping is an important consideration for many La Pine properties, particularly those near the Deschutes National Forest and the urban-wildland interface. We design fire-wise landscapes that reduce fuel loads around structures while maintaining beauty and curb appeal. This includes selecting fire-resistant plants, creating defensible space zones at the recommended distances from structures, and using non-combustible hardscaping materials near the home. Given La Pine's fire history and the density of ponderosa pine in the area, this is one of the most valuable investments a La Pine homeowner can make." },
       ]}
-    />
+      mapEmbedUrl="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d23548.5!2d-121.5049!3d43.6679!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54b8a0b8b8b8b8b8%3A0x1088e7acc720d1b4!2sLa%20Pine%2C%20OR!5e0!3m2!1sen!2sus!4v1713400000006"
+/>
   );
 }

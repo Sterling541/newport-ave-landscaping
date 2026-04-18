@@ -47,6 +47,7 @@ export default function MadrasPage() {
         { question: "How does Madras's arid climate affect landscaping choices?", answer: "Madras's arid climate, characterized by hot summers and less precipitation than other Central Oregon communities, significantly influences optimal landscaping choices. We recommend drought-tolerant plants, efficient drip irrigation systems, and thoughtful xeriscape designs to conserve water and ensure plant health. Our experts select species that thrive in Zone 6b/7a, focusing on native and adapted plants that can withstand the intense summer heat while maintaining aesthetic appeal. The availability of North Unit Irrigation District water for many Madras properties also opens up options for traditional irrigated lawns and ornamental gardens." },
         { question: "Can you help with landscaping for acreage properties near Madras?", answer: "Yes -- we regularly work on larger acreage properties in the Madras area. Larger lots present different opportunities and challenges than typical suburban properties: longer irrigation runs, more extensive soil preparation, the potential for orchard or vegetable garden integration, and the need for thoughtful design to create defined outdoor spaces within a larger canvas. Our design team is experienced with acreage properties and can help you create a landscape plan that makes the most of your land while keeping maintenance manageable." },
       ]}
-    />
+      mapEmbedUrl="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d23548.5!2d-121.1296!3d44.6329!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54b8f0b8b8b8b8b8%3A0x1088e7acc720d1b4!2sMadras%2C%20OR!5e0!3m2!1sen!2sus!4v1713400000007"
+/>
   );
 }

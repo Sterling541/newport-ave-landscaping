@@ -49,6 +49,7 @@ export default function TumaloPage() {
         { question: "How does Tumalo's irrigation district water affect landscaping choices?", answer: "Tumalo's access to irrigation district water is a significant advantage for landscaping, offering a reliable and often more cost-effective water source for larger properties. This allows for a broader range of plant choices and more extensive lawn areas compared to areas solely reliant on well water. Our team specializes in designing irrigation systems that efficiently utilize this resource, ensuring optimal plant health while adhering to water conservation principles." },
         { question: "Do you do fire-wise landscaping in Tumalo?", answer: "Yes -- fire-wise landscaping is an important consideration for many Tumalo properties, particularly those near the urban-wildland interface and in areas with juniper and sage native vegetation. We design fire-wise landscapes that reduce fuel loads around structures while maintaining beauty and curb appeal. This includes selecting fire-resistant plants, creating defensible space zones at the recommended distances from structures, and using non-combustible hardscaping materials near the home. Many Tumalo homeowners find that fire-wise landscaping also significantly reduces their maintenance burden." },
       ]}
-    />
+      mapEmbedUrl="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d11774.2!2d-121.2985!3d44.1468!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54b8d0b8b8b8b8b8%3A0x1088e7acc720d1b4!2sTumalo%2C%20OR!5e0!3m2!1sen!2sus!4v1713400000004"
+/>
   );
 }

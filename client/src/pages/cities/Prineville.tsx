@@ -47,6 +47,7 @@ export default function PrinevillePage() {
         { question: "What areas of Prineville do you serve?", answer: "Newport Avenue Landscaping proudly serves all neighborhoods and areas within Prineville and the surrounding Crook County region. This includes properties near the Ochoco Reservoir, along the Crooked River area, throughout downtown Prineville, and in newer subdivisions like those near Meadow Lakes Golf Course. We also extend our services to rural acreage properties and communities such as Juniper Acres, ensuring comprehensive coverage for all your landscaping requirements in and around Prineville." },
         { question: "How does Prineville's climate impact plant choices for landscaping?", answer: "Prineville's distinct high-desert climate, with its warmer summers, colder winters, and lower annual precipitation compared to other Central Oregon cities, significantly influences optimal plant selection. We recommend and utilize a variety of drought-tolerant and native species that are well-adapted to USDA Zone 6a conditions and the local soil composition. Our designs prioritize plants that can withstand temperature extremes and require less water, ensuring your landscape remains vibrant and healthy with minimal intervention, perfectly suited to Prineville's environmental characteristics." },
       ]}
-    />
+      mapEmbedUrl="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d23548.5!2d-120.8340!3d44.2998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54b8e0b8b8b8b8b8%3A0x1088e7acc720d1b4!2sPrineville%2C%20OR!5e0!3m2!1sen!2sus!4v1713400000005"
+/>
   );
 }

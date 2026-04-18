@@ -96,6 +96,18 @@ import CommercialLandscapingBend from "./pages/resources/CommercialLandscapingBe
 import SnowRemovalBendResource from "./pages/resources/SnowRemovalBend";
 import LandscapeLightingBend from "./pages/resources/LandscapeLightingBend";
 
+// Core SEO sub-pages
+import ConcretePaversBend from "./pages/seo/ConcretePayersBend";
+import HOALandscapeDesignBend from "./pages/seo/HOALandscapeDesignBend";
+import ModernLandscapeDesignBend from "./pages/seo/ModernLandscapeDesignBend";
+
+// Core SEO landing pages
+import LandscapingBendOregon from "./pages/seo/LandscapingBendOregon";
+import PaverPatiosBend from "./pages/seo/PaverPatiosBend";
+import IrrigationBendOregon from "./pages/seo/IrrigationBendOregon";
+import LandscapeDesignBend from "./pages/seo/LandscapeDesignBend";
+import CommercialLandscapingBendSeo from "./pages/seo/CommercialLandscapingBend";
+
 // SEO Neighborhood / Service Area pages
 import AwbreyButteNeighborhood from "./pages/service-areas/AwbreyButteNeighborhood";
 import NorthwestCrossingNeighborhood from "./pages/service-areas/NorthwestCrossingNeighborhood";
@@ -181,6 +193,18 @@ function Router() {
   return (
     <Suspense fallback={<div />}>
     <Switch>
+      {/* Core SEO Sub-pages */}
+      <Route path={"/paver-patios-bend/concrete-pavers"} component={ConcretePaversBend} />
+      <Route path={"/landscape-design-bend/hoa-design"} component={HOALandscapeDesignBend} />
+      <Route path={"/landscape-design-bend/modern-design"} component={ModernLandscapeDesignBend} />
+
+      {/* Core SEO Landing Pages */}
+      <Route path={"/landscaping-bend-oregon"} component={LandscapingBendOregon} />
+      <Route path={"/paver-patios-bend"} component={PaverPatiosBend} />
+      <Route path={"/irrigation-bend-oregon"} component={IrrigationBendOregon} />
+      <Route path={"/landscape-design-bend"} component={LandscapeDesignBend} />
+      <Route path={"/commercial-landscaping-bend"} component={CommercialLandscapingBendSeo} />
+
       {/* Main pages */}
       <Route path={"/"} component={Home} />
       <Route path={"/about"} component={About} />

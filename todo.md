@@ -282,3 +282,19 @@
 - [x] Replace irrelevant hero images on 14 service pages with topic-appropriate Unsplash photos
 - [x] Add hero background images to 49 service-area pages (previously solid dark backgrounds)
 - [x] Add hero background images to 21 resource pages with no images (13 via background pattern, 7 via backgroundColor pattern, 1 via variable pattern)
+
+## Session — April 18, 2026 (ChatGPT SEO Domination Plan)
+- [x] Build /landscaping-bend-oregon core SEO landing page
+- [x] Build /landscape-design-bend core SEO landing page
+- [x] Build /irrigation-bend-oregon core SEO landing page
+- [x] Build /paver-patios-bend core SEO landing page
+- [x] Build /commercial-landscaping-bend core SEO landing page
+- [x] Build /paver-patios-bend/concrete-pavers sub-page
+- [x] Build /landscape-design-bend/modern-design sub-page
+- [x] Build /landscape-design-bend/hoa-design sub-page
+- [x] Add embedded Google Maps to all 8 city pages (via mapEmbedUrl prop in CityPageLayout)
+- [x] Build BeforeAfterSlider component (drag-to-reveal, touch-enabled, keyboard accessible)
+- [x] Add 4 before/after sliders to Our Work page
+- [x] Strengthen internal linking: SEO landing pages added to Footer quickLinks
+- [x] Wire all new pages into App.tsx routes and sitemap
+- [x] TypeScript check: 0 errors

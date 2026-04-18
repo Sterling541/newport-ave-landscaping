@@ -47,6 +47,7 @@ export default function RedmondPage() {
         { question: "What areas of Redmond do you serve?", answer: "We proudly serve all areas of Redmond, Oregon, bringing our expert landscaping services to a wide range of neighborhoods and developments. This includes the Dry Canyon area, the prestigious Eagle Crest Resort, Juniper Ridge, and Rimrock West. We also cater to properties in the Forked Horn Butte area and throughout downtown Redmond. Our team is familiar with the specific needs and characteristics of each of these local communities." },
         { question: "How does Redmond's new construction boom affect landscaping choices?", answer: "Redmond's rapid growth and extensive new construction present both opportunities and challenges for landscaping. Many new homes are built on raw land, often with compacted or nutrient-poor soil, requiring significant amendment and preparation before planting. We specialize in transforming these new construction sites into established, vibrant landscapes, focusing on soil health, proper drainage, and plant selection that thrives in Redmond's high-desert conditions. Our designs often incorporate low-maintenance, water-wise solutions that are ideal for busy new homeowners and the local climate." }
       ]}
-    />
+      mapEmbedUrl="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d23548.5!2d-121.1489!3d44.2726!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54b8d8b0e8b8b8b8%3A0x1088e7acc720d1b4!2sRedmond%2C%20OR!5e0!3m2!1sen!2sus!4v1713400000001"
+/>
   );
 }

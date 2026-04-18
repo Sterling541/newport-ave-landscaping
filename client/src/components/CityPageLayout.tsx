@@ -102,6 +102,7 @@ export interface CityPageProps {
   seoDescription?: string;
   canonicalPath?: string; // e.g. "/landscaping/bend"
   faqs?: { question: string; answer: string }[];
+  mapEmbedUrl?: string; // Optional Google Maps embed URL for the city
 }
 
 // Custom SVG icon wrapper — renders ServiceIcons with consistent sizing
@@ -149,6 +150,7 @@ export default function CityPageLayout(props: CityPageProps) {
     seoDescription,
     canonicalPath,
     faqs,
+    mapEmbedUrl,
   } = props;
 
   const [, navigate] = useLocation();
@@ -629,6 +631,37 @@ export default function CityPageLayout(props: CityPageProps) {
           </FadeIn>
         </div>
       </section>
+
+      {/* ── GOOGLE MAP EMBED ────────────────────────────── */}
+      {mapEmbedUrl && (
+        <section className="py-16" style={{ backgroundColor: "oklch(0.12 0.005 0)" }}>
+          <div className="container">
+            <FadeIn>
+              <div className="font-label mb-3" style={{ color: "oklch(0.72 0.12 25)", fontSize: "0.62rem", letterSpacing: "0.18em" }}>
+                SERVICE AREA
+              </div>
+              <h2 className="font-display font-light mb-6" style={{ fontSize: "clamp(1.4rem, 2.5vw, 2rem)", color: "#fff" }}>
+                Landscaping Services in {city}, Oregon
+              </h2>
+              <div style={{ borderRadius: "2px", overflow: "hidden", border: "1px solid oklch(0.25 0.005 0)" }}>
+                <iframe
+                  src={mapEmbedUrl}
+                  width="100%"
+                  height="380"
+                  style={{ border: 0, display: "block" }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title={`${city} Oregon landscaping service area map`}
+                />
+              </div>
+              <p className="font-label mt-3" style={{ color: "oklch(0.55 0.005 0)", fontSize: "0.60rem", letterSpacing: "0.10em" }}>
+                Newport Avenue Landscaping serves {city} and surrounding Central Oregon communities.
+              </p>
+            </FadeIn>
+          </div>
+        </section>
+      )}
 
       {/* ── FAQ SECTION ───────────────────────────────────── */}
       {faqs && faqs.length > 0 && (

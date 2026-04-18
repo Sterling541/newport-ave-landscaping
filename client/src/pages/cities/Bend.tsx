@@ -49,6 +49,7 @@ export default function BendPage() {
         { question: "How does Bend's volcanic soil impact landscaping choices?", answer: "Bend's unique volcanic pumice soil is exceptionally well-draining but low in organic matter, which impacts plant nutrient uptake and water retention. This requires careful soil amendment with compost and other organic materials to improve fertility and structure. Our landscaping experts in Bend specialize in selecting plants that thrive in these conditions and implementing proper soil preparation techniques to ensure the long-term health of your landscape. We also design irrigation systems specifically calibrated for pumice soil's fast drainage rate." },
         { question: "Do you do fire-wise landscaping in Bend?", answer: "Yes -- fire-wise landscaping is an important consideration for many Bend properties, particularly those near the urban-wildland interface on the west side and in areas like Awbrey Butte, Tumalo, and the Deschutes River corridor. We design fire-wise landscapes that reduce fuel loads around structures while maintaining beauty and curb appeal. This includes selecting fire-resistant plants, creating defensible space zones, and using non-combustible hardscaping materials near the home." },
       ]}
-    />
+      mapEmbedUrl="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d47226.85!2d-121.3153!3d44.0582!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54b8c0ffa5d3d251%3A0x1088e7acc720d1b4!2sBend%2C%20OR!5e0!3m2!1sen!2sus!4v1713400000000"
+/>
   );
 }
