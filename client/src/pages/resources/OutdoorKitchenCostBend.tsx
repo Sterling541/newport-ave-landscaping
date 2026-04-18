@@ -1,6 +1,6 @@
 import Navbar from '@/components/Navbar';
 import SEO from '@/components/SEO';
-import { BreadcrumbSchema } from '@/components/SchemaMarkup';
+import { BreadcrumbSchema, FAQSchema } from '@/components/SchemaMarkup';
 import { Link } from 'wouter';
 
 export default function OutdoorKitchenCostBend() {
@@ -15,6 +15,14 @@ export default function OutdoorKitchenCostBend() {
         { name: 'Home', url: '/' },
         { name: 'Resources', url: '/resources' },
         { name: 'Outdoor Kitchen Cost in Bend, Oregon: A Complete Guide', url: '/resources/outdoor-kitchen-cost-bend-oregon' },
+      ]} />
+      <FAQSchema faqs={[
+        { question: `What factors influence the cost of an outdoor kitchen in Bend, Oregon?`, answer: `The cost of an outdoor kitchen in Bend is influenced by several factors, including the size and complexity of the design, chosen materials, and appliances. Local considerations like preparing for Bend's freeze-thaw cycles and working with volcanic soil can also impact labor and material costs.` },
+        { question: `How does Bend's climate affect outdoor kitchen design and material choices?`, answer: `Bend's climate, with its Zone 6a designation, 11" annual rainfall, and significant freeze-thaw cycles, necessitates durable materials for outdoor kitchens. Newport Avenue Landscaping recommends weather-resistant countertops, cabinetry, and appliances to ensure longevity and minimize maintenance in these conditions.` },
+        { question: `What are common outdoor kitchen features in Bend homes?`, answer: `Popular outdoor kitchen features in Bend often include built-in grills, refrigerators, sinks, and ample counter space for food preparation. Many homeowners also opt for pizza ovens, warming drawers, and comfortable seating areas to enhance their outdoor living experience.` },
+        { question: `Is it worth investing in an outdoor kitchen in Central Oregon?`, answer: `Investing in an outdoor kitchen in Central Oregon can significantly enhance your home's value and your lifestyle, providing a dedicated space for entertaining and enjoying Bend's beautiful seasons. It extends your living area and offers a unique culinary experience.` },
+        { question: `Do outdoor kitchens in Bend require special permits or considerations?`, answer: `Yes, building an outdoor kitchen in Bend typically requires adherence to local building codes and may necessitate permits, especially for gas lines, electrical work, or significant structural changes. It's advisable to consult with a local landscaping expert like Newport Avenue Landscaping to navigate these requirements.` },
+        { question: `How can I make my outdoor kitchen durable against Bend's weather?`, answer: `To ensure your outdoor kitchen withstands Bend's weather, focus on selecting high-quality, weather-resistant materials such as stainless steel appliances, granite or concrete countertops, and marine-grade polymer cabinetry. Proper installation that accounts for drainage and freeze-thaw cycles is also crucial for durability.` },
       ]} />
       <Navbar />
       <div style={{ paddingTop: '204px' }}>

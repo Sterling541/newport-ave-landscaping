@@ -1,6 +1,6 @@
 import Navbar from '@/components/Navbar';
 import SEO from '@/components/SEO';
-import { BreadcrumbSchema } from '@/components/SchemaMarkup';
+import { BreadcrumbSchema, FAQSchema } from '@/components/SchemaMarkup';
 import { Link } from 'wouter';
 
 export default function FencingCostBend() {
@@ -15,6 +15,14 @@ export default function FencingCostBend() {
         { name: 'Home', url: '/' },
         { name: 'Resources', url: '/resources' },
         { name: 'Fencing Cost in Bend, Oregon: What to Expect', url: '/resources/fencing-cost-bend-oregon' },
+      ]} />
+      <FAQSchema faqs={[
+        { question: `What factors influence the cost of fencing in Bend, Oregon?`, answer: `The cost of fencing in Bend, Oregon, is influenced by several factors, including the type of material chosen, the length and height of the fence, and the complexity of the installation. Local conditions like Bend's volcanic soil can also impact labor costs due to more challenging digging. Additionally, permit requirements for taller fences can add to the overall expense.` },
+        { question: `What are the best fencing materials for Bend's climate and soil?`, answer: `For Bend's climate Zone 6a, with its freeze-thaw cycles and volcanic soil, durable materials are essential. Western Red Cedar is a popular choice due to its natural resistance to rot and insects, performing well in the region's 11-inch annual rainfall. Galvanized steel is another robust option, offering longevity and minimal maintenance against the elements.` },
+        { question: `Do I need a permit to build a fence in Bend, Oregon?`, answer: `In Bend, a building permit is generally required for fences exceeding 7 feet in height. There are also specific setback regulations, such as a 42-inch height limit for fences within the 20-foot front yard setback. It's always best to check with the City of Bend's planning department or consult with a professional like Newport Avenue Landscaping to ensure compliance with local codes.` },
+        { question: `How does Bend's volcanic soil affect fence installation?`, answer: `Bend's volcanic soil, characterized by its rocky and often hard composition, can significantly impact fence installation. Digging post holes can be more labor-intensive and may require specialized equipment, potentially increasing installation time and cost. Proper post-setting techniques are crucial to ensure stability and longevity in these challenging ground conditions.` },
+        { question: `What is the typical lifespan of a fence installed in Central Oregon?`, answer: `The lifespan of a fence in Central Oregon largely depends on the material, quality of installation, and maintenance. A well-installed Western Red Cedar fence can last 15-20 years or more with proper care, while galvanized steel fences can last even longer. Newport Avenue Landscaping ensures that all installations are built to withstand Bend's unique weather patterns and soil conditions, maximizing durability.` },
+        { question: `Are there eco-friendly fencing options suitable for Bend?`, answer: `Yes, there are several eco-friendly fencing options suitable for Bend. Recycled composite materials offer a sustainable alternative to traditional wood, requiring less maintenance and having a longer lifespan. Locally sourced wood, like Western Red Cedar, can also be considered eco-friendly due to reduced transportation impacts and its natural biodegradability.` },
       ]} />
       <Navbar />
       <div style={{ paddingTop: '204px' }}>

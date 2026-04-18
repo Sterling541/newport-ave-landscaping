@@ -1,6 +1,6 @@
 import Navbar from '@/components/Navbar';
 import SEO from '@/components/SEO';
-import { BreadcrumbSchema } from '@/components/SchemaMarkup';
+import { BreadcrumbSchema, FAQSchema } from '@/components/SchemaMarkup';
 import { Link } from 'wouter';
 
 export default function DripVsSprayIrrigationBend() {
@@ -15,6 +15,14 @@ export default function DripVsSprayIrrigationBend() {
         { name: 'Home', url: '/' },
         { name: 'Resources', url: '/resources' },
         { name: "Drip vs. Spray Irrigation: Which Is Right for Your Bend Landscape?", url: '/resources/drip-vs-spray-irrigation-bend-oregon' },
+      ]} />
+      <FAQSchema faqs={[
+        { question: `Is drip irrigation better than spray for Bend, Oregon's dry climate?`, answer: `For Bend's arid climate and average 11 inches of annual rainfall, drip irrigation is often more efficient. It delivers water directly to plant roots, minimizing evaporation and runoff, which is crucial for conserving water in our high desert environment.` },
+        { question: `How does Bend's volcanic soil affect irrigation choices?`, answer: `Bend's volcanic soil, often characterized by good drainage, can benefit from both drip and spray systems. Drip irrigation is excellent for slowly delivering water to prevent runoff on sloped areas, while spray can be effective on flatter landscapes with proper scheduling to avoid overwatering.` },
+        { question: `Can I use drip irrigation for all plants in my Bend garden?`, answer: `Drip irrigation is highly versatile and suitable for most plants in a Bend garden, especially trees, shrubs, and perennials. However, for dense groundcovers or turf areas, spray irrigation might be more practical to ensure even coverage.` },
+        { question: `What are the benefits of spray irrigation for a Bend landscape?`, answer: `Spray irrigation can be very effective for lawns and large planting beds in Bend, providing broad, even coverage. Modern spray systems, when properly designed and maintained by experts like Newport Avenue Landscaping, can be highly water-efficient, especially with smart controllers that adjust to local weather.` },
+        { question: `How do freeze-thaw cycles in Bend impact irrigation systems?`, answer: `Bend's significant freeze-thaw cycles necessitate proper winterization for both drip and spray irrigation systems. Failing to drain lines can lead to costly damage from freezing water, making professional winterization a key part of system maintenance.` },
+        { question: `Where can I get help designing an efficient irrigation system in Central Oregon?`, answer: `Newport Avenue Landscaping specializes in designing and installing highly efficient irrigation systems tailored to Central Oregon's unique climate and soil. We can help you choose between drip and spray, or a combination of both, to ensure your landscape thrives while conserving water.` },
       ]} />
       <Navbar />
       <div style={{ paddingTop: '204px' }}>

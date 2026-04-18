@@ -1,6 +1,6 @@
 import Navbar from '@/components/Navbar';
 import SEO from '@/components/SEO';
-import { BreadcrumbSchema } from '@/components/SchemaMarkup';
+import { BreadcrumbSchema, FAQSchema } from '@/components/SchemaMarkup';
 import { Link } from 'wouter';
 
 export default function HowToChooseLandscaperBend() {
@@ -15,6 +15,14 @@ export default function HowToChooseLandscaperBend() {
         { name: 'Home', url: '/' },
         { name: 'Resources', url: '/resources' },
         { name: 'How to Choose a Landscaper in Bend, Oregon', url: '/resources/how-to-choose-landscaper-bend-oregon' },
+      ]} />
+      <FAQSchema faqs={[
+        { question: `What should I look for in a landscaper in Bend, Oregon?`, answer: `When choosing a landscaper in Bend, prioritize local expertise. Look for companies familiar with Bend's unique climate Zone 6a, volcanic soil, and low annual rainfall of 11 inches. They should understand how to design and maintain landscapes that thrive despite freeze-thaw cycles and dry summers.` },
+        { question: `How important is local experience for a Bend landscaping company?`, answer: `Local experience is crucial in Bend. A landscaper with a deep understanding of Central Oregon's specific environmental challenges, like our volcanic soil and significant temperature fluctuations, can recommend appropriate plants and irrigation systems. This ensures your landscape is sustainable and resilient to the region's conditions.` },
+        { question: `What kind of questions should I ask a potential landscaper in Bend?`, answer: `Ask about their experience with native and drought-tolerant plants suitable for Bend's climate Zone 6a. Inquire about their approach to water conservation given our 11" annual rainfall. Also, ask for references and proof of licensing (LCB #) to ensure they are reputable and qualified.` },
+        { question: `How does Bend's climate affect landscaping choices?`, answer: `Bend's climate, characterized by cold winters with freeze-thaw cycles and hot, dry summers, significantly impacts landscaping. A knowledgeable landscaper will select plants that can withstand these conditions and design irrigation systems optimized for our 11" annual rainfall and volcanic soil.` },
+        { question: `Why should I consider Newport Avenue Landscaping for my project in Bend?`, answer: `Newport Avenue Landscaping, with over 21 years in business and LCB #9153, has extensive experience navigating Bend's unique environmental factors. We specialize in creating beautiful, sustainable landscapes that thrive in our climate Zone 6a, from volcanic soil challenges to managing freeze-thaw cycles effectively.` },
+        { question: `What are common landscaping challenges in Central Oregon?`, answer: `Central Oregon presents unique landscaping challenges such as the arid climate with only 11" annual rainfall, the specific demands of volcanic soil, and harsh freeze-thaw cycles. A skilled landscaper will address these by selecting resilient plant species and implementing efficient water management strategies.` },
       ]} />
       <Navbar />
       <div style={{ paddingTop: '204px' }}>

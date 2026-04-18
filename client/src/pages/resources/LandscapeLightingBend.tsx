@@ -1,6 +1,6 @@
 import Navbar from "@/components/Navbar";
 import SEO from "@/components/SEO";
-import { BreadcrumbSchema } from "@/components/SchemaMarkup";
+import { BreadcrumbSchema, FAQSchema } from "@/components/SchemaMarkup";
 import { Link } from "wouter";
 
 export default function LandscapeLightingBend() {
@@ -15,6 +15,14 @@ export default function LandscapeLightingBend() {
         { name: "Home", url: "/" },
         { name: "Resources", url: "/resources" },
         { name: "Landscape Lighting", url: "/resources/landscape-lighting-bend-oregon" },
+      ]} />
+      <FAQSchema faqs={[
+        { question: `How does Bend's climate affect landscape lighting choices?`, answer: `Bend's climate, characterized by cold winters with freeze-thaw cycles and low annual rainfall (around 11 inches), significantly impacts landscape lighting. Fixtures need to be durable and weather-resistant to withstand temperature fluctuations and occasional snow. LED lighting is particularly well-suited due to its efficiency and resilience in varying conditions.` },
+        { question: `What are the best types of landscape lighting for volcanic soil in Bend?`, answer: `Volcanic soil in Bend can be challenging for traditional wiring. Low-voltage LED systems are ideal as they are easier to install and maintain in rocky terrain. Using high-quality, corrosion-resistant materials like brass or copper for fixtures ensures longevity against the elements and soil composition.` },
+        { question: `How can landscape lighting enhance my home's curb appeal in Bend, Oregon?`, answer: `Thoughtfully designed landscape lighting can dramatically boost your home's curb appeal by highlighting architectural features and garden elements. It creates a warm, inviting ambiance, making your property stand out in the Bend neighborhood. This also extends the usability of your outdoor spaces into the evening hours.` },
+        { question: `What maintenance is required for outdoor lighting systems in Bend's freeze-thaw cycles?`, answer: `Regular maintenance is crucial for outdoor lighting in Bend's climate Zone 6a. This includes checking for loose connections, cleaning lenses, and adjusting fixtures that may shift due to freeze-thaw cycles. Newport Avenue Landscaping offers comprehensive maintenance plans to ensure your system operates flawlessly year-round.` },
+        { question: `Are there energy-efficient landscape lighting options suitable for Bend?`, answer: `Absolutely. Modern LED landscape lighting systems are highly energy-efficient, consuming significantly less power than traditional halogen bulbs. This not only reduces your electricity bills but also aligns with Bend's environmentally conscious community values. Many systems also offer smart controls for optimal energy use.` },
+        { question: `Why should I choose a local company like Newport Avenue Landscaping for my lighting project in Bend?`, answer: `Choosing a local company like Newport Avenue Landscaping means working with experts who understand Bend's unique environmental challenges, from volcanic soil to harsh winters. With over 21 years in business, we provide tailored solutions that are designed to thrive in our specific climate, ensuring lasting beauty and functionality for your property.` },
       ]} />
       <Navbar />
       <div style={{ paddingTop: "204px" }}>

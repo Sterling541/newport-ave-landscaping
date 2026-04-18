@@ -1,6 +1,6 @@
 import Navbar from '@/components/Navbar';
 import SEO from '@/components/SEO';
-import { BreadcrumbSchema } from '@/components/SchemaMarkup';
+import { BreadcrumbSchema, FAQSchema } from '@/components/SchemaMarkup';
 import { Link } from 'wouter';
 
 export default function SpringLandscapingGuideBend() {
@@ -15,6 +15,14 @@ export default function SpringLandscapingGuideBend() {
         { name: 'Home', url: '/' },
         { name: 'Resources', url: '/resources' },
         { name: 'Spring Landscaping Guide for Bend, Oregon', url: '/resources/spring-landscaping-guide-bend-oregon' },
+      ]} />
+      <FAQSchema faqs={[
+        { question: `What are the most important spring landscaping tasks for Bend, Oregon?`, answer: `In Bend, spring landscaping should prioritize soil enrichment due to the volcanic, often dry soil. Amending with compost is crucial to improve water retention and nutrient availability. Additionally, preparing your irrigation system for the growing season and fertilizing actively growing plants are essential steps to ensure a healthy landscape in our Zone 6a climate.` },
+        { question: `How does Bend's unique climate affect spring planting?`, answer: `Bend's high desert climate, characterized by cold nights, intense summer sun, and freeze-thaw cycles, significantly impacts spring planting. While the USDA Hardiness Zone is generally 6a, a shorter growing season and only 3-6 inches of natural precipitation during April-October mean selecting drought-tolerant and cold-hardy plants is vital for success. Newport Avenue Landscaping can help you choose the best plants for these conditions.` },
+        { question: `What kind of soil preparation is needed in Bend for spring gardening?`, answer: `Bend's volcanic soil often drains well but can be low in organic matter, making it dry and nutrient-poor. For spring gardening, it's highly recommended to incorporate 1-2 inches of compost into your soil. This practice enhances water retention, which is critical given Bend's average 11 inches of annual rainfall, and provides essential nutrients for robust plant growth.` },
+        { question: `When should I turn on my irrigation system in Bend?`, answer: `Early spring is the ideal time to get your irrigation system in order in Bend. Before the warmer weather fully sets in and plants begin to demand more water, inspect your system for any damage from winter's freeze-thaw cycles. Ensuring it's functioning correctly early on will prevent issues and conserve water during our dry growing season.` },
+        { question: `What are common challenges for spring landscaping in Bend and how can I address them?`, answer: `Common challenges in Bend's spring landscaping include managing the dry, volcanic soil and protecting plants from late frosts due to freeze-thaw cycles. Addressing these involves consistent soil amendment with organic matter, strategic plant selection for Zone 6a, and potentially using frost covers for new plantings. Newport Avenue Landscaping specializes in solutions tailored to these local conditions.` },
+        { question: `What types of plants thrive in Bend's spring climate?`, answer: `Given Bend's Zone 6a climate, volcanic soil, and limited annual rainfall, native and drought-tolerant plants are excellent choices for spring. Consider species that can withstand cold nights and intense sun. Consulting with local nurseries or landscaping professionals can help identify plants that are well-suited to thrive in Central Oregon's unique spring conditions.` },
       ]} />
       <Navbar />
       <div style={{ paddingTop: '204px' }}>

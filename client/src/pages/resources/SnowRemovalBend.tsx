@@ -1,6 +1,6 @@
 import Navbar from "@/components/Navbar";
 import SEO from "@/components/SEO";
-import { BreadcrumbSchema } from "@/components/SchemaMarkup";
+import { BreadcrumbSchema, FAQSchema } from "@/components/SchemaMarkup";
 import { Link } from "wouter";
 
 export default function SnowRemovalBend() {
@@ -15,6 +15,14 @@ export default function SnowRemovalBend() {
         { name: "Home", url: "/" },
         { name: "Resources", url: "/resources" },
         { name: "Snow Removal Bend Oregon", url: "/resources/snow-removal-bend-oregon" },
+      ]} />
+      <FAQSchema faqs={[
+        { question: `What are the typical snow removal challenges in Bend, Oregon?`, answer: `Bend's unique climate, characterized by its high desert environment and proximity to the Cascades, often brings significant snowfall. The freeze-thaw cycles common in Zone 6a can lead to icy conditions, making snow removal more challenging than just clearing fresh powder. Volcanic soil also impacts drainage, which can exacerbate ice formation if not properly managed.` },
+        { question: `How does Newport Avenue Landscaping handle heavy snowfall in Bend?`, answer: `Newport Avenue Landscaping is well-equipped to handle Bend's heavy snowfalls, utilizing specialized equipment and experienced crews. We prioritize efficient and thorough clearing to ensure safe access to your property, understanding the unique demands of our 11-inch annual rainfall and potential for rapid accumulation. Our team is trained to address both snow and ice, providing comprehensive solutions.` },
+        { question: `Are there specific considerations for snow removal on properties with volcanic soil in Bend?`, answer: `Yes, volcanic soil in Bend can affect snow removal by impacting drainage. Poor drainage can lead to standing water that freezes, creating hazardous ice patches. Effective snow removal strategies must account for these soil characteristics to prevent ice buildup and ensure safety.` },
+        { question: `What kind of snow removal services does Newport Avenue Landscaping offer in Central Oregon?`, answer: `Newport Avenue Landscaping offers a range of snow removal services tailored to the Central Oregon region, including plowing, shoveling, and de-icing for residential and commercial properties. We understand the local weather patterns and are prepared for the unpredictable nature of winter in Bend. Our goal is to keep your property safe and accessible throughout the snowy season.` },
+        { question: `How do freeze-thaw cycles in Bend impact snow removal and de-icing?`, answer: `Bend's frequent freeze-thaw cycles are a major factor in snow removal, as melting snow can refreeze into dangerous ice. This necessitates careful de-icing strategies and often requires multiple visits to maintain safe surfaces. Proper de-icing agents are crucial to prevent slips and falls during these fluctuating temperatures.` },
+        { question: `When should I schedule snow removal services for my Bend property?`, answer: `It's best to schedule snow removal services before the winter season officially begins in Bend. This ensures your property is on a priority route and allows for proactive planning to address early snowfalls or unexpected winter storms. Having a plan in place helps mitigate risks and keeps your property safe from the first flake to the last.` },
       ]} />
       <Navbar />
       <div style={{ paddingTop: "204px" }}>

@@ -1,6 +1,6 @@
 import Navbar from '@/components/Navbar';
 import SEO from '@/components/SEO';
-import { BreadcrumbSchema } from '@/components/SchemaMarkup';
+import { BreadcrumbSchema, FAQSchema } from '@/components/SchemaMarkup';
 import { Link } from 'wouter';
 
 export default function NativeVsAdaptedPlantsBend() {
@@ -15,6 +15,14 @@ export default function NativeVsAdaptedPlantsBend() {
         { name: 'Home', url: '/' },
         { name: 'Resources', url: '/resources' },
         { name: 'Native vs. Adapted Plants: What Works Best in Bend?', url: '/resources/native-vs-adapted-plants-bend-oregon' },
+      ]} />
+      <FAQSchema faqs={[
+        { question: `What are the main differences between native and adapted plants for landscaping in Bend, Oregon?`, answer: `Native plants are indigenous to Bend and Central Oregon, naturally thriving in our unique climate Zone 6a, volcanic soil, and 11 inches of annual rainfall without much intervention. Adapted plants, while not native, are well-suited to these conditions and can flourish with minimal extra care, offering a broader range of aesthetic choices for your landscape.` },
+        { question: `How do Bend's volcanic soil and freeze-thaw cycles impact plant selection?`, answer: `Bend's volcanic soil, often sandy and low in nutrients, combined with significant freeze-thaw cycles, presents challenges for many plants. Native plants have evolved to handle these conditions, while adapted plants chosen for their resilience to such stressors will also perform well, preventing issues like root damage and nutrient deficiencies.` },
+        { question: `What are the benefits of choosing native plants for a Bend landscape?`, answer: `Opting for native plants in Bend offers numerous ecological benefits, including supporting local wildlife, requiring less water once established, and generally being more resistant to regional pests and diseases. They are perfectly suited to the 11 inches of annual rainfall and the specific climate of Central Oregon, making them a sustainable choice.` },
+        { question: `Can adapted plants be as low-maintenance as native plants in Bend's climate?`, answer: `Yes, many adapted plants can be very low-maintenance in Bend, provided they are selected carefully to match our climate Zone 6a and volcanic soil conditions. Newport Avenue Landscaping specializes in identifying and installing adapted species that require minimal water and care, blending seamlessly with the natural environment while offering diverse design options.` },
+        { question: `Where can I find reliable information or assistance for choosing plants suitable for Bend, Oregon?`, answer: `For expert guidance on selecting the best native and adapted plants for your Bend property, considering factors like our unique volcanic soil and freeze-thaw cycles, Newport Avenue Landscaping offers comprehensive consultation and design services. We ensure your landscape thrives with plants perfectly suited to Central Oregon's environment.` },
+        { question: `Do native or adapted plants help with water conservation in Bend?`, answer: `Both native and well-chosen adapted plants significantly contribute to water conservation in Bend. They are naturally more drought-tolerant and require less supplemental irrigation than conventional landscaping plants, which is crucial given our limited 11 inches of annual rainfall. This helps create a beautiful, sustainable, and water-efficient landscape.` },
       ]} />
       <Navbar />
       <div style={{ paddingTop: '204px' }}>

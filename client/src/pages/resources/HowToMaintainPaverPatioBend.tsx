@@ -1,6 +1,6 @@
 import Navbar from '@/components/Navbar';
 import SEO from '@/components/SEO';
-import { BreadcrumbSchema } from '@/components/SchemaMarkup';
+import { BreadcrumbSchema, FAQSchema } from '@/components/SchemaMarkup';
 import { Link } from 'wouter';
 
 export default function HowToMaintainPaverPatioBend() {
@@ -15,6 +15,14 @@ export default function HowToMaintainPaverPatioBend() {
         { name: 'Home', url: '/' },
         { name: 'Resources', url: '/resources' },
         { name: 'How to Maintain a Paver Patio in Bend, Oregon', url: '/resources/how-to-maintain-paver-patio-bend-oregon' },
+      ]} />
+      <FAQSchema faqs={[
+        { question: `How do Bend's freeze-thaw cycles affect paver patios?`, answer: `Bend's climate, with its significant freeze-thaw cycles, can put stress on paver patios. Water can seep into cracks and crevices, freeze, and expand, potentially causing pavers to shift or crack over time. Proper installation with a well-drained base is crucial to mitigate these effects.` },
+        { question: `What is the best way to clean a paver patio in Bend, Oregon?`, answer: `For general cleaning in Bend, a simple sweep and rinse with water is often sufficient. For tougher stains or moss common in our 11-inch annual rainfall, a mild detergent and a stiff brush can be used. Avoid harsh chemicals that could damage the pavers or surrounding landscaping.` },
+        { question: `Do I need to seal my paver patio in Bend's climate?`, answer: `Sealing your paver patio in Bend is highly recommended. A good quality sealer can protect against staining, inhibit weed growth, and enhance the pavers' color, while also providing an extra layer of defense against the elements and volcanic soil. Newport Avenue Landscaping can advise on the best sealing products for your specific pavers.` },
+        { question: `How often should I re-sand my paver patio joints in Bend?`, answer: `Re-sanding paver joints is an important maintenance task, especially in Bend where freeze-thaw cycles can dislodge sand. It helps maintain the structural integrity of your patio and prevents weed growth. Typically, re-sanding every 1-3 years, or as needed, will keep your patio looking its best.` },
+        { question: `What kind of base is best for paver patios in Bend's volcanic soil?`, answer: `Given Bend's unique volcanic soil, a robust and well-compacted base is essential for paver patios. This ensures proper drainage and stability, preventing shifting and settling over time. Newport Avenue Landscaping specializes in preparing durable bases that can withstand local conditions.` },
+        { question: `How can I prevent weeds from growing in my paver patio in Bend?`, answer: `To prevent weeds in your Bend paver patio, ensure proper joint filling with polymeric sand, which hardens to create a barrier. Regular sweeping and prompt removal of any sprouting weeds will also help. Maintaining a clean and sealed surface can significantly reduce weed intrusion.` },
       ]} />
       <Navbar />
       <div style={{ paddingTop: '204px' }}>

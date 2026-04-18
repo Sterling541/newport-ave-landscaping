@@ -1,6 +1,6 @@
 import Navbar from '@/components/Navbar';
 import SEO from '@/components/SEO';
-import { BreadcrumbSchema } from '@/components/SchemaMarkup';
+import { BreadcrumbSchema, FAQSchema } from '@/components/SchemaMarkup';
 import { Link } from 'wouter';
 
 export default function BendLandscapeWarranty() {
@@ -15,6 +15,14 @@ export default function BendLandscapeWarranty() {
         { name: 'Home', url: '/' },
         { name: 'Resources', url: '/resources' },
         { name: 'Our 5-Year Landscape Warranty: What It Covers', url: '/resources/landscape-warranty-bend-oregon' },
+      ]} />
+      <FAQSchema faqs={[
+        { question: `What does a typical landscape warranty cover in Bend, Oregon?`, answer: `A comprehensive landscape warranty in Bend typically covers the installation of plants, trees, and shrubs, as well as hardscaping elements like pavers and retaining walls. Given Bend's climate zone 6a and volcanic soil, it's crucial that plants are installed correctly to withstand local conditions. Warranties usually address issues arising from improper installation or material defects.` },
+        { question: `How long do landscape warranties usually last for plants and hardscaping in Central Oregon?`, answer: `Warranty durations can vary, but for plants and trees in Central Oregon's high desert climate, a common period is 90 days to one year, often requiring proper irrigation. Hardscaping, such as patios and walkways, typically carries a longer warranty, often one to two years, covering workmanship against issues caused by freeze-thaw cycles.` },
+        { question: `Are there specific considerations for warranties due to Bend's climate and soil?`, answer: `Absolutely. Bend's climate zone 6a, with its cold winters and freeze-thaw cycles, can impact plant survival and hardscape stability. Volcanic soil also presents unique challenges for drainage and nutrient availability. A good warranty will account for these local conditions, ensuring plants are suitable for the environment and hardscaping is built to last.` },
+        { question: `What might void my landscape warranty with a company like Newport Avenue Landscaping?`, answer: `Most landscape warranties, including those from Newport Avenue Landscaping, require adherence to certain conditions to remain valid. This often includes ensuring proper irrigation and care for plant material, as well as timely payment of all invoices. Neglecting these aspects can unfortunately void your coverage.` },
+        { question: `Does Newport Avenue Landscaping's warranty cover plants that die due to lack of water in Bend's dry climate?`, answer: `Newport Avenue Landscaping's warranty focuses on the health and proper installation of plants, ensuring they are viable upon planting. However, in Bend's dry climate with only 11 inches of annual rainfall, ongoing proper irrigation and care are essential. The warranty typically covers defects in installation, not neglect or lack of watering after installation.` },
+        { question: `What should I look for in a landscape warranty to protect my investment in Bend?`, answer: `When reviewing a landscape warranty in Bend, look for clear terms specifying coverage periods for different elements like plants and hardscaping. Ensure it addresses local challenges such as volcanic soil and freeze-thaw cycles. A transparent warranty from a reputable company like Newport Avenue Landscaping provides peace of mind and protects your investment.` },
       ]} />
       <Navbar />
       <div style={{ paddingTop: '204px' }}>

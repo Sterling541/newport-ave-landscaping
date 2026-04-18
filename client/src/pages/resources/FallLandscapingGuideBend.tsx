@@ -1,6 +1,6 @@
 import Navbar from '@/components/Navbar';
 import SEO from '@/components/SEO';
-import { BreadcrumbSchema } from '@/components/SchemaMarkup';
+import { BreadcrumbSchema, FAQSchema } from '@/components/SchemaMarkup';
 import { Link } from 'wouter';
 
 export default function FallLandscapingGuideBend() {
@@ -15,6 +15,14 @@ export default function FallLandscapingGuideBend() {
         { name: 'Home', url: '/' },
         { name: 'Resources', url: '/resources' },
         { name: 'Fall Landscaping Guide for Bend, Oregon', url: '/resources/fall-landscaping-guide-bend-oregon' },
+      ]} />
+      <FAQSchema faqs={[
+        { question: `What are the best plants for fall landscaping in Bend, Oregon?`, answer: `For fall landscaping in Bend, consider native and drought-tolerant plants that can withstand the region's cold winters and volcanic soil. Good choices include certain varieties of ornamental grasses, conifers, and deciduous shrubs that offer vibrant fall color before the first hard freeze. Newport Avenue Landscaping can help you select species perfectly suited for Bend's unique climate Zone 6a.` },
+        { question: `How should I prepare my irrigation system for winter in Central Oregon?`, answer: `Properly winterizing your irrigation system is crucial in Central Oregon to prevent damage from freeze-thaw cycles. This involves blowing out the lines with an air compressor to remove all water, as residual moisture can freeze and crack pipes. It's recommended to have this done professionally before sustained freezing temperatures arrive.` },
+        { question: `When is the ideal time to fertilize my lawn in Bend during the fall?`, answer: `The ideal time to fertilize your lawn in Bend during the fall is typically in late September or early October, before the ground freezes. This provides essential nutrients for root development, helping your lawn recover from summer stress and build resilience for the upcoming winter. A slow-release fertilizer is often best for sustained feeding.` },
+        { question: `What fall tasks are essential for garden beds in Bend's climate?`, answer: `Essential fall tasks for garden beds in Bend include clearing spent annuals, cutting back perennials, and adding a fresh layer of mulch. Mulching helps insulate plant roots from fluctuating temperatures and conserves moisture, which is vital given Bend's average 11 inches of annual rainfall. This preparation ensures healthier growth come spring.` },
+        { question: `How can I protect my trees and shrubs from winter damage in Bend, Oregon?`, answer: `Protecting trees and shrubs from winter damage in Bend involves adequate watering before the ground freezes, applying mulch around the base, and sometimes wrapping delicate evergreens. The dry, cold winds and heavy snow can be harsh on younger or less hardy plants. Newport Avenue Landscaping offers services to ensure your woody plants are winter-ready.` },
+        { question: `Are there specific considerations for planting in Bend's volcanic soil during autumn?`, answer: `Yes, planting in Bend's volcanic soil during autumn requires attention to soil amendment and drainage. While volcanic soil can be nutrient-rich, it often benefits from added organic matter to improve its structure and water retention. Ensuring good drainage is also key to prevent root rot during wetter periods or snowmelt.` },
       ]} />
       <Navbar />
       <div style={{ paddingTop: '204px' }}>

@@ -1,6 +1,6 @@
 import Navbar from '@/components/Navbar';
 import SEO from '@/components/SEO';
-import { BreadcrumbSchema } from '@/components/SchemaMarkup';
+import { BreadcrumbSchema, FAQSchema } from '@/components/SchemaMarkup';
 import { Link } from 'wouter';
 
 export default function SodInstallationCostBend() {
@@ -15,6 +15,14 @@ export default function SodInstallationCostBend() {
         { name: 'Home', url: '/' },
         { name: 'Resources', url: '/resources' },
         { name: 'Sod Installation Cost in Bend, Oregon', url: '/resources/sod-installation-cost-bend-oregon' },
+      ]} />
+      <FAQSchema faqs={[
+        { question: `What is the best time of year to install sod in Bend, Oregon?`, answer: `The ideal time for sod installation in Bend, Oregon, is typically during the spring or early fall. This allows the sod to establish roots before the harsh summer heat or the freezing winter temperatures and freeze-thaw cycles common in our Zone 6a climate. Adequate moisture is crucial during this period to ensure successful rooting.` },
+        { question: `How does Bend's volcanic soil affect sod installation and care?`, answer: `Bend's volcanic soil, often characterized by good drainage but low organic matter, requires careful preparation before sod installation. Amending the soil with compost can improve nutrient retention and water-holding capacity, which is vital given Bend's average annual rainfall of only 11 inches. Proper soil amendments will help your new lawn thrive in these unique conditions.` },
+        { question: `What kind of sod is best suited for the high desert climate of Central Oregon?`, answer: `For Central Oregon's high desert climate, including Bend's Zone 6a, drought-tolerant and cold-hardy sod varieties are recommended. Kentucky Bluegrass blends or Tall Fescue are popular choices due to their resilience against temperature fluctuations and ability to conserve water. Newport Avenue Landscaping can help you select the best sod type for your specific property and usage.` },
+        { question: `How much does sod installation typically cost in Bend, Oregon?`, answer: `The cost of sod installation in Bend, Oregon, varies based on factors like the size of the area, site preparation needed, and the type of sod chosen. It's important to consider both material and labor costs. Getting a detailed quote from a local landscaping professional like Newport Avenue Landscaping will provide the most accurate estimate for your project.` },
+        { question: `What are the watering requirements for new sod in Bend's dry climate?`, answer: `New sod in Bend's dry climate requires consistent and careful watering to establish properly. Initially, it needs frequent, shallow watering to keep the top few inches of soil moist. As the roots grow deeper, you can transition to less frequent but deeper watering sessions. This helps encourage strong root development, especially with our limited 11 inches of annual rainfall.` },
+        { question: `Are there specific challenges for sod maintenance in Bend due to freeze-thaw cycles?`, answer: `Yes, Bend's significant freeze-thaw cycles can pose challenges for sod maintenance, particularly during late fall and early spring. These cycles can lead to soil heaving, which can damage new sod roots. Proper preparation and ensuring the sod is well-rooted before winter are key to minimizing damage and maintaining a healthy lawn through the changing seasons.` },
       ]} />
       <Navbar />
       <div style={{ paddingTop: '204px' }}>

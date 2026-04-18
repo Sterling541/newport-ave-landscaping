@@ -1,6 +1,6 @@
 import Navbar from '@/components/Navbar';
 import SEO from '@/components/SEO';
-import { BreadcrumbSchema } from '@/components/SchemaMarkup';
+import { BreadcrumbSchema, FAQSchema } from '@/components/SchemaMarkup';
 import { Link } from 'wouter';
 
 export default function DrainageSolutionsCostBend() {
@@ -15,6 +15,14 @@ export default function DrainageSolutionsCostBend() {
         { name: 'Home', url: '/' },
         { name: 'Resources', url: '/resources' },
         { name: 'Drainage Solutions Cost in Bend, Oregon', url: '/resources/drainage-solutions-cost-bend-oregon' },
+      ]} />
+      <FAQSchema faqs={[
+        { question: `What are common drainage problems in Bend, Oregon?`, answer: `In Bend, homeowners often face drainage issues due to the region's volcanic soil, which can be highly permeable in some areas and compacted in others, leading to pooling. The freeze-thaw cycles common in Bend's Zone 6a climate can also exacerbate problems by cracking foundations and pipes. Even with only 11 inches of annual rainfall, improper drainage can cause significant water accumulation.` },
+        { question: `How much does it cost to install a drainage system in Bend, Oregon?`, answer: `The cost of installing a drainage system in Bend, Oregon, varies widely based on the type of system and project complexity. Simple surface drains are less costly, while comprehensive solutions like French drains or dry wells can range from $1,000 to over $7,000. Factors such as accessibility and the need for excavation in Bend's unique terrain influence the final price.` },
+        { question: `What types of drainage solutions are best for Bend's volcanic soil?`, answer: `For Bend's volcanic soil, effective drainage solutions often involve systems that manage water flow both on the surface and underground. French drains are excellent for redirecting subsurface water away from foundations, while dry wells can help disperse excess water into deeper, more permeable soil layers. Newport Avenue Landscaping specializes in designing custom solutions that account for the specific permeability and composition of your property's volcanic soil.` },
+        { question: `How do Bend's freeze-thaw cycles affect drainage systems?`, answer: `Bend's distinct freeze-thaw cycles, characteristic of its Zone 6a climate, can significantly impact drainage systems. Repeated freezing and thawing of water in the soil can cause pipes to shift, crack, or become dislodged, leading to system failures and potential damage to property foundations. Proper installation with durable materials and adequate depth is crucial to withstand these environmental stresses.` },
+        { question: `Can poor drainage impact my landscaping in Central Oregon?`, answer: `Absolutely, poor drainage can severely impact your landscaping in Central Oregon. Standing water can drown plants, promote root rot, and create breeding grounds for pests. It can also lead to soil erosion, especially on sloped properties, and undermine the stability of hardscapes like patios and walkways, diminishing the overall health and appearance of your outdoor space.` },
+        { question: `Why is professional drainage assessment important in Bend?`, answer: `A professional drainage assessment is crucial in Bend due to the unique challenges posed by volcanic soil, low annual rainfall, and freeze-thaw cycles. Experts like Newport Avenue Landscaping can accurately identify the root cause of water issues, design tailored solutions, and ensure proper installation that protects your property and landscape long-term. This prevents costly future repairs and maintains the integrity of your home and garden.` },
       ]} />
       <Navbar />
       <div style={{ paddingTop: '204px' }}>

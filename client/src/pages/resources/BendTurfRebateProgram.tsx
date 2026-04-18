@@ -1,6 +1,6 @@
 import Navbar from '@/components/Navbar';
 import SEO from '@/components/SEO';
-import { BreadcrumbSchema } from '@/components/SchemaMarkup';
+import { BreadcrumbSchema, FAQSchema } from '@/components/SchemaMarkup';
 import { Link } from 'wouter';
 
 export default function BendTurfRebateProgram() {
@@ -15,6 +15,14 @@ export default function BendTurfRebateProgram() {
         { name: 'Home', url: '/' },
         { name: 'Resources', url: '/resources' },
         { name: 'Bend Turf Rebate Program: Get Paid to Xeriscape', url: '/resources/bend-turf-rebate-program' },
+      ]} />
+      <FAQSchema faqs={[
+        { question: `What is the Bend Turf Rebate Program and how can it benefit me?`, answer: `The Bend Turf Rebate Program offers City of Bend water customers $3 per square foot, up to a maximum of $3,000, to remove traditional grass lawns and replace them with water-efficient xeriscaping. This program helps conserve water in our high desert climate and provides financial incentives for creating a more sustainable landscape that thrives in Bend's unique conditions.` },
+        { question: `What are the advantages of xeriscaping in Bend, Oregon's climate?`, answer: `Xeriscaping is highly beneficial for Bend's climate, characterized by USDA Hardiness Zone 6a/6b, volcanic soil, and only about 11 inches of annual rainfall. It significantly reduces water usage, requires less maintenance, and helps plants withstand our common freeze-thaw cycles. This approach creates resilient landscapes perfectly suited to Central Oregon.` },
+        { question: `What types of plants are best for xeriscaping in Bend's volcanic soil?`, answer: `For xeriscaping in Bend's volcanic soil, consider native and drought-tolerant plants that are adapted to our specific conditions. Examples include various sages, lavender, penstemon, and certain ornamental grasses. These plants not only thrive with minimal water but also complement the natural beauty of the Central Oregon landscape.` },
+        { question: `How does the Bend Turf Rebate Program support water conservation efforts in Central Oregon?`, answer: `The Bend Turf Rebate Program is a crucial part of Central Oregon's water conservation strategy, encouraging residents to replace thirsty lawns with low-water landscapes. Given our limited 11 inches of annual rainfall and increasing population, reducing outdoor water use is essential. This initiative helps protect our precious water resources for future generations.` },
+        { question: `Can Newport Avenue Landscaping help me with my Bend Turf Rebate Program project?`, answer: `Yes, Newport Avenue Landscaping specializes in designing and installing beautiful, water-wise landscapes that qualify for the Bend Turf Rebate Program. With over 21 years of experience in Bend, we understand the local climate, volcanic soil, and freeze-thaw cycles, ensuring your xeriscape project is successful and maximizes your rebate potential.` },
+        { question: `What should I consider when planning a xeriscape conversion in Bend, given the local weather patterns?`, answer: `When planning a xeriscape conversion in Bend, it's important to select plants that can tolerate our USDA Zone 6a/6b temperatures and adapt to the volcanic soil and low annual rainfall. Consider the impact of freeze-thaw cycles on plant selection and ensure proper drainage. Newport Avenue Landscaping can guide you through these considerations to create a thriving, low-maintenance landscape.` },
       ]} />
       <Navbar />
       <div style={{ paddingTop: '204px' }}>

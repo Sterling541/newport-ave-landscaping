@@ -1,6 +1,6 @@
 import Navbar from '@/components/Navbar';
 import SEO from '@/components/SEO';
-import { BreadcrumbSchema } from '@/components/SchemaMarkup';
+import { BreadcrumbSchema, FAQSchema } from '@/components/SchemaMarkup';
 import { Link } from 'wouter';
 
 export default function FirePitPatioCostBend() {
@@ -15,6 +15,14 @@ export default function FirePitPatioCostBend() {
         { name: 'Home', url: '/' },
         { name: 'Resources', url: '/resources' },
         { name: 'Fire Pit & Patio Cost in Bend, Oregon', url: '/resources/fire-pit-patio-cost-bend-oregon' },
+      ]} />
+      <FAQSchema faqs={[
+        { question: `How much does a fire pit cost in Bend, Oregon?`, answer: `A built-in fire pit in Bend typically costs $2,000 to $8,000 installed depending on type and materials. A simple masonry fire pit runs $2,000 to $5,000. A gas fire pit with a line connection costs $3,500 to $8,000. A full outdoor fireplace structure can reach $5,000 to $20,000 or more. Newport Avenue provides free fire pit and patio design consultations throughout Bend.` },
+        { question: `Is a gas or wood-burning fire pit better for Bend, Oregon?`, answer: `Gas fire pits are more practical for Bend because they can be used during burn ban periods, require no wood storage, and offer instant on/off convenience. Wood-burning fire pits provide the authentic campfire experience but are subject to Oregon Department of Forestry burn bans during high fire danger periods, which occur regularly in Central Oregon summers.` },
+        { question: `How much does a patio and fire pit combination cost in Bend?`, answer: `A paver patio combined with a built-in fire pit in Bend typically costs $12,000 to $35,000 depending on patio size, fire feature type, and added elements like seating walls, lighting, or an outdoor kitchen. Designing the patio and fire pit together as a single project produces the best results and is usually more cost-effective than adding a fire pit to an existing patio.` },
+        { question: `Do I need a permit for a fire pit in Bend, Oregon?`, answer: `Gas fire pits in Bend require a permit for the gas line connection, typically handled by a licensed plumber or contractor. Built-in masonry fire pits may require a building permit depending on size and location. Newport Avenue coordinates all permit requirements as part of our fire pit installation process.` },
+        { question: `What is the best fire pit design for Bend's windy climate?`, answer: `In Bend's windy high desert climate, a sunken or below-grade fire pit design provides significantly better wind protection than a standard above-grade pit. A fire pit with a built-in wind screen or surrounding seating wall also helps. Newport Avenue designs fire pits specifically for Bend's climate conditions to maximize usability throughout the season.` },
+        { question: `When is the best time to install a fire pit in Bend?`, answer: `Fire pit installations in Bend are best scheduled in spring (April through June) or early fall (September through October) when weather conditions are ideal for concrete work and masonry. Summer installations are possible but can be delayed by heat. Newport Avenue schedules fire pit and patio projects from April through October throughout Central Oregon.` },
       ]} />
       <Navbar />
       <div style={{ paddingTop: '204px' }}>

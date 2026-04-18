@@ -296,27 +296,44 @@ export default function ServicePageLayout({
       </section>
 
       {/* ── CTA ── */}
-      <section className="py-20 text-center" style={{ backgroundColor: "oklch(0.46 0.20 25)" }}>
+      <section className="py-20 text-center" style={{ backgroundColor: "oklch(0.15 0.005 0)" }}>
         <div className="container">
           <FadeIn>
+            <p className="font-label mb-3" style={{ color: "oklch(0.46 0.20 25)", fontSize: "0.65rem", letterSpacing: "0.18em" }}>FREE CONSULTATION · NO OBLIGATION</p>
             <h2
               className="font-display font-light text-white mb-4"
               style={{ fontSize: "clamp(1.6rem, 3vw, 2.8rem)" }}
             >
-              Ready to Get Started?
+              Get Your Free Quote Today
             </h2>
             <p
               className="font-body mb-8 mx-auto"
-              style={{ color: "oklch(0.92 0.05 25)", fontWeight: 300, maxWidth: "480px" }}
+              style={{ color: "oklch(0.72 0.005 0)", fontWeight: 300, maxWidth: "520px", lineHeight: 1.7 }}
             >
-              Fill out our form and one of our specialists will be in touch to schedule your free consultation.
+              We visit your property, listen to your vision, and provide a detailed written proposal — at no cost, no pressure.
             </p>
-            <Link
-              href="/contact"
-              className="btn-red"
-            >
-              GET A FREE QUOTE
-            </Link>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <Link
+                href="/contact"
+                className="btn-red"
+              >
+                SCHEDULE FREE CONSULTATION
+              </Link>
+              <a href="tel:5416178873" className="font-label text-white hover:text-red-400 transition-colors" style={{ fontSize: "0.85rem", letterSpacing: "0.08em" }}>
+                or call (541) 617-8873
+              </a>
+            </div>
+            <div className="flex flex-wrap justify-center gap-6 mt-10">
+              <div className="flex items-center gap-2" style={{ color: "oklch(0.72 0.005 0)", fontSize: "0.78rem" }}>
+                <span style={{ color: "oklch(0.46 0.20 25)" }}>✓</span> Licensed &amp; Insured · LCB #9153
+              </div>
+              <div className="flex items-center gap-2" style={{ color: "oklch(0.72 0.005 0)", fontSize: "0.78rem" }}>
+                <span style={{ color: "oklch(0.46 0.20 25)" }}>✓</span> 21+ Years Serving Central Oregon
+              </div>
+              <div className="flex items-center gap-2" style={{ color: "oklch(0.72 0.005 0)", fontSize: "0.78rem" }}>
+                <span style={{ color: "oklch(0.46 0.20 25)" }}>✓</span> 5-Year Workmanship Warranty
+              </div>
+            </div>
           </FadeIn>
         </div>
       </section>

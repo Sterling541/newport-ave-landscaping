@@ -1,6 +1,6 @@
 import Navbar from '@/components/Navbar';
 import SEO from '@/components/SEO';
-import { BreadcrumbSchema } from '@/components/SchemaMarkup';
+import { BreadcrumbSchema, FAQSchema } from '@/components/SchemaMarkup';
 import { Link } from 'wouter';
 
 export default function OutdoorLightingCostBend() {
@@ -15,6 +15,14 @@ export default function OutdoorLightingCostBend() {
         { name: 'Home', url: '/' },
         { name: 'Resources', url: '/resources' },
         { name: 'Outdoor Lighting Cost in Bend, Oregon', url: '/resources/outdoor-lighting-cost-bend-oregon' },
+      ]} />
+      <FAQSchema faqs={[
+        { question: `What is the average cost to install outdoor lighting in Bend, Oregon?`, answer: `The average cost for outdoor lighting installation in Bend, Oregon, typically ranges from $188 to $212, though prices can vary based on the project's complexity and materials chosen. Factors like the type of fixtures, the size of the area, and specific design elements will influence the final investment. It's always best to get a detailed quote for your unique landscaping needs.` },
+        { question: `How does Bend's climate affect outdoor lighting systems?`, answer: `Bend's climate, characterized by USDA Hardiness Zone 6b, experiences significant temperature fluctuations and freeze-thaw cycles. These conditions can impact the durability and performance of outdoor lighting components. Newport Avenue Landscaping selects high-quality, weather-resistant fixtures and employs installation techniques designed to withstand these local environmental challenges, ensuring longevity and reliability.` },
+        { question: `Are there specific considerations for outdoor lighting in Bend's volcanic soil?`, answer: `Yes, Bend's volcanic soil, often mixed with ash and some clay, presents unique considerations for outdoor lighting installations. While generally well-draining, proper trenching and wiring protection are crucial to prevent damage from shifting soil or moisture. Our team at Newport Avenue Landscaping has extensive experience working with Central Oregon's distinctive soil composition, ensuring secure and stable lighting systems.` },
+        { question: `Does Bend's low annual rainfall impact outdoor lighting maintenance?`, answer: `Bend receives approximately 11 inches of annual rainfall, which is relatively low. This dry climate means less concern about water damage to fixtures, but it can lead to dust accumulation on lenses, reducing light output. Regular cleaning of your outdoor lighting fixtures is recommended to maintain optimal brightness and aesthetic appeal.` },
+        { question: `What types of outdoor lighting are best suited for Bend's weather?`, answer: `For Bend's diverse weather, durable and energy-efficient LED lighting systems are highly recommended. These fixtures are built to withstand cold winters, hot summers, and the freeze-thaw cycles common in Central Oregon. Low-voltage systems are also popular for their safety and ease of installation, providing beautiful illumination year-round.` },
+        { question: `How can outdoor lighting enhance my home in Bend?`, answer: `Outdoor lighting significantly enhances curb appeal, improves safety and security, and extends the usability of your outdoor living spaces in Bend. Thoughtfully designed lighting can highlight architectural features, illuminate pathways, and create inviting ambiance for evening enjoyment. It transforms your landscape into a functional and beautiful extension of your home after sunset.` },
       ]} />
       <Navbar />
       <div style={{ paddingTop: '204px' }}>

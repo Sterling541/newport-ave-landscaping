@@ -1,6 +1,6 @@
 import Navbar from '@/components/Navbar';
 import SEO from '@/components/SEO';
-import { BreadcrumbSchema } from '@/components/SchemaMarkup';
+import { BreadcrumbSchema, FAQSchema } from '@/components/SchemaMarkup';
 import { Link } from 'wouter';
 
 export default function RetainingWallCostBend() {
@@ -15,6 +15,14 @@ export default function RetainingWallCostBend() {
         { name: 'Home', url: '/' },
         { name: 'Resources', url: '/resources' },
         { name: 'Retaining Wall Cost in Bend, Oregon', url: '/resources/retaining-wall-cost-bend-oregon' },
+      ]} />
+      <FAQSchema faqs={[
+        { question: `What factors influence the cost of a retaining wall in Bend, Oregon?`, answer: `The cost of a retaining wall in Bend is primarily influenced by material choice (e.g., concrete blocks, natural stone), wall height and length, site accessibility, and the complexity of the design. Given Bend's volcanic soil and freeze-thaw cycles, proper drainage and foundation preparation are crucial, adding to the overall project scope.` },
+        { question: `How does Bend's climate affect retaining wall construction and cost?`, answer: `Bend's high desert climate, characterized by significant temperature fluctuations and freeze-thaw cycles, necessitates specific construction techniques to prevent wall failure. This often involves deeper foundations and robust drainage systems to manage moisture from the 11 inches of annual rainfall and snowmelt, which can impact material and labor costs.` },
+        { question: `Are there specific materials recommended for retaining walls in Bend's volcanic soil?`, answer: `For Bend's unique volcanic soil, materials that offer excellent stability and durability are recommended. Segmental concrete blocks are popular due to their interlocking design and ability to withstand ground movement. Natural stone, while often more expensive, also performs well and blends beautifully with the Central Oregon landscape.` },
+        { question: `What permits are needed for building a retaining wall in Bend, Oregon?`, answer: `Building a retaining wall in Bend, especially if it exceeds a certain height (typically 4 feet), often requires permits from the City of Bend or Deschutes County. These regulations ensure structural integrity and safety, particularly important given the region's seismic considerations and soil conditions. Newport Avenue Landscaping can assist with navigating these permitting requirements.` },
+        { question: `How much does it cost to repair an existing retaining wall in Bend?`, answer: `The cost to repair a retaining wall in Bend varies widely depending on the extent of the damage and the original construction. Issues like bulging, cracking, or leaning often indicate drainage problems or foundation shifts, common in areas with volcanic soil and freeze-thaw cycles. Minor repairs might involve repointing or replacing a few blocks, while significant structural damage could necessitate partial or full reconstruction.` },
+        { question: `Why should I choose Newport Avenue Landscaping for my retaining wall project in Bend?`, answer: `Newport Avenue Landscaping brings over 21 years of experience to retaining wall projects in Bend, Oregon. Our expertise in navigating Bend's specific climate Zone 6a, volcanic soil, and freeze-thaw cycles ensures a durable and aesthetically pleasing solution. We are LCB #9153 certified and committed to delivering high-quality craftsmanship that stands the test of time.` },
       ]} />
       <Navbar />
       <div style={{ paddingTop: '204px' }}>

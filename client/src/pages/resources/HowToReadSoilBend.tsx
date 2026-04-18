@@ -1,6 +1,6 @@
 import Navbar from '@/components/Navbar';
 import SEO from '@/components/SEO';
-import { BreadcrumbSchema } from '@/components/SchemaMarkup';
+import { BreadcrumbSchema, FAQSchema } from '@/components/SchemaMarkup';
 import { Link } from 'wouter';
 
 export default function HowToReadSoilBend() {
@@ -15,6 +15,14 @@ export default function HowToReadSoilBend() {
         { name: 'Home', url: '/' },
         { name: 'Resources', url: '/resources' },
         { name: 'Understanding Soil in Bend, Oregon', url: '/resources/understanding-soil-bend-oregon' },
+      ]} />
+      <FAQSchema faqs={[
+        { question: `What are the common soil types found in Bend, Oregon?`, answer: `Bend's soil is predominantly volcanic, characterized by pumice and basalt. This often results in sandy, well-draining, but nutrient-poor soil in some areas, while others might have heavier, clay-like volcanic ash. Understanding your specific soil composition is key to successful landscaping in climate Zone 6a.` },
+        { question: `How does Bend's volcanic soil affect gardening and landscaping?`, answer: `Volcanic soil, while unique, can present challenges due to its variable texture and often low organic matter content. This can impact nutrient availability and water retention, especially with Bend's average 11 inches of annual rainfall. Proper soil amendments are crucial for thriving plants in this environment.` },
+        { question: `What are the best strategies for improving soil drainage in Bend?`, answer: `Improving drainage in Bend's volcanic soils often involves incorporating organic matter like compost or aged manure. This helps break up heavy clay particles and improves the structure of sandy soils, allowing for better water percolation. Raised beds are also an excellent solution for areas with particularly poor drainage.` },
+        { question: `How does Bend's low annual rainfall impact soil health and plant watering needs?`, answer: `With only about 11 inches of annual rainfall, Bend's soils are naturally dry, making efficient irrigation vital. This low rainfall, combined with the porous nature of some volcanic soils, means water can quickly leach away. Selecting drought-tolerant plants and using mulches are effective strategies to conserve moisture.` },
+        { question: `What role do freeze-thaw cycles play in Bend's garden soil?`, answer: `Bend's climate Zone 6a experiences significant freeze-thaw cycles, which can impact soil structure. These cycles can help break up compacted soil over winter, but they can also lead to soil heaving, potentially exposing plant roots. Protecting plants with mulch helps mitigate these effects.` },
+        { question: `When should I consider professional soil testing or amendment services in Bend?`, answer: `If your plants are struggling despite proper care, or if you're planning a new landscaping project, professional soil testing is highly recommended. Newport Avenue Landscaping can provide expert analysis of your soil's composition and nutrient levels, offering tailored recommendations to ensure your garden thrives in Bend's unique conditions.` },
       ]} />
       <Navbar />
       <div style={{ paddingTop: '204px' }}>

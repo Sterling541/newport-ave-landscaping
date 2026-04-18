@@ -1,6 +1,6 @@
 import Navbar from '@/components/Navbar';
 import SEO from '@/components/SEO';
-import { BreadcrumbSchema } from '@/components/SchemaMarkup';
+import { BreadcrumbSchema, FAQSchema } from '@/components/SchemaMarkup';
 import { Link } from 'wouter';
 
 export default function HowToWaterLawnBend() {
@@ -15,6 +15,14 @@ export default function HowToWaterLawnBend() {
         { name: 'Home', url: '/' },
         { name: 'Resources', url: '/resources' },
         { name: 'How to Water Your Lawn in Bend, Oregon', url: '/resources/how-to-water-lawn-bend-oregon' },
+      ]} />
+      <FAQSchema faqs={[
+        { question: `What is the best time of day to water my lawn in Bend, Oregon?`, answer: `The ideal time to water your lawn in Bend is early morning, between 4 AM and 8 AM. This minimizes water loss due to evaporation from the high desert sun and allows the grass blades to dry before nightfall, reducing the risk of fungal diseases common with freeze-thaw cycles.` },
+        { question: `How often should I water my lawn given Bend's climate and volcanic soil?`, answer: `In Bend's arid climate (11" annual rainfall) and well-draining volcanic soil, deep and infrequent watering is key. Aim for 2-3 times per week, delivering about 1 inch of water per session, rather than daily shallow watering. This encourages deeper root growth, making your lawn more drought-resistant.` },
+        { question: `What are the signs of overwatering or underwatering a lawn in Central Oregon?`, answer: `Overwatering can lead to shallow roots, yellowing grass, and increased susceptibility to disease, especially in Bend's cooler nights. Underwatering, conversely, will show as wilting, browning, and footprints remaining on the grass. Observing these signs helps you adjust your irrigation schedule effectively.` },
+        { question: `How can Newport Avenue Landscaping help me optimize my lawn watering system for Bend's Zone 6a climate?`, answer: `Newport Avenue Landscaping specializes in designing and installing efficient irrigation systems tailored for Bend's unique Zone 6a climate. We can assess your current system, recommend smart controllers, and implement drip irrigation or rotor heads that deliver water precisely, conserving resources and promoting a healthier lawn.` },
+        { question: `Should I adjust my watering schedule during Bend's hot summers or cold winters?`, answer: `Absolutely. During Bend's hot, dry summers, you may need to increase watering frequency slightly, always maintaining deep watering. In late fall and winter, as temperatures drop and growth slows, significantly reduce watering or turn off your system completely to prevent freezing damage to pipes and over-saturation during freeze-thaw cycles.` },
+        { question: `Are there water-wise lawn alternatives suitable for Bend's volcanic soil and low rainfall?`, answer: `Yes, many water-wise alternatives thrive in Bend's conditions. Consider native grasses, drought-tolerant groundcovers, or xeriscaping with local plants that are adapted to volcanic soil and 11" annual rainfall. Newport Avenue Landscaping can help you explore these options to create a beautiful, sustainable landscape that requires less water.` },
       ]} />
       <Navbar />
       <div style={{ paddingTop: '204px' }}>

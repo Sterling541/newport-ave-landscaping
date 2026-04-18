@@ -1,6 +1,6 @@
 import Navbar from '@/components/Navbar';
 import SEO from '@/components/SEO';
-import { BreadcrumbSchema } from '@/components/SchemaMarkup';
+import { BreadcrumbSchema, FAQSchema } from '@/components/SchemaMarkup';
 import { Link } from 'wouter';
 
 export default function WaterFeatureCostBend() {
@@ -15,6 +15,14 @@ export default function WaterFeatureCostBend() {
         { name: 'Home', url: '/' },
         { name: 'Resources', url: '/resources' },
         { name: 'Water Feature Cost in Bend, Oregon', url: '/resources/water-feature-cost-bend-oregon' },
+      ]} />
+      <FAQSchema faqs={[
+        { question: `How much does a water feature cost in Bend, Oregon?`, answer: `Water feature costs in Bend vary by type. A bubbling boulder or container fountain costs $1,500 to $4,000 installed. A pondless waterfall, the most popular choice in Bend, typically costs $4,000 to $12,000. A full koi pond with filtration ranges from $8,000 to $30,000 or more. Newport Avenue provides free on-site consultations and detailed proposals for all water feature projects in Central Oregon.` },
+        { question: `What type of water feature is best for Bend's climate?`, answer: `Pondless waterfalls are the best choice for Bend because they can be fully drained for winter, eliminating freeze damage risk. Bubbling boulders and container fountains are also excellent low-maintenance options. Traditional open ponds can be maintained year-round with a de-icer but require more winter management. All recirculating systems need to be winterized before Bend's first hard freeze around October 15th.` },
+        { question: `Do water features need to be winterized in Bend?`, answer: `Yes. All water features in Bend should be winterized before the first hard freeze, typically around October 15th. This involves shutting off the pump, draining all pipes and the pump housing, and storing the pump indoors. Koi ponds can run year-round with a pond de-icer to maintain a small open area for gas exchange. Newport Avenue offers water feature winterization and spring startup services.` },
+        { question: `How much water does a pondless waterfall use in Bend?`, answer: `A typical pondless waterfall in Bend uses 50 to 200 gallons per week through evaporation, equivalent to watering a small garden bed. Recirculating systems reuse the same water, so consumption is limited to evaporation and splash losses. During Bend's hot, dry summers, the reservoir may need topping off every 1 to 2 weeks.` },
+        { question: `How long does water feature installation take in Bend?`, answer: `A bubbling boulder or small fountain can be installed in one day. A standard pondless waterfall takes 2 to 4 days. A full koi pond with filtration, planting shelves, and surrounding landscape takes 1 to 2 weeks. Newport Avenue handles all aspects of water feature installation including excavation, plumbing, electrical, and surrounding landscape integration.` },
+        { question: `Can a water feature increase my home value in Bend?`, answer: `Yes. A professionally designed water feature can increase perceived home value and time-on-market appeal in Bend, particularly pondless waterfalls and naturalistic stream features that complement the Central Oregon aesthetic. The key is professional design and installation — poorly executed water features can actually detract from value. Newport Avenue designs water features that enhance the overall landscape and complement the property.` },
       ]} />
       <Navbar />
       <div style={{ paddingTop: '204px' }}>

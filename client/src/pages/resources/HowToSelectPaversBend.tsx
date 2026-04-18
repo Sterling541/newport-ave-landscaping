@@ -1,6 +1,6 @@
 import Navbar from '@/components/Navbar';
 import SEO from '@/components/SEO';
-import { BreadcrumbSchema } from '@/components/SchemaMarkup';
+import { BreadcrumbSchema, FAQSchema } from '@/components/SchemaMarkup';
 import { Link } from 'wouter';
 
 export default function HowToSelectPaversBend() {
@@ -15,6 +15,14 @@ export default function HowToSelectPaversBend() {
         { name: 'Home', url: '/' },
         { name: 'Resources', url: '/resources' },
         { name: 'How to Select Pavers for Your Bend Patio', url: '/resources/how-to-select-pavers-bend-oregon' },
+      ]} />
+      <FAQSchema faqs={[
+        { question: `What types of pavers are best suited for Bend, Oregon's climate and volcanic soil?`, answer: `For Bend's climate Zone 6a, which experiences significant freeze-thaw cycles and only about 11 inches of annual rainfall, durable pavers like concrete or natural stone are ideal. These materials can withstand the temperature fluctuations and provide long-lasting beauty on our unique volcanic soil.` },
+        { question: `How do freeze-thaw cycles in Central Oregon affect paver longevity and what can be done to mitigate this?`, answer: `Bend's pronounced freeze-thaw cycles can cause less durable pavers to crack or shift over time. Proper installation with a well-compacted base and adequate drainage is crucial. Newport Avenue Landscaping ensures a robust foundation for all paver installations to maximize their lifespan in these conditions.` },
+        { question: `What are the considerations for drainage when installing a paver patio in Bend?`, answer: `Effective drainage is vital for paver patios in Bend, especially given our volcanic soil's permeability and occasional heavy snowmelt. Ensuring a slight slope away from structures and using permeable paver options can help manage water runoff and prevent pooling, protecting your investment.` },
+        { question: `Are there specific paver colors or styles that complement the natural aesthetic of Bend, Oregon?`, answer: `Many homeowners in Bend prefer paver colors and styles that blend with the natural high desert landscape. Earth tones, grays, and browns are popular choices, often mimicking local rock formations. Textured pavers can also add to the rustic and natural appeal of a Central Oregon outdoor living space.` },
+        { question: `What is the typical maintenance required for paver patios in Bend's environment?`, answer: `Paver patios in Bend generally require minimal maintenance. Regular sweeping to remove debris and occasional washing will keep them looking good. Sealing can also be applied every few years to protect against stains and enhance durability, especially with our dry climate.` },
+        { question: `How does Newport Avenue Landscaping ensure quality paver installation that withstands Bend's unique weather?`, answer: `Newport Avenue Landscaping has over 21 years of experience installing pavers in Bend, Oregon. We meticulously select materials proven to endure our climate Zone 6a and volcanic soil, and our installation techniques are designed to handle freeze-thaw cycles, ensuring a beautiful and resilient patio for years to come.` },
       ]} />
       <Navbar />
       <div style={{ paddingTop: '204px' }}>

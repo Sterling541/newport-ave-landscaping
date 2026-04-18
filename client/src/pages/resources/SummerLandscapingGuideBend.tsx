@@ -1,6 +1,6 @@
 import Navbar from '@/components/Navbar';
 import SEO from '@/components/SEO';
-import { BreadcrumbSchema } from '@/components/SchemaMarkup';
+import { BreadcrumbSchema, FAQSchema } from '@/components/SchemaMarkup';
 import { Link } from 'wouter';
 
 export default function SummerLandscapingGuideBend() {
@@ -15,6 +15,14 @@ export default function SummerLandscapingGuideBend() {
         { name: 'Home', url: '/' },
         { name: 'Resources', url: '/resources' },
         { name: 'Summer Landscaping Guide for Bend, Oregon', url: '/resources/summer-landscaping-guide-bend-oregon' },
+      ]} />
+      <FAQSchema faqs={[
+        { question: `What are the biggest challenges for summer landscaping in Bend, Oregon?`, answer: `Summer landscaping in Bend presents unique challenges due to its high desert climate, including intense sun, low humidity, and an average of only 11 inches of annual rainfall. The volcanic soil, while well-draining, can also be nutrient-poor, requiring careful amendment to support plant health during the dry summer months. Water conservation is paramount, making drought-tolerant plant selection and efficient irrigation systems crucial for success.` },
+        { question: `How can I conserve water in my Bend landscape during the summer?`, answer: `Water conservation is key in Bend's arid summer environment. Consider implementing xeriscaping principles by choosing native or drought-tolerant plants suited for USDA Zone 6a. Utilizing drip irrigation systems instead of sprinklers can significantly reduce water waste by delivering water directly to plant roots, especially important with our limited annual rainfall.` },
+        { question: `What types of plants thrive in Bend's volcanic soil and dry summer heat?`, answer: `Plants that are well-adapted to arid conditions and volcanic soil thrive in Bend's summer. Examples include many varieties of Penstemon, Sedum, Lavender, and certain ornamental grasses. These plants are resilient to the intense sun and require less water, making them ideal for sustainable landscaping in our high desert climate.` },
+        { question: `Is it necessary to fertilize my lawn in Bend during the summer?`, answer: `Fertilizing your lawn in Bend during the peak summer heat can be counterproductive and even harmful, as it can stress the grass and increase water demands. It's generally better to focus on deep, infrequent watering and consider a slow-release fertilizer application in late spring or early fall. Newport Avenue Landscaping recommends soil testing to determine specific nutrient needs before any fertilization.` },
+        { question: `How do freeze-thaw cycles impact my summer landscaping efforts in Bend?`, answer: `While freeze-thaw cycles are more prominent in winter and spring, their impact on soil structure can affect summer plant health. These cycles can lead to soil compaction or heaving, which may stress plant roots and reduce water absorption during the dry summer. Proper soil amendment with organic matter can help mitigate these effects and improve overall soil resilience.` },
+        { question: `What are some common pests or diseases to watch for in Bend's summer landscape?`, answer: `In Bend's summer, common landscape issues include spider mites and aphids, especially on stressed plants, and powdery mildew in areas with poor air circulation. Drought stress can also make plants more susceptible to disease. Regular monitoring and appropriate, often organic, treatments are recommended to maintain plant health. Newport Avenue Landscaping can provide guidance on pest and disease management tailored to our local conditions.` },
       ]} />
       <Navbar />
       <div style={{ paddingTop: '204px' }}>

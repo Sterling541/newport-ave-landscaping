@@ -1,6 +1,6 @@
 import Navbar from '@/components/Navbar';
 import SEO from '@/components/SEO';
-import { BreadcrumbSchema } from '@/components/SchemaMarkup';
+import { BreadcrumbSchema, FAQSchema } from '@/components/SchemaMarkup';
 import { Link } from 'wouter';
 
 export default function SnowRemovalCostBend() {
@@ -15,6 +15,14 @@ export default function SnowRemovalCostBend() {
         { name: 'Home', url: '/' },
         { name: 'Resources', url: '/resources' },
         { name: 'Snow Removal Cost in Bend, Oregon', url: '/resources/snow-removal-bend-oregon' },
+      ]} />
+      <FAQSchema faqs={[
+        { question: `What is the average cost of snow removal services in Bend, Oregon?`, answer: `The cost of snow removal in Bend can vary significantly based on factors like property size, snowfall intensity, and service frequency. While there isn't a single average, homeowners might expect to pay anywhere from $50 to $150 per visit for standard residential driveways, with commercial properties or larger areas costing more. It's always best to get a custom quote for your specific needs.` },
+        { question: `What factors influence snow removal pricing in Bend's climate?`, answer: `Several factors unique to Bend's climate, including its volcanic soil and freeze-thaw cycles, impact snow removal pricing. The depth and type of snow (wet vs. dry), the size and accessibility of the area to be cleared, and the need for de-icing treatments all play a role. Heavy snowfall years, which can exceed the average 21-33 inches, also drive up costs due to increased service demands.` },
+        { question: `Do snow removal services in Bend offer seasonal contracts or per-visit pricing?`, answer: `Most snow removal companies in Bend offer both seasonal contracts and per-visit pricing options to accommodate different needs. Seasonal contracts often provide a fixed rate for the entire winter, offering peace of mind during heavy snowfall periods. Per-visit pricing is suitable for those who prefer to pay only when services are rendered, which can be appealing given Bend's sometimes unpredictable weather patterns.` },
+        { question: `How does Bend's annual snowfall and unpredictable weather affect snow removal planning?`, answer: `Bend's annual snowfall, which averages between 21 to 33 inches but can be highly unpredictable with significant variations year-to-year, makes proactive snow removal planning essential. The potential for heavy, sudden snow events and frequent freeze-thaw cycles means that properties need reliable and responsive services to prevent ice buildup and ensure safety. Newport Avenue Landscaping understands these local challenges and plans accordingly.` },
+        { question: `What should I look for when hiring a snow removal company in Bend?`, answer: `When hiring a snow removal company in Bend, look for reliability, proper insurance, and experience with local conditions. Ensure they use appropriate equipment for Bend's varied terrain and can respond quickly during heavy snowfalls. Checking references and reading reviews can also help you find a reputable service that meets your specific needs.` },
+        { question: `Can Newport Avenue Landscaping handle snow removal for both residential and commercial properties in Bend?`, answer: `Yes, Newport Avenue Landscaping provides comprehensive snow removal services for both residential and commercial properties throughout Bend and Central Oregon. With over 21 years of experience, we are well-equipped to manage the unique challenges of Bend's winter weather, ensuring safe and clear access for your home or business. Our team is prepared for everything from light dustings to significant snow events.` },
       ]} />
       <Navbar />
       <div style={{ paddingTop: '204px' }}>

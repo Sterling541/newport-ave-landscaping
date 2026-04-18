@@ -1,6 +1,6 @@
 import Navbar from '@/components/Navbar';
 import SEO from '@/components/SEO';
-import { BreadcrumbSchema } from '@/components/SchemaMarkup';
+import { BreadcrumbSchema, FAQSchema } from '@/components/SchemaMarkup';
 import { Link } from 'wouter';
 
 export default function ProfessionalVsDIYLandscapingBend() {
@@ -15,6 +15,14 @@ export default function ProfessionalVsDIYLandscapingBend() {
         { name: 'Home', url: '/' },
         { name: 'Resources', url: '/resources' },
         { name: 'Professional vs. DIY Landscaping in Bend: An Honest Guide', url: '/resources/professional-vs-diy-landscaping-bend-oregon' },
+      ]} />
+      <FAQSchema faqs={[
+        { question: `Is professional landscaping in Bend worth the cost compared to DIY?`, answer: `While DIY landscaping can seem cheaper upfront, professional services often save money long-term by avoiding costly mistakes and ensuring proper plant selection for Bend's unique climate Zone 6a. Experts understand volcanic soil challenges and the impact of 11" annual rainfall, leading to more sustainable and beautiful results.` },
+        { question: `What are the biggest challenges for DIY landscapers in Bend, Oregon?`, answer: `DIY landscapers in Bend often struggle with the region's specific conditions, including nutrient-poor volcanic soil, limited annual rainfall, and harsh freeze-thaw cycles. Without proper knowledge, plants may not thrive, and irrigation systems can be inefficient, leading to frustration and wasted effort.` },
+        { question: `What kind of plants thrive in Bend's climate and volcanic soil?`, answer: `Plants that are drought-tolerant and can handle the high desert's temperature swings and volcanic soil are ideal for Bend. Native species like bitterbrush, sagebrush, and certain conifer varieties are excellent choices, along with hardy perennials adapted to Zone 6a.` },
+        { question: `How can Newport Avenue Landscaping help with my Bend landscaping project?`, answer: `Newport Avenue Landscaping specializes in creating stunning and sustainable outdoor spaces tailored to Bend's environment. With over 21 years of experience, our team understands how to design and implement landscapes that thrive in volcanic soil and withstand freeze-thaw cycles, ensuring your investment lasts.` },
+        { question: `What are some water-wise landscaping tips for Bend, given the low rainfall?`, answer: `To conserve water in Bend's arid climate with only 11" annual rainfall, consider xeriscaping principles, drip irrigation systems, and grouping plants with similar water needs. Choosing native or drought-tolerant plants significantly reduces the need for supplemental watering, making your landscape more efficient.` },
+        { question: `Do professional landscaping services offer long-term maintenance in Bend?`, answer: `Many professional landscaping companies, including Newport Avenue Landscaping, offer comprehensive maintenance plans to keep your outdoor space looking its best year-round. This is especially beneficial in Bend, where seasonal adjustments are crucial due to freeze-thaw cycles and varying water needs.` },
       ]} />
       <Navbar />
       <div style={{ paddingTop: '204px' }}>

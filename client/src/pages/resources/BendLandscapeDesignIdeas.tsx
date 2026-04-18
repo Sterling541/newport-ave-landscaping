@@ -1,6 +1,6 @@
 import Navbar from '@/components/Navbar';
 import SEO from '@/components/SEO';
-import { BreadcrumbSchema } from '@/components/SchemaMarkup';
+import { BreadcrumbSchema, FAQSchema } from '@/components/SchemaMarkup';
 import { Link } from 'wouter';
 
 export default function BendLandscapeDesignIdeas() {
@@ -15,6 +15,14 @@ export default function BendLandscapeDesignIdeas() {
         { name: 'Home', url: '/' },
         { name: 'Resources', url: '/resources' },
         { name: 'Landscape Design Ideas for Bend, Oregon Homes', url: '/resources/landscape-design-ideas-bend-oregon' },
+      ]} />
+      <FAQSchema faqs={[
+        { question: `What are the best plants for landscaping in Bend, Oregon's climate?`, answer: `Given Bend's Zone 6a climate, volcanic soil, and 11 inches of annual rainfall, drought-tolerant and cold-hardy plants thrive. Consider native plants like Manzanita, Oregon Grape, and various conifer species, which are well-adapted to the freeze-thaw cycles and dry summers. Selecting the right plants ensures a beautiful and sustainable landscape.` },
+        { question: `How do Bend's volcanic soil and low rainfall affect landscape design?`, answer: `Bend's unique volcanic soil drains quickly, and with only 11 inches of annual rainfall, water conservation is key. Landscape designs should prioritize xeriscaping principles, utilizing native plants and efficient irrigation systems. Newport Avenue Landscaping specializes in creating designs that flourish in these specific conditions.` },
+        { question: `What are common challenges for landscaping in Bend, Oregon?`, answer: `Landscaping in Bend presents challenges such as extreme temperature fluctuations, limited rainfall, and the need to adapt to volcanic soil. Freeze-thaw cycles can also impact hardscaping and plant health. Proper planning and material selection are crucial for a resilient landscape.` },
+        { question: `How can I create a water-efficient landscape in Bend?`, answer: `To create a water-efficient landscape in Bend, focus on xeriscaping, grouping plants with similar water needs, and installing drip irrigation. Mulching helps retain soil moisture, especially in our dry climate. These practices significantly reduce water consumption while maintaining an attractive outdoor space.` },
+        { question: `What design elements are popular for Bend, Oregon homes?`, answer: `Popular landscape design elements in Bend often include natural stone features, fire pits for cooler evenings, and native plant gardens that blend with the high desert environment. Outdoor living spaces, such as patios and decks, are also highly sought after to enjoy Bend's beautiful scenery. Newport Avenue Landscaping can help you incorporate these elements.` },
+        { question: `How do freeze-thaw cycles impact hardscaping in Bend?`, answer: `Bend's significant freeze-thaw cycles can cause expansion and contraction in hardscaping materials, leading to cracks or shifting if not properly installed. It's essential to use durable, frost-resistant materials and ensure adequate drainage. Proper base preparation is critical to prevent damage over time.` },
       ]} />
       <Navbar />
       <div style={{ paddingTop: '204px' }}>

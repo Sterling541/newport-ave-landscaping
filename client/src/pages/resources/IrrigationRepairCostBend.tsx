@@ -1,6 +1,6 @@
 import Navbar from '@/components/Navbar';
 import SEO from '@/components/SEO';
-import { BreadcrumbSchema } from '@/components/SchemaMarkup';
+import { BreadcrumbSchema, FAQSchema } from '@/components/SchemaMarkup';
 import { Link } from 'wouter';
 
 export default function IrrigationRepairCostBend() {
@@ -15,6 +15,14 @@ export default function IrrigationRepairCostBend() {
         { name: 'Home', url: '/' },
         { name: 'Resources', url: '/resources' },
         { name: 'Irrigation Repair Cost in Bend, Oregon', url: '/resources/irrigation-repair-bend-oregon' },
+      ]} />
+      <FAQSchema faqs={[
+        { question: `What are common irrigation problems in Bend, Oregon, especially with the local climate?`, answer: `In Bend's climate Zone 6a, common irrigation issues often stem from freeze-thaw cycles that can damage pipes and sprinkler heads. The volcanic soil can also impact water distribution, leading to uneven coverage or drainage problems. Additionally, with only 11 inches of annual rainfall, efficient irrigation is crucial, and leaks or malfunctions can quickly lead to plant stress.` },
+        { question: `How much does irrigation repair typically cost in Bend, Oregon?`, answer: `The cost of irrigation repair in Bend can vary depending on the complexity of the issue and the parts required. Many companies, including Newport Avenue Landscaping, charge an hourly rate for technicians plus the cost of materials. It's always best to get a detailed estimate for your specific repair needs.` },
+        { question: `How do Bend's volcanic soil and low rainfall affect irrigation system maintenance?`, answer: `Bend's unique volcanic soil can be challenging for irrigation, as it may have varying permeability, affecting how water is absorbed. The low annual rainfall of 11 inches means that every drop counts, making regular maintenance and prompt repairs essential to prevent water waste and ensure your landscape thrives in this arid environment.` },
+        { question: `What are the signs that my irrigation system in Central Oregon needs professional repair?`, answer: `Look for signs like unusually wet or dry patches in your lawn, visible leaks, sprinkler heads that aren't popping up or retracting properly, or a sudden increase in your water bill. Given Bend's freeze-thaw cycles, it's also wise to inspect your system for winter damage each spring before fully activating it.` },
+        { question: `Does Newport Avenue Landscaping offer emergency irrigation repair services in Bend?`, answer: `Yes, Newport Avenue Landscaping understands that irrigation issues can arise unexpectedly and offers 24-hour emergency service for sprinkler system repairs in Bend, Oregon. Our licensed irrigation technicians are equipped to handle urgent problems to minimize damage and water loss.` },
+        { question: `How can I prevent frequent irrigation repairs in Bend's climate?`, answer: `Regular maintenance is key to preventing frequent irrigation repairs in Bend. This includes proper winterization to protect against freeze-thaw damage, periodic checks for leaks and blockages, and adjusting your system for optimal water distribution in volcanic soil. Consider having a professional like Newport Avenue Landscaping perform annual inspections.` },
       ]} />
       <Navbar />
       <div style={{ paddingTop: '204px' }}>

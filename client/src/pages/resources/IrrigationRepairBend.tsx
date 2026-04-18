@@ -1,6 +1,6 @@
 import Navbar from "@/components/Navbar";
 import SEO from "@/components/SEO";
-import { BreadcrumbSchema } from "@/components/SchemaMarkup";
+import { BreadcrumbSchema, FAQSchema } from "@/components/SchemaMarkup";
 import { Link } from "wouter";
 
 export default function IrrigationRepairBend() {
@@ -15,6 +15,14 @@ export default function IrrigationRepairBend() {
         { name: "Home", url: "/" },
         { name: "Resources", url: "/resources" },
         { name: "Irrigation Repair Bend Oregon", url: "/resources/irrigation-repair-bend-oregon" },
+      ]} />
+      <FAQSchema faqs={[
+        { question: `Why is my irrigation system failing in Bend's climate?`, answer: `Bend's unique climate, with its freeze-thaw cycles and volcanic soil, can put significant stress on irrigation systems. These conditions often lead to cracked pipes, broken sprinkler heads, and compromised seals, requiring regular maintenance and timely repairs to ensure efficient water distribution.` },
+        { question: `How often should I have my irrigation system checked in Central Oregon?`, answer: `Given Bend's dry climate and 11 inches of annual rainfall, it's crucial to have your irrigation system inspected at least once a year, ideally in the spring before peak watering season. This proactive approach helps identify minor issues before they escalate into costly repairs and ensures your landscape receives adequate hydration.` },
+        { question: `What are common irrigation problems in Bend, Oregon?`, answer: `Common irrigation problems in Bend include leaks due to ground movement from freeze-thaw cycles, clogged sprinkler heads from volcanic dust, and inefficient watering patterns. These issues can lead to water waste and unhealthy plant growth if not addressed promptly by a professional.` },
+        { question: `Can Newport Avenue Landscaping repair all types of irrigation systems?`, answer: `Yes, Newport Avenue Landscaping has over 21 years of experience repairing a wide range of irrigation systems, from traditional sprinkler setups to drip irrigation. Our LCB #9153 certified technicians are well-versed in diagnosing and fixing issues specific to Bend's challenging environment.` },
+        { question: `How can I prevent irrigation system damage during Bend's winters?`, answer: `To prevent damage during Bend's harsh winters, it's essential to properly winterize your irrigation system by blowing out the lines to remove all water. This prevents pipes from freezing and bursting during the freeze-thaw cycles, saving you from expensive repairs in the spring.` },
+        { question: `What are the signs I need professional irrigation repair in Bend?`, answer: `Look for signs like unusually wet patches in your lawn, significantly higher water bills, uneven plant growth, or visible leaks. These indicate your system is not functioning optimally and likely requires professional attention to avoid further damage and water loss in Bend's arid conditions.` },
       ]} />
       <Navbar />
       <div style={{ paddingTop: "204px" }}>

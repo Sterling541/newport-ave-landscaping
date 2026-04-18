@@ -1,6 +1,6 @@
 import Navbar from '@/components/Navbar';
 import SEO from '@/components/SEO';
-import { BreadcrumbSchema } from '@/components/SchemaMarkup';
+import { BreadcrumbSchema, FAQSchema } from '@/components/SchemaMarkup';
 import { Link } from 'wouter';
 
 export default function BestPlantsXeriscapeCentralOregon() {
@@ -15,6 +15,14 @@ export default function BestPlantsXeriscapeCentralOregon() {
         { name: 'Home', url: '/' },
         { name: 'Resources', url: '/resources' },
         { name: 'Best Plants for Xeriscaping in Central Oregon', url: '/resources/best-plants-xeriscape-central-oregon' },
+      ]} />
+      <FAQSchema faqs={[
+        { question: `What are the best drought-tolerant plants for Bend, Oregon's climate?`, answer: `For Bend's high desert climate (Zone 6a) with only 11 inches of annual rainfall, excellent xeriscape choices include Lavender, Sedum, and various native grasses. These plants are well-adapted to the dry conditions and can thrive in volcanic soil with minimal supplemental irrigation once established.` },
+        { question: `How does Bend's volcanic soil affect xeriscaping plant choices?`, answer: `Bend's volcanic soil, often characterized by its porous and well-draining nature, is ideal for many xeriscape plants. It's crucial to select plants that prefer good drainage and can tolerate lower nutrient levels, as waterlogging can be detrimental even to drought-tolerant species.` },
+        { question: `What are the benefits of xeriscaping in Central Oregon?`, answer: `Xeriscaping in Central Oregon significantly reduces water consumption, which is vital in our arid environment. Beyond water savings, it promotes biodiversity by using native and adapted plants, requires less maintenance, and can enhance your property's aesthetic appeal while being environmentally responsible.` },
+        { question: `How can Newport Avenue Landscaping help with xeriscape design in Bend?`, answer: `Newport Avenue Landscaping specializes in creating beautiful and sustainable xeriscape designs tailored to Bend's unique conditions. Our experts understand the challenges of Zone 6a, volcanic soil, and freeze-thaw cycles, ensuring your landscape thrives and conserves water effectively.` },
+        { question: `Are there specific considerations for xeriscaping with Bend's freeze-thaw cycles?`, answer: `Yes, Bend's freeze-thaw cycles require careful plant selection to ensure winter hardiness. Choosing plants rated for Zone 6a or colder, and ensuring proper mulching, can protect root systems from temperature fluctuations and prevent frost heave, leading to a more resilient landscape.` },
+        { question: `What are some low-maintenance xeriscape plants suitable for Central Oregon?`, answer: `Many xeriscape plants are inherently low-maintenance, requiring less water and pruning. Examples suitable for Central Oregon include Penstemon, Sagebrush, and various varieties of Juniper. Newport Avenue Landscaping can help you select the perfect combination for a beautiful, easy-care yard.` },
       ]} />
       <Navbar />
       <div style={{ paddingTop: '204px' }}>

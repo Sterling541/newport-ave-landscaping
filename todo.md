@@ -192,3 +192,12 @@
 - [ ] Add FAQ schema to PaverPatioCostBend resource page
 - [ ] Add FAQ schema to XeriscapeCostBend resource page
 - [ ] Add FAQ schema to LawnMaintenanceCostBend resource page
+
+## Session — April 18, 2026 (Site-Wide FAQ Schema + Conversion Audit)
+
+- [ ] Add FAQSchema to all How-To resource pages missing it
+- [ ] Add FAQSchema to all remaining cost guide resource pages missing it
+- [ ] Add FAQSchema to all service pages (via ServicePageLayout faqs prop)
+- [ ] Add FAQSchema to all city pages
+- [ ] Add FAQSchema to all neighborhood pages
+- [ ] Audit and strengthen conversion CTAs on all pages (phone, quote buttons, urgency)

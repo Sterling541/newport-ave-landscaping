@@ -1,6 +1,6 @@
 import Navbar from '@/components/Navbar';
 import SEO from '@/components/SEO';
-import { BreadcrumbSchema } from '@/components/SchemaMarkup';
+import { BreadcrumbSchema, FAQSchema } from '@/components/SchemaMarkup';
 import { Link } from 'wouter';
 
 export default function BendLandscapeBeforeAfter() {
@@ -15,6 +15,14 @@ export default function BendLandscapeBeforeAfter() {
         { name: 'Home', url: '/' },
         { name: 'Resources', url: '/resources' },
         { name: 'Landscape Transformations in Bend, Oregon', url: '/resources/landscape-transformation-bend-oregon' },
+      ]} />
+      <FAQSchema faqs={[
+        { question: `What are the best drought-tolerant plants for a landscape transformation in Bend, Oregon?`, answer: `For Bend's high desert climate (Zone 6a) with only 11" annual rainfall, selecting drought-tolerant plants is crucial for a successful landscape transformation. Native species like Manzanita, Sagebrush, and various ornamental grasses thrive in these conditions, conserving water and reducing maintenance. Consider plants that can withstand both hot, dry summers and cold, snowy winters.` },
+        { question: `How does Bend's volcanic soil impact landscape design and plant selection?`, answer: `Bend's unique volcanic soil, often rocky and fast-draining, presents both challenges and opportunities for landscape design. It's essential to amend the soil with organic matter to improve nutrient retention and water holding capacity for many plants. Newport Avenue Landscaping specializes in understanding these soil conditions to recommend the best plant palettes and design solutions.` },
+        { question: `What are common challenges when undertaking a landscape transformation in Central Oregon?`, answer: `Central Oregon's climate, characterized by significant freeze-thaw cycles and low annual rainfall, poses unique challenges for landscape transformations. Proper irrigation systems are vital, and plant choices must be resilient to temperature fluctuations. Addressing these environmental factors upfront ensures the longevity and beauty of your new landscape.` },
+        { question: `How can I create a low-maintenance landscape in Bend that still looks beautiful?`, answer: `Creating a low-maintenance landscape in Bend involves strategic plant selection and thoughtful design. Focus on native and adapted plants that require less water and pruning, and consider incorporating hardscaping elements like patios and pathways. Mulching generously helps suppress weeds and retain soil moisture, reducing the need for constant attention.` },
+        { question: `What landscaping styles are popular and suitable for homes in Bend, Oregon?`, answer: `Popular landscaping styles in Bend often embrace the natural beauty of Central Oregon, including xeriscaping, modern desert, and rustic mountain designs. These styles typically feature drought-tolerant plants, natural stone, and elements that blend seamlessly with the surrounding environment. They are well-suited to Bend's climate and volcanic terrain.` },
+        { question: `What should I consider when planning a landscape transformation to withstand Bend's freeze-thaw cycles?`, answer: `When planning a landscape transformation in Bend, it's crucial to select plants and materials that can endure the region's intense freeze-thaw cycles. Ensure proper drainage to prevent water from freezing and expanding in critical areas, which can damage hardscaping and plant roots. Choosing hardy, cold-tolerant plant varieties is key to a resilient landscape.` },
       ]} />
       <Navbar />
       <div style={{ paddingTop: '204px' }}>

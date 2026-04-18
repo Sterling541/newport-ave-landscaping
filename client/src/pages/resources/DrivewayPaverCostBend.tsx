@@ -1,6 +1,6 @@
 import Navbar from '@/components/Navbar';
 import SEO from '@/components/SEO';
-import { BreadcrumbSchema } from '@/components/SchemaMarkup';
+import { BreadcrumbSchema, FAQSchema } from '@/components/SchemaMarkup';
 import { Link } from 'wouter';
 
 export default function DrivewayPaverCostBend() {
@@ -15,6 +15,14 @@ export default function DrivewayPaverCostBend() {
         { name: 'Home', url: '/' },
         { name: 'Resources', url: '/resources' },
         { name: 'Paver Driveway Cost in Bend, Oregon', url: '/resources/driveway-paver-cost-bend-oregon' },
+      ]} />
+      <FAQSchema faqs={[
+        { question: `What is the average cost to install a paver driveway in Bend, Oregon?`, answer: `The cost of a paver driveway in Bend, Oregon, typically ranges from $15 to $30 per square foot, depending on the paver material, design complexity, and site preparation needed. Given Bend's volcanic soil, extensive excavation or base material might be required, which can influence the overall price.` },
+        { question: `How do Bend's unique climate and volcanic soil impact paver driveway installation costs?`, answer: `Bend's Climate Zone 6a, characterized by significant temperature fluctuations and freeze-thaw cycles, necessitates a robust base layer to prevent shifting and cracking. The region's volcanic soil can also be challenging to work with, often requiring specialized equipment and additional sub-base preparation, which can increase labor and material costs.` },
+        { question: `Are paver driveways durable enough to withstand Bend's harsh winters and freeze-thaw cycles?`, answer: `Yes, when properly installed, paver driveways are exceptionally durable and well-suited for Bend's climate. The interlocking system of pavers allows for natural expansion and contraction, making them resistant to the freeze-thaw cycles common in Bend. Proper drainage and a well-compacted base are crucial for longevity.` },
+        { question: `What factors influence the price of paver installation in Central Oregon?`, answer: `Several factors affect paver installation costs in Central Oregon, including the type of paver chosen, the size and shape of the driveway, site accessibility, and the amount of excavation needed due to volcanic rock. Newport Avenue Landscaping provides detailed estimates that account for these local conditions to ensure transparency.` },
+        { question: `What kind of maintenance is required for paver driveways in Bend's climate?`, answer: `Paver driveways in Bend require minimal maintenance, typically involving occasional sweeping, washing, and re-sanding of joints every few years to prevent weed growth and maintain stability. Sealing can also be applied to protect against stains and enhance color, which is beneficial given Bend's 11 inches of annual rainfall.` },
+        { question: `Why should I choose Newport Avenue Landscaping for my paver driveway project in Bend?`, answer: `Newport Avenue Landscaping has over 21 years of experience designing and installing paver driveways in Bend, Oregon. Our expertise with the local climate, volcanic soil, and freeze-thaw cycles ensures a durable and beautiful installation that will last for decades. We are committed to quality craftsmanship and customer satisfaction.` },
       ]} />
       <Navbar />
       <div style={{ paddingTop: '204px' }}>

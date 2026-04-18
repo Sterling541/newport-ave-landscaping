@@ -1,6 +1,6 @@
 import Navbar from '@/components/Navbar';
 import SEO from '@/components/SEO';
-import { BreadcrumbSchema } from '@/components/SchemaMarkup';
+import { BreadcrumbSchema, FAQSchema } from '@/components/SchemaMarkup';
 import { Link } from 'wouter';
 
 export default function PergolaCostBend() {
@@ -15,6 +15,14 @@ export default function PergolaCostBend() {
         { name: 'Home', url: '/' },
         { name: 'Resources', url: '/resources' },
         { name: 'Pergola Cost in Bend, Oregon: What to Expect', url: '/resources/pergola-cost-bend-oregon' },
+      ]} />
+      <FAQSchema faqs={[
+        { question: `What factors influence pergola cost in Bend, Oregon?`, answer: `The cost of a pergola in Bend, Oregon, is influenced by several factors, including material choice (wood, vinyl, aluminum), size, design complexity, and whether it's a DIY project or professionally installed. Given Bend's climate Zone 6a and freeze-thaw cycles, durable materials and proper installation are crucial for longevity, which can impact the overall price.` },
+        { question: `How does Bend's climate affect pergola material choices and cost?`, answer: `Bend's unique climate, with its high desert environment, volcanic soil, and significant temperature fluctuations, necessitates careful material selection for pergolas. Materials that can withstand intense sun, occasional heavy snow loads, and freeze-thaw cycles will be more durable, potentially increasing initial costs but saving on long-term maintenance. Newport Avenue Landscaping specializes in selecting and installing pergolas designed to thrive in these specific conditions.` },
+        { question: `Are there specific permits required for building a pergola in Bend?`, answer: `Yes, depending on the size and structural characteristics of your pergola, you may need permits from the City of Bend. It's always advisable to check local building codes and regulations before starting construction. Ensuring compliance can prevent costly issues down the line.` },
+        { question: `What is the typical price range for a custom pergola installation in Bend?`, answer: `For a custom pergola installation in Bend, prices can vary widely, typically ranging from $5,000 to $20,000 or more, depending on the factors mentioned earlier. This range accounts for professional design, quality materials suited for Bend's climate, and expert installation. Newport Avenue Landscaping provides detailed estimates tailored to your specific vision and property.` },
+        { question: `Can a pergola increase my home's value in Bend?`, answer: `A well-designed and properly installed pergola can certainly enhance your outdoor living space and potentially increase your home's value in Bend. It adds aesthetic appeal and functional outdoor square footage, which is highly desirable in the Central Oregon real estate market. Choosing a design that complements your home and withstands local weather is key.` },
+        { question: `What are the best materials for a pergola in Bend's volcanic soil and low rainfall?`, answer: `Considering Bend's volcanic soil and average 11 inches of annual rainfall, materials like powder-coated aluminum, treated lumber (cedar or redwood), or high-quality vinyl are excellent choices for pergolas. These materials offer resistance to rot, pests, and weathering, ensuring your pergola remains a beautiful and functional addition to your landscape for years to come.` },
       ]} />
       <Navbar />
       <div style={{ paddingTop: '204px' }}>

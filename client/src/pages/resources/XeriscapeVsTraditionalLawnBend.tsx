@@ -1,6 +1,6 @@
 import Navbar from '@/components/Navbar';
 import SEO from '@/components/SEO';
-import { BreadcrumbSchema } from '@/components/SchemaMarkup';
+import { BreadcrumbSchema, FAQSchema } from '@/components/SchemaMarkup';
 import { Link } from 'wouter';
 
 export default function XeriscapeVsTraditionalLawnBend() {
@@ -15,6 +15,14 @@ export default function XeriscapeVsTraditionalLawnBend() {
         { name: 'Home', url: '/' },
         { name: 'Resources', url: '/resources' },
         { name: "Xeriscape vs. Traditional Lawn: What's Right for Your Bend Home?", url: '/resources/xeriscape-vs-traditional-lawn-bend-oregon' },
+      ]} />
+      <FAQSchema faqs={[
+        { question: `Why is xeriscaping a good option for Bend, Oregon?`, answer: `Xeriscaping is ideal for Bend due to its arid climate, characterized by only 11 inches of annual rainfall and frequent freeze-thaw cycles. It significantly reduces water consumption, aligning with local conservation efforts and helping homeowners save on utility bills.` },
+        { question: `What are the main challenges of maintaining a traditional lawn in Bend's climate?`, answer: `Traditional lawns in Bend face several challenges, including the need for extensive irrigation due to low rainfall and the difficulty of establishing healthy turf in volcanic soil. The harsh winters and freeze-thaw cycles can also damage grass, requiring constant maintenance and reseeding.` },
+        { question: `What kind of plants thrive in a xeriscape in Bend, Oregon?`, answer: `Native and drought-tolerant plants are best suited for xeriscapes in Bend. Examples include various types of sage, lavender, sedum, and certain ornamental grasses that can withstand the region's climate Zone 6a and volcanic soil conditions with minimal water.` },
+        { question: `How much water can I save by switching to xeriscaping in Bend?`, answer: `Homeowners in Bend can typically save 50-75% on their outdoor water usage by converting to xeriscaping. This substantial reduction not only benefits the environment but also leads to significant cost savings on water bills, especially during the dry summer months.` },
+        { question: `Does Newport Avenue Landscaping offer xeriscape design and installation services in Bend?`, answer: `Yes, Newport Avenue Landscaping specializes in creating beautiful and sustainable xeriscape designs tailored to Bend's unique environment. With over 21 years of experience, our team understands how to select plants that thrive in volcanic soil and withstand the local climate, ensuring a low-maintenance and water-efficient landscape.` },
+        { question: `Is it difficult to convert an existing traditional lawn to a xeriscape in Bend?`, answer: `Converting a traditional lawn to a xeriscape can be a straightforward process with proper planning. It typically involves removing existing turf, amending the volcanic soil, and installing drought-tolerant plants and efficient irrigation systems. Newport Avenue Landscaping can guide you through every step, making the transition smooth and successful.` },
       ]} />
       <Navbar />
       <div style={{ paddingTop: '204px' }}>

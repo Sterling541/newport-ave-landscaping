@@ -1,6 +1,6 @@
 import Navbar from '@/components/Navbar';
 import SEO from '@/components/SEO';
-import { BreadcrumbSchema } from '@/components/SchemaMarkup';
+import { BreadcrumbSchema, FAQSchema } from '@/components/SchemaMarkup';
 import { Link } from 'wouter';
 
 export default function BoulderLandscapingCostBend() {
@@ -15,6 +15,14 @@ export default function BoulderLandscapingCostBend() {
         { name: 'Home', url: '/' },
         { name: 'Resources', url: '/resources' },
         { name: 'Boulder Landscaping Cost in Bend, Oregon', url: '/resources/boulder-landscaping-cost-bend-oregon' },
+      ]} />
+      <FAQSchema faqs={[
+        { question: `What factors influence the cost of boulder landscaping in Bend, Oregon?`, answer: `The cost of boulder landscaping in Bend is primarily influenced by the type and size of boulders, accessibility of the site, and the complexity of the design. Given Bend's volcanic soil and freeze-thaw cycles, proper installation techniques are crucial, which can also impact the overall price.` },
+        { question: `How much does it typically cost to install boulders in a landscape design in Central Oregon?`, answer: `In Central Oregon, the cost for boulder installation can vary widely, but generally ranges from $100 to $500 per boulder, not including delivery or placement. Larger, more unique boulders or those requiring specialized equipment for placement will naturally be at the higher end of this spectrum.` },
+        { question: `Are there specific types of boulders recommended for Bend's climate and soil conditions?`, answer: `Yes, for Bend's climate Zone 6a and volcanic soil, durable, locally sourced boulders like basalt or river rock are often recommended. These types of boulders can withstand the 11 inches of annual rainfall and significant temperature fluctuations without excessive erosion or degradation.` },
+        { question: `Can boulder landscaping help with drainage issues in a Bend yard?`, answer: `Absolutely. Strategically placed boulders can be highly effective in managing water flow and preventing erosion, especially in areas prone to runoff. Newport Avenue Landscaping often incorporates boulders into drainage solutions to create both functional and aesthetically pleasing landscapes.` },
+        { question: `What are the benefits of using boulders in a high desert landscape like Bend's?`, answer: `Boulders offer numerous benefits for high desert landscapes, including natural aesthetics, reduced water usage by minimizing turf areas, and increased property value. They also provide habitat for local wildlife and can help stabilize slopes, which is important in areas with varied terrain.` },
+        { question: `How long does a typical boulder landscaping project take with Newport Avenue Landscaping?`, answer: `The duration of a boulder landscaping project depends on its scale and complexity. A small accent boulder placement might take a day, while a larger project involving multiple boulders and extensive design can take several days to a week. Newport Avenue Landscaping prioritizes efficient and high-quality installation to minimize disruption.` },
       ]} />
       <Navbar />
       <div style={{ paddingTop: '204px' }}>

@@ -1,6 +1,6 @@
 import Navbar from '@/components/Navbar';
 import SEO from '@/components/SEO';
-import { BreadcrumbSchema } from '@/components/SchemaMarkup';
+import { BreadcrumbSchema, FAQSchema } from '@/components/SchemaMarkup';
 import { Link } from 'wouter';
 
 export default function HowToReadLandscapeProposal() {
@@ -15,6 +15,14 @@ export default function HowToReadLandscapeProposal() {
         { name: 'Home', url: '/' },
         { name: 'Resources', url: '/resources' },
         { name: 'How to Read and Evaluate a Landscape Proposal in Bend', url: '/resources/how-to-read-landscape-proposal-bend-oregon' },
+      ]} />
+      <FAQSchema faqs={[
+        { question: `What should a landscape proposal for Bend, Oregon, include regarding local climate and soil?`, answer: `A comprehensive landscape proposal for Bend should detail how plant selections and irrigation systems are suited for our unique climate Zone 6a, volcanic soil, and average 11 inches of annual rainfall. It should also address strategies for managing freeze-thaw cycles to protect hardscaping and plant health.` },
+        { question: `How do I ensure my landscape proposal addresses Bend's specific water conservation guidelines?`, answer: `Your proposal should clearly outline water-wise landscaping practices, such as xeriscaping principles and efficient irrigation methods like drip systems. In Bend, adhering to local water conservation guidelines is crucial, and a good proposal will reflect this commitment to sustainability.` },
+        { question: `What permits are typically required for landscaping projects in Bend, and will my proposal cover them?`, answer: `For many landscaping projects in Bend, especially those involving significant changes to grading, irrigation, or structures, permits from the City of Bend may be necessary. A professional landscape proposal should specify which permits are needed and clarify who is responsible for obtaining them.` },
+        { question: `How can I compare different landscape proposals effectively in the Bend area?`, answer: `When comparing proposals in Bend, look beyond just the price. Evaluate the scope of work, material quality, warranty information, and the contractor's experience with local conditions. Newport Avenue Landscaping ensures transparent and detailed proposals, making it easier for clients to understand every aspect of their project.` },
+        { question: `What are common red flags to look for when reviewing a landscape proposal in Central Oregon?`, answer: `Be wary of proposals that lack detail, omit local considerations like volcanic soil or freeze-thaw cycles, or don't include a clear timeline and payment schedule. Unusually low bids might also indicate a lack of quality or hidden costs down the line.` },
+        { question: `Does Newport Avenue Landscaping offer design revisions as part of their proposal process?`, answer: `Yes, Newport Avenue Landscaping understands that a landscape project is a collaborative effort. Our proposals typically include provisions for design revisions to ensure the final plan perfectly aligns with your vision and budget, while also considering Bend's specific environmental factors.` },
       ]} />
       <Navbar />
       <div style={{ paddingTop: '204px' }}>

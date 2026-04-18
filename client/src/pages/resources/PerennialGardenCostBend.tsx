@@ -1,6 +1,6 @@
 import Navbar from '@/components/Navbar';
 import SEO from '@/components/SEO';
-import { BreadcrumbSchema } from '@/components/SchemaMarkup';
+import { BreadcrumbSchema, FAQSchema } from '@/components/SchemaMarkup';
 import { Link } from 'wouter';
 
 export default function PerennialGardenCostBend() {
@@ -15,6 +15,14 @@ export default function PerennialGardenCostBend() {
         { name: 'Home', url: '/' },
         { name: 'Resources', url: '/resources' },
         { name: 'Perennial Garden Installation Cost in Bend, Oregon', url: '/resources/perennial-garden-cost-bend-oregon' },
+      ]} />
+      <FAQSchema faqs={[
+        { question: `What is the average cost to install a perennial garden in Bend, Oregon?`, answer: `The cost of perennial garden installation in Bend, Oregon, can vary widely based on factors like garden size, plant selection, and site preparation. Given Bend's unique volcanic soil and Zone 6a climate, specialized soil amendments might be necessary, influencing the overall expense. Newport Avenue Landscaping provides detailed estimates tailored to your specific project and budget.` },
+        { question: `What perennials thrive best in Bend's climate and soil conditions?`, answer: `In Bend's Zone 6a climate with its distinct freeze-thaw cycles and volcanic soil, resilient perennials like lavender, coneflowers, sedum, and certain ornamental grasses flourish. These plants are well-adapted to the 11 inches of annual rainfall and can withstand the high desert conditions, ensuring a vibrant and sustainable garden.` },
+        { question: `How do Bend's volcanic soil and low rainfall affect perennial garden design?`, answer: `Bend's volcanic soil, while rich in some minerals, often requires amendments to improve drainage and nutrient availability for many perennials. The low annual rainfall of approximately 11 inches necessitates a focus on drought-tolerant species and efficient irrigation systems, making water-wise plant choices crucial for a successful garden.` },
+        { question: `Are there specific challenges for perennial gardens in Bend due to freeze-thaw cycles?`, answer: `Yes, Bend's significant freeze-thaw cycles can be challenging for perennial gardens, potentially causing root heave and damage to less hardy plants. Proper planting depth, mulching, and selecting cold-hardy varieties are essential strategies to protect your perennials through the winter months and ensure their return each spring.` },
+        { question: `What maintenance is required for a perennial garden in Central Oregon?`, answer: `Maintaining a perennial garden in Central Oregon involves regular watering, especially during dry spells, and occasional fertilization to support growth in volcanic soils. Pruning spent blooms and dividing mature plants every few years will encourage vigor and extend the life of your garden. Newport Avenue Landscaping offers comprehensive maintenance services to keep your perennial garden looking its best.` },
+        { question: `Can I have a colorful perennial garden in Bend with limited water?`, answer: `Absolutely! Many beautiful and colorful perennials are well-suited for Bend's arid climate and can thrive with limited water. By choosing drought-tolerant varieties and implementing smart irrigation techniques, you can create a stunning and sustainable garden that conserves water while still providing vibrant blooms throughout the growing season.` },
       ]} />
       <Navbar />
       <div style={{ paddingTop: '204px' }}>

@@ -1,6 +1,6 @@
 import Navbar from '@/components/Navbar';
 import SEO from '@/components/SEO';
-import { BreadcrumbSchema } from '@/components/SchemaMarkup';
+import { BreadcrumbSchema, FAQSchema } from '@/components/SchemaMarkup';
 import { Link } from 'wouter';
 
 export default function PaversVsConcreteBend() {
@@ -15,6 +15,14 @@ export default function PaversVsConcreteBend() {
         { name: 'Home', url: '/' },
         { name: 'Resources', url: '/resources' },
         { name: 'Pavers vs. Concrete: Which Is Better for Bend Patios?', url: '/resources/pavers-vs-concrete-bend-oregon' },
+      ]} />
+      <FAQSchema faqs={[
+        { question: `Which is better for patios in Bend, pavers or concrete?`, answer: `Both pavers and concrete have their merits for patios in Bend, but pavers often excel due to our unique climate. Bend experiences significant freeze-thaw cycles and volcanic soil, which can cause concrete to crack over time. Pavers, with their individual joints, can flex and adapt to these conditions, offering greater longevity and easier repairs.` },
+        { question: `How do Bend's weather conditions affect concrete patios?`, answer: `Bend's climate, characterized by cold winters, hot summers, and frequent freeze-thaw cycles, can be particularly harsh on concrete patios. The expansion and contraction of water within concrete pores can lead to cracking and spalling. While proper installation and sealing can mitigate some issues, concrete is inherently less flexible than pavers in these conditions.` },
+        { question: `Are pavers more expensive than concrete for a patio in Central Oregon?`, answer: `Initially, pavers can sometimes have a higher upfront cost than poured concrete due to the labor-intensive installation process. However, considering the long-term durability and lower maintenance in Bend's climate, pavers often prove to be a more cost-effective solution. Newport Avenue Landscaping can provide a detailed cost comparison tailored to your specific project.` },
+        { question: `What are the best paver materials for Bend's volcanic soil?`, answer: `For Bend's volcanic soil and 11-inch annual rainfall, durable paver materials like concrete pavers or natural stone are excellent choices. These materials are robust enough to withstand the local conditions and offer good drainage. Proper base preparation is crucial to ensure stability and prevent shifting in our unique soil composition.` },
+        { question: `Can Newport Avenue Landscaping help design a paver patio that withstands Bend's freeze-thaw cycles?`, answer: `Absolutely! Newport Avenue Landscaping specializes in designing and installing paver patios that are built to last in Bend's challenging climate. With over 21 years of experience, we understand the impact of freeze-thaw cycles and volcanic soil, ensuring our installations provide superior drainage and structural integrity for your outdoor living space.` },
+        { question: `What kind of maintenance do pavers require in Bend, Oregon?`, answer: `Pavers in Bend generally require minimal maintenance. Regular sweeping and occasional washing will keep them looking great. It's also advisable to periodically check and replenish joint sand to prevent weed growth and maintain stability, especially after heavy rains or snowmelt. Unlike concrete, individual pavers can be easily replaced if damaged.` },
       ]} />
       <Navbar />
       <div style={{ paddingTop: '204px' }}>

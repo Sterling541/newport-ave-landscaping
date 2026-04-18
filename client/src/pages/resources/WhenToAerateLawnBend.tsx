@@ -1,6 +1,6 @@
 import Navbar from '@/components/Navbar';
 import SEO from '@/components/SEO';
-import { BreadcrumbSchema } from '@/components/SchemaMarkup';
+import { BreadcrumbSchema, FAQSchema } from '@/components/SchemaMarkup';
 import { Link } from 'wouter';
 
 export default function WhenToAerateLawnBend() {
@@ -15,6 +15,14 @@ export default function WhenToAerateLawnBend() {
         { name: 'Home', url: '/' },
         { name: 'Resources', url: '/resources' },
         { name: 'When to Aerate Your Lawn in Bend, Oregon', url: '/resources/when-to-aerate-lawn-bend-oregon' },
+      ]} />
+      <FAQSchema faqs={[
+        { question: `When is the best time to aerate my lawn in Bend, Oregon?`, answer: `The ideal time to aerate your lawn in Bend is typically in late spring (May to early June) or early fall (September to early October). This allows your grass to recover quickly during periods of active growth, before the harsh Bend winter or intense summer heat. Considering Bend's climate Zone 6a and volcanic soil, these windows are crucial for effective aeration.` },
+        { question: `How does Bend's volcanic soil and climate affect lawn aeration?`, answer: `Bend's volcanic soil, while rich in minerals, can become compacted easily, especially with the region's freeze-thaw cycles. This compaction hinders water and nutrient absorption. Aeration helps break up this dense soil, improving drainage and allowing roots to access essential resources, which is vital given our 11 inches of annual rainfall.` },
+        { question: `How often should I aerate my lawn in Central Oregon?`, answer: `For most lawns in Central Oregon, annual aeration is beneficial, particularly if your lawn experiences heavy foot traffic or has dense clay-like volcanic soil. However, if your lawn is consistently healthy and drains well, you might consider aerating every two to three years. Newport Avenue Landscaping can assess your specific lawn needs.` },
+        { question: `What are the benefits of aerating my lawn in Bend?`, answer: `Aerating your lawn in Bend significantly improves its health and resilience. It enhances water penetration, reduces puddling, and allows fertilizers to reach the root zone more effectively. This process also strengthens grass roots, making your lawn more tolerant to drought and the temperature fluctuations common in our high desert climate.` },
+        { question: `Can I aerate my lawn myself, or should I hire a professional in Bend?`, answer: `While DIY aeration is possible with rented equipment, hiring a professional like Newport Avenue Landscaping ensures the job is done correctly and efficiently. Professionals have commercial-grade equipment that can penetrate Bend's tough volcanic soil more effectively, providing optimal results and saving you time and effort.` },
+        { question: `What should I do after aerating my lawn in Bend?`, answer: `After aerating, it's beneficial to overseed your lawn, especially with grass varieties suited for Bend's climate, and apply a balanced fertilizer. Watering thoroughly will help new seeds germinate and nutrients penetrate the soil. This post-aeration care maximizes the benefits and promotes a lush, healthy lawn.` },
       ]} />
       <Navbar />
       <div style={{ paddingTop: '204px' }}>

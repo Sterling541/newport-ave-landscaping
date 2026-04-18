@@ -1,6 +1,6 @@
 import Navbar from '@/components/Navbar';
 import SEO from '@/components/SEO';
-import { BreadcrumbSchema } from '@/components/SchemaMarkup';
+import { BreadcrumbSchema, FAQSchema } from '@/components/SchemaMarkup';
 import { Link } from 'wouter';
 
 export default function LandscapeDesignCostBend() {
@@ -15,6 +15,14 @@ export default function LandscapeDesignCostBend() {
         { name: 'Home', url: '/' },
         { name: 'Resources', url: '/resources' },
         { name: 'Landscape Design Cost in Bend, Oregon', url: '/resources/landscape-design-cost-bend-oregon' },
+      ]} />
+      <FAQSchema faqs={[
+        { question: `What factors influence landscape design costs in Bend, Oregon?`, answer: `Several factors impact landscape design costs in Bend, including the size and complexity of your project, material choices, and the specific challenges of our local environment. Bend's unique volcanic soil and Zone 6a climate often require specialized plant selections and irrigation systems, which can affect overall expenses.` },
+        { question: `How does Bend's climate affect landscape design and its cost?`, answer: `Bend's high desert climate, with its 11 inches of annual rainfall and significant freeze-thaw cycles, necessitates drought-tolerant plants and durable hardscaping materials. These considerations are crucial for a sustainable landscape and can influence the initial design and installation costs to ensure longevity.` },
+        { question: `Can I get an estimate for landscape design in Bend without a full commitment?`, answer: `Yes, most reputable landscaping companies in Bend, including Newport Avenue Landscaping, offer initial consultations to discuss your vision and provide a preliminary cost estimate. This helps you understand the potential investment before committing to a detailed design plan.` },
+        { question: `What are common landscape design elements that add value in Bend homes?`, answer: `Popular elements that enhance home value in Bend include native plant gardens, efficient drip irrigation systems, outdoor living spaces like patios with fire pits, and thoughtful hardscaping that complements the natural surroundings. These features are both aesthetically pleasing and practical for our local conditions.` },
+        { question: `How long does a typical landscape design project take in Bend?`, answer: `The timeline for a landscape design project in Bend varies based on its scope and complexity. A smaller project might take a few weeks for design and installation, while larger, more intricate designs, especially those involving extensive hardscaping or unique water features, could span several months.` },
+        { question: `Why is professional landscape design important for properties in Bend, Oregon?`, answer: `Professional landscape design is vital in Bend to create a beautiful, functional, and sustainable outdoor space that thrives in our specific climate. Newport Avenue Landscaping specializes in designing landscapes that not only withstand Bend's weather but also enhance your property's curb appeal and outdoor enjoyment.` },
       ]} />
       <Navbar />
       <div style={{ paddingTop: '204px' }}>

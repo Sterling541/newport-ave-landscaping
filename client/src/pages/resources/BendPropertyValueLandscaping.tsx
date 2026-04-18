@@ -1,6 +1,6 @@
 import Navbar from '@/components/Navbar';
 import SEO from '@/components/SEO';
-import { BreadcrumbSchema } from '@/components/SchemaMarkup';
+import { BreadcrumbSchema, FAQSchema } from '@/components/SchemaMarkup';
 import { Link } from 'wouter';
 
 export default function BendPropertyValueLandscaping() {
@@ -15,6 +15,14 @@ export default function BendPropertyValueLandscaping() {
         { name: 'Home', url: '/' },
         { name: 'Resources', url: '/resources' },
         { name: 'Does Landscaping Increase Home Value in Bend, Oregon?', url: '/resources/landscaping-home-value-bend-oregon' },
+      ]} />
+      <FAQSchema faqs={[
+        { question: `How does professional landscaping increase home value in Bend, Oregon?`, answer: `Professional landscaping significantly boosts curb appeal, which is crucial for property value in Bend's competitive market. Thoughtful design considers Bend's unique climate Zone 6a, volcanic soil, and limited 11" annual rainfall, ensuring sustainable and attractive outdoor spaces that resonate with potential buyers.` },
+        { question: `What landscaping features are most valuable for homes in Bend's climate?`, answer: `In Bend, features like drought-tolerant native plants, efficient irrigation systems, and hardscaping elements such as patios or fire pits are highly valued. These not only thrive in our dry climate and volcanic soil but also provide year-round usability despite freeze-thaw cycles, enhancing outdoor living.` },
+        { question: `What is the typical return on investment for landscaping projects in Bend?`, answer: `Landscaping projects in Bend can offer a substantial return on investment, often ranging from 100% to 200% or more, especially for well-designed and maintained spaces. Enhancements that improve water efficiency and blend with the natural high desert aesthetic tend to yield the best financial benefits.` },
+        { question: `How can I create a low-maintenance landscape that still adds value in Bend?`, answer: `Achieving a low-maintenance yet valuable landscape in Bend involves selecting native, drought-resistant plants that are adapted to our volcanic soil and 11" annual rainfall. Strategic hardscaping and efficient drip irrigation systems also minimize upkeep, allowing you to enjoy your outdoor space without constant work.` },
+        { question: `Why should I hire a local landscaping company like Newport Avenue Landscaping in Bend?`, answer: `Local companies like Newport Avenue Landscaping possess invaluable expertise in navigating Bend's specific environmental challenges, including our Zone 6a climate and freeze-thaw cycles. Their deep understanding of local flora, volcanic soil conditions, and water conservation practices ensures your investment is both beautiful and sustainable.` },
+        { question: `Does landscaping help with erosion control on Bend properties?`, answer: `Yes, strategic landscaping is vital for erosion control, particularly on properties with slopes or exposed volcanic soil. Proper grading, retaining walls, and deep-rooted plants can effectively manage runoff from the 11" annual rainfall and mitigate the impact of freeze-thaw cycles, protecting your property's integrity.` },
       ]} />
       <Navbar />
       <div style={{ paddingTop: '204px' }}>

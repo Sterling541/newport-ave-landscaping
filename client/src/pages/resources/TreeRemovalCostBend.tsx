@@ -1,6 +1,6 @@
 import Navbar from '@/components/Navbar';
 import SEO from '@/components/SEO';
-import { BreadcrumbSchema } from '@/components/SchemaMarkup';
+import { BreadcrumbSchema, FAQSchema } from '@/components/SchemaMarkup';
 import { Link } from 'wouter';
 
 export default function TreeRemovalCostBend() {
@@ -15,6 +15,14 @@ export default function TreeRemovalCostBend() {
         { name: 'Home', url: '/' },
         { name: 'Resources', url: '/resources' },
         { name: 'Tree Removal Cost in Bend, Oregon', url: '/resources/tree-removal-cost-bend-oregon' },
+      ]} />
+      <FAQSchema faqs={[
+        { question: `What factors influence tree removal costs in Bend, Oregon?`, answer: `Tree removal costs in Bend are primarily influenced by the tree's size, location, and condition. Factors like proximity to structures, power lines, and the presence of diseases or rot can significantly increase the complexity and cost of removal, especially given Bend's volcanic soil which can make root extraction challenging.` },
+        { question: `How does Bend's climate affect tree removal pricing?`, answer: `Bend's high desert climate, characterized by cold winters, heavy snow, and freeze-thaw cycles, can impact tree health and removal difficulty. Trees weakened by these conditions may require more delicate handling, and frozen ground can affect equipment access, potentially influencing the overall cost.` },
+        { question: `Do I need a permit for tree removal in Bend, Oregon?`, answer: `Permit requirements for tree removal in Bend depend on the tree's size, species, and location within the city or county. It's crucial to check with the City of Bend Planning Division or Deschutes County for specific regulations before proceeding, as unauthorized removal can result in fines.` },
+        { question: `What is the average cost of tree removal in Bend, Oregon?`, answer: `The average cost for tree removal in Bend, Oregon, can range from $300 for smaller trees to over $2,000 for large, complex removals. These figures are estimates, and a professional assessment is always recommended to get an accurate quote tailored to your specific situation.` },
+        { question: `Why choose Newport Avenue Landscaping for tree removal in Bend?`, answer: `Newport Avenue Landscaping has over 21 years of experience serving the Bend area, understanding the unique challenges posed by our local climate and volcanic soil. Our LCB #9153 certified team provides safe, efficient, and comprehensive tree removal services, ensuring minimal disruption to your property.` },
+        { question: `Are there ways to reduce the cost of tree removal in Bend?`, answer: `While safety should always be the priority, some factors can help manage costs. If possible, clearing the area around the tree for easier access can reduce labor time. Additionally, discussing options like leaving wood for firewood or handling debris disposal yourself might offer some savings, though Newport Avenue Landscaping offers full-service solutions for convenience.` },
       ]} />
       <Navbar />
       <div style={{ paddingTop: '204px' }}>

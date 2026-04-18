@@ -1,6 +1,6 @@
 import Navbar from "@/components/Navbar";
 import SEO from "@/components/SEO";
-import { BreadcrumbSchema } from "@/components/SchemaMarkup";
+import { BreadcrumbSchema, FAQSchema } from "@/components/SchemaMarkup";
 import { Link } from "wouter";
 
 export default function CommercialLandscapingBend() {
@@ -15,6 +15,14 @@ export default function CommercialLandscapingBend() {
         { name: "Home", url: "/" },
         { name: "Resources", url: "/resources" },
         { name: "Commercial Landscaping Bend Oregon", url: "/resources/commercial-landscaping-bend-oregon" },
+      ]} />
+      <FAQSchema faqs={[
+        { question: `What are the key considerations for commercial landscaping in Bend, Oregon's unique climate?`, answer: `Commercial landscaping in Bend requires careful planning due to its high desert climate, characterized by cold winters, hot summers, and significant freeze-thaw cycles. Plants must be resilient to these temperature fluctuations and the region's volcanic soil. Newport Avenue Landscaping specializes in selecting and installing native and adapted plants that thrive in Bend's Zone 6a, ensuring sustainable and low-maintenance commercial landscapes.` },
+        { question: `How does Bend's volcanic soil and low annual rainfall impact commercial landscape design?`, answer: `Bend's volcanic soil, while nutrient-rich, can be challenging due to its rapid drainage. Coupled with an average annual rainfall of only 11 inches, efficient irrigation systems and drought-tolerant plant selections are crucial for commercial properties. Our designs prioritize water conservation and soil health, creating vibrant landscapes that require minimal supplemental watering.` },
+        { question: `What kind of maintenance is typically required for commercial landscapes in Central Oregon?`, answer: `Commercial landscapes in Central Oregon need year-round attention to stay healthy and appealing. This includes seasonal clean-ups, irrigation system checks and adjustments, pruning, and fertilization tailored to the specific plant types and local conditions. Newport Avenue Landscaping offers comprehensive maintenance plans to ensure your commercial property always looks its best, even through harsh winters and dry summers.` },
+        { question: `Are there specific plants that thrive in Bend's climate for commercial properties?`, answer: `Absolutely. For commercial properties in Bend, we recommend a variety of native and adaptive plants that are well-suited to the Zone 6a climate and volcanic soil. Examples include Ponderosa Pine, Western Juniper, various sagebrush species, and drought-tolerant perennials like Lavender and Penstemon. These choices ensure longevity, reduce water usage, and enhance the natural beauty of your commercial space.` },
+        { question: `How can commercial landscaping improve my business's curb appeal and property value in Bend?`, answer: `A well-designed and maintained commercial landscape significantly enhances curb appeal, making a positive first impression on clients and customers. It can also increase property value by creating an attractive and inviting environment. Newport Avenue Landscaping focuses on creating aesthetically pleasing and functional outdoor spaces that reflect your business's professionalism and contribute to a welcoming atmosphere.` },
+        { question: `What are the benefits of hiring a local landscaping company like Newport Avenue Landscaping for commercial projects in Bend?`, answer: `Hiring a local company like Newport Avenue Landscaping means partnering with experts who understand Bend's specific environmental challenges, from its volcanic soil to its unique climate patterns. Our 21+ years of experience in the area ensure that your commercial landscaping project is designed, installed, and maintained with local expertise, leading to more sustainable and successful outcomes. We are also familiar with local regulations and aesthetic preferences, ensuring a seamless project execution.` },
       ]} />
       <Navbar />
       <div style={{ paddingTop: "204px" }}>

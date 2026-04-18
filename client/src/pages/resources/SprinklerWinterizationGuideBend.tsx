@@ -1,6 +1,6 @@
 import Navbar from '@/components/Navbar';
 import SEO from '@/components/SEO';
-import { BreadcrumbSchema } from '@/components/SchemaMarkup';
+import { BreadcrumbSchema, FAQSchema } from '@/components/SchemaMarkup';
 import { Link } from 'wouter';
 
 export default function SprinklerWinterizationGuideBend() {
@@ -15,6 +15,14 @@ export default function SprinklerWinterizationGuideBend() {
         { name: 'Home', url: '/' },
         { name: 'Resources', url: '/resources' },
         { name: 'Sprinkler Winterization Guide for Bend, Oregon', url: '/resources/sprinkler-winterization-guide-bend-oregon' },
+      ]} />
+      <FAQSchema faqs={[
+        { question: `When should I winterize my sprinklers in Bend, Oregon?`, answer: `In Bend, Oregon, it's crucial to winterize your sprinkler system before the first hard freeze, typically by mid-October. Given Bend's climate Zone 6a and significant freeze-thaw cycles, waiting too long can lead to costly damage from frozen pipes.` },
+        { question: `What happens if I don't winterize my sprinkler system in Bend?`, answer: `Failing to winterize your sprinkler system in Bend can result in severe damage due to freezing water expanding in pipes, valves, and sprinkler heads. The unique volcanic soil in Central Oregon doesn't offer much insulation, making proper winterization essential to prevent burst components and expensive repairs.` },
+        { question: `Can I winterize my own sprinklers in Bend, or should I hire a professional?`, answer: `While some homeowners attempt DIY winterization, it's highly recommended to hire a professional for sprinkler blowouts in Bend. Improperly clearing all water from the system, especially with our 11" annual rainfall, can leave residual moisture that freezes and damages components. Newport Avenue Landscaping offers expert winterization services to ensure your system is protected.` },
+        { question: `What is the 'blowout' method for sprinkler winterization?`, answer: `The 'blowout' method involves using an air compressor to force all water out of your sprinkler lines. This is the most effective way to prevent freeze damage in areas like Bend, where temperatures consistently drop below freezing. It's important to use the correct air pressure to avoid damaging your system.` },
+        { question: `How much does sprinkler winterization cost in Bend, Oregon?`, answer: `The cost of sprinkler winterization in Bend can vary depending on the size and complexity of your system. Factors like the number of zones and accessibility of components can influence the price. It's a small investment compared to the potential repair costs of a damaged system.` },
+        { question: `Does Newport Avenue Landscaping offer sprinkler winterization services in Bend?`, answer: `Yes, Newport Avenue Landscaping provides comprehensive sprinkler winterization services throughout Bend and Central Oregon. Our experienced technicians understand the local climate challenges, including the volcanic soil and freeze-thaw cycles, ensuring your irrigation system is properly prepared for winter and ready for spring.` },
       ]} />
       <Navbar />
       <div style={{ paddingTop: '204px' }}>

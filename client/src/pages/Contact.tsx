@@ -155,13 +155,18 @@ export default function Contact() {
                 {submitted ? (
                   <div
                     className="p-8 text-center"
-                    style={{ backgroundColor: "oklch(0.46 0.20 25)", borderRadius: "1.2rem 0.15rem 1.2rem 0.15rem" }}
+                    style={{ backgroundColor: "oklch(0.15 0.005 0)", borderRadius: "1.2rem 0.15rem 1.2rem 0.15rem" }}
                   >
-                    <div className="font-display font-light text-white mb-2" style={{ fontSize: "1.5rem" }}>
-                      Thank You!
+                    <div className="font-label mb-3" style={{ color: "oklch(0.46 0.20 25)", fontSize: "0.65rem", letterSpacing: "0.18em" }}>REQUEST RECEIVED</div>
+                    <div className="font-display font-light text-white mb-3" style={{ fontSize: "1.5rem" }}>
+                      We'll be in touch soon!
                     </div>
-                    <div className="font-body text-white" style={{ fontWeight: 300 }}>
-                      Your request has been received. We'll be in touch shortly.
+                    <div className="font-body" style={{ color: "oklch(0.72 0.005 0)", fontWeight: 300, lineHeight: 1.7 }}>
+                      Your request has been received. One of our specialists will contact you within 1 business day to discuss your project and schedule a free on-site consultation.
+                    </div>
+                    <div className="mt-6 pt-6" style={{ borderTop: "1px solid oklch(0.25 0.005 0)" }}>
+                      <p className="font-body" style={{ color: "oklch(0.55 0.008 0)", fontSize: "0.8rem" }}>Need to reach us sooner?</p>
+                      <a href="tel:5416178873" className="font-label" style={{ color: "oklch(0.72 0.12 25)", fontSize: "1rem", letterSpacing: "0.05em" }}>(541) 617-8873</a>
                     </div>
                   </div>
                 ) : (
@@ -255,8 +260,11 @@ export default function Contact() {
                       className="font-label px-10 py-4 text-white w-full transition-opacity hover:opacity-90 disabled:opacity-60"
                       style={{ backgroundColor: "oklch(0.46 0.20 25)", letterSpacing: "0.12em" }}
                     >
-                      {submitQuote.isPending ? "SENDING…" : "SEND MY REQUEST"}
+                      {submitQuote.isPending ? "SENDING…" : "GET MY FREE QUOTE"}
                     </button>
+                    <p className="font-body text-center mt-3" style={{ color: "oklch(0.55 0.008 0)", fontSize: "0.78rem" }}>
+                      We respond within 1 business day · No obligation, no pressure
+                    </p>
                   </form>
                 )}
               </FadeIn>

@@ -1,6 +1,6 @@
 import Navbar from '@/components/Navbar';
 import SEO from '@/components/SEO';
-import { BreadcrumbSchema } from '@/components/SchemaMarkup';
+import { BreadcrumbSchema, FAQSchema } from '@/components/SchemaMarkup';
 import { Link } from 'wouter';
 
 export default function WinterLandscapingGuideBend() {
@@ -15,6 +15,14 @@ export default function WinterLandscapingGuideBend() {
         { name: 'Home', url: '/' },
         { name: 'Resources', url: '/resources' },
         { name: 'Winter Landscaping Guide for Bend, Oregon', url: '/resources/winter-landscaping-guide-bend-oregon' },
+      ]} />
+      <FAQSchema faqs={[
+        { question: `How do I protect my plants from freezing in Bend, Oregon's winter?`, answer: `Protecting plants from Bend's harsh winter, especially with its Zone 6a climate and freeze-thaw cycles, is crucial. Consider covering sensitive plants with burlap or frost cloth, and applying a thick layer of mulch around their base to insulate roots from extreme temperature fluctuations. For new plantings, ensure they are well-watered before the ground freezes solid.` },
+        { question: `What kind of winter watering do plants need in Bend?`, answer: `Even with Bend's average 11 inches of annual rainfall, winter watering is essential, particularly during dry spells. Evergreen trees and shrubs, which continue to transpire moisture, benefit from deep watering once or twice a month when temperatures are above freezing. This helps prevent desiccation and ensures they stay hydrated through the cold, dry air.` },
+        { question: `When should I winterize my irrigation system in Central Oregon?`, answer: `Winterizing your irrigation system in Central Oregon is critical before the first hard freeze to prevent costly damage from expanding ice. Newport Avenue Landscaping recommends scheduling this service in late October or early November, ensuring all water is blown out of the lines. This proactive step safeguards your system against Bend's unpredictable freeze-thaw cycles.` },
+        { question: `What are the best plants for winter interest in Bend's volcanic soil?`, answer: `For winter interest in Bend's unique volcanic soil, consider plants like evergreen conifers, certain ornamental grasses, and deciduous shrubs with striking bark or persistent berries. Species adapted to Zone 6a conditions, such as certain junipers, pines, and dogwoods, can provide structure and color even when snow covers the ground. These selections are resilient to the region's low annual rainfall and temperature swings.` },
+        { question: `How can I prepare my lawn for winter in Bend?`, answer: `Preparing your lawn for Bend's winter involves a few key steps to ensure a healthy spring rebound. Continue mowing until growth stops, and perform a final fertilization with a winter-specific blend to strengthen roots. Aeration can also be beneficial, especially in our volcanic soil, to improve drainage and nutrient absorption before the ground freezes solid.` },
+        { question: `What are common winter landscaping mistakes to avoid in Bend?`, answer: `A common mistake in Bend's winter landscaping is neglecting proper plant hydration during dry periods, despite the cold. Another is failing to adequately protect sensitive plants from the intense freeze-thaw cycles and strong winds characteristic of our Zone 6a climate. Newport Avenue Landscaping advises against heavy pruning in late fall, as new growth can be easily damaged by early frosts.` },
       ]} />
       <Navbar />
       <div style={{ paddingTop: '204px' }}>

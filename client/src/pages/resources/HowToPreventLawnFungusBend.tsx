@@ -1,6 +1,6 @@
 import Navbar from '@/components/Navbar';
 import SEO from '@/components/SEO';
-import { BreadcrumbSchema } from '@/components/SchemaMarkup';
+import { BreadcrumbSchema, FAQSchema } from '@/components/SchemaMarkup';
 import { Link } from 'wouter';
 
 export default function HowToPreventLawnFungusBend() {
@@ -15,6 +15,14 @@ export default function HowToPreventLawnFungusBend() {
         { name: 'Home', url: '/' },
         { name: 'Resources', url: '/resources' },
         { name: 'How to Prevent Lawn Fungus in Bend, Oregon', url: '/resources/how-to-prevent-lawn-fungus-bend-oregon' },
+      ]} />
+      <FAQSchema faqs={[
+        { question: `How can I prevent lawn fungus in Bend, Oregon's unique climate?`, answer: `Focus on proper watering and aeration. Bend's dry climate (around 11" annual rainfall) means overwatering can quickly lead to fungal growth, especially with the volcanic soil's drainage characteristics. Ensure deep, infrequent watering early in the morning to allow grass to dry before evening.` },
+        { question: `What are the most common types of lawn fungus found in Bend and Central Oregon?`, answer: `In Bend, common lawn fungi include necrotic ring spot, fairy rings, and various types of mushrooms. These often thrive in compacted volcanic soil and can be exacerbated by the freeze-thaw cycles common in our Zone 6a/6b climate, which can stress turf.` },
+        { question: `How do Bend's volcanic soil and low rainfall affect lawn fungus prevention?`, answer: `Bend's volcanic soil can be prone to compaction, hindering drainage and creating ideal conditions for fungus if overwatered. With only about 11 inches of annual rainfall, supplemental irrigation is necessary, but it's crucial to water deeply and infrequently to encourage strong root growth and prevent surface moisture that fungi love.` },
+        { question: `Is aeration important for preventing lawn fungus in Bend?`, answer: `Yes, aeration is particularly important in Bend due to our dense volcanic soil. It helps reduce compaction, improves water penetration and air circulation to the roots, and mitigates the stress caused by freeze-thaw cycles, all of which are critical for preventing fungal diseases.` },
+        { question: `When should I consider professional help for lawn fungus issues in Bend?`, answer: `If you've tried preventative measures and still see persistent or spreading fungal patches, it's time to consult experts. Newport Avenue Landscaping has over 21 years of experience dealing with turf diseases specific to Bend's climate and soil, offering effective diagnosis and treatment plans.` },
+        { question: `How do Bend's freeze-thaw cycles impact lawn fungus, and what can Newport Avenue Landscaping do?`, answer: `The frequent freeze-thaw cycles in Bend can weaken turf, making it more susceptible to fungal infections like snow mold or necrotic ring spot. Newport Avenue Landscaping understands these local challenges and can implement tailored winterization and spring recovery strategies to fortify your lawn against these environmental stresses.` },
       ]} />
       <Navbar />
       <div style={{ paddingTop: '204px' }}>

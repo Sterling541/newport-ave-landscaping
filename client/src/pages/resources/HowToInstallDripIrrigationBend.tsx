@@ -1,6 +1,6 @@
 import Navbar from '@/components/Navbar';
 import SEO from '@/components/SEO';
-import { BreadcrumbSchema } from '@/components/SchemaMarkup';
+import { BreadcrumbSchema, FAQSchema } from '@/components/SchemaMarkup';
 import { Link } from 'wouter';
 
 export default function HowToInstallDripIrrigationBend() {
@@ -15,6 +15,14 @@ export default function HowToInstallDripIrrigationBend() {
         { name: 'Home', url: '/' },
         { name: 'Resources', url: '/resources' },
         { name: 'How to Install Drip Irrigation in Bend, Oregon', url: '/resources/how-to-install-drip-irrigation-bend-oregon' },
+      ]} />
+      <FAQSchema faqs={[
+        { question: `What are the benefits of drip irrigation in Bend, Oregon's climate?`, answer: `Drip irrigation is highly beneficial in Bend's arid climate (Zone 6a) with only 11 inches of annual rainfall. It conserves water by delivering it directly to plant roots, minimizing evaporation and runoff, which is crucial for efficient watering in our dry conditions.` },
+        { question: `How does Bend's volcanic soil affect drip irrigation installation?`, answer: `Bend's volcanic soil, often rocky and well-draining, requires careful consideration during drip irrigation installation. It's important to ensure emitters are placed correctly to prevent water from channeling away too quickly, and to select durable components that can withstand potential abrasion from rocky soil.` },
+        { question: `Can drip irrigation systems withstand Bend's freeze-thaw cycles?`, answer: `Yes, drip irrigation systems can withstand Bend's significant freeze-thaw cycles, but proper winterization is essential. This includes thoroughly draining all lines and components before the first hard freeze to prevent damage from expanding ice, ensuring longevity and performance.` },
+        { question: `What types of plants are best suited for drip irrigation in Central Oregon?`, answer: `Drip irrigation is ideal for a wide range of plants in Central Oregon, including native drought-tolerant species, shrubs, trees, and vegetable gardens. It provides consistent moisture, promoting healthy root development and reducing water stress, especially for plants established in our unique climate.` },
+        { question: `Should I install drip irrigation myself or hire a professional in Bend?`, answer: `While DIY installation is possible, hiring a professional like Newport Avenue Landscaping ensures optimal system design and installation tailored to Bend's specific environmental challenges. Our expertise guarantees efficient water distribution and system durability, saving you time and potential issues.` },
+        { question: `How can Newport Avenue Landscaping help with my drip irrigation needs in Bend?`, answer: `Newport Avenue Landscaping offers comprehensive drip irrigation services, from custom design and installation to maintenance and winterization, specifically for Bend's climate. With over 21 years of experience, we ensure your system is efficient, effective, and perfectly suited to your landscape's needs and our local conditions.` },
       ]} />
       <Navbar />
       <div style={{ paddingTop: '204px' }}>

@@ -1,6 +1,6 @@
 import Navbar from '@/components/Navbar';
 import SEO from '@/components/SEO';
-import { BreadcrumbSchema } from '@/components/SchemaMarkup';
+import { BreadcrumbSchema, FAQSchema } from '@/components/SchemaMarkup';
 import { Link } from 'wouter';
 
 export default function LandscapingBendOregonGuide() {
@@ -15,6 +15,14 @@ export default function LandscapingBendOregonGuide() {
         { name: 'Home', url: '/' },
         { name: 'Resources', url: '/resources' },
         { name: 'Landscaping in Bend, Oregon: The Complete Guide', url: '/resources/landscaping-bend-oregon' },
+      ]} />
+      <FAQSchema faqs={[
+        { question: `What are the biggest challenges for landscaping in Bend, Oregon's high desert climate?`, answer: `Landscaping in Bend presents unique challenges due to its high desert climate, characterized by a short growing season, cold nights, and only about 11 inches of annual rainfall. Gardeners must contend with significant temperature fluctuations and intense sun exposure, making plant selection and water management crucial for success.` },
+        { question: `How does Bend's volcanic soil impact gardening and landscaping efforts?`, answer: `Bend's volcanic soil, while often well-draining, can be low in organic matter and nutrients, requiring careful amendment to support plant growth. Understanding its composition is key to successful landscaping, as it influences water retention and nutrient availability for plants.` },
+        { question: `What are effective strategies for water-wise landscaping in Central Oregon?`, answer: `Effective water-wise landscaping in Central Oregon involves selecting drought-tolerant native plants, utilizing efficient irrigation systems like drip lines, and applying mulch to retain soil moisture. Newport Avenue Landscaping specializes in designing and installing sustainable landscapes that thrive in Bend's arid conditions, helping homeowners conserve water while maintaining beautiful outdoor spaces.` },
+        { question: `Which plants are best suited for Bend's climate Zone 6a and volcanic soil?`, answer: `For Bend's climate Zone 6a, plants that are resilient to cold winters, hot summers, and volcanic soil are ideal. Consider native species and high desert adapted plants such as certain varieties of sage, lavender, ornamental grasses, and conifer trees that can withstand the freeze-thaw cycles.` },
+        { question: `How can I protect my landscape from Bend's freeze-thaw cycles?`, answer: `Protecting your landscape from Bend's freeze-thaw cycles involves proper plant selection, adequate mulching, and ensuring good drainage to prevent root damage. For established landscapes, Newport Avenue Landscaping can provide expert advice and services to help prepare your plants and irrigation systems for winter.` },
+        { question: `Is professional landscaping necessary for a successful garden in Bend?`, answer: `While not strictly necessary, professional landscaping can significantly enhance the success and longevity of your garden in Bend, especially given the unique local conditions. Experts understand the specific challenges of volcanic soil, climate Zone 6a, and water conservation, ensuring your landscape thrives.` },
       ]} />
       <Navbar />
       <div style={{ paddingTop: '204px' }}>

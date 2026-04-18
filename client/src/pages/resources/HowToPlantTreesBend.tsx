@@ -1,6 +1,6 @@
 import Navbar from '@/components/Navbar';
 import SEO from '@/components/SEO';
-import { BreadcrumbSchema } from '@/components/SchemaMarkup';
+import { BreadcrumbSchema, FAQSchema } from '@/components/SchemaMarkup';
 import { Link } from 'wouter';
 
 export default function HowToPlantTreesBend() {
@@ -15,6 +15,14 @@ export default function HowToPlantTreesBend() {
         { name: 'Home', url: '/' },
         { name: 'Resources', url: '/resources' },
         { name: 'How to Plant Trees in Bend, Oregon', url: '/resources/how-to-plant-trees-bend-oregon' },
+      ]} />
+      <FAQSchema faqs={[
+        { question: `What are the best trees to plant in Bend, Oregon's climate?`, answer: `For Bend's Zone 6a climate, trees that tolerate cold winters, hot dry summers, and volcanic soil are ideal. Conifers like ponderosa pine and juniper thrive, as do certain deciduous trees such as aspens and maples adapted to high desert conditions. Consider drought-tolerant varieties due to the average 11 inches of annual rainfall.` },
+        { question: `How does Bend's volcanic soil affect tree planting?`, answer: `Bend's volcanic soil, often rocky and well-draining, requires careful preparation. Amending the soil with organic matter can improve nutrient retention and moisture for young trees. Proper site selection and drainage are crucial to prevent root rot in these unique soil conditions.` },
+        { question: `When is the best time to plant trees in Central Oregon?`, answer: `The optimal time to plant trees in Central Oregon is typically in the spring or fall. Planting in spring allows roots to establish before summer heat, while fall planting gives them time to settle before winter's freeze-thaw cycles. Avoiding the peak of summer and winter ensures less stress on new plantings.` },
+        { question: `What are common tree planting mistakes to avoid in Bend?`, answer: `A common mistake in Bend is planting too deep, which can suffocate roots in our volcanic soil. Another is insufficient watering during establishment, especially with only 11 inches of annual rainfall. Newport Avenue Landscaping emphasizes proper planting depth and consistent watering schedules to ensure tree health.` },
+        { question: `How much water do newly planted trees need in Bend's dry climate?`, answer: `Newly planted trees in Bend require consistent and deep watering to establish a strong root system, especially given the low annual rainfall. During the first few years, regular irrigation is more important than relying solely on natural precipitation. Monitor soil moisture carefully to avoid over or under-watering.` },
+        { question: `Can Newport Avenue Landscaping help with tree selection and planting in Bend?`, answer: `Yes, Newport Avenue Landscaping has over 21 years of experience helping homeowners in Bend select and plant trees suited for our specific climate and volcanic soil. We can guide you through choosing the best species for your property and ensure proper planting techniques for long-term success.` },
       ]} />
       <Navbar />
       <div style={{ paddingTop: '204px' }}>

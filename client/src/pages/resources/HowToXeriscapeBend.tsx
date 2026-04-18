@@ -1,6 +1,6 @@
 import Navbar from '@/components/Navbar';
 import SEO from '@/components/SEO';
-import { BreadcrumbSchema } from '@/components/SchemaMarkup';
+import { BreadcrumbSchema, FAQSchema } from '@/components/SchemaMarkup';
 import { Link } from 'wouter';
 
 export default function HowToXeriscapeBend() {
@@ -15,6 +15,14 @@ export default function HowToXeriscapeBend() {
         { name: 'Home', url: '/' },
         { name: 'Resources', url: '/resources' },
         { name: 'How to Xeriscape in Bend, Oregon: A Step-by-Step Guide', url: '/resources/how-to-xeriscape-bend-oregon' },
+      ]} />
+      <FAQSchema faqs={[
+        { question: `What is xeriscaping and why is it beneficial for homes in Bend, Oregon?`, answer: `Xeriscaping is a landscaping method focused on water conservation, which is particularly beneficial in Bend, Oregon, given its high desert climate and approximately 11 inches of annual rainfall. By choosing drought-tolerant plants and efficient irrigation, homeowners can create beautiful, sustainable landscapes that thrive with minimal supplemental water. This approach helps reduce water usage and maintenance efforts, aligning with the region's conservation goals.` },
+        { question: `What kind of plants thrive in a xeriscape garden in Bend's climate zone 6a?`, answer: `In Bend's climate zone 6a, a successful xeriscape garden features plants adapted to cold winters and dry summers. Excellent choices include native plants like sagebrush, bitterbrush, and various wildflowers, as well as hardy ornamentals such as lavender, sedum, and certain ornamental grasses. These plants are well-suited to the local conditions and require less water once established.` },
+        { question: `How does Bend's volcanic soil and 11" annual rainfall impact xeriscaping?`, answer: `Bend's unique volcanic soil, often characterized by pumice and sand, offers excellent drainage but can be low in organic matter, which impacts water retention. The low annual rainfall of around 11 inches further emphasizes the need for water-wise landscaping. Xeriscaping techniques, such as amending soil with compost and using mulch, help improve water absorption and reduce evaporation, making the most of the limited precipitation.` },
+        { question: `What are the key steps to successfully implement xeriscaping in a Bend, Oregon yard?`, answer: `Successfully implementing xeriscaping in a Bend yard involves several key steps, starting with thoughtful design and proper plant selection for climate zone 6a. It's crucial to improve soil health, use efficient irrigation methods like drip systems, and apply mulch to retain moisture. Newport Avenue Landscaping specializes in designing and installing xeriscapes that are both beautiful and perfectly suited to Bend's high desert environment.` },
+        { question: `How can xeriscaping help conserve water and reduce utility bills in Central Oregon?`, answer: `Xeriscaping significantly conserves water in Central Oregon by reducing the need for extensive irrigation, which directly translates to lower utility bills for homeowners. By selecting drought-tolerant plants and employing water-efficient landscaping practices, properties can maintain aesthetic appeal with a fraction of the water typically used by traditional lawns. This sustainable approach benefits both the environment and your wallet.` },
+        { question: `Are there specific considerations for xeriscaping to withstand Bend's freeze-thaw cycles?`, answer: `Bend's distinct freeze-thaw cycles, especially during winter and early spring, require careful consideration when xeriscaping. Plants chosen for a xeriscape must be robust enough to withstand these temperature fluctuations, preventing root damage and ensuring their long-term health. Newport Avenue Landscaping can help select appropriate, cold-hardy species and implement design strategies that protect plants from the stresses of Bend's variable climate.` },
       ]} />
       <Navbar />
       <div style={{ paddingTop: '204px' }}>

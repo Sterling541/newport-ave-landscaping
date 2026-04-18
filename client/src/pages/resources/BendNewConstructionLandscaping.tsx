@@ -1,6 +1,6 @@
 import Navbar from '@/components/Navbar';
 import SEO from '@/components/SEO';
-import { BreadcrumbSchema } from '@/components/SchemaMarkup';
+import { BreadcrumbSchema, FAQSchema } from '@/components/SchemaMarkup';
 import { Link } from 'wouter';
 
 export default function BendNewConstructionLandscaping() {
@@ -15,6 +15,14 @@ export default function BendNewConstructionLandscaping() {
         { name: 'Home', url: '/' },
         { name: 'Resources', url: '/resources' },
         { name: 'New Construction Landscaping in Bend, Oregon', url: '/resources/new-construction-landscaping-bend-oregon' },
+      ]} />
+      <FAQSchema faqs={[
+        { question: `What are the key considerations for new construction landscaping in Bend, Oregon?`, answer: `When planning new construction landscaping in Bend, Oregon, it's crucial to consider the unique high desert climate, which is USDA Zone 6a. This includes accounting for the volcanic soil, limited 11-inch annual rainfall, and significant freeze-thaw cycles. Selecting drought-tolerant, native plants that can withstand these conditions is essential for a sustainable and thriving landscape.` },
+        { question: `How does Bend's volcanic soil impact landscaping choices for new homes?`, answer: `Bend's volcanic soil, often rocky and fast-draining, presents both challenges and opportunities for new construction landscaping. It's vital to amend the soil to improve water retention and nutrient availability for many plant species. Newport Avenue Landscaping specializes in soil preparation techniques that optimize growing conditions for a wide variety of plants suited to this unique environment.` },
+        { question: `What types of plants thrive in Bend's climate for new landscaping projects?`, answer: `For new landscaping projects in Bend's Zone 6a climate, plants that are native or well-adapted to arid conditions and cold winters are ideal. Consider options like Ponderosa Pine, Oregon Grape, various junipers, and many ornamental grasses. These plants are resilient to the 11-inch annual rainfall and can handle the freeze-thaw cycles common in Central Oregon.` },
+        { question: `What are common challenges for new construction landscaping in Central Oregon?`, answer: `New construction landscaping in Central Oregon often faces challenges such as compacted soil from construction, limited water availability, and harsh winter conditions with significant freeze-thaw cycles. Proper site preparation, efficient irrigation systems, and careful plant selection are key to overcoming these hurdles and establishing a healthy landscape.` },
+        { question: `Do I need a specific irrigation system for new landscaping in Bend's dry climate?`, answer: `Given Bend's average of 11 inches of annual rainfall, an efficient irrigation system is highly recommended for new landscaping. Drip irrigation is particularly effective for delivering water directly to plant roots, minimizing evaporation, and conserving water. Newport Avenue Landscaping can design and install a water-wise system tailored to your new home's landscape needs.` },
+        { question: `How can I ensure my new landscape survives Bend's winter freeze-thaw cycles?`, answer: `To ensure your new landscape survives Bend's harsh winter freeze-thaw cycles, proper plant selection and establishment are critical. Choose cold-hardy species, apply a generous layer of mulch to insulate roots, and ensure plants are well-hydrated before the ground freezes. Protecting delicate new plantings with burlap or other covers can also provide an extra layer of defense.` },
       ]} />
       <Navbar />
       <div style={{ paddingTop: '204px' }}>

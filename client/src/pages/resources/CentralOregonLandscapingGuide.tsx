@@ -1,6 +1,6 @@
 import Navbar from '@/components/Navbar';
 import SEO from '@/components/SEO';
-import { BreadcrumbSchema } from '@/components/SchemaMarkup';
+import { BreadcrumbSchema, FAQSchema } from '@/components/SchemaMarkup';
 import { Link } from 'wouter';
 
 export default function CentralOregonLandscapingGuide() {
@@ -15,6 +15,14 @@ export default function CentralOregonLandscapingGuide() {
         { name: 'Home', url: '/' },
         { name: 'Resources', url: '/resources' },
         { name: 'Central Oregon Landscaping Guide', url: '/resources/central-oregon-landscaping-guide' },
+      ]} />
+      <FAQSchema faqs={[
+        { question: `What are the best plants for a low-maintenance landscape in Bend, Oregon?`, answer: `For a low-maintenance landscape in Bend's Zone 6a climate, consider native and drought-tolerant plants. Species like Manzanita, Oregon Grape, and various sedums thrive in our volcanic soil and minimal 11" annual rainfall, requiring less water and care once established.` },
+        { question: `How do I prepare my Central Oregon yard for winter to prevent freeze-thaw damage?`, answer: `Winter preparation in Central Oregon is crucial due to significant freeze-thaw cycles. Ensure proper drainage to prevent water from pooling and freezing around plant roots. Mulching heavily around sensitive plants provides insulation, protecting them from extreme temperature fluctuations.` },
+        { question: `What are common landscaping challenges in Bend's volcanic soil and how can I address them?`, answer: `Bend's volcanic soil often presents challenges with its high porosity and quick drainage, making water retention difficult. Incorporating organic matter like compost can significantly improve soil structure, enhancing its ability to hold moisture and nutrients essential for plant growth.` },
+        { question: `What are water-wise landscaping options suitable for Bend's arid climate?`, answer: `Water-wise landscaping, or xeriscaping, is ideal for Bend's arid climate and 11" annual rainfall. Focus on drought-tolerant plants, efficient irrigation systems like drip lines, and thoughtful hardscaping to reduce water consumption while maintaining an attractive outdoor space.` },
+        { question: `Can Newport Avenue Landscaping help design a sustainable landscape that handles Bend's weather?`, answer: `Yes, Newport Avenue Landscaping specializes in designing sustainable landscapes tailored to Bend's unique weather patterns, including its Zone 6a climate and freeze-thaw cycles. With over 21 years of experience, we create beautiful and resilient outdoor spaces that thrive with minimal environmental impact.` },
+        { question: `What kind of irrigation systems are most effective for Central Oregon's dry conditions?`, answer: `For Central Oregon's dry conditions, drip irrigation systems are highly effective as they deliver water directly to plant roots, minimizing evaporation. Newport Avenue Landscaping can install and optimize these systems, ensuring your landscape receives precise hydration while conserving water in our low rainfall environment.` },
       ]} />
       <Navbar />
       <div style={{ paddingTop: '204px' }}>

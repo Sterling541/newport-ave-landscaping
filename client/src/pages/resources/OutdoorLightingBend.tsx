@@ -1,6 +1,6 @@
 import Navbar from '@/components/Navbar';
 import SEO from '@/components/SEO';
-import { BreadcrumbSchema } from '@/components/SchemaMarkup';
+import { BreadcrumbSchema, FAQSchema } from '@/components/SchemaMarkup';
 import { Link } from 'wouter';
 
 export default function OutdoorLightingBend() {
@@ -15,6 +15,14 @@ export default function OutdoorLightingBend() {
         { name: 'Home', url: '/' },
         { name: 'Resources', url: '/resources' },
         { name: 'Landscape Lighting Ideas for Bend, Oregon Homes', url: '/resources/landscape-lighting-bend-oregon' },
+      ]} />
+      <FAQSchema faqs={[
+        { question: `What types of outdoor lighting are best suited for Bend's climate and volcanic soil?`, answer: `For Bend's unique climate, characterized by cold winters, hot summers, and volcanic soil, durable and weather-resistant outdoor lighting fixtures are essential. Low-voltage LED lighting is highly recommended due to its energy efficiency and longevity, performing well despite freeze-thaw cycles. Materials like brass, copper, or marine-grade aluminum can withstand the elements and resist corrosion from the soil.` },
+        { question: `How can outdoor lighting enhance safety and security around my Bend home?`, answer: `Strategically placed outdoor lighting can significantly improve safety and security by illuminating pathways, entry points, and dark areas around your Bend property. Motion-sensor lights deter potential intruders, while well-lit steps and walkways prevent trips and falls, especially during icy conditions common in winter. It also allows for better visibility of wildlife that might wander into your yard.` },
+        { question: `What are the considerations for outdoor lighting design in Bend, given its natural landscape?`, answer: `Designing outdoor lighting in Bend requires careful consideration of the high desert landscape and dark night skies. Uplighting on native trees like Ponderosa pines, path lighting that blends with natural rock features, and subtle accent lighting can highlight your home's architecture and garden without creating light pollution. Newport Avenue Landscaping specializes in designs that complement Bend's natural beauty.` },
+        { question: `How does Bend's 11 inches of annual rainfall affect outdoor lighting installation and maintenance?`, answer: `While Bend receives only about 11 inches of annual rainfall, proper installation is crucial to protect outdoor lighting systems from moisture and ensure longevity. Fixtures should be rated for outdoor use (IP65 or higher), and all wiring connections must be waterproofed to prevent shorts and corrosion. Regular checks for debris and proper drainage around fixtures will minimize maintenance needs.` },
+        { question: `Can outdoor lighting be customized to fit my specific landscaping style in Bend?`, answer: `Absolutely. Outdoor lighting can be fully customized to complement any landscaping style, from rustic high desert to modern minimalist, prevalent in Bend. Options include various fixture styles, beam spreads, and color temperatures to create the desired ambiance. Newport Avenue Landscaping works closely with clients to design bespoke lighting solutions that enhance their outdoor living spaces.` },
+        { question: `What are the benefits of professional outdoor lighting installation in Bend versus a DIY approach?`, answer: `Professional outdoor lighting installation in Bend ensures optimal performance, safety, and aesthetic appeal. Experts understand local electrical codes, proper wiring techniques for volcanic soil, and how to design a system that withstands Bend's weather. A professional installation by Newport Avenue Landscaping also typically comes with warranties and guarantees, providing peace of mind and avoiding costly mistakes.` },
       ]} />
       <Navbar />
       <div style={{ paddingTop: '204px' }}>

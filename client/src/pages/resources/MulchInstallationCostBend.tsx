@@ -1,6 +1,6 @@
 import Navbar from '@/components/Navbar';
 import SEO from '@/components/SEO';
-import { BreadcrumbSchema } from '@/components/SchemaMarkup';
+import { BreadcrumbSchema, FAQSchema } from '@/components/SchemaMarkup';
 import { Link } from 'wouter';
 
 export default function MulchInstallationCostBend() {
@@ -15,6 +15,14 @@ export default function MulchInstallationCostBend() {
         { name: 'Home', url: '/' },
         { name: 'Resources', url: '/resources' },
         { name: 'Mulch Installation Cost in Bend, Oregon', url: '/resources/mulch-installation-cost-bend-oregon' },
+      ]} />
+      <FAQSchema faqs={[
+        { question: `What is the average cost of mulch installation in Bend, Oregon?`, answer: `The cost of mulch installation in Bend, Oregon, can vary depending on the type of mulch, the size of the area, and the complexity of the landscape. Factors like the need for extensive preparation due to Bend's volcanic soil or existing freeze-thaw damage can also influence the final price.` },
+        { question: `How does Bend's climate affect mulch choices and installation costs?`, answer: `Bend's climate, characterized by Zone 6a and significant freeze-thaw cycles, necessitates mulch that can withstand these conditions. Drought-tolerant options are also popular due to the 11-inch annual rainfall, which can impact both material cost and installation labor.` },
+        { question: `Are there specific mulch types recommended for Bend's volcanic soil?`, answer: `For Bend's unique volcanic soil, organic mulches like bark, wood chips, or compost are highly recommended. These not only suppress weeds and retain moisture but also enrich the soil as they decompose, improving its structure and nutrient content over time.` },
+        { question: `Can Newport Avenue Landscaping help with mulch selection and installation in Central Oregon?`, answer: `Yes, Newport Avenue Landscaping specializes in professional mulch installation throughout Central Oregon. With over 21 years of experience, we can help you choose the best mulch type for your specific landscape needs and the local climate, ensuring a beautiful and healthy outdoor space.` },
+        { question: `What are the benefits of professional mulch installation in Bend?`, answer: `Professional mulch installation in Bend offers numerous benefits, including proper application techniques that maximize moisture retention, weed suppression, and soil insulation against extreme temperatures. This is particularly important given Bend's dry summers and cold winters, helping your plants thrive.` },
+        { question: `How often should mulch be replaced in a Bend, Oregon landscape?`, answer: `In Bend's climate, mulch typically needs to be replenished or replaced every 1-2 years, especially organic mulches that decompose. Regular inspection will help determine when your landscape could benefit from a fresh layer to maintain its protective and aesthetic qualities.` },
       ]} />
       <Navbar />
       <div style={{ paddingTop: '204px' }}>

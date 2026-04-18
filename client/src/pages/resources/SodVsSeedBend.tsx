@@ -1,6 +1,6 @@
 import Navbar from '@/components/Navbar';
 import SEO from '@/components/SEO';
-import { BreadcrumbSchema } from '@/components/SchemaMarkup';
+import { BreadcrumbSchema, FAQSchema } from '@/components/SchemaMarkup';
 import { Link } from 'wouter';
 
 export default function SodVsSeedBend() {
@@ -15,6 +15,14 @@ export default function SodVsSeedBend() {
         { name: 'Home', url: '/' },
         { name: 'Resources', url: '/resources' },
         { name: 'Sod vs. Seed: Which Is Better for Bend Lawns?', url: '/resources/sod-vs-seed-bend-oregon' },
+      ]} />
+      <FAQSchema faqs={[
+        { question: `Is sod or seed better for a new lawn in Bend, Oregon's climate?`, answer: `For Bend's unique climate, characterized by Zone 6a, volcanic soil, and significant freeze-thaw cycles, sod often provides a quicker, more resilient solution. It establishes faster, reducing the risk of washout from our 11-inch annual rainfall and offering immediate erosion control. Seed can be more cost-effective initially but requires more consistent care during establishment.` },
+        { question: `How does Bend's volcanic soil affect sod and seed choices?`, answer: `Bend's volcanic soil, often well-draining but low in organic matter, can be challenging for new lawns. Sod provides an instant layer of mature turf with its own soil base, which can help overcome some of these native soil limitations. When seeding, amending the soil with compost is crucial to improve nutrient retention and moisture for successful germination and growth.` },
+        { question: `What are the water requirements for sod versus seed in Central Oregon?`, answer: `Both sod and seed require consistent watering to establish in Central Oregon's dry climate. Sod needs frequent, shallow watering for the first few weeks to root properly, while seed demands constant moisture to germinate and prevent drying out. Newport Avenue Landscaping can help design an efficient irrigation system to ensure optimal hydration for your new lawn, regardless of your choice.` },
+        { question: `Can I install sod myself in Bend, or should I hire a professional?`, answer: `While DIY sod installation is possible, hiring a professional like Newport Avenue Landscaping ensures proper ground preparation, precise cutting, and correct laying techniques. This is especially important in Bend to account for the volcanic soil and ensure the sod roots effectively before the freeze-thaw cycles begin. Professional installation minimizes waste and maximizes the longevity of your new lawn.` },
+        { question: `How long does it take for a seeded lawn to establish in Bend compared to sod?`, answer: `A seeded lawn in Bend can take several weeks to germinate and often a full growing season or more to become fully established and durable enough for regular use. In contrast, sod provides an instant lawn that is typically ready for light use within 2-3 weeks, offering immediate aesthetic appeal and functionality. This faster establishment is a significant advantage given Bend's shorter growing season.` },
+        { question: `What are the long-term maintenance differences between sod and seed in Bend?`, answer: `Once established, both sod and seeded lawns in Bend require similar long-term maintenance, including regular mowing, fertilization, and appropriate watering. However, sod generally starts with a denser, more uniform turf, which can sometimes be more resistant to weeds initially. Seeded lawns, if not properly managed during establishment, might require more weed control in their early stages.` },
       ]} />
       <Navbar />
       <div style={{ paddingTop: '204px' }}>

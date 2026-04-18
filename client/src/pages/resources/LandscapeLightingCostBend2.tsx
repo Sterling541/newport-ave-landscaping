@@ -1,6 +1,6 @@
 import Navbar from '@/components/Navbar';
 import SEO from '@/components/SEO';
-import { BreadcrumbSchema } from '@/components/SchemaMarkup';
+import { BreadcrumbSchema, FAQSchema } from '@/components/SchemaMarkup';
 import { Link } from 'wouter';
 
 export default function LandscapeLightingCostBend2() {
@@ -15,6 +15,14 @@ export default function LandscapeLightingCostBend2() {
         { name: 'Home', url: '/' },
         { name: 'Resources', url: '/resources' },
         { name: 'Landscape Lighting Cost in Bend, Oregon', url: '/resources/landscape-lighting-cost-bend-oregon' },
+      ]} />
+      <FAQSchema faqs={[
+        { question: `What factors influence the cost of landscape lighting in Bend, Oregon?`, answer: `The cost of landscape lighting in Bend is influenced by several factors, including the type of fixtures, the size of the area to be lit, and the complexity of the design. Given Bend's unique climate Zone 6a and volcanic soil, specialized installation techniques and durable, weather-resistant fixtures are often necessary to ensure longevity and performance through freeze-thaw cycles and 11 inches of annual rainfall.` },
+        { question: `How much does it typically cost to install outdoor lighting in Bend?`, answer: `The typical cost for outdoor lighting installation in Bend can vary widely, but homeowners can expect to invest anywhere from a few hundred to several thousand dollars. This range accounts for different system types, from basic pathway lighting to comprehensive architectural and security lighting. Newport Avenue Landscaping provides detailed estimates tailored to your specific property and aesthetic goals.` },
+        { question: `Are there energy-efficient landscape lighting options suitable for Bend's climate?`, answer: `Absolutely. LED landscape lighting is highly recommended for Bend due to its energy efficiency and durability. LEDs perform exceptionally well in varying temperatures, making them ideal for our region's distinct seasons and freeze-thaw cycles. They also offer significant long-term savings on electricity bills.` },
+        { question: `What kind of maintenance does landscape lighting require in Central Oregon?`, answer: `Landscape lighting in Central Oregon requires periodic maintenance to ensure optimal performance, especially given the volcanic soil and potential for dust and debris. This includes cleaning fixtures, checking for loose connections, and adjusting lights as your landscape matures. Regular inspections help prevent issues caused by weather exposure and ensure your system continues to enhance your property.` },
+        { question: `Can landscape lighting improve home security in Bend?`, answer: `Yes, strategically placed landscape lighting can significantly enhance home security in Bend. Well-lit pathways and entry points deter potential intruders, while illuminating dark corners eliminates hiding spots. It also improves visibility for residents and guests, reducing the risk of falls on icy or uneven surfaces during winter months.` },
+        { question: `Why should I choose a local company like Newport Avenue Landscaping for my lighting project?`, answer: `Choosing a local company like Newport Avenue Landscaping ensures that your landscape lighting project is handled by experts familiar with Bend's specific environmental challenges, such as volcanic soil and freeze-thaw cycles. With over 21 years in business and an LCB #9153, we understand the best practices and materials to ensure your lighting system is beautiful, durable, and perfectly suited to our high desert climate.` },
       ]} />
       <Navbar />
       <div style={{ paddingTop: '204px' }}>
