@@ -77,6 +77,26 @@ export default function OutdoorLiving() {
       schemaUrl="/services/outdoor-living"
       schemaName="Outdoor Living Spaces"
       schemaDescription="Custom outdoor kitchens, living spaces, and covered patios in Bend, Oregon. Design and installation by Newport Avenue Landscaping."
+      portfolioProjects={[
+        {
+          title: "Westside Outdoor Living Space",
+          href: "/portfolio/westside-outdoor-living",
+          image: "https://newportavelandscaping.com/wp-content/uploads/2022/05/westside-outdoor-living-space-bend-oregon-after.jpg",
+          category: "OUTDOOR LIVING · WATER FEATURES",
+        },
+        {
+          title: "SW Bend Backyard Landscaping",
+          href: "/portfolio/sw-bend-backyard",
+          image: "https://newportavelandscaping.com/wp-content/uploads/2022/05/south-west-bend-oregon-campground-backyard-full-view-2.jpg",
+          category: "OUTDOOR LIVING · DESIGN & BUILD",
+        },
+        {
+          title: "Awbrey Butte Patio Extension & Wall",
+          href: "/portfolio/awbrey-butte-patio",
+          image: "https://newportavelandscaping.com/wp-content/uploads/2022/09/awbrey-butte-freestanding-wall-pavers-patio-extension.jpg",
+          category: "PAVERS · RETAINING WALLS",
+        },
+      ]}
       faqs={[
           { question: "How much does an outdoor kitchen cost in Bend?", answer: "Outdoor kitchen projects in Bend range from $8,000 for a basic built-in grill with counter space to $40,000+ for a fully equipped outdoor kitchen with refrigeration, sink, pizza oven, and bar seating. The wide range reflects differences in appliance quality, countertop materials, and the complexity of the structure. We design to your budget and lifestyle." },
           { question: "What outdoor living features are most popular in Bend?", answer: "The most popular outdoor living additions in Bend include covered pergolas and shade structures (essential for our sunny summers), outdoor kitchens and grilling stations, fire pits and fireplaces for cool evenings, paver patios with seating walls, and integrated landscape lighting. Many clients combine several of these into a complete outdoor room." },

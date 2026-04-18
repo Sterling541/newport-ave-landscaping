@@ -79,6 +79,26 @@ export default function WaterFeatures() {
       schemaUrl="/services/water-features"
       schemaName="Water Features"
       schemaDescription="Custom ponds, waterfalls, and water features in Bend, Oregon. Design, installation, and maintenance by Newport Avenue Landscaping."
+      portfolioProjects={[
+        {
+          title: "Westside Outdoor Living Space",
+          href: "/portfolio/westside-outdoor-living",
+          image: "https://newportavelandscaping.com/wp-content/uploads/2022/05/westside-outdoor-living-space-bend-oregon-after.jpg",
+          category: "OUTDOOR LIVING · WATER FEATURES",
+        },
+        {
+          title: "Broken Top Water Feature & Sunken Fire Pit",
+          href: "/portfolio/broken-top-water-feature",
+          image: "https://newportavelandscaping.com/wp-content/uploads/2022/05/Brokentop-Water-Feature-and-Sunken-Fire-Pit-After-Picture.jpg",
+          category: "WATER FEATURES · FIRE FEATURES",
+        },
+        {
+          title: "NW Bend Backyard Landscaping",
+          href: "/portfolio/nw-bend-backyard",
+          image: "https://newportavelandscaping.com/wp-content/uploads/2022/05/NW-Bend-Backyard-After-Picture.jpg",
+          category: "DESIGN & BUILD · WATER FEATURES",
+        },
+      ]}
       faqs={[
           { question: "How much does a water feature cost in Bend?", answer: "Water features in Bend range from $1,500 for a simple pondless waterfall to $15,000+ for a large koi pond with waterfalls and extensive landscaping. A medium-sized pondless waterfall with natural stone typically costs $3,000–$6,000 installed. Koi ponds with filtration systems start around $5,000 and scale up with size and complexity." },
           { question: "What type of water feature is best for Central Oregon?", answer: "Pondless waterfalls are extremely popular in Bend because they provide the soothing sound of moving water without the maintenance of a full pond. They are also safer for households with young children. Koi ponds are a beautiful focal point for larger properties. Bubbling rock features and container water gardens are lower-maintenance options for smaller spaces." },

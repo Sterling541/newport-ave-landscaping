@@ -81,6 +81,26 @@ export default function Xeriscaping() {
       schemaUrl="/services/xeriscaping"
       schemaName="Xeriscape Landscaping"
       schemaDescription="Water-wise xeriscape landscaping in Bend, Oregon. Drought-tolerant plants, decorative rock, and low-maintenance designs."
+      portfolioProjects={[
+        {
+          title: "Awbrey Butte Xeriscape",
+          href: "/portfolio/awbrey-butte-xeriscape",
+          image: "https://newportavelandscaping.com/wp-content/uploads/2022/05/awbrey-butte-xeriscape-landscaping-renovation-day-shot.jpg",
+          category: "XERISCAPING · DESIGN & BUILD",
+        },
+        {
+          title: "Broken Top Xeriscape",
+          href: "/portfolio/broken-top-xeriscape",
+          image: "https://newportavelandscaping.com/wp-content/uploads/2022/05/Bend-OR-Brokentop-Xeriscape-After-Picture.jpg",
+          category: "XERISCAPING · DESIGN & BUILD",
+        },
+        {
+          title: "Bend Full Yard Transformation",
+          href: "/portfolio/bend-full-yard-transformation",
+          image: "https://newportavelandscaping.com/wp-content/uploads/2022/05/bend-oregon-after-backyard1.jpg",
+          category: "DESIGN & BUILD · XERISCAPE",
+        },
+      ]}
       faqs={[
           { question: "How much does xeriscaping cost in Bend?", answer: "Xeriscape projects in Bend typically cost $3,000–$20,000 depending on the size of the area, the extent of existing lawn removal, soil amendment needs, and plant and rock material choices. While the upfront cost is comparable to traditional landscaping, xeriscapes save significantly on water bills and maintenance costs over time." },
           { question: "How much water does xeriscaping save?", answer: "A well-designed xeriscape in Central Oregon can reduce outdoor water use by 50–75% compared to a traditional lawn. In Bend, where summer water bills can run $100–$200/month for irrigation, that represents $600–$1,500 in annual savings. Many Bend homeowners recoup the cost of xeriscaping within 3–5 years through water savings alone." },

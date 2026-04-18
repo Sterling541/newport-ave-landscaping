@@ -78,6 +78,26 @@ export default function LandscapeDesign() {
       schemaUrl="/services/landscape-design"
       schemaName="Landscape Design"
       schemaDescription="Custom landscape design in Bend, Oregon. Full-service design and installation for residential and commercial properties."
+      portfolioProjects={[
+        {
+          title: "Bend Full Yard Transformation",
+          href: "/portfolio/bend-full-yard-transformation",
+          image: "https://newportavelandscaping.com/wp-content/uploads/2022/05/bend-oregon-after-backyard1.jpg",
+          category: "DESIGN & BUILD · FULL YARD",
+        },
+        {
+          title: "NW Bend Backyard Landscaping",
+          href: "/portfolio/nw-bend-backyard",
+          image: "https://newportavelandscaping.com/wp-content/uploads/2022/05/NW-Bend-Backyard-After-Picture.jpg",
+          category: "DESIGN & BUILD",
+        },
+        {
+          title: "Awbrey Butte Xeriscape",
+          href: "/portfolio/awbrey-butte-xeriscape",
+          image: "https://newportavelandscaping.com/wp-content/uploads/2022/05/awbrey-butte-xeriscape-landscaping-renovation-day-shot.jpg",
+          category: "DESIGN & BUILD · XERISCAPE",
+        },
+      ]}
       faqs={[
           { question: "How much does landscape design cost in Bend?", answer: "Landscape design fees in Bend vary based on project scope. We offer complimentary initial consultations to discuss your vision and budget. Full design packages for larger residential projects typically range from $500–$2,500 for the design phase, which is often credited toward installation. Many clients find the design investment pays for itself through better plant selection, reduced waste, and a cohesive final result." },
           { question: "What is included in a landscape design?", answer: "Our landscape design process includes an on-site consultation, site analysis (sun exposure, soil, drainage, existing plants), a custom design plan with plant selection and placement, material recommendations, and a detailed project estimate. We create designs that work with Central Oregon's climate, water availability, and your lifestyle." },

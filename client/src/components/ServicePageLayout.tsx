@@ -46,6 +46,13 @@ interface FAQItem {
   answer: string;
 }
 
+interface PortfolioProject {
+  title: string;
+  href: string;
+  image: string;
+  category?: string;
+}
+
 interface ServicePageProps {
   category: string;
   title: string;
@@ -60,6 +67,7 @@ interface ServicePageProps {
   relatedLinks?: { label: string; href: string }[];
   resourceLinks?: { label: string; href: string; description?: string }[];
   faqs?: FAQItem[];
+  portfolioProjects?: PortfolioProject[];
   schemaName?: string;
   schemaDescription?: string;
   schemaUrl?: string;
@@ -79,6 +87,7 @@ export default function ServicePageLayout({
   relatedLinks,
   resourceLinks,
   faqs,
+  portfolioProjects,
   schemaName,
   schemaDescription,
   schemaUrl,
@@ -294,6 +303,63 @@ export default function ServicePageLayout({
           </div>
         </div>
       </section>
+
+      {/* ── Portfolio Projects ── */}
+      {portfolioProjects && portfolioProjects.length > 0 && (
+        <section className="py-16" style={{ backgroundColor: "oklch(0.12 0.005 0)" }}>
+          <div className="container">
+            <FadeIn>
+              <div className="font-label mb-2" style={{ color: "oklch(0.72 0.12 25)", fontSize: "0.62rem" }}>SEE OUR WORK</div>
+              <h2 className="font-display font-light text-white mb-2" style={{ fontSize: "clamp(1.4rem, 2.5vw, 2rem)" }}>
+                Real Projects in Central Oregon
+              </h2>
+              <p className="font-body mb-8" style={{ color: "oklch(0.55 0.005 0)", fontSize: "0.9rem", fontWeight: 300 }}>
+                Browse completed projects similar to what we could build for you.
+              </p>
+            </FadeIn>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {portfolioProjects.map((project, i) => (
+                <FadeIn key={project.href} delay={i * 0.06}>
+                  <Link href={project.href} style={{ display: "block", textDecoration: "none" }}>
+                    <div
+                      className="group overflow-hidden relative"
+                      style={{ aspectRatio: "4/3", backgroundColor: "oklch(0.18 0.005 0)" }}
+                    >
+                      <img
+                        src={project.image}
+                        alt={project.title}
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                        loading="lazy"
+                        onError={(e) => { (e.target as HTMLImageElement).style.opacity = "0.3"; }}
+                      />
+                      <div
+                        className="absolute bottom-0 left-0 right-0 p-4"
+                        style={{ background: "linear-gradient(0deg, oklch(0.10 0.005 0 / 0.9) 0%, transparent 100%)" }}
+                      >
+                        {project.category && (
+                          <div className="font-label mb-0.5" style={{ color: "oklch(0.72 0.14 240)", fontSize: "0.58rem" }}>{project.category}</div>
+                        )}
+                        <div className="font-display font-light text-white" style={{ fontSize: "0.9rem", lineHeight: 1.2 }}>{project.title}</div>
+                      </div>
+                    </div>
+                  </Link>
+                </FadeIn>
+              ))}
+            </div>
+            <FadeIn delay={0.2}>
+              <div className="mt-8 text-center">
+                <Link
+                  href="/our-work"
+                  className="font-label px-8 py-3 text-white transition-opacity hover:opacity-75"
+                  style={{ backgroundColor: "oklch(0.25 0.005 0)", fontSize: "0.68rem", letterSpacing: "0.12em", borderRadius: "1.2rem 0.15rem 1.2rem 0.15rem", display: "inline-block" }}
+                >
+                  VIEW ALL PROJECTS →
+                </Link>
+              </div>
+            </FadeIn>
+          </div>
+        </section>
+      )}
 
       {/* ── CTA ── */}
       <section className="py-20 text-center" style={{ backgroundColor: "oklch(0.15 0.005 0)" }}>

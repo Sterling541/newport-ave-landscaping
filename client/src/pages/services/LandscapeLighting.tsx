@@ -75,6 +75,26 @@ export default function LandscapeLighting() {
       schemaUrl="/services/landscape-lighting"
       schemaName="Landscape Lighting"
       schemaDescription="Professional landscape lighting design and installation in Bend, Oregon. LED path lights, uplighting, and outdoor living illumination."
+      portfolioProjects={[
+        {
+          title: "NW Bend Landscape Lighting",
+          href: "/portfolio/nw-bend-lighting",
+          image: "https://newportavelandscaping.com/wp-content/uploads/2022/09/nw-bend-oregon-landscape-lighting-install.jpg",
+          category: "LANDSCAPE LIGHTING",
+        },
+        {
+          title: "Awbrey Butte Xeriscape — Night View",
+          href: "/portfolio/awbrey-butte-xeriscape",
+          image: "https://newportavelandscaping.com/wp-content/uploads/2022/05/awbrey-butte-xeriscape-landscaping-renovation-night-shot.jpg",
+          category: "LIGHTING · XERISCAPE",
+        },
+        {
+          title: "Westside Outdoor Living Space",
+          href: "/portfolio/westside-outdoor-living",
+          image: "https://newportavelandscaping.com/wp-content/uploads/2022/05/westside-outdoor-living-space-bend-oregon-after.jpg",
+          category: "OUTDOOR LIVING · LIGHTING",
+        },
+      ]}
       faqs={[
           { question: "How much does landscape lighting cost in Bend?", answer: "Residential landscape lighting projects in Bend typically range from $1,500–$8,000 depending on the number of fixtures, the areas being lit, and the complexity of the installation. LED systems have higher upfront costs than halogen but use 75% less energy and last 25x longer, making them the better long-term investment." },
           { question: "What types of landscape lighting do you install?", answer: "We install a full range of outdoor lighting including path and walkway lights, uplighting for trees and architectural features, downlighting from trees or structures, deck and step lighting, pond and water feature lighting, and security lighting. All installations use commercial-grade LED fixtures designed for outdoor use in Central Oregon's climate." },

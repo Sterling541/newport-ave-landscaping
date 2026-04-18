@@ -107,6 +107,26 @@ export default function RetainingWalls() {
       schemaUrl="/services/retaining-walls"
       schemaName="Retaining Wall Installation"
       schemaDescription="Retaining wall design and installation in Bend, Oregon. Basalt boulder, concrete block, and natural stone walls engineered for Central Oregon's freeze-thaw climate."
+      portfolioProjects={[
+        {
+          title: "Awbrey Butte Patio Extension & Freestanding Wall",
+          href: "/portfolio/awbrey-butte-patio",
+          image: "https://newportavelandscaping.com/wp-content/uploads/2022/09/awbrey-butte-freestanding-wall-pavers-patio-extension.jpg",
+          category: "RETAINING WALLS · PAVERS",
+        },
+        {
+          title: "Broken Top Retaining Wall & Xeriscape",
+          href: "/portfolio/broken-top-xeriscape",
+          image: "https://newportavelandscaping.com/wp-content/uploads/2022/05/Bend-OR-Brokentop-Xeriscape-After-Picture.jpg",
+          category: "RETAINING WALLS · XERISCAPE",
+        },
+        {
+          title: "SW Bend Backyard Landscaping",
+          href: "/portfolio/sw-bend-backyard",
+          image: "https://newportavelandscaping.com/wp-content/uploads/2022/05/south-west-bend-oregon-campground-backyard-full-view-2.jpg",
+          category: "DESIGN & BUILD · WALLS",
+        },
+      ]}
     />
   );
 }
