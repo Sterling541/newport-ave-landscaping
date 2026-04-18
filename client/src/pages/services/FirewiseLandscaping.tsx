@@ -44,7 +44,7 @@ const faqs = [
   {
     question: "How much does firewise landscaping cost in Bend?",
     answer:
-      "Firewise landscaping costs vary significantly based on property size, the number and size of hazardous plants to remove, and how much replanting is involved. A typical residential firewise assessment and Zone 1 cleanup (0–30 feet from the home) runs $1,500–$4,500. Full property defensible space transformations including replanting typically range from $4,000–$15,000+. Juniper removal alone is priced by the tree — small trees under 10 feet run $150–$400 each; large mature junipers can be $500–$1,500 depending on access and disposal. Contact us for a free site assessment and written estimate.",
+      "Firewise landscaping costs vary significantly based on property size, the number and size of hazardous plants to remove, and how much replanting is involved. A typical residential firewise assessment and Zone 1 cleanup (0–30 feet from the home) runs $2,500–$6,500. Full property defensible space transformations including replanting typically range from $7,500–$25,000+. Juniper removal alone is priced by the tree — small trees under 10 feet run $300–$650 each; large mature junipers can be $800–$2,500 depending on access and disposal. Contact us for a free site assessment and written estimate.",
   },
   {
     question: "Which plants are most dangerous in Central Oregon and need to be removed?",
@@ -80,10 +80,10 @@ export default function FirewiseLandscaping() {
       heroPosition="center 40%"
       intro="Wildfire is no longer a distant threat in Central Oregon — it's a present reality. Deschutes County adopted new fire hardening requirements in April 2026, and a defensible space ordinance is actively being drafted for local adoption. Newport Avenue Landscaping offers complete firewise transformations: we assess your property's fire risk, remove hazardous vegetation like juniper and manzanita, upgrade your irrigation to maintain Zone 1 moisture levels, and replant with fire-resistant species that are beautiful, drought-tolerant, and appropriate for Central Oregon's high desert. We don't just clear brush — we rebuild your landscape to protect your home."
       pricing={[
-        { label: "Zone 1 Cleanup (0–30 ft)", value: "$1,500–$4,500 typical" },
-        { label: "Full Property Transformation", value: "$4,000–$15,000+" },
-        { label: "Juniper Removal (small)", value: "$150–$400 per tree" },
-        { label: "Juniper Removal (large)", value: "$500–$1,500 per tree" },
+        { label: "Zone 1 Cleanup (0–30 ft)", value: "$2,500–$6,500 typical" },
+        { label: "Full Property Transformation", value: "$7,500–$25,000+" },
+        { label: "Juniper Removal (small)", value: "$300–$650 per tree" },
+        { label: "Juniper Removal (large)", value: "$800–$2,500 per tree" },
         { label: "Fire-Resistant Replanting", value: "Quoted per project" },
         { label: "Service Area", value: "Bend, Redmond, Sisters, Sunriver, Tumalo & all of Deschutes County" },
       ]}
