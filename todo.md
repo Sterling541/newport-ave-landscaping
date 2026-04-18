@@ -326,3 +326,18 @@
 - [x] Zero Unsplash photos remaining anywhere in the project
 - [x] Fixed sed-broken template literals in 57 resource/service-area pages (restored ) center/cover no-repeat backtick)
 - [x] TypeScript check: 0 errors
+
+## Session — April 18, 2026 (New Project Photos + Our Work Overhaul)
+- [x] Uploaded East Bend Entrance project photos (7 photos, addresses blurred) to CDN
+- [x] Uploaded Boulder Terracing & Hillside Planting photos (5 photos, addresses blurred) to CDN
+- [x] Uploaded nursery video to CDN
+- [x] Uploaded Awbrey Butte Loop luxury outdoor living photos (11 photos) to CDN
+- [x] Added East Bend Entrance project to Our Work featured gallery
+- [x] Added Boulder Terracing & Hillside Planting project to Our Work featured gallery
+- [x] Added Awbrey Butte Loop project to Our Work featured gallery
+- [x] Fixed before/after sliders — now use real before/after photos from actual projects
+- [x] Added nursery video section to Our Work page
+- [x] Set up storage proxy for /manus-storage/* paths (server/_core/storageProxy.ts)
+- [x] Updated Lawn Service hero to Awbrey Butte Loop lawn photo (green lawn + fire pit)
+- [x] Updated Aeration hero to Awbrey Butte Loop xeriscape front yard photo
+- [x] TypeScript check: 0 errors

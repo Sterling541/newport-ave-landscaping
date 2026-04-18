@@ -33,7 +33,7 @@ export default function LawnService() {
       subtitle="Bend, Oregon"
       seoTitle="Lawn Care Bend Oregon | Weekly Lawn Mowing & Maintenance Service | Newport Avenue"
       seoDescription="Weekly lawn mowing, edging, and maintenance in Bend, Oregon. From $97/service. Fertilization, weed control, and seasonal cleanups. Serving Bend since 2010. LCB #9153."
-      heroImage="https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/maintenance-hero-bg_3219f29e.jpeg"
+      heroImage="/manus-storage/awbrey-butte-loop-11_dc6042fc.jpg"
       heroPosition="center 60%"
       intro="Since 2005, we've provided lawn care and landscape maintenance for thousands of homes located throughout Bend, Redmond, Sisters, and the broader Central Oregon area. From La Pine to Madras and from Prineville to Sisters, our gardeners can be seen beautifying landscapes."
       pricing={[

@@ -95,6 +95,41 @@ const MCGRATH_PHOTOS = [
   `${CDN}/CrNsPnwGSyMrKqea_c9d4e5f2.webp`,
 ];
 
+// Awbrey Butte Loop — luxury outdoor living: pond, fire pit, pergola, xeriscape
+const AWBREY_LOOP_PHOTOS = [
+  "/manus-storage/awbrey-butte-loop-02_77381709.jpg",
+  "/manus-storage/awbrey-butte-loop-06_d22e4bae.jpg",
+  "/manus-storage/awbrey-butte-loop-04_9bb6a696.jpg",
+  "/manus-storage/awbrey-butte-loop-11_dc6042fc.jpg",
+  "/manus-storage/awbrey-butte-loop-01_a3d27fee.jpg",
+  "/manus-storage/awbrey-butte-loop-03_bab48f19.jpg",
+  "/manus-storage/awbrey-butte-loop-05_eadee38f.jpg",
+  "/manus-storage/awbrey-butte-loop-07_583d02af.jpg",
+  "/manus-storage/awbrey-butte-loop-08_194d2baf.jpg",
+  "/manus-storage/awbrey-butte-loop-09_28d05fd8.jpg",
+  "/manus-storage/awbrey-butte-loop-10_0e84f541.jpg",
+];
+
+// East Bend Entrance — brick paver driveway & planting refresh
+const EAST_BEND_ENTRANCE_PHOTOS = [
+  "/manus-storage/east-bend-entrance-after1_b8e838ec.jpg",
+  "/manus-storage/east-bend-entrance-after2_2070ab8b.jpg",
+  "/manus-storage/east-bend-entrance-after3_502aa04a.jpg",
+  "/manus-storage/east-bend-entrance-after4_3bee0d76.jpg",
+  "/manus-storage/east-bend-entrance-before1_de65af94.jpg",
+  "/manus-storage/east-bend-entrance-before2_b434a90a.jpg",
+  "/manus-storage/east-bend-entrance-before3_d62522e8.jpg",
+];
+
+// Boulder Terracing & Planting — hillside transformation
+const BOULDER_TERRACE_PHOTOS = [
+  "/manus-storage/boulder-terrace-after1_f09941f2.jpg",
+  "/manus-storage/boulder-terrace-after2_88fb51db.jpg",
+  "/manus-storage/boulder-terrace-after3_b8280194.jpg",
+  "/manus-storage/boulder-terrace-before1_ebbc75ec.jpg",
+  "/manus-storage/boulder-terrace-before2_756e950c.jpg",
+];
+
 // Awbrey Butte — luxury outdoor living using GLL Patio CDN images
 const AWBREY_PHOTOS = [
   `${CDN}/GLLPatio1_90e2e0c4.jpg`,
@@ -153,6 +188,30 @@ const PROJECTS = [
     description: "A luxury outdoor living transformation in Awbrey Butte — one of Bend's most prestigious neighborhoods. Custom patio design, premium hardscape, and integrated plantings that complement the elevated terrain and mountain views.",
     tags: ["Outdoor Living", "Luxury Residential", "Hardscape", "Awbrey Butte"],
     photos: AWBREY_PHOTOS,
+  },
+  {
+    id: "east-bend-entrance",
+    name: "East Bend Entrance Redesign",
+    location: "East Bend, Oregon",
+    description: "A complete front entrance transformation — brick paver driveway and landing, new planting beds with ornamental shrubs and grasses, and landscape lighting. The result is a welcoming, low-maintenance entrance that dramatically improves curb appeal.",
+    tags: ["Pavers", "Planting Design", "Curb Appeal", "Landscape Lighting"],
+    photos: EAST_BEND_ENTRANCE_PHOTOS,
+  },
+  {
+    id: "awbrey-loop",
+    name: "Awbrey Butte Luxury Outdoor Living",
+    location: "Awbrey Butte, Bend, Oregon",
+    description: "A complete luxury outdoor living transformation in Awbrey Butte — natural rock pond with waterfall, flagstone fire pit patio, cedar pergola with hot tub, synthetic lawn, landscape lighting, and a full xeriscape front yard with ornamental grasses and boulders. Panoramic views of Bend from every angle.",
+    tags: ["Water Feature", "Fire Pit", "Pergola", "Xeriscape", "Landscape Lighting", "Awbrey Butte"],
+    photos: AWBREY_LOOP_PHOTOS,
+  },
+  {
+    id: "boulder-terrace",
+    name: "Boulder Terracing & Hillside Planting",
+    location: "Bend, Oregon",
+    description: "A dramatic hillside transformation — natural boulder terracing, concrete stair installation, and a full planting design with native shrubs, ornamental grasses, and perennials. The steep slope was converted from bare dirt and overgrown juniper into a stunning, low-water landscape.",
+    tags: ["Boulder Terracing", "Retaining Walls", "Planting Design", "Concrete Steps"],
+    photos: BOULDER_TERRACE_PHOTOS,
   },
 ];
 
@@ -452,45 +511,80 @@ export default function OurWork() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <FadeIn delay={0.05}>
               <BeforeAfterSlider
-                beforeSrc="https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/maintenance-hero-bg_3219f29e.jpeg"
-                afterSrc="https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/water-feature-sunset_f7b219d3.jpg"
-                beforeAlt="Overgrown backyard before landscaping in Bend Oregon"
-                afterAlt="Beautiful xeriscape patio after Newport Avenue Landscaping"
-                caption="Awbrey Butte Xeriscape — overgrown lawn replaced with water-wise native plantings and flagstone patio"
+                beforeSrc="/manus-storage/east-bend-entrance-before1_de65af94.jpg"
+                afterSrc="/manus-storage/east-bend-entrance-after3_502aa04a.jpg"
+                beforeAlt="Front entrance before renovation — old brick steps and bare plantings"
+                afterAlt="Finished brick paver driveway and entrance with new planting beds"
+                caption="East Bend Entrance — brick paver driveway, new planting beds, and landscape lighting"
               />
             </FadeIn>
             <FadeIn delay={0.10}>
               <BeforeAfterSlider
-                beforeSrc="https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/landscaping-native_fa3d1cfe.jpg"
-                afterSrc="https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/GLLPatio9_9e7ea695.jpg"
-                beforeAlt="Bare dirt yard before landscaping in Bend Oregon"
-                afterAlt="Finished paver patio and landscape design by Newport Avenue Landscaping"
-                caption="Broken Top Paver Patio — bare dirt transformed into a full outdoor living space with pavers, lighting, and plantings"
+                beforeSrc="/manus-storage/boulder-terrace-before1_ebbc75ec.jpg"
+                afterSrc="/manus-storage/boulder-terrace-after2_88fb51db.jpg"
+                beforeAlt="Bare hillside with overgrown juniper before terracing"
+                afterAlt="Finished boulder terracing with native plantings and concrete steps"
+                caption="Boulder Terracing — steep hillside transformed with natural boulders, concrete steps, and native plantings"
               />
             </FadeIn>
             <FadeIn delay={0.15}>
               <BeforeAfterSlider
-                beforeSrc="https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/maintenance-hero-bg_3219f29e.jpeg"
-                afterSrc="https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/landscaping-native_fa3d1cfe.jpg"
-                beforeAlt="Dry rocky slope before retaining wall installation in Bend"
-                afterAlt="Finished retaining wall and landscape terracing by Newport Avenue Landscaping"
-                caption="Westside Retaining Wall — steep rocky slope stabilized with natural basalt retaining walls and drought-tolerant plantings"
+                beforeSrc="/manus-storage/east-bend-entrance-before2_b434a90a.jpg"
+                afterSrc="/manus-storage/east-bend-entrance-after4_3bee0d76.jpg"
+                beforeAlt="Side view of old entrance before renovation"
+                afterAlt="Completed entrance with illuminated concrete retaining wall and ornamental grasses"
+                caption="East Bend Entrance — illuminated address wall, ornamental grasses, and modern concrete hardscape"
               />
             </FadeIn>
             <FadeIn delay={0.20}>
               <BeforeAfterSlider
-                beforeSrc="https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/landscaping-native_fa3d1cfe.jpg"
-                afterSrc="https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/water-feature-sunset_f7b219d3.jpg"
-                beforeAlt="Neglected front yard before landscaping in Sunriver Oregon"
-                afterAlt="Finished Sunriver front yard with irrigation and native plants"
-                caption="Sunriver Irrigation Install — full drip and spray system installed with smart controller and native plant beds"
+                beforeSrc="/manus-storage/boulder-terrace-before2_756e950c.jpg"
+                afterSrc="/manus-storage/boulder-terrace-after3_b8280194.jpg"
+                beforeAlt="Overgrown juniper and bare dirt hillside before landscaping"
+                afterAlt="Full hillside view after boulder terracing and planting installation"
+                caption="Hillside Planting — full-slope transformation with lavender, ornamental shrubs, and boulder accents"
               />
             </FadeIn>
           </div>
         </div>
       </section>
 
-      {/* ── CTA ── */}
+      {/* —— Nursery Video —— */}
+      <section className="py-20" style={{ backgroundColor: "oklch(0.12 0.005 0)" }}>
+        <div className="container">
+          <FadeIn>
+            <div className="text-center mb-10">
+              <div className="font-label mb-3 flex items-center justify-center gap-3" style={{ color: "oklch(0.65 0.16 240)", fontSize: "0.62rem", letterSpacing: "0.18em" }}>
+                <span className="inline-block w-8 h-px" style={{ backgroundColor: "oklch(0.65 0.16 240)" }} />
+                OUR NURSERY
+                <span className="inline-block w-8 h-px" style={{ backgroundColor: "oklch(0.65 0.16 240)" }} />
+              </div>
+              <h2 className="font-display font-light text-white" style={{ fontSize: "clamp(1.6rem, 3vw, 2.6rem)", lineHeight: 1.1 }}>
+                Grown in Central Oregon
+                <br />
+                <em style={{ color: "oklch(0.72 0.14 240)", fontStyle: "italic" }}>Our On-Site Nursery</em>
+              </h2>
+              <p className="font-body mt-4 mx-auto" style={{ color: "oklch(0.60 0.005 0)", maxWidth: "520px", fontSize: "0.92rem", lineHeight: 1.7 }}>
+                We grow and source plants suited to Central Oregon's high-desert climate. Our nursery stock is selected for drought tolerance, cold hardiness, and long-term performance in your landscape.
+              </p>
+            </div>
+          </FadeIn>
+          <FadeIn delay={0.1}>
+            <div className="mx-auto overflow-hidden" style={{ maxWidth: "800px", borderRadius: "1.2rem 0.15rem 1.2rem 0.15rem", border: "1.5px solid oklch(0.55 0.16 240 / 0.30)" }}>
+              <video
+                src="/manus-storage/73c43880b1eb4aea940e8e3d5ab3bcdf_2569730c.mov"
+                controls
+                playsInline
+                muted
+                className="w-full"
+                style={{ display: "block", maxHeight: "520px", objectFit: "cover" }}
+              />
+            </div>
+          </FadeIn>
+        </div>
+      </section>
+
+      {/* —— CTA —— */}
       <section className="py-20 text-center" style={{ background: "linear-gradient(135deg, oklch(0.16 0.08 240) 0%, oklch(0.26 0.10 240) 50%, oklch(0.20 0.07 240) 100%)" }}>
         <div className="container">
           <FadeIn>
