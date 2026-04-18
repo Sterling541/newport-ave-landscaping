@@ -43,6 +43,23 @@ export default function BackflowTestingBend() {
           <ul style={{ listStyle: "none", padding: 0, margin: "1rem 0 0" }}><li key="0" style={{ marginBottom: "0.5rem", paddingLeft: "1rem", borderLeft: "2px solid oklch(0.46 0.20 25)" }}>Annual testing required: yes (Oregon law)</li><li key="1" style={{ marginBottom: "0.5rem", paddingLeft: "1rem", borderLeft: "2px solid oklch(0.46 0.20 25)" }}>Who can test: certified backflow assembly tester (BAT)</li><li key="2" style={{ marginBottom: "0.5rem", paddingLeft: "1rem", borderLeft: "2px solid oklch(0.46 0.20 25)" }}>Test report submission: required to City of Bend Water Dept.</li><li key="3" style={{ marginBottom: "0.5rem", paddingLeft: "1rem", borderLeft: "2px solid oklch(0.46 0.20 25)" }}>Deadline: typically by May 1 each year (verify with City of Bend)</li><li key="4" style={{ marginBottom: "0.5rem", paddingLeft: "1rem", borderLeft: "2px solid oklch(0.46 0.20 25)" }}>Failure to test: water service may be shut off</li></ul>
         </div>
       </section>
+      {/* ── MID-PAGE CTA ── */}
+      <section style={{ background: "oklch(0.15 0.005 0)", padding: "2.5rem 0" }}>
+        <div className="container" style={{ maxWidth: "800px", margin: "0 auto", textAlign: "center" }}>
+          <p style={{ fontFamily: "var(--font-label)", fontSize: "0.65rem", letterSpacing: "0.18em", color: "oklch(0.46 0.20 25)", marginBottom: "0.75rem" }}>FREE CONSULTATION · NO OBLIGATION</p>
+          <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 300, color: "#fff", fontSize: "clamp(1.2rem, 2.5vw, 1.7rem)", marginBottom: "0.75rem" }}>
+            Ready to get a free quote from Newport Avenue Landscaping?
+          </h3>
+          <p style={{ color: "oklch(0.72 0.005 0)", marginBottom: "1.5rem", fontSize: "0.95rem", lineHeight: 1.7 }}>
+            We serve Bend, Redmond, Sisters, Sunriver, and all of Central Oregon. LCB #9153 · 21+ years · 5-year warranty.
+          </p>
+          <div style={{ display: "flex", gap: "1rem", justifyContent: "center", flexWrap: "wrap" }}>
+            <a href="/contact" className="btn-red" style={{ display: "inline-block" }}>Get My Free Quote →</a>
+            <a href="tel:+15416178873" style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem", color: "#fff", fontFamily: "var(--font-body)", fontSize: "0.95rem", fontWeight: 500, textDecoration: "none", padding: "0.65rem 1.25rem", border: "1px solid oklch(0.40 0.005 0)", borderRadius: "2px" }}>(541) 617-8873</a>
+          </div>
+        </div>
+      </section>
+
       <section style={{ background: "oklch(0.97 0.012 85)", padding: "3rem 0" }}>
         <div style={{ maxWidth: "860px", margin: "0 auto", padding: "0 1.5rem" }}>
           <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 300, color: "oklch(0.15 0.005 0)", fontSize: "clamp(1.3rem, 2.5vw, 1.9rem)", marginBottom: "1.2rem" }}>Backflow Testing Cost in Bend</h2>

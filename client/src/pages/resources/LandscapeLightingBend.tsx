@@ -84,6 +84,17 @@ export default function LandscapeLightingBend() {
               </p>
             </div>
 
+            {/* ── MID-PAGE CTA ── */}
+            <div style={{ background: "oklch(0.15 0.005 0)", padding: "2rem 1.5rem", marginBottom: "2rem", textAlign: "center" }}>
+              <p style={{ fontFamily: "var(--font-label)", fontSize: "0.65rem", letterSpacing: "0.18em", color: "oklch(0.46 0.20 25)", marginBottom: "0.6rem" }}>FREE CONSULTATION · NO OBLIGATION</p>
+              <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 300, color: "#fff", fontSize: "clamp(1.1rem, 2.5vw, 1.5rem)", marginBottom: "0.6rem" }}>Ready to get a free quote for landscape lighting?</h3>
+              <p style={{ color: "oklch(0.72 0.005 0)", marginBottom: "1.25rem", fontSize: "0.9rem", lineHeight: 1.7 }}>LCB #9153 · 21+ years · 5-year workmanship warranty</p>
+              <div style={{ display: "flex", gap: "1rem", justifyContent: "center", flexWrap: "wrap" }}>
+                <a href="/contact" className="btn-red" style={{ display: "inline-block" }}>Get My Free Quote →</a>
+                <a href="tel:+15416178873" style={{ display: "inline-flex", alignItems: "center", color: "#fff", fontFamily: "var(--font-body)", fontSize: "0.9rem", fontWeight: 500, textDecoration: "none", padding: "0.6rem 1.1rem", border: "1px solid oklch(0.40 0.005 0)", borderRadius: "2px" }}>(541) 617-8873</a>
+              </div>
+            </div>
+
             <h2 className="font-display text-2xl mb-4" style={{ color: "oklch(0.15 0.005 0)" }}>Understanding Landscape Lighting Costs in Central Oregon</h2>
             <p className="mb-6">
               The cost of landscape lighting in Bend can vary widely depending on the size of your property, the complexity of the design, the number and type of fixtures, and the control system chosen. For a typical residential project in Central Oregon, homeowners can expect to invest anywhere from <strong>$3,000 to $15,000+</strong>. This range includes design, materials (fixtures, wiring, transformer), and professional installation.

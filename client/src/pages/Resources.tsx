@@ -7,7 +7,7 @@ export default function Resources() {
     <div style={{ backgroundColor: "oklch(0.97 0.012 85)", minHeight: "100vh" }}>
       <Helmet>
         <title>Landscaping Resources &amp; Guides for Bend, Oregon | Newport Avenue Landscaping</title>
-        <meta name="description" content="Free landscaping guides, cost estimates, how-tos, and seasonal tips for Bend, Oregon homeowners. 91 articles covering irrigation, pavers, xeriscape, lawn care, and more from Newport Avenue Landscaping — 21 years of Central Oregon expertise." />
+        <meta name="description" content="Free landscaping guides, cost estimates, how-tos, and seasonal tips for Bend, Oregon homeowners. 95 articles covering irrigation, pavers, xeriscape, lawn care, and more from Newport Avenue Landscaping — 21 years of Central Oregon expertise." />
         <link rel="canonical" href="https://newportavelandscaping.com/resources" />
         <script type="application/ld+json">{`{
           "@context": "https://schema.org",
@@ -32,7 +32,7 @@ export default function Resources() {
             Landscaping Knowledge<br />for Central Oregon
           </h1>
           <p style={{ color: "oklch(0.72 0.12 25)", fontWeight: 300, fontSize: "1rem", maxWidth: "600px", lineHeight: 1.7, marginBottom: "2rem" }}>
-            91 free guides, cost estimates, how-tos, and seasonal tips written by Newport Avenue Landscaping — 21 years of Central Oregon expertise in one place.
+            95 free guides, cost estimates, how-tos, and seasonal tips written by Newport Avenue Landscaping — 21 years of Central Oregon expertise in one place.
           </p>
           <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem" }}>
             <a href="#cost-guides" style={{ fontFamily: "var(--font-label)", fontSize: "0.68rem", color: "oklch(0.72 0.12 25)", textDecoration: "none", letterSpacing: "0.08em", borderBottom: "1px solid oklch(0.46 0.20 25)", paddingBottom: "2px" }}>COST GUIDES</a>
@@ -188,6 +188,29 @@ export default function Resources() {
               <a href="/resources/professional-vs-diy-landscaping-bend-oregon" style={{ display: "flex", flexDirection: "column", padding: "1.1rem 1.25rem", background: "oklch(1 0 0)", borderLeft: "3px solid oklch(0.46 0.20 25)", textDecoration: "none", color: "oklch(0.22 0.008 30)", fontWeight: 600, fontSize: "0.85rem", lineHeight: 1.4, gap: "0.25rem", transition: "transform 0.15s, box-shadow 0.15s" }}>
                 Professional vs. DIY Landscaping in Bend, OR | Newport Ave
               </a>
+          </div>
+        </div>
+        {/* ── Fire-Wise Landscaping Section ── */}
+        <div style={{ marginBottom: "3rem" }}>
+          <div style={{ display: "flex", alignItems: "baseline", gap: "0.75rem", marginBottom: "1rem", borderBottom: "3px solid oklch(0.55 0.20 25)", paddingBottom: "0.6rem" }}>
+            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 300, color: "oklch(0.15 0.005 0)", fontSize: "clamp(1.2rem, 2.5vw, 1.7rem)", margin: 0 }}>
+              🔥 Fire-Wise Landscaping & Defensible Space
+            </h2>
+            <span style={{ fontFamily: "var(--font-label)", fontSize: "0.62rem", color: "oklch(0.55 0.008 0)", letterSpacing: "0.06em" }}>4 GUIDES — NEW 2026</span>
+          </div>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: "0.75rem" }}>
+            <a href="/resources/defensible-space-bend-oregon" style={{ display: "flex", flexDirection: "column", padding: "1.1rem 1.25rem", background: "oklch(1 0 0)", borderLeft: "3px solid oklch(0.55 0.20 25)", textDecoration: "none", color: "oklch(0.22 0.008 30)", fontWeight: 600, fontSize: "0.85rem", lineHeight: 1.4, gap: "0.25rem", transition: "transform 0.15s, box-shadow 0.15s" }}>
+              The Ultimate Defensible Space Guide for Bend, Oregon
+            </a>
+            <a href="/resources/deschutes-county-fire-hardening-requirements" style={{ display: "flex", flexDirection: "column", padding: "1.1rem 1.25rem", background: "oklch(1 0 0)", borderLeft: "3px solid oklch(0.55 0.20 25)", textDecoration: "none", color: "oklch(0.22 0.008 30)", fontWeight: 600, fontSize: "0.85rem", lineHeight: 1.4, gap: "0.25rem", transition: "transform 0.15s, box-shadow 0.15s" }}>
+              Deschutes County Fire Hardening Requirements R327 (2026)
+            </a>
+            <a href="/resources/fire-resistant-plants-central-oregon" style={{ display: "flex", flexDirection: "column", padding: "1.1rem 1.25rem", background: "oklch(1 0 0)", borderLeft: "3px solid oklch(0.55 0.20 25)", textDecoration: "none", color: "oklch(0.22 0.008 30)", fontWeight: 600, fontSize: "0.85rem", lineHeight: 1.4, gap: "0.25rem", transition: "transform 0.15s, box-shadow 0.15s" }}>
+              Fire-Resistant Plants for Central Oregon Landscaping
+            </a>
+            <a href="/resources/juniper-removal-bend-oregon" style={{ display: "flex", flexDirection: "column", padding: "1.1rem 1.25rem", background: "oklch(1 0 0)", borderLeft: "3px solid oklch(0.55 0.20 25)", textDecoration: "none", color: "oklch(0.22 0.008 30)", fontWeight: 600, fontSize: "0.85rem", lineHeight: 1.4, gap: "0.25rem", transition: "transform 0.15s, box-shadow 0.15s" }}>
+              Juniper Removal in Bend, Oregon | Fire Risk &amp; Replacement Guide
+            </a>
           </div>
         </div>
         <div style={{ marginBottom: "3rem" }}>

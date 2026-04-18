@@ -54,6 +54,7 @@ import LandscapeLighting from "./pages/services/LandscapeLighting";
 import Xeriscaping from "./pages/services/Xeriscaping";
 import RetainingWalls from "./pages/services/RetainingWalls";
 import Drainage from "./pages/services/Drainage";
+import FirewiseLandscaping from "./pages/services/FirewiseLandscaping";
 import Careers from "./pages/Careers";
 
 // City landing pages
@@ -102,6 +103,8 @@ import BrokenTopNeighborhood from "./pages/service-areas/BrokenTopNeighborhood";
 import DiscoveryWestNeighborhood from "./pages/service-areas/DiscoveryWestNeighborhood";
 import SunriverLandscaping from "./pages/service-areas/SunriverLandscaping";
 import RedmondLandscaping from "./pages/service-areas/RedmondLandscaping";
+import PowellButteNeighborhood from "./pages/service-areas/PowellButteNeighborhood";
+import EagleCrestNeighborhood from "./pages/service-areas/EagleCrestNeighborhood";
 
 // Portfolio project pages
 import BendFullYardTransformation from "./pages/portfolio/BendFullYardTransformation";
@@ -216,6 +219,7 @@ function Router() {
       <Route path={"/services/xeriscaping"} component={Xeriscaping} />
       <Route path={"/services/retaining-walls"} component={RetainingWalls} />
       <Route path={"/services/drainage"} component={Drainage} />
+      <Route path={"/services/firewise-landscaping"} component={FirewiseLandscaping} />
 
       {/* Careers */}
       <Route path={"/careers"} component={Careers} />
@@ -282,6 +286,8 @@ function Router() {
       <Route path={"/service-areas/discovery-west-landscaping"} component={DiscoveryWestNeighborhood} />
       <Route path={"/service-areas/sunriver-landscaping"} component={SunriverLandscaping} />
       <Route path={"/service-areas/redmond-landscaping"} component={RedmondLandscaping} />
+      <Route path={"/service-areas/powell-butte-landscaping"} component={PowellButteNeighborhood} />
+      <Route path={"/service-areas/eagle-crest-landscaping"} component={EagleCrestNeighborhood} />
 
 
       {/* New SEO Resource Pages */}
@@ -342,6 +348,11 @@ function Router() {
       <Route path={"/resources/best-grass-bend-oregon"} component={lazy(() => import('./pages/resources/BestGrassBendOregon'))} />
       <Route path={"/resources/when-to-plant-bend-oregon"} component={lazy(() => import('./pages/resources/WhenToPlantBendOregon'))} />
       <Route path={"/resources/brown-lawn-bend-oregon"} component={lazy(() => import('./pages/resources/BrownLawnBendOregon'))} />
+      {/* Fire-Wise Landscaping Resources */}
+      <Route path={"/resources/defensible-space-bend-oregon"} component={lazy(() => import('./pages/resources/DefensibleSpaceBendOregon'))} />
+      <Route path={"/resources/deschutes-county-fire-hardening-requirements"} component={lazy(() => import('./pages/resources/DeschutesFireHardeningR327'))} />
+      <Route path={"/resources/fire-resistant-plants-central-oregon"} component={lazy(() => import('./pages/resources/FireResistantPlantsCentralOregon'))} />
+      <Route path={"/resources/juniper-removal-bend-oregon"} component={lazy(() => import('./pages/resources/JuniperRemovalBendOregon'))} />
 
       {/* New Service Area Pages */}
       <Route path={"/service-areas/bend-country-club-landscaping"} component={lazy(() => import('./pages/service-areas/BendCountryClubLandscaping'))} />

@@ -201,3 +201,24 @@
 - [ ] Add FAQSchema to all city pages
 - [ ] Add FAQSchema to all neighborhood pages
 - [ ] Audit and strengthen conversion CTAs on all pages (phone, quote buttons, urgency)
+
+## Session — April 18, 2026 (Neighborhood Pages + Mid-Page CTAs)
+- [ ] Build Powell Butte neighborhood page (/landscaping/powell-butte)
+- [ ] Build Eagle Crest neighborhood page (/landscaping/eagle-crest)
+- [ ] Wire both pages into App.tsx routes
+- [ ] Add both pages to Navbar neighborhood dropdown
+- [ ] Add both pages to sitemap
+- [ ] Add mid-page inline CTA callout to top 10 resource pages
+
+## Fire-Wise Landscaping Section (High Priority)
+- [ ] Research Deschutes County defensible space ordinance and WUI requirements
+- [ ] Research Oregon state fire-wise landscaping guidelines
+- [ ] Build /services/fire-wise-landscaping service page
+- [ ] Build /resources/defensible-space-bend-oregon resource page
+- [ ] Build /resources/fire-wise-plants-central-oregon resource page
+- [ ] Build /resources/deschutes-county-defensible-space-ordinance resource page
+- [ ] Build /resources/fire-wise-landscaping-cost-bend resource page
+- [ ] Wire all fire-wise pages into App.tsx routes
+- [ ] Add Fire-Wise Landscaping to Navbar Services mega menu
+- [ ] Add fire-wise pages to sitemap
+- [ ] Add fire-wise pages to Resources index

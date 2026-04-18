@@ -102,6 +102,17 @@ export default function PaverPatioCostBend() {
               <p style={{ color: "oklch(0.25 0.005 0)" }}>When comparing quotes, always ask for a detailed breakdown of material, labor, and any additional features. A reputable contractor like Newport Avenue Landscaping will provide transparent pricing, ensuring you understand exactly what you're paying for. Don't hesitate to discuss your budget and priorities with us!</p>
             </div>
 
+            {/* ── MID-PAGE CTA ── */}
+            <div style={{ background: "oklch(0.15 0.005 0)", padding: "2rem 1.5rem", marginBottom: "2rem", textAlign: "center" }}>
+              <p style={{ fontFamily: "var(--font-label)", fontSize: "0.65rem", letterSpacing: "0.18em", color: "oklch(0.46 0.20 25)", marginBottom: "0.6rem" }}>FREE CONSULTATION · NO OBLIGATION</p>
+              <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 300, color: "#fff", fontSize: "clamp(1.1rem, 2.5vw, 1.5rem)", marginBottom: "0.6rem" }}>Ready to get a free quote for your paver patio?</h3>
+              <p style={{ color: "oklch(0.72 0.005 0)", marginBottom: "1.25rem", fontSize: "0.9rem", lineHeight: 1.7 }}>LCB #9153 · 21+ years · 5-year workmanship warranty</p>
+              <div style={{ display: "flex", gap: "1rem", justifyContent: "center", flexWrap: "wrap" }}>
+                <a href="/contact" className="btn-red" style={{ display: "inline-block" }}>Get My Free Quote →</a>
+                <a href="tel:+15416178873" style={{ display: "inline-flex", alignItems: "center", color: "#fff", fontFamily: "var(--font-body)", fontSize: "0.9rem", fontWeight: 500, textDecoration: "none", padding: "0.6rem 1.1rem", border: "1px solid oklch(0.40 0.005 0)", borderRadius: "2px" }}>(541) 617-8873</a>
+              </div>
+            </div>
+
             <h2 className="text-2xl font-bold mb-4">Typical Paver Patio Project Ranges in Bend, Oregon</h2>
             <p className="mb-4">
               Based on our extensive experience across Bend and Central Oregon, most paver patio projects fall within the range of <strong>$5,000 to $45,000</strong>. This broad range reflects the diversity in project scope, material choices, and design complexity. Smaller, simpler patios might be at the lower end, while expansive, custom-designed outdoor living spaces with premium materials and features will be at the higher end.

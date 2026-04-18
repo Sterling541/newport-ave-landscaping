@@ -39,6 +39,7 @@ const servicesItems = [
   { label: "Xeriscaping", href: "/services/xeriscaping", num: "09" },
   { label: "Retaining Walls", href: "/services/retaining-walls", num: "10" },
   { label: "Drainage Solutions", href: "/services/drainage", num: "11" },
+  { label: "Firewise Landscaping", href: "/services/firewise-landscaping", num: "12" },
 ];
 
 // Maintenance mega menu — Newport Ave residential lawn & maintenance photo

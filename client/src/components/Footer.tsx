@@ -30,6 +30,7 @@ const landscapingLinks = [
   { label: "Xeriscaping", href: "/services/xeriscaping" },
   { label: "Retaining Walls", href: "/services/retaining-walls" },
   { label: "Drainage Solutions", href: "/services/drainage" },
+  { label: "Firewise Landscaping", href: "/services/firewise-landscaping" },
 ];
 
 const cityLinks = [
@@ -41,6 +42,8 @@ const cityLinks = [
   { label: "Landscaping in Prineville, OR", href: "/landscaping/prineville" },
   { label: "Landscaping in La Pine, OR", href: "/landscaping/la-pine" },
   { label: "Landscaping in Madras, OR", href: "/landscaping/madras" },
+  { label: "Landscaping in Powell Butte, OR", href: "/service-areas/powell-butte-landscaping" },
+  { label: "Landscaping at Eagle Crest, OR", href: "/service-areas/eagle-crest-landscaping" },
   { label: "All Service Areas", href: "/service-areas" },
   { label: "Bend Neighborhoods", href: "/bend-neighborhoods" },
 ];
