@@ -230,6 +230,17 @@ export default function ServicePageLayout({
         </section>
       )}
 
+      {/* ── Pricing Disclaimer ── */}
+      {pricing && pricing.length > 0 && (
+        <div style={{ backgroundColor: "oklch(0.15 0.005 0)", borderTop: "1px solid oklch(0.25 0.005 0)" }}>
+          <div className="container pb-6">
+            <p style={{ color: "oklch(0.55 0.008 0)", fontSize: "0.72rem", lineHeight: 1.6, fontWeight: 300 }}>
+              <strong style={{ color: "oklch(0.65 0.008 0)", fontWeight: 500 }}>Pricing Disclaimer:</strong> Prices shown are typical market ranges provided for general planning purposes only and do not constitute a binding quote or guarantee of cost. Actual project costs depend on site conditions, property size, scope of work, materials selected, and other factors specific to your property. Advertised flat rates (such as per-service mowing prices) are firm as stated. All other estimates require a free on-site assessment. Contact us for a written estimate.
+            </p>
+          </div>
+        </div>
+      )}
+
       {/* ── Content Sections ── */}
       <section className="py-20" style={{ backgroundColor: "oklch(0.97 0.012 85)" }}>
         <div className="container">

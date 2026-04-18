@@ -76,6 +76,14 @@ export default function WaterFeatureCostBend() {
           </div>
         </div>
       </div>
+      {/* ── Pricing Disclaimer ── */}
+      <section style={{ background: "oklch(0.13 0.005 0)", padding: "1.25rem 0" }}>
+        <div style={{ maxWidth: "860px", margin: "0 auto", padding: "0 1.5rem" }}>
+          <p style={{ color: "oklch(0.50 0.008 0)", fontSize: "0.70rem", lineHeight: 1.6, fontWeight: 300, margin: 0 }}>
+            <strong style={{ color: "oklch(0.62 0.008 0)", fontWeight: 500 }}>Pricing Disclaimer:</strong> All prices shown are typical market ranges for general planning purposes only and do not constitute a binding quote or guarantee of cost. Actual costs depend on site conditions, property size, scope of work, and materials. Advertised flat rates are firm as stated. All other estimates require a free on-site assessment. <a href="/contact" style={{ color: "oklch(0.72 0.12 25)", textDecoration: "underline" }}>Contact us for a written estimate.</a>
+          </p>
+        </div>
+      </section>
     </div>
   );
 }
