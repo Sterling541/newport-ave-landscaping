@@ -169,7 +169,6 @@ const EAST_BEND_INSTALL_PHOTOS = [
   "/manus-storage/east-bend-install-18_830937d4.jpg",
   "/manus-storage/east-bend-install-19_5fd174fe.jpg",
   "/manus-storage/east-bend-install-20_fed68b71.jpg",
-  "/manus-storage/east-bend-install-21_d8e531b4.jpg",
 ];
 const BROKENTOP_XERISCAPE_PHOTOS = [
   "/manus-storage/brokentop-xeriscape-01_064e5008.jpg",
