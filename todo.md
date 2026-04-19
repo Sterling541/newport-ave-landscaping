@@ -348,3 +348,10 @@
 - [ ] Upload all project photos to CDN
 - [ ] Fix mismatched photos in portfolio project pages
 - [ ] Update OurWork.tsx with correct full photo sets per project
+
+## Session — April 19, 2026 (Petrosa Backyard Photos)
+
+- [x] Add PETROSA_PHOTOS array to OurWork.tsx with all 19 CDN-hosted photos (petrosa-backyard-01 through 19)
+- [x] Replace old SUCHY_PHOTOS with new PETROSA_PHOTOS for the "Petrosa Neighborhood Backyard" project entry
+- [x] Update project description to reflect Corten steel fireplace, cedar pergola, outdoor kitchen, in-ground trampoline, Italian cypress trees
+- [x] TypeScript check: 0 errors
