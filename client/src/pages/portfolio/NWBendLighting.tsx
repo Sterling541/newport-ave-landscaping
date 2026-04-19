@@ -5,7 +5,7 @@ export default function NWBendLighting() {
     <PortfolioProjectLayout
       title="NW Bend Landscape Lighting"
       subtitle="OUTDOOR LIGHTING · WATER FEATURES"
-      heroImage="https://newportavelandscaping.com/wp-content/uploads/2022/05/nw-bend-landscape-lighting-bend-oregon-night.jpg"
+      heroImage="/manus-storage/nw-bend-lighting-01_32b779e7.jpg"
       description={`This NW Bend property had a beautiful stream feature that the clients simply couldn't enjoy after dark. Our goal was to bring the water feature to life at night and illuminate the surrounding landscape to create a stunning evening ambiance.\n\nWe installed 4 uplights to accent the water feature itself, casting dramatic light across the moving water and boulders. Three well lights were positioned to highlight the surrounding trees, creating depth and dimension in the landscape. Finally, 12 stair fixtures from Unique Lighting Systems were installed — a fixture that will develop a beautiful patina finish over time.\n\nThe result is a completely transformed evening experience. What was once invisible after sunset is now a focal point the entire neighborhood admires.`}
       details={[
         { label: "LOCATION", value: "NW Bend, Bend, OR" },
@@ -16,11 +16,11 @@ export default function NWBendLighting() {
       ]}
       images={[
         {
-          src: "https://newportavelandscaping.com/wp-content/uploads/2022/05/nw-bend-landscape-lighting-bend-oregon-night.jpg",
+          src: "/manus-storage/nw-bend-lighting-01_32b779e7.jpg",
           alt: "NW Bend landscape lighting illuminating water feature and trees at night — Bend, Oregon",
         },
         {
-          src: "https://newportavelandscaping.com/wp-content/uploads/2022/05/nw-bend-landscape-lighting-stair-fixtures-bend-oregon.jpg",
+          src: "/manus-storage/nw-bend-lighting-02_04d49052.jpg",
           alt: "Unique Lighting Systems stair fixtures installed at NW Bend property — Bend, OR",
         },
       ]}
@@ -30,17 +30,17 @@ export default function NWBendLighting() {
         {
           title: "Broken Top Water Feature & Fire Pit",
           href: "/portfolio/broken-top-water-feature",
-          image: "https://newportavelandscaping.com/wp-content/uploads/2022/05/Brokentop-Water-Feature-and-Sunken-Fire-Pit-After-Picture.jpg",
+          image: "/manus-storage/brokentop-water-fire-01_54836cf3.jpg",
         },
         {
           title: "NW Bend Backyard",
           href: "/portfolio/nw-bend-backyard",
-          image: "https://newportavelandscaping.com/wp-content/uploads/2022/05/NW-Bend-Backyard-After-Picture.jpg",
+          image: "/manus-storage/nw-bend-backyard-01_e6d82c48.jpg",
         },
         {
           title: "Westside Outdoor Living Space",
           href: "/portfolio/westside-outdoor-living",
-          image: "https://newportavelandscaping.com/wp-content/uploads/2022/05/westside-outdoor-living-space-bend-oregon-after.jpg",
+          image: "/manus-storage/westside-living-01_30518074.jpg",
         },
       ]}
     />

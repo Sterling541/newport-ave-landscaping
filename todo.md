@@ -355,3 +355,14 @@
 - [x] Replace old SUCHY_PHOTOS with new PETROSA_PHOTOS for the "Petrosa Neighborhood Backyard" project entry
 - [x] Update project description to reflect Corten steel fireplace, cedar pergola, outdoor kitchen, in-ground trampoline, Italian cypress trees
 - [x] TypeScript check: 0 errors
+
+## Session — April 19, 2026 (Portfolio Audit + Performance)
+
+- [x] Remove incorrect photo (east-bend-install-21 — generic paver patio not from this project) from East Bend Landscape Install gallery
+- [x] Replace all WordPress wp-content URLs with CDN /manus-storage/ paths across all 14 portfolio project pages
+- [x] Add fetchPriority=high + eager loading to first gallery photo on Our Work page (LCP improvement)
+- [x] Add decoding=async + width/height + sizes hints to all gallery images (CLS prevention)
+- [x] Add preload link hint for hero background image on Our Work page
+- [x] Add fetchPriority=high + eager loading to hero image in PortfolioProjectLayout
+- [x] Add decoding=async + width/height + sizes hints to all gallery and related project images in PortfolioProjectLayout
+- [x] TypeScript check: 0 errors

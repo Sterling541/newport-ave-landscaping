@@ -553,7 +553,8 @@ export default function OurWork() {
         canonical="/our-work"
       />
       <Navbar />
-      {/* ── Hero ── */}
+      {/* ── Hero ── preload hint for LCP */}
+      <link rel="preload" as="image" href={MCGRATH_PHOTOS[4]} />
       <section
         className="relative flex items-end"
         style={{
@@ -693,7 +694,12 @@ export default function OurWork() {
                             src={url}
                             alt={`${project.name} — photo ${idx + 1}`}
                             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                            loading="lazy"
+                            loading={idx === 0 ? "eager" : "lazy"}
+                            fetchPriority={idx === 0 ? "high" : "low"}
+                            decoding="async"
+                            width={idx === 0 ? 1200 : 600}
+                            height={idx === 0 ? 675 : 450}
+                            sizes={idx === 0 ? "(max-width: 768px) 100vw, 66vw" : "(max-width: 768px) 50vw, 25vw"}
                           />
                           <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center" style={{ backgroundColor: "oklch(0.22 0.10 240 / 0.55)" }}>
                             <span className="font-label text-white" style={{ letterSpacing: "0.15em", fontSize: "0.65rem" }}>View</span>
@@ -754,6 +760,10 @@ export default function OurWork() {
                       alt={project.title}
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                       loading="lazy"
+                      decoding="async"
+                      width={600}
+                      height={450}
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                       onError={(e) => { (e.target as HTMLImageElement).style.opacity = "0.3"; }}
                     />
                     <div className="absolute bottom-0 left-0 right-0 p-4" style={{ background: "linear-gradient(0deg, oklch(0.10 0.005 0 / 0.88) 0%, transparent 100%)" }}>

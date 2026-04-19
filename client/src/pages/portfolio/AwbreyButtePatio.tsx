@@ -5,7 +5,7 @@ export default function AwbreyButtePatio() {
     <PortfolioProjectLayout
       title="Awbrey Butte Patio Extension and Wall"
       subtitle="HARDSCAPE · OUTDOOR LIVING"
-      heroImage="https://newportavelandscaping.com/wp-content/uploads/2022/05/awbrey-butte-patio-extension-and-wall-bend-oregon.jpg"
+      heroImage="/manus-storage/awbrey-patio-wall-01_bde91632.jpg"
       description={`The client wanted the existing patio extended, high spots from tree roots repaired, and a wall built for privacy and continuity. They also wanted their hot tub better incorporated into the backyard.\n\nWe excavated and extended the current patio using Vista pavers in a Walnut blend. We then built approximately 30 linear feet of freestanding wall using "Chateau Wall" blocks (made by Western Interlock) in a walnut blend to enclose the new patio and add a sense of privacy and security.\n\nWe were initially concerned that the back of the curved wall would have unattractive gaps, but the end product came out looking fantastic. Finally, a concrete hot tub pad was poured and all electrical was extended — we always recommend pouring a concrete pad rather than setting a spa directly on pavers.`}
       details={[
         { label: "LOCATION", value: "Awbrey Butte, Bend, OR" },
@@ -17,11 +17,11 @@ export default function AwbreyButtePatio() {
       ]}
       images={[
         {
-          src: "https://newportavelandscaping.com/wp-content/uploads/2022/05/awbrey-butte-patio-extension-and-wall-bend-oregon.jpg",
+          src: "/manus-storage/awbrey-patio-wall-01_bde91632.jpg",
           alt: "Awbrey Butte patio extension with Walnut Vista pavers and Chateau Wall — Bend, Oregon",
         },
         {
-          src: "https://newportavelandscaping.com/wp-content/uploads/2022/05/awbrey-butte-patio-wall-hot-tub-pad-bend-oregon.jpg",
+          src: "/manus-storage/awbrey-patio-wall-02_066fe2ff.jpg",
           alt: "Freestanding Chateau Wall and hot tub concrete pad — Awbrey Butte, Bend, OR",
         },
       ]}
@@ -31,17 +31,17 @@ export default function AwbreyButtePatio() {
         {
           title: "Paver Patio & Gas Firepit",
           href: "/portfolio/paver-patio-firepit",
-          image: "https://newportavelandscaping.com/wp-content/uploads/2022/05/paver-patio-gas-firepit-bend-oregon-after.jpg",
+          image: "/manus-storage/paver-patio-and-gas-firepit-03_efd36531.jpg",
         },
         {
           title: "Awbrey Glenn Flagstone Patio",
           href: "/portfolio/awbrey-glenn-flagstone",
-          image: "https://newportavelandscaping.com/wp-content/uploads/2022/05/awbrey-glenn-flagstone-patio-walkway-bend-oregon-after.jpg",
+          image: "/manus-storage/awbrey-glen-flagstone-05_c7fe894d.jpg",
         },
         {
           title: "Westside Outdoor Living Space",
           href: "/portfolio/westside-outdoor-living",
-          image: "https://newportavelandscaping.com/wp-content/uploads/2022/05/westside-outdoor-living-space-bend-oregon-after.jpg",
+          image: "/manus-storage/westside-living-01_30518074.jpg",
         },
       ]}
     />

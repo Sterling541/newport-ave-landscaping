@@ -1,5 +1,6 @@
 // PortfolioProjectLayout — shared template for all portfolio project pages
 // Design: dark charcoal base, red accents, top-left/bottom-right rounded corners
+// Performance: hero eager-loaded with fetchpriority=high, gallery images lazy-loaded with sizes hints
 import { useEffect } from "react";
 import { Link } from "wouter";
 import Navbar from "./Navbar";
@@ -52,9 +53,19 @@ export default function PortfolioProjectLayout({
       <Navbar />
       <div style={{ paddingTop: "160px" }} />
 
-      {/* Hero */}
+      {/* Hero — eager load with high fetch priority for LCP */}
       <section className="relative" style={{ height: "55vh", minHeight: "380px", overflow: "hidden" }}>
-        <img src={heroImage} alt={title} className="w-full h-full object-cover" style={{ opacity: 0.7 }} />
+        <img
+          src={heroImage}
+          alt={title}
+          className="w-full h-full object-cover"
+          style={{ opacity: 0.7 }}
+          loading="eager"
+          fetchPriority="high"
+          decoding="async"
+          width={1200}
+          height={660}
+        />
         <div className="absolute inset-0" style={{ background: "linear-gradient(to right, oklch(0 0 0 / 0.75) 40%, oklch(0 0 0 / 0.2))" }} />
         <div className="absolute inset-0 flex items-center">
           <div className="container">
@@ -116,7 +127,7 @@ export default function PortfolioProjectLayout({
         </div>
       </section>
 
-      {/* Photo Gallery */}
+      {/* Photo Gallery — lazy load with sizes hints to avoid layout shift */}
       {images.length > 0 && (
         <section className="pb-20">
           <div className="container">
@@ -124,7 +135,16 @@ export default function PortfolioProjectLayout({
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {images.map((img, i) => (
                 <div key={i} className="overflow-hidden" style={{ borderRadius: "1.2rem 0.15rem 1.2rem 0.15rem", aspectRatio: "4/3" }}>
-                  <img src={img.src} alt={img.alt} className="w-full h-full object-cover transition-transform duration-500 hover:scale-105" loading="lazy" />
+                  <img
+                    src={img.src}
+                    alt={img.alt}
+                    className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                    loading="lazy"
+                    decoding="async"
+                    width={800}
+                    height={600}
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  />
                 </div>
               ))}
             </div>
@@ -186,7 +206,16 @@ export default function PortfolioProjectLayout({
                   style={{ textDecoration: "none", display: "block" }}
                 >
                   <div className="overflow-hidden" style={{ borderRadius: "1.2rem 0.15rem 1.2rem 0.15rem", aspectRatio: "4/3", marginBottom: "0.75rem" }}>
-                    <img src={p.image} alt={p.title} className="w-full h-full object-cover transition-transform duration-500 hover:scale-105" loading="lazy" />
+                    <img
+                      src={p.image}
+                      alt={p.title}
+                      className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                      loading="lazy"
+                      decoding="async"
+                      width={600}
+                      height={450}
+                      sizes="(max-width: 640px) 100vw, 33vw"
+                    />
                   </div>
                   <p style={{ fontFamily: "'Lato', sans-serif", fontSize: "0.9rem", color: "oklch(0.88 0 0)", fontWeight: 600 }}>{p.title}</p>
                 </Link>

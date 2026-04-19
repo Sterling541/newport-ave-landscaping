@@ -34,9 +34,9 @@ export default function BendFullYardTransformation() {
       prevProject={{ title: "Awbrey Butte Xeriscape", href: "/portfolio/awbrey-butte-xeriscape" }}
       nextProject={{ title: "SW Bend Backyard", href: "/portfolio/sw-bend-backyard" }}
       relatedProjects={[
-        { title: "NW Bend Backyard", href: "/portfolio/nw-bend-backyard", image: "https://newportavelandscaping.com/wp-content/uploads/2022/05/NW-Bend-Backyard-After-Picture.jpg" },
-        { title: "Broken Top Water Feature", href: "/portfolio/broken-top-water-feature", image: "https://newportavelandscaping.com/wp-content/uploads/2022/05/broken-top-water-feature-after-photo-1.jpg" },
-        { title: "East Bend Landscape Install", href: "/portfolio/east-bend-landscape", image: "https://newportavelandscaping.com/wp-content/uploads/2022/05/east-bend-landscape-install-finished-paver-driveway.jpg" },
+        { title: "NW Bend Backyard", href: "/portfolio/nw-bend-backyard", image: "/manus-storage/nw-bend-backyard-01_e6d82c48.jpg" },
+        { title: "Broken Top Water Feature", href: "/portfolio/broken-top-water-feature", image: "/manus-storage/brokentop-water-fire-01_54836cf3.jpg" },
+        { title: "East Bend Landscape Install", href: "/portfolio/east-bend-landscape", image: "/manus-storage/east-bend-install-01_5ad4daf3.jpg" },
       ]}
     />
   );
