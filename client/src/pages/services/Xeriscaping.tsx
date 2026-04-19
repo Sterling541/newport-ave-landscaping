@@ -26,7 +26,7 @@ export default function Xeriscaping() {
       subtitle="Water-Wise Landscaping for Central Oregon"
       seoTitle="Xeriscape Landscaping Bend Oregon | Water-Wise & Drought-Tolerant Design | Newport Avenue"
       seoDescription="Water-wise xeriscape landscaping in Bend, Oregon. Drought-tolerant plants, decorative rock, and low-maintenance designs for Central Oregon's climate. LCB #9153."
-      heroImage="https://newportavelandscaping.com/wp-content/uploads/2022/05/awbrey-butte-xeriscape-landscaping-renovation-day-shot.jpg"
+      heroImage="https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/brokentop-xeriscape-01_064e5008.jpg"
       intro="Xeriscaping is the art of creating beautiful, sustainable landscapes that thrive with minimal water. In Central Oregon's high-desert climate, xeriscaping isn't just an environmental choice — it's a smart investment that reduces your water bill, lowers maintenance requirements, and creates a landscape that looks stunning year-round without constant irrigation."
       sections={[
         {
@@ -85,19 +85,19 @@ export default function Xeriscaping() {
         {
           title: "Awbrey Butte Xeriscape",
           href: "/portfolio/awbrey-butte-xeriscape",
-          image: "https://newportavelandscaping.com/wp-content/uploads/2022/05/awbrey-butte-xeriscape-landscaping-renovation-day-shot.jpg",
+          image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/brokentop-xeriscape-01_064e5008.jpg",
           category: "XERISCAPING · DESIGN & BUILD",
         },
         {
           title: "Broken Top Xeriscape",
           href: "/portfolio/broken-top-xeriscape",
-          image: "https://newportavelandscaping.com/wp-content/uploads/2022/05/Bend-OR-Brokentop-Xeriscape-After-Picture.jpg",
+          image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/brokentop-xeriscape-01_064e5008.jpg",
           category: "XERISCAPING · DESIGN & BUILD",
         },
         {
           title: "Bend Full Yard Transformation",
           href: "/portfolio/bend-full-yard-transformation",
-          image: "https://newportavelandscaping.com/wp-content/uploads/2022/05/bend-oregon-after-backyard1.jpg",
+          image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/westside-living-01_30518074.jpg",
           category: "DESIGN & BUILD · XERISCAPE",
         },
       ]}

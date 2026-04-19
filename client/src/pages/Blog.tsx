@@ -8,7 +8,7 @@ const posts = [
     title: "Xeriscape Landscaping in Bend, Oregon: The Complete Guide",
     excerpt: "Drought-tolerant plants, design principles, and real cost savings for Central Oregon's high desert climate. Reduce outdoor water use by up to 60%.",
     date: "March 2024",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/ITP_7558_e52a40c9.jpg",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/hero-lawn-care-mQg45uakvrD39QTNERiss9.webp",
     category: "Xeriscape & Water Conservation",
   },
   {
@@ -16,7 +16,7 @@ const posts = [
     title: "Sprinkler Winterization in Bend, Oregon: What You Need to Know",
     excerpt: "When to winterize your sprinklers, what happens if you don't, and how our certified technicians protect your system every fall before Bend's first hard freeze.",
     date: "September 2024",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/GLLPatio2_4916fcde.jpg",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/hero-irrigation-install-87YENsVsMESWmChZiPounH.webp",
     category: "Irrigation",
   },
   {
@@ -32,7 +32,7 @@ const posts = [
     title: "Lawn Care in Bend, Oregon: The Complete Seasonal Guide",
     excerpt: "Watering schedules, fertilization timing, aeration, overseeding, and weed control — everything you need for a healthy lawn in Central Oregon's high desert.",
     date: "February 2024",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/ITP_7385_f2bbba86.jpg",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/hero-lawn-care-mQg45uakvrD39QTNERiss9.webp",
     category: "Lawn Care",
   },
   {
@@ -56,7 +56,7 @@ const posts = [
     title: "Lawn Fungus in Bend, Oregon",
     excerpt: "Got lawn fungus? Learn about the most common types of lawn fungus in Central Oregon, how to identify them, and how our licensed spray technicians can treat and prevent them.",
     date: "January 2023",
-    image: "https://newportavelandscaping.com/wp-content/uploads/2023/01/brown-patch-lawn-fungus-1024x681.jpg",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/hero-lawn-care-mQg45uakvrD39QTNERiss9.webp",
     category: "Lawn Care",
   },
 ];
@@ -76,7 +76,7 @@ export default function Blog() {
         {/* Hero */}
         <div
           className="relative flex items-center justify-center"
-          style={{ height: "260px", backgroundColor: "oklch(0.15 0.005 0)" }}
+          style={{ height: "260px", background: `linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url(https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/hero-blog-resources-5ncHpb3ndLnU8aVh6He6nX.webp) center/cover no-repeat` }}
         >
           <div className="text-center">
             <p className="font-label mb-2" style={{ color: "oklch(0.72 0.12 25)", fontSize: "0.7rem", letterSpacing: "0.18em" }}>

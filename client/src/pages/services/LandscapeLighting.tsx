@@ -79,19 +79,19 @@ export default function LandscapeLighting() {
         {
           title: "NW Bend Landscape Lighting",
           href: "/portfolio/nw-bend-lighting",
-          image: "https://newportavelandscaping.com/wp-content/uploads/2022/09/nw-bend-oregon-landscape-lighting-install.jpg",
+          image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/hero-general-landscaping-4aSCqCE9AiuALjqtgLL6bj.webp",
           category: "LANDSCAPE LIGHTING",
         },
         {
           title: "Awbrey Butte Xeriscape — Night View",
           href: "/portfolio/awbrey-butte-xeriscape",
-          image: "https://newportavelandscaping.com/wp-content/uploads/2022/05/awbrey-butte-xeriscape-landscaping-renovation-night-shot.jpg",
+          image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/brokentop-xeriscape-01_064e5008.jpg",
           category: "LIGHTING · XERISCAPE",
         },
         {
           title: "Westside Outdoor Living Space",
           href: "/portfolio/westside-outdoor-living",
-          image: "https://newportavelandscaping.com/wp-content/uploads/2022/05/westside-outdoor-living-space-bend-oregon-after.jpg",
+          image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/hero-general-landscaping-4aSCqCE9AiuALjqtgLL6bj.webp",
           category: "OUTDOOR LIVING · LIGHTING",
         },
       ]}

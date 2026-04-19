@@ -55,7 +55,7 @@ export default function RetainingWalls() {
       subtitle="Bend, Oregon"
       seoTitle="Retaining Wall Installation Bend Oregon | Basalt Boulder & Block Walls | Newport Avenue"
       seoDescription="Retaining wall design and installation in Bend, Oregon. Basalt boulder, concrete block, and natural stone walls. Engineered for Central Oregon's freeze-thaw climate. Free estimates. LCB #9153."
-      heroImage="https://newportavelandscaping.com/wp-content/uploads/2022/08/retaining-wall-landscape-design-bend-oregon.jpg"
+      heroImage="https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/awbrey-patio-wall-01_bde91632.jpg"
       heroPosition="center 50%"
       intro="Central Oregon's terrain demands more than beauty — it demands structure. Newport Avenue designs and builds retaining walls that solve real slope, erosion, and drainage problems while dramatically elevating the visual appeal of your property. From natural basalt boulders to precision-cut concrete block, we engineer walls that last decades in Bend's demanding freeze-thaw climate."
       pricing={[
@@ -111,19 +111,19 @@ export default function RetainingWalls() {
         {
           title: "Awbrey Butte Patio Extension & Freestanding Wall",
           href: "/portfolio/awbrey-butte-patio",
-          image: "https://newportavelandscaping.com/wp-content/uploads/2022/09/awbrey-butte-freestanding-wall-pavers-patio-extension.jpg",
+          image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/paver-patio-and-gas-firepit-01_04c71c72.jpg",
           category: "RETAINING WALLS · PAVERS",
         },
         {
           title: "Broken Top Retaining Wall & Xeriscape",
           href: "/portfolio/broken-top-xeriscape",
-          image: "https://newportavelandscaping.com/wp-content/uploads/2022/05/Bend-OR-Brokentop-Xeriscape-After-Picture.jpg",
+          image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/brokentop-xeriscape-01_064e5008.jpg",
           category: "RETAINING WALLS · XERISCAPE",
         },
         {
           title: "SW Bend Backyard Landscaping",
           href: "/portfolio/sw-bend-backyard",
-          image: "https://newportavelandscaping.com/wp-content/uploads/2022/05/south-west-bend-oregon-campground-backyard-full-view-2.jpg",
+          image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/petrosa-backyard-01_45e0b956.jpg",
           category: "DESIGN & BUILD · WALLS",
         },
       ]}

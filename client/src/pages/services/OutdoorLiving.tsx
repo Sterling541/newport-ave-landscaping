@@ -81,19 +81,19 @@ export default function OutdoorLiving() {
         {
           title: "Westside Outdoor Living Space",
           href: "/portfolio/westside-outdoor-living",
-          image: "https://newportavelandscaping.com/wp-content/uploads/2022/05/westside-outdoor-living-space-bend-oregon-after.jpg",
+          image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/hero-general-landscaping-4aSCqCE9AiuALjqtgLL6bj.webp",
           category: "OUTDOOR LIVING · WATER FEATURES",
         },
         {
           title: "SW Bend Backyard Landscaping",
           href: "/portfolio/sw-bend-backyard",
-          image: "https://newportavelandscaping.com/wp-content/uploads/2022/05/south-west-bend-oregon-campground-backyard-full-view-2.jpg",
+          image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/petrosa-backyard-01_45e0b956.jpg",
           category: "OUTDOOR LIVING · DESIGN & BUILD",
         },
         {
           title: "Awbrey Butte Patio Extension & Wall",
           href: "/portfolio/awbrey-butte-patio",
-          image: "https://newportavelandscaping.com/wp-content/uploads/2022/09/awbrey-butte-freestanding-wall-pavers-patio-extension.jpg",
+          image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/paver-patio-and-gas-firepit-01_04c71c72.jpg",
           category: "PAVERS · RETAINING WALLS",
         },
       ]}

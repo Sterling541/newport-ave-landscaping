@@ -82,19 +82,19 @@ export default function LandscapeDesign() {
         {
           title: "Bend Full Yard Transformation",
           href: "/portfolio/bend-full-yard-transformation",
-          image: "https://newportavelandscaping.com/wp-content/uploads/2022/05/bend-oregon-after-backyard1.jpg",
+          image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/westside-living-01_30518074.jpg",
           category: "DESIGN & BUILD · FULL YARD",
         },
         {
           title: "NW Bend Backyard Landscaping",
           href: "/portfolio/nw-bend-backyard",
-          image: "https://newportavelandscaping.com/wp-content/uploads/2022/05/NW-Bend-Backyard-After-Picture.jpg",
+          image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/petrosa-backyard-01_45e0b956.jpg",
           category: "DESIGN & BUILD",
         },
         {
           title: "Awbrey Butte Xeriscape",
           href: "/portfolio/awbrey-butte-xeriscape",
-          image: "https://newportavelandscaping.com/wp-content/uploads/2022/05/awbrey-butte-xeriscape-landscaping-renovation-day-shot.jpg",
+          image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/brokentop-xeriscape-01_064e5008.jpg",
           category: "DESIGN & BUILD · XERISCAPE",
         },
       ]}

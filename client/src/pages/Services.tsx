@@ -57,25 +57,25 @@ const residentialServices = [
     title: "Water Features",
     href: "/services/water-features",
     description: "Ponds, streams, pondless waterfalls, fountains, and any other water feature you can dream up. Our water feature specialists create living, breathing focal points that transform any outdoor space.",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/ITP_7385_f2bbba86.jpg",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/century-drive-01_cfe36a70.jpg",
   },
   {
     title: "Outdoor Living Areas",
     href: "/services/outdoor-living",
     description: "From outdoor kitchens and fire features to pergolas and covered patios — we design and build complete outdoor living spaces that extend your home and create unforgettable entertaining areas.",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/GLLPatio2_4916fcde.jpg",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/petrosa-backyard-01_45e0b956.jpg",
   },
   {
     title: "Fire Features",
     href: "/services/fire-features",
     description: "Gas fire pits, wood-burning fireplaces, fire bowls, and custom built-in fire features. We integrate fire into your landscape design to create warmth, ambiance, and year-round outdoor enjoyment.",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/GLLPatio2_4916fcde.jpg",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/petrosa-backyard-01_45e0b956.jpg",
   },
   {
     title: "Retaining Walls",
     href: "/services/retaining-walls",
     description: "Structural and decorative retaining walls in natural stone, concrete block, and timber. We solve drainage and grade challenges while adding beautiful architectural elements to your landscape.",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/landscaping-native_fa3d1cfe.jpg",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/awbrey-patio-wall-01_bde91632.jpg",
   },
   {
     title: "Landscape Lighting",
@@ -87,7 +87,7 @@ const residentialServices = [
     title: "Xeriscaping",
     href: "/services/xeriscaping",
     description: "Water-wise landscaping designed specifically for Central Oregon's high desert climate. Beautiful, low-maintenance landscapes using native plants, decorative rock, and efficient irrigation.",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/landscaping-native_fa3d1cfe.jpg",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/awbrey-patio-wall-01_bde91632.jpg",
   },
   {
     title: "Drainage Solutions",

@@ -119,7 +119,7 @@ export default function Careers() {
         }}
       >
         <img
-          src="https://newportavelandscaping.com/wp-content/uploads/2022/08/Newport-Landscaping-2022-Ariel-Dawn-Photography14-683x1024.jpg"
+          src="https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/hero-about-team-9jqyeRf5YwNuFaxVeTWi3u.webp"
           alt="Newport Avenue Landscaping crew in Bend, Oregon"
           style={{
             position: "absolute", inset: 0, width: "100%", height: "100%",

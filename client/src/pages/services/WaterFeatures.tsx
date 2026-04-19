@@ -83,19 +83,19 @@ export default function WaterFeatures() {
         {
           title: "Westside Outdoor Living Space",
           href: "/portfolio/westside-outdoor-living",
-          image: "https://newportavelandscaping.com/wp-content/uploads/2022/05/westside-outdoor-living-space-bend-oregon-after.jpg",
+          image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/hero-general-landscaping-4aSCqCE9AiuALjqtgLL6bj.webp",
           category: "OUTDOOR LIVING · WATER FEATURES",
         },
         {
           title: "Broken Top Water Feature & Sunken Fire Pit",
           href: "/portfolio/broken-top-water-feature",
-          image: "https://newportavelandscaping.com/wp-content/uploads/2022/05/Brokentop-Water-Feature-and-Sunken-Fire-Pit-After-Picture.jpg",
+          image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/century-drive-01_cfe36a70.jpg",
           category: "WATER FEATURES · FIRE FEATURES",
         },
         {
           title: "NW Bend Backyard Landscaping",
           href: "/portfolio/nw-bend-backyard",
-          image: "https://newportavelandscaping.com/wp-content/uploads/2022/05/NW-Bend-Backyard-After-Picture.jpg",
+          image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/petrosa-backyard-01_45e0b956.jpg",
           category: "DESIGN & BUILD · WATER FEATURES",
         },
       ]}

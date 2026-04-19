@@ -28,7 +28,7 @@ export default function LawnFungus() {
       subtitle="Treatment & Prevention"
       seoTitle="Lawn Fungus Treatment Bend Oregon | Dollar Spot, Brown Patch & Turf Disease | Newport Avenue"
       seoDescription="Lawn fungus diagnosis and treatment in Bend, Oregon. Dollar spot, brown patch, rust, and other turf diseases. Expert diagnosis and targeted treatment. LCB #9153."
-      heroImage="https://newportavelandscaping.com/wp-content/uploads/2023/01/brown-patch-lawn-fungus-1024x681.jpg"
+      heroImage="https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/hero-lawn-care-mQg45uakvrD39QTNERiss9.webp"
       heroPosition="center 50%"
       intro="Got lawn fungus? We can help! Fungus can be a common problem in lawns, as it can thrive in warm, damp conditions and cause unsightly blemishes on grass. Our licensed spray technicians are trained to identify, treat, and prevent the most common lawn fungus problems in Central Oregon."
       sections={[
