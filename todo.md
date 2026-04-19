@@ -341,3 +341,10 @@
 - [x] Updated Lawn Service hero to Awbrey Butte Loop lawn photo (green lawn + fire pit)
 - [x] Updated Aeration hero to Awbrey Butte Loop xeriscape front yard photo
 - [x] TypeScript check: 0 errors
+
+## Session — April 19, 2026 (Portfolio Photo Scrape + Fix Mismatched Photos)
+- [ ] Scrape all portfolio project pages from newportavelandscaping.com
+- [ ] Download all project photos from old site (full sets per project)
+- [ ] Upload all project photos to CDN
+- [ ] Fix mismatched photos in portfolio project pages
+- [ ] Update OurWork.tsx with correct full photo sets per project
