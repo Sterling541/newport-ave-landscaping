@@ -37,7 +37,7 @@ const SCENES = [
     sub: "Custom fire pits, fireplaces & outdoor kitchens",
   },
   {
-    img: `${CDN}/ITP_7558_e52a40c9.jpg`,
+    img: `${CDN}/facility-showroom_fd5f40e4.webp`,
     category: "DESIGN & BUILD",
     line1: "Your Vision.",
     line2: "Our Craft.",

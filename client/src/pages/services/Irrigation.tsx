@@ -33,8 +33,8 @@ export default function Irrigation() {
       subtitle="Design & Installation"
       seoTitle="Sprinkler System Installation Bend Oregon | Irrigation Design & Install | Newport Avenue"
       seoDescription="Professional irrigation system design and installation in Bend, Oregon. Smart controllers, drip irrigation, and full lawn sprinkler systems. $1,600–$2,000/zone. LCB #9153."
-      heroImage="https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/ITP_7385_f2bbba86.jpg"
-      heroPosition="center 60%"
+      heroImage="https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/hero-irrigation-install-wide-M3s4C9CoqDXhRhVMirSUhP.webp"
+      heroPosition="center 40%"
       intro="Our teams of sprinkler system experts are up-to-date on all certifications and are licensed as landscape construction professionals with the Oregon Landscape Contractors Board. We have installed thousands of sprinkler systems in Central Oregon and have innovated ways to save water and save you time and money when it comes to getting water to your landscape. We offer free proposals and advice."
       pricing={[
         { label: "Repair Rate", value: "$140 / man hour + materials" },

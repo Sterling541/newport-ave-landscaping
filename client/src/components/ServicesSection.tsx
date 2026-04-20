@@ -14,7 +14,7 @@ const SERVICES = [
     name: "LANDSCAPE DESIGN",
     sub: "& INSTALLATION",
     desc: "From concept to completion — patios, plantings, water features, and everything in between.",
-    img: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/ITP_7558_e52a40c9.jpg",
+    img: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/facility-showroom_fd5f40e4.webp",
     href: "/services",
     position: "center 40%",
   },

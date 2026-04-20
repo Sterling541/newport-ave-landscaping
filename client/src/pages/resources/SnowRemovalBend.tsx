@@ -31,7 +31,7 @@ export default function SnowRemovalBend() {
           className="relative flex items-center justify-center"
           style={{
             height: "380px",
-            backgroundImage: "url(https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/ITP_7558_e52a40c9.jpg",
+            backgroundImage: "url(https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/hero-snow-removal-KM9sZ6ewPHvDTafWxBtgJA.webp",
             backgroundSize: "cover",
             backgroundPosition: "center 50%",
           }}

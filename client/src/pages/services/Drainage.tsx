@@ -50,8 +50,8 @@ export default function Drainage() {
       subtitle="Bend, Oregon"
       seoTitle="Drainage Solutions Bend Oregon | French Drains, Dry Creek Beds & Grading | Newport Avenue"
       seoDescription="Drainage installation and correction in Bend, Oregon. French drains, dry creek beds, catch basins, and grading correction. Free site assessments. LCB #9153."
-      heroImage="https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/landscaping-native_fa3d1cfe.jpg"
-      heroPosition="center 60%"
+      heroImage="https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/hero-drainage-wide-MmiBMCEFBwdx2suPF6sWSa.webp"
+      heroPosition="center 40%"
       intro="Water in the wrong place destroys landscapes, damages foundations, and creates liability. Newport Avenue diagnoses and corrects drainage problems throughout Central Oregon — from simple surface grading to engineered French drain systems and dry creek beds that double as landscape features. We find the root cause of your drainage problem and fix it permanently."
       pricing={[
         { label: "French Drain", value: "$1,500–$4,500 depending on length" },
