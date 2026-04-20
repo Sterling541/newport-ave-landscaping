@@ -7,17 +7,17 @@ import Footer from "@/components/Footer";
 import { Helmet } from "react-helmet-async";
 import { Link } from "wouter";
 
-const HERO_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/brokentop-xeriscape-01_064e5008.jpg";
+const HERO_IMG = "/manus-storage/brokentop-xeriscape-01_064e5008.jpg";
 
 const SERVICES = [
-  { title: "Landscape Design", desc: "Full-service design from concept to installation — custom plans for Bend's high-desert climate.", href: "/services/landscape-design", img: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/landscaping-native_fa3d1cfe.jpg" },
-  { title: "Irrigation Systems", desc: "Smart sprinkler installation, drip systems, and seasonal activation/blowout services.", href: "/services/irrigation", img: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/landscaping-native_fa3d1cfe.jpg" },
-  { title: "Paver Patios", desc: "Concrete and natural stone pavers for patios, walkways, driveways, and pool decks.", href: "/services/pavers", img: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/GLLPatio1_90e2e0c4.jpg" },
-  { title: "Xeriscaping", desc: "Water-wise landscape transformations using drought-tolerant plants and efficient irrigation.", href: "/services/xeriscaping", img: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/brokentop-xeriscape-01_064e5008.jpg" },
-  { title: "Retaining Walls", desc: "Boulder, block, and natural stone retaining walls for slope stabilization and terracing.", href: "/services/retaining-walls", img: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/awbrey-patio-wall-01_bde91632.jpg" },
-  { title: "Outdoor Living", desc: "Fire pits, pergolas, outdoor kitchens, and living spaces built for Central Oregon living.", href: "/services/outdoor-living", img: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/GLLPatio1_90e2e0c4.jpg" },
+  { title: "Landscape Design", desc: "Full-service design from concept to installation — custom plans for Bend's high-desert climate.", href: "/services/landscape-design", img: "/manus-storage/landscaping-native_fa3d1cfe.jpg" },
+  { title: "Irrigation Systems", desc: "Smart sprinkler installation, drip systems, and seasonal activation/blowout services.", href: "/services/irrigation", img: "/manus-storage/landscaping-native_fa3d1cfe.jpg" },
+  { title: "Paver Patios", desc: "Concrete and natural stone pavers for patios, walkways, driveways, and pool decks.", href: "/services/pavers", img: "/manus-storage/GLLPatio1_90e2e0c4.jpg" },
+  { title: "Xeriscaping", desc: "Water-wise landscape transformations using drought-tolerant plants and efficient irrigation.", href: "/services/xeriscaping", img: "/manus-storage/brokentop-xeriscape-01_064e5008.jpg" },
+  { title: "Retaining Walls", desc: "Boulder, block, and natural stone retaining walls for slope stabilization and terracing.", href: "/services/retaining-walls", img: "/manus-storage/awbrey-patio-wall-01_bde91632.jpg" },
+  { title: "Outdoor Living", desc: "Fire pits, pergolas, outdoor kitchens, and living spaces built for Central Oregon living.", href: "/services/outdoor-living", img: "/manus-storage/GLLPatio1_90e2e0c4.jpg" },
   { title: "Lawn Care & Maintenance", desc: "Weekly mowing, aeration, fertilization, and seasonal cleanup for residential and commercial properties.", href: "/maintenance", img: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/maintenance-hero-bg_3219f29e.jpeg" },
-  { title: "Firewise Landscaping", desc: "Defensible space creation, juniper removal, and fire-resistant replanting for WUI properties.", href: "/services/firewise-landscaping", img: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/forest-home4_9324e5db.jpg" },
+  { title: "Firewise Landscaping", desc: "Defensible space creation, juniper removal, and fire-resistant replanting for WUI properties.", href: "/services/firewise-landscaping", img: "/manus-storage/forest-home4_9324e5db.jpg" },
 ];
 
 const FAQS = [

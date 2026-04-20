@@ -11,7 +11,7 @@ export default function OldBendLandscaping() {
         <script type="application/ld+json">{`{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Do you work in Old Bend?","acceptedAnswer":{"@type":"Answer","text":"Yes — we serve all of Bend including the historic central neighborhoods. We are familiar with the unique landscape characteristics and challenges of older Bend properties."}},{"@type":"Question","name":"Can you replace an old irrigation system in Old Bend?","acceptedAnswer":{"@type":"Answer","text":"Yes — irrigation system replacement is one of our most common projects in older Bend neighborhoods. We can replace aging systems with modern, water-efficient designs that provide better coverage and use significantly less water."}}]}`}</script>
       </Helmet>
       <Navbar />
-      <section style={{ background: `linear-gradient(rgba(0,0,0,0.62), rgba(0,0,0,0.62)), url(https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/se-bend-renovation-01_487ce10e.jpg) center/cover no-repeat`, padding: "5rem 0 3rem", marginTop: "204px" }}>
+      <section style={{ background: `linear-gradient(rgba(0,0,0,0.62), rgba(0,0,0,0.62)), url(/manus-storage/se-bend-renovation-01_487ce10e.jpg) center/cover no-repeat`, padding: "5rem 0 3rem", marginTop: "204px" }}>
         <div style={{ maxWidth: "860px", margin: "0 auto", padding: "0 1.5rem" }}>
           <nav style={{ marginBottom: "1.5rem" }}><a href="/" style={{ color: "oklch(0.72 0.12 25)", textDecoration: "none", fontFamily: "var(--font-label)", fontSize: "0.65rem", letterSpacing: "0.08em" }}>Service Areas</a> <span style={{ color: "oklch(0.55 0.008 0)", fontFamily: "var(--font-label)", fontSize: "0.65rem" }}>› Old Bend Landscaping Oregon</span></nav>
           <h1 style={{ fontFamily: "var(--font-display)", fontWeight: 300, color: "#fff", fontSize: "clamp(1.8rem, 4vw, 3rem)", lineHeight: 1.1, marginBottom: "1rem" }}>
@@ -65,7 +65,7 @@ export default function OldBendLandscaping() {
         </div>
       </section>
 
-      <section style={{ background: `linear-gradient(rgba(0,0,0,0.62), rgba(0,0,0,0.62)), url(https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/se-bend-renovation-01_487ce10e.jpg) center/cover no-repeat`, padding: "3rem 0" }}>
+      <section style={{ background: `linear-gradient(rgba(0,0,0,0.62), rgba(0,0,0,0.62)), url(/manus-storage/se-bend-renovation-01_487ce10e.jpg) center/cover no-repeat`, padding: "3rem 0" }}>
         <div style={{ maxWidth: "860px", margin: "0 auto", padding: "0 1.5rem" }}>
           <div style={{ fontFamily: "var(--font-label)", color: "oklch(0.72 0.12 25)", fontSize: "0.62rem", marginBottom: "1rem" }}>YOU MIGHT ALSO LIKE</div>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))", gap: "0.75rem" }}>

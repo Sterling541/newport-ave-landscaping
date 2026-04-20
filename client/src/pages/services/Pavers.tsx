@@ -33,7 +33,7 @@ export default function Pavers() {
       subtitle="& Walkways"
       seoTitle="Paver Patio Bend Oregon | Paver Installation & Walkways | Newport Avenue Landscaping"
       seoDescription="Custom paver patio and walkway installation in Bend, Oregon. Natural stone, concrete pavers, and retaining walls. 5-year installation warranty. LCB #9153."
-      heroImage="https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/GLLPatio2_4916fcde.jpg"
+      heroImage="/manus-storage/GLLPatio2_4916fcde.jpg"
       heroPosition="center 50%"
       intro="Paver patios and paver walkways are one of our favorite landscaping projects to design and build. Not only do you get instant aesthetic results, but you also get a product that, if built correctly, will last a lifetime and will vastly improve the value of your home."
       pricing={[
@@ -84,9 +84,9 @@ export default function Pavers() {
       relatedLinks={relatedLinks}
       resourceLinks={resourceLinks}
       galleryImages={[
-        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/svc-pavers-1_0c58eedf.jpg", alt: "Large paver patio installation in Central Oregon backyard" },
-        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/svc-pavers-2_f65ebcf6.jpg", alt: "Paver walkway and driveway with native plantings in Bend Oregon" },
-        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/svc-pavers-3_2483af2a.jpg", alt: "Completed paver patio with fire pit and seating wall in Central Oregon" },
+        { src: "/manus-storage/svc-pavers-1_b2f86a70.jpg", alt: "Large paver patio installation in Central Oregon backyard" },
+        { src: "/manus-storage/svc-pavers-2_8ea39179.jpg", alt: "Paver walkway and driveway with native plantings in Bend Oregon" },
+        { src: "/manus-storage/svc-pavers-3_4233aa3f.jpg", alt: "Completed paver patio with fire pit and seating wall in Central Oregon" },
       ]}
       schemaUrl="/services/pavers"
       schemaName="Paver Patio Installation"

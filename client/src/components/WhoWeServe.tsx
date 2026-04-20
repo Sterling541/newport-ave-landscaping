@@ -67,7 +67,7 @@ const segments = [
     ],
     cta: { label: "HOA Landscape Management", href: "/commercial#hoa" },
     cta2: { label: "Get a Free Quote", href: "/contact" },
-    photo: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/hoa-central-oregon-aerial-FqxDA5HTtAdmvC4C8zTkoF.webp",
+    photo: "/manus-storage/hoa-central-oregon-aerial-FqxDA5HTtAdmvC4C8zTkoF.webp",
     photoAlt: "Aerial drone view of a Central Oregon HOA neighborhood with ponderosa pines and Cascade Mountains — managed by Newport Avenue Landscaping",
     accent: "oklch(0.42 0.14 145)",
     accentBg: "oklch(0.97 0.010 145)",

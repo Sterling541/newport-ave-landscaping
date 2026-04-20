@@ -28,7 +28,7 @@ export default function LandscapeLighting() {
       subtitle="Bend, Oregon"
       seoTitle="Landscape Lighting Bend Oregon | Outdoor LED Lighting Design & Install | Newport Avenue"
       seoDescription="Professional landscape lighting design and installation in Bend, Oregon. LED path lights, uplighting, and outdoor living illumination. Transform your property after dark. LCB #9153."
-      heroImage="https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/hero-landscape-lighting-wide-SPa9xom7PzkCUdVUM4mE3W.webp"
+      heroImage="/manus-storage/hero-landscape-lighting-wide_38282297.jpg"
       heroPosition="center 50%"
       intro="Our landscape lighting expert is up to date on all certifications and is licensed as a landscape construction professional with the Oregon Landscape Contractors Board. Landscape lighting has become so popular that we are now installing 7–10 landscape lighting systems every month. We offer free proposals and advice."
       sections={[
@@ -84,19 +84,19 @@ export default function LandscapeLighting() {
         {
           title: "NW Bend Landscape Lighting",
           href: "/portfolio/nw-bend-lighting",
-          image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/hero-general-landscaping-4aSCqCE9AiuALjqtgLL6bj.webp",
+          image: "/manus-storage/hero-general-landscaping_ccf2305a.jpg",
           category: "LANDSCAPE LIGHTING",
         },
         {
           title: "Awbrey Butte Xeriscape — Night View",
           href: "/portfolio/awbrey-butte-xeriscape",
-          image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/brokentop-xeriscape-01_064e5008.jpg",
+          image: "/manus-storage/brokentop-xeriscape-01_064e5008.jpg",
           category: "LIGHTING · XERISCAPE",
         },
         {
           title: "Westside Outdoor Living Space",
           href: "/portfolio/westside-outdoor-living",
-          image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/hero-general-landscaping-4aSCqCE9AiuALjqtgLL6bj.webp",
+          image: "/manus-storage/hero-general-landscaping_ccf2305a.jpg",
           category: "OUTDOOR LIVING · LIGHTING",
         },
       ]}

@@ -10,82 +10,82 @@ import { X, ChevronLeft, ChevronRight } from "lucide-react";
 const photos = [
   // Row 1 — hero shots
   {
-    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportAveLandcaping-9_97b731b0.jpg",
+    src: "/manus-storage/NewportAveLandcaping-9_97b731b0.jpg",
     title: "Flagstone Patio & Stream at Sunset",
     category: "Water Features",
     span: "col-span-2 row-span-2",
   },
   {
-    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/fire7_f0b582ff.jpg",
+    src: "/manus-storage/fire7_f0b582ff.jpg",
     title: "Fire Pit at Dusk",
     category: "Fire Features",
     span: "col-span-1 row-span-1",
   },
   {
-    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/ITP_7385_f2bbba86.jpg",
+    src: "/manus-storage/ITP_7385_f2bbba86.jpg",
     title: "Pool Deck & Composite Decking",
     category: "Hardscape",
     span: "col-span-1 row-span-2",
   },
   {
-    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/ITP_7558_e52a40c9.jpg",
+    src: "/manus-storage/ITP_7558_e52a40c9.jpg",
     title: "Outdoor Kitchen & BBQ",
     category: "Outdoor Living",
     span: "col-span-1 row-span-1",
   },
   // Row 2
   {
-    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/water-feature-sunset_f7b219d3.jpg",
+    src: "/manus-storage/water-feature-sunset_f7b219d3.jpg",
     title: "Pond & Patio with Landscape Lighting",
     category: "Water Features",
     span: "col-span-2 row-span-2",
   },
   {
-    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/powell-butte-1_21624e54.webp",
+    src: "/manus-storage/powell-butte-1_21624e54.webp",
     title: "Powell Butte — Full Outdoor Living Build",
     category: "Outdoor Living",
     span: "col-span-1 row-span-1",
   },
   {
-    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/water-feature-sunset_f7b219d3.jpg",
+    src: "/manus-storage/water-feature-sunset_f7b219d3.jpg",
     title: "Pond & Flagstone Path at Sunset",
     category: "Water Features",
     span: "col-span-1 row-span-1",
   },
   {
-    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/landscaping-native_fa3d1cfe.jpg",
+    src: "/manus-storage/landscaping-native_fa3d1cfe.jpg",
     title: "Native Rock Garden & Plantings",
     category: "Landscaping",
     span: "col-span-1 row-span-1",
   },
   // Row 3
   {
-    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/forest-home4_cd8d9af7.jpg",
+    src: "/manus-storage/forest-home4_cd8d9af7.jpg",
     title: "Koi Pond & Waterfall at Dusk",
     category: "Water Features",
     span: "col-span-1 row-span-1",
   },
   {
-    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/GLLPatio2_4916fcde.jpg",
+    src: "/manus-storage/GLLPatio2_4916fcde.jpg",
     title: "Fire Pit at Sunset",
     category: "Hardscape",
     span: "col-span-1 row-span-1",
   },
   {
-    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/powell-butte-7_b7794905.webp",
+    src: "/manus-storage/powell-butte-7_b7794905.webp",
     title: "Powell Butte — Evening Lighting",
     category: "Outdoor Living",
     span: "col-span-2 row-span-1",
   },
   // Lightbox-only extras
   {
-    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/powell-butte-33_75351121.webp",
+    src: "/manus-storage/powell-butte-33_75351121.webp",
     title: "Powell Butte — Finished Project",
     category: "Outdoor Living",
     span: "col-span-2 row-span-1",
   },
   {
-    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/powell-butte-34_79bdebb8.webp",
+    src: "/manus-storage/powell-butte-34_79bdebb8.webp",
     title: "Powell Butte — Landscape Detail",
     category: "Landscaping",
     span: "col-span-1 row-span-1",

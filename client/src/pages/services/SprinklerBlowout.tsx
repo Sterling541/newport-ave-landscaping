@@ -28,7 +28,7 @@ export default function SprinklerBlowout() {
       subtitle="Winterization Service"
       seoTitle="Sprinkler Blowout Bend Oregon | Winterization Service | Newport Avenue Landscaping"
       seoDescription="Professional sprinkler blowout and winterization in Bend, Oregon. $140/tech hour. Protect your irrigation system before the first freeze. Schedule early. LCB #9153."
-      heroImage="https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/hero-sprinkler-blowout-wide-5mJn8ZQZzRxoosiAwpPjvF.webp"
+      heroImage="/manus-storage/hero-sprinkler-blowout-wide_11017e39.jpg"
       heroPosition="center 40%"
       intro="Winterizing your sprinkler system is a must in Central Oregon. With the different sprinkler system setups, piping and air pressures, we suggest letting a professional handle it. We take the time to ensure the system is fully winterized — protecting your investment from freeze damage and costly spring repairs."
       pricing={[
@@ -70,9 +70,9 @@ export default function SprinklerBlowout() {
       relatedLinks={relatedLinks}
       resourceLinks={resourceLinks}
       galleryImages={[
-        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/svc-sprinkler-blowout-1_9c16afee.jpg", alt: "Sprinkler winterization blowout service in Bend Oregon" },
-        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/svc-sprinkler-blowout-2_a4553b27.jpg", alt: "Irrigation system blowout with air compressor in Central Oregon" },
-        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/svc-sprinkler-blowout-3_391a337b.jpg", alt: "Fall sprinkler blowout and winterization service in Bend Oregon" },
+        { src: "/manus-storage/svc-sprinkler-blowout-1_dba520c2.jpg", alt: "Sprinkler winterization blowout service in Bend Oregon" },
+        { src: "/manus-storage/svc-sprinkler-blowout-2_42cdf7de.jpg", alt: "Irrigation system blowout with air compressor in Central Oregon" },
+        { src: "/manus-storage/svc-sprinkler-blowout-3_b605fa46.jpg", alt: "Fall sprinkler blowout and winterization service in Bend Oregon" },
       ]}
       schemaUrl="/services/sprinkler-blowout"
       schemaName="Sprinkler Winterization"

@@ -39,43 +39,43 @@ const residentialServices = [
     title: "Custom Design & Build",
     href: "/services/landscape-design",
     description: "Work with our award-winning design team to bring your outdoor oasis to life. We handle everything from initial concept through final installation, with a 5-year warranty on main irrigation components for Priority Membership clients.",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportLandscapingRVParkDay2Photos2_8e8d0bb1.jpg",
+    image: "/manus-storage/NewportLandscapingRVParkDay2Photos2_8e8d0bb1.jpg",
   },
   {
     title: "Patio Pavers & Walkways",
     href: "/services/pavers",
     description: "We are your one-stop shop for all outdoor paving needs — driveways, walkways, patios, pool decks, and more. We work with natural stone, concrete pavers, flagstone, and brick to create surfaces that last decades.",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/GLLPatio10_2ffabcfb.jpg",
+    image: "/manus-storage/GLLPatio10_2ffabcfb.jpg",
   },
   {
     title: "Sprinklers & Irrigation",
     href: "/services/irrigation",
     description: "With a full-time team dedicated exclusively to sprinkler installation and maintenance, we design and install efficient irrigation systems that keep your landscape thriving while conserving water.",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/water-feature-sunset_f7b219d3.jpg",
+    image: "/manus-storage/water-feature-sunset_f7b219d3.jpg",
   },
   {
     title: "Water Features",
     href: "/services/water-features",
     description: "Ponds, streams, pondless waterfalls, fountains, and any other water feature you can dream up. Our water feature specialists create living, breathing focal points that transform any outdoor space.",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/century-drive-01_cfe36a70.jpg",
+    image: "/manus-storage/century-drive-01_cfe36a70.jpg",
   },
   {
     title: "Outdoor Living Areas",
     href: "/services/outdoor-living",
     description: "From outdoor kitchens and fire features to pergolas and covered patios — we design and build complete outdoor living spaces that extend your home and create unforgettable entertaining areas.",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/petrosa-backyard-01_45e0b956.jpg",
+    image: "/manus-storage/petrosa-backyard-01_45e0b956.jpg",
   },
   {
     title: "Fire Features",
     href: "/services/fire-features",
     description: "Gas fire pits, wood-burning fireplaces, fire bowls, and custom built-in fire features. We integrate fire into your landscape design to create warmth, ambiance, and year-round outdoor enjoyment.",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/petrosa-backyard-01_45e0b956.jpg",
+    image: "/manus-storage/petrosa-backyard-01_45e0b956.jpg",
   },
   {
     title: "Retaining Walls",
     href: "/services/retaining-walls",
     description: "Structural and decorative retaining walls in natural stone, concrete block, and timber. We solve drainage and grade challenges while adding beautiful architectural elements to your landscape.",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/awbrey-patio-wall-01_bde91632.jpg",
+    image: "/manus-storage/awbrey-patio-wall-01_bde91632.jpg",
   },
   {
     title: "Landscape Lighting",
@@ -87,13 +87,13 @@ const residentialServices = [
     title: "Xeriscaping",
     href: "/services/xeriscaping",
     description: "Water-wise landscaping designed specifically for Central Oregon's high desert climate. Beautiful, low-maintenance landscapes using native plants, decorative rock, and efficient irrigation.",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/awbrey-patio-wall-01_bde91632.jpg",
+    image: "/manus-storage/awbrey-patio-wall-01_bde91632.jpg",
   },
   {
     title: "Drainage Solutions",
     href: "/services/drainage",
     description: "French drains, dry creek beds, catch basins, and grading solutions to protect your property from water damage. We solve drainage problems permanently and beautifully.",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/water-feature-sunset_f7b219d3.jpg",
+    image: "/manus-storage/water-feature-sunset_f7b219d3.jpg",
   },
 ];
 
@@ -132,7 +132,7 @@ export default function Services() {
         style={{
           height: "clamp(280px, 38vw, 440px)", marginTop: "204px",
           backgroundColor: "oklch(0.12 0.005 0)",
-          backgroundImage: "url(https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NinesProject3_602cdeb8.jpg",
+          backgroundImage: "url(/manus-storage/NinesProject3_602cdeb8.jpg",
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}

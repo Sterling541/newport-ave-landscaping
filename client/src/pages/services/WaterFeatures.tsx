@@ -28,7 +28,7 @@ export default function WaterFeatures() {
       subtitle="Bend, Oregon"
       seoTitle="Water Features Bend Oregon | Ponds, Waterfalls & Koi Ponds | Newport Avenue"
       seoDescription="Custom ponds, waterfalls, and water features in Bend, Oregon. Design, installation, and maintenance by Newport Avenue Landscaping. Transform your outdoor space. LCB #9153."
-      heroImage="https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/hero-water-features-wide-TWPMaWN7EEdHfyoL9z9Eki.webp"
+      heroImage="/manus-storage/hero-water-features-wide_a9494b91.jpg"
       heroPosition="center 50%"
       intro="Want to take your yard to the next level? Add sound. Water features don't just look nice — they bring the relaxation factor to the next level by adding another sense: sound. Did you know the optimal sound of falling water is 24 inches? The further the water falls, the higher the volume. Now, tell us another landscaper that thinks about those details when designing your stream, pond, or water feature."
       pricing={[
@@ -86,19 +86,19 @@ export default function WaterFeatures() {
         {
           title: "Westside Outdoor Living Space",
           href: "/portfolio/westside-outdoor-living",
-          image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/hero-general-landscaping-4aSCqCE9AiuALjqtgLL6bj.webp",
+          image: "/manus-storage/hero-general-landscaping_ccf2305a.jpg",
           category: "OUTDOOR LIVING · WATER FEATURES",
         },
         {
           title: "Broken Top Water Feature & Sunken Fire Pit",
           href: "/portfolio/broken-top-water-feature",
-          image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/century-drive-01_cfe36a70.jpg",
+          image: "/manus-storage/century-drive-01_cfe36a70.jpg",
           category: "WATER FEATURES · FIRE FEATURES",
         },
         {
           title: "NW Bend Backyard Landscaping",
           href: "/portfolio/nw-bend-backyard",
-          image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/petrosa-backyard-01_45e0b956.jpg",
+          image: "/manus-storage/petrosa-backyard-01_45e0b956.jpg",
           category: "DESIGN & BUILD · WATER FEATURES",
         },
       ]}

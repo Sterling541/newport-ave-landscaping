@@ -316,7 +316,7 @@ export default function ServiceAreas() {
           className="relative flex items-center justify-center"
           style={{
             height: '340px',
-            backgroundImage: 'url(https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/hero-general-landscaping-4aSCqCE9AiuALjqtgLL6bj.webp',
+            backgroundImage: 'url(/manus-storage/hero-general-landscaping_ccf2305a.jpg',
             backgroundSize: 'cover',
             backgroundPosition: 'center 40%',
           }}

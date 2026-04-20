@@ -5,7 +5,7 @@ export default function PrinevillePage() {
     <CityPageLayout
       city="Prineville"
       region="Central Oregon"
-      heroImage="https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportAveLandcaping-9_97b731b0.jpg"
+      heroImage="/manus-storage/NewportAveLandcaping-9_97b731b0.jpg"
       heroPosition="center 40%"
       tagline="Expert Landscaping & Lawn Care Services in Prineville, Oregon"
       seoTitle="Prineville Landscaping Oregon | Prineville Lawn Care Services"

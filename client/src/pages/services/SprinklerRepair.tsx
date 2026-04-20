@@ -28,7 +28,7 @@ export default function SprinklerRepair() {
       subtitle="& Backflow Testing"
       seoTitle="Sprinkler Repair Bend Oregon | Irrigation Repair & Troubleshooting | Newport Avenue"
       seoDescription="Expert sprinkler repair and troubleshooting in Bend, Oregon. $140/tech hour. Broken heads, valve failures, controller issues, and backflow testing. Same-week scheduling. LCB #9153."
-      heroImage="https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/hero-sprinkler-repair-wide-MAMkGchFctoXfZxy6J9wf3.webp"
+      heroImage="/manus-storage/hero-sprinkler-repair-wide_c9aebd24.jpg"
       heroPosition="center 40%"
       intro="Since 2005, we've repaired, renovated, and installed over 10,000 sprinkler systems throughout Central Oregon. If you're having a problem with your sprinkler system, one of our full-time irrigation specialists can come out today and take a look. Consultations are always free."
       pricing={[
@@ -72,9 +72,9 @@ export default function SprinklerRepair() {
       relatedLinks={relatedLinks}
       resourceLinks={resourceLinks}
       galleryImages={[
-        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/svc-sprinkler-repair-1_aad8a8ac.jpg", alt: "Sprinkler repair technician inspecting irrigation head in Bend Oregon" },
-        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/svc-sprinkler-repair-2_bbe39e75.jpg", alt: "Irrigation system repair and backflow testing in Central Oregon" },
-        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/svc-sprinkler-repair-3_63450c26.jpg", alt: "Repaired residential sprinkler system running in Bend Oregon" },
+        { src: "/manus-storage/svc-sprinkler-repair-1_d2b63ab4.jpg", alt: "Sprinkler repair technician inspecting irrigation head in Bend Oregon" },
+        { src: "/manus-storage/svc-sprinkler-repair-2_9ab776f4.jpg", alt: "Irrigation system repair and backflow testing in Central Oregon" },
+        { src: "/manus-storage/svc-sprinkler-repair-3_109febed.jpg", alt: "Repaired residential sprinkler system running in Bend Oregon" },
       ]}
       schemaUrl="/services/sprinkler-repair"
       schemaName="Sprinkler System Repair"

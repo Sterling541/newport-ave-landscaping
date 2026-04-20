@@ -28,7 +28,7 @@ export default function FireFeatures() {
       subtitle="& Outdoor Fireplaces"
       seoTitle="Fire Pit Installation Bend Oregon | Custom Fire Pits & Outdoor Fireplaces | Newport Avenue"
       seoDescription="Custom fire pit and outdoor fireplace installation in Bend, Oregon. Natural gas, propane, and wood-burning options. Design and build by Newport Avenue Landscaping. LCB #9153."
-      heroImage="https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/fire7_f0b582ff.jpg"
+      heroImage="/manus-storage/fire7_f0b582ff.jpg"
       heroPosition="center 60%"
       intro="Family gatherings. Ghost stories. Roasting marshmallows with the kids. Dreaming up the future with a good glass of wine. Memories, all made around a fire. Fire pits are one of those must-haves — the non-negotiables of your backyard. The place where everyone gathers to laugh, dream, and stay warm. We'll build it, just to your specifications."
       pricing={[
@@ -70,9 +70,9 @@ export default function FireFeatures() {
       relatedLinks={relatedLinks}
       resourceLinks={resourceLinks}
       galleryImages={[
-        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/svc-fire-features-1_e7894b5d.jpg", alt: "Custom fire pit with paver surround in Central Oregon backyard" },
-        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/svc-fire-features-2_d6255b6a.jpg", alt: "Outdoor fireplace with seating area in Bend Oregon" },
-        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/svc-fire-features-3_b4fd3eb0.jpg", alt: "Modern concrete fire bowl on paver patio in Central Oregon" },
+        { src: "/manus-storage/svc-fire-features-1_6d3bcf9d.jpg", alt: "Custom fire pit with paver surround in Central Oregon backyard" },
+        { src: "/manus-storage/svc-fire-features-2_d2718cba.jpg", alt: "Outdoor fireplace with seating area in Bend Oregon" },
+        { src: "/manus-storage/svc-fire-features-3_9b826f21.jpg", alt: "Modern concrete fire bowl on paver patio in Central Oregon" },
       ]}
       schemaUrl="/services/fire-features"
       schemaName="Fire Pits and Outdoor Fireplaces"

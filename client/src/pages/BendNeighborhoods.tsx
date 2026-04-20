@@ -111,7 +111,7 @@ export default function BendNeighborhoods() {
       {/* ── Hero ── */}
       <section
         className="pt-32 pb-20"
-        style={{ background: `linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url(https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/awbrey-butte-loop-02_77381709.jpg) center/cover no-repeat`, marginTop: "204px" }}
+        style={{ background: `linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url(/manus-storage/awbrey-butte-loop-02_77381709.jpg) center/cover no-repeat`, marginTop: "204px" }}
       >
         <div className="container">
           <nav className="mb-8 flex items-center gap-2" style={{ fontSize: "0.72rem" }}>

@@ -31,7 +31,7 @@ export default function IrrigationRepairBend() {
           className="relative flex items-center justify-center"
           style={{
             height: "380px",
-            backgroundImage: "url(https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/hero-irrigation-install-wide-M3s4C9CoqDXhRhVMirSUhP.webp",
+            backgroundImage: "url(/manus-storage/hero-irrigation-install-wide_33ce9495.jpg",
             backgroundSize: "cover",
             backgroundPosition: "center 50%",
           }}

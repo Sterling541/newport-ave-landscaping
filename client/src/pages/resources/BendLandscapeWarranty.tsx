@@ -26,7 +26,7 @@ export default function BendLandscapeWarranty() {
       ]} />
       <Navbar />
       <div style={{ paddingTop: '204px' }}>
-        <div className="relative flex items-center justify-center" style={{ height:'380px',backgroundImage:'url(https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/hero-general-landscaping-4aSCqCE9AiuALjqtgLL6bj.webp',backgroundSize:'cover',backgroundPosition:'center 50%' }}>
+        <div className="relative flex items-center justify-center" style={{ height:'380px',backgroundImage:'url(/manus-storage/hero-general-landscaping_ccf2305a.jpg',backgroundSize:'cover',backgroundPosition:'center 50%' }}>
           <div className="absolute inset-0" style={{ backgroundColor: 'oklch(0 0 0 / 0.55)' }} />
           <div className="relative text-center container">
             <p className="font-label mb-3" style={{ color:'oklch(0.72 0.12 25)',fontSize:'0.7rem',letterSpacing:'0.18em' }}>WARRANTY · NEWPORT AVE LANDSCAPING &middot; 2024</p>

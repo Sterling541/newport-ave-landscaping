@@ -8,11 +8,11 @@ import { useEffect, useRef, useState } from "react";
 import { useLocation } from "wouter";
 
 const FACILITY_AERIAL =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/facility-aerial_98383b9b.webp";
+  "/manus-storage/facility-aerial_98383b9b.webp";
 const FACILITY_NURSERY =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/facility-nursery_c0df8919.webp";
+  "/manus-storage/facility-nursery_c0df8919.webp";
 const FACILITY_SHOWROOM =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/facility-showroom_fd5f40e4.webp";
+  "/manus-storage/facility-showroom_fd5f40e4.webp";
 
 const CDN_BASE = "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx";
 const portfolioItems = [
@@ -24,42 +24,42 @@ const portfolioItems = [
   {
     title: "Paver Patio & Fire Feature",
     subtitle: "Bend, OR",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/GLLPatio10_2ffabcfb.jpg",
+    image: "/manus-storage/GLLPatio10_2ffabcfb.jpg",
   },
   {
     title: "Outdoor Living Space",
     subtitle: "Bend, OR",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/GLLPatio2_4916fcde.jpg",
+    image: "/manus-storage/GLLPatio2_4916fcde.jpg",
   },
   {
     title: "Commercial Landscape Installation",
     subtitle: "Central Oregon",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportLandscapingRVParkDay2Photos2_8e8d0bb1.jpg",
+    image: "/manus-storage/NewportLandscapingRVParkDay2Photos2_8e8d0bb1.jpg",
   },
   {
     title: "Elevated Patio & Stone Wall",
     subtitle: "Bend, OR",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/GLLPatio9_9e7ea695.jpg",
+    image: "/manus-storage/GLLPatio9_9e7ea695.jpg",
   },
   {
     title: "Patio & Outdoor Dining",
     subtitle: "Bend, OR",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/GLLPatio1_90e2e0c4.jpg",
+    image: "/manus-storage/GLLPatio1_90e2e0c4.jpg",
   },
   {
     title: "Paver Patio & Cable Railing",
     subtitle: "Bend, OR",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/GLLPatio2_4916fcde.jpg",
+    image: "/manus-storage/GLLPatio2_4916fcde.jpg",
   },
   {
     title: "Tree Planting & Installation",
     subtitle: "Central Oregon",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportLandscapingRVParkPhotos16_5e801b45.jpg",
+    image: "/manus-storage/NewportLandscapingRVParkPhotos16_5e801b45.jpg",
   },
   {
     title: "Residential Landscaping",
     subtitle: "Bend, OR",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/IMG_1336_4fa29027.JPG",
+    image: "/manus-storage/IMG_1336_4fa29027.JPG",
   },
   {
     title: "Our Nursery & Plant Yard",

@@ -33,7 +33,7 @@ export default function CommercialMaintenance() {
       subtitle="Maintenance"
       seoTitle="Commercial Landscaping Bend Oregon | HOA & Office Park Maintenance | Newport Avenue"
       seoDescription="Commercial landscape maintenance for HOAs, office parks, and retail properties in Bend, Oregon. Weekly service, seasonal cleanups, and irrigation management. LCB #9153."
-      heroImage="https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/hoa-central-oregon-aerial-FqxDA5HTtAdmvC4C8zTkoF.webp"
+      heroImage="/manus-storage/hoa-central-oregon-aerial-FqxDA5HTtAdmvC4C8zTkoF.webp"
       heroPosition="center 60%"
       intro="We provide lawn care for over 400 commercial properties in Bend, Oregon and the surrounding areas. We work with businesses, property management companies, HOAs, and private investors and have relationships with most of the major players in property management throughout Central Oregon. References provided upon request."
       sections={[
@@ -84,9 +84,9 @@ export default function CommercialMaintenance() {
       relatedLinks={relatedLinks}
       resourceLinks={resourceLinks}
       galleryImages={[
-        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/svc-commercial-maintenance-1_3b8c18f5.jpg", alt: "Commercial landscape maintenance crew in Central Oregon" },
-        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/svc-commercial-maintenance-2_b5ef9adf.jpg", alt: "HOA common area landscaping maintenance in Bend Oregon" },
-        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/svc-commercial-maintenance-3_b82d6f68.jpg", alt: "Commercial property landscape maintenance in Central Oregon" },
+        { src: "/manus-storage/svc-commercial-maintenance-1_b4005b30.jpg", alt: "Commercial landscape maintenance crew in Central Oregon" },
+        { src: "/manus-storage/svc-commercial-maintenance-2_ae4ee741.jpg", alt: "HOA common area landscaping maintenance in Bend Oregon" },
+        { src: "/manus-storage/svc-commercial-maintenance-3_d91b94fd.jpg", alt: "Commercial property landscape maintenance in Central Oregon" },
       ]}
       schemaUrl="/services/commercial-maintenance"
       schemaName="Commercial Landscape Maintenance"

@@ -8,8 +8,8 @@ import { Link } from "wouter";
 import Navbar from "@/components/Navbar";
 import SEO from "@/components/SEO";
 
-const TEAM_PHOTO = "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/hero-about-team-9jqyeRf5YwNuFaxVeTWi3u.webp";
-const FOUNDER_PHOTO = "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/sterling-portrait-ai-eXS97aQdn5ee7xPqCRh5pa.webp";
+const TEAM_PHOTO = "/manus-storage/hero-about-team_cbabbf67.jpg";
+const FOUNDER_PHOTO = "/manus-storage/sterling-portrait-ai-eXS97aQdn5ee7xPqCRh5pa.webp";
 
 const timeline = [
   {

@@ -25,7 +25,7 @@ export default function Resources() {
       <Navbar />
 
       {/* ── Hero ── */}
-      <section style={{ background: `linear-gradient(rgba(0,0,0,0.68), rgba(0,0,0,0.68)), url(https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/hero-blog-resources-5ncHpb3ndLnU8aVh6He6nX.webp) center/cover no-repeat`, padding: "5rem 0 3rem" }}>
+      <section style={{ background: `linear-gradient(rgba(0,0,0,0.68), rgba(0,0,0,0.68)), url(/manus-storage/hero-blog-resources_f6cb1354.jpg) center/cover no-repeat`, padding: "5rem 0 3rem" }}>
         <div style={{ maxWidth: "1100px", margin: "0 auto", padding: "0 1.5rem" }}>
           <div style={{ fontFamily: "var(--font-label)", color: "oklch(0.72 0.12 25)", fontSize: "0.62rem", letterSpacing: "0.1em", marginBottom: "1rem" }}>RESOURCES &amp; GUIDES</div>
           <h1 style={{ fontFamily: "var(--font-display)", fontWeight: 300, color: "#fff", fontSize: "clamp(2rem, 5vw, 3.5rem)", lineHeight: 1.05, marginBottom: "1rem" }}>

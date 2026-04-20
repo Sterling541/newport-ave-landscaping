@@ -18,8 +18,8 @@ export function LocalBusinessSchema() {
     telephone: "+15416178873",
     email: "info@newportavelandscaping.com",
     foundingDate: "2003",
-    logo: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/logo-nav-tight_c562b49c.png",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/water-feature-sunset_f7b219d3.jpg",
+    logo: "/manus-storage/logo-nav-tight_c562b49c.png",
+    image: "/manus-storage/water-feature-sunset_f7b219d3.jpg",
     address: {
       "@type": "PostalAddress",
       streetAddress: "64625 N. HWY 97 #100",

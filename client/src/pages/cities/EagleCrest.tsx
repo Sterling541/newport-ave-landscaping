@@ -5,7 +5,7 @@ export default function EagleCrestPage() {
     <CityPageLayout
       city="Eagle Crest"
       region="Central Oregon"
-      heroImage="https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/hoa-central-oregon-aerial-FqxDA5HTtAdmvC4C8zTkoF.webp"
+      heroImage="/manus-storage/hoa-central-oregon-aerial-FqxDA5HTtAdmvC4C8zTkoF.webp"
       heroPosition="center 50%"
       tagline="Expert Landscaping for Eagle Crest Resort & Residential Properties — High-Desert Design Built to Last"
       seoTitle="Eagle Crest Landscaping Oregon | Lawn Care & Design in Eagle Crest Resort"

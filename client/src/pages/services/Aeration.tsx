@@ -28,7 +28,7 @@ export default function Aeration() {
       subtitle="Bend, Oregon"
       seoTitle="Lawn Aeration Bend Oregon | Core Aeration & Overseeding | Newport Avenue"
       seoDescription="Professional lawn aeration and overseeding in Bend, Oregon. Relieve soil compaction, improve water penetration, and thicken your turf. From $97/service. LCB #9153."
-      heroImage="https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/hero-aeration-wide-SMpY76jE5sSzfMkM8bSCAs.webp"
+      heroImage="/manus-storage/hero-aeration-wide_0e4afa66.jpg"
       heroPosition="center 40%"
       intro="Aeration is the process of taking small plugs or cores — usually one to six inches long — out of the lawn. Over time, the soil under your grass compacts, making it difficult for the lawn roots to breathe, feed, and grow. Plug Aeration is used to increase the health of the lawn by decompacting the soil and also helps manage or eradicate fungus and other lawn diseases."
       pricing={[
@@ -72,9 +72,9 @@ export default function Aeration() {
       relatedLinks={relatedLinks}
       resourceLinks={resourceLinks}
       galleryImages={[
-        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/svc-aeration-1_8dee32d1.jpg", alt: "Lawn aeration service on residential property in Bend Oregon" },
-        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/svc-aeration-2_a455094c.jpg", alt: "Core aeration machine on green lawn in Central Oregon" },
-        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/svc-aeration-3_e4d69da4.jpg", alt: "Lawn aeration and overseeding service in Bend Oregon" },
+        { src: "/manus-storage/svc-aeration-1_379a05a2.jpg", alt: "Lawn aeration service on residential property in Bend Oregon" },
+        { src: "/manus-storage/svc-aeration-2_b3f74d65.jpg", alt: "Core aeration machine on green lawn in Central Oregon" },
+        { src: "/manus-storage/svc-aeration-3_7ccc7e70.jpg", alt: "Lawn aeration and overseeding service in Bend Oregon" },
       ]}
       schemaUrl="/services/aeration"
       schemaName="Lawn Aeration Service"

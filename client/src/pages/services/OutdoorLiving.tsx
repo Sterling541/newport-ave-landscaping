@@ -33,7 +33,7 @@ export default function OutdoorLiving() {
       subtitle="& Living Spaces"
       seoTitle="Outdoor Kitchen Bend Oregon | Outdoor Living Spaces & Covered Patios | Newport Avenue"
       seoDescription="Custom outdoor kitchens, living spaces, and covered patios in Bend, Oregon. Design and installation by Newport Avenue Landscaping. Free consultations. LCB #9153."
-      heroImage="https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/GLLPatio1_90e2e0c4.jpg"
+      heroImage="/manus-storage/GLLPatio1_90e2e0c4.jpg"
       heroPosition="center 50%"
       intro="Outdoor kitchens and fireplaces have become the focal point of the outdoor living area. If you want to improve the value and sale-ability of your home, or create a more usable and functional backyard, an outdoor living area can do wonders. Your dreams are the limit."
       pricing={[
@@ -78,9 +78,9 @@ export default function OutdoorLiving() {
       relatedLinks={relatedLinks}
       resourceLinks={resourceLinks}
       galleryImages={[
-        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/svc-outdoor-kitchen-1_1ca4ba59.jpg", alt: "Custom outdoor kitchen with built-in grill and stone counter in Central Oregon" },
-        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/svc-outdoor-kitchen-2_9ffb25da.jpg", alt: "Outdoor living space with pergola and kitchen in Bend Oregon" },
-        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/svc-outdoor-kitchen-3_ff49c647.jpg", alt: "Luxury outdoor kitchen with pizza oven and bar seating in Central Oregon" },
+        { src: "/manus-storage/svc-outdoor-kitchen-1_f69bb8e4.jpg", alt: "Custom outdoor kitchen with built-in grill and stone counter in Central Oregon" },
+        { src: "/manus-storage/svc-outdoor-kitchen-2_2787c392.jpg", alt: "Outdoor living space with pergola and kitchen in Bend Oregon" },
+        { src: "/manus-storage/svc-outdoor-kitchen-3_2704e2be.jpg", alt: "Luxury outdoor kitchen with pizza oven and bar seating in Central Oregon" },
       ]}
       schemaUrl="/services/outdoor-living"
       schemaName="Outdoor Living Spaces"
@@ -89,19 +89,19 @@ export default function OutdoorLiving() {
         {
           title: "Westside Outdoor Living Space",
           href: "/portfolio/westside-outdoor-living",
-          image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/hero-general-landscaping-4aSCqCE9AiuALjqtgLL6bj.webp",
+          image: "/manus-storage/hero-general-landscaping_ccf2305a.jpg",
           category: "OUTDOOR LIVING · WATER FEATURES",
         },
         {
           title: "SW Bend Backyard Landscaping",
           href: "/portfolio/sw-bend-backyard",
-          image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/petrosa-backyard-01_45e0b956.jpg",
+          image: "/manus-storage/petrosa-backyard-01_45e0b956.jpg",
           category: "OUTDOOR LIVING · DESIGN & BUILD",
         },
         {
           title: "Awbrey Butte Patio Extension & Wall",
           href: "/portfolio/awbrey-butte-patio",
-          image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/paver-patio-and-gas-firepit-01_04c71c72.jpg",
+          image: "/manus-storage/paver-patio-and-gas-firepit-01_04c71c72.jpg",
           category: "PAVERS · RETAINING WALLS",
         },
       ]}

@@ -33,7 +33,7 @@ export default function Irrigation() {
       subtitle="Design & Installation"
       seoTitle="Sprinkler System Installation Bend Oregon | Irrigation Design & Install | Newport Avenue"
       seoDescription="Professional irrigation system design and installation in Bend, Oregon. Smart controllers, drip irrigation, and full lawn sprinkler systems. $1,600–$2,000/zone. LCB #9153."
-      heroImage="https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/hero-irrigation-install-wide-M3s4C9CoqDXhRhVMirSUhP.webp"
+      heroImage="/manus-storage/hero-irrigation-install-wide_33ce9495.jpg"
       heroPosition="center 40%"
       intro="Our teams of sprinkler system experts are up-to-date on all certifications and are licensed as landscape construction professionals with the Oregon Landscape Contractors Board. We have installed thousands of sprinkler systems in Central Oregon and have innovated ways to save water and save you time and money when it comes to getting water to your landscape. We offer free proposals and advice."
       pricing={[
@@ -73,9 +73,9 @@ export default function Irrigation() {
       relatedLinks={relatedLinks}
       resourceLinks={resourceLinks}
       galleryImages={[
-        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/svc-irrigation-1_814b6f8f.jpg", alt: "Irrigation system installation in Central Oregon landscape" },
-        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/svc-irrigation-2_2fbaa127.jpg", alt: "Drip irrigation install in xeriscape garden in Bend Oregon" },
-        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/svc-irrigation-3_f8d779da.jpg", alt: "Completed sprinkler system running on residential lawn in Central Oregon" },
+        { src: "/manus-storage/svc-irrigation-1_81959677.jpg", alt: "Irrigation system installation in Central Oregon landscape" },
+        { src: "/manus-storage/svc-irrigation-2_21cb213c.jpg", alt: "Drip irrigation install in xeriscape garden in Bend Oregon" },
+        { src: "/manus-storage/svc-irrigation-3_b7294320.jpg", alt: "Completed sprinkler system running on residential lawn in Central Oregon" },
       ]}
       schemaUrl="/services/irrigation"
       schemaName="Sprinkler System Installation"

@@ -8,7 +8,7 @@ const posts = [
     title: "Xeriscape Landscaping in Bend, Oregon: The Complete Guide",
     excerpt: "Drought-tolerant plants, design principles, and real cost savings for Central Oregon's high desert climate. Reduce outdoor water use by up to 60%.",
     date: "March 2024",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/hero-lawn-care-mQg45uakvrD39QTNERiss9.webp",
+    image: "/manus-storage/hero-lawn-care_58c49bad.jpg",
     category: "Xeriscape & Water Conservation",
   },
   {
@@ -16,7 +16,7 @@ const posts = [
     title: "Sprinkler Winterization in Bend, Oregon: What You Need to Know",
     excerpt: "When to winterize your sprinklers, what happens if you don't, and how our certified technicians protect your system every fall before Bend's first hard freeze.",
     date: "September 2024",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/hero-irrigation-install-87YENsVsMESWmChZiPounH.webp",
+    image: "/manus-storage/hero-irrigation-install_5179e86c.jpg",
     category: "Irrigation",
   },
   {
@@ -24,7 +24,7 @@ const posts = [
     title: "Paver Patio Ideas for Bend, Oregon Homes",
     excerpt: "Belgard & Unilock paver styles, layout patterns, fire pit integration, and outdoor kitchen ideas for Central Oregon's outdoor lifestyle.",
     date: "April 2024",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportAveLandcaping-9_97b731b0.jpg",
+    image: "/manus-storage/NewportAveLandcaping-9_97b731b0.jpg",
     category: "Hardscape & Outdoor Living",
   },
   {
@@ -32,7 +32,7 @@ const posts = [
     title: "Lawn Care in Bend, Oregon: The Complete Seasonal Guide",
     excerpt: "Watering schedules, fertilization timing, aeration, overseeding, and weed control — everything you need for a healthy lawn in Central Oregon's high desert.",
     date: "February 2024",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/hero-lawn-care-mQg45uakvrD39QTNERiss9.webp",
+    image: "/manus-storage/hero-lawn-care_58c49bad.jpg",
     category: "Lawn Care",
   },
   {
@@ -40,7 +40,7 @@ const posts = [
     title: "The Impact of Climate Change on Landscaping",
     excerpt: "As global climate patterns shift, the landscape around us must adapt to new environmental stresses and weather conditions. Learn how Newport Ave Landscaping is staying ahead of these changes.",
     date: "January 2024",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/landscaping-native_fa3d1cfe.jpg",
+    image: "/manus-storage/landscaping-native_fa3d1cfe.jpg",
     category: "Lawn Care Tips",
   },
   {
@@ -48,7 +48,7 @@ const posts = [
     title: "Your Seasonal Guide to Landscaping Maintenance",
     excerpt: "A comprehensive guide to keeping your Central Oregon landscape healthy through every season — from spring activation to fall blowout and winter prep.",
     date: "February 2024",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/water-feature-sunset_f7b219d3.jpg",
+    image: "/manus-storage/water-feature-sunset_f7b219d3.jpg",
     category: "Seasonal Tips",
   },
   {
@@ -56,7 +56,7 @@ const posts = [
     title: "Lawn Fungus in Bend, Oregon",
     excerpt: "Got lawn fungus? Learn about the most common types of lawn fungus in Central Oregon, how to identify them, and how our licensed spray technicians can treat and prevent them.",
     date: "January 2023",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/hero-lawn-care-mQg45uakvrD39QTNERiss9.webp",
+    image: "/manus-storage/hero-lawn-care_58c49bad.jpg",
     category: "Lawn Care",
   },
 ];
@@ -76,7 +76,7 @@ export default function Blog() {
         {/* Hero */}
         <div
           className="relative flex items-center justify-center"
-          style={{ height: "260px", background: `linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url(https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/hero-blog-resources-5ncHpb3ndLnU8aVh6He6nX.webp) center/cover no-repeat` }}
+          style={{ height: "260px", background: `linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url(/manus-storage/hero-blog-resources_f6cb1354.jpg) center/cover no-repeat` }}
         >
           <div className="text-center">
             <p className="font-label mb-2" style={{ color: "oklch(0.72 0.12 25)", fontSize: "0.7rem", letterSpacing: "0.18em" }}>

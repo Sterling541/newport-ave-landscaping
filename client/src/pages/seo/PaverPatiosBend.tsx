@@ -7,7 +7,7 @@ import Footer from "@/components/Footer";
 import { Helmet } from "react-helmet-async";
 import { Link } from "wouter";
 
-const HERO_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/paver-patio-and-gas-firepit-01_04c71c72.jpg";
+const HERO_IMG = "/manus-storage/paver-patio-and-gas-firepit-01_04c71c72.jpg";
 
 const TYPES = [
   { title: "Concrete Pavers", desc: "Durable, versatile, and available in dozens of colors and textures. Ideal for patios, driveways, and pool decks.", href: "/paver-patios-bend/concrete-pavers" },
