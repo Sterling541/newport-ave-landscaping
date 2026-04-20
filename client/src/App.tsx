@@ -13,6 +13,7 @@ import MobileCTABar from "@/components/MobileCTABar";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/NotFound";
+import ImageTracker from "@/pages/admin/ImageTracker";
 import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
@@ -468,6 +469,7 @@ function Router() {
       <Route path={"/service-areas/sunriver-xeriscape"} component={lazy(() => import('./pages/service-areas/XeriscapeSunriver'))} />
       <Route path={"/service-areas/tumalo-xeriscape"} component={lazy(() => import('./pages/service-areas/XeriscapeTumalo'))} />
       {/* Fallback */}
+      <Route path={"/admin/image-tracker"} component={ImageTracker} />
       <Route path={"/404"} component={NotFound} />
       <Route component={NotFound} />
     

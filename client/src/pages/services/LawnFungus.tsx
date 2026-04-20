@@ -28,7 +28,7 @@ export default function LawnFungus() {
       subtitle="Treatment & Prevention"
       seoTitle="Lawn Fungus Treatment Bend Oregon | Dollar Spot, Brown Patch & Turf Disease | Newport Avenue"
       seoDescription="Lawn fungus diagnosis and treatment in Bend, Oregon. Dollar spot, brown patch, rust, and other turf diseases. Expert diagnosis and targeted treatment. LCB #9153."
-      heroImage="/manus-storage/hero-lawn-care_58c49bad.jpg"
+      heroImage="https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/safe-hero-lawn-service-M6KtZXXU28c8fvLP56ueff.webp"
       heroPosition="center 50%"
       intro="Got lawn fungus? We can help! Fungus can be a common problem in lawns, as it can thrive in warm, damp conditions and cause unsightly blemishes on grass. Our licensed spray technicians are trained to identify, treat, and prevent the most common lawn fungus problems in Central Oregon."
       sections={[
@@ -74,8 +74,8 @@ export default function LawnFungus() {
       relatedLinks={relatedLinks}
       resourceLinks={resourceLinks}
       galleryImages={[
-        { src: "/manus-storage/svc-lawn-fungus-1_b2f33c70.jpg", alt: "Lawn fungus inspection and diagnosis in Bend Oregon" },
-        { src: "/manus-storage/svc-lawn-fungus-2_d2bf2bdc.jpg", alt: "Fungicide treatment application on residential lawn in Central Oregon" },
+        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/safe-hero-aeration-7Gjk2VTSukkLr8xfDGauDQ.webp", alt: "Lawn fungus inspection and diagnosis in Bend Oregon" },
+        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/safe-hero-aeration-7Gjk2VTSukkLr8xfDGauDQ.webp", alt: "Fungicide treatment application on residential lawn in Central Oregon" },
         { src: "/manus-storage/svc-lawn-fungus-3_a0dfb99b.jpg", alt: "Before and after lawn fungus treatment in Central Oregon" },
       ]}
       schemaUrl="/services/lawn-fungus"

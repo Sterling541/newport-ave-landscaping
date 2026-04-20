@@ -139,7 +139,7 @@ export default function FirewiseLandscaping() {
       resourceLinks={resourceLinks}
       galleryImages={[
         { src: "/manus-storage/svc-firewise-landscaping-1_8b596fac.jpg", alt: "Firewise landscaping and defensible space clearing in Central Oregon" },
-        { src: "/manus-storage/svc-firewise-landscaping-2_a01ecb6f.jpg", alt: "Defensible space vegetation removal around home in Bend Oregon" },
+        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/safe-hero-defensible-space-6pgG468HWcb9DxJwUu8ZiN.webp", alt: "Defensible space vegetation removal around home in Bend Oregon" },
         { src: "/manus-storage/svc-firewise-landscaping-3_437026a6.jpg", alt: "Fire-resistant native plant landscape in Central Oregon" },
       ]}
       schemaUrl="/services/firewise-landscaping"

@@ -22,7 +22,7 @@ export default function SnowRemoval() {
       subtitle="Bend, Oregon"
       seoTitle="Snow Removal Bend Oregon | Residential & Commercial Snow Plowing | Newport Avenue"
       seoDescription="Residential and commercial snow removal in Bend, Oregon. Driveway plowing, walkway clearing, and de-icing. Seasonal contracts and on-call service. LCB #9153."
-      heroImage="/manus-storage/hero-snow-removal_2f3904e6.jpg"
+      heroImage="https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/safe-hero-snow-removal-8bvRUVNaktQ64hEuSg9a2q.webp"
       heroPosition="center 50%"
       intro="Inevitably, Central Oregon gets snow each year — sometimes a foot and sometimes seven. Regardless, we can help you alleviate snow problems by plowing your driveway or your commercial parking lot, letting you or your customers get to where you need to go while removing some of the risk of traversing in snowy conditions."
       pricing={[
@@ -58,7 +58,7 @@ export default function SnowRemoval() {
       relatedLinks={relatedLinks}
       resourceLinks={resourceLinks}
       galleryImages={[
-        { src: "/manus-storage/svc-snow-removal-1_1aaf8d99.jpg", alt: "Snow removal crew clearing driveway in Bend Oregon winter" },
+        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/safe-hero-snow-removal-8bvRUVNaktQ64hEuSg9a2q.webp", alt: "Snow removal crew clearing driveway in Bend Oregon winter" },
         { src: "/manus-storage/svc-snow-removal-2_b13465fa.jpg", alt: "Commercial snow plowing service in Central Oregon" },
         { src: "/manus-storage/svc-snow-removal-3_05b59986.jpg", alt: "Residential snow removal and de-icing in Bend Oregon" },
       ]}

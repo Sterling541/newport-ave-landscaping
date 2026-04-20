@@ -366,3 +366,15 @@
 - [x] Add fetchPriority=high + eager loading to hero image in PortfolioProjectLayout
 - [x] Add decoding=async + width/height + sizes hints to all gallery and related project images in PortfolioProjectLayout
 - [x] TypeScript check: 0 errors
+
+## Session — April 20, 2026 (Image Brand Audit — CRITICAL)
+
+**NEW RULE: Never use AI-generated images of people in Newport uniforms or logos.**
+- Option A: Real Newport photos (preferred for any image showing staff/equipment)
+- Option B: AI scenery only — no people, no uniforms, no logos (Central Oregon landscape)
+- Option C: Generic close-ups where no branded uniform or logo is visible
+
+- [ ] Audit all AI-generated images site-wide for people in uniforms or logos
+- [ ] Build list of every flagged image with page URL and description
+- [ ] Replace all flagged images with safe scenery-only or close-up alternatives
+- [ ] Build /admin/image-tracker page for managing real Newport photo replacements

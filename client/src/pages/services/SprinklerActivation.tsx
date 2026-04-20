@@ -28,7 +28,7 @@ export default function SprinklerActivation() {
       subtitle="System Activation"
       seoTitle="Sprinkler Activation Bend Oregon | Spring Sprinkler Startup Service | Newport Avenue"
       seoDescription="Spring sprinkler system startup and activation in Bend, Oregon. Zone checks, head adjustments, and controller programming. $140/tech hour. Schedule now. LCB #9153."
-      heroImage="/manus-storage/hero-sprinkler-activation-wide_34de491a.jpg"
+      heroImage="https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/safe-hero-sprinkler-activation-er3CiGjpEG2GUBkunJ66EE.webp"
       heroPosition="center 40%"
       intro="April marks the beginning of the watering season here in Central Oregon. At the beginning of each season, it is always wise to inspect, flush, and optimize your sprinkler system to ensure it is ready to perform at its best. We will send one of our certified Irrigation Technicians to analyze and activate your sprinkler system."
       pricing={[
@@ -68,8 +68,8 @@ export default function SprinklerActivation() {
       relatedLinks={relatedLinks}
       resourceLinks={resourceLinks}
       galleryImages={[
-        { src: "/manus-storage/svc-sprinkler-activation-1_a2d7e543.jpg", alt: "Spring sprinkler system activation in Central Oregon" },
-        { src: "/manus-storage/svc-sprinkler-activation-2_5984e3f7.jpg", alt: "Irrigation system startup and programming in Bend Oregon" },
+        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/safe-hero-sprinkler-activation-er3CiGjpEG2GUBkunJ66EE.webp", alt: "Spring sprinkler system activation in Central Oregon" },
+        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/safe-hero-sprinkler-activation-er3CiGjpEG2GUBkunJ66EE.webp", alt: "Irrigation system startup and programming in Bend Oregon" },
         { src: "/manus-storage/svc-sprinkler-activation-3_1da9a734.jpg", alt: "Residential sprinkler system running after spring activation in Bend Oregon" },
       ]}
       schemaUrl="/services/sprinkler-activation"

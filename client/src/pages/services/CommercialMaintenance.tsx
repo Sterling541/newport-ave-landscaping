@@ -84,8 +84,8 @@ export default function CommercialMaintenance() {
       relatedLinks={relatedLinks}
       resourceLinks={resourceLinks}
       galleryImages={[
-        { src: "/manus-storage/svc-commercial-maintenance-1_b4005b30.jpg", alt: "Commercial landscape maintenance crew in Central Oregon" },
-        { src: "/manus-storage/svc-commercial-maintenance-2_ae4ee741.jpg", alt: "HOA common area landscaping maintenance in Bend Oregon" },
+        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/safe-hero-lawn-service-M6KtZXXU28c8fvLP56ueff.webp", alt: "Commercial landscape maintenance crew in Central Oregon" },
+        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/safe-hero-lawn-service-M6KtZXXU28c8fvLP56ueff.webp", alt: "HOA common area landscaping maintenance in Bend Oregon" },
         { src: "/manus-storage/svc-commercial-maintenance-3_d91b94fd.jpg", alt: "Commercial property landscape maintenance in Central Oregon" },
       ]}
       schemaUrl="/services/commercial-maintenance"

@@ -101,7 +101,7 @@ export default function Drainage() {
       resourceLinks={resourceLinks}
       galleryImages={[
         { src: "/manus-storage/svc-drainage-1_9c65ddb0.jpg", alt: "French drain installation in Central Oregon landscape" },
-        { src: "/manus-storage/svc-drainage-2_5ad8b7b4.jpg", alt: "Drainage solution with river rock and catch basin in Bend Oregon" },
+        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/safe-hero-irrigation-wide-eEEjnzmEDfU9gNzL44jyPH.webp", alt: "Drainage solution with river rock and catch basin in Bend Oregon" },
         { src: "/manus-storage/svc-drainage-3_e997b9ae.jpg", alt: "Decorative drainage channel with river rock in Central Oregon backyard" },
       ]}
       schemaUrl="/services/drainage"
