@@ -28,7 +28,7 @@ export default function SprinklerRepair() {
       subtitle="& Backflow Testing"
       seoTitle="Sprinkler Repair Bend Oregon | Irrigation Repair & Troubleshooting | Newport Avenue"
       seoDescription="Expert sprinkler repair and troubleshooting in Bend, Oregon. $140/tech hour. Broken heads, valve failures, controller issues, and backflow testing. Same-week scheduling. LCB #9153."
-      heroImage="https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/hero-general-landscaping-4aSCqCE9AiuALjqtgLL6bj.webp"
+      heroImage="https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/svc-sprinkler-repair-1_aad8a8ac.jpg"
       heroPosition="center 50%"
       intro="Since 2005, we've repaired, renovated, and installed over 10,000 sprinkler systems throughout Central Oregon. If you're having a problem with your sprinkler system, one of our full-time irrigation specialists can come out today and take a look. Consultations are always free."
       pricing={[
