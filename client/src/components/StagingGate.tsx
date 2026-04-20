@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 const STAGING_KEY = "nal_staging_auth";
-const CORRECT_CODE = "8873";
+const CORRECT_CODE = "4132";
 
 export default function StagingGate({ children }: { children: React.ReactNode }) {
   const [unlocked, setUnlocked] = useState(false);
