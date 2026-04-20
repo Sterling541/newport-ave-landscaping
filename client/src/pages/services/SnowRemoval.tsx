@@ -57,6 +57,11 @@ export default function SnowRemoval() {
       ]}
       relatedLinks={relatedLinks}
       resourceLinks={resourceLinks}
+      galleryImages={[
+        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/svc-snow-removal-1_206650d7.jpg", alt: "Snow removal crew clearing driveway in Bend Oregon winter" },
+        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/svc-snow-removal-2_a55498b4.jpg", alt: "Commercial snow plowing service in Central Oregon" },
+        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/svc-snow-removal-3_bf085dcd.jpg", alt: "Residential snow removal and de-icing in Bend Oregon" },
+      ]}
       schemaUrl="/services/snow-removal"
       schemaName="Snow Removal"
       schemaDescription="Residential and commercial snow removal in Bend, Oregon. Driveway plowing, walkway clearing, and de-icing."

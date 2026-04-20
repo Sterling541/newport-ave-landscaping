@@ -32,9 +32,12 @@ export default function WaterFeatures() {
       heroPosition="center 40%"
       intro="Want to take your yard to the next level? Add sound. Water features don't just look nice — they bring the relaxation factor to the next level by adding another sense: sound. Did you know the optimal sound of falling water is 24 inches? The further the water falls, the higher the volume. Now, tell us another landscaper that thinks about those details when designing your stream, pond, or water feature."
       pricing={[
-        { label: "Starting Cost", value: "$2,500" },
-        { label: "Custom Ponds & Waterfalls", value: "Up to $100,000+" },
-        { label: "Consultations", value: "Free" },
+        { label: "Rock Bubbler", value: "$6,000 – $8,000" },
+        { label: "Small Pondless Waterfall", value: "$9,000 – $11,000" },
+        { label: "Medium Pondless Waterfall", value: "$12,000 – $18,000" },
+        { label: "Large Pondless Waterfall", value: "$24,000+" },
+        { label: "Plunge Ponds", value: "$90,000+" },
+        { label: "Design Consultation", value: "Complimentary" },
       ]}
       sections={[
         {
@@ -100,7 +103,7 @@ export default function WaterFeatures() {
         },
       ]}
       faqs={[
-          { question: "How much does a water feature cost in Bend?", answer: "Water features in Bend range from $1,500 for a simple pondless waterfall to $15,000+ for a large koi pond with waterfalls and extensive landscaping. A medium-sized pondless waterfall with natural stone typically costs $3,000–$6,000 installed. Koi ponds with filtration systems start around $5,000 and scale up with size and complexity." },
+          { question: "How much does a water feature cost in Bend?", answer: "Water features in Bend range from $6,000 for a rock bubbler to $90,000+ for a custom plunge pond. A small pondless waterfall typically costs $9,000–$11,000 installed, while a medium pondless waterfall runs $12,000–$18,000. Large statement waterfalls start at $24,000. All pricing includes design, materials, and professional installation." },
           { question: "What type of water feature is best for Central Oregon?", answer: "Pondless waterfalls are extremely popular in Bend because they provide the soothing sound of moving water without the maintenance of a full pond. They are also safer for households with young children. Koi ponds are a beautiful focal point for larger properties. Bubbling rock features and container water gardens are lower-maintenance options for smaller spaces." },
           { question: "Do water features work in Central Oregon winters?", answer: "Most water features in Bend need to be winterized before hard freezes. Pondless waterfalls can often run through mild winters but should be shut down when temperatures consistently drop below freezing. Koi ponds require special preparation to protect fish through winter. We provide winterization services and can advise on the best approach for your specific feature." },
           { question: "How much maintenance does a water feature require?", answer: "Maintenance requirements vary by type. Pondless waterfalls need occasional cleaning of the basin and pump (a few hours per year). Koi ponds require regular water testing, filter cleaning, feeding, and seasonal care. We offer water feature maintenance programs to keep your feature running cleanly and efficiently." },

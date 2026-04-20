@@ -83,6 +83,11 @@ export default function CommercialMaintenance() {
       ]}
       relatedLinks={relatedLinks}
       resourceLinks={resourceLinks}
+      galleryImages={[
+        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/svc-commercial-maintenance-1_3b8c18f5.jpg", alt: "Commercial landscape maintenance crew in Central Oregon" },
+        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/svc-commercial-maintenance-2_b5ef9adf.jpg", alt: "HOA common area landscaping maintenance in Bend Oregon" },
+        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/svc-commercial-maintenance-3_b82d6f68.jpg", alt: "Commercial property landscape maintenance in Central Oregon" },
+      ]}
       schemaUrl="/services/commercial-maintenance"
       schemaName="Commercial Landscape Maintenance"
       schemaDescription="Commercial landscape maintenance for HOAs, office parks, and retail properties in Bend, Oregon."

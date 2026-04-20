@@ -71,6 +71,11 @@ export default function Aeration() {
       ]}
       relatedLinks={relatedLinks}
       resourceLinks={resourceLinks}
+      galleryImages={[
+        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/svc-aeration-1_8dee32d1.jpg", alt: "Lawn aeration service on residential property in Bend Oregon" },
+        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/svc-aeration-2_a455094c.jpg", alt: "Core aeration machine on green lawn in Central Oregon" },
+        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/svc-aeration-3_e4d69da4.jpg", alt: "Lawn aeration and overseeding service in Bend Oregon" },
+      ]}
       schemaUrl="/services/aeration"
       schemaName="Lawn Aeration Service"
       schemaDescription="Core aeration and overseeding in Bend, Oregon. Improve soil compaction, water penetration, and lawn health."

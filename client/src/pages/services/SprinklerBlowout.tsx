@@ -69,6 +69,11 @@ export default function SprinklerBlowout() {
       ]}
       relatedLinks={relatedLinks}
       resourceLinks={resourceLinks}
+      galleryImages={[
+        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/svc-sprinkler-blowout-1_9c16afee.jpg", alt: "Sprinkler winterization blowout service in Bend Oregon" },
+        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/svc-sprinkler-blowout-2_a4553b27.jpg", alt: "Irrigation system blowout with air compressor in Central Oregon" },
+        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/svc-sprinkler-blowout-3_391a337b.jpg", alt: "Fall sprinkler blowout and winterization service in Bend Oregon" },
+      ]}
       schemaUrl="/services/sprinkler-blowout"
       schemaName="Sprinkler Winterization"
       schemaDescription="Professional sprinkler blowout and winterization service in Bend, Oregon. $140/tech hour. Schedule before the first freeze."

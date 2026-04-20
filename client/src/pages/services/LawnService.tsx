@@ -90,6 +90,11 @@ export default function LawnService() {
       ]}
       relatedLinks={relatedLinks}
       resourceLinks={resourceLinks}
+      galleryImages={[
+        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/svc-lawn-service-1_e6f39a17.jpg", alt: "Lawn mowing service on manicured residential lawn in Bend Oregon" },
+        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/svc-lawn-service-2_34b68809.jpg", alt: "Lawn care crew maintaining landscape in Central Oregon" },
+        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/svc-lawn-service-3_64ee3358.jpg", alt: "Freshly mowed and edged lawn in Bend Oregon neighborhood" },
+      ]}
       schemaUrl="/services/lawn-service"
       schemaName="Lawn Maintenance Service"
       schemaDescription="Weekly and bi-weekly lawn maintenance in Bend, Oregon. Mowing, edging, blowing, fertilization, and weed control."

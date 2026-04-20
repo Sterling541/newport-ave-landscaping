@@ -68,6 +68,7 @@ interface ServicePageProps {
   resourceLinks?: { label: string; href: string; description?: string }[];
   faqs?: FAQItem[];
   portfolioProjects?: PortfolioProject[];
+  galleryImages?: { src: string; alt: string }[];
   schemaName?: string;
   schemaDescription?: string;
   schemaUrl?: string;
@@ -88,6 +89,7 @@ export default function ServicePageLayout({
   resourceLinks,
   faqs,
   portfolioProjects,
+  galleryImages,
   schemaName,
   schemaDescription,
   schemaUrl,
@@ -239,6 +241,45 @@ export default function ServicePageLayout({
           </FadeIn>
         </div>
       </section>
+
+      {/* ── Photo Gallery ── */}
+      {galleryImages && galleryImages.length > 0 && (
+        <section className="py-12" style={{ backgroundColor: "oklch(0.97 0.012 85)" }}>
+          <div className="container">
+            <div
+              className="grid gap-3"
+              style={{
+                gridTemplateColumns:
+                  galleryImages.length === 1
+                    ? "1fr"
+                    : galleryImages.length === 2
+                    ? "repeat(2, 1fr)"
+                    : "repeat(3, 1fr)",
+              }}
+            >
+              {galleryImages.map((img, i) => (
+                <FadeIn key={img.src} delay={i * 0.08}>
+                  <div
+                    className="overflow-hidden"
+                    style={{
+                      aspectRatio: galleryImages.length <= 2 ? "16/9" : i === 0 ? "16/9" : "4/3",
+                      gridColumn: galleryImages.length === 3 && i === 0 ? "1 / span 2" : undefined,
+                    }}
+                  >
+                    <img
+                      src={img.src}
+                      alt={img.alt}
+                      className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+                      loading={i === 0 ? "eager" : "lazy"}
+                      decoding="async"
+                    />
+                  </div>
+                </FadeIn>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* ── Pricing callout ── */}
       {pricing && pricing.length > 0 && (

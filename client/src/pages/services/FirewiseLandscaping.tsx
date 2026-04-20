@@ -137,6 +137,11 @@ export default function FirewiseLandscaping() {
       faqs={faqs}
       relatedLinks={relatedLinks}
       resourceLinks={resourceLinks}
+      galleryImages={[
+        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/svc-firewise-landscaping-1_22c65cc1.jpg", alt: "Firewise landscaping and defensible space clearing in Central Oregon" },
+        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/svc-firewise-landscaping-2_a04683b8.jpg", alt: "Defensible space vegetation removal around home in Bend Oregon" },
+        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/svc-firewise-landscaping-3_9cf2720c.jpg", alt: "Fire-resistant native plant landscape in Central Oregon" },
+      ]}
       schemaUrl="/services/firewise-landscaping"
       schemaName="Firewise Landscaping & Defensible Space"
       schemaDescription="Firewise landscaping and defensible space services in Bend, Oregon. Juniper removal, fire-resistant replanting, and zone-based vegetation management for Deschutes County homeowners."

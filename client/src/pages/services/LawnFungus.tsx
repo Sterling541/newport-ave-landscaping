@@ -73,6 +73,11 @@ export default function LawnFungus() {
       ]}
       relatedLinks={relatedLinks}
       resourceLinks={resourceLinks}
+      galleryImages={[
+        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/svc-lawn-fungus-1_abe676e3.jpg", alt: "Lawn fungus inspection and diagnosis in Bend Oregon" },
+        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/svc-lawn-fungus-2_70f37068.jpg", alt: "Fungicide treatment application on residential lawn in Central Oregon" },
+        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/svc-lawn-fungus-3_36fa8c8c.jpg", alt: "Before and after lawn fungus treatment in Central Oregon" },
+      ]}
       schemaUrl="/services/lawn-fungus"
       schemaName="Lawn Fungus Treatment"
       schemaDescription="Lawn fungus diagnosis and treatment in Bend, Oregon. Dollar spot, brown patch, rust, and other turf diseases."

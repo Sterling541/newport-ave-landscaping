@@ -71,6 +71,11 @@ export default function SprinklerRepair() {
       ]}
       relatedLinks={relatedLinks}
       resourceLinks={resourceLinks}
+      galleryImages={[
+        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/svc-sprinkler-repair-1_aad8a8ac.jpg", alt: "Sprinkler repair technician inspecting irrigation head in Bend Oregon" },
+        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/svc-sprinkler-repair-2_bbe39e75.jpg", alt: "Irrigation system repair and backflow testing in Central Oregon" },
+        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/svc-sprinkler-repair-3_63450c26.jpg", alt: "Repaired residential sprinkler system running in Bend Oregon" },
+      ]}
       schemaUrl="/services/sprinkler-repair"
       schemaName="Sprinkler System Repair"
       schemaDescription="Expert sprinkler repair, troubleshooting, and backflow testing in Bend, Oregon. $140/tech hour. Same-week scheduling available."

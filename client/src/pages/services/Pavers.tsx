@@ -83,6 +83,11 @@ export default function Pavers() {
       ]}
       relatedLinks={relatedLinks}
       resourceLinks={resourceLinks}
+      galleryImages={[
+        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/svc-pavers-1_0c58eedf.jpg", alt: "Large paver patio installation in Central Oregon backyard" },
+        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/svc-pavers-2_f65ebcf6.jpg", alt: "Paver walkway and driveway with native plantings in Bend Oregon" },
+        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/svc-pavers-3_2483af2a.jpg", alt: "Completed paver patio with fire pit and seating wall in Central Oregon" },
+      ]}
       schemaUrl="/services/pavers"
       schemaName="Paver Patio Installation"
       schemaDescription="Custom paver patio and walkway installation in Bend, Oregon. Natural stone, concrete pavers, retaining walls. 5-year warranty."

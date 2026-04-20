@@ -70,6 +70,11 @@ export default function LandscapeLighting() {
           ],
         },
       ]}
+      pricing={[
+        { label: "Essential Package", value: "$5,500" },
+        { label: "Premium Package", value: "$9,500" },
+        { label: "Design Consultation", value: "Complimentary" },
+      ]}
       relatedLinks={relatedLinks}
       resourceLinks={resourceLinks}
       schemaUrl="/services/landscape-lighting"
@@ -96,7 +101,7 @@ export default function LandscapeLighting() {
         },
       ]}
       faqs={[
-          { question: "How much does landscape lighting cost in Bend?", answer: "Residential landscape lighting projects in Bend typically range from $1,500–$8,000 depending on the number of fixtures, the areas being lit, and the complexity of the installation. LED systems have higher upfront costs than halogen but use 75% less energy and last 25x longer, making them the better long-term investment." },
+          { question: "How much does landscape lighting cost in Bend?", answer: "Residential landscape lighting projects in Bend start at $5,500 for our Essential Package (FX Luminaire digital controller + 10 pathlights) and $9,500 for our Premium Package (controller + 10 pathlights + 5 moonlighting downlights). Custom systems with more fixtures scale from there. LED systems use 75% less energy than halogen and last 25x longer, making them the better long-term investment." },
           { question: "What types of landscape lighting do you install?", answer: "We install a full range of outdoor lighting including path and walkway lights, uplighting for trees and architectural features, downlighting from trees or structures, deck and step lighting, pond and water feature lighting, and security lighting. All installations use commercial-grade LED fixtures designed for outdoor use in Central Oregon's climate." },
           { question: "Do landscape lights work in Central Oregon winters?", answer: "Yes — quality outdoor LED fixtures are rated for temperatures well below Central Oregon's winter lows. We use fixtures with IP65 or higher weatherproofing ratings that handle snow, ice, and temperature swings without issue. Proper installation with conduit and waterproof connections ensures reliable year-round performance." },
           { question: "Can I add lighting to an existing landscape?", answer: "Absolutely — we install landscape lighting on existing properties all the time. We can work around established plants and hardscapes with minimal disruption. Low-voltage LED systems are particularly easy to add to existing landscapes without major trenching." },

@@ -99,6 +99,11 @@ export default function Drainage() {
       faqs={faqs}
       relatedLinks={relatedLinks}
       resourceLinks={resourceLinks}
+      galleryImages={[
+        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/svc-drainage-1_21cfdf29.jpg", alt: "French drain installation in Central Oregon landscape" },
+        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/svc-drainage-2_0ecf7552.jpg", alt: "Drainage solution with river rock and catch basin in Bend Oregon" },
+        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/svc-drainage-3_f282dc51.jpg", alt: "Decorative drainage channel with river rock in Central Oregon backyard" },
+      ]}
       schemaUrl="/services/drainage"
       schemaName="Drainage Solutions"
       schemaDescription="Drainage solutions and installation in Bend, Oregon. French drains, dry creek beds, catch basins, and grading correction for residential and commercial properties."

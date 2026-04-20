@@ -72,6 +72,11 @@ export default function Irrigation() {
       ]}
       relatedLinks={relatedLinks}
       resourceLinks={resourceLinks}
+      galleryImages={[
+        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/svc-irrigation-1_814b6f8f.jpg", alt: "Irrigation system installation in Central Oregon landscape" },
+        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/svc-irrigation-2_2fbaa127.jpg", alt: "Drip irrigation install in xeriscape garden in Bend Oregon" },
+        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/svc-irrigation-3_f8d779da.jpg", alt: "Completed sprinkler system running on residential lawn in Central Oregon" },
+      ]}
       schemaUrl="/services/irrigation"
       schemaName="Sprinkler System Installation"
       schemaDescription="Professional irrigation system design and installation in Bend, Oregon. Smart controllers, drip irrigation, and full lawn sprinkler systems."

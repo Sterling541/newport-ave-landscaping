@@ -38,8 +38,11 @@ export default function OutdoorLiving() {
       intro="Outdoor kitchens and fireplaces have become the focal point of the outdoor living area. If you want to improve the value and sale-ability of your home, or create a more usable and functional backyard, an outdoor living area can do wonders. Your dreams are the limit."
       pricing={[
         { label: "Average Outdoor Kitchen", value: "$15,000 – $25,000" },
-        { label: "Gourmet / Custom", value: "Up to $65,000+" },
-        { label: "Most Lavish Build to Date", value: "$150,000+" },
+        { label: "Gourmet / Custom Kitchen", value: "Up to $65,000+" },
+        { label: "Simple Pergola (8’x14’)", value: "$12,000" },
+        { label: "Custom Pergola with Details", value: "$16,000" },
+        { label: "Synthetic Turf Installation", value: "$16+ per sq ft" },
+        { label: "(3) Hole Putting Green", value: "$6,500 – $8,500" },
         { label: "Design Consultation", value: "Complimentary" },
       ]}
       sections={[
@@ -74,6 +77,11 @@ export default function OutdoorLiving() {
       ]}
       relatedLinks={relatedLinks}
       resourceLinks={resourceLinks}
+      galleryImages={[
+        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/svc-outdoor-kitchen-1_1ca4ba59.jpg", alt: "Custom outdoor kitchen with built-in grill and stone counter in Central Oregon" },
+        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/svc-outdoor-kitchen-2_9ffb25da.jpg", alt: "Outdoor living space with pergola and kitchen in Bend Oregon" },
+        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/svc-outdoor-kitchen-3_ff49c647.jpg", alt: "Luxury outdoor kitchen with pizza oven and bar seating in Central Oregon" },
+      ]}
       schemaUrl="/services/outdoor-living"
       schemaName="Outdoor Living Spaces"
       schemaDescription="Custom outdoor kitchens, living spaces, and covered patios in Bend, Oregon. Design and installation by Newport Avenue Landscaping."

@@ -67,6 +67,11 @@ export default function SprinklerActivation() {
       ]}
       relatedLinks={relatedLinks}
       resourceLinks={resourceLinks}
+      galleryImages={[
+        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/svc-sprinkler-activation-1_a2d7e543.jpg", alt: "Spring sprinkler system activation in Central Oregon" },
+        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/svc-sprinkler-activation-2_5984e3f7.jpg", alt: "Irrigation system startup and programming in Bend Oregon" },
+        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/svc-sprinkler-activation-3_8281c094.jpg", alt: "Residential sprinkler system running after spring activation in Bend Oregon" },
+      ]}
       schemaUrl="/services/sprinkler-activation"
       schemaName="Sprinkler System Spring Activation"
       schemaDescription="Spring sprinkler system startup and activation in Bend, Oregon. Zone checks, head adjustments, controller programming. $140/tech hour."

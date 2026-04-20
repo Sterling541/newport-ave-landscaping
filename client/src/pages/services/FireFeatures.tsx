@@ -32,8 +32,9 @@ export default function FireFeatures() {
       heroPosition="center 60%"
       intro="Family gatherings. Ghost stories. Roasting marshmallows with the kids. Dreaming up the future with a good glass of wine. Memories, all made around a fire. Fire pits are one of those must-haves — the non-negotiables of your backyard. The place where everyone gathers to laugh, dream, and stay warm. We'll build it, just to your specifications."
       pricing={[
-        { label: "Fire Pit Starting Cost", value: "$2,200" },
-        { label: "Full Fireplace with Chimney", value: "Up to $35,000+" },
+        { label: "Boulder Wood Burning Pit", value: "$2,500 – $3,500" },
+        { label: "Block Fire Pit Kit", value: "$5,500 – $7,000" },
+        { label: "Fire Chimney (Natural Gas)", value: "$22,000+" },
         { label: "Design Consultation", value: "Complimentary" },
       ]}
       sections={[
@@ -68,6 +69,11 @@ export default function FireFeatures() {
       ]}
       relatedLinks={relatedLinks}
       resourceLinks={resourceLinks}
+      galleryImages={[
+        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/svc-fire-features-1_e7894b5d.jpg", alt: "Custom fire pit with paver surround in Central Oregon backyard" },
+        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/svc-fire-features-2_d6255b6a.jpg", alt: "Outdoor fireplace with seating area in Bend Oregon" },
+        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/svc-fire-features-3_b4fd3eb0.jpg", alt: "Modern concrete fire bowl on paver patio in Central Oregon" },
+      ]}
       schemaUrl="/services/fire-features"
       schemaName="Fire Pits and Outdoor Fireplaces"
       schemaDescription="Custom fire pit and outdoor fireplace installation in Bend, Oregon. Natural gas, propane, and wood-burning options."
