@@ -68,9 +68,9 @@ export default function SprinklerActivation() {
       relatedLinks={relatedLinks}
       resourceLinks={resourceLinks}
       galleryImages={[
-        { src: "/manus-storage/safe-hero-sprinkler-activation_6c04210c.jpg", alt: "Spring sprinkler system activation in Central Oregon" },
-        { src: "/manus-storage/safe-hero-sprinkler-activation_6c04210c.jpg", alt: "Irrigation system startup and programming in Bend Oregon" },
-        { src: "/manus-storage/svc-sprinkler-activation-3_a745e4ee.jpg", alt: "Residential sprinkler system running after spring activation in Bend Oregon" },
+        { src: "/manus-storage/svc-sprinkler-activation-1_fd7a0b4a.jpg", alt: "Irrigation technician activating backflow preventer at a Bend Oregon home" },
+        { src: "/manus-storage/svc-sprinkler-activation-2_719721d0.jpg", alt: "Technician programming sprinkler controller for spring season in Central Oregon" },
+        { src: "/manus-storage/svc-sprinkler-activation-3_b2b5cdfb.jpg", alt: "Residential sprinkler system running after spring activation in Bend Oregon" },
       ]}
       schemaUrl="/services/sprinkler-activation"
       schemaName="Sprinkler System Spring Activation"
