@@ -19,7 +19,7 @@ const LOGO_NAV =
 
 const maintenanceItems = [
   { label: "Lawn Service", href: "/services/lawn-service", num: "01" },
-  { label: "Commercial & HOA", href: "/commercial", num: "02" },
+  { label: "Commercial & HOA", href: "/maintenance/commercial-hoa", num: "02" },
   { label: "Aeration Services", href: "/services/aeration", num: "03" },
   { label: "Spring Activation", href: "/services/sprinkler-activation", num: "04" },
   { label: "Sprinkler Blowout", href: "/services/sprinkler-blowout", num: "05" },

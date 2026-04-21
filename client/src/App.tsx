@@ -37,6 +37,7 @@ import Terms from "./pages/Terms";
 // Maintenance sub-pages
 import LawnService from "./pages/services/LawnService";
 import CommercialMaintenance from "./pages/services/CommercialMaintenance";
+import CommercialHOAMaintenance from "./pages/maintenance/CommercialHOAMaintenance";
 import Aeration from "./pages/services/Aeration";
 import SprinklerActivation from "./pages/services/SprinklerActivation";
 import SprinklerBlowout from "./pages/services/SprinklerBlowout";
@@ -228,6 +229,7 @@ function Router() {
       {/* Maintenance sub-pages */}
       <Route path={"/services/lawn-service"} component={LawnService} />
       <Route path={"/services/commercial-maintenance"} component={CommercialMaintenance} />
+      <Route path={"/maintenance/commercial-hoa"} component={CommercialHOAMaintenance} />
       <Route path={"/services/aeration"} component={Aeration} />
       <Route path={"/services/sprinkler-activation"} component={SprinklerActivation} />
       <Route path={"/services/sprinkler-blowout"} component={SprinklerBlowout} />
