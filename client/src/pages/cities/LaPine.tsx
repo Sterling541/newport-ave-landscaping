@@ -5,7 +5,7 @@ export default function LaPinePage() {
     <CityPageLayout
       city="La Pine"
       region="Central Oregon"
-      heroImage="/manus-storage/NewportAveLandcaping-9_97b731b0.jpg"
+      heroImage="https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportAveLandcaping-9_97b731b0.jpg"
       heroPosition="center 40%"
       tagline="Expert Landscaping Services for La Pine's Unique High-Desert Environment"
       seoTitle="La Pine Landscaping Oregon | La Pine Lawn Care | Newport Avenue Landscaping"

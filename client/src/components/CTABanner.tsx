@@ -8,7 +8,7 @@
 import { useEffect, useRef, useState } from "react";
 
 const HERO_IMG =
-  "/manus-storage/GLLPatio2_4916fcde.jpg";
+  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/GLLPatio2_4916fcde.jpg";
 
 export default function CTABanner() {
   const ref = useRef<HTMLDivElement>(null);

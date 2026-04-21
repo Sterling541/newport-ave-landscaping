@@ -59,7 +59,7 @@ export default function StagingGate({ children }: { children: React.ReactNode })
       {/* Logo */}
       <div style={{ marginBottom: "2.5rem", textAlign: "center" }}>
         <img
-          src="/manus-storage/logo-transparent-stacked_ff350b79.png"
+          src="https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/logo-transparent-stacked_ff350b79.png"
           alt="Newport Avenue Landscaping"
           style={{ height: 90, objectFit: "contain" }}
           onError={(e) => {

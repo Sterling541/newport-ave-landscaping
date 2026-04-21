@@ -15,7 +15,7 @@ import { useLocation } from "wouter";
 import { Menu, X, Phone, ArrowRight, ChevronDown } from "lucide-react";
 
 const LOGO_NAV =
-  "/manus-storage/logo-nav-tight_c562b49c.png";
+  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/logo-nav-tight_c562b49c.png";
 
 const maintenanceItems = [
   { label: "Lawn Service", href: "/services/lawn-service", num: "01" },
@@ -59,14 +59,14 @@ const resourcesItems = [
   { label: "All 100 Guides →", href: "/resources", num: "→" },
 ];
 const MEGA_PHOTO_RESOURCES =
-  "/manus-storage/NewportAveLandcaping-9_97b731b0.jpg";
+  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportAveLandcaping-9_97b731b0.jpg";
 
 // Maintenance mega menu — Newport Ave residential lawn & maintenance photo
 const MEGA_PHOTO_MAINTENANCE =
-  "/manus-storage/NewportAveLandcaping-9_97b731b0.jpg";
+  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportAveLandcaping-9_97b731b0.jpg";
 // Services mega menu — Discovery West Plaza commercial installation (polished hardscape)
 const MEGA_PHOTO_SERVICES =
-  "/manus-storage/DiscoveryWestPlazaHiResPhotos55_79ba9dd5.jpg";
+  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/DiscoveryWestPlazaHiResPhotos55_79ba9dd5.jpg";
 
 function MegaMenuItem({
   item,

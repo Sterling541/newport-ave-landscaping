@@ -12,10 +12,10 @@
 import { useLocation } from "wouter";
 
 const BADGE_URL =
-  "/manus-storage/priority-badge-original_c531517d.png";
+  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/priority-badge-original_c531517d.png";
 
 const BG_URL =
-  "/manus-storage/GLLPatio1_90e2e0c4.jpg";
+  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/GLLPatio1_90e2e0c4.jpg";
 
 export default function MembershipBanner() {
   const [, navigate] = useLocation();

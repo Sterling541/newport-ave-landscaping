@@ -39,19 +39,19 @@ const residentialServices = [
     title: "Custom Design & Build",
     href: "/services/landscape-design",
     description: "Work with our award-winning design team to bring your outdoor oasis to life. We handle everything from initial concept through final installation, with a 5-year warranty on main irrigation components for Priority Membership clients.",
-    image: "/manus-storage/NewportLandscapingRVParkDay2Photos2_8e8d0bb1.jpg",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportLandscapingRVParkDay2Photos2_8e8d0bb1.jpg",
   },
   {
     title: "Patio Pavers & Walkways",
     href: "/services/pavers",
     description: "We are your one-stop shop for all outdoor paving needs — driveways, walkways, patios, pool decks, and more. We work with natural stone, concrete pavers, flagstone, and brick to create surfaces that last decades.",
-    image: "/manus-storage/GLLPatio10_2ffabcfb.jpg",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/GLLPatio10_2ffabcfb.jpg",
   },
   {
     title: "Sprinklers & Irrigation",
     href: "/services/irrigation",
     description: "With a full-time team dedicated exclusively to sprinkler installation and maintenance, we design and install efficient irrigation systems that keep your landscape thriving while conserving water.",
-    image: "/manus-storage/water-feature-sunset_f7b219d3.jpg",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/water-feature-sunset_f7b219d3.jpg",
   },
   {
     title: "Water Features",
@@ -93,7 +93,7 @@ const residentialServices = [
     title: "Drainage Solutions",
     href: "/services/drainage",
     description: "French drains, dry creek beds, catch basins, and grading solutions to protect your property from water damage. We solve drainage problems permanently and beautifully.",
-    image: "/manus-storage/water-feature-sunset_f7b219d3.jpg",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/water-feature-sunset_f7b219d3.jpg",
   },
 ];
 
@@ -132,7 +132,7 @@ export default function Services() {
         style={{
           height: "clamp(280px, 38vw, 440px)", marginTop: "204px",
           backgroundColor: "oklch(0.12 0.005 0)",
-          backgroundImage: "url(/manus-storage/NinesProject3_602cdeb8.jpg",
+          backgroundImage: "url(https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NinesProject3_602cdeb8.jpg",
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}

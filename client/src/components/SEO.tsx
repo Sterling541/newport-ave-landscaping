@@ -15,7 +15,7 @@ interface SEOProps {
 
 const SITE_NAME = "Newport Avenue Landscaping";
 const DEFAULT_OG_IMAGE =
-  "/manus-storage/water-feature-sunset_f7b219d3.jpg";
+  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/water-feature-sunset_f7b219d3.jpg";
 const BASE_URL = "https://newportavelandscaping.com";
 
 export default function SEO({

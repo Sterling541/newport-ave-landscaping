@@ -330,7 +330,7 @@ const LEGACY_PROJECTS = [
   { title: "Backyard Landscape Renovation", category: "Full Renovation · Design & Build", img: "/manus-storage/se-bend-renovation-01_487ce10e.jpg", href: "/portfolio/backyard-renovation" },
   { title: "Awbrey Butte Patio Extension & Wall", category: "Pavers · Retaining Walls · Outdoor Living", img: "/manus-storage/awbrey-patio-wall-01_bde91632.jpg", href: "/portfolio/awbrey-butte-patio" },
   { title: "NW Bend Landscape Lighting", category: "Landscape Lighting · Water Features", img: "/manus-storage/nw-bend-lighting-01_32b779e7.jpg", href: "/portfolio/nw-bend-lighting" },
-  { title: "Westside Outdoor Living Space", category: "Outdoor Living · Water Features · Fire Features", img: "/manus-storage/westside-living-01_ed5d815c.jpg", href: "/portfolio/westside-outdoor-living" },
+  { title: "Westside Outdoor Living Space", category: "Outdoor Living · Water Features · Fire Features", img: "/manus-storage/westside-living-01_30518074.jpg", href: "/portfolio/westside-outdoor-living" },
 ];
 
 const PROJECTS = [

@@ -44,7 +44,7 @@ const DefensibleSpaceBendOregon = () => {
 
       <main style={{ fontFamily: "system-ui, sans-serif", color: "oklch(0.38 0.008 0)", lineHeight: "1.6" }}>
         {/* Hero Section */}
-        <section style={{ background: `linear-gradient(rgba(0,0,0,0.60), rgba(0,0,0,0.60)), url(/manus-storage/forest-home4_9324e5db.jpg) center/cover no-repeat`, color: "white", padding: "80px 20px", textAlign: "center" }}>
+        <section style={{ background: `linear-gradient(rgba(0,0,0,0.60), rgba(0,0,0,0.60)), url(https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/forest-home4_9324e5db.jpg) center/cover no-repeat`, color: "white", padding: "80px 20px", textAlign: "center" }}>
           <div className="container" style={{ maxWidth: "1200px", margin: "0 auto" }}>
             <nav style={{ marginBottom: "20px", fontSize: "0.9rem", color: "oklch(0.8 0 0)" }}>
               <a href="/" style={{ color: "inherit", textDecoration: "none" }}>Home</a> &gt; <a href="/resources" style={{ color: "inherit", textDecoration: "none" }}>Resources</a> &gt; Defensible Space Guide

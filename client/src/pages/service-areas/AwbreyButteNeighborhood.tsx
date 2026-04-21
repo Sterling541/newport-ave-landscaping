@@ -4,7 +4,7 @@ import SEO from "@/components/SEO";
 import { BreadcrumbSchema } from "@/components/SchemaMarkup";
 import { Link } from "wouter";
 
-const HERO_IMG = "/manus-storage/awbrey-butte-hero-KAx3sqK4wSeVZyqPrSPZMP.webp";
+const HERO_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/awbrey-butte-hero-KAx3sqK4wSeVZyqPrSPZMP.webp";
 
 export default function AwbreyButteNeighborhood() {
   return (

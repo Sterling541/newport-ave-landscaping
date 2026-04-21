@@ -25,28 +25,28 @@ import {
 
 // ── CDN image constants ──────────────────────────────────────
 // Discovery West Plaza
-const DW_AERIAL_OVERVIEW = "/manus-storage/DiscoveryWestPlazaHiResPhotos45_7e4380ec.jpg";
-const DW_AERIAL_ANGLED = "/manus-storage/DiscoveryWestPlazaHiResPhotos58_4ec582a1.jpg";
-const DW_OVERHEAD_CIRCULAR = "/manus-storage/DiscoveryWestPlazaHiResPhotos55_79ba9dd5.jpg";
-const DW_CREW_PLANTING = "/manus-storage/DiscoveryWestPlazaHiResPhotos57_fafc711f.jpg";
-const NINES_CREW = "/manus-storage/NinesProject3_602cdeb8.jpg";
+const DW_AERIAL_OVERVIEW = "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/DiscoveryWestPlazaHiResPhotos45_7e4380ec.jpg";
+const DW_AERIAL_ANGLED = "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/DiscoveryWestPlazaHiResPhotos58_4ec582a1.jpg";
+const DW_OVERHEAD_CIRCULAR = "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/DiscoveryWestPlazaHiResPhotos55_79ba9dd5.jpg";
+const DW_CREW_PLANTING = "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/DiscoveryWestPlazaHiResPhotos57_fafc711f.jpg";
+const NINES_CREW = "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NinesProject3_602cdeb8.jpg";
 
 const HERO_IMAGE =
-  "/manus-storage/NewportLandscapingRVParkPhotos50_5ba97805.jpg";
+  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportLandscapingRVParkPhotos50_5ba97805.jpg";
 const CREW_PLANTING =
-  "/manus-storage/NewportLandscapingRVParkDay2Photos2_8e8d0bb1.jpg";
+  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportLandscapingRVParkDay2Photos2_8e8d0bb1.jpg";
 const CREW_ACTION =
-  "/manus-storage/NewportLandscapingRVParkDay2Photos2_8e8d0bb1.jpg";
+  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportLandscapingRVParkDay2Photos2_8e8d0bb1.jpg";
 const CREW_IRRIGATION =
-  "/manus-storage/NewportLandscapingRVParkPhotos16_5e801b45.jpg";
+  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportLandscapingRVParkPhotos16_5e801b45.jpg";
 const CREW_SOIL =
-  "/manus-storage/NewportLandscapingRVParkPhotos16_5e801b45.jpg";
+  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportLandscapingRVParkPhotos16_5e801b45.jpg";
 const HOA_COMMUNITY =
-  "/manus-storage/hoa-central-oregon-aerial-FqxDA5HTtAdmvC4C8zTkoF.webp";
+  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/hoa-central-oregon-aerial-FqxDA5HTtAdmvC4C8zTkoF.webp";
 const CREW_DAY2_11 =
-  "/manus-storage/NewportLandscapingRVParkDay2Photos11_f8570f3e.jpg";
+  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportLandscapingRVParkDay2Photos11_f8570f3e.jpg";
 const CREW_DAY2_25 =
-  "/manus-storage/NewportLandscapingRVParkDay2Photos25_79f2b575.jpg";
+  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportLandscapingRVParkDay2Photos25_79f2b575.jpg";
 
 // ── FadeIn helper ────────────────────────────────────────────
 function FadeIn({

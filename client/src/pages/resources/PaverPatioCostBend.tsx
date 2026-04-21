@@ -31,7 +31,7 @@ export default function PaverPatioCostBend() {
           className="relative flex items-center justify-center"
           style={{
             height: "380px",
-            backgroundImage: "url(/manus-storage/GLLPatio2_4916fcde.jpg",
+            backgroundImage: "url(https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/GLLPatio2_4916fcde.jpg",
             backgroundSize: "cover",
             backgroundPosition: "center 50%",
           }}
