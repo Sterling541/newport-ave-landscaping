@@ -22,7 +22,7 @@ export default function LawnCareBendOregon() {
           className="relative flex items-center justify-center"
           style={{
             height: "380px",
-            backgroundImage: "url(https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/safe-hero-lawn-service-M6KtZXXU28c8fvLP56ueff.webp",
+            backgroundImage: "url(/manus-storage/safe-hero-lawn-service_fcba45d8.jpg",
             backgroundSize: "cover",
             backgroundPosition: "center 40%",
           }}

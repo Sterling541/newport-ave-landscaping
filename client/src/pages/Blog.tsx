@@ -8,7 +8,7 @@ const posts = [
     title: "Xeriscape Landscaping in Bend, Oregon: The Complete Guide",
     excerpt: "Drought-tolerant plants, design principles, and real cost savings for Central Oregon's high desert climate. Reduce outdoor water use by up to 60%.",
     date: "March 2024",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/safe-hero-lawn-service-M6KtZXXU28c8fvLP56ueff.webp",
+    image: "/manus-storage/safe-hero-lawn-service_fcba45d8.jpg",
     category: "Xeriscape & Water Conservation",
   },
   {
@@ -16,7 +16,7 @@ const posts = [
     title: "Sprinkler Winterization in Bend, Oregon: What You Need to Know",
     excerpt: "When to winterize your sprinklers, what happens if you don't, and how our certified technicians protect your system every fall before Bend's first hard freeze.",
     date: "September 2024",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/safe-hero-irrigation-wide-eEEjnzmEDfU9gNzL44jyPH.webp",
+    image: "/manus-storage/safe-hero-irrigation-wide_7d00acf6.jpg",
     category: "Irrigation",
   },
   {
@@ -32,7 +32,7 @@ const posts = [
     title: "Lawn Care in Bend, Oregon: The Complete Seasonal Guide",
     excerpt: "Watering schedules, fertilization timing, aeration, overseeding, and weed control — everything you need for a healthy lawn in Central Oregon's high desert.",
     date: "February 2024",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/safe-hero-lawn-service-M6KtZXXU28c8fvLP56ueff.webp",
+    image: "/manus-storage/safe-hero-lawn-service_fcba45d8.jpg",
     category: "Lawn Care",
   },
   {
@@ -56,7 +56,7 @@ const posts = [
     title: "Lawn Fungus in Bend, Oregon",
     excerpt: "Got lawn fungus? Learn about the most common types of lawn fungus in Central Oregon, how to identify them, and how our licensed spray technicians can treat and prevent them.",
     date: "January 2023",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/safe-hero-lawn-service-M6KtZXXU28c8fvLP56ueff.webp",
+    image: "/manus-storage/safe-hero-lawn-service_fcba45d8.jpg",
     category: "Lawn Care",
   },
 ];

@@ -84,9 +84,9 @@ export default function Pavers() {
       relatedLinks={relatedLinks}
       resourceLinks={resourceLinks}
       galleryImages={[
-        { src: "/manus-storage/svc-pavers-1_b2f86a70.jpg", alt: "Large paver patio installation in Central Oregon backyard" },
-        { src: "/manus-storage/svc-pavers-2_8ea39179.jpg", alt: "Paver walkway and driveway with native plantings in Bend Oregon" },
-        { src: "/manus-storage/svc-pavers-3_4233aa3f.jpg", alt: "Completed paver patio with fire pit and seating wall in Central Oregon" },
+        { src: "/manus-storage/svc-pavers-1_7db7ed4c.jpg", alt: "Large paver patio installation in Central Oregon backyard" },
+        { src: "/manus-storage/svc-pavers-2_e93af626.jpg", alt: "Paver walkway and driveway with native plantings in Bend Oregon" },
+        { src: "/manus-storage/svc-pavers-3_d274613a.jpg", alt: "Completed paver patio with fire pit and seating wall in Central Oregon" },
       ]}
       schemaUrl="/services/pavers"
       schemaName="Paver Patio Installation"

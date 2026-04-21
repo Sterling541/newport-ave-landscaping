@@ -78,9 +78,9 @@ export default function OutdoorLiving() {
       relatedLinks={relatedLinks}
       resourceLinks={resourceLinks}
       galleryImages={[
-        { src: "/manus-storage/svc-outdoor-kitchen-1_f69bb8e4.jpg", alt: "Custom outdoor kitchen with built-in grill and stone counter in Central Oregon" },
-        { src: "/manus-storage/svc-outdoor-kitchen-2_2787c392.jpg", alt: "Outdoor living space with pergola and kitchen in Bend Oregon" },
-        { src: "/manus-storage/svc-outdoor-kitchen-3_2704e2be.jpg", alt: "Luxury outdoor kitchen with pizza oven and bar seating in Central Oregon" },
+        { src: "/manus-storage/svc-outdoor-kitchen-1_3e42799f.jpg", alt: "Custom outdoor kitchen with built-in grill and stone counter in Central Oregon" },
+        { src: "/manus-storage/svc-outdoor-kitchen-2_234bb6f9.jpg", alt: "Outdoor living space with pergola and kitchen in Bend Oregon" },
+        { src: "/manus-storage/svc-outdoor-kitchen-3_f1367227.jpg", alt: "Luxury outdoor kitchen with pizza oven and bar seating in Central Oregon" },
       ]}
       schemaUrl="/services/outdoor-living"
       schemaName="Outdoor Living Spaces"

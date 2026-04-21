@@ -50,7 +50,7 @@ export default function Drainage() {
       subtitle="Bend, Oregon"
       seoTitle="Drainage Solutions Bend Oregon | French Drains, Dry Creek Beds & Grading | Newport Avenue"
       seoDescription="Drainage installation and correction in Bend, Oregon. French drains, dry creek beds, catch basins, and grading correction. Free site assessments. LCB #9153."
-      heroImage="/manus-storage/hero-drainage-wide_2e2807ce.jpg"
+      heroImage="/manus-storage/hero-drainage-wide_6595b0b0.jpg"
       heroPosition="center 40%"
       intro="Water in the wrong place destroys landscapes, damages foundations, and creates liability. Newport Avenue diagnoses and corrects drainage problems throughout Central Oregon — from simple surface grading to engineered French drain systems and dry creek beds that double as landscape features. We find the root cause of your drainage problem and fix it permanently."
       pricing={[
@@ -100,9 +100,9 @@ export default function Drainage() {
       relatedLinks={relatedLinks}
       resourceLinks={resourceLinks}
       galleryImages={[
-        { src: "/manus-storage/svc-drainage-1_9c65ddb0.jpg", alt: "French drain installation in Central Oregon landscape" },
-        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/safe-hero-irrigation-wide-eEEjnzmEDfU9gNzL44jyPH.webp", alt: "Drainage solution with river rock and catch basin in Bend Oregon" },
-        { src: "/manus-storage/svc-drainage-3_e997b9ae.jpg", alt: "Decorative drainage channel with river rock in Central Oregon backyard" },
+        { src: "/manus-storage/svc-drainage-1_6887e9a6.jpg", alt: "French drain installation in Central Oregon landscape" },
+        { src: "/manus-storage/safe-hero-irrigation-wide_7d00acf6.jpg", alt: "Drainage solution with river rock and catch basin in Bend Oregon" },
+        { src: "/manus-storage/svc-drainage-3_8243a1ea.jpg", alt: "Decorative drainage channel with river rock in Central Oregon backyard" },
       ]}
       schemaUrl="/services/drainage"
       schemaName="Drainage Solutions"

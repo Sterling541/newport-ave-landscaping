@@ -70,9 +70,9 @@ export default function FireFeatures() {
       relatedLinks={relatedLinks}
       resourceLinks={resourceLinks}
       galleryImages={[
-        { src: "/manus-storage/svc-fire-features-1_6d3bcf9d.jpg", alt: "Custom fire pit with paver surround in Central Oregon backyard" },
-        { src: "/manus-storage/svc-fire-features-2_d2718cba.jpg", alt: "Outdoor fireplace with seating area in Bend Oregon" },
-        { src: "/manus-storage/svc-fire-features-3_9b826f21.jpg", alt: "Modern concrete fire bowl on paver patio in Central Oregon" },
+        { src: "/manus-storage/svc-fire-features-1_163f7588.jpg", alt: "Custom fire pit with paver surround in Central Oregon backyard" },
+        { src: "/manus-storage/svc-fire-features-2_0c417890.jpg", alt: "Outdoor fireplace with seating area in Bend Oregon" },
+        { src: "/manus-storage/svc-fire-features-3_55534ae5.jpg", alt: "Modern concrete fire bowl on paver patio in Central Oregon" },
       ]}
       schemaUrl="/services/fire-features"
       schemaName="Fire Pits and Outdoor Fireplaces"

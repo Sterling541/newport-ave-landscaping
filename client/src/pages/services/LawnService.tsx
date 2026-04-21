@@ -33,7 +33,7 @@ export default function LawnService() {
       subtitle="Bend, Oregon"
       seoTitle="Lawn Care Bend Oregon | Weekly Lawn Mowing & Maintenance Service | Newport Avenue"
       seoDescription="Weekly lawn mowing, edging, and maintenance in Bend, Oregon. From $97/service. Fertilization, weed control, and seasonal cleanups. Serving Bend since 2010. LCB #9153."
-      heroImage="https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/safe-hero-lawn-service-M6KtZXXU28c8fvLP56ueff.webp"
+      heroImage="/manus-storage/safe-hero-lawn-service_fcba45d8.jpg"
       heroPosition="center 40%"
       intro="Since 2005, we've provided lawn care and landscape maintenance for thousands of homes located throughout Bend, Redmond, Sisters, and the broader Central Oregon area. From La Pine to Madras and from Prineville to Sisters, our gardeners can be seen beautifying landscapes."
       pricing={[
@@ -91,9 +91,9 @@ export default function LawnService() {
       relatedLinks={relatedLinks}
       resourceLinks={resourceLinks}
       galleryImages={[
-        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/safe-hero-lawn-service-M6KtZXXU28c8fvLP56ueff.webp", alt: "Lawn mowing service on manicured residential lawn in Bend Oregon" },
-        { src: "/manus-storage/svc-lawn-service-2_f3f0b995.jpg", alt: "Lawn care crew maintaining landscape in Central Oregon" },
-        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/safe-hero-aeration-7Gjk2VTSukkLr8xfDGauDQ.webp", alt: "Freshly mowed and edged lawn in Bend Oregon neighborhood" },
+        { src: "/manus-storage/safe-hero-lawn-service_fcba45d8.jpg", alt: "Lawn mowing service on manicured residential lawn in Bend Oregon" },
+        { src: "/manus-storage/svc-lawn-service-2_db85e3e7.jpg", alt: "Lawn care crew maintaining landscape in Central Oregon" },
+        { src: "/manus-storage/safe-hero-aeration_742c2b11.jpg", alt: "Freshly mowed and edged lawn in Bend Oregon neighborhood" },
       ]}
       schemaUrl="/services/lawn-service"
       schemaName="Lawn Maintenance Service"

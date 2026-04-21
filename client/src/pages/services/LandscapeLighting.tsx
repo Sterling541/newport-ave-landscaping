@@ -28,7 +28,7 @@ export default function LandscapeLighting() {
       subtitle="Bend, Oregon"
       seoTitle="Landscape Lighting Bend Oregon | Outdoor LED Lighting Design & Install | Newport Avenue"
       seoDescription="Professional landscape lighting design and installation in Bend, Oregon. LED path lights, uplighting, and outdoor living illumination. Transform your property after dark. LCB #9153."
-      heroImage="/manus-storage/hero-landscape-lighting-wide_38282297.jpg"
+      heroImage="/manus-storage/hero-landscape-lighting-wide_fc474dee.jpg"
       heroPosition="center 50%"
       intro="Our landscape lighting expert is up to date on all certifications and is licensed as a landscape construction professional with the Oregon Landscape Contractors Board. Landscape lighting has become so popular that we are now installing 7–10 landscape lighting systems every month. We offer free proposals and advice."
       sections={[
