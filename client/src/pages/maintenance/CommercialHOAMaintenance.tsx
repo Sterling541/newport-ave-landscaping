@@ -90,9 +90,9 @@ export default function CommercialHOAMaintenance() {
       relatedLinks={relatedLinks}
       resourceLinks={resourceLinks}
       galleryImages={[
-        { src: "/manus-storage/svc-commercial-maintenance-1_e6aa6c1e.jpg", alt: "Commercial landscape maintenance crew mowing and trimming office park in Bend Oregon" },
-        { src: "/manus-storage/svc-commercial-maintenance-2_1c6f0968.jpg", alt: "Newport Avenue team maintaining commercial property grounds in Central Oregon" },
-        { src: "/manus-storage/svc-commercial-maintenance-3_0862cdb4.jpg", alt: "HOA community entrance landscaping maintained by Newport Avenue in Bend Oregon" },
+        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportLandscapingRVParkPhotos16_5e801b45.jpg", alt: "Newport Avenue crew member in branded uniform shoveling mulch at a commercial landscape project in Bend Oregon" },
+        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportLandscapingRVParkDay2Photos11_f8570f3e.jpg", alt: "Newport Avenue team planting trees at a large commercial property in Central Oregon" },
+        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportLandscapingRVParkDay2Photos2_8e8d0bb1.jpg", alt: "Newport Avenue crew in red uniforms installing seasonal color at a commercial landscape site in Bend Oregon" },
       ]}
       schemaUrl="/maintenance/commercial-hoa"
       schemaName="Commercial & HOA Landscape Maintenance"
