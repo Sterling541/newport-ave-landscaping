@@ -533,3 +533,14 @@ body {
     animation-duration: 20s !important;
   }
 }
+
+/* Resource hub article cards */
+.resource-card {
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-left-color 0.18s ease, color 0.18s ease;
+}
+.resource-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px oklch(0.46 0.20 25 / 0.14);
+  border-left-color: oklch(0.35 0.22 25) !important;
+  color: oklch(0.35 0.22 25) !important;
+}
