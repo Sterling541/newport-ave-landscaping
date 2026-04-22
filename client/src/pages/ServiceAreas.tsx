@@ -354,10 +354,24 @@ export default function ServiceAreas() {
                 <a
                   key={city.name}
                   href={`#${city.name.split(',')[0].toLowerCase().replace(/\s+/g, '-')}`}
-                  className="font-body text-sm px-4 py-2 rounded-full transition-colors"
-                  style={{ backgroundColor: 'oklch(0.18 0.008 0)', color: 'white' }}
-                  onMouseEnter={e => (e.currentTarget.style.backgroundColor = 'oklch(0.46 0.20 25)')}
-                  onMouseLeave={e => (e.currentTarget.style.backgroundColor = 'oklch(0.18 0.008 0)')}
+                  className="font-body text-sm px-4 py-2 rounded-full cursor-pointer"
+                  style={{
+                    backgroundColor: 'oklch(0.18 0.008 0)',
+                    color: 'white',
+                    transition: 'background-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease',
+                  }}
+                  onMouseEnter={e => {
+                    const el = e.currentTarget as HTMLElement;
+                    el.style.backgroundColor = 'oklch(0.46 0.20 25)';
+                    el.style.boxShadow = '0 3px 10px oklch(0.46 0.20 25 / 0.35)';
+                    el.style.transform = 'translateY(-1px)';
+                  }}
+                  onMouseLeave={e => {
+                    const el = e.currentTarget as HTMLElement;
+                    el.style.backgroundColor = 'oklch(0.18 0.008 0)';
+                    el.style.boxShadow = 'none';
+                    el.style.transform = 'translateY(0)';
+                  }}
                 >
                   {city.name.split(',')[0]}
                 </a>
@@ -394,10 +408,29 @@ export default function ServiceAreas() {
                     {city.services.map(s => (
                       <Link key={s.href} href={s.href}>
                         <span
-                          className="block p-4 rounded-lg transition-all font-body text-sm font-medium"
-                          style={{ backgroundColor: 'white', border: '1px solid oklch(0.88 0.005 0)', color: 'oklch(0.22 0.008 0)' }}
-                          onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = 'oklch(0.46 0.20 25)'; (e.currentTarget as HTMLElement).style.color = 'oklch(0.46 0.20 25)'; }}
-                          onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = 'oklch(0.88 0.005 0)'; (e.currentTarget as HTMLElement).style.color = 'oklch(0.22 0.008 0)'; }}
+                          className="block p-4 rounded-lg font-body text-sm font-medium cursor-pointer"
+                          style={{
+                            backgroundColor: 'white',
+                            border: '1px solid oklch(0.88 0.005 0)',
+                            color: 'oklch(0.22 0.008 0)',
+                            transition: 'border-color 0.18s ease, color 0.18s ease, background-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease',
+                          }}
+                          onMouseEnter={e => {
+                            const el = e.currentTarget as HTMLElement;
+                            el.style.borderColor = 'oklch(0.46 0.20 25)';
+                            el.style.color = 'oklch(0.38 0.20 25)';
+                            el.style.backgroundColor = 'oklch(0.98 0.01 25)';
+                            el.style.boxShadow = '0 4px 12px oklch(0.46 0.20 25 / 0.15)';
+                            el.style.transform = 'translateY(-2px)';
+                          }}
+                          onMouseLeave={e => {
+                            const el = e.currentTarget as HTMLElement;
+                            el.style.borderColor = 'oklch(0.88 0.005 0)';
+                            el.style.color = 'oklch(0.22 0.008 0)';
+                            el.style.backgroundColor = 'white';
+                            el.style.boxShadow = 'none';
+                            el.style.transform = 'translateY(0)';
+                          }}
                         >
                           {s.name} →
                         </span>
@@ -414,10 +447,26 @@ export default function ServiceAreas() {
                     {city.neighborhoods.map(n => (
                       <Link key={n.href} href={n.href}>
                         <span
-                          className="inline-block px-4 py-2 rounded-full font-body text-sm transition-colors"
-                          style={{ backgroundColor: 'oklch(0.93 0.005 0)', color: 'oklch(0.30 0.005 0)' }}
-                          onMouseEnter={e => { (e.currentTarget as HTMLElement).style.backgroundColor = 'oklch(0.18 0.008 0)'; (e.currentTarget as HTMLElement).style.color = 'white'; }}
-                          onMouseLeave={e => { (e.currentTarget as HTMLElement).style.backgroundColor = 'oklch(0.93 0.005 0)'; (e.currentTarget as HTMLElement).style.color = 'oklch(0.30 0.005 0)'; }}
+                          className="inline-block px-4 py-2 rounded-full font-body text-sm cursor-pointer"
+                          style={{
+                            backgroundColor: 'oklch(0.93 0.005 0)',
+                            color: 'oklch(0.30 0.005 0)',
+                            transition: 'background-color 0.18s ease, color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease',
+                          }}
+                          onMouseEnter={e => {
+                            const el = e.currentTarget as HTMLElement;
+                            el.style.backgroundColor = 'oklch(0.46 0.20 25)';
+                            el.style.color = 'white';
+                            el.style.boxShadow = '0 3px 8px oklch(0.46 0.20 25 / 0.30)';
+                            el.style.transform = 'translateY(-1px)';
+                          }}
+                          onMouseLeave={e => {
+                            const el = e.currentTarget as HTMLElement;
+                            el.style.backgroundColor = 'oklch(0.93 0.005 0)';
+                            el.style.color = 'oklch(0.30 0.005 0)';
+                            el.style.boxShadow = 'none';
+                            el.style.transform = 'translateY(0)';
+                          }}
                         >
                           {n.name}
                         </span>

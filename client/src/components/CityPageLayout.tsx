@@ -718,15 +718,23 @@ export default function CityPageLayout(props: CityPageProps) {
                     fontWeight: 500,
                     textDecoration: "none",
                     borderRadius: "0.15rem",
-                    transition: "border-color 0.2s ease, color 0.2s ease",
+                    transition: "border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease",
                   }}
                   onMouseEnter={(e) => {
-                    (e.currentTarget as HTMLAnchorElement).style.borderColor = "oklch(0.46 0.20 25)";
-                    (e.currentTarget as HTMLAnchorElement).style.color = "oklch(0.46 0.20 25)";
+                    const el = e.currentTarget as HTMLAnchorElement;
+                    el.style.borderColor = "oklch(0.46 0.20 25)";
+                    el.style.color = "oklch(0.38 0.20 25)";
+                    el.style.backgroundColor = "oklch(0.98 0.01 25)";
+                    el.style.boxShadow = "0 3px 8px oklch(0.46 0.20 25 / 0.15)";
+                    el.style.transform = "translateY(-1px)";
                   }}
                   onMouseLeave={(e) => {
-                    (e.currentTarget as HTMLAnchorElement).style.borderColor = "oklch(0.85 0.005 0)";
-                    (e.currentTarget as HTMLAnchorElement).style.color = "oklch(0.30 0.005 0)";
+                    const el = e.currentTarget as HTMLAnchorElement;
+                    el.style.borderColor = "oklch(0.85 0.005 0)";
+                    el.style.color = "oklch(0.30 0.005 0)";
+                    el.style.backgroundColor = "oklch(1 0 0)";
+                    el.style.boxShadow = "none";
+                    el.style.transform = "translateY(0)";
                   }}
                 >
                   <MapPin size={10} strokeWidth={2} />
