@@ -59,7 +59,7 @@ const faqs = [
   {
     question: "Does Deschutes County require defensible space landscaping?",
     answer:
-      "As of April 2026, Deschutes County's R327 fire hardening code applies to new construction — requiring fire-resistant building materials like cementitious siding, asphalt shingles, and noncombustible gutters. It does not yet mandate defensible space landscaping for existing homes. However, the Oregon Fire Marshal's Office is actively drafting a defensible space code expected for local adoption in late 2026, and the Project Wildfire Neighborhood Coalition (80+ Deschutes County communities) is pushing Bend, Redmond, and La Pine to adopt codes as soon as possible. Getting ahead of the requirement now protects your home and avoids a rushed, potentially more expensive compliance project later.",
+      "As of May 2026, the City of Bend and Deschutes County's R327 fire hardening code applies to new residential construction — requiring fire-resistant building materials like noncombustible gutters, ember-resistant vents, tempered windows, and ignition-resistant siding and roofing. R327 is a building code that governs construction materials only. It does not mandate defensible space landscaping for any property, new or existing. However, the Oregon Fire Marshal's Office is actively drafting a defensible space ordinance expected for local adoption in late 2026, and the Project Wildfire Neighborhood Coalition (80+ Deschutes County communities) is pushing Bend, Redmond, and La Pine to adopt landscape-side codes as quickly as possible. Getting ahead of the requirement now protects your home and avoids a rushed, potentially more expensive compliance project when codes take effect.",
   },
   {
     question: "Can you help me get my property Firewise USA certified?",
@@ -122,6 +122,15 @@ export default function FirewiseLandscaping() {
             "Removing hazardous plants doesn't mean living with a bare, unattractive yard. Central Oregon has a rich palette of fire-resistant plants that thrive in the high desert climate, require minimal water, and create genuinely beautiful landscapes. We specialize in designing firewise landscapes that look intentional and polished — not stripped and defensive.",
             "Our favorite fire-resistant choices for Bend include yarrow (Achillea millefolium) for its lacy texture and long bloom season, native grasses kept mowed and irrigated, stonecrop and sedum groundcovers, snowberry (Symphoricarpos), currant (Ribes), and deciduous trees like aspen, maple, and cherry that have high moisture content and low flammability. We match plant selection to your specific zone, sun exposure, soil type, and design aesthetic.",
           ],
+        },
+        {
+          heading: "R327 Covers the House — Newport Covers the Land",
+          body: [
+            "The City of Bend adopted Section R327 of the Oregon Residential Specialty Code, with requirements taking effect May 15, 2026. R327 is a building code — it governs construction materials like fire-resistant siding, noncombustible gutters, ember-resistant vents, and tempered windows on new homes. It says nothing about the landscape surrounding those homes.",
+            "That's where Newport Avenue comes in. A new home built to R327 standards is still surrounded by the same juniper trees, manzanita, and dry grass that make Central Oregon properties vulnerable to wildfire ignition. The structure may resist embers better, but if the vegetation within 30 feet ignites, the home is still at serious risk. Defensible space landscaping — clearing, zoning, and replanting the land around your home — is the essential complement to structural fire hardening that R327 doesn't address.",
+            "If you're building a new home in Bend and your contractor is meeting R327 requirements, call us to handle the landscape side. If you're in an existing home, R327 doesn't apply to you — but the wildfire risk does. Either way, Newport Avenue provides the defensible space work that building codes can't.",
+          ],
+          accent: true,
         },
         {
           heading: "Irrigation for Defensible Space",
