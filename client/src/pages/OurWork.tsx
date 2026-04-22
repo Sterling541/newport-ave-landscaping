@@ -496,6 +496,79 @@ const PROJECTS = [
   },
 ];
 
+// ── Category filter system ─────────────────────────────────
+type FilterCategory =
+  | "All"
+  | "Outdoor Living"
+  | "Design & Build"
+  | "Pavers & Hardscape"
+  | "Water Features"
+  | "Xeriscape"
+  | "Landscape Lighting"
+  | "Planting & Irrigation";
+
+const FILTER_CATEGORIES: FilterCategory[] = [
+  "All",
+  "Outdoor Living",
+  "Design & Build",
+  "Pavers & Hardscape",
+  "Water Features",
+  "Xeriscape",
+  "Landscape Lighting",
+  "Planting & Irrigation",
+];
+
+// Maps each raw project tag to a canonical filter category
+const TAG_TO_CATEGORY: Record<string, FilterCategory> = {
+  // Outdoor Living
+  "Outdoor Living": "Outdoor Living",
+  "Luxury Residential": "Outdoor Living",
+  "Pergola": "Outdoor Living",
+  "Outdoor Kitchen": "Outdoor Living",
+  "Pavilion": "Outdoor Living",
+  "Full Renovation": "Outdoor Living",
+  "Landscape Enhancement": "Outdoor Living",
+  // Design & Build
+  "Design & Build": "Design & Build",
+  "Landscape Installation": "Design & Build",
+  // Pavers & Hardscape
+  "Pavers": "Pavers & Hardscape",
+  "Hardscape": "Pavers & Hardscape",
+  "Flagstone": "Pavers & Hardscape",
+  "Walkways": "Pavers & Hardscape",
+  "Stone Work": "Pavers & Hardscape",
+  "Retaining Walls": "Pavers & Hardscape",
+  "Boulder Terracing": "Pavers & Hardscape",
+  "Concrete Steps": "Pavers & Hardscape",
+  "Curb Appeal": "Pavers & Hardscape",
+  "Corten Steel Fireplace": "Pavers & Hardscape",
+  // Water Features
+  "Water Feature": "Water Features",
+  "Water Features": "Water Features",
+  "Fire Pit": "Water Features",
+  "Fire Feature": "Water Features",
+  "Fire Features": "Water Features",
+  // Xeriscape
+  "Xeriscape": "Xeriscape",
+  "Xeriscaping": "Xeriscape",
+  "Water-Wise": "Xeriscape",
+  // Landscape Lighting
+  "Landscape Lighting": "Landscape Lighting",
+  // Planting & Irrigation
+  "Planting Design": "Planting & Irrigation",
+  "Planting": "Planting & Irrigation",
+  "Irrigation": "Planting & Irrigation",
+};
+
+function getProjectCategories(tags: string[]): FilterCategory[] {
+  const cats = new Set<FilterCategory>();
+  for (const tag of tags) {
+    const cat = TAG_TO_CATEGORY[tag];
+    if (cat) cats.add(cat);
+  }
+  return Array.from(cats);
+}
+
 interface LightboxState { projectId: string; index: number; isLegacy?: boolean; }
 
 export default function OurWork() {
@@ -503,6 +576,7 @@ export default function OurWork() {
   const [lightbox, setLightbox] = useState<LightboxState | null>(null);
   const [activeTab, setActiveTab] = useState<"featured" | "legacy">("featured");
   const [activeProject, setActiveProject] = useState<string | null>(null);
+  const [activeCategory, setActiveCategory] = useState<FilterCategory>("All");
   const [expandedProjects, setExpandedProjects] = useState<Set<string>>(new Set());
 
   const toggleExpand = (id: string) => {
@@ -541,9 +615,24 @@ export default function OurWork() {
       : PROJECTS.find((p) => p.id === lightbox.projectId)?.photos[lightbox.index]
     : null;
 
-  const displayedProjects = activeProject
-    ? PROJECTS.filter((p) => p.id === activeProject)
-    : PROJECTS;
+  // Category filter: when a category is active, show only matching projects
+  const displayedProjects = (() => {
+    // If a specific project is selected (legacy single-project view), use that
+    if (activeProject) return PROJECTS.filter((p) => p.id === activeProject);
+    // Otherwise filter by category
+    if (activeCategory === "All") return PROJECTS;
+    return PROJECTS.filter((p) => getProjectCategories(p.tags).includes(activeCategory));
+  })();
+
+  // Count per category for the filter bar
+  const categoryCounts = Object.fromEntries(
+    FILTER_CATEGORIES.map((cat) => [
+      cat,
+      cat === "All"
+        ? PROJECTS.length
+        : PROJECTS.filter((p) => getProjectCategories(p.tags).includes(cat)).length,
+    ])
+  ) as Record<FilterCategory, number>;
 
   return (
      <div style={{ backgroundColor: "oklch(0.12 0.005 0)" }}>
@@ -580,11 +669,12 @@ export default function OurWork() {
         </div>
       </section>
 
-      {/* ── Tab switcher ── */}
-      <section className="py-8 border-b" style={{ borderColor: "oklch(0.22 0.005 0)", backgroundColor: "oklch(0.15 0.005 0)" }}>
-        <div className="container flex flex-wrap items-center gap-4">
+      {/* ── Tab switcher + Category Filter ── */}
+      <section className="border-b" style={{ borderColor: "oklch(0.22 0.005 0)", backgroundColor: "oklch(0.15 0.005 0)" }}>
+        {/* Tab row */}
+        <div className="container flex flex-wrap items-center gap-4 py-6">
           <button
-            onClick={() => setActiveTab("featured")}
+            onClick={() => { setActiveTab("featured"); setActiveCategory("All"); setActiveProject(null); }}
             className="font-nav px-6 py-2.5 transition-all duration-200"
             style={{
               borderRadius: "1.2rem 0.15rem 1.2rem 0.15rem",
@@ -611,42 +701,90 @@ export default function OurWork() {
           </button>
 
           {activeTab === "featured" && (
-            <div className="flex flex-wrap gap-2 ml-4">
-              <button
-                onClick={() => setActiveProject(null)}
-                className="font-nav px-4 py-1.5 transition-all duration-200"
-                style={{
-                  borderRadius: "1.2rem 0.15rem 1.2rem 0.15rem",
-                  backgroundColor: !activeProject ? "oklch(0.22 0.005 0)" : "transparent",
-                  color: !activeProject ? "oklch(0.90 0.003 0)" : "oklch(0.55 0.005 0)",
-                  border: "1px solid oklch(0.28 0.005 0)",
-                  fontSize: "0.60rem",
-                }}
-              >
-                All
-              </button>
-              {PROJECTS.map((p) => (
-                <button
-                  key={p.id}
-                  onClick={() => setActiveProject(p.id === activeProject ? null : p.id)}
-                  className="font-nav px-4 py-1.5 transition-all duration-200"
-                  style={{
-                    borderRadius: "1.2rem 0.15rem 1.2rem 0.15rem",
-                    backgroundColor: activeProject === p.id ? "oklch(0.22 0.005 0)" : "transparent",
-                    color: activeProject === p.id ? "oklch(0.90 0.003 0)" : "oklch(0.55 0.005 0)",
-                    border: "1px solid oklch(0.28 0.005 0)",
-                    fontSize: "0.60rem",
-                  }}
-                >
-                  {p.name}
-                </button>
-              ))}
-            </div>
+            <span className="font-label ml-auto" style={{ color: "oklch(0.45 0.005 0)", fontSize: "0.60rem" }}>
+              {displayedProjects.length} {displayedProjects.length === 1 ? "project" : "projects"}
+            </span>
           )}
         </div>
+
+        {/* Category filter pills — only shown on Featured tab */}
+        {activeTab === "featured" && (
+          <div className="container pb-5">
+            <div className="flex flex-wrap gap-2">
+              {FILTER_CATEGORIES.map((cat) => {
+                const isActive = activeCategory === cat && !activeProject;
+                const count = categoryCounts[cat];
+                return (
+                  <button
+                    key={cat}
+                    onClick={() => { setActiveCategory(cat); setActiveProject(null); }}
+                    className="font-nav transition-all duration-200 flex items-center gap-1.5"
+                    style={{
+                      borderRadius: "1.2rem 0.15rem 1.2rem 0.15rem",
+                      padding: "0.35rem 0.9rem",
+                      backgroundColor: isActive ? "oklch(0.38 0.14 240)" : "oklch(0.18 0.005 0)",
+                      color: isActive ? "oklch(1 0 0)" : "oklch(0.60 0.005 0)",
+                      border: isActive ? "1.5px solid oklch(0.55 0.16 240)" : "1.5px solid oklch(0.28 0.005 0)",
+                      fontSize: "0.60rem",
+                      letterSpacing: "0.07em",
+                    }}
+                    aria-pressed={isActive}
+                  >
+                    {cat}
+                    <span
+                      className="inline-flex items-center justify-center"
+                      style={{
+                        minWidth: "1.2rem",
+                        height: "1.2rem",
+                        borderRadius: "50%",
+                        backgroundColor: isActive ? "oklch(0.55 0.16 240 / 0.45)" : "oklch(0.26 0.005 0)",
+                        color: isActive ? "oklch(0.92 0.04 240)" : "oklch(0.50 0.005 0)",
+                        fontSize: "0.52rem",
+                        fontWeight: 700,
+                        lineHeight: 1,
+                        padding: "0 0.2rem",
+                      }}
+                    >
+                      {count}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        )}
       </section>
 
       {/* ── Featured Project Galleries ── */}
+      {activeTab === "featured" && displayedProjects.length === 0 && (
+        <section className="py-24 text-center" style={{ backgroundColor: "oklch(0.12 0.005 0)" }}>
+          <div className="container">
+            <div className="font-label mb-4" style={{ color: "oklch(0.65 0.16 240)", fontSize: "0.62rem", letterSpacing: "0.18em" }}>NO RESULTS</div>
+            <h3 className="font-display font-light text-white mb-3" style={{ fontSize: "clamp(1.4rem, 2.5vw, 2rem)" }}>
+              No projects in this category yet
+            </h3>
+            <p className="font-body mb-8" style={{ color: "oklch(0.55 0.005 0)", fontSize: "0.92rem" }}>
+              Try a different filter or view all projects.
+            </p>
+            <button
+              onClick={() => setActiveCategory("All")}
+              className="font-label transition-all duration-200"
+              style={{
+                padding: "0.6rem 1.8rem",
+                border: "1.5px solid oklch(0.55 0.16 240 / 0.50)",
+                borderRadius: "12px 0 12px 0",
+                color: "oklch(0.72 0.14 240)",
+                backgroundColor: "transparent",
+                fontSize: "0.62rem",
+                letterSpacing: "0.12em",
+                cursor: "pointer",
+              }}
+            >
+              VIEW ALL PROJECTS
+            </button>
+          </div>
+        </section>
+      )}
       {activeTab === "featured" && displayedProjects.map((project, pi) => (
         <section key={project.id} className="py-16" style={{ backgroundColor: pi % 2 === 0 ? "oklch(0.12 0.005 0)" : "oklch(0.15 0.005 0)" }}>
           <div className="container">

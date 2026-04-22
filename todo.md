@@ -387,3 +387,13 @@
 - [x] Confirmed no duplicate photos across any of the 19 project arrays (224 unique photos)
 - [x] Replaced 5 broken 403 CDN entries with working real Newport CDN photos (ITP_7385, ITP_7558, GLLPatio1/2/9)
 - [x] Verified Our Work page loads correctly with all project galleries showing photos
+
+## Session — April 22, 2026 (Portfolio Category Filter)
+
+- [x] Design 8 consolidated filter categories from 35 raw project tags
+- [x] Add active filter state and filtering logic to OurWork.tsx
+- [x] Build filter pill/button bar UI above the project grid
+- [x] Show "X projects" count in filter bar
+- [x] Ensure filter state syncs with existing "Featured / More / All" tab system
+- [x] Add empty state with "View All Projects" fallback button
+- [x] Write and pass 16 unit tests for category filter logic
