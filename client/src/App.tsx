@@ -70,6 +70,10 @@ import LaPinePage from "./pages/cities/LaPine";
 import MadrasPage from "./pages/cities/Madras";
 import EagleCrestPage from "./pages/cities/EagleCrest";
 import PowellButtePage from "./pages/cities/PowellButte";
+import TerrebonnePage from "./pages/cities/Terrebonne";
+import CrookedRiverRanchPage from "./pages/cities/CrookedRiverRanch";
+import AlfalfaPage from "./pages/cities/Alfalfa";
+import ClineFallsPage from "./pages/cities/ClineFalls";
 
 // Blog posts
 import ClimateChange from "./pages/blog/ClimateChange";
@@ -264,6 +268,10 @@ function Router() {
       <Route path={"/landscaping/madras"} component={MadrasPage} />
       <Route path={"/landscaping/eagle-crest"} component={EagleCrestPage} />
       <Route path={"/landscaping/powell-butte"} component={PowellButtePage} />
+      <Route path={"/landscaping/terrebonne"} component={TerrebonnePage} />
+      <Route path={"/landscaping/crooked-river-ranch"} component={CrookedRiverRanchPage} />
+      <Route path={"/landscaping/alfalfa"} component={AlfalfaPage} />
+      <Route path={"/landscaping/cline-falls"} component={ClineFallsPage} />
 
       {/* Blog posts */}
       <Route path={"/blog/climate-change-landscaping"} component={ClimateChange} />
