@@ -478,72 +478,23 @@ function Router() {
       <Route path={"/service-areas/sisters-xeriscape"} component={lazy(() => import('./pages/service-areas/XeriscapeSisters'))} />
       <Route path={"/service-areas/sunriver-xeriscape"} component={lazy(() => import('./pages/service-areas/XeriscapeSunriver'))} />
       <Route path={"/service-areas/tumalo-xeriscape"} component={lazy(() => import('./pages/service-areas/XeriscapeTumalo'))} />
+      {/* Resource pages */}
+      <Route path={"/resources/natural-stone-vs-concrete-pavers-bend-oregon"} component={NaturalStoneVsConcretePayersBend} />
+      <Route path={"/resources/gas-vs-propane-fire-pit-bend-oregon"} component={GasVsPropaneFirePitBend} />
+      <Route path={"/resources/irrigation-faq-bend-oregon"} component={IrrigationFAQBend} />
+      <Route path={"/resources/paver-patio-faq-bend-oregon"} component={PaverFAQBend} />
+      <Route path={"/resources/xeriscape-faq-bend-oregon"} component={XeriscapeFAQBend} />
+      <Route path={"/resources/lawn-care-cost-bend-oregon"} component={lazy(() => import('./pages/resources/LawnCareCostBend'))} />
+      <Route path={"/resources/lawn-aeration-cost-bend-oregon"} component={lazy(() => import('./pages/resources/AerationCostBend'))} />
+      <Route path={"/resources/backflow-preventer-testing-bend-oregon"} component={lazy(() => import('./pages/resources/BackflowTestingBend'))} />
+      <Route path={"/resources/snow-removal-cost-bend-oregon"} component={lazy(() => import('./pages/resources/SnowRemovalCostBend'))} />
+      <Route path={"/resources/irrigation-repair-cost-bend-oregon"} component={lazy(() => import('./pages/resources/IrrigationRepairCostBend'))} />
+      <Route path={"/resources/commercial-landscaping-cost-bend-oregon"} component={lazy(() => import('./pages/resources/CommercialLandscapingCostBend'))} />
+      <Route path={"/resources/lawn-fungus-treatment-bend-oregon"} component={lazy(() => import('./pages/resources/LawnFungusTreatmentBend'))} />
       {/* Fallback */}
       <Route path={"/admin/image-tracker"} component={ImageTracker} />
       <Route path={"/404"} component={NotFound} />
       <Route component={NotFound} />
-    
-          <Route path="/service-areas/redmond-pavers" component={RedmondPavers} />
-          <Route path="/service-areas/redmond-irrigation" component={RedmondIrrigation} />
-          <Route path="/service-areas/redmond-xeriscape" component={RedmondXeriscaping} />
-          <Route path="/service-areas/redmond-landscape-design" component={RedmondLandscapeDesign} />
-          <Route path="/service-areas/redmond-lawn-care" component={RedmondLawnService} />
-          <Route path="/service-areas/redmond-snow-removal" component={RedmondSnowRemoval} />
-          <Route path="/service-areas/sisters-pavers" component={SistersPavers} />
-          <Route path="/service-areas/sisters-irrigation" component={SistersIrrigation} />
-          <Route path="/service-areas/sisters-xeriscape" component={SistersXeriscaping} />
-          <Route path="/service-areas/sisters-landscape-design" component={SistersLandscapeDesign} />
-          <Route path="/service-areas/sisters-lawn-care" component={SistersLawnService} />
-          <Route path="/service-areas/sisters-snow-removal" component={SistersSnowRemoval} />
-          <Route path="/service-areas/sunriver-pavers" component={SunriverPavers} />
-          <Route path="/service-areas/sunriver-irrigation" component={SunriverIrrigation} />
-          <Route path="/service-areas/sunriver-xeriscape" component={SunriverXeriscaping} />
-          <Route path="/service-areas/sunriver-landscape-design" component={SunriverLandscapeDesign} />
-          <Route path="/service-areas/sunriver-lawn-care" component={SunriverLawnService} />
-          <Route path="/service-areas/sunriver-snow-removal" component={SunriverSnowRemoval} />
-          <Route path="/service-areas/la-pine-pavers" component={LaPinePavers} />
-          <Route path="/service-areas/la-pine-irrigation" component={LaPineIrrigation} />
-          <Route path="/service-areas/la-pine-xeriscape" component={LaPineXeriscaping} />
-          <Route path="/service-areas/la-pine-landscape-design" component={LaPineLandscapeDesign} />
-          <Route path="/service-areas/la-pine-lawn-care" component={LaPineLawnService} />
-          <Route path="/service-areas/la-pine-snow-removal" component={LaPineSnowRemoval} />
-          <Route path="/service-areas/prineville-pavers" component={PrinevillePavers} />
-          <Route path="/service-areas/prineville-irrigation" component={PrinevilleIrrigation} />
-          <Route path="/service-areas/prineville-xeriscape" component={PrinevilleXeriscaping} />
-          <Route path="/service-areas/prineville-landscape-design" component={PrinevilleLandscapeDesign} />
-          <Route path="/service-areas/prineville-lawn-care" component={PrinevilleLawnService} />
-          <Route path="/service-areas/prineville-snow-removal" component={PrinevilleSnowRemoval} />
-          <Route path="/service-areas/madras-pavers" component={MadrasPavers} />
-          <Route path="/service-areas/madras-irrigation" component={MadrasIrrigation} />
-          <Route path="/service-areas/madras-xeriscape" component={MadrasXeriscaping} />
-          <Route path="/service-areas/madras-landscape-design" component={MadrasLandscapeDesign} />
-          <Route path="/service-areas/madras-lawn-care" component={MadrasLawnService} />
-          <Route path="/service-areas/madras-snow-removal" component={MadrasSnowRemoval} />
-          <Route path="/service-areas/tumalo-pavers" component={TumaloPavers} />
-          <Route path="/service-areas/tumalo-irrigation" component={TumaloIrrigation} />
-          <Route path="/service-areas/tumalo-xeriscape" component={TumaloXeriscaping} />
-          <Route path="/service-areas/tumalo-landscape-design" component={TumaloLandscapeDesign} />
-          <Route path="/service-areas/tumalo-lawn-care" component={TumaloLawnService} />
-          <Route path="/service-areas/tumalo-snow-removal" component={TumaloSnowRemoval} />
-          <Route path="/service-areas/terrebonne-pavers" component={TerrebonnePavers} />
-          <Route path="/service-areas/terrebonne-irrigation" component={TerrebonneIrrigation} />
-          <Route path="/service-areas/terrebonne-xeriscape" component={TerrebonneXeriscaping} />
-          <Route path="/service-areas/terrebonne-landscape-design" component={TerrebonneLandscapeDesign} />
-          <Route path="/service-areas/terrebonne-lawn-care" component={TerrebonneLawnService} />
-          <Route path="/service-areas/terrebonne-snow-removal" component={TerrebonneSnowRemoval} />
-          <Route path="/resources/natural-stone-vs-concrete-pavers-bend-oregon" component={NaturalStoneVsConcretePayersBend} />
-          <Route path="/resources/gas-vs-propane-fire-pit-bend-oregon" component={GasVsPropaneFirePitBend} />
-          <Route path="/service-areas/old-bend-landscaping-oregon" component={OldBendLandscaping} />
-          <Route path="/resources/irrigation-faq-bend-oregon" component={IrrigationFAQBend} />
-          <Route path="/resources/paver-patio-faq-bend-oregon" component={PaverFAQBend} />
-          <Route path="/resources/xeriscape-faq-bend-oregon" component={XeriscapeFAQBend} />
-          <Route path="/resources/lawn-care-cost-bend-oregon" component={lazy(() => import('./pages/resources/LawnCareCostBend'))} />
-          <Route path="/resources/lawn-aeration-cost-bend-oregon" component={lazy(() => import('./pages/resources/AerationCostBend'))} />
-          <Route path="/resources/backflow-preventer-testing-bend-oregon" component={lazy(() => import('./pages/resources/BackflowTestingBend'))} />
-          <Route path="/resources/snow-removal-cost-bend-oregon" component={lazy(() => import('./pages/resources/SnowRemovalCostBend'))} />
-          <Route path="/resources/irrigation-repair-cost-bend-oregon" component={lazy(() => import('./pages/resources/IrrigationRepairCostBend'))} />
-          <Route path="/resources/commercial-landscaping-cost-bend-oregon" component={lazy(() => import('./pages/resources/CommercialLandscapingCostBend'))} />
-          <Route path="/resources/lawn-fungus-treatment-bend-oregon" component={lazy(() => import('./pages/resources/LawnFungusTreatmentBend'))} />
 </Switch>
     </Suspense>
   );

@@ -32,7 +32,7 @@ const CITIES = [
       { name: 'River West', href: '/service-areas/river-west-landscaping' },
     ],
     services: [
-      { name: 'Paver Patios in Bend', href: '/services/paver-patios' },
+      { name: 'Paver Patios in Bend', href: '/services/pavers' },
       { name: 'Xeriscape in Bend', href: '/services/xeriscaping' },
       { name: 'Irrigation in Bend', href: '/services/irrigation' },
       { name: 'Lawn Care in Bend', href: '/services/lawn-service' },
