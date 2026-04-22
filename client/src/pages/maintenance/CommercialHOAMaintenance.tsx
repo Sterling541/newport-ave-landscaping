@@ -90,9 +90,9 @@ export default function CommercialHOAMaintenance() {
       relatedLinks={relatedLinks}
       resourceLinks={resourceLinks}
       galleryImages={[
-        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportLandscapingRVParkPhotos16_5e801b45.jpg", alt: "Newport Avenue crew member in branded uniform shoveling mulch at a commercial landscape project in Bend Oregon" },
-        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportLandscapingRVParkDay2Photos11_f8570f3e.jpg", alt: "Newport Avenue team planting trees at a large commercial property in Central Oregon" },
-        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportLandscapingRVParkDay2Photos2_8e8d0bb1.jpg", alt: "Newport Avenue crew in red uniforms installing seasonal color at a commercial landscape site in Bend Oregon" },
+        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/hoa-central-oregon-aerial-FqxDA5HTtAdmvC4C8zTkoF.webp", alt: "Aerial view of a well-maintained HOA community in Central Oregon with manicured lawns and Cascade mountain backdrop" },
+        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/DiscoveryWestPlazaHiResPhotos58_4ec582a1.jpg", alt: "Newport Avenue crew in red uniforms working at Discovery West Plaza commercial landscape project in Bend Oregon" },
+        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/DiscoveryWestPlazaHiResPhotos57_fafc711f.jpg", alt: "Newport Avenue team maintaining the Discovery West Plaza commercial landscape in Bend Oregon" },
       ]}
       schemaUrl="/maintenance/commercial-hoa"
       schemaName="Commercial & HOA Landscape Maintenance"
