@@ -284,7 +284,7 @@ export default function Contact() {
                         LOCATION
                       </div>
                       <div className="font-body text-white" style={{ fontWeight: 300 }}>
-                        64625 N. HWY 97<br />Bend, OR 97701
+                        61535 S Hwy 97<br />Bend, OR 97702
                       </div>
                       <div className="font-label mt-1" style={{ color: "oklch(0.55 0.008 0)", fontSize: "0.65rem" }}>
                         PLEASE CALL BEFORE COMING BY
@@ -372,7 +372,7 @@ export default function Contact() {
             >
               <iframe
                 title="Newport Avenue Landscaping Location"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.8!2d-121.3!3d44.07!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2s64625+N+US-97%2C+Bend%2C+OR+97701!5e0!3m2!1sen!2sus!4v1234567890"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2884.4!2d-121.3153!3d44.0582!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54b8c0b0b0b0b0b1%3A0x0!2s61535+S+US-97%2C+Bend%2C+OR+97702!5e0!3m2!1sen!2sus!4v1234567890"
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}

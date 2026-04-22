@@ -63,7 +63,7 @@ const portfolioItems = [
   },
   {
     title: "Our Nursery & Plant Yard",
-    subtitle: "64625 N. HWY 97, Bend",
+    subtitle: "61535 S Hwy 97, Bend",
     image: FACILITY_NURSERY,
   },
 ];

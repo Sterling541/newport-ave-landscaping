@@ -40,7 +40,7 @@ const SCHEMA = {
     "streetAddress": "Newport Avenue",
     "addressLocality": "Bend",
     "addressRegion": "OR",
-    "postalCode": "97701",
+    "postalCode": "97702",
     "addressCountry": "US"
   },
   "geo": { "@type": "GeoCoordinates", "latitude": 44.0582, "longitude": -121.3153 },

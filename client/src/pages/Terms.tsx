@@ -84,8 +84,8 @@ export default function Terms() {
             <h2 className="font-display text-2xl mb-4" style={{ color: "oklch(0.15 0.005 0)" }}>Contact Us</h2>
             <address className="not-italic" style={{ color: "oklch(0.35 0.005 0)" }}>
               Newport Avenue Landscaping<br />
-              64625 N. HWY 97<br />
-              Bend, OR 97701<br />
+              61535 S Hwy 97<br />
+              Bend, OR 97702<br />
               <a href="tel:5416178873" style={{ color: "oklch(0.46 0.20 25)" }}>(541) 617-8873</a><br />
               <a href="mailto:info@newportavelandscaping.com" style={{ color: "oklch(0.46 0.20 25)" }}>info@newportavelandscaping.com</a>
             </address>

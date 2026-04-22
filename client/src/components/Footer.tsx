@@ -176,9 +176,9 @@ export default function Footer() {
                 info@newportavelandscaping.com
               </a>
               <p className="font-body text-sm" style={{ color: "oklch(0.42 0.005 0)" }}>
-                64625 N. HWY 97 #100
+                61535 S Hwy 97
                 <br />
-                Bend, OR 97701
+                Bend, OR 97702
               </p>
             </div>
           </div>

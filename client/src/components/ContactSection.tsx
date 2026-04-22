@@ -391,9 +391,9 @@ export default function ContactSection() {
                       OFFICE
                     </div>
                     <div className="font-body text-sm" style={{ color: "oklch(0.22 0.005 0)" }}>
-                      64625 N. HWY 97 #100
+                      61535 S Hwy 97
                       <br />
-                      Bend, OR 97701
+                      Bend, OR 97702
                       <br />
                       <span className="text-xs" style={{ color: "oklch(0.55 0.005 0)" }}>
                         Visits by appointment only

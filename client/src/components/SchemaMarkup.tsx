@@ -22,10 +22,10 @@ export function LocalBusinessSchema() {
     image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/water-feature-sunset_f7b219d3.jpg",
     address: {
       "@type": "PostalAddress",
-      streetAddress: "64625 N. HWY 97 #100",
+      streetAddress: "61535 S Hwy 97",
       addressLocality: "Bend",
       addressRegion: "OR",
-      postalCode: "97701",
+      postalCode: "97702",
       addressCountry: "US",
     },
     geo: {

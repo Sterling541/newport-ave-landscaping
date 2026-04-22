@@ -464,7 +464,7 @@ export default function Navbar() {
             }}
             className="hidden sm:block"
           >
-            64625 N. HWY 97, Bend, OR &nbsp;·&nbsp; Visits by Appointment Only
+            61535 S Hwy 97, Bend, OR &nbsp;·&nbsp; Visits by Appointment Only
           </span>
           {/* Right: phone + schedule button */}
           <div style={{ display: "flex", alignItems: "center", gap: "1.2rem", marginLeft: "auto" }}>

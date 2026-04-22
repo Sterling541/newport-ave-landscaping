@@ -171,10 +171,10 @@ export default function CityPageLayout(props: CityPageProps) {
     telephone: "+15416178873",
     address: {
       "@type": "PostalAddress",
-      streetAddress: "64625 N. HWY 97 #100",
+      streetAddress: "61535 S Hwy 97",
       addressLocality: "Bend",
       addressRegion: "OR",
-      postalCode: "97701",
+      postalCode: "97702",
       addressCountry: "US",
     },
     areaServed: { "@type": "City", name: city },
