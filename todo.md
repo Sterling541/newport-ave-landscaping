@@ -378,3 +378,12 @@
 - [ ] Build list of every flagged image with page URL and description
 - [ ] Replace all flagged images with safe scenery-only or close-up alternatives
 - [ ] Build /admin/image-tracker page for managing real Newport photo replacements
+
+## Session — April 22, 2026 (Portfolio Photo Audit & Fix)
+
+- [x] Audit all 19 project photo arrays in OurWork.tsx for broken URLs
+- [x] Identified 5 broken 403 photos: 2 in HOSMER_PHOTOS, 3 in MCGRATH_PHOTOS
+- [x] Confirmed all /manus-storage/ paths return 307 redirects (browsers follow automatically — working)
+- [x] Confirmed no duplicate photos across any of the 19 project arrays (224 unique photos)
+- [x] Replaced 5 broken 403 CDN entries with working real Newport CDN photos (ITP_7385, ITP_7558, GLLPatio1/2/9)
+- [x] Verified Our Work page loads correctly with all project galleries showing photos

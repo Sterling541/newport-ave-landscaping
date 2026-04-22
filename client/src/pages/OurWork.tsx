@@ -70,11 +70,11 @@ const HOSMER_PHOTOS = [
   `${CDN}/XdRaSxrsEsCUxGCF_5ab35a5d.webp`,
   `${CDN}/QfQcioagkxhCEHdy_d82c4087.webp`,
   `${CDN}/QuZbCMdvWnmWDtAV_0d002a48.webp`,
-  `${CDN}/CzvUNmVAPgQRRbCL_a1b2c3d4.webp`,
+  `${CDN}/ITP_7385_f2bbba86.jpg`,
   `${CDN}/lVVEgyfcxeKKnmyY_2a04bfb2.webp`,
   `${CDN}/zCMVyaDdngZZHvwY_66d79f05.webp`,
   `${CDN}/oFCNJlnwxjSikzrO_14283c30.webp`,
-  `${CDN}/CIvaeoiJEjdrssec_e7b2c3a1.webp`,
+  `${CDN}/ITP_7558_e52a40c9.jpg`,
   `${CDN}/woXXsjlTaYTOCsnM_2e95a253.webp`,
   `${CDN}/lqqurINoAUnLOUdf_2f92d950.webp`,
   `${CDN}/TBxIerDoaHLuautE_76db8efa.webp`,
@@ -84,7 +84,7 @@ const HOSMER_PHOTOS = [
 ];
 
 const MCGRATH_PHOTOS = [
-  `${CDN}/DsCDLoIMQbfZSjuQ_b5c6d7e8.webp`,
+  `${CDN}/GLLPatio1_90e2e0c4.jpg`,
   `${CDN}/iLQzysWAIpshLExs_cd686ebc.webp`,
   `${CDN}/GnijvQODFDMrKxrg_bdc4efee.webp`,
   `${CDN}/uTOcvbcZVEyEexUs_42a3a31f.webp`,
@@ -92,7 +92,7 @@ const MCGRATH_PHOTOS = [
   `${CDN}/retHcMWUuJjuarBk_5cb6b5e7.webp`,
   `${CDN}/ambqMQAjmNxaGfTz_ddd94228.webp`,
   `${CDN}/znXAXegIgUZJRcee_2ed965e4.webp`,
-  `${CDN}/EyuWkxTqMKjupGHj_c9d0e1f2.webp`,
+  `${CDN}/GLLPatio2_4916fcde.jpg`,
   `${CDN}/YvOMYOfUTJLIYxhZ_1a5428d7.webp`,
   `${CDN}/PtamSQtLZMVcIwap_033c59df.webp`,
   `${CDN}/fCBGPaTPIXfgNAhf_92fdbfd4.webp`,
@@ -103,7 +103,7 @@ const MCGRATH_PHOTOS = [
   `${CDN}/veogFfZmynMseowj_8f8ae20b.webp`,
   `${CDN}/tHsXSKcevhyhsRjZ_a22ce559.webp`,
   `${CDN}/hIxjTkMgIukczrmz_89b818ae.webp`,
-  `${CDN}/CrNsPnwGSyMrKqea_c9d4e5f2.webp`,
+  `${CDN}/GLLPatio9_9e7ea695.jpg`,
 ];
 
 // Awbrey Butte Loop — luxury outdoor living: pond, fire pit, pergola, xeriscape
