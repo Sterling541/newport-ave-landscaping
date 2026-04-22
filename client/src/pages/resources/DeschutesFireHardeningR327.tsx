@@ -13,7 +13,7 @@ const DeschutesFireHardeningR327: React.FC = () => {
   const faqItems = [
     {
       question: "What is Deschutes County R327 and when does it take effect?",
-      answer: "Deschutes County R327 is a fire hardening ordinance that mandates specific building materials and practices for new dwellings and accessory structures to reduce wildfire risk. It takes effect on April 1, 2026."
+      answer: "Deschutes County R327 is a fire hardening ordinance that mandates specific building materials and practices for new dwellings and accessory structures to reduce wildfire risk. For unincorporated Deschutes County and the City of Sisters, it took effect April 1, 2026. The City of Bend adopted its own version of these home hardening requirements, which take effect May 15, 2026 for new residential building permits submitted on or after that date."
     },
     {
       question: "Who does the R327 ordinance affect?",
@@ -93,7 +93,7 @@ const DeschutesFireHardeningR327: React.FC = () => {
           <div className="container" style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 1rem' }}>
             <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '2.5rem', marginBottom: '1.5rem', color: primaryDark }}>Navigating Bend's New Wildfire Codes: R327 and Defensible Space</h2>
             <p style={{ fontSize: '1.1rem', lineHeight: '1.6', marginBottom: '1rem' }}>Central Oregon, with its stunning natural beauty, also faces an increasing threat from wildfires. In response, Deschutes County and the City of Sisters have taken proactive steps to enhance community safety through new building codes and upcoming landscaping ordinances. For homeowners in Bend and across Deschutes County, understanding these changes, particularly the R327 fire hardening requirements and the evolving defensible space guidelines, is paramount to protecting their properties and loved ones. Newport Avenue Landscaping is here to guide you through these regulations and provide expert solutions to make your home wildfire-resilient.</p>
-            <p style={{ fontSize: '1.1rem', lineHeight: '1.6' }}>The R327 ordinance, effective April 1, 2026, marks a significant shift in construction standards for new homes, focusing on ignition-resistant materials. This is just one piece of the puzzle. The Oregon State Fire Marshal is also drafting a comprehensive defensible space ordinance, anticipated for local adoption in 2026, which will directly impact how we manage our landscapes. This page will delve into the specifics of R327, explain the critical concept of defensible space, highlight the landscaping implications, and demonstrate how Newport Avenue Landscaping's full-service approach can help you not only comply but thrive in a fire-wise environment.</p>
+            <p style={{ fontSize: '1.1rem', lineHeight: '1.6' }}>The R327 ordinance marks a significant shift in construction standards for new homes, focusing on ignition-resistant materials. For unincorporated Deschutes County and the City of Sisters, it took effect April 1, 2026. The City of Bend adopted its own equivalent home hardening requirements, effective May 15, 2026 for new residential building permits. This is just one piece of the puzzle. The Oregon State Fire Marshal is also drafting a comprehensive defensible space ordinance, anticipated for local adoption in 2026, which will directly impact how we manage our landscapes. This page will delve into the specifics of R327, explain the critical concept of defensible space, highlight the landscaping implications, and demonstrate how Newport Avenue Landscaping's full-service approach can help you not only comply but thrive in a fire-wise environment.</p>
           </div>
         </section>
 
@@ -101,7 +101,7 @@ const DeschutesFireHardeningR327: React.FC = () => {
         <section style={{ backgroundColor: lightBg2, color: textColor, padding: '4rem 0' }}>
           <div className="container" style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 1rem' }}>
             <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '2.5rem', marginBottom: '1.5rem', color: primaryDark }}>Deschutes County R327: What New Construction Needs to Know</h2>
-            <p style={{ fontSize: '1.1rem', lineHeight: '1.6', marginBottom: '1rem' }}>Effective April 1, 2026, the Deschutes County R327 fire hardening code becomes mandatory for all new dwellings and accessory structures within unincorporated Deschutes County and the City of Sisters [1]. This ordinance, part of the Oregon Residential Specialty Code (ORSC) Section R327, is a critical measure designed to reduce the risk of home ignition from embers, radiant heat, and direct flame contact during a wildfire event. It's important to note that R327 focuses on the building's construction itself, not the surrounding landscape, though both are vital for comprehensive wildfire protection.</p>
+            <p style={{ fontSize: '1.1rem', lineHeight: '1.6', marginBottom: '1rem' }}>The Deschutes County R327 fire hardening code is now mandatory for all new dwellings and accessory structures within unincorporated Deschutes County and the City of Sisters (effective April 1, 2026) [1]. The City of Bend adopted equivalent home hardening requirements effective May 15, 2026, applying to all new residential building permits submitted on or after that date. This ordinance, part of the Oregon Residential Specialty Code (ORSC) Section R327, is a critical measure designed to reduce the risk of home ignition from embers, radiant heat, and direct flame contact during a wildfire event. It's important to note that R327 focuses on the building's construction itself, not the surrounding landscape, though both are vital for comprehensive wildfire protection.</p>
             <h3 style={{ fontFamily: 'var(--font-label)', fontSize: '1.8rem', marginBottom: '1rem', color: primaryDark }}>Who Does R327 Affect?</h3>
             <p style={{ fontSize: '1.1rem', lineHeight: '1.6', marginBottom: '1rem' }}>The R327 provisions are specifically applicable to new construction. This includes:</p>
             <ul style={{ fontSize: '1.1rem', lineHeight: '1.6', marginBottom: '1rem', listStyleType: 'disc', marginLeft: '1.5rem' }}>
@@ -183,6 +183,21 @@ const DeschutesFireHardeningR327: React.FC = () => {
               <li><strong>Ongoing Maintenance Plans:</strong> Fire-wise landscaping is an ongoing effort. We offer maintenance plans to ensure your defensible space remains effective year after year, including pruning, thinning, and debris removal.</li>
             </ul>
             <p style={{ fontSize: '1.1rem', lineHeight: '1.6' }}>Unlike competitors who might only remove vegetation or offer limited services, Newport Avenue Landscaping provides a seamless, integrated solution: we remove, we replant, and we irrigate. This holistic approach ensures that your property is not only compliant with regulations but also optimally protected against the threat of wildfire.</p>
+          </div>
+        </section>
+
+        {/* Cross-link CTA: FireWise Service Page */}
+        <section style={{ backgroundColor: 'oklch(0.96 0.018 85)', borderTop: '3px solid oklch(0.46 0.20 25)', borderBottom: '3px solid oklch(0.46 0.20 25)', padding: '3rem 0' }}>
+          <div className="container" style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 1rem', display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '2rem', justifyContent: 'space-between' }}>
+            <div style={{ flex: '1 1 400px' }}>
+              <p style={{ fontFamily: 'var(--font-label)', fontSize: '0.85rem', letterSpacing: '0.12em', textTransform: 'uppercase', color: accentRed, marginBottom: '0.5rem' }}>R327 Covers the House — Newport Covers the Land</p>
+              <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '1.9rem', color: primaryDark, marginBottom: '0.75rem', lineHeight: '1.25' }}>Building codes don't touch your landscape. That's where Newport comes in.</h2>
+              <p style={{ fontSize: '1.05rem', lineHeight: '1.65', color: textColor }}>R327 and Bend's May 15 home hardening rules govern roofing, siding, vents, and windows — the structure itself. They say nothing about the juniper, manzanita, or dry grass surrounding your home. Defensible space is the landscape layer that building codes can't mandate, and it's the layer that most often determines whether a home survives a wildfire. Newport Avenue Landscaping handles exactly that: vegetation clearance, fuel reduction, fire-resistant replanting, and irrigation upgrades — the full defensible space picture.</p>
+            </div>
+            <div style={{ flex: '0 0 auto', textAlign: 'center' }}>
+              <a href="/services/firewise-landscaping" style={{ display: 'inline-block', backgroundColor: accentRed, color: 'oklch(1 0 0)', padding: '1rem 2.25rem', fontSize: '1.1rem', textDecoration: 'none', borderRadius: '5px', fontFamily: 'var(--font-label)', fontWeight: 'bold', letterSpacing: '0.05em' }}>SEE OUR FIREWISE SERVICES →</a>
+              <p style={{ fontSize: '0.9rem', color: textColor, marginTop: '0.75rem' }}>Free property assessments available</p>
+            </div>
           </div>
         </section>
 
