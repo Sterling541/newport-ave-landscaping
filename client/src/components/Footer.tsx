@@ -262,11 +262,13 @@ export default function Footer() {
               style={{
                 color: "oklch(0.72 0.18 85)",
                 opacity: 0.35,
-                fontSize: "10px",
+                fontSize: "14px",
                 lineHeight: 1,
                 textDecoration: "none",
                 transition: "opacity 0.2s",
-                userSelect: "none",
+                cursor: "pointer",
+                display: "inline-block",
+                padding: "6px 4px",
               }}
               onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.opacity = "1")}
               onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.opacity = "0.35")}
