@@ -348,10 +348,18 @@ const routes = [
   { path: "/service-areas/old-bend-landscaping",              priority: "0.7", changefreq: "monthly" },
 ];
 
+// ─── Deduplicate (keep first occurrence) ────────────────────────────────────
+const seen = new Set();
+const uniqueRoutes = routes.filter(({ path }) => {
+  if (seen.has(path)) return false;
+  seen.add(path);
+  return true;
+});
+
 // ─── Build XML ───────────────────────────────────────────────────────────────
 const today = new Date().toISOString().split("T")[0];
 
-const urlEntries = routes
+const urlEntries = uniqueRoutes
   .map(({ path, priority, changefreq }) => {
     const url = `${BASE_URL}${path}`;
     return [
@@ -375,4 +383,4 @@ const xml = [
 
 writeFileSync(OUTPUT_PATH, xml, "utf-8");
 console.log(`✅ sitemap.xml written to ${OUTPUT_PATH}`);
-console.log(`   ${routes.length} URLs included`);
+console.log(`   ${uniqueRoutes.length} URLs included (${routes.length - uniqueRoutes.length} duplicates removed)`);

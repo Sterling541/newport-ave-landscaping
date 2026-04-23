@@ -35,28 +35,60 @@ function shouldSkipSSR(pathname: string): boolean {
 }
 
 /**
- * Split the renderToString output into:
- * - headTags: <title>, <meta>, <link>, etc. rendered by react-helmet-async
- *   (these appear before the first <div> in the output)
- * - bodyHtml: the actual React component tree starting from the first <div>
+ * Extract react-helmet-async tags from the rendered HTML.
+ * react-helmet-async in SSR mode renders <title>, <meta>, <link> tags with
+ * data-loc attributes directly inside the component tree.
+ * We extract them and inject into <head>.
+ *
+ * Also handles the case where Helmet renders tags before the first <div>
+ * (older behavior).
  */
-function splitRenderedHtml(appHtml: string): { headTags: string; bodyHtml: string } {
-  const firstDivIdx = appHtml.indexOf("<div");
-  if (firstDivIdx <= 0) {
-    return { headTags: "", bodyHtml: appHtml };
+function extractHelmetTags(appHtml: string): { headTags: string; bodyHtml: string } {
+  // react-helmet-async in SSR mode renders tags with data-loc attributes.
+  // We use two separate patterns:
+  // 1. <title data-loc="...">content</title>  — title with content
+  // 2. <meta data-loc="..." .../> or <link data-loc="..." .../> — self-closing
+  const extractedTags: string[] = [];
+
+  // Pattern 1: title tags with data-loc (capture content + closing tag)
+  const titlePattern = /<title\s+data-loc="[^"]*"[^>]*>[^<]*<\/title>/g;
+  // Pattern 2: meta and link tags with data-loc (self-closing)
+  const metaLinkPattern = /<(?:meta|link)\s+data-loc="[^"]*"[^>]*\/>/g;
+
+  let bodyHtml = appHtml
+    .replace(titlePattern, (match) => {
+      extractedTags.push(match);
+      return "";
+    })
+    .replace(metaLinkPattern, (match) => {
+      extractedTags.push(match);
+      return "";
+    });
+
+  // Also check for tags before the first <div> (legacy behavior)
+  const firstDivIdx = bodyHtml.indexOf("<div");
+  let preBodyTags = "";
+  let finalBodyHtml = bodyHtml;
+  if (firstDivIdx > 0) {
+    preBodyTags = bodyHtml.slice(0, firstDivIdx).trim();
+    finalBodyHtml = bodyHtml.slice(firstDivIdx);
   }
-  return {
-    headTags: appHtml.slice(0, firstDivIdx).trim(),
-    bodyHtml: appHtml.slice(firstDivIdx),
-  };
+
+  const headTags = [...(preBodyTags ? [preBodyTags] : []), ...extractedTags].join("\n  ");
+
+  return { headTags, bodyHtml: finalBodyHtml };
 }
 
 export function registerSSR(app: Express): void {
-  // Resolve paths relative to the compiled server bundle
-  // In production: dist/index.js is in dist/, so:
+  // Resolve paths relative to the running server bundle.
+  // import.meta.dirname in esbuild bundles resolves to the SOURCE file's directory,
+  // not the output directory. We use process.argv[1] (the actual running script path)
+  // to reliably find the dist/ directory regardless of where esbuild puts things.
+  //
+  // In production: node dist/index.js → process.argv[1] = /path/to/dist/index.js
   //   - dist/public/index.html
   //   - dist/server/entry-server.js
-  const distDir = path.resolve(import.meta.dirname, "..");
+  const distDir = path.dirname(process.argv[1] ?? "");
   const distPublicPath = path.join(distDir, "public");
   const ssrBundlePath = path.join(distDir, "server", "entry-server.js");
   const indexHtmlPath = path.join(distPublicPath, "index.html");
@@ -105,13 +137,32 @@ export function registerSSR(app: Express): void {
       const { html: appHtml } = renderFn(url);
 
       // Split rendered HTML: head tags (title, meta, etc.) + body HTML
-      const { headTags, bodyHtml } = splitRenderedHtml(appHtml);
+      const { headTags, bodyHtml } = extractHelmetTags(appHtml);
 
       let page = indexHtmlTemplate;
 
       if (headTags) {
-        // Remove the default <title> from the template (Helmet provides the per-page one)
-        page = page.replace(/<title>[^<]*<\/title>/, "");
+        // Remove overridable homepage meta tags from the template.
+        // The SSR render provides per-page versions of all these.
+        // We strip: <title>, canonical, og:title, og:description, og:url, og:image,
+        //           twitter:title, twitter:description, twitter:image
+        page = page
+          // Remove <title> tag (with or without attributes)
+          .replace(/<title[^>]*>[^<]*<\/title>/, "")
+          // Remove canonical link
+          .replace(/<link[^>]+rel="canonical"[^>]*\/>/g, "")
+          // Remove og: meta tags that are page-specific
+          .replace(/<meta[^>]+property="og:title"[^>]*\/>/g, "")
+          .replace(/<meta[^>]+property="og:description"[^>]*\/>/g, "")
+          .replace(/<meta[^>]+property="og:url"[^>]*\/>/g, "")
+          .replace(/<meta[^>]+property="og:image"[^>]*\/>/g, "")
+          // Remove twitter: meta tags that are page-specific
+          .replace(/<meta[^>]+name="twitter:title"[^>]*\/>/g, "")
+          .replace(/<meta[^>]+name="twitter:description"[^>]*\/>/g, "")
+          .replace(/<meta[^>]+name="twitter:image"[^>]*\/>/g, "")
+          // Remove meta description (SSR provides per-page one)
+          .replace(/<meta[^>]+name="description"[^>]*\/>/g, "");
+
         // Inject per-page head tags before </head>
         page = page.replace("</head>", `  ${headTags}\n  </head>`);
       }

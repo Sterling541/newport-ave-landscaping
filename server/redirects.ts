@@ -130,12 +130,22 @@ const REDIRECTS: Record<string, string> = {
   "/service-areas":  "/service-areas",
   "/service-areas/": "/service-areas",
 
+  // === FIRE FEATURES (old slug) ===
+  "/fire-pits-and-outdoor-fireplaces-bend-oregon":  "/services/fire-features",
+  "/fire-pits-and-outdoor-fireplaces-bend-oregon/": "/services/fire-features",
+
+  // === TERMS (old slug) ===
+  "/terms-and-conditions":  "/terms",
+  "/terms-and-conditions/": "/terms",
+
   // === LEGACY WORDPRESS PATHS ===
   "/wp-admin":          "/",
   "/wp-login.php":      "/",
   "/feed":              "/",
   "/feed/":             "/",
   "/sitemap_index.xml": "/sitemap.xml",
+  "/elementor-3860":    "/",
+  "/elementor-3860/":   "/",
 };
 
 // ─── Wildcard slug patterns ──────────────────────────────────────────────────

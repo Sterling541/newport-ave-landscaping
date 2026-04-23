@@ -4,7 +4,7 @@
  * Used by the Express server to pre-render public routes with renderToString.
  * Admin routes (/admin/*) are NOT rendered here — they stay client-only.
  *
- * Uses wouter's native SSR support (ssrPath prop on Router).
+ * Uses wouter's ssrPath prop for correct SSR routing.
  * Uses react-helmet-async's HelmetProvider with context to capture meta tags.
  */
 import { renderToString } from "react-dom/server";
@@ -39,6 +39,8 @@ export function render(url: string): RenderResult {
   // Extract just the pathname (strip query string) for wouter's ssrPath
   const pathname = url.split("?")[0] || "/";
 
+  // Use wouter's ssrPath prop — this uses useBrowserLocation which provides
+  // getServerSnapshot correctly for React's useSyncExternalStore in SSR
   const html = renderToString(
     <HelmetProvider context={helmetContext}>
       <QueryClientProvider client={queryClient}>

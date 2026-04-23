@@ -559,3 +559,12 @@
 - [x] Phase 3: Update robots.txt (production: Allow all except /admin/, Sitemap ref)
 - [x] Phase 3: Implement SSR for public routes (Express renderToString so social scrapers see full HTML)
 - [x] Phase 4: Run 128 tests + TypeScript check, save checkpoint
+
+## Pre-DNS-Cutover Verification (Sterling, Apr 23 2026)
+
+- [x] Redirect coverage: 29/29 URLs return 301 (3 new redirects added: fire-pits, terms-and-conditions, elementor-3860)
+- [x] SSR proof: 35/35 checks passing across 5 URLs; all meta tags in <head> before </head>; unique per-page titles confirmed
+- [x] SEO.tsx canonical double-prefix bug fixed (https://...https://... → correct single URL)
+- [x] Homepage H1 added (hero line1 div → h1 element)
+- [x] Sitemap: 299 unique URLs (3 duplicates removed; 302 raw - 3 = 299 final)
+- [x] Production hosting spec: delivered to Sterling in full report

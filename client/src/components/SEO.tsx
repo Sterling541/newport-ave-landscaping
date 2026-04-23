@@ -29,7 +29,12 @@ export default function SEO({
   const fullTitle = title.includes(SITE_NAME)
     ? title
     : `${title} | ${SITE_NAME}`;
-  const canonicalUrl = canonical ? `${BASE_URL}${canonical}` : undefined;
+  // Handle both full URLs (https://...) and paths (/page) for canonical
+  const canonicalUrl = canonical
+    ? canonical.startsWith("http")
+      ? canonical
+      : `${BASE_URL}${canonical}`
+    : undefined;
 
   return (
     <Helmet>

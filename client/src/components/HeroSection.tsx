@@ -404,7 +404,7 @@ export default function HeroSection() {
           transition: "opacity 0.45s ease 0.1s",
         }}
       >
-        <div
+        <h1
           style={{
             fontFamily: "'Cormorant Garamond', 'Playfair Display', Georgia, serif",
             fontSize: "clamp(3rem, 7.5vw, 8rem)",
@@ -412,10 +412,12 @@ export default function HeroSection() {
             lineHeight: 0.88,
             letterSpacing: "-0.035em",
             color: "oklch(0.97 0.012 75)",
+            margin: 0,
+            padding: 0,
           }}
         >
           {s.line1}
-        </div>
+        </h1>
 
         <div
           style={{
