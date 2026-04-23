@@ -5,6 +5,7 @@
    ============================================================ */
 
 import { useState } from "react";
+import AdminLayout from "@/components/AdminLayout";
 import { trpc } from "@/lib/trpc";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -171,17 +172,20 @@ export default function DailyPulse() {
 
   if (pulseQuery.isLoading) {
     return (
+      <AdminLayout>
       <div className="min-h-screen bg-[oklch(0.97_0.005_120)] p-6 flex items-center justify-center">
         <div className="text-center space-y-3">
           <RefreshCw className="w-8 h-8 animate-spin text-emerald-600 mx-auto" />
           <p className="text-slate-500">Loading Daily Pulse…</p>
         </div>
       </div>
+      </AdminLayout>
     );
   }
 
   if (pulseQuery.error) {
     return (
+      <AdminLayout>
       <div className="min-h-screen bg-[oklch(0.97_0.005_120)] p-6 flex items-center justify-center">
         <div className="text-center space-y-3">
           <p className="text-red-600 font-medium">Failed to load Daily Pulse</p>
@@ -189,6 +193,7 @@ export default function DailyPulse() {
           <Button onClick={() => pulseQuery.refetch()} variant="outline" size="sm">Retry</Button>
         </div>
       </div>
+      </AdminLayout>
     );
   }
 
@@ -198,6 +203,7 @@ export default function DailyPulse() {
   const yesterdayLabel = yesterday.toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" });
 
   return (
+    <AdminLayout>
     <div className="min-h-screen bg-[oklch(0.97_0.005_120)] p-6">
       <div className="max-w-6xl mx-auto space-y-6">
 
@@ -680,5 +686,6 @@ export default function DailyPulse() {
 
       </div>
     </div>
+    </AdminLayout>
   );
 }

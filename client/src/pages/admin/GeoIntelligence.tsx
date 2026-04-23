@@ -5,6 +5,7 @@
    ============================================================ */
 
 import { useState, useCallback, useRef } from "react";
+import AdminLayout from "@/components/AdminLayout";
 import { MapView } from "@/components/Map";
 import { trpc } from "@/lib/trpc";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -232,6 +233,7 @@ export default function GeoIntelligence() {
   // ── Render ────────────────────────────────────────────────────────────────
 
   return (
+    <AdminLayout>
     <div className="min-h-screen bg-[oklch(0.97_0.005_120)] flex flex-col">
 
       {/* Header */}
@@ -502,5 +504,6 @@ export default function GeoIntelligence() {
         </div>
       </div>
     </div>
+    </AdminLayout>
   );
 }

@@ -5,6 +5,7 @@
    ============================================================ */
 
 import { useState, useMemo } from "react";
+import AdminLayout from "@/components/AdminLayout";
 import { trpc } from "@/lib/trpc";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -159,18 +160,20 @@ export default function LeadVolumeTrends() {
 
   // ── Loading ───────────────────────────────────────────────────────────────
 
-  if (trendsQuery.isLoading) {
+   if (trendsQuery.isLoading) {
     return (
+      <AdminLayout>
       <div className="min-h-screen bg-[oklch(0.97_0.005_120)] p-6 flex items-center justify-center">
         <div className="text-center space-y-3">
           <RefreshCw className="w-8 h-8 animate-spin text-emerald-600 mx-auto" />
           <p className="text-slate-500">Loading trend data…</p>
         </div>
       </div>
+      </AdminLayout>
     );
   }
-
   return (
+    <AdminLayout>
     <div className="min-h-screen bg-[oklch(0.97_0.005_120)] p-6">
       <div className="max-w-6xl mx-auto space-y-6">
 
@@ -628,5 +631,6 @@ export default function LeadVolumeTrends() {
 
       </div>
     </div>
+    </AdminLayout>
   );
 }

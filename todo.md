@@ -507,3 +507,13 @@
 - [x] Add "Generate Budget Insights" button + AI result panel to Daily Pulse
 - [x] Add "Generate Budget Insights" button + AI result panel to Lead Volume Trends
 - [x] Add Budget Trend Over Time stacked area chart to Daily Pulse and Lead Volume Trends
+
+## Admin Dashboard Redesign (Apr 23, 2026)
+
+- [ ] Build AdminLayout component with dark sidebar, logo, nav links to all admin tools
+- [ ] AdminLayout isolates admin from public site navbar (no bleed-through)
+- [ ] Wrap all admin pages (AdminSubmissions, DailyPulse, LeadVolumeTrends, CsvImport, GeoIntelligence) in AdminLayout
+- [ ] Update App.tsx to use AdminLayout for all /admin/* routes
+- [ ] Daily Pulse auto-loads AI trend insights on page load (no manual button click)
+- [ ] AI insights displayed prominently at the top of Daily Pulse
+- [ ] Admin sidebar has collapsible nav with icons for each tool

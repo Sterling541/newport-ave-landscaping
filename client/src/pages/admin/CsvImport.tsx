@@ -4,6 +4,7 @@
    ============================================================ */
 
 import { useState, useRef, useCallback } from "react";
+import AdminLayout from "@/components/AdminLayout";
 import { trpc } from "@/lib/trpc";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -124,6 +125,7 @@ export default function CsvImport() {
   // ── Render ────────────────────────────────────────────────────────────────
 
   return (
+    <AdminLayout>
     <div className="min-h-screen bg-[oklch(0.97_0.005_120)] p-6">
       <div className="max-w-5xl mx-auto space-y-6">
 
@@ -326,5 +328,6 @@ export default function CsvImport() {
 
       </div>
     </div>
+    </AdminLayout>
   );
 }

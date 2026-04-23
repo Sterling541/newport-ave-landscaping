@@ -55,8 +55,7 @@ import {
   Wrench,
   BarChart3,
 } from "lucide-react";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import AdminLayout from "@/components/AdminLayout";
 import { getLoginUrl } from "@/const";
 
 // ── Types ─────────────────────────────────────────────────────────────────────
@@ -444,21 +443,21 @@ export default function AdminSubmissions() {
 
   if (!user) {
     return (
-      <div className="min-h-screen bg-stone-50">
-        <Navbar />
-        <div className="max-w-md mx-auto px-4 py-24 text-center">
-          <ShieldAlert className="w-12 h-12 text-stone-400 mx-auto mb-4" />
-          <h1 className="text-2xl font-bold text-stone-900 mb-2">Sign In Required</h1>
-          <p className="text-stone-500 mb-6">Please sign in with your Newport Ave Landscaping account to access the admin area.</p>
-          <Button
-            onClick={() => window.location.href = getLoginUrl("/admin/submissions")}
-            className="bg-green-700 hover:bg-green-800 text-white"
-          >
-            Sign In
-          </Button>
+      <AdminLayout>
+        <div className="flex items-center justify-center h-full min-h-screen">
+          <div className="max-w-md text-center px-4">
+            <ShieldAlert className="w-12 h-12 text-stone-400 mx-auto mb-4" />
+            <h1 className="text-2xl font-bold text-stone-900 mb-2">Sign In Required</h1>
+            <p className="text-stone-500 mb-6">Please sign in with your Newport Ave Landscaping account to access the admin area.</p>
+            <Button
+              onClick={() => window.location.href = getLoginUrl("/admin/submissions")}
+              className="bg-green-700 hover:bg-green-800 text-white"
+            >
+              Sign In
+            </Button>
+          </div>
         </div>
-        <Footer />
-      </div>
+      </AdminLayout>
     );
   }
 
@@ -466,34 +465,32 @@ export default function AdminSubmissions() {
   const isAuthorized = (user as { role?: string }).role === "admin";
   if (!isAuthorized) {
     return (
-      <div className="min-h-screen bg-stone-50">
-        <Navbar />
-        <div className="max-w-md mx-auto px-4 py-24 text-center">
-          <ShieldAlert className="w-12 h-12 text-red-400 mx-auto mb-4" />
-          <h1 className="text-2xl font-bold text-stone-900 mb-2">Access Denied</h1>
-          <p className="text-stone-500 mb-6">
-            This page is restricted to Newport Ave Landscaping administrators.
-            If you believe this is an error, please contact the site owner.
-          </p>
-          <Button
-            variant="outline"
-            onClick={() => window.location.href = "/"}
-            className="border-stone-300 text-stone-700"
-          >
-            Return to Home
-          </Button>
+      <AdminLayout>
+        <div className="flex items-center justify-center h-full min-h-screen">
+          <div className="max-w-md text-center px-4">
+            <ShieldAlert className="w-12 h-12 text-red-400 mx-auto mb-4" />
+            <h1 className="text-2xl font-bold text-stone-900 mb-2">Access Denied</h1>
+            <p className="text-stone-500 mb-6">
+              This page is restricted to Newport Ave Landscaping administrators.
+              If you believe this is an error, please contact the site owner.
+            </p>
+            <Button
+              variant="outline"
+              onClick={() => window.location.href = "/"}
+              className="border-stone-300 text-stone-700"
+            >
+              Return to Home
+            </Button>
+          </div>
         </div>
-        <Footer />
-      </div>
+      </AdminLayout>
     );
   }
 
   // ── Render ──────────────────────────────────────────────────────────────────
 
   return (
-    <div className="min-h-screen bg-stone-50">
-      <Navbar />
-
+    <AdminLayout>
       <div className="max-w-screen-xl mx-auto px-4 py-8">
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
@@ -803,7 +800,6 @@ export default function AdminSubmissions() {
         </AlertDialogContent>
       </AlertDialog>
 
-      <Footer />
-    </div>
+    </AdminLayout>
   );
 }
