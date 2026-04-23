@@ -135,7 +135,8 @@ function maskCC(n: string | null | undefined) {
   return clean.length >= 4 ? `**** **** **** ${clean.slice(-4)}` : "****";
 }
 
-function serviceLabel(svc: string) {
+function serviceLabel(svc: string | null | undefined) {
+  if (!svc) return "(Unknown)";
   return svc.replace(/^> /, "").replace(/^Maintenance: /, "");
 }
 
@@ -380,7 +381,11 @@ export default function AdminSubmissions() {
   // Unique service types for filter dropdown
   const serviceTypes = useMemo(() => {
     if (!data?.rows) return [];
-    const set = new Set(data.rows.map(r => r.serviceType));
+    const set = new Set(
+      data.rows
+        .map(r => r.serviceType)
+        .filter((s): s is string => !!s)  // exclude null/empty
+    );
     return Array.from(set).sort();
   }, [data]);
 
@@ -396,7 +401,7 @@ export default function AdminSubmissions() {
     if (search.trim()) {
       const q = search.toLowerCase();
       rows = rows.filter(r =>
-        `${r.firstName} ${r.lastName} ${r.email} ${r.phone} ${r.siteAddress} ${r.serviceType}`
+        `${r.firstName ?? ""} ${r.lastName ?? ""} ${r.email ?? ""} ${r.phone ?? ""} ${r.siteAddress ?? ""} ${r.serviceType ?? ""}`
           .toLowerCase()
           .includes(q)
       );
@@ -410,9 +415,9 @@ export default function AdminSubmissions() {
       } else if (sortKey === "id") {
         av = a.id; bv = b.id;
       } else if (sortKey === "lastName") {
-        av = a.lastName.toLowerCase(); bv = b.lastName.toLowerCase();
+        av = (a.lastName ?? "").toLowerCase(); bv = (b.lastName ?? "").toLowerCase();
       } else {
-        av = a.serviceType.toLowerCase(); bv = b.serviceType.toLowerCase();
+        av = (a.serviceType ?? "").toLowerCase(); bv = (b.serviceType ?? "").toLowerCase();
       }
       if (av < bv) return sortDir === "asc" ? -1 : 1;
       if (av > bv) return sortDir === "asc" ? 1 : -1;
