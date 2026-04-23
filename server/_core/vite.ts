@@ -3,10 +3,17 @@ import fs from "fs";
 import { type Server } from "http";
 import { nanoid } from "nanoid";
 import path from "path";
-import { createServer as createViteServer } from "vite";
-import viteConfig from "../../vite.config";
+
+// NOTE: vite and vite.config are dynamically imported inside setupVite() so
+// they are NEVER evaluated in production. This prevents the bundled serverless
+// function from trying to resolve 'vite' at runtime (it's a devDependency and
+// is not available in the Vercel function environment).
 
 export async function setupVite(app: Express, server: Server) {
+  // Dynamic imports — only executed in dev mode
+  const { createServer: createViteServer } = await import("vite");
+  const { default: viteConfig } = await import("../../vite.config");
+
   const serverOptions = {
     middlewareMode: true,
     hmr: { server },
