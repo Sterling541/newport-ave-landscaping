@@ -80,18 +80,44 @@ function extractHelmetTags(appHtml: string): { headTags: string; bodyHtml: strin
 }
 
 export function registerSSR(app: Express): void {
-  // Resolve paths relative to the running server bundle.
-  // import.meta.dirname in esbuild bundles resolves to the SOURCE file's directory,
-  // not the output directory. We use process.argv[1] (the actual running script path)
-  // to reliably find the dist/ directory regardless of where esbuild puts things.
-  //
-  // In production: node dist/index.js → process.argv[1] = /path/to/dist/index.js
-  //   - dist/public/index.html
-  //   - dist/server/entry-server.js
-  const distDir = path.dirname(process.argv[1] ?? "");
+  // Resolve paths to the SSR bundle and index.html.
+  // We try multiple strategies in order of reliability:
+  // 1. process.argv[1] — the running script path (works when started as: node dist/index.js)
+  // 2. process.cwd() + /dist — works when CWD is the project root
+  // 3. import.meta.dirname — esbuild inlines the SOURCE directory, so we walk up to find dist/
+  function findDistDir(): string {
+    // Strategy 1: derive from process.argv[1]
+    const argv1 = process.argv[1] ?? "";
+    if (argv1) {
+      const d = path.dirname(argv1);
+      // Verify it looks like a dist dir (has index.js or public/)
+      if (fs.existsSync(path.join(d, "public")) || fs.existsSync(path.join(d, "index.js"))) {
+        return d;
+      }
+    }
+    // Strategy 2: CWD/dist
+    const cwdDist = path.join(process.cwd(), "dist");
+    if (fs.existsSync(cwdDist)) {
+      return cwdDist;
+    }
+    // Strategy 3: walk up from import.meta.dirname to find dist/
+    let dir = import.meta.dirname;
+    for (let i = 0; i < 5; i++) {
+      if (path.basename(dir) === "dist") return dir;
+      const candidate = path.join(dir, "dist");
+      if (fs.existsSync(candidate)) return candidate;
+      dir = path.dirname(dir);
+    }
+    // Fallback: use argv1 dirname even if unverified
+    return path.dirname(process.argv[1] ?? "");
+  }
+
+  const distDir = findDistDir();
   const distPublicPath = path.join(distDir, "public");
   const ssrBundlePath = path.join(distDir, "server", "entry-server.js");
   const indexHtmlPath = path.join(distPublicPath, "index.html");
+
+  console.log(`[SSR] distDir=${distDir} ssrExists=${fs.existsSync(ssrBundlePath)} indexExists=${fs.existsSync(indexHtmlPath)}`);
 
   // Only register SSR if the SSR bundle exists (i.e., production build)
   if (!fs.existsSync(ssrBundlePath)) {

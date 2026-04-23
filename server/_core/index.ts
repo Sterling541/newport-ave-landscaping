@@ -39,20 +39,26 @@ async function startServer() {
   app.use(express.urlencoded({ limit: "50mb", extended: true }));
   // Temporary SSR diagnostic endpoint — remove after deployment verification
   app.get("/api/ssr-diag", (_req, res) => {
-    const path = require("path");
-    const fs = require("fs");
-    const argv1 = process.argv[1] ?? "";
-    const distDir = path.dirname(argv1);
-    const ssrPath = path.join(distDir, "server", "entry-server.js");
-    const indexPath = path.join(distDir, "public", "index.html");
-    res.json({
-      argv1,
-      distDir,
-      ssrPath,
-      ssrExists: fs.existsSync(ssrPath),
-      indexExists: fs.existsSync(indexPath),
-      cwd: process.cwd(),
-      nodeEnv: process.env.NODE_ENV,
+    import("path").then(({ default: pathMod }) => {
+      import("fs").then(({ default: fsMod }) => {
+        const argv1 = process.argv[1] ?? "";
+        const distDir = pathMod.dirname(argv1);
+        const ssrPath = pathMod.join(distDir, "server", "entry-server.js");
+        const indexPath = pathMod.join(distDir, "public", "index.html");
+        const cwdDist = pathMod.join(process.cwd(), "dist");
+        res.json({
+          argv1,
+          distDir,
+          ssrPath,
+          ssrExists: fsMod.existsSync(ssrPath),
+          indexExists: fsMod.existsSync(indexPath),
+          cwd: process.cwd(),
+          cwdDist,
+          cwdDistExists: fsMod.existsSync(cwdDist),
+          nodeEnv: process.env.NODE_ENV,
+          importMetaDirname: import.meta.dirname,
+        });
+      });
     });
   });
 
