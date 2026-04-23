@@ -256,9 +256,8 @@ export default function Footer() {
               © 2025 Newport Avenue Landscaping. All Rights Reserved.
             </p>
             {/* Secret admin button — intentionally subtle */}
-            <Link
+            <a
               href="/admin/submissions"
-              title=""
               style={{
                 color: "oklch(0.72 0.18 85)",
                 opacity: 0.35,
@@ -273,12 +272,13 @@ export default function Footer() {
                 minWidth: "44px",
                 minHeight: "44px",
                 WebkitTapHighlightColor: "transparent",
+                touchAction: "manipulation",
               }}
               onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.opacity = "1")}
               onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.opacity = "0.35")}
             >
               ★
-            </Link>
+            </a>
           </div>
           <div className="flex gap-6">
             <Link

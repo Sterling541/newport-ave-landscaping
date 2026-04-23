@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { Link } from "wouter";
 
 const STAGING_KEY = "nal_staging_auth";
 const CORRECT_CODE = "4132";
@@ -221,9 +220,8 @@ export default function StagingGate({ children }: { children: React.ReactNode })
       </p>
 
       {/* Secret admin star — bottom-left corner */}
-      <Link
+      <a
         href="/admin/submissions"
-        title=""
         style={{
           position: "absolute",
           bottom: "16px",
@@ -241,12 +239,13 @@ export default function StagingGate({ children }: { children: React.ReactNode })
           minWidth: "44px",
           minHeight: "44px",
           WebkitTapHighlightColor: "transparent",
+          touchAction: "manipulation",
         }}
         onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.opacity = "1")}
         onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.opacity = "0.3")}
       >
         ★
-      </Link>
+      </a>
 
       <style>{`
         @keyframes shake {
