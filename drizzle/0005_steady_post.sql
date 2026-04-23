@@ -1,0 +1,1 @@
+ALTER TABLE `lead_follow_ups` MODIFY COLUMN `followUpStatus` enum('called_scheduled','left_voicemail','appointment_set','no_answer','not_interested','follow_up_needed','closed_won','closed_lost','below_minimum_budget','price_too_high') NOT NULL;

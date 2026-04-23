@@ -927,6 +927,8 @@ Be specific, data-driven, and actionable. Format as JSON with keys: bestMonths (
           "follow_up_needed",
           "closed_won",
           "closed_lost",
+          "below_minimum_budget",
+          "price_too_high",
         ]),
         notes: z.string().max(2000).optional(),
       }))

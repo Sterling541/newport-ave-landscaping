@@ -16,7 +16,9 @@ const STATUS_LABELS: Record<string, { label: string; color: string }> = {
   not_interested: { label: "Not Interested", color: "bg-red-100 text-red-700" },
   follow_up_needed: { label: "Follow-Up Needed", color: "bg-orange-100 text-orange-800" },
   closed_won: { label: "Closed Won", color: "bg-green-100 text-green-800" },
-  closed_lost: { label: "Closed Lost", color: "bg-slate-100 text-slate-600" },
+  closed_lost:          { label: "Closed Lost",       color: "bg-slate-100 text-slate-600" },
+  below_minimum_budget: { label: "Below Min. Budget", color: "bg-slate-100 text-slate-500" },
+  price_too_high:       { label: "Didn't Like Price", color: "bg-purple-100 text-purple-700" },
 };
 
 function formatRemindAt(date: Date | string | null) {

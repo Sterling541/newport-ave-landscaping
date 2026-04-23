@@ -220,8 +220,10 @@ export const leadFollowUps = mysqlTable("lead_follow_ups", {
    *   no_answer          — No answer; no auto-reminder
    *   not_interested     — Lead declined / not interested
    *   follow_up_needed   — Generic flag: needs follow-up
-   *   closed_won         — Job won
-   *   closed_lost        — Job lost
+   *   closed_won             — Job won
+   *   closed_lost            — Job lost
+   *   below_minimum_budget   — Lead didn't meet minimum budget
+   *   price_too_high         — Lead didn't like the price / too expensive
    */
   status: mysqlEnum("followUpStatus", [
     "called_scheduled",
@@ -232,6 +234,8 @@ export const leadFollowUps = mysqlTable("lead_follow_ups", {
     "follow_up_needed",
     "closed_won",
     "closed_lost",
+    "below_minimum_budget",
+    "price_too_high",
   ]).notNull(),
   notes: text("notes"),
   /** When to remind — set automatically for left_voicemail (next business day) */
