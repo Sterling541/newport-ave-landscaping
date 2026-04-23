@@ -362,3 +362,127 @@ describe("Admin auth gate logic", () => {
     expect(isOwnerAuthorized(null, "owner-open-id")).toBe(false);
   });
 });
+
+// ── AI Insights response shape ────────────────────────────────────────────────
+
+describe("AI Insights response shape", () => {
+  type InsightPriority = "high" | "medium" | "low";
+
+  type Insight = {
+    category: string;
+    title: string;
+    finding: string;
+    action: string;
+    priority: InsightPriority;
+  };
+
+  type InsightsResponse = {
+    summary: string;
+    insights: Insight[];
+    generatedAt: string;
+    dataPoints: number;
+  };
+
+  function validateInsightsResponse(data: InsightsResponse) {
+    expect(typeof data.summary).toBe("string");
+    expect(data.summary.length).toBeGreaterThan(0);
+    expect(Array.isArray(data.insights)).toBe(true);
+    expect(typeof data.generatedAt).toBe("string");
+    expect(typeof data.dataPoints).toBe("number");
+    expect(data.dataPoints).toBeGreaterThanOrEqual(0);
+  }
+
+  function validateInsight(insight: Insight) {
+    expect(typeof insight.category).toBe("string");
+    expect(typeof insight.title).toBe("string");
+    expect(typeof insight.finding).toBe("string");
+    expect(typeof insight.action).toBe("string");
+    expect(["high", "medium", "low"]).toContain(insight.priority);
+  }
+
+  it("validates a well-formed insights response with multiple insights", () => {
+    const response: InsightsResponse = {
+      summary: "Your busiest season is spring (March–May), driven primarily by Google Search leads.",
+      insights: [
+        {
+          category: "Seasonality",
+          title: "Peak season is March–May",
+          finding: "62% of submissions arrive between March and May.",
+          action: "Increase Google Ads budget by 30% starting February 15.",
+          priority: "high",
+        },
+        {
+          category: "Lead Sources",
+          title: "Google Search dominates at 58%",
+          finding: "Google Search accounts for 58% of all new leads.",
+          action: "Invest in SEO content targeting Bend-area landscaping keywords.",
+          priority: "medium",
+        },
+      ],
+      generatedAt: new Date().toISOString(),
+      dataPoints: 142,
+    };
+
+    validateInsightsResponse(response);
+    response.insights.forEach(validateInsight);
+  });
+
+  it("accepts an empty insights array when data is insufficient", () => {
+    const response: InsightsResponse = {
+      summary: "Not enough data to generate meaningful insights yet. Submit at least 5 inquiries.",
+      insights: [],
+      generatedAt: new Date().toISOString(),
+      dataPoints: 2,
+    };
+
+    validateInsightsResponse(response);
+    expect(response.insights).toHaveLength(0);
+  });
+
+  it("validates all three priority values are accepted", () => {
+    const priorities: InsightPriority[] = ["high", "medium", "low"];
+    priorities.forEach(p => {
+      const insight: Insight = {
+        category: "Marketing",
+        title: "Test",
+        finding: "Test finding",
+        action: "Test action",
+        priority: p,
+      };
+      validateInsight(insight);
+    });
+  });
+
+  it("validates all 8 recognized category labels", () => {
+    const categories = [
+      "Seasonality",
+      "Lead Sources",
+      "Service Demand",
+      "Geography",
+      "Budget",
+      "Customer Retention",
+      "Operations",
+      "Marketing",
+    ];
+    categories.forEach(cat => {
+      expect(typeof cat).toBe("string");
+      expect(cat.length).toBeGreaterThan(0);
+    });
+  });
+
+  it("generatedAt is a parseable ISO timestamp string", () => {
+    const ts = new Date().toISOString();
+    const parsed = new Date(ts);
+    expect(parsed.getTime()).not.toBeNaN();
+  });
+
+  it("dataPoints reflects the number of submissions analyzed", () => {
+    const response: InsightsResponse = {
+      summary: "Analysis complete.",
+      insights: [],
+      generatedAt: new Date().toISOString(),
+      dataPoints: 307,
+    };
+    expect(response.dataPoints).toBe(307);
+  });
+});

@@ -431,3 +431,10 @@
 
 - [x] Fix OAuth login redirect — encode returnPath in state, decode in callback, redirect to /admin/submissions after login
 - [x] Hide MobileCTABar on /schedule-services and /admin/* pages (AppShell checks location before rendering)
+
+## Session — April 23, 2026 (Form Redesign + AI Insights)
+
+- [x] Fix mobile top cutoff on /schedule-services (added pt-[204px] sm:pt-[160px] to clear fixed Navbar)
+- [x] Redesign ScheduleServices.tsx — forest green hero, cream card, earthy tones, warm typography (all 64 fields/options unchanged)
+- [x] Build AI Insights panel in admin area — tabbed layout (Submissions / AI Insights), executive summary, insight cards with priority badges, Regenerate button
+- [x] Write 6 vitest tests for AI Insights response shape (35 total submissions tests passing)

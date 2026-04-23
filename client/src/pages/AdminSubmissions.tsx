@@ -31,6 +31,9 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import {
   Download,
   Search,
@@ -42,6 +45,15 @@ import {
   ChevronDown,
   ChevronsUpDown,
   ShieldAlert,
+  Sparkles,
+  TrendingUp,
+  MapPin,
+  DollarSign,
+  Users,
+  Calendar,
+  Megaphone,
+  Wrench,
+  BarChart3,
 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -313,6 +325,25 @@ function SortIcon({ col, sortKey, sortDir }: { col: SortKey; sortKey: SortKey; s
 
 // ── Main Component ────────────────────────────────────────────────────────────
 
+// ── Category icon map ─────────────────────────────────────────────────────────
+
+const CATEGORY_ICONS: Record<string, React.ReactNode> = {
+  "Seasonality": <Calendar className="w-4 h-4" />,
+  "Lead Sources": <Megaphone className="w-4 h-4" />,
+  "Service Demand": <Wrench className="w-4 h-4" />,
+  "Geography": <MapPin className="w-4 h-4" />,
+  "Budget": <DollarSign className="w-4 h-4" />,
+  "Customer Retention": <Users className="w-4 h-4" />,
+  "Operations": <BarChart3 className="w-4 h-4" />,
+  "Marketing": <TrendingUp className="w-4 h-4" />,
+};
+
+const PRIORITY_COLORS: Record<string, string> = {
+  high: "bg-red-100 text-red-700 border-red-200",
+  medium: "bg-amber-100 text-amber-700 border-amber-200",
+  low: "bg-stone-100 text-stone-600 border-stone-200",
+};
+
 export default function AdminSubmissions() {
   const { user, loading: authLoading } = useAuth();
   const [search, setSearch] = useState("");
@@ -321,10 +352,22 @@ export default function AdminSubmissions() {
   const [sortDir, setSortDir] = useState<SortDir>("desc");
   const [selected, setSelected] = useState<Submission | null>(null);
   const [deleteId, setDeleteId] = useState<number | null>(null);
+  const [activeTab, setActiveTab] = useState("submissions");
+  const [insightsEnabled, setInsightsEnabled] = useState(false);
 
   const { data, isLoading, refetch } = trpc.submissions.list.useQuery(
     { limit: 500, offset: 0 },
     { enabled: !!user }
+  );
+
+  const {
+    data: insightsData,
+    isLoading: insightsLoading,
+    refetch: refetchInsights,
+    error: insightsError,
+  } = trpc.submissions.insights.useQuery(
+    undefined,
+    { enabled: !!user && insightsEnabled, staleTime: 5 * 60 * 1000 }
   );
 
   const deleteMutation = trpc.submissions.delete.useMutation({
@@ -450,32 +493,59 @@ export default function AdminSubmissions() {
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
           <div>
-            <h1 className="text-2xl font-bold text-stone-900">Service Submissions</h1>
+            <h1 className="text-2xl font-bold text-stone-900">Admin Dashboard</h1>
             <p className="text-sm text-stone-500 mt-0.5">
-              {data?.total ?? 0} total · {filtered.length} shown
+              {data?.total ?? 0} total submissions
             </p>
           </div>
           <div className="flex gap-2">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => refetch()}
-              className="gap-2 border-stone-300"
-            >
-              <RefreshCw className="w-3.5 h-3.5" /> Refresh
-            </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => exportCsv(filtered)}
-              disabled={filtered.length === 0}
-              className="gap-2 border-stone-300"
-            >
-              <Download className="w-3.5 h-3.5" /> Export CSV
-            </Button>
+            {activeTab === "submissions" && (
+              <>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => refetch()}
+                  className="gap-2 border-stone-300"
+                >
+                  <RefreshCw className="w-3.5 h-3.5" /> Refresh
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => exportCsv(filtered)}
+                  disabled={filtered.length === 0}
+                  className="gap-2 border-stone-300"
+                >
+                  <Download className="w-3.5 h-3.5" /> Export CSV
+                </Button>
+              </>
+            )}
+            {activeTab === "insights" && insightsData && (
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => refetchInsights()}
+                className="gap-2 border-stone-300"
+              >
+                <RefreshCw className="w-3.5 h-3.5" /> Regenerate
+              </Button>
+            )}
           </div>
         </div>
 
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+          <TabsList className="mb-6">
+            <TabsTrigger value="submissions">Submissions</TabsTrigger>
+            <TabsTrigger
+              value="insights"
+              onClick={() => setInsightsEnabled(true)}
+            >
+              <Sparkles className="w-3.5 h-3.5 mr-1.5" /> AI Insights
+            </TabsTrigger>
+          </TabsList>
+
+          {/* ── Submissions Tab ── */}
+          <TabsContent value="submissions">
         {/* Filters */}
         <div className="flex flex-col sm:flex-row gap-3 mb-4">
           <div className="relative flex-1 max-w-sm">
@@ -602,6 +672,106 @@ export default function AdminSubmissions() {
         <p className="text-xs text-stone-400 mt-3 text-right">
           Showing {filtered.length} of {data?.total ?? 0} submissions
         </p>
+          </TabsContent>
+
+          {/* ── AI Insights Tab ── */}
+          <TabsContent value="insights">
+            {insightsLoading ? (
+              <div className="flex flex-col items-center justify-center py-24 gap-4">
+                <Loader2 className="w-10 h-10 animate-spin text-green-700" />
+                <p className="text-stone-500 text-sm">Analyzing your submission data…</p>
+                <p className="text-stone-400 text-xs">This may take 10–20 seconds</p>
+              </div>
+            ) : insightsError ? (
+              <div className="py-20 text-center">
+                <p className="text-red-600 font-medium mb-2">Failed to generate insights</p>
+                <p className="text-stone-500 text-sm mb-4">There was an error analyzing your data. Please try again.</p>
+                <Button variant="outline" size="sm" onClick={() => refetchInsights()} className="gap-2">
+                  <RefreshCw className="w-3.5 h-3.5" /> Try Again
+                </Button>
+              </div>
+            ) : !insightsData ? (
+              <div className="flex flex-col items-center justify-center py-24 gap-6">
+                <div className="w-16 h-16 rounded-full bg-green-50 flex items-center justify-center">
+                  <Sparkles className="w-8 h-8 text-green-700" />
+                </div>
+                <div className="text-center max-w-sm">
+                  <h3 className="text-lg font-semibold text-stone-900 mb-2">AI-Powered Marketing Insights</h3>
+                  <p className="text-stone-500 text-sm">
+                    Analyze your submission data to discover seasonal patterns, top lead sources,
+                    service demand trends, and actionable recommendations for your marketing and intake team.
+                  </p>
+                </div>
+                <Button
+                  onClick={() => { setInsightsEnabled(true); refetchInsights(); }}
+                  className="bg-green-700 hover:bg-green-800 text-white gap-2"
+                >
+                  <Sparkles className="w-4 h-4" /> Generate Insights
+                </Button>
+              </div>
+            ) : insightsData.insights.length === 0 ? (
+              <div className="py-20 text-center">
+                <Sparkles className="w-10 h-10 text-stone-300 mx-auto mb-3" />
+                <p className="text-stone-500">{insightsData.summary}</p>
+              </div>
+            ) : (
+              <div className="space-y-6">
+                {/* Executive Summary */}
+                <Card className="bg-green-50 border-green-200">
+                  <CardHeader className="pb-2">
+                    <CardTitle className="text-base font-semibold text-green-900 flex items-center gap-2">
+                      <Sparkles className="w-4 h-4" /> Executive Summary
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-sm text-green-800 leading-relaxed">{insightsData.summary}</p>
+                    <p className="text-xs text-green-600 mt-3">
+                      Based on {(insightsData as { dataPoints?: number }).dataPoints ?? 0} submissions ·
+                      Generated {new Date(insightsData.generatedAt).toLocaleString()}
+                    </p>
+                  </CardContent>
+                </Card>
+
+                {/* Insight Cards Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+                  {insightsData.insights.map((insight: {
+                    category: string;
+                    title: string;
+                    finding: string;
+                    action: string;
+                    priority: string;
+                  }, i: number) => (
+                    <Card key={i} className="bg-white border-stone-200 hover:shadow-md transition-shadow">
+                      <CardHeader className="pb-2">
+                        <div className="flex items-start justify-between gap-2">
+                          <div className="flex items-center gap-2 text-stone-700">
+                            {CATEGORY_ICONS[insight.category] ?? <BarChart3 className="w-4 h-4" />}
+                            <span className="text-xs font-semibold uppercase tracking-wide text-stone-500">
+                              {insight.category}
+                            </span>
+                          </div>
+                          <span className={`text-xs font-medium px-2 py-0.5 rounded-full border ${PRIORITY_COLORS[insight.priority] ?? PRIORITY_COLORS.low}`}>
+                            {insight.priority}
+                          </span>
+                        </div>
+                        <CardTitle className="text-sm font-semibold text-stone-900 mt-1">
+                          {insight.title}
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent className="space-y-2">
+                        <p className="text-sm text-stone-600 leading-relaxed">{insight.finding}</p>
+                        <div className="pt-2 border-t border-stone-100">
+                          <p className="text-xs font-semibold text-green-700 uppercase tracking-wide mb-1">Recommended Action</p>
+                          <p className="text-sm text-stone-700 leading-relaxed">{insight.action}</p>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </div>
+            )}
+          </TabsContent>
+        </Tabs>
       </div>
 
       {/* Detail drawer */}
