@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "wouter";
 
 const STAGING_KEY = "nal_staging_auth";
 const CORRECT_CODE = "4132";
@@ -218,6 +219,34 @@ export default function StagingGate({ children }: { children: React.ReactNode })
       >
         Newport Avenue Landscaping · Bend, Oregon
       </p>
+
+      {/* Secret admin star — bottom-left corner */}
+      <Link
+        href="/admin/submissions"
+        title=""
+        style={{
+          position: "absolute",
+          bottom: "16px",
+          left: "20px",
+          color: "oklch(0.72 0.18 85)",
+          opacity: 0.3,
+          fontSize: "18px",
+          lineHeight: 1,
+          textDecoration: "none",
+          transition: "opacity 0.2s",
+          cursor: "pointer",
+          display: "inline-flex",
+          alignItems: "center",
+          justifyContent: "center",
+          minWidth: "44px",
+          minHeight: "44px",
+          WebkitTapHighlightColor: "transparent",
+        }}
+        onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.opacity = "1")}
+        onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.opacity = "0.3")}
+      >
+        ★
+      </Link>
 
       <style>{`
         @keyframes shake {

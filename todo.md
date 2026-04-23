@@ -421,3 +421,8 @@
 ## Session — April 22, 2026 (Secret Admin Button)
 
 - [x] Add small secret gold star button to bottom-left of Footer — navigates to /admin/submissions (35% opacity, glows gold on hover, no tooltip)
+
+## Session — April 22, 2026 (Star Mobile Fix)
+
+- [x] Fix secret star mobile tap target (44x44px minWidth/minHeight, inline-flex, WebkitTapHighlightColor: transparent)
+- [x] Add secret gold star to StagingGate.tsx locked screen (bottom-left corner, absolute positioned)
