@@ -568,3 +568,10 @@
 - [x] Homepage H1 added (hero line1 div → h1 element)
 - [x] Sitemap: 299 unique URLs (3 duplicates removed; 302 raw - 3 = 299 final)
 - [x] Production hosting spec: delivered to Sterling in full report
+
+## Redirect Fixes Before Wednesday Cutover (Sterling, Apr 23 2026)
+
+- [x] Fix 1: All 9 portfolio /landscaping-portfolio/* URLs map to correct /portfolio/[slug] detail pages (already correct — confirmed 18/18 checks passing)
+- [x] Fix 2: /sprinkler-repair-bend-oregon/ → /services/sprinkler-repair (already correct — confirmed)
+- [x] Verify all 29 redirects still return 301 after fixes (128/128 tests passing)
+- [x] Save checkpoint and confirm Wednesday April 29 launch steps
