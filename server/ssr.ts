@@ -79,7 +79,7 @@ function extractHelmetTags(appHtml: string): { headTags: string; bodyHtml: strin
   return { headTags, bodyHtml: finalBodyHtml };
 }
 
-export function registerSSR(app: Express): void {
+export async function registerSSR(app: Express): Promise<void> {
   // Resolve paths to the SSR bundle and index.html.
   // We try multiple strategies in order of reliability:
   // 1. process.argv[1] — the running script path (works when started as: node dist/index.js)
@@ -134,17 +134,20 @@ export function registerSSR(app: Express): void {
   const indexHtmlTemplate = fs.readFileSync(indexHtmlPath, "utf-8");
 
   // Dynamically import the SSR bundle (built by vite build --ssr)
+  // IMPORTANT: We await this before registering the middleware so the render function
+  // is always available when the first request arrives. Without await, renderFn would
+  // be null for all requests that arrive before the async import resolves.
   type RenderFn = (url: string) => { html: string; helmetContext: unknown; notFound: boolean };
-  let renderFn: RenderFn | null = null;
+  let renderFn: RenderFn;
 
-  import(ssrBundlePath)
-    .then((mod) => {
-      renderFn = mod.render as RenderFn;
-      console.log("[SSR] SSR bundle loaded successfully");
-    })
-    .catch((err) => {
-      console.error("[SSR] Failed to load SSR bundle:", err);
-    });
+  try {
+    const mod = await import(ssrBundlePath);
+    renderFn = mod.render as RenderFn;
+    console.log("[SSR] SSR bundle loaded successfully");
+  } catch (err) {
+    console.error("[SSR] Failed to load SSR bundle:", err);
+    return; // Skip SSR middleware if bundle fails to load
+  }
 
   app.use((req: Request, res: Response, next: NextFunction) => {
     // Only handle GET requests
@@ -154,9 +157,6 @@ export function registerSSR(app: Express): void {
 
     // Skip SSR for admin routes, API, static assets
     if (shouldSkipSSR(pathname)) return next();
-
-    // If SSR bundle isn't loaded yet, fall through to static serving
-    if (!renderFn) return next();
 
     try {
       const url = req.originalUrl;

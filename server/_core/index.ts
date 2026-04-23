@@ -37,31 +37,6 @@ async function startServer() {
   // Configure body parser with larger size limit for file uploads
   app.use(express.json({ limit: "50mb" }));
   app.use(express.urlencoded({ limit: "50mb", extended: true }));
-  // Temporary SSR diagnostic endpoint — remove after deployment verification
-  app.get("/api/ssr-diag", (_req, res) => {
-    import("path").then(({ default: pathMod }) => {
-      import("fs").then(({ default: fsMod }) => {
-        const argv1 = process.argv[1] ?? "";
-        const distDir = pathMod.dirname(argv1);
-        const ssrPath = pathMod.join(distDir, "server", "entry-server.js");
-        const indexPath = pathMod.join(distDir, "public", "index.html");
-        const cwdDist = pathMod.join(process.cwd(), "dist");
-        res.json({
-          argv1,
-          distDir,
-          ssrPath,
-          ssrExists: fsMod.existsSync(ssrPath),
-          indexExists: fsMod.existsSync(indexPath),
-          cwd: process.cwd(),
-          cwdDist,
-          cwdDistExists: fsMod.existsSync(cwdDist),
-          nodeEnv: process.env.NODE_ENV,
-          importMetaDirname: import.meta.dirname,
-        });
-      });
-    });
-  });
-
   // 301 redirects from old WordPress site URLs — must be before OAuth and tRPC
   registerRedirects(app);
 
@@ -83,7 +58,9 @@ async function startServer() {
   } else {
     // SSR middleware must be registered BEFORE static serving
     // so pre-rendered HTML is returned for public routes
-    registerSSR(app);
+    // registerSSR is async — it awaits the SSR bundle import before
+    // registering the middleware, ensuring renderFn is ready for all requests.
+    await registerSSR(app);
     serveStatic(app);
   }
 

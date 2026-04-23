@@ -575,3 +575,14 @@
 - [x] Fix 2: /sprinkler-repair-bend-oregon/ → /services/sprinkler-repair (already correct — confirmed)
 - [x] Verify all 29 redirects still return 301 after fixes (128/128 tests passing)
 - [x] Save checkpoint and confirm Wednesday April 29 launch steps
+
+## SSR Async Fix (Apr 23, 2026 — Final Pre-Launch)
+
+- [x] Root cause identified: registerSSR() was synchronous but import() is async — renderFn was always null on first request
+- [x] Fix: changed registerSSR() to async function, await import(ssrBundlePath) before registering middleware
+- [x] Fix: updated server/_core/index.ts to await registerSSR(app)
+- [x] Removed diagnostic endpoints (/api/ssr-diag, /api/ssr-render-test) from index.ts
+- [x] Full production build succeeded (vite build + vite build --ssr + esbuild)
+- [x] SSR verified locally: 35/35 checks passing, title/canonical/description/H1 all in <head>
+- [x] 128/128 tests passing, 0 TypeScript errors
+- [x] Checkpoint saved and published — SSR live on deployed server
