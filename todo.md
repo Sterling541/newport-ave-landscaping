@@ -551,3 +551,11 @@
 - [x] Heatmap toggle on Geo-Intelligence map (Pins / Heatmap mode switcher)
 - [x] weather.correlation backend endpoint
 - [x] followUp router: logAction, pendingCallbacks, ackReminder, statusSummary
+
+## Pre-Launch Technical Requirements (Apr 23, 2026)
+
+- [x] Phase 1: Implement 301 redirect map in Express server (all 46 redirects from pasted_content_2.txt, wildcard slug patterns, no chains, both slashed/unslashed)
+- [x] Phase 2: Generate sitemap.xml at build time (302 public routes, exclude /admin/*)
+- [x] Phase 3: Update robots.txt (production: Allow all except /admin/, Sitemap ref)
+- [x] Phase 3: Implement SSR for public routes (Express renderToString so social scrapers see full HTML)
+- [x] Phase 4: Run 128 tests + TypeScript check, save checkpoint

@@ -1,5 +1,9 @@
-# Newport Avenue Landscaping — TEMPORARILY OPEN FOR CRAWLING
-# All restrictions removed temporarily for site migration mapping.
-# Restore full staging restrictions after crawl is complete.
+# Newport Avenue Landscaping — robots.txt
+# Production domain: newportavelandscaping.com
+# Preview URL (newportland-g3pw3mru.manus.space): switch to Disallow: / after production launch
+
 User-agent: *
 Allow: /
+Disallow: /admin/
+
+Sitemap: https://newportavelandscaping.com/sitemap.xml

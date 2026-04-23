@@ -9,6 +9,7 @@ import { registerRedirects } from "../redirects";
 import { appRouter } from "../routers";
 import { createContext } from "./context";
 import { serveStatic, setupVite } from "./vite";
+import { registerSSR } from "../ssr";
 import { batchGeocodeSubmissions } from "../geocoder";
 
 function isPortAvailable(port: number): Promise<boolean> {
@@ -55,6 +56,9 @@ async function startServer() {
   if (process.env.NODE_ENV === "development") {
     await setupVite(app, server);
   } else {
+    // SSR middleware must be registered BEFORE static serving
+    // so pre-rendered HTML is returned for public routes
+    registerSSR(app);
     serveStatic(app);
   }
 
