@@ -3,7 +3,7 @@
    Newport Avenue Landscaping
    ============================================================ */
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { trpc } from "@/lib/trpc";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -97,10 +97,15 @@ export default function OptOut() {
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  const formSectionRef = useRef<HTMLElement>(null);
+
   const submitMutation = trpc.optOut.submit.useMutation({
     onSuccess: () => {
       setSubmitted(true);
       setError(null);
+      setTimeout(() => {
+        formSectionRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 50);
     },
     onError: (err) => {
       setError(err.message || "Something went wrong. Please try again.");
@@ -403,6 +408,7 @@ export default function OptOut() {
         {/* ── E. REQUEST FORM ──────────────────────────────────────────────── */}
         <section
           id="request-form"
+          ref={formSectionRef}
           style={{ padding: "4rem 0 5rem", backgroundColor: "oklch(0.97 0.005 240)" }}
         >
           <div style={{ maxWidth: "680px", margin: "0 auto", padding: "0 clamp(1.25rem, 5vw, 3rem)" }}>
