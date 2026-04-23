@@ -1,20 +1,10 @@
 {
   "version": 2,
   "installCommand": "corepack enable && pnpm install --no-frozen-lockfile",
-  "builds": [
-    {
-      "src": "server/vercel-entry.ts",
-      "use": "@vercel/node",
-      "config": {
-        "maxLambdaSize": "50mb",
-        "includeFiles": ["dist/**", "client/index.html"]
-      }
-    }
-  ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "/server/vercel-entry.ts"
-    }
+  "buildCommand": "pnpm build && node scripts/build-vercel-api.mjs",
+  "outputDirectory": "dist/public",
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "/api/index" },
+    { "source": "/(.*)", "destination": "/api/index" }
   ]
 }

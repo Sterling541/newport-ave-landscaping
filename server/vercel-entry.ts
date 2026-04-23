@@ -43,6 +43,11 @@ app.use(
 );
 
 // SSR + static serving — initialized asynchronously
+// Set SSR_DIST_DIR to the api/ directory so ssr.ts can find the SSR bundle
+// and index.html that were copied there by build-vercel-api.mjs.
+// import.meta.dirname resolves to the api/ directory in the compiled output.
+process.env.SSR_DIST_DIR = import.meta.dirname;
+
 // We export a promise that resolves to the app once SSR is ready
 const appReady = (async () => {
   await registerSSR(app);

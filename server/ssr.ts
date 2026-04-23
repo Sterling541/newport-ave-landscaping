@@ -86,6 +86,10 @@ export async function registerSSR(app: Express): Promise<void> {
   // 2. process.cwd() + /dist — works when CWD is the project root
   // 3. import.meta.dirname — esbuild inlines the SOURCE directory, so we walk up to find dist/
   function findDistDir(): string {
+    // Strategy 0: explicit env var override (used by Vercel serverless function)
+    if (process.env.SSR_DIST_DIR) {
+      return process.env.SSR_DIST_DIR;
+    }
     // Strategy 1: derive from process.argv[1]
     const argv1 = process.argv[1] ?? "";
     if (argv1) {
