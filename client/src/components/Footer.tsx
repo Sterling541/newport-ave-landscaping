@@ -251,9 +251,29 @@ export default function Footer() {
       {/* Bottom bar */}
       <div className="border-t" style={{ borderColor: "oklch(0.25 0.008 30)" }}>
         <div className="container py-5 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="font-body text-xs" style={{ color: "oklch(0.45 0.008 30)" }}>
-            © 2025 Newport Avenue Landscaping. All Rights Reserved.
-          </p>
+          <div className="flex items-center gap-2">
+            <p className="font-body text-xs" style={{ color: "oklch(0.45 0.008 30)" }}>
+              © 2025 Newport Avenue Landscaping. All Rights Reserved.
+            </p>
+            {/* Secret admin button — intentionally subtle */}
+            <Link
+              href="/admin/submissions"
+              title=""
+              style={{
+                color: "oklch(0.72 0.18 85)",
+                opacity: 0.35,
+                fontSize: "10px",
+                lineHeight: 1,
+                textDecoration: "none",
+                transition: "opacity 0.2s",
+                userSelect: "none",
+              }}
+              onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.opacity = "1")}
+              onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.opacity = "0.35")}
+            >
+              ★
+            </Link>
+          </div>
           <div className="flex gap-6">
             <Link
               href="/privacy-policy"

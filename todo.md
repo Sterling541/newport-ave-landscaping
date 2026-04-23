@@ -417,3 +417,7 @@
 - [x] Confirmed backend procedures already use protectedProcedure + owner/admin check (FORBIDDEN for others)
 - [x] Add frontend auth gate to AdminSubmissions.tsx — unauthenticated → Sign In screen, logged-in non-admin → Access Denied screen
 - [x] Add 7 vitest tests for auth gate logic (all 29 submissions tests passing)
+
+## Session — April 22, 2026 (Secret Admin Button)
+
+- [x] Add small secret gold star button to bottom-left of Footer — navigates to /admin/submissions (35% opacity, glows gold on hover, no tooltip)
