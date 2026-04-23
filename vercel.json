@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "buildCommand": "pnpm install --no-frozen-lockfile && pnpm build",
+  "installCommand": "corepack enable && pnpm install --no-frozen-lockfile",
   "builds": [
     {
       "src": "server/vercel-entry.ts",
