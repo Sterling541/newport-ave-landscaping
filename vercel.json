@@ -2,9 +2,5 @@
   "version": 2,
   "installCommand": "corepack enable && pnpm install --no-frozen-lockfile",
   "buildCommand": "pnpm build && node scripts/build-vercel-api.mjs",
-  "outputDirectory": "dist/public",
-  "rewrites": [
-    { "source": "/api/(.*)", "destination": "/api/index" },
-    { "source": "/(.*)", "destination": "/api/index" }
-  ]
+  "outputDirectory": ".vercel/output"
 }
