@@ -37,6 +37,25 @@ async function startServer() {
   // Configure body parser with larger size limit for file uploads
   app.use(express.json({ limit: "50mb" }));
   app.use(express.urlencoded({ limit: "50mb", extended: true }));
+  // Temporary SSR diagnostic endpoint — remove after deployment verification
+  app.get("/api/ssr-diag", (_req, res) => {
+    const path = require("path");
+    const fs = require("fs");
+    const argv1 = process.argv[1] ?? "";
+    const distDir = path.dirname(argv1);
+    const ssrPath = path.join(distDir, "server", "entry-server.js");
+    const indexPath = path.join(distDir, "public", "index.html");
+    res.json({
+      argv1,
+      distDir,
+      ssrPath,
+      ssrExists: fs.existsSync(ssrPath),
+      indexExists: fs.existsSync(indexPath),
+      cwd: process.cwd(),
+      nodeEnv: process.env.NODE_ENV,
+    });
+  });
+
   // 301 redirects from old WordPress site URLs — must be before OAuth and tRPC
   registerRedirects(app);
 
