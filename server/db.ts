@@ -802,3 +802,74 @@ export async function snoozeReminder(followUpId: number, days: number) {
   base.setHours(9, 0, 0, 0);
   return db.update(leadFollowUps).set({ remindAt: base }).where(eq(leadFollowUps.id, followUpId));
 }
+
+/**
+ * Lost-lead breakdown by reason and month.
+ * Returns one row per (year-month, status) with a count.
+ * Only includes "lost" statuses: not_interested, closed_lost,
+ * below_minimum_budget, price_too_high.
+ */
+export async function getLostLeadsByMonth(months = 12) {
+  const db = await getDb();
+  if (!db) return [];
+  const cutoff = new Date();
+  cutoff.setMonth(cutoff.getMonth() - months);
+
+  // Get the latest follow-up per submission within the window
+  const rows = await db
+    .select({
+      submissionId: leadFollowUps.submissionId,
+      status: leadFollowUps.status,
+      createdAt: leadFollowUps.createdAt,
+    })
+    .from(leadFollowUps)
+    .where(gte(leadFollowUps.createdAt, cutoff))
+    .orderBy(desc(leadFollowUps.createdAt));
+
+  // Deduplicate: keep only the latest follow-up per submission
+  const seen = new Set<number>();
+  const latest: typeof rows = [];
+  for (const row of rows) {
+    if (!seen.has(row.submissionId)) {
+      seen.add(row.submissionId);
+      latest.push(row);
+    }
+  }
+
+  // Filter to lost statuses only
+  const lostStatuses = new Set([
+    "not_interested",
+    "closed_lost",
+    "below_minimum_budget",
+    "price_too_high",
+  ]);
+  const lostRows = latest.filter(r => lostStatuses.has(r.status));
+
+  // Aggregate by month + status
+  const buckets: Record<string, Record<string, number>> = {};
+  for (const row of lostRows) {
+    const d = new Date(row.createdAt);
+    const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`;
+    if (!buckets[key]) buckets[key] = {};
+    buckets[key][row.status] = (buckets[key][row.status] ?? 0) + 1;
+  }
+
+  // Build sorted array
+  return Object.entries(buckets)
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([month, counts]) => ({
+      month,
+      not_interested: counts["not_interested"] ?? 0,
+      closed_lost: counts["closed_lost"] ?? 0,
+      below_minimum_budget: counts["below_minimum_budget"] ?? 0,
+      price_too_high: counts["price_too_high"] ?? 0,
+    }));
+}
+
+
+/**
+ * Lost-lead breakdown by reason and month.
+ * Returns one row per (year-month, status) with a count.
+ * Only includes "lost" statuses: not_interested, closed_lost,
+ * below_minimum_budget, price_too_high.
+ */

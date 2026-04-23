@@ -1,32 +1,5 @@
-# Newport Avenue Landscaping — STAGING ENVIRONMENT
-# DO NOT INDEX — This is a preview/staging site only.
-# The live production site is at https://www.newportavelandscaping.com
-#
-# IMPORTANT: When ready to go live, replace this file with:
-#   User-agent: *
-#   Allow: /
-#   Sitemap: https://newportavelandscaping.com/sitemap.xml
-
+# Newport Avenue Landscaping — TEMPORARILY OPEN FOR CRAWLING
+# All restrictions removed temporarily for site migration mapping.
+# Restore full staging restrictions after crawl is complete.
 User-agent: *
-Disallow: /
-
-User-agent: Googlebot
-Disallow: /
-
-User-agent: Bingbot
-Disallow: /
-
-User-agent: GPTBot
-Disallow: /
-
-User-agent: CCBot
-Disallow: /
-
-User-agent: anthropic-ai
-Disallow: /
-
-User-agent: Claude-Web
-Disallow: /
-
-User-agent: PerplexityBot
-Disallow: /
+Allow: /
