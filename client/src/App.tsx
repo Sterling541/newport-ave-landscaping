@@ -507,15 +507,26 @@ function Router() {
     </Suspense>
   );
 }
+function AppShell() {
+  const [location] = useLocation();
+  // Hide the floating CTA bar on pages that have their own CTAs or forms
+  const hideCTABar = location.startsWith("/schedule-services") || location.startsWith("/admin");
+  return (
+    <>
+      <ScrollToTop />
+      {!hideCTABar && <MobileCTABar />}
+      <Toaster />
+      <Router />
+    </>
+  );
+}
+
 function App() {
   return (
     <ErrorBoundary>
       <ThemeProvider defaultTheme="light">
         <TooltipProvider>
-          <ScrollToTop />
-          <MobileCTABar />
-          <Toaster />
-          <Router />
+          <AppShell />
         </TooltipProvider>
       </ThemeProvider>
     </ErrorBoundary>

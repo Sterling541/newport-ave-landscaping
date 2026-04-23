@@ -426,3 +426,8 @@
 
 - [x] Fix secret star mobile tap target (44x44px minWidth/minHeight, inline-flex, WebkitTapHighlightColor: transparent)
 - [x] Add secret gold star to StagingGate.tsx locked screen (bottom-left corner, absolute positioned)
+
+## Session — April 23, 2026 (Bug Fixes)
+
+- [x] Fix OAuth login redirect — encode returnPath in state, decode in callback, redirect to /admin/submissions after login
+- [x] Hide MobileCTABar on /schedule-services and /admin/* pages (AppShell checks location before rendering)

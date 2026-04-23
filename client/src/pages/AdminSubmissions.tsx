@@ -403,7 +403,7 @@ export default function AdminSubmissions() {
           <h1 className="text-2xl font-bold text-stone-900 mb-2">Sign In Required</h1>
           <p className="text-stone-500 mb-6">Please sign in with your Newport Ave Landscaping account to access the admin area.</p>
           <Button
-            onClick={() => window.location.href = getLoginUrl()}
+            onClick={() => window.location.href = getLoginUrl("/admin/submissions")}
             className="bg-green-700 hover:bg-green-800 text-white"
           >
             Sign In
