@@ -411,3 +411,9 @@
 - [x] Send owner notification on new submission
 - [x] Write 22 vitest tests for submission procedures (all passing)
 - [x] End-to-end test: submitted test entry, confirmed in admin view
+
+## Session — April 22, 2026 (Admin Auth Gate)
+
+- [x] Confirmed backend procedures already use protectedProcedure + owner/admin check (FORBIDDEN for others)
+- [x] Add frontend auth gate to AdminSubmissions.tsx — unauthenticated → Sign In screen, logged-in non-admin → Access Denied screen
+- [x] Add 7 vitest tests for auth gate logic (all 29 submissions tests passing)

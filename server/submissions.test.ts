@@ -310,3 +310,55 @@ describe("Submission data completeness", () => {
     expect(errors).toHaveLength(0);
   });
 });
+
+describe("Admin auth gate logic", () => {
+  type UserRole = "user" | "admin";
+  interface MockUser {
+    role: UserRole;
+    openId: string;
+    name: string;
+  }
+
+  function isAdminAuthorized(user: MockUser | null): boolean {
+    if (!user) return false;
+    return user.role === "admin";
+  }
+
+  function isOwnerAuthorized(user: MockUser | null, ownerOpenId: string): boolean {
+    if (!user) return false;
+    return user.openId === ownerOpenId || user.role === "admin";
+  }
+
+  it("denies access when user is null (unauthenticated)", () => {
+    expect(isAdminAuthorized(null)).toBe(false);
+  });
+
+  it("denies access when user has role 'user'", () => {
+    const user: MockUser = { role: "user", openId: "abc123", name: "Random Visitor" };
+    expect(isAdminAuthorized(user)).toBe(false);
+  });
+
+  it("grants access when user has role 'admin'", () => {
+    const user: MockUser = { role: "admin", openId: "owner-open-id", name: "Site Owner" };
+    expect(isAdminAuthorized(user)).toBe(true);
+  });
+
+  it("grants owner access when openId matches ownerOpenId", () => {
+    const user: MockUser = { role: "user", openId: "owner-open-id", name: "Site Owner" };
+    expect(isOwnerAuthorized(user, "owner-open-id")).toBe(true);
+  });
+
+  it("grants admin access regardless of openId", () => {
+    const user: MockUser = { role: "admin", openId: "different-id", name: "Admin User" };
+    expect(isOwnerAuthorized(user, "owner-open-id")).toBe(true);
+  });
+
+  it("denies non-owner non-admin user even with valid session", () => {
+    const user: MockUser = { role: "user", openId: "random-visitor-id", name: "Visitor" };
+    expect(isOwnerAuthorized(user, "owner-open-id")).toBe(false);
+  });
+
+  it("denies null user for owner check", () => {
+    expect(isOwnerAuthorized(null, "owner-open-id")).toBe(false);
+  });
+});

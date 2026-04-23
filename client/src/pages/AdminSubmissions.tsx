@@ -400,13 +400,39 @@ export default function AdminSubmissions() {
         <Navbar />
         <div className="max-w-md mx-auto px-4 py-24 text-center">
           <ShieldAlert className="w-12 h-12 text-stone-400 mx-auto mb-4" />
-          <h1 className="text-2xl font-bold text-stone-900 mb-2">Admin Access Required</h1>
-          <p className="text-stone-500 mb-6">Please sign in to view submissions.</p>
+          <h1 className="text-2xl font-bold text-stone-900 mb-2">Sign In Required</h1>
+          <p className="text-stone-500 mb-6">Please sign in with your Newport Ave Landscaping account to access the admin area.</p>
           <Button
             onClick={() => window.location.href = getLoginUrl()}
             className="bg-green-700 hover:bg-green-800 text-white"
           >
             Sign In
+          </Button>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+
+  // Logged in but not owner/admin
+  const isAuthorized = (user as { role?: string }).role === "admin";
+  if (!isAuthorized) {
+    return (
+      <div className="min-h-screen bg-stone-50">
+        <Navbar />
+        <div className="max-w-md mx-auto px-4 py-24 text-center">
+          <ShieldAlert className="w-12 h-12 text-red-400 mx-auto mb-4" />
+          <h1 className="text-2xl font-bold text-stone-900 mb-2">Access Denied</h1>
+          <p className="text-stone-500 mb-6">
+            This page is restricted to Newport Ave Landscaping administrators.
+            If you believe this is an error, please contact the site owner.
+          </p>
+          <Button
+            variant="outline"
+            onClick={() => window.location.href = "/"}
+            className="border-stone-300 text-stone-700"
+          >
+            Return to Home
           </Button>
         </div>
         <Footer />
