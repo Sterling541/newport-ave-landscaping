@@ -13,7 +13,7 @@ import {
   XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend,
   ReferenceLine,
 } from "recharts";
-import { Calendar, TrendingUp, Users, RefreshCw } from "lucide-react";
+import { Calendar, TrendingUp, Users, RefreshCw, DollarSign } from "lucide-react";
 
 // ── Constants ─────────────────────────────────────────────────────────────────
 
@@ -85,10 +85,14 @@ const INQUIRY_TYPES_LVT = [
 export default function LeadVolumeTrends() {
   const [preset, setPreset] = useState("90d");
   const [selectedType, setSelectedType] = useState("all");
+  const [selectedBudget, setSelectedBudget] = useState("all");
   const { start, end } = useMemo(() => getPresetRange(preset), [preset]);
 
   const trendsQuery = trpc.insightsEngine.volumeTrends.useQuery({ startDate: start, endDate: end, serviceType: selectedType });
   const sourceQuery = trpc.insightsEngine.sourceAttribution.useQuery({ startDate: start, endDate: end, serviceType: selectedType });
+  const budgetInsightsQuery = trpc.insightsEngine.budgetInsights.useQuery(
+    { budgetKey: selectedBudget, startDate: start, endDate: end },
+  );
 
   const data = trendsQuery.data;
   const sourceData = sourceQuery.data;
@@ -204,6 +208,70 @@ export default function LeadVolumeTrends() {
             </span>
           )}
         </div>
+
+        {/* Budget Range Filter + Service Popularity Panel */}
+        <Card className="bg-white shadow-sm">
+          <CardHeader className="pb-3">
+            <div className="flex items-center gap-2">
+              <DollarSign className="w-4 h-4 text-emerald-600" />
+              <CardTitle className="text-sm font-semibold text-slate-700">Service Popularity by Budget Range</CardTitle>
+            </div>
+          </CardHeader>
+          <CardContent>
+            <div className="flex flex-wrap gap-2 mb-4">
+              {[
+                { key: "all",         label: "All Budgets" },
+                { key: "under_7500",  label: "Under $7,500" },
+                { key: "7500_15000",  label: "$7,500–$15K" },
+                { key: "15000_25000", label: "$15K–$25K" },
+                { key: "25000_60000", label: "$25K–$60K" },
+                { key: "60000_plus",  label: "$60K+" },
+                { key: "other",       label: "Other / Custom" },
+              ].map(b => (
+                <button
+                  key={b.key}
+                  onClick={() => setSelectedBudget(b.key)}
+                  className={`px-3 py-1 rounded-full text-xs font-semibold transition-all border ${
+                    selectedBudget === b.key
+                      ? "bg-emerald-700 text-white border-transparent shadow-sm scale-105"
+                      : "bg-white text-slate-600 border-slate-200 hover:border-slate-400"
+                  }`}
+                >
+                  {b.label}
+                </button>
+              ))}
+            </div>
+            {budgetInsightsQuery.isLoading ? (
+              <div className="flex items-center gap-2 text-slate-400 text-sm py-4">
+                <RefreshCw className="w-4 h-4 animate-spin" /> Loading…
+              </div>
+            ) : budgetInsightsQuery.data && budgetInsightsQuery.data.servicePopularity.length > 0 ? (
+              <div className="space-y-2.5">
+                <p className="text-xs text-slate-400 mb-3">
+                  {budgetInsightsQuery.data.total} inquiries in{" "}
+                  <strong className="text-slate-600">{budgetInsightsQuery.data.budgetLabel}</strong>
+                  {" "}— within selected date range
+                </p>
+                {budgetInsightsQuery.data.servicePopularity.map((item) => (
+                  <div key={item.serviceType} className="flex items-center gap-3">
+                    <div className="w-36 text-xs text-slate-600 truncate flex-shrink-0">{item.serviceType || "Unknown"}</div>
+                    <div className="flex-1 bg-slate-100 rounded-full h-2.5">
+                      <div
+                        className="bg-emerald-600 h-2.5 rounded-full transition-all duration-500"
+                        style={{ width: `${item.pct}%` }}
+                      />
+                    </div>
+                    <div className="w-20 text-right text-xs text-slate-500 flex-shrink-0">
+                      {item.count} ({item.pct}%)
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p className="text-slate-400 text-sm py-4 text-center">No data for this budget range.</p>
+            )}
+          </CardContent>
+        </Card>
 
         {/* Summary stats */}
         <div className="grid grid-cols-3 gap-4">

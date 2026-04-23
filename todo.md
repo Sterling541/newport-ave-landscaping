@@ -483,6 +483,17 @@
 
 ## Geocoding & Data Cleanup (Apr 23, 2026)
 
-- [ ] Fix 6 unknown-service rows by matching against original spreadsheet data
-- [ ] Run full geocoding batch for all 601 un-geocoded submissions
-- [ ] Generate AI neighborhood insights after geocoding completes
+- [x] Fix 6 unknown-service rows by matching against original spreadsheet data
+- [x] Run full geocoding batch for all 601 un-geocoded submissions (567 geocoded, 36 skipped — blank/HOA addresses)
+- [x] Generate AI neighborhood insights after geocoding completes
+
+## Budget Range Filter (Apr 23, 2026)
+
+- [x] Add budget normalization helper (BUDGET_BANDS) to db.ts
+- [x] Add getServicePopularityByBudget query helper to db.ts
+- [x] Add budgetInsights tRPC procedure to insightsEngine router
+- [x] Add budget filter pill bar to Daily Pulse dashboard
+- [x] Add budget filter pill bar to Lead Volume Trends dashboard
+- [x] Add "Service Popularity by Budget" breakdown panel showing top services for selected budget band
+- [x] Show inquiry count and % share per service type in the breakdown panel
+- [x] Budget filter respects date range selection on Lead Volume Trends

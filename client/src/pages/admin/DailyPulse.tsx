@@ -12,7 +12,7 @@ import { Button } from "@/components/ui/button";
 import {
   TrendingUp, TrendingDown, Minus, Cloud, Snowflake, Droplets, Wind,
   Sparkles, RefreshCw, CheckCheck, BellOff, Star, X, ChevronRight,
-  Thermometer, Calendar, BarChart2, Zap,
+  Thermometer, Calendar, BarChart2, Zap, DollarSign,
 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -71,6 +71,17 @@ function priorityBadge(priority: string) {
 
 // ── Main Component ────────────────────────────────────────────────────────────
 
+// ── Budget band options ─────────────────────────────────────────────────────
+const BUDGET_BANDS_UI = [
+  { key: "all",          label: "All Budgets" },
+  { key: "under_7500",   label: "Under $7,500" },
+  { key: "7500_15000",   label: "$7,500–$15K" },
+  { key: "15000_25000",  label: "$15K–$25K" },
+  { key: "25000_60000",  label: "$25K–$60K" },
+  { key: "60000_plus",   label: "$60K+" },
+  { key: "other",        label: "Other / Custom" },
+];
+
 // ── Inquiry type options ─────────────────────────────────────────────────────
 const INQUIRY_TYPES = [
   { value: "all", label: "All Inquiries", color: "bg-slate-700 text-white" },
@@ -85,10 +96,15 @@ export default function DailyPulse() {
   const [refreshingWeather, setRefreshingWeather] = useState(false);
   const [generatingInsights, setGeneratingInsights] = useState(false);
   const [selectedType, setSelectedType] = useState("all");
+  const [selectedBudget, setSelectedBudget] = useState("all");
 
   const pulseQuery = trpc.insightsEngine.dailyPulse.useQuery(
     { serviceType: selectedType },
     { refetchInterval: 5 * 60 * 1000 }
+  );
+
+  const budgetInsightsQuery = trpc.insightsEngine.budgetInsights.useQuery(
+    { budgetKey: selectedBudget },
   );
 
   const refreshWeatherMutation = trpc.weather.refreshForecast.useMutation();
@@ -363,6 +379,61 @@ export default function DailyPulse() {
             </CardContent>
           </Card>
         </div>
+
+        {/* Budget Range Filter + Service Popularity Panel */}
+        <Card className="bg-white shadow-sm">
+          <CardHeader className="pb-3">
+            <div className="flex items-center gap-2">
+              <DollarSign className="w-4 h-4 text-emerald-600" />
+              <CardTitle className="text-sm font-semibold text-slate-700">Service Popularity by Budget Range</CardTitle>
+            </div>
+          </CardHeader>
+          <CardContent>
+            <div className="flex flex-wrap gap-2 mb-4">
+              {BUDGET_BANDS_UI.map(b => (
+                <button
+                  key={b.key}
+                  onClick={() => setSelectedBudget(b.key)}
+                  className={`px-3 py-1 rounded-full text-xs font-semibold transition-all border ${
+                    selectedBudget === b.key
+                      ? "bg-emerald-700 text-white border-transparent shadow-sm scale-105"
+                      : "bg-white text-slate-600 border-slate-200 hover:border-slate-400"
+                  }`}
+                >
+                  {b.label}
+                </button>
+              ))}
+            </div>
+            {budgetInsightsQuery.isLoading ? (
+              <div className="flex items-center gap-2 text-slate-400 text-sm py-4">
+                <RefreshCw className="w-4 h-4 animate-spin" /> Loading…
+              </div>
+            ) : budgetInsightsQuery.data && budgetInsightsQuery.data.servicePopularity.length > 0 ? (
+              <div className="space-y-2.5">
+                <p className="text-xs text-slate-400 mb-3">
+                  {budgetInsightsQuery.data.total} inquiries in{" "}
+                  <strong className="text-slate-600">{budgetInsightsQuery.data.budgetLabel}</strong>
+                </p>
+                {budgetInsightsQuery.data.servicePopularity.map((item) => (
+                  <div key={item.serviceType} className="flex items-center gap-3">
+                    <div className="w-36 text-xs text-slate-600 truncate flex-shrink-0">{item.serviceType || "Unknown"}</div>
+                    <div className="flex-1 bg-slate-100 rounded-full h-2.5">
+                      <div
+                        className="bg-emerald-600 h-2.5 rounded-full transition-all duration-500"
+                        style={{ width: `${item.pct}%` }}
+                      />
+                    </div>
+                    <div className="w-20 text-right text-xs text-slate-500 flex-shrink-0">
+                      {item.count} ({item.pct}%)
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p className="text-slate-400 text-sm py-4 text-center">No data for this budget range.</p>
+            )}
+          </CardContent>
+        </Card>
 
         {/* Service Type Breakdown */}
         {data?.serviceTypeCounts && data.serviceTypeCounts.length > 0 && (

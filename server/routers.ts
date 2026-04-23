@@ -44,6 +44,9 @@ import {
   getGeocodedSubmissions,
   getNeighborhoodClusters,
   countUngeocodedSubmissions,
+  getServicePopularityByBudget,
+  BUDGET_BANDS,
+  type BudgetBandKey,
 } from "./db";
 
 // ── Admin guard helper ────────────────────────────────────────────────────────
@@ -494,13 +497,37 @@ export const appRouter = router({
         status: z.enum(["active", "read", "snoozed", "valuable", "dismissed"]),
         feedback: z.string().optional(),
       }))
-      .mutation(async ({ ctx, input }) => {
+       .mutation(async ({ ctx, input }) => {
         requireAdmin(ctx);
         await updateInsightStatus(input.id, input.status, input.feedback);
         return { success: true };
       }),
-  }),
 
+    /** Budget breakdown — service popularity for a given budget band */
+    budgetInsights: protectedProcedure
+      .input(z.object({
+        budgetKey: z.string().optional(),
+        startDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional(),
+        endDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional(),
+      }).optional())
+      .query(async ({ ctx, input }) => {
+        requireAdmin(ctx);
+        const budgetKey = (input?.budgetKey || "all") as BudgetBandKey;
+        const startDate = input?.startDate ? new Date(input.startDate + "T00:00:00") : undefined;
+        const endDate = input?.endDate ? new Date(input.endDate + "T23:59:59") : undefined;
+        const servicePopularity = await getServicePopularityByBudget(budgetKey, startDate, endDate);
+        const total = servicePopularity.reduce((s, r) => s + r.count, 0);
+        return {
+          budgetKey,
+          budgetLabel: budgetKey === "all" ? "All Budgets" :
+            budgetKey === "other" ? "Other / Custom" :
+            BUDGET_BANDS.find(b => b.key === budgetKey)?.label ?? budgetKey,
+          servicePopularity,
+          total,
+          bands: BUDGET_BANDS.map(b => ({ key: b.key, label: b.label })),
+        };
+      }),
+  }),
   // ── Weather ─────────────────────────────────────────────────────────────────
   weather: router({
     /** Fetch and store weather forecast */

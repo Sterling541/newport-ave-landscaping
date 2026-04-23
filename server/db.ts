@@ -1,4 +1,4 @@
-import { and, asc, between, desc, eq, gte, lte, sql } from "drizzle-orm";
+import { and, asc, between, desc, eq, gte, isNull, lte, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import {
   InsertCsvImportJob, InsertInsight, InsertServiceSubmission, InsertUser, InsertWeatherDaily,
@@ -466,4 +466,112 @@ export async function countUngeocodedSubmissions(): Promise<number> {
     .from(serviceSubmissions)
     .where(sql`lat IS NULL AND geocodedAt IS NULL`);
   return Number(rows[0]?.count ?? 0);
+}
+
+// ── Budget helpers ─────────────────────────────────────────────────────────────
+
+/**
+ * Canonical budget bands used across the UI filter.
+ * Maps raw budget strings from the form to a normalized label.
+ */
+export const BUDGET_BANDS = [
+  { label: "Under $7,500",      key: "under_7500",    patterns: ["$5,000 and Under", "$5,000-$10,000", "Under"] },
+  { label: "$7,500–$15,000",    key: "7500_15000",    patterns: ["$7,500-$10,000", "$10,000-$15,000"] },
+  { label: "$15,000–$25,000",   key: "15000_25000",   patterns: ["$15,000-$25,000", "$10,000-$20,000", "$10,000–$20,000", "$10,000-$25,000", "$20,000-$35,000"] },
+  { label: "$25,000–$60,000",   key: "25000_60000",   patterns: ["$25,000-$50,000", "$35,000-$60,000", "$50,000-$75,000"] },
+  { label: "$60,000+",          key: "60000_plus",    patterns: ["$75,000+", "$60,000–$100,000"] },
+] as const;
+
+export type BudgetBandKey = typeof BUDGET_BANDS[number]["key"] | "all" | "other";
+
+/** Return the SQL IN-list for a given budget band key */
+function budgetPatternsForKey(key: BudgetBandKey): string[] | null {
+  if (key === "all" || !key) return null;
+  if (key === "other") return ["Other"];
+  const band = BUDGET_BANDS.find(b => b.key === key);
+  return band ? [...band.patterns] : null;
+}
+
+/**
+ * Get service type popularity for a given budget band.
+ * Returns each service type with count and percentage share.
+ */
+export async function getServicePopularityByBudget(
+  budgetKey: BudgetBandKey,
+  startDate?: Date,
+  endDate?: Date,
+): Promise<Array<{ serviceType: string; count: number; pct: number }>> {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  const conditions: ReturnType<typeof eq>[] = [];
+  if (startDate && endDate) {
+    conditions.push(between(serviceSubmissions.createdAt, startDate, endDate) as ReturnType<typeof eq>);
+  }
+
+  const patterns = budgetPatternsForKey(budgetKey);
+  if (patterns && patterns.length > 0) {
+    // Build OR condition for all matching budget strings
+    const budgetCond = sql`budget IN (${sql.join(patterns.map(p => sql`${p}`), sql`, `)})`;
+    conditions.push(budgetCond as unknown as ReturnType<typeof eq>);
+  }
+
+  let query = db
+    .select({
+      serviceType: serviceSubmissions.serviceType,
+      count: sql<number>`count(*)`,
+    })
+    .from(serviceSubmissions);
+
+  if (conditions.length > 0) query = query.where(and(...conditions)) as typeof query;
+
+  const rows = await query
+    .groupBy(serviceSubmissions.serviceType)
+    .orderBy(desc(sql`count(*)`));
+
+  const total = rows.reduce((sum, r) => sum + Number(r.count), 0);
+  return rows.map(r => ({
+    serviceType: r.serviceType ?? "Unknown",
+    count: Number(r.count),
+    pct: total > 0 ? Math.round((Number(r.count) / total) * 100) : 0,
+  }));
+}
+
+/**
+ * Get submission counts by day, filtered by both service type and budget band.
+ */
+export async function getSubmissionCountsByDayFiltered(
+  startDate: Date,
+  endDate: Date,
+  serviceType?: string,
+  budgetKey?: BudgetBandKey,
+) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  const conditions: ReturnType<typeof eq>[] = [
+    between(serviceSubmissions.createdAt, startDate, endDate) as ReturnType<typeof eq>,
+  ];
+  if (serviceType && serviceType !== "all") {
+    conditions.push(eq(serviceSubmissions.serviceType, serviceType));
+  }
+  if (budgetKey && budgetKey !== "all") {
+    const patterns = budgetPatternsForKey(budgetKey);
+    if (patterns && patterns.length > 0) {
+      const budgetCond = sql`budget IN (${sql.join(patterns.map(p => sql`${p}`), sql`, `)})`;
+      conditions.push(budgetCond as unknown as ReturnType<typeof eq>);
+    }
+  }
+
+  const rows = await db
+    .select({
+      date: sql<string>`DATE(createdAt)`,
+      count: sql<number>`count(*)`,
+    })
+    .from(serviceSubmissions)
+    .where(and(...conditions))
+    .groupBy(sql`DATE(createdAt)`)
+    .orderBy(sql`DATE(createdAt)`);
+
+  return rows.map(r => ({ date: String(r.date), count: Number(r.count) }));
 }
