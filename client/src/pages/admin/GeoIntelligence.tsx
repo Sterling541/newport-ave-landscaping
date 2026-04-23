@@ -12,7 +12,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
-  MapPin, RefreshCw, Sparkles, ChevronRight, X, Mail,
+  MapPin, Flame, RefreshCw, Sparkles, ChevronRight, X, Mail,
   TrendingUp, Users, Loader2, AlertCircle, CheckCircle2,
 } from "lucide-react";
 import { toast } from "sonner";
@@ -85,6 +85,8 @@ export default function GeoIntelligence() {
   const [geocodingBatch, setGeocodingBatch] = useState(false);
   const mapRef = useRef<google.maps.Map | null>(null);
   const markersRef = useRef<google.maps.marker.AdvancedMarkerElement[]>([]);
+  const heatmapRef = useRef<google.maps.visualization.HeatmapLayer | null>(null);
+  const [mapMode, setMapMode] = useState<"pins" | "heatmap">("pins");
 
   // ── tRPC queries ──────────────────────────────────────────────────────────
 
@@ -169,15 +171,70 @@ export default function GeoIntelligence() {
     });
   }
 
+  // Heatmap layer management
+  function showHeatmap(map: google.maps.Map, pinData: Pin[]) {
+    // Clear existing markers
+    markersRef.current.forEach(m => { m.map = null; });
+    markersRef.current = [];
+    // Remove existing heatmap
+    if (heatmapRef.current) {
+      heatmapRef.current.setMap(null);
+      heatmapRef.current = null;
+    }
+    if (!pinData.length) return;
+    const points = pinData.map(p => ({
+      location: new google.maps.LatLng(p.lat, p.lng),
+      weight: 1,
+    }));
+    heatmapRef.current = new google.maps.visualization.HeatmapLayer({
+      data: points,
+      map,
+      radius: 40,
+      opacity: 0.75,
+      gradient: [
+        "rgba(0, 255, 255, 0)",
+        "rgba(0, 255, 255, 1)",
+        "rgba(0, 191, 255, 1)",
+        "rgba(0, 127, 255, 1)",
+        "rgba(0, 63, 255, 1)",
+        "rgba(0, 0, 255, 1)",
+        "rgba(0, 0, 223, 1)",
+        "rgba(0, 0, 191, 1)",
+        "rgba(0, 0, 159, 1)",
+        "rgba(0, 0, 127, 1)",
+        "rgba(63, 0, 91, 1)",
+        "rgba(127, 0, 63, 1)",
+        "rgba(191, 0, 31, 1)",
+        "rgba(255, 0, 0, 1)",
+      ],
+    });
+  }
   // Re-render markers when pins or filter changes
   const prevPinsRef = useRef<Pin[]>([]);
   if (mapRef.current && pins !== prevPinsRef.current) {
     prevPinsRef.current = pins;
-    renderMarkers(mapRef.current, pins);
+    if (mapMode === "heatmap") {
+      showHeatmap(mapRef.current, pins);
+    } else {
+      // Clear heatmap if switching back to pins
+      if (heatmapRef.current) { heatmapRef.current.setMap(null); heatmapRef.current = null; }
+      renderMarkers(mapRef.current, pins);
+    }
   }
 
   // ── Handlers ─────────────────────────────────────────────────────────────
 
+  const handleToggleMapMode = () => {
+    const newMode = mapMode === "pins" ? "heatmap" : "pins";
+    setMapMode(newMode);
+    if (!mapRef.current) return;
+    if (newMode === "heatmap") {
+      showHeatmap(mapRef.current, pins);
+    } else {
+      if (heatmapRef.current) { heatmapRef.current.setMap(null); heatmapRef.current = null; }
+      renderMarkers(mapRef.current, pins);
+    }
+  };
   const handleGeocodeBatch = async () => {
     setGeocodingBatch(true);
     try {
@@ -279,22 +336,49 @@ export default function GeoIntelligence() {
           </div>
         </div>
 
-        {/* Filter pills */}
-        <div className="max-w-screen-2xl mx-auto mt-3 flex flex-wrap gap-2 items-center">
-          <span className="text-xs font-medium text-slate-500 mr-1">Filter:</span>
-          {INQUIRY_TYPES.map(t => (
+        {/* Filter pills + map mode toggle */}
+        <div className="max-w-screen-2xl mx-auto mt-3 flex flex-wrap gap-2 items-center justify-between">
+          <div className="flex flex-wrap gap-2 items-center">
+            <span className="text-xs font-medium text-slate-500 mr-1">Filter:</span>
+            {INQUIRY_TYPES.map(t => (
+              <button
+                key={t.value}
+                onClick={() => handleTypeChange(t.value)}
+                className={`px-3 py-1 rounded-full text-xs font-semibold transition-all border ${
+                  selectedType === t.value
+                    ? `${t.pill} border-transparent shadow-sm scale-105`
+                    : "bg-white text-slate-600 border-slate-200 hover:border-slate-400"
+                }`}
+              >
+                {t.label}
+              </button>
+            ))}
+          </div>
+          {/* Map mode toggle */}
+          <div className="flex items-center gap-1 bg-slate-100 rounded-lg p-0.5">
             <button
-              key={t.value}
-              onClick={() => handleTypeChange(t.value)}
-              className={`px-3 py-1 rounded-full text-xs font-semibold transition-all border ${
-                selectedType === t.value
-                  ? `${t.pill} border-transparent shadow-sm scale-105`
-                  : "bg-white text-slate-600 border-slate-200 hover:border-slate-400"
+              onClick={() => { if (mapMode !== "pins") handleToggleMapMode(); }}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
+                mapMode === "pins"
+                  ? "bg-white text-slate-900 shadow-sm"
+                  : "text-slate-500 hover:text-slate-700"
               }`}
             >
-              {t.label}
+              <MapPin className="w-3.5 h-3.5" />
+              Pins
             </button>
-          ))}
+            <button
+              onClick={() => { if (mapMode !== "heatmap") handleToggleMapMode(); }}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
+                mapMode === "heatmap"
+                  ? "bg-white text-slate-900 shadow-sm"
+                  : "text-slate-500 hover:text-slate-700"
+              }`}
+            >
+              <Flame className="w-3.5 h-3.5" />
+              Heatmap
+            </button>
+          </div>
         </div>
       </div>
 

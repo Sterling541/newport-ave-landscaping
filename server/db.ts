@@ -1,8 +1,8 @@
 import { and, asc, between, desc, eq, gte, isNull, lte, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import {
-  InsertCsvImportJob, InsertInsight, InsertServiceSubmission, InsertUser, InsertWeatherDaily,
-  csvImportJobs, insights, serviceSubmissions, users, weatherDaily,
+  InsertCsvImportJob, InsertInsight, InsertLeadFollowUp, InsertServiceSubmission, InsertUser, InsertWeatherDaily,
+  LeadFollowUp, csvImportJobs, insights, leadFollowUps, serviceSubmissions, users, weatherDaily,
 } from "../drizzle/schema";
 import { ENV } from './_core/env';
 
@@ -651,4 +651,109 @@ export async function getBudgetTrendByYear() {
       year: Number(year),
       ...Object.fromEntries(BUDGET_BAND_LABELS.map(b => [b, bands[b] || 0])),
     }));
+}
+
+// ── Lead Follow-Up Helpers ─────────────────────────────────────────────────
+
+// leadFollowUps, InsertLeadFollowUp, LeadFollowUp — imported at top of file
+
+/** Get the latest follow-up status for a submission */
+export async function getLatestFollowUp(submissionId: number): Promise<LeadFollowUp | null> {
+  const db = await getDb();
+  if (!db) return null;
+  const rows = await db
+    .select()
+    .from(leadFollowUps)
+    .where(eq(leadFollowUps.submissionId, submissionId))
+    .orderBy(desc(leadFollowUps.createdAt))
+    .limit(1);
+  return rows[0] ?? null;
+}
+
+/** Get all follow-up history for a submission */
+export async function getFollowUpHistory(submissionId: number): Promise<LeadFollowUp[]> {
+  const db = await getDb();
+  if (!db) return [];
+  return db
+    .select()
+    .from(leadFollowUps)
+    .where(eq(leadFollowUps.submissionId, submissionId))
+    .orderBy(desc(leadFollowUps.createdAt));
+}
+
+/** Create a new follow-up entry */
+export async function createFollowUp(data: InsertLeadFollowUp) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  return db.insert(leadFollowUps).values(data);
+}
+
+/** Get all leads with pending reminders (remindAt <= now, not acked) */
+export async function getPendingCallbacks() {
+  const db = await getDb();
+  if (!db) return [];
+  const now = new Date();
+  // Get latest follow-up per submission that has a pending reminder
+  const rows = await db
+    .select({
+      followUp: leadFollowUps,
+      submission: {
+        id: serviceSubmissions.id,
+        firstName: serviceSubmissions.firstName,
+        lastName: serviceSubmissions.lastName,
+        phone: serviceSubmissions.phone,
+        email: serviceSubmissions.email,
+        serviceType: serviceSubmissions.serviceType,
+        siteAddress: serviceSubmissions.siteAddress,
+        createdAt: serviceSubmissions.createdAt,
+      },
+    })
+    .from(leadFollowUps)
+    .innerJoin(serviceSubmissions, eq(leadFollowUps.submissionId, serviceSubmissions.id))
+    .where(
+      and(
+        sql`${leadFollowUps.remindAt} IS NOT NULL`,
+        sql`${leadFollowUps.remindAt} <= ${now}`,
+        eq(leadFollowUps.reminderAcked, false),
+      )
+    )
+    .orderBy(leadFollowUps.remindAt);
+  return rows;
+}
+
+/** Acknowledge a reminder */
+export async function ackReminder(followUpId: number) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  return db
+    .update(leadFollowUps)
+    .set({ reminderAcked: true })
+    .where(eq(leadFollowUps.id, followUpId));
+}
+
+/** Get follow-up status summary for all submissions (latest status per submission) */
+export async function getFollowUpStatusSummary() {
+  const db = await getDb();
+  if (!db) return [];
+  // Get the latest follow-up per submission
+  const rows = await db
+    .select({
+      submissionId: leadFollowUps.submissionId,
+      status: leadFollowUps.status,
+      remindAt: leadFollowUps.remindAt,
+      reminderAcked: leadFollowUps.reminderAcked,
+      createdAt: leadFollowUps.createdAt,
+    })
+    .from(leadFollowUps)
+    .orderBy(desc(leadFollowUps.createdAt));
+  // Deduplicate: keep only the latest per submissionId
+  const seen = new Set<number>();
+  const latest: typeof rows = [];
+  for (const row of rows) {
+    if (!seen.has(row.submissionId)) {
+      seen.add(row.submissionId);
+      latest.push(row);
+    }
+  }
+  return latest;
 }

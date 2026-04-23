@@ -57,6 +57,13 @@ import {
 } from "lucide-react";
 import AdminLayout from "@/components/AdminLayout";
 import { getLoginUrl } from "@/const";
+import { toast } from "sonner";
+import {
+  PhoneCall, PhoneOff, PhoneMissed, CalendarCheck, ThumbsDown, Clock, Trophy, XCircle,
+} from "lucide-react";
+import {
+  DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
@@ -344,6 +351,33 @@ const PRIORITY_COLORS: Record<string, string> = {
   low: "bg-stone-100 text-stone-600 border-stone-200",
 };
 
+
+// ── Follow-up status config ──────────────────────────────────────────────────
+const FOLLOW_UP_STATUSES = [
+  { value: "called_scheduled",  label: "Called & Scheduled",  icon: PhoneCall,     color: "bg-emerald-100 text-emerald-800 border-emerald-200" },
+  { value: "left_voicemail",    label: "Left Voicemail",      icon: PhoneOff,      color: "bg-amber-100 text-amber-800 border-amber-200" },
+  { value: "appointment_set",   label: "Appt. Confirmed",     icon: CalendarCheck, color: "bg-blue-100 text-blue-800 border-blue-200" },
+  { value: "no_answer",         label: "No Answer",           icon: PhoneMissed,   color: "bg-slate-100 text-slate-600 border-slate-200" },
+  { value: "not_interested",    label: "Not Interested",      icon: ThumbsDown,    color: "bg-red-100 text-red-700 border-red-200" },
+  { value: "follow_up_needed",  label: "Follow-Up Needed",    icon: Clock,         color: "bg-orange-100 text-orange-800 border-orange-200" },
+  { value: "closed_won",        label: "Closed — Won",        icon: Trophy,        color: "bg-green-100 text-green-800 border-green-200" },
+  { value: "closed_lost",       label: "Closed — Lost",       icon: XCircle,       color: "bg-rose-100 text-rose-700 border-rose-200" },
+] as const;
+type FollowUpStatus = typeof FOLLOW_UP_STATUSES[number]["value"];
+
+function FollowUpBadge({ status }: { status: string | null | undefined }) {
+  if (!status) return <span className="text-xs text-slate-400 italic">No contact</span>;
+  const cfg = FOLLOW_UP_STATUSES.find(s => s.value === status);
+  if (!cfg) return <span className="text-xs text-slate-400">{status}</span>;
+  const Icon = cfg.icon;
+  return (
+    <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium border ${cfg.color}`}>
+      <Icon className="w-3 h-3" />
+      {cfg.label}
+    </span>
+  );
+}
+
 export default function AdminSubmissions() {
   const { user, loading: authLoading } = useAuth();
   const [search, setSearch] = useState("");
@@ -370,6 +404,24 @@ export default function AdminSubmissions() {
     { enabled: !!user && insightsEnabled, staleTime: 5 * 60 * 1000 }
   );
 
+  const followUpMutation = trpc.followUp.logAction.useMutation({
+    onSuccess: (result, variables) => {
+      const statusCfg = FOLLOW_UP_STATUSES.find(s => s.value === variables.status);
+      if (variables.status === "left_voicemail" && result.remindAt) {
+        const remindDate = new Date(result.remindAt).toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" });
+        toast.success(`Voicemail logged — reminder set for ${remindDate} at 9am`);
+      } else {
+        toast.success(`Status updated: ${statusCfg?.label ?? variables.status}`);
+      }
+      statusSummaryQuery.refetch();
+    },
+    onError: (err) => toast.error(`Failed to log status: ${err.message}`),
+  });
+  const statusSummaryQuery = trpc.followUp.statusSummary.useQuery(undefined, { enabled: !!user });
+  // Build a map of submissionId -> latest follow-up status
+  const followUpMap = new Map<number, string>(
+    (statusSummaryQuery.data ?? []).map(r => [r.submissionId, r.status])
+  );
   const deleteMutation = trpc.submissions.delete.useMutation({
     onSuccess: () => {
       setDeleteId(null);
@@ -615,6 +667,7 @@ export default function AdminSubmissions() {
                       </span>
                     </th>
                     <th className="px-4 py-3 text-left text-xs font-semibold text-stone-600 uppercase tracking-wide whitespace-nowrap">Address</th>
+                    <th className="px-4 py-3 text-left text-xs font-semibold text-stone-600 uppercase tracking-wide whitespace-nowrap">Follow-Up</th>
                     <th className="px-4 py-3 text-right text-xs font-semibold text-stone-600 uppercase tracking-wide">Actions</th>
                   </tr>
                 </thead>
@@ -641,6 +694,33 @@ export default function AdminSubmissions() {
                         </span>
                       </td>
                       <td className="px-4 py-3 text-stone-600 max-w-[200px] truncate">{row.siteAddress}</td>
+                      <td className="px-4 py-3">
+                        <DropdownMenu>
+                          <DropdownMenuTrigger asChild>
+                            <button className="focus:outline-none">
+                              <FollowUpBadge status={followUpMap.get(row.id) ?? null} />
+                            </button>
+                          </DropdownMenuTrigger>
+                          <DropdownMenuContent align="start" className="w-52">
+                            {FOLLOW_UP_STATUSES.map(s => {
+                              const Icon = s.icon;
+                              return (
+                                <DropdownMenuItem
+                                  key={s.value}
+                                  className="gap-2 cursor-pointer"
+                                  onClick={() => followUpMutation.mutate({ submissionId: row.id, status: s.value as FollowUpStatus })}
+                                >
+                                  <Icon className="w-3.5 h-3.5" />
+                                  {s.label}
+                                  {s.value === "left_voicemail" && (
+                                    <span className="ml-auto text-xs text-amber-600">+reminder</span>
+                                  )}
+                                </DropdownMenuItem>
+                              );
+                            })}
+                          </DropdownMenuContent>
+                        </DropdownMenu>
+                      </td>
                       <td className="px-4 py-3">
                         <div className="flex items-center justify-end gap-1">
                           <Button

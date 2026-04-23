@@ -517,3 +517,37 @@
 - [ ] Daily Pulse auto-loads AI trend insights on page load (no manual button click)
 - [ ] AI insights displayed prominently at the top of Daily Pulse
 - [ ] Admin sidebar has collapsible nav with icons for each tool
+
+## New Features — April 23 Batch 2
+
+- [ ] DB schema: lead_follow_up_status table (submission_id, status, notes, remind_at, created_at, updated_at)
+- [ ] Backend: tRPC procedures for get/set lead follow-up status
+- [ ] Backend: tRPC procedure to fetch leads with pending callbacks (remind_at <= today)
+- [ ] Backend: store daily weather snapshots for correlation chart
+- [ ] Backend: tRPC procedure for weather+lead volume history (last 30 days)
+- [ ] Daily Pulse: Weather + Lead Volume dual-axis correlation chart (recharts)
+- [ ] Daily Pulse: "Callbacks Due Today" panel showing leads needing a follow-up call
+- [ ] Submissions page: Follow-up status buttons per lead (Called & Scheduled, Left Voicemail, Appointment Scheduled, Not Interested, No Answer)
+- [ ] Submissions page: Left Voicemail auto-schedules next-day reminder
+- [ ] Submissions page: Status badge shown on each lead row
+- [ ] Tests: follow-up status CRUD procedures
+- [ ] Tests: callback reminder logic
+- [ ] Geo-Intelligence map: heatmap toggle layer (density view vs pin view)
+
+## Features Added (April 23 - Session 3)
+- [x] Weather + Lead Volume correlation chart on Daily Pulse (dual-axis: temp bands + lead bars, 14/30/60/90d range)
+- [x] Lead follow-up status system: dropdown on each submission row (Called & Scheduled, Left Voicemail, Appt Confirmed, No Answer, Not Interested, Follow-Up Needed, Closed Won/Lost)
+- [x] Auto next-day callback reminder when "Left Voicemail" is selected
+- [x] Callbacks-Due panel on Daily Pulse (amber alert card with call button + dismiss)
+- [x] Heatmap toggle on Geo-Intelligence map (Pins / Heatmap mode switcher)
+- [x] weather.correlation backend endpoint (joins weather + lead counts by day)
+- [x] followUp router: logAction, pendingCallbacks, ackReminder, statusSummary
+
+## Features Added (April 23 - Session 3)
+- [x] Weather + Lead Volume correlation chart on Daily Pulse (dual-axis: temp bands + lead bars, 14/30/60/90d range)
+- [x] Lead follow-up status system: dropdown on each submission row
+- [x] Auto next-day callback reminder when Left Voicemail is selected
+- [x] Callbacks-Due panel on Daily Pulse (amber alert card with call button + dismiss)
+- [x] Heatmap toggle on Geo-Intelligence map (Pins / Heatmap mode switcher)
+- [x] weather.correlation backend endpoint
+- [x] followUp router: logAction, pendingCallbacks, ackReminder, statusSummary

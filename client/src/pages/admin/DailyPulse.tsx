@@ -13,10 +13,11 @@ import { Button } from "@/components/ui/button";
 import {
   TrendingUp, TrendingDown, Minus, Cloud, Snowflake, Droplets, Wind,
   Sparkles, RefreshCw, CheckCheck, BellOff, Star, X, ChevronRight,
-  Thermometer, Calendar, BarChart2, Zap, DollarSign, Brain, Lightbulb,
+  Thermometer, Calendar, BarChart2, Zap, DollarSign, Brain, Lightbulb, PhoneCall, BellRing,
 } from "lucide-react";
 import {
-  AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
+  AreaChart, Area, ComposedChart, Bar, Line,
+  XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
 } from "recharts";
 import { toast } from "sonner";
 
@@ -116,11 +117,19 @@ export default function DailyPulse() {
     { budgetKey: selectedBudget },
   );
   const budgetTrendQuery = trpc.insightsEngine.budgetTrend.useQuery();
+  const [corrDays, setCorrDays] = useState(30);
+  const corrQuery = trpc.weather.correlation.useQuery({ days: corrDays });
   const generateBudgetInsightsMutation = trpc.insightsEngine.generateBudgetInsights.useMutation();
 
   const refreshWeatherMutation = trpc.weather.refreshForecast.useMutation();
   const generateInsightsMutation = trpc.insightsEngine.generateInsights.useMutation();
   const updateInsightMutation = trpc.insightsEngine.updateInsightStatus.useMutation();
+  const callbacksQuery = trpc.followUp.pendingCallbacks.useQuery(undefined, {
+    refetchInterval: 60 * 1000, // refresh every minute
+  });
+  const ackReminderMutation = trpc.followUp.ackReminder.useMutation({
+    onSuccess: () => { callbacksQuery.refetch(); toast.success("Reminder dismissed"); },
+  });
 
   const data = pulseQuery.data;
 
@@ -430,6 +439,174 @@ export default function DailyPulse() {
           </Card>
         </div>
 
+        {/* Callbacks Due Today */}
+        {callbacksQuery.data && callbacksQuery.data.length > 0 && (
+          <Card className="bg-amber-50 border-amber-200 shadow-sm">
+            <CardHeader className="pb-2">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <BellRing className="w-4 h-4 text-amber-600 animate-pulse" />
+                  <CardTitle className="text-sm font-semibold text-amber-800">
+                    Callbacks Due — {callbacksQuery.data.length} lead{callbacksQuery.data.length !== 1 ? "s" : ""} to follow up
+                  </CardTitle>
+                </div>
+                <Badge className="bg-amber-600 text-white text-xs">{callbacksQuery.data.length}</Badge>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-2">
+                {callbacksQuery.data.map((cb) => {
+                  const fu = cb.followUp;
+                  const sub = cb.submission;
+                  return (
+                    <div key={fu.id} className="flex items-center justify-between gap-3 bg-white rounded-lg px-3 py-2 border border-amber-100">
+                      <div className="flex items-center gap-3 min-w-0">
+                        <PhoneCall className="w-4 h-4 text-amber-500 shrink-0" />
+                        <div className="min-w-0">
+                          <p className="text-sm font-semibold text-slate-900 truncate">
+                            {sub.firstName} {sub.lastName}
+                          </p>
+                          <p className="text-xs text-slate-500 truncate">
+                            {sub.phone ?? sub.email ?? "No contact info"}
+                            {sub.serviceType && (
+                              <span className="ml-2 text-emerald-700">{sub.serviceType}</span>
+                            )}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-2 shrink-0">
+                        {sub.phone && (
+                          <a
+                            href={`tel:${sub.phone}`}
+                            className="text-xs px-2.5 py-1 bg-emerald-600 text-white rounded-md hover:bg-emerald-700 font-medium"
+                          >
+                            Call
+                          </a>
+                        )}
+                        <button
+                          onClick={() => ackReminderMutation.mutate({ followUpId: fu.id })}
+                          className="text-xs px-2.5 py-1 bg-slate-100 text-slate-600 rounded-md hover:bg-slate-200 font-medium"
+                        >
+                          Dismiss
+                        </button>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </CardContent>
+          </Card>
+        )}
+        {/* Weather + Lead Volume Correlation Chart */}
+        <Card className="bg-white shadow-sm">
+          <CardHeader className="pb-2">
+            <div className="flex items-center justify-between flex-wrap gap-2">
+              <div className="flex items-center gap-2">
+                <BarChart2 className="w-4 h-4 text-blue-500" />
+                <CardTitle className="text-sm font-semibold text-slate-700">
+                  Weather vs. Lead Volume Correlation
+                </CardTitle>
+              </div>
+              <div className="flex items-center gap-1">
+                {[14, 30, 60, 90].map(d => (
+                  <button
+                    key={d}
+                    onClick={() => setCorrDays(d)}
+                    className={`text-xs px-2.5 py-1 rounded-full font-medium transition-colors ${
+                      corrDays === d
+                        ? "bg-slate-800 text-white"
+                        : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                    }`}
+                  >
+                    {d}d
+                  </button>
+                ))}
+              </div>
+            </div>
+          </CardHeader>
+          <CardContent>
+            {corrQuery.isLoading ? (
+              <div className="h-48 flex items-center justify-center text-slate-400 text-sm">Loading chart…</div>
+            ) : corrQuery.data && corrQuery.data.length > 0 ? (
+              <div>
+                <ResponsiveContainer width="100%" height={220}>
+                  <ComposedChart data={corrQuery.data} margin={{ top: 4, right: 8, left: -16, bottom: 0 }}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
+                    <XAxis
+                      dataKey="date"
+                      tick={{ fontSize: 10, fill: "#94a3b8" }}
+                      tickFormatter={(v: string) => {
+                        const d = new Date(v + "T12:00:00");
+                        return `${d.getMonth() + 1}/${d.getDate()}`;
+                      }}
+                      interval="preserveStartEnd"
+                    />
+                    <YAxis yAxisId="temp" orientation="right" tick={{ fontSize: 10, fill: "#94a3b8" }} unit="°F" width={40} />
+                    <YAxis yAxisId="leads" orientation="left" tick={{ fontSize: 10, fill: "#94a3b8" }} allowDecimals={false} width={28} />
+                    <Tooltip
+                      contentStyle={{ fontSize: 11, borderRadius: 8 }}
+                      formatter={(value: number, name: string) => {
+                        if (name === "High °F") return [`${value}°F`, "High Temp"];
+                        if (name === "Low °F") return [`${value}°F`, "Low Temp"];
+                        if (name === "Leads") return [value, "Lead Volume"];
+                        return [value, name];
+                      }}
+                      labelFormatter={(label: string) => {
+                        const d = new Date(label + "T12:00:00");
+                        return d.toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" });
+                      }}
+                    />
+                    <Legend wrapperStyle={{ fontSize: 11 }} />
+                    <Area
+                      yAxisId="temp"
+                      type="monotone"
+                      dataKey="tempHighF"
+                      name="High °F"
+                      stroke="#f97316"
+                      fill="#fed7aa"
+                      fillOpacity={0.3}
+                      strokeWidth={1.5}
+                      dot={false}
+                      connectNulls
+                    />
+                    <Area
+                      yAxisId="temp"
+                      type="monotone"
+                      dataKey="tempLowF"
+                      name="Low °F"
+                      stroke="#60a5fa"
+                      fill="#bfdbfe"
+                      fillOpacity={0.2}
+                      strokeWidth={1.5}
+                      dot={false}
+                      connectNulls
+                    />
+                    <Bar
+                      yAxisId="leads"
+                      dataKey="leads"
+                      name="Leads"
+                      fill="#10b981"
+                      fillOpacity={0.85}
+                      radius={[3, 3, 0, 0]}
+                      maxBarSize={18}
+                    />
+                  </ComposedChart>
+                </ResponsiveContainer>
+                <p className="text-xs text-slate-400 mt-1 text-center">
+                  Green bars = daily lead volume · Orange band = high temp · Blue band = low temp
+                  {corrQuery.data.some(r => r.tempHighF === null) && (
+                    <span className="ml-1 text-amber-500">· Refresh weather to fill gaps</span>
+                  )}
+                </p>
+              </div>
+            ) : (
+              <div className="h-32 flex flex-col items-center justify-center gap-2 text-slate-400 text-sm">
+                <BarChart2 className="w-8 h-8 text-slate-200" />
+                <p>No data yet. Refresh weather and wait for leads to accumulate.</p>
+              </div>
+            )}
+          </CardContent>
+        </Card>
         {/* Budget Range Filter + Service Popularity Panel */}
         <Card className="bg-white shadow-sm">
           <CardHeader className="pb-3">

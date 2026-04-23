@@ -204,3 +204,42 @@ export const csvImportJobs = mysqlTable("csv_import_jobs", {
 
 export type CsvImportJob = typeof csvImportJobs.$inferSelect;
 export type InsertCsvImportJob = typeof csvImportJobs.$inferInsert;
+
+/**
+ * Lead follow-up tracking — logs every status change on a submission.
+ * Supports voicemail reminders, appointment scheduling, etc.
+ */
+export const leadFollowUps = mysqlTable("lead_follow_ups", {
+  id: int("id").autoincrement().primaryKey(),
+  submissionId: int("submissionId").notNull(),
+  /**
+   * Status options:
+   *   called_scheduled   — Called and scheduled an appointment
+   *   left_voicemail     — Left a voicemail; remindAt set to next business day
+   *   appointment_set    — Appointment confirmed in calendar
+   *   no_answer          — No answer; no auto-reminder
+   *   not_interested     — Lead declined / not interested
+   *   follow_up_needed   — Generic flag: needs follow-up
+   *   closed_won         — Job won
+   *   closed_lost        — Job lost
+   */
+  status: mysqlEnum("followUpStatus", [
+    "called_scheduled",
+    "left_voicemail",
+    "appointment_set",
+    "no_answer",
+    "not_interested",
+    "follow_up_needed",
+    "closed_won",
+    "closed_lost",
+  ]).notNull(),
+  notes: text("notes"),
+  /** When to remind — set automatically for left_voicemail (next business day) */
+  remindAt: timestamp("remindAt"),
+  /** Whether the reminder has been acknowledged */
+  reminderAcked: boolean("reminderAcked").default(false).notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+export type LeadFollowUp = typeof leadFollowUps.$inferSelect;
+export type InsertLeadFollowUp = typeof leadFollowUps.$inferInsert;

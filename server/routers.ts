@@ -49,6 +49,12 @@ import {
   BUDGET_BANDS,
   BUDGET_BAND_LABELS,
   type BudgetBandKey,
+  getLatestFollowUp,
+  getFollowUpHistory,
+  createFollowUp,
+  getPendingCallbacks,
+  ackReminder,
+  getFollowUpStatusSummary,
 } from "./db";
 
 // ── Admin guard helper ────────────────────────────────────────────────────────
@@ -688,6 +694,42 @@ Return JSON with: { insights: [{ title: string, finding: string, action: string,
         requireAdmin(ctx);
         return getWeatherRange(input.startDate, input.endDate);
       }),
+    /** Get combined weather + lead volume by day for correlation chart */
+    correlation: protectedProcedure
+      .input(z.object({
+        days: z.number().min(7).max(90).default(30),
+      }))
+      .query(async ({ ctx, input }) => {
+        requireAdmin(ctx);
+        const endDate = new Date();
+        const startDate = new Date();
+        startDate.setDate(startDate.getDate() - input.days);
+        const startStr = startDate.toISOString().slice(0, 10);
+        const endStr = endDate.toISOString().slice(0, 10);
+        // Get weather rows
+        const weatherRows = await getWeatherRange(startStr, endStr);
+        // Get lead counts per day
+        const leadRows = await getSubmissionCountsByDay(startDate, endDate);
+        const leadMap = new Map(leadRows.map(r => [r.date, r.count]));
+        // Merge by date
+        const merged = weatherRows.map(w => ({
+          date: String(w.date),
+          tempHighF: w.tempHighF ?? null,
+          tempLowF: w.tempLowF ?? null,
+          precipMm: w.precipMm ?? null,
+          weatherCode: w.weatherCode ?? 0,
+          leads: leadMap.get(String(w.date)) ?? 0,
+        }));
+        // Fill in any lead-only days (no weather data)
+        const weatherDates = new Set(merged.map(r => r.date));
+        for (const lr of leadRows) {
+          if (!weatherDates.has(lr.date)) {
+            merged.push({ date: lr.date, tempHighF: null, tempLowF: null, precipMm: null, weatherCode: 0, leads: lr.count });
+          }
+        }
+        merged.sort((a, b) => a.date.localeCompare(b.date));
+        return merged;
+      }),
   }),
 
   // ── Geo-Intelligence ─────────────────────────────────────────────────────────────────────────────
@@ -852,6 +894,79 @@ Be specific, data-driven, and actionable. Format as JSON with keys: bestMonths (
           },
         };
       }),
+  }),
+
+  // ── Lead Follow-Up ──────────────────────────────────────────────────────────────────────────
+  followUp: router({
+    /** Get the latest follow-up status for a submission */
+    getLatest: protectedProcedure
+      .input(z.object({ submissionId: z.number() }))
+      .query(async ({ ctx, input }) => {
+        requireAdmin(ctx);
+        return getLatestFollowUp(input.submissionId);
+      }),
+    /** Get full follow-up history for a submission */
+    getHistory: protectedProcedure
+      .input(z.object({ submissionId: z.number() }))
+      .query(async ({ ctx, input }) => {
+        requireAdmin(ctx);
+        return getFollowUpHistory(input.submissionId);
+      }),
+    /** Log a new follow-up action */
+    logAction: protectedProcedure
+      .input(z.object({
+        submissionId: z.number(),
+        status: z.enum([
+          "called_scheduled",
+          "left_voicemail",
+          "appointment_set",
+          "no_answer",
+          "not_interested",
+          "follow_up_needed",
+          "closed_won",
+          "closed_lost",
+        ]),
+        notes: z.string().max(2000).optional(),
+      }))
+      .mutation(async ({ ctx, input }) => {
+        requireAdmin(ctx);
+        // For left_voicemail: auto-set remindAt to next business day at 9am
+        let remindAt: Date | undefined;
+        if (input.status === "left_voicemail") {
+          const d = new Date();
+          d.setDate(d.getDate() + 1);
+          if (d.getDay() === 0) d.setDate(d.getDate() + 1); // Sunday -> Monday
+          if (d.getDay() === 6) d.setDate(d.getDate() + 2); // Saturday -> Monday
+          d.setHours(9, 0, 0, 0);
+          remindAt = d;
+        }
+        await createFollowUp({
+          submissionId: input.submissionId,
+          status: input.status,
+          notes: input.notes ?? null,
+          remindAt: remindAt ?? null,
+          reminderAcked: false,
+        });
+        return { success: true, remindAt: remindAt ?? null };
+      }),
+    /** Get all leads with pending callbacks (remindAt <= now) */
+    pendingCallbacks: protectedProcedure.query(async ({ ctx }) => {
+      requireAdmin(ctx);
+      return getPendingCallbacks();
+    }),
+    /** Acknowledge a reminder (dismiss it) */
+    ackReminder: protectedProcedure
+      .input(z.object({ followUpId: z.number() }))
+      .mutation(async ({ ctx, input }) => {
+        requireAdmin(ctx);
+        await ackReminder(input.followUpId);
+        return { success: true };
+      }),
+    /** Get latest follow-up status for all submissions (for badges) */
+    statusSummary: protectedProcedure.query(async ({ ctx }) => {
+      requireAdmin(ctx);
+      return getFollowUpStatusSummary();
+    }),
   }),
 
   // ── CSV Import ──────────────────────────────────────────────────────────────────────────────
