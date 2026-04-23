@@ -37,37 +37,6 @@ async function startServer() {
   // Configure body parser with larger size limit for file uploads
   app.use(express.json({ limit: "50mb" }));
   app.use(express.urlencoded({ limit: "50mb", extended: true }));
-  // Temporary diagnostic endpoint — remove after SSR verification
-  app.get("/api/ssr-status", async (_req, res) => {
-    try {
-      const pathMod = await import("path");
-      const fsMod = await import("fs");
-      const argv1 = process.argv[1] ?? "";
-      const distDir = pathMod.default.dirname(argv1);
-      const ssrPath = pathMod.default.join(distDir, "server", "entry-server.js");
-      const indexPath = pathMod.default.join(distDir, "public", "index.html");
-      let renderTest = null;
-      let renderError = null;
-      if (fsMod.default.existsSync(ssrPath)) {
-        try {
-          const mod = await import(ssrPath);
-          const result = mod.render("/");
-          renderTest = { htmlLength: result.html?.length ?? 0, notFound: result.notFound, hasH1: result.html?.includes('<h1') };
-        } catch(e: unknown) { renderError = (e as Error).message; }
-      }
-      res.json({
-        argv1, distDir,
-        ssrExists: fsMod.default.existsSync(ssrPath),
-        indexExists: fsMod.default.existsSync(indexPath),
-        nodeEnv: process.env.NODE_ENV,
-        renderTest, renderError,
-        buildVersion: "0e9ca7a5"
-      });
-    } catch (err: unknown) {
-      res.json({ error: (err as Error).message });
-    }
-  });
-
   // 301 redirects from old WordPress site URLs — must be before OAuth and tRPC
   registerRedirects(app);
 

@@ -586,3 +586,9 @@
 - [x] SSR verified locally: 35/35 checks passing, title/canonical/description/H1 all in <head>
 - [x] 128/128 tests passing, 0 TypeScript errors
 - [x] Checkpoint saved and published — SSR live on deployed server
+- [x] Discovered: Manus CDN serves static files at edge, Express SSR middleware never runs for non-/api/* routes
+- [x] Solution: build-time static pre-rendering via scripts/prerender.mjs (generates per-route index.html with full SSR HTML)
+- [x] Solution: build-time redirect pages via scripts/generate-redirects.mjs (meta-refresh + canonical for old WordPress URLs)
+- [x] Both scripts added to pnpm build pipeline
+- [x] 67 pages pre-rendered, 53 redirect pages generated
+- [x] 128/128 tests passing, 0 TypeScript errors
