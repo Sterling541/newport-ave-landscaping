@@ -601,7 +601,7 @@
 - [x] Content fix: fix "0 Years" counter bug — now calculates dynamically from 2005
 - [x] Content fix: update footer copyright year to 2026
 - [x] Content fix: remove Aurora from team page; replaced name in review text with "A technician"
-- [ ] Add vercel.json configuration for Express SSR deployment
+- [x] Add vercel.json configuration for Express SSR deployment
 - [ ] Export project to GitHub via Manus Settings → GitHub
 - [ ] Provision TiDB Serverless cluster (PingCAP)
 - [ ] Export Manus database and import to TiDB Serverless
