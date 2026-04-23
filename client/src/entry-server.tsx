@@ -20,6 +20,7 @@ export interface HelmetContext {
 export interface RenderResult {
   html: string;
   helmetContext: HelmetContext;
+  notFound: boolean;
 }
 
 export function render(url: string): RenderResult {
@@ -51,5 +52,9 @@ export function render(url: string): RenderResult {
     </HelmetProvider>
   );
 
-  return { html, helmetContext };
+  // Detect 404: wouter renders NotFound when no route matches.
+  // The NotFound component renders a unique id="not-found-button-group" element.
+  const notFound = html.includes('id="not-found-button-group"');
+
+  return { html, helmetContext, notFound };
 }

@@ -108,7 +108,7 @@ export function registerSSR(app: Express): void {
   const indexHtmlTemplate = fs.readFileSync(indexHtmlPath, "utf-8");
 
   // Dynamically import the SSR bundle (built by vite build --ssr)
-  type RenderFn = (url: string) => { html: string; helmetContext: unknown };
+  type RenderFn = (url: string) => { html: string; helmetContext: unknown; notFound: boolean };
   let renderFn: RenderFn | null = null;
 
   import(ssrBundlePath)
@@ -134,7 +134,7 @@ export function registerSSR(app: Express): void {
 
     try {
       const url = req.originalUrl;
-      const { html: appHtml } = renderFn(url);
+      const { html: appHtml, notFound } = renderFn(url);
 
       // Split rendered HTML: head tags (title, meta, etc.) + body HTML
       const { headTags, bodyHtml } = extractHelmetTags(appHtml);
@@ -170,7 +170,8 @@ export function registerSSR(app: Express): void {
       // Inject the rendered React body HTML into the root div
       page = page.replace('<div id="root"></div>', `<div id="root">${bodyHtml}</div>`);
 
-      res.status(200).set({ "Content-Type": "text/html" }).end(page);
+      const statusCode = notFound ? 404 : 200;
+      res.status(statusCode).set({ "Content-Type": "text/html" }).end(page);
     } catch (err) {
       // On SSR error, fall through to static serving (graceful degradation)
       console.error(`[SSR] Render error for ${req.originalUrl}:`, err);
