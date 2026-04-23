@@ -44,14 +44,28 @@ await build({
   entryPoints: [path.join(root, 'server', 'vercel-entry.ts')],
   outfile: path.join(funcDir, 'index.js'),
   platform: 'node',
-  packages: 'external',
   bundle: true,
   format: 'esm',
   target: 'node20',
-  define: {
-    // Tell the handler where to find the SSR bundle at runtime
-    // (import.meta.dirname will be the func directory at runtime)
-  },
+  // Bundle all runtime dependencies into the function.
+  // Mark build-time-only packages as external (they're pulled in transitively
+  // by server/_core/vite.ts but are never called in production mode):
+  external: [
+    // Vite and its ecosystem — only used in dev mode via setupVite()
+    'vite',
+    '@tailwindcss/oxide',
+    '@tailwindcss/vite',
+    'lightningcss',
+    // Babel — pulled in by vite, not needed at runtime
+    '@babel/core',
+    '@babel/preset-typescript',
+    // Native binary modules that can't be bundled
+    'fsevents',
+    // CLI tools, not runtime
+    'drizzle-kit',
+  ],
+  // Suppress warnings about dynamic requires in bundled packages
+  logLevel: 'error',
 });
 console.log('Compiled .vercel/output/functions/api.func/index.js');
 
