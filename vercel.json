@@ -1,12 +1,13 @@
 {
   "version": 2,
+  "buildCommand": "pnpm install && pnpm build",
   "builds": [
     {
       "src": "server/vercel-entry.ts",
       "use": "@vercel/node",
       "config": {
         "maxLambdaSize": "50mb",
-        "includeFiles": ["dist/**"]
+        "includeFiles": ["dist/**", "client/index.html"]
       }
     }
   ],
