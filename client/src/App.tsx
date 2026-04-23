@@ -18,6 +18,10 @@ import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 
+// Schedule Services + Admin
+import ScheduleServices from "./pages/ScheduleServices";
+import AdminSubmissions from "./pages/AdminSubmissions";
+
 // Main pages
 import Home from "./pages/Home";
 import About from "./pages/About";
@@ -491,6 +495,10 @@ function Router() {
       <Route path={"/resources/irrigation-repair-cost-bend-oregon"} component={lazy(() => import('./pages/resources/IrrigationRepairCostBend'))} />
       <Route path={"/resources/commercial-landscaping-cost-bend-oregon"} component={lazy(() => import('./pages/resources/CommercialLandscapingCostBend'))} />
       <Route path={"/resources/lawn-fungus-treatment-bend-oregon"} component={lazy(() => import('./pages/resources/LawnFungusTreatmentBend'))} />
+      {/* Schedule Services + Admin */}
+      <Route path={"/schedule-services"} component={ScheduleServices} />
+      <Route path={"/admin/submissions"} component={AdminSubmissions} />
+
       {/* Fallback */}
       <Route path={"/admin/image-tracker"} component={ImageTracker} />
       <Route path={"/404"} component={NotFound} />

@@ -62,7 +62,7 @@ const quickLinks = [
   { label: "Blog", href: "/blog" },
   { label: "Service Areas", href: "/service-areas" },
   { label: "Contact Us", href: "/contact" },
-  { label: "Get a Free Quote", href: "/contact" },
+  { label: "Get a Free Quote", href: "/schedule-services" },
   { label: "Careers", href: "/careers" },
 ];
 
@@ -221,7 +221,7 @@ export default function Footer() {
             <ul className="space-y-2 mb-8">
               {quickLinks.map((link) => <FooterLink key={link.href + link.label} href={link.href} label={link.label} />)}
             </ul>
-            <Link href="/contact" style={{ display: "inline-block", textDecoration: "none", padding: "0.6rem 1.2rem", backgroundColor: "oklch(0.30 0.08 240)", color: "oklch(1 0 0)", fontFamily: "'Montserrat', sans-serif", fontSize: "0.6rem", fontWeight: 700, letterSpacing: "0.12em" }}>
+            <Link href="/schedule-services" style={{ display: "inline-block", textDecoration: "none", padding: "0.6rem 1.2rem", backgroundColor: "oklch(0.30 0.08 240)", color: "oklch(1 0 0)", fontFamily: "'Montserrat', sans-serif", fontSize: "0.6rem", fontWeight: 700, letterSpacing: "0.12em" }}>
               Get a Free Quote
             </Link>
           </div>

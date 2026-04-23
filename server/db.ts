@@ -1,6 +1,6 @@
-import { eq } from "drizzle-orm";
+import { desc, eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { InsertUser, users } from "../drizzle/schema";
+import { InsertServiceSubmission, InsertUser, serviceSubmissions, users } from "../drizzle/schema";
 import { ENV } from './_core/env';
 
 let _db: ReturnType<typeof drizzle> | null = null;
@@ -89,4 +89,46 @@ export async function getUserByOpenId(openId: string) {
   return result.length > 0 ? result[0] : undefined;
 }
 
-// TODO: add feature queries here as your schema grows.
+// ── Service Submissions ───────────────────────────────────────────────────────
+
+export async function createServiceSubmission(data: InsertServiceSubmission) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  const result = await db.insert(serviceSubmissions).values(data);
+  return result[0];
+}
+
+export async function listServiceSubmissions(limit = 200, offset = 0) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  return db
+    .select()
+    .from(serviceSubmissions)
+    .orderBy(desc(serviceSubmissions.createdAt))
+    .limit(limit)
+    .offset(offset);
+}
+
+export async function getServiceSubmissionById(id: number) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  const rows = await db
+    .select()
+    .from(serviceSubmissions)
+    .where(eq(serviceSubmissions.id, id))
+    .limit(1);
+  return rows[0] ?? null;
+}
+
+export async function deleteServiceSubmission(id: number) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  await db.delete(serviceSubmissions).where(eq(serviceSubmissions.id, id));
+}
+
+export async function countServiceSubmissions() {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  const rows = await db.select().from(serviceSubmissions);
+  return rows.length;
+}

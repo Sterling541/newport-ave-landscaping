@@ -397,3 +397,17 @@
 - [x] Ensure filter state syncs with existing "Featured / More / All" tab system
 - [x] Add empty state with "View All Projects" fallback button
 - [x] Write and pass 16 unit tests for category filter logic
+
+## Session — April 22, 2026 (Native Schedule Services Form)
+
+- [x] Add `service_submissions` table to drizzle/schema.ts with all form fields (46 columns)
+- [x] Run pnpm db:push to migrate schema
+- [x] Add db helpers for submissions in server/db.ts
+- [x] Add tRPC procedures: createSubmission (public), listSubmissions (owner only), getSubmission, deleteSubmission, exportCsv
+- [x] Build multi-step ScheduleServices.tsx form page with all 9 service branches (including credit card fields)
+- [x] Build AdminSubmissions.tsx admin view with table, filters, row detail drawer, CSV export
+- [x] Add /schedule-services and /admin/submissions routes to App.tsx
+- [x] Repoint all "Schedule Services" / "Get a Free Estimate" / Google Form buttons to /schedule-services
+- [x] Send owner notification on new submission
+- [x] Write 22 vitest tests for submission procedures (all passing)
+- [x] End-to-end test: submitted test entry, confirmed in admin view

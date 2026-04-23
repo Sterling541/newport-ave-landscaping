@@ -492,9 +492,8 @@ export default function Navbar() {
               </span>
             </a>
             <a
-              href="https://docs.google.com/forms/d/e/1FAIpQLScKAhqy_uVLgw4fuIKZeuMcJhpRtMbHFKLollYC11ZsfeG5hA/viewform?usp=header"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="/schedule-services"
+              onClick={(e) => { e.preventDefault(); navigate("/schedule-services"); }}
               style={{
                 fontFamily: "'Montserrat', sans-serif",
                 fontSize: "0.6rem",
