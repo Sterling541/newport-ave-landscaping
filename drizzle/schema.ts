@@ -1,17 +1,13 @@
-import { boolean, int, mysqlEnum, mysqlTable, text, timestamp, varchar } from "drizzle-orm/mysql-core";
+import {
+  boolean, decimal, float, int, mysqlEnum, mysqlTable,
+  text, timestamp, varchar, date as mysqlDate,
+} from "drizzle-orm/mysql-core";
 
 /**
  * Core user table backing auth flow.
- * Extend this file with additional tables as your product grows.
- * Columns use camelCase to match both database fields and generated types.
  */
 export const users = mysqlTable("users", {
-  /**
-   * Surrogate primary key. Auto-incremented numeric value managed by the database.
-   * Use this for relations between tables.
-   */
   id: int("id").autoincrement().primaryKey(),
-  /** Manus OAuth identifier (openId) returned from the OAuth callback. Unique per user. */
   openId: varchar("openId", { length: 64 }).notNull().unique(),
   name: text("name"),
   email: varchar("email", { length: 320 }),
@@ -27,20 +23,20 @@ export type InsertUser = typeof users.$inferInsert;
 
 /**
  * Service submission table — mirrors the Newport Ave Landscaping Google Form.
- * All fields are nullable unless explicitly required by the form.
+ * Extended with analytics/insights fields for the AI Insights Engine.
+ * SCHEMA VERSIONING: Never remove or rename existing columns — mark deprecated instead.
  */
 export const serviceSubmissions = mysqlTable("service_submissions", {
   id: int("id").autoincrement().primaryKey(),
 
   // ── Page 1: Contact Info ──────────────────────────────────────────────────
   email: varchar("email", { length: 320 }).notNull(),
-  usedBefore: varchar("usedBefore", { length: 8 }),           // 'Yes' | 'No'
+  usedBefore: varchar("usedBefore", { length: 8 }),
   firstName: varchar("firstName", { length: 128 }).notNull(),
   lastName: varchar("lastName", { length: 128 }).notNull(),
   phone: varchar("phone", { length: 32 }).notNull(),
   siteAddress: text("siteAddress").notNull(),
   billingAddress: text("billingAddress"),
-  /** Comma-separated list of referral sources */
   howHeard: text("howHeard"),
 
   // ── Page 2: Service Type ─────────────────────────────────────────────────
@@ -52,28 +48,24 @@ export const serviceSubmissions = mysqlTable("service_submissions", {
   projectManager: varchar("projectManager", { length: 128 }),
 
   // ── Maintenance fields ────────────────────────────────────────────────────
-  /** Comma-separated maintenance service types */
   maintenanceTypes: text("maintenanceTypes"),
   maintenanceNotes: text("maintenanceNotes"),
 
   // ── Irrigation fields ─────────────────────────────────────────────────────
-  /** Comma-separated irrigation service types */
   irrigationTypes: text("irrigationTypes"),
   irrigationNotes: text("irrigationNotes"),
   winterizationDate: varchar("winterizationDate", { length: 32 }),
 
   // ── Lighting fields ───────────────────────────────────────────────────────
-  /** Comma-separated lighting service types */
   lightingTypes: text("lightingTypes"),
   lightingNotes: text("lightingNotes"),
 
   // ── Water Feature fields ──────────────────────────────────────────────────
-  /** Comma-separated water feature service types */
   waterFeatureTypes: text("waterFeatureTypes"),
   waterFeatureNotes: text("waterFeatureNotes"),
   waterFeatureRepairDesc: text("waterFeatureRepairDesc"),
 
-  // ── Credit Card Info (shown for maintenance/irrigation/lighting/water feature)
+  // ── Credit Card Info ──────────────────────────────────────────────────────
   creditCardNumber: varchar("creditCardNumber", { length: 32 }),
   creditCardExpiration: varchar("creditCardExpiration", { length: 16 }),
   creditCardCvv: varchar("creditCardCvv", { length: 8 }),
@@ -81,7 +73,6 @@ export const serviceSubmissions = mysqlTable("service_submissions", {
 
   // ── Concrete fields ───────────────────────────────────────────────────────
   concreteServiceType: varchar("concreteServiceType", { length: 64 }),
-  /** Comma-separated concrete elements */
   concreteElements: text("concreteElements"),
   concreteDimensions: text("concreteDimensions"),
   concreteHasStairs: varchar("concreteHasStairs", { length: 8 }),
@@ -90,7 +81,6 @@ export const serviceSubmissions = mysqlTable("service_submissions", {
   // ── Landscape Design fields ───────────────────────────────────────────────
   hasExistingDesign: varchar("hasExistingDesign", { length: 8 }),
   needsHoaApproval: varchar("needsHoaApproval", { length: 16 }),
-  /** Comma-separated landscape elements */
   landscapeElements: text("landscapeElements"),
   budget: varchar("budget", { length: 32 }),
   budgetOther: varchar("budgetOther", { length: 64 }),
@@ -106,6 +96,22 @@ export const serviceSubmissions = mysqlTable("service_submissions", {
   // ── Final ─────────────────────────────────────────────────────────────────
   comments: text("comments"),
 
+  // ── Analytics / Insights Engine fields ───────────────────────────────────
+  /** Hashed IP address for anomaly detection (never store raw IP) */
+  ipHash: varchar("ipHash", { length: 64 }),
+  /** ZIP code extracted from siteAddress for geographic analysis */
+  zipCode: varchar("zipCode", { length: 16 }),
+  /** Seconds taken to complete the form (for quality scoring) */
+  formCompletionSeconds: int("formCompletionSeconds"),
+  /** Data source: 'form' | 'csv_import' | 'manual' */
+  dataSource: varchar("dataSource", { length: 32 }).default("form").notNull(),
+  /** Schema version for forward compatibility */
+  schemaVersion: varchar("schemaVersion", { length: 8 }).default("1.0").notNull(),
+  /** Lead status for admin tracking */
+  leadStatus: mysqlEnum("leadStatus", ["new", "contacted", "scheduled", "closed", "lost"]).default("new").notNull(),
+  /** Admin notes */
+  adminNotes: text("adminNotes"),
+
   // ── Metadata ─────────────────────────────────────────────────────────────
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
@@ -113,3 +119,76 @@ export const serviceSubmissions = mysqlTable("service_submissions", {
 
 export type ServiceSubmission = typeof serviceSubmissions.$inferSelect;
 export type InsertServiceSubmission = typeof serviceSubmissions.$inferInsert;
+
+/**
+ * Daily weather data for Bend, OR — pulled from Open-Meteo API.
+ * Used for weather correlation analysis.
+ */
+export const weatherDaily = mysqlTable("weather_daily", {
+  id: int("id").autoincrement().primaryKey(),
+  date: mysqlDate("date").notNull().unique(),
+  tempHighC: float("tempHighC"),
+  tempLowC: float("tempLowC"),
+  tempHighF: float("tempHighF"),
+  tempLowF: float("tempLowF"),
+  precipMm: float("precipMm"),
+  snowMm: float("snowMm"),
+  windAvgKph: float("windAvgKph"),
+  cloudCoverPct: float("cloudCoverPct"),
+  weatherCode: int("weatherCode"),   // WMO weather code
+  /** 'historical' | 'forecast' */
+  dataType: varchar("dataType", { length: 16 }).default("historical").notNull(),
+  fetchedAt: timestamp("fetchedAt").defaultNow().notNull(),
+});
+
+export type WeatherDaily = typeof weatherDaily.$inferSelect;
+export type InsertWeatherDaily = typeof weatherDaily.$inferInsert;
+
+/**
+ * AI-generated insights and alerts.
+ */
+export const insights = mysqlTable("insights", {
+  id: int("id").autoincrement().primaryKey(),
+  generatedAt: timestamp("generatedAt").defaultNow().notNull(),
+  /** Category: volume | weather | source | budget | anomaly | advertising | messaging | sales | competitive | strategic */
+  category: varchar("category", { length: 64 }).notNull(),
+  /** Priority: critical | high | medium | low */
+  priority: mysqlEnum("priority", ["critical", "high", "medium", "low"]).default("medium").notNull(),
+  title: varchar("title", { length: 256 }).notNull(),
+  observation: text("observation").notNull(),
+  /** JSON string of data points used */
+  dataPoints: text("dataPoints"),
+  recommendedAction: text("recommendedAction"),
+  /** 0.0–1.0 */
+  confidence: float("confidence"),
+  /** Status: active | read | snoozed | valuable | dismissed */
+  status: mysqlEnum("status", ["active", "read", "snoozed", "valuable", "dismissed"]).default("active").notNull(),
+  /** User feedback for model training */
+  userFeedback: varchar("userFeedback", { length: 16 }),
+  /** Date range this insight covers */
+  periodStart: mysqlDate("periodStart"),
+  periodEnd: mysqlDate("periodEnd"),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type Insight = typeof insights.$inferSelect;
+export type InsertInsight = typeof insights.$inferInsert;
+
+/**
+ * CSV import job log — tracks historical data imports.
+ */
+export const csvImportJobs = mysqlTable("csv_import_jobs", {
+  id: int("id").autoincrement().primaryKey(),
+  filename: varchar("filename", { length: 256 }).notNull(),
+  status: mysqlEnum("status", ["pending", "processing", "completed", "failed"]).default("pending").notNull(),
+  totalRows: int("totalRows"),
+  importedRows: int("importedRows"),
+  skippedRows: int("skippedRows"),
+  errorLog: text("errorLog"),
+  importedBy: int("importedBy"),
+  startedAt: timestamp("startedAt").defaultNow().notNull(),
+  completedAt: timestamp("completedAt"),
+});
+
+export type CsvImportJob = typeof csvImportJobs.$inferSelect;
+export type InsertCsvImportJob = typeof csvImportJobs.$inferInsert;

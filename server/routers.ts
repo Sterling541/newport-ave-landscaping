@@ -11,33 +11,64 @@ import {
   getServiceSubmissionById,
   deleteServiceSubmission,
   countServiceSubmissions,
+  updateSubmissionStatus,
+  getSubmissionCountsByDay,
+  getSubmissionsByServiceType,
+  getSubmissionsBySource,
+  getSubmissionsByBudget,
+  getSubmissionCountForDate,
+  getRollingAvgSubmissions,
+  getRecentSubmissions,
+  upsertWeatherDay,
+  getWeatherForDate,
+  getWeatherRange,
+  getWeatherForecast,
+  getLatestWeatherDate,
+  countWeatherRows,
+  createInsight,
+  listInsights,
+  updateInsightStatus,
+  getActiveInsights,
+  createCsvImportJob,
+  updateCsvImportJob,
+  listCsvImportJobs,
+  bulkInsertServiceSubmissions,
 } from "./db";
 import { invokeLLM } from "./_core/llm";
 import { ENV } from "./_core/env";
+import { fetchHistoricalWeather, fetchWeatherForecast, describeWeatherCode } from "./weather";
+import { processCsvImport } from "./csvImport";
+import { generateInsights, generateDailyPulseSummary } from "./insightsGenerator";
+
+// ── Admin guard helper ────────────────────────────────────────────────────────
+function requireAdmin(ctx: { user: { openId: string; role: string } }) {
+  if (ctx.user.openId !== ENV.ownerOpenId && ctx.user.role !== "admin") {
+    throw new TRPCError({ code: "FORBIDDEN" });
+  }
+}
 
 export const appRouter = router({
   system: systemRouter,
+
   auth: router({
     me: publicProcedure.query(opts => opts.ctx.user),
     logout: publicProcedure.mutation(({ ctx }) => {
       const cookieOptions = getSessionCookieOptions(ctx.req);
       ctx.res.clearCookie(COOKIE_NAME, { ...cookieOptions, maxAge: -1 });
-      return {
-        success: true,
-      } as const;
+      return { success: true } as const;
     }),
   }),
 
-  // Quote / contact form submission (existing simple form)
+  // ── Quote / contact form ────────────────────────────────────────────────────
   quote: router({
     submit: publicProcedure
       .input(
         z.object({
-          name: z.string().min(1, "Name is required").max(200),
-          email: z.string().email("Valid email required").max(320),
+          name: z.string().min(1).max(200),
+          email: z.string().email().max(320),
           phone: z.string().max(30).optional(),
           service: z.string().max(200).optional(),
-          message: z.string().min(1, "Message is required").max(5000),
+          message: z.string().min(1).max(5000),
         })
       )
       .mutation(async ({ input }) => {
@@ -49,25 +80,18 @@ export const appRouter = router({
           ``,
           `**Message:**`,
           input.message,
-        ]
-          .filter((l) => l !== null)
-          .join("\n");
+        ].filter(Boolean).join("\n");
 
-        await notifyOwner({
-          title: `New Quote Request from ${input.name}`,
-          content: lines,
-        });
-
+        await notifyOwner({ title: `New Quote Request from ${input.name}`, content: lines });
         return { success: true };
       }),
   }),
 
-  // Full Schedule Services form (replaces Google Form)
+  // ── Service Submissions ─────────────────────────────────────────────────────
   submissions: router({
     create: publicProcedure
       .input(
         z.object({
-          // Contact Info
           email: z.string().email().max(320),
           usedBefore: z.string().max(8).optional(),
           firstName: z.string().min(1).max(128),
@@ -76,47 +100,29 @@ export const appRouter = router({
           siteAddress: z.string().min(1).max(500),
           billingAddress: z.string().max(500).optional(),
           howHeard: z.string().max(500).optional(),
-
-          // Service Type
           serviceType: z.string().min(1).max(128),
-
-          // Warranty
           warrantyDetails: z.string().max(5000).optional(),
           salesConsultant: z.string().max(128).optional(),
           projectManager: z.string().max(128).optional(),
-
-          // Maintenance
           maintenanceTypes: z.string().max(500).optional(),
           maintenanceNotes: z.string().max(5000).optional(),
-
-          // Irrigation
           irrigationTypes: z.string().max(500).optional(),
           irrigationNotes: z.string().max(5000).optional(),
           winterizationDate: z.string().max(32).optional(),
-
-          // Lighting
           lightingTypes: z.string().max(500).optional(),
           lightingNotes: z.string().max(5000).optional(),
-
-          // Water Feature
           waterFeatureTypes: z.string().max(500).optional(),
           waterFeatureNotes: z.string().max(5000).optional(),
           waterFeatureRepairDesc: z.string().max(5000).optional(),
-
-          // Credit Card
           creditCardNumber: z.string().max(32).optional(),
           creditCardExpiration: z.string().max(16).optional(),
           creditCardCvv: z.string().max(8).optional(),
           creditCardAuthSignature: z.string().max(500).optional(),
-
-          // Concrete
           concreteServiceType: z.string().max(64).optional(),
           concreteElements: z.string().max(500).optional(),
           concreteDimensions: z.string().max(500).optional(),
           concreteHasStairs: z.string().max(8).optional(),
           concreteAttachedToBuilding: z.string().max(16).optional(),
-
-          // Landscape Design
           hasExistingDesign: z.string().max(8).optional(),
           needsHoaApproval: z.string().max(16).optional(),
           landscapeElements: z.string().max(500).optional(),
@@ -124,54 +130,53 @@ export const appRouter = router({
           budgetOther: z.string().max(64).optional(),
           designConsultationAccepted: z.string().max(64).optional(),
           idealCompletionDate: z.string().max(32).optional(),
-
-          // Scheduling
           flexibleScheduling: z.boolean().optional(),
           isRentalProperty: z.string().max(8).optional(),
           isPropertyOwner: z.string().max(8).optional(),
           hasPets: z.string().max(8).optional(),
-
-          // Final
           comments: z.string().max(5000).optional(),
+          // Analytics fields
+          formCompletionSeconds: z.number().optional(),
+          ipHash: z.string().max(64).optional(),
         })
       )
       .mutation(async ({ input }) => {
+        // Extract ZIP from address
+        const zipMatch = input.siteAddress.match(/\b(\d{5})(?:-\d{4})?\b/);
+        const zipCode = zipMatch ? zipMatch[1] : undefined;
+
         const submission = await createServiceSubmission({
           ...input,
           flexibleScheduling: input.flexibleScheduling ?? false,
+          zipCode,
+          dataSource: "form",
+          schemaVersion: "1.0",
+          leadStatus: "new",
         });
 
-        // Notify owner
         const notifLines = [
           `**Name:** ${input.firstName} ${input.lastName}`,
           `**Email:** ${input.email}`,
           `**Phone:** ${input.phone}`,
           `**Service:** ${input.serviceType}`,
           `**Site Address:** ${input.siteAddress}`,
+          input.budget ? `**Budget:** ${input.budget}` : null,
+          input.howHeard ? `**How Heard:** ${input.howHeard}` : null,
           input.comments ? `\n**Comments:** ${input.comments}` : null,
-        ]
-          .filter((l) => l !== null)
-          .join("\n");
+        ].filter(Boolean).join("\n");
 
         await notifyOwner({
           title: `New Service Request — ${input.serviceType} (${input.firstName} ${input.lastName})`,
           content: notifLines,
         });
 
-        return { success: true, id: submission.insertId };
+        return { success: true, id: (submission as { insertId?: number }).insertId };
       }),
 
     list: protectedProcedure
-      .input(
-        z.object({
-          limit: z.number().min(1).max(500).default(100),
-          offset: z.number().min(0).default(0),
-        })
-      )
+      .input(z.object({ limit: z.number().min(1).max(500).default(100), offset: z.number().min(0).default(0) }))
       .query(async ({ ctx, input }) => {
-        if (ctx.user.openId !== ENV.ownerOpenId && ctx.user.role !== "admin") {
-          throw new TRPCError({ code: "FORBIDDEN" });
-        }
+        requireAdmin(ctx);
         const rows = await listServiceSubmissions(input.limit, input.offset);
         const total = await countServiceSubmissions();
         return { rows, total };
@@ -180,187 +185,416 @@ export const appRouter = router({
     get: protectedProcedure
       .input(z.object({ id: z.number() }))
       .query(async ({ ctx, input }) => {
-        if (ctx.user.openId !== ENV.ownerOpenId && ctx.user.role !== "admin") {
-          throw new TRPCError({ code: "FORBIDDEN" });
-        }
+        requireAdmin(ctx);
         const row = await getServiceSubmissionById(input.id);
         if (!row) throw new TRPCError({ code: "NOT_FOUND" });
         return row;
       }),
 
+    updateStatus: protectedProcedure
+      .input(z.object({
+        id: z.number(),
+        status: z.enum(["new", "contacted", "scheduled", "closed", "lost"]),
+        adminNotes: z.string().max(5000).optional(),
+      }))
+      .mutation(async ({ ctx, input }) => {
+        requireAdmin(ctx);
+        await updateSubmissionStatus(input.id, input.status, input.adminNotes);
+        return { success: true };
+      }),
+
     delete: protectedProcedure
       .input(z.object({ id: z.number() }))
       .mutation(async ({ ctx, input }) => {
-        if (ctx.user.openId !== ENV.ownerOpenId && ctx.user.role !== "admin") {
-          throw new TRPCError({ code: "FORBIDDEN" });
-        }
+        requireAdmin(ctx);
         await deleteServiceSubmission(input.id);
         return { success: true };
       }),
 
+    // Legacy insights endpoint (kept for backward compatibility)
     insights: protectedProcedure
       .query(async ({ ctx }) => {
-        if (ctx.user.openId !== ENV.ownerOpenId && ctx.user.role !== "admin") {
-          throw new TRPCError({ code: "FORBIDDEN" });
-        }
-
-        // Fetch all submissions for analysis (up to 500)
+        requireAdmin(ctx);
         const rows = await listServiceSubmissions(500, 0);
         const total = await countServiceSubmissions();
+        if (rows.length === 0) return { insights: [], summary: "No submissions yet.", generatedAt: new Date().toISOString() };
 
-        if (rows.length === 0) {
-          return {
-            insights: [],
-            summary: "No submissions yet. Insights will appear once you have data.",
-            generatedAt: new Date().toISOString(),
-          };
-        }
-
-        // Build a compact data summary for the LLM
         const serviceTypeCounts: Record<string, number> = {};
         const howHeardCounts: Record<string, number> = {};
         const budgetCounts: Record<string, number> = {};
         const monthCounts: Record<string, number> = {};
-        const cityPatterns: Record<string, number> = {};
-        const usedBeforeCounts: Record<string, number> = {};
-        const rentalCounts: Record<string, number> = {};
-        const petsCounts: Record<string, number> = {};
 
         for (const row of rows) {
-          // Service type
           const svc = row.serviceType || "Unknown";
           serviceTypeCounts[svc] = (serviceTypeCounts[svc] || 0) + 1;
-
-          // How heard
           if (row.howHeard) {
-            const sources = row.howHeard.split(",").map((s: string) => s.trim());
-            for (const src of sources) {
-              if (src) howHeardCounts[src] = (howHeardCounts[src] || 0) + 1;
-            }
+            row.howHeard.split(",").map((s: string) => s.trim()).filter(Boolean).forEach((src: string) => {
+              howHeardCounts[src] = (howHeardCounts[src] || 0) + 1;
+            });
           }
-
-          // Budget
-          if (row.budget) {
-            budgetCounts[row.budget] = (budgetCounts[row.budget] || 0) + 1;
-          }
-
-          // Month of submission
+          if (row.budget) budgetCounts[row.budget] = (budgetCounts[row.budget] || 0) + 1;
           if (row.createdAt) {
             const d = new Date(row.createdAt);
-            const monthKey = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`;
-            monthCounts[monthKey] = (monthCounts[monthKey] || 0) + 1;
-          }
-
-          // City from address
-          if (row.siteAddress) {
-            const cityMatch = row.siteAddress.match(/,\s*([^,]+),\s*OR/);
-            if (cityMatch) {
-              const city = cityMatch[1].trim();
-              cityPatterns[city] = (cityPatterns[city] || 0) + 1;
-            }
-          }
-
-          // Used before
-          if (row.usedBefore) {
-            usedBeforeCounts[row.usedBefore] = (usedBeforeCounts[row.usedBefore] || 0) + 1;
-          }
-
-          // Rental property
-          if (row.isRentalProperty) {
-            rentalCounts[row.isRentalProperty] = (rentalCounts[row.isRentalProperty] || 0) + 1;
-          }
-
-          // Pets
-          if (row.hasPets) {
-            petsCounts[row.hasPets] = (petsCounts[row.hasPets] || 0) + 1;
+            const k = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`;
+            monthCounts[k] = (monthCounts[k] || 0) + 1;
           }
         }
 
-        const dataSummary = JSON.stringify({
-          totalSubmissions: total,
-          dateRange: {
-            earliest: rows[rows.length - 1]?.createdAt,
-            latest: rows[0]?.createdAt,
-          },
-          serviceTypeBreakdown: serviceTypeCounts,
-          leadSourceBreakdown: howHeardCounts,
-          budgetBreakdown: budgetCounts,
-          submissionsByMonth: monthCounts,
-          cityBreakdown: cityPatterns,
-          returningVsNew: usedBeforeCounts,
-          rentalProperties: rentalCounts,
-          petsAtProperty: petsCounts,
-        }, null, 2);
-
+        const dataSummary = JSON.stringify({ totalSubmissions: total, serviceTypeBreakdown: serviceTypeCounts, leadSourceBreakdown: howHeardCounts, budgetBreakdown: budgetCounts, submissionsByMonth: monthCounts }, null, 2);
         const llmResponse = await invokeLLM({
           messages: [
-            {
-              role: "system",
-              content: `You are a marketing and operations analyst for Newport Avenue Landscaping, a landscaping company in Bend, Oregon. 
-Analyze the provided submission data and generate 6-10 specific, actionable insights for the marketing and intake team.
-Each insight should be concrete, data-driven, and immediately actionable.
-Focus on: seasonal patterns, top lead sources, service demand trends, geographic patterns, budget ranges, customer retention, and operational recommendations.
-Respond with a JSON object in this exact format:
-{
-  "insights": [
-    {
-      "category": "Seasonality" | "Lead Sources" | "Service Demand" | "Geography" | "Budget" | "Customer Retention" | "Operations" | "Marketing",
-      "title": "Short title (max 8 words)",
-      "finding": "What the data shows (1-2 sentences)",
-      "action": "Specific recommended action (1-2 sentences)",
-      "priority": "high" | "medium" | "low"
-    }
-  ],
-  "summary": "2-3 sentence executive summary of the most important patterns"
-}`,
-            },
-            {
-              role: "user",
-              content: `Here is the submission data for Newport Avenue Landscaping:\n\n${dataSummary}\n\nPlease analyze this data and provide actionable insights for our marketing and intake team.`,
-            },
+            { role: "system", content: "You are a marketing analyst for Newport Avenue Landscaping in Bend, Oregon. Analyze submission data and provide 6-10 actionable insights. Return JSON: {insights:[{category,title,finding,action,priority}], summary}." },
+            { role: "user", content: `Data:\n${dataSummary}` },
           ],
-          response_format: {
-            type: "json_schema",
-            json_schema: {
-              name: "insights_response",
-              strict: true,
-              schema: {
-                type: "object",
-                properties: {
-                  insights: {
-                    type: "array",
-                    items: {
-                      type: "object",
-                      properties: {
-                        category: { type: "string" },
-                        title: { type: "string" },
-                        finding: { type: "string" },
-                        action: { type: "string" },
-                        priority: { type: "string" },
-                      },
-                      required: ["category", "title", "finding", "action", "priority"],
-                      additionalProperties: false,
-                    },
-                  },
-                  summary: { type: "string" },
-                },
-                required: ["insights", "summary"],
-                additionalProperties: false,
-              },
-            },
-          },
+          response_format: { type: "json_schema", json_schema: { name: "insights_response", strict: true, schema: { type: "object", properties: { insights: { type: "array", items: { type: "object", properties: { category: { type: "string" }, title: { type: "string" }, finding: { type: "string" }, action: { type: "string" }, priority: { type: "string" } }, required: ["category", "title", "finding", "action", "priority"], additionalProperties: false } }, summary: { type: "string" } }, required: ["insights", "summary"], additionalProperties: false } } },
+        });
+        const parsed = JSON.parse(llmResponse.choices[0].message.content as string);
+        return { insights: parsed.insights, summary: parsed.summary, generatedAt: new Date().toISOString(), dataPoints: total };
+      }),
+  }),
+
+  // ── Insights Engine ─────────────────────────────────────────────────────────
+  insightsEngine: router({
+    /** Daily Pulse — the morning briefing view */
+    dailyPulse: protectedProcedure.query(async ({ ctx }) => {
+      requireAdmin(ctx);
+
+      const today = new Date();
+      const yesterday = new Date(today);
+      yesterday.setDate(today.getDate() - 1);
+      const yesterdayStr = yesterday.toISOString().slice(0, 10);
+
+      // Submission stats
+      const yesterdayCount = await getSubmissionCountForDate(yesterday);
+      const avg7day = await getRollingAvgSubmissions(today, 7);
+      const avg30day = await getRollingAvgSubmissions(today, 30);
+
+      // Same week last year
+      const sameWeekLastYear = new Date(today);
+      sameWeekLastYear.setFullYear(today.getFullYear() - 1);
+      const sameWeekStart = new Date(sameWeekLastYear);
+      sameWeekStart.setDate(sameWeekLastYear.getDate() - 3);
+      const sameWeekEnd = new Date(sameWeekLastYear);
+      sameWeekEnd.setDate(sameWeekLastYear.getDate() + 3);
+      const sameWeekCounts = await getSubmissionCountsByDay(sameWeekStart, sameWeekEnd);
+      const sameWeekLastYearTotal = sameWeekCounts.reduce((s, r) => s + r.count, 0);
+
+      // This month vs last month
+      const monthStart = new Date(today.getFullYear(), today.getMonth(), 1);
+      const lastMonthStart = new Date(today.getFullYear(), today.getMonth() - 1, 1);
+      const lastMonthEnd = new Date(today.getFullYear(), today.getMonth(), 0);
+      const thisMonthCounts = await getSubmissionCountsByDay(monthStart, today);
+      const lastMonthCounts = await getSubmissionCountsByDay(lastMonthStart, lastMonthEnd);
+      const totalThisMonth = thisMonthCounts.reduce((s, r) => s + r.count, 0);
+      const totalLastMonth = lastMonthCounts.reduce((s, r) => s + r.count, 0);
+
+      // Zero-submission days this month
+      const zeroSubmissionDaysThisMonth = thisMonthCounts.filter(r => r.count === 0).length;
+      const maxDailyCountThisMonth = Math.max(0, ...thisMonthCounts.map(r => r.count));
+
+      // Service type, source, budget counts for this month
+      const serviceTypeCounts = await getSubmissionsByServiceType(monthStart, today);
+      const sourceCounts = await getSubmissionsBySource(monthStart, today);
+      const budgetCounts = await getSubmissionsByBudget(monthStart, today);
+
+      // Weather
+      const yesterdayWeatherRow = await getWeatherForDate(yesterdayStr);
+      const forecastRows = await getWeatherForecast();
+
+      const yesterdayWeather = yesterdayWeatherRow ? {
+        tempHighF: yesterdayWeatherRow.tempHighF ?? 0,
+        tempLowF: yesterdayWeatherRow.tempLowF ?? 0,
+        precipMm: yesterdayWeatherRow.precipMm ?? 0,
+        snowMm: yesterdayWeatherRow.snowMm ?? 0,
+        description: describeWeatherCode(yesterdayWeatherRow.weatherCode ?? 0),
+      } : undefined;
+
+      const forecastNext7 = forecastRows.slice(0, 7).map(r => ({
+        date: String(r.date),
+        tempHighF: r.tempHighF ?? 0,
+        tempLowF: r.tempLowF ?? 0,
+        precipMm: r.precipMm ?? 0,
+        snowMm: r.snowMm ?? 0,
+        description: describeWeatherCode(r.weatherCode ?? 0),
+      }));
+
+      // Active insights
+      const activeInsights = await getActiveInsights();
+
+      // AI summary
+      const insightData = {
+        yesterdayCount, avg7day, avg30day, sameWeekLastYear: sameWeekLastYearTotal,
+        totalThisMonth, totalLastMonth, zeroSubmissionDaysThisMonth, maxDailyCountThisMonth,
+        serviceTypeCounts: Object.fromEntries(serviceTypeCounts.map(r => [r.serviceType, r.count])),
+        sourceCounts: Object.fromEntries(sourceCounts.map(r => [r.howHeard, r.count])),
+        budgetCounts: Object.fromEntries(budgetCounts.map(r => [r.budget, r.count])),
+        dayOfWeekCounts: {}, hourCounts: {},
+        yesterdayWeather, forecastNext7,
+      };
+
+      let aiSummary = "";
+      try {
+        aiSummary = await generateDailyPulseSummary(insightData);
+      } catch { aiSummary = "AI summary unavailable."; }
+
+      return {
+        yesterdayCount, avg7day, avg30day, sameWeekLastYearTotal,
+        totalThisMonth, totalLastMonth, zeroSubmissionDaysThisMonth, maxDailyCountThisMonth,
+        serviceTypeCounts, sourceCounts, budgetCounts,
+        yesterdayWeather, forecastNext7,
+        activeInsights,
+        aiSummary,
+        generatedAt: new Date(),
+      };
+    }),
+
+    /** Lead Volume Trends — daily/weekly/monthly charts */
+    volumeTrends: protectedProcedure
+      .input(z.object({
+        startDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+        endDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+      }))
+      .query(async ({ ctx, input }) => {
+        requireAdmin(ctx);
+        const start = new Date(input.startDate + "T00:00:00");
+        const end = new Date(input.endDate + "T23:59:59");
+        const dailyCounts = await getSubmissionCountsByDay(start, end);
+
+        // Build rolling 7-day and 28-day averages
+        const withRolling = dailyCounts.map((row, i) => {
+          const window7 = dailyCounts.slice(Math.max(0, i - 6), i + 1);
+          const window28 = dailyCounts.slice(Math.max(0, i - 27), i + 1);
+          const avg7 = window7.reduce((s, r) => s + r.count, 0) / window7.length;
+          const avg28 = window28.reduce((s, r) => s + r.count, 0) / window28.length;
+          return { ...row, avg7: Math.round(avg7 * 10) / 10, avg28: Math.round(avg28 * 10) / 10 };
         });
 
-        const content = llmResponse.choices[0].message.content as string;
-        const parsed = JSON.parse(content);
+        // Day-of-week heatmap
+        const dowCounts: Record<string, number> = { Sun: 0, Mon: 0, Tue: 0, Wed: 0, Thu: 0, Fri: 0, Sat: 0 };
+        const dowLabels = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+        dailyCounts.forEach(r => {
+          const dow = new Date(r.date + "T12:00:00").getDay();
+          dowCounts[dowLabels[dow]] += r.count;
+        });
 
+        // Monthly totals
+        const monthlyMap: Record<string, number> = {};
+        dailyCounts.forEach(r => {
+          const month = r.date.slice(0, 7);
+          monthlyMap[month] = (monthlyMap[month] ?? 0) + r.count;
+        });
+        const monthlyCounts = Object.entries(monthlyMap).map(([month, count]) => ({ month, count })).sort((a, b) => a.month.localeCompare(b.month));
+
+        return { dailyCounts: withRolling, dowCounts, monthlyCounts };
+      }),
+
+    /** Source Attribution */
+    sourceAttribution: protectedProcedure
+      .input(z.object({
+        startDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+        endDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+      }))
+      .query(async ({ ctx, input }) => {
+        requireAdmin(ctx);
+        const start = new Date(input.startDate + "T00:00:00");
+        const end = new Date(input.endDate + "T23:59:59");
+        const sourceCounts = await getSubmissionsBySource(start, end);
+        const total = sourceCounts.reduce((s, r) => s + r.count, 0);
         return {
-          insights: parsed.insights,
-          summary: parsed.summary,
-          generatedAt: new Date().toISOString(),
-          dataPoints: total,
+          sources: sourceCounts.map(r => ({
+            ...r,
+            pct: total > 0 ? Math.round((r.count / total) * 1000) / 10 : 0,
+          })),
+          total,
         };
       }),
+
+    /** Generate and save new AI insights */
+    generateInsights: protectedProcedure.mutation(async ({ ctx }) => {
+      requireAdmin(ctx);
+
+      const today = new Date();
+      const yesterday = new Date(today);
+      yesterday.setDate(today.getDate() - 1);
+      const monthStart = new Date(today.getFullYear(), today.getMonth(), 1);
+      const lastMonthStart = new Date(today.getFullYear(), today.getMonth() - 1, 1);
+      const lastMonthEnd = new Date(today.getFullYear(), today.getMonth(), 0);
+
+      const yesterdayCount = await getSubmissionCountForDate(yesterday);
+      const avg7day = await getRollingAvgSubmissions(today, 7);
+      const avg30day = await getRollingAvgSubmissions(today, 30);
+      const thisMonthCounts = await getSubmissionCountsByDay(monthStart, today);
+      const lastMonthCounts = await getSubmissionCountsByDay(lastMonthStart, lastMonthEnd);
+      const totalThisMonth = thisMonthCounts.reduce((s, r) => s + r.count, 0);
+      const totalLastMonth = lastMonthCounts.reduce((s, r) => s + r.count, 0);
+      const zeroSubmissionDaysThisMonth = thisMonthCounts.filter(r => r.count === 0).length;
+      const maxDailyCountThisMonth = Math.max(0, ...thisMonthCounts.map(r => r.count));
+      const serviceTypeCounts = await getSubmissionsByServiceType(monthStart, today);
+      const sourceCounts = await getSubmissionsBySource(monthStart, today);
+      const budgetCounts = await getSubmissionsByBudget(monthStart, today);
+      const yesterdayWeatherRow = await getWeatherForDate(yesterday.toISOString().slice(0, 10));
+      const forecastRows = await getWeatherForecast();
+
+      const insightData = {
+        yesterdayCount, avg7day, avg30day,
+        sameWeekLastYear: 0, // Would need prior year data
+        totalThisMonth, totalLastMonth, zeroSubmissionDaysThisMonth, maxDailyCountThisMonth,
+        serviceTypeCounts: Object.fromEntries(serviceTypeCounts.map(r => [r.serviceType, r.count])),
+        sourceCounts: Object.fromEntries(sourceCounts.map(r => [r.howHeard, r.count])),
+        budgetCounts: Object.fromEntries(budgetCounts.map(r => [r.budget, r.count])),
+        dayOfWeekCounts: {}, hourCounts: {},
+        yesterdayWeather: yesterdayWeatherRow ? {
+          tempHighF: yesterdayWeatherRow.tempHighF ?? 0, tempLowF: yesterdayWeatherRow.tempLowF ?? 0,
+          precipMm: yesterdayWeatherRow.precipMm ?? 0, snowMm: yesterdayWeatherRow.snowMm ?? 0,
+          description: describeWeatherCode(yesterdayWeatherRow.weatherCode ?? 0),
+        } : undefined,
+        forecastNext7: forecastRows.slice(0, 7).map(r => ({
+          date: String(r.date), tempHighF: r.tempHighF ?? 0, tempLowF: r.tempLowF ?? 0,
+          precipMm: r.precipMm ?? 0, snowMm: r.snowMm ?? 0,
+          description: describeWeatherCode(r.weatherCode ?? 0),
+        })),
+      };
+
+      const newInsights = await generateInsights(insightData);
+      for (const ins of newInsights) {
+        await createInsight(ins);
+      }
+
+      return { success: true, count: newInsights.length };
+    }),
+
+    /** List saved insights */
+    listInsights: protectedProcedure
+      .input(z.object({ status: z.string().optional(), limit: z.number().min(1).max(100).default(50) }))
+      .query(async ({ ctx, input }) => {
+        requireAdmin(ctx);
+        return listInsights(input.limit, input.status);
+      }),
+
+    /** Update insight status */
+    updateInsightStatus: protectedProcedure
+      .input(z.object({
+        id: z.number(),
+        status: z.enum(["active", "read", "snoozed", "valuable", "dismissed"]),
+        feedback: z.string().optional(),
+      }))
+      .mutation(async ({ ctx, input }) => {
+        requireAdmin(ctx);
+        await updateInsightStatus(input.id, input.status, input.feedback);
+        return { success: true };
+      }),
+  }),
+
+  // ── Weather ─────────────────────────────────────────────────────────────────
+  weather: router({
+    /** Fetch and store weather forecast */
+    refreshForecast: protectedProcedure.mutation(async ({ ctx }) => {
+      requireAdmin(ctx);
+      const rows = await fetchWeatherForecast();
+      for (const row of rows) {
+        await upsertWeatherDay({ ...row, date: new Date(row.date + "T12:00:00"), fetchedAt: new Date() });
+      }
+      return { success: true, count: rows.length };
+    }),
+
+    /** Backfill historical weather for a date range */
+    backfillHistorical: protectedProcedure
+      .input(z.object({
+        startDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+        endDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+      }))
+      .mutation(async ({ ctx, input }) => {
+        requireAdmin(ctx);
+        const rows = await fetchHistoricalWeather(input.startDate, input.endDate);
+        for (const row of rows) {
+          await upsertWeatherDay({ ...row, date: new Date(row.date + "T12:00:00"), fetchedAt: new Date() });
+        }
+        return { success: true, count: rows.length };
+      }),
+
+    /** Get weather status */
+    status: protectedProcedure.query(async ({ ctx }) => {
+      requireAdmin(ctx);
+      const totalRows = await countWeatherRows();
+      const latestDate = await getLatestWeatherDate();
+      const forecast = await getWeatherForecast();
+      return { totalRows, latestDate, forecastDays: forecast.length };
+    }),
+
+    /** Get weather for a date range (for correlation charts) */
+    range: protectedProcedure
+      .input(z.object({
+        startDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+        endDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+      }))
+      .query(async ({ ctx, input }) => {
+        requireAdmin(ctx);
+        return getWeatherRange(input.startDate, input.endDate);
+      }),
+  }),
+
+  // ── CSV Import ──────────────────────────────────────────────────────────────
+  csvImport: router({
+    /** Process a CSV string and import submissions */
+    import: protectedProcedure
+      .input(z.object({
+        csvText: z.string().min(1).max(10_000_000), // 10MB max
+        filename: z.string().max(256),
+      }))
+      .mutation(async ({ ctx, input }) => {
+        requireAdmin(ctx);
+
+        // Create import job record
+        const jobResult = await createCsvImportJob({
+          filename: input.filename,
+          status: "processing",
+          importedBy: ctx.user.id,
+        });
+        const jobId = (jobResult as { insertId?: number }).insertId;
+
+        try {
+          const result = processCsvImport(input.csvText);
+
+          // Bulk insert
+          await bulkInsertServiceSubmissions(result.imported);
+
+          // Update job record
+          if (jobId) {
+            await updateCsvImportJob(jobId, {
+              status: "completed",
+              totalRows: result.imported.length + result.skipped.length + result.errors.length,
+              importedRows: result.imported.length,
+              skippedRows: result.skipped.length,
+              errorLog: result.errors.length > 0 ? JSON.stringify(result.errors.slice(0, 50)) : null,
+              completedAt: new Date(),
+            });
+          }
+
+          return {
+            success: true,
+            imported: result.imported.length,
+            skipped: result.skipped.length,
+            errors: result.errors.length,
+            errorSamples: result.errors.slice(0, 10),
+            skippedSamples: result.skipped.slice(0, 10),
+          };
+        } catch (err) {
+          if (jobId) {
+            await updateCsvImportJob(jobId, {
+              status: "failed",
+              errorLog: String(err),
+              completedAt: new Date(),
+            });
+          }
+          throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: String(err) });
+        }
+      }),
+
+    /** List import job history */
+    history: protectedProcedure.query(async ({ ctx }) => {
+      requireAdmin(ctx);
+      return listCsvImportJobs();
+    }),
   }),
 });
 

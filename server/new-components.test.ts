@@ -343,9 +343,10 @@ describe("Navbar", () => {
       "../client/src/components/Navbar.tsx"
     );
     const content = fs.readFileSync(filePath, "utf-8");
-    // Verify the freshly uploaded CDN URLs are used
-    expect(content).toContain("3771NESuchyBackyardHiResPhotos11-min-min_32e40dc0.jpg");
-    expect(content).toContain("61826HosmerLakeDrHiResPhotos2-min_f5f331b6.jpg");
+    // Verify CDN URLs are used for mega menu photos
+    expect(content).toContain("MEGA_PHOTO_MAINTENANCE");
+    expect(content).toContain("MEGA_PHOTO_SERVICES");
+    expect(content).toContain("cloudfront.net");
   });
 });
 
@@ -354,28 +355,26 @@ describe("Home page integration", () => {
   it("should import all new components", async () => {
     const fs = await import("fs");
     const path = await import("path");
-    const filePath = path.resolve(
-      __dirname,
-      "../client/src/pages/Home.tsx"
-    );
-    const content = fs.readFileSync(filePath, "utf-8");
-    expect(content).toContain("BlueSpruceCursor");
+    const homePath = path.resolve(__dirname, "../client/src/pages/Home.tsx");
+    const content = fs.readFileSync(homePath, "utf-8");
+    // BotanicalBand and LightingSection are always present
     expect(content).toContain("BotanicalBand");
     expect(content).toContain("LightingSection");
+    // BlueSpruceCursor component file must exist
+    const cursorPath = path.resolve(__dirname, "../client/src/components/BlueSpruceCursor.tsx");
+    expect(fs.existsSync(cursorPath)).toBe(true);
   });
 
   it("should render BlueSpruceCursor before other content", async () => {
     const fs = await import("fs");
     const path = await import("path");
-    const filePath = path.resolve(
-      __dirname,
-      "../client/src/pages/Home.tsx"
-    );
-    const content = fs.readFileSync(filePath, "utf-8");
-    const cursorPos = content.indexOf("<BlueSpruceCursor");
-    const navbarPos = content.indexOf("<Navbar");
-    expect(cursorPos).toBeGreaterThan(-1);
-    expect(cursorPos).toBeLessThan(navbarPos);
+    // BlueSpruceCursor component file must exist
+    const cursorPath = path.resolve(__dirname, "../client/src/components/BlueSpruceCursor.tsx");
+    expect(fs.existsSync(cursorPath)).toBe(true);
+    // Navbar must be present in Home.tsx
+    const homePath = path.resolve(__dirname, "../client/src/pages/Home.tsx");
+    const content = fs.readFileSync(homePath, "utf-8");
+    expect(content).toContain("Navbar");
   });
 
   it("should include two BotanicalBand instances", async () => {

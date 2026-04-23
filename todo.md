@@ -438,3 +438,21 @@
 - [x] Redesign ScheduleServices.tsx — forest green hero, cream card, earthy tones, warm typography (all 64 fields/options unchanged)
 - [x] Build AI Insights panel in admin area — tabbed layout (Submissions / AI Insights), executive summary, insight cards with priority badges, Regenerate button
 - [x] Write 6 vitest tests for AI Insights response shape (35 total submissions tests passing)
+
+## AI Insights Engine — Phase 1 (April 22, 2026)
+
+- [x] Extend DB schema: add weatherDaily, insights, csvImportJobs tables; extend serviceSubmissions with analytics fields
+- [x] Push schema migration to database (pnpm db:push)
+- [x] Build weather service (server/weather.ts): Open-Meteo API, fetchHistoricalWeather, fetchWeatherForecast, Bend OR coordinates
+- [x] Build CSV import processor (server/csvImport.ts): Google Form export column mapping, parseCsvString, processCsvImport, skipped row tracking
+- [x] Build AI insights generator (server/insightsGenerator.ts): LLM-powered insight generation, weather correlation, volume trends
+- [x] Add tRPC procedures: insightsEngine.dailyPulse, volumeTrends, sourceAttribution, generateInsights, updateInsightStatus
+- [x] Add tRPC procedures: csvImport.import, csvImport.history
+- [x] Add tRPC procedures: weather.refreshForecast, weather.backfillHistorical
+- [x] Build admin page: /admin/daily-pulse (DailyPulse.tsx) — weather card, AI summary, KPI stats, 7-day forecast, service mix, active insights
+- [x] Build admin page: /admin/lead-trends (LeadVolumeTrends.tsx) — daily area chart, monthly bar chart, day-of-week heatmap, source attribution pie + table
+- [x] Build admin page: /admin/csv-import (CsvImport.tsx) — drag-and-drop upload, CSV preview, import history
+- [x] Register all 3 new admin routes in App.tsx
+- [x] Write 40 vitest tests for insights engine (server/insights-engine.test.ts)
+- [x] Fix 3 pre-existing test failures in new-components.test.ts (CDN URL + BlueSpruceCursor tests)
+- [x] All 128 tests passing

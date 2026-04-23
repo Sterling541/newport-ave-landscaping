@@ -21,6 +21,9 @@ import { ThemeProvider } from "./contexts/ThemeContext";
 // Schedule Services + Admin
 import ScheduleServices from "./pages/ScheduleServices";
 import AdminSubmissions from "./pages/AdminSubmissions";
+import DailyPulse from "./pages/admin/DailyPulse";
+import LeadVolumeTrends from "./pages/admin/LeadVolumeTrends";
+import CsvImport from "./pages/admin/CsvImport";
 
 // Main pages
 import Home from "./pages/Home";
@@ -498,6 +501,9 @@ function Router() {
       {/* Schedule Services + Admin */}
       <Route path={"/schedule-services"} component={ScheduleServices} />
       <Route path={"/admin/submissions"} component={AdminSubmissions} />
+      <Route path={"/admin/daily-pulse"} component={DailyPulse} />
+      <Route path={"/admin/lead-trends"} component={LeadVolumeTrends} />
+      <Route path={"/admin/csv-import"} component={CsvImport} />
 
       {/* Fallback */}
       <Route path={"/admin/image-tracker"} component={ImageTracker} />
