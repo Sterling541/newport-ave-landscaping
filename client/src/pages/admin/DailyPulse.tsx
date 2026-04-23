@@ -238,6 +238,41 @@ export default function DailyPulse() {
           </div>
         </div>
 
+        {/* AI Morning Briefing — shown prominently at top */}
+        {data?.aiSummary ? (
+          <Card className="bg-[oklch(0.22_0.07_150)] text-white shadow-xl border-0 overflow-hidden">
+            <CardContent className="p-0">
+              <div className="flex items-stretch">
+                <div className="w-1.5 bg-amber-400 shrink-0" />
+                <div className="flex-1 p-5">
+                  <div className="flex items-start gap-3">
+                    <div className="w-9 h-9 rounded-lg bg-amber-400/20 flex items-center justify-center shrink-0 mt-0.5">
+                      <Sparkles className="w-5 h-5 text-amber-300" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 mb-2">
+                        <p className="text-xs font-bold text-amber-300 uppercase tracking-widest">AI Morning Briefing</p>
+                        <span className="text-[10px] text-white/30 font-medium">
+                          {new Date().toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" })}
+                        </span>
+                      </div>
+                      <p className="text-sm leading-relaxed text-slate-100">{data.aiSummary}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        ) : (
+          <Card className="bg-[oklch(0.22_0.07_150)] text-white shadow-lg border-0">
+            <CardContent className="p-5">
+              <div className="flex items-center gap-3">
+                <Sparkles className="w-5 h-5 text-amber-300 animate-pulse" />
+                <p className="text-sm text-slate-300">Generating AI morning briefing…</p>
+              </div>
+            </CardContent>
+          </Card>
+        )}
         {/* Inquiry Type Filter Pills */}
         <div className="flex flex-wrap gap-2 items-center">
           <span className="text-xs font-medium text-slate-500 mr-1">Filter by type:</span>
@@ -261,20 +296,6 @@ export default function DailyPulse() {
           )}
         </div>
 
-        {/* AI Summary */}
-        {data?.aiSummary && (
-          <Card className="bg-[oklch(0.25_0.08_150)] text-white shadow-lg border-0">
-            <CardContent className="p-5">
-              <div className="flex gap-3">
-                <Sparkles className="w-5 h-5 text-amber-300 flex-shrink-0 mt-0.5" />
-                <div>
-                  <p className="text-xs font-semibold text-emerald-300 uppercase tracking-wider mb-1.5">AI Morning Briefing</p>
-                  <p className="text-sm leading-relaxed text-slate-100">{data.aiSummary}</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        )}
 
         {/* Volume Stats Row */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
