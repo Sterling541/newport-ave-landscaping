@@ -540,6 +540,32 @@ export default function Navbar() {
               </span>
             </a>
             <a
+              href="/opt-out"
+              onClick={(e) => { e.preventDefault(); navigate("/opt-out"); }}
+              style={{
+                fontFamily: "'Montserrat', sans-serif",
+                fontSize: "0.6rem",
+                fontWeight: 700,
+                letterSpacing: "0.14em",
+                textTransform: "uppercase",
+                color: "oklch(0.97 0.01 75)",
+                backgroundColor: "transparent",
+                border: "1px solid oklch(0.97 0.01 75 / 0.5)",
+                padding: "0.35rem 0.9rem",
+                borderRadius: "1.8rem 0.2rem 1.8rem 0.2rem",
+                textDecoration: "none",
+                display: "flex",
+                alignItems: "center",
+                gap: "0.35rem",
+                whiteSpace: "nowrap",
+                transition: "background-color 0.2s ease, border-color 0.2s ease",
+              }}
+              onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = "oklch(0.97 0.01 75 / 0.15)"; e.currentTarget.style.borderColor = "oklch(0.97 0.01 75)"; }}
+              onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = "transparent"; e.currentTarget.style.borderColor = "oklch(0.97 0.01 75 / 0.5)"; }}
+            >
+              Opt-Out Program
+            </a>
+            <a
               href="/schedule-services"
               onClick={(e) => { e.preventDefault(); navigate("/schedule-services"); }}
               style={{

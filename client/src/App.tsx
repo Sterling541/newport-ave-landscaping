@@ -26,6 +26,7 @@ import LeadVolumeTrends from "./pages/admin/LeadVolumeTrends";
 import CsvImport from "./pages/admin/CsvImport";
 import GeoIntelligence from "./pages/admin/GeoIntelligence";
 import Reminders from "./pages/admin/Reminders";
+import AdminOptOutRequests from "./pages/admin/AdminOptOutRequests";
 import OptOut from "./pages/OptOut";
 
 // Main pages
@@ -510,6 +511,7 @@ function Router() {
       <Route path={"/admin/lead-trends"} component={LeadVolumeTrends} />
       <Route path={"/admin/csv-import"} component={CsvImport} />
       <Route path={"/admin/reminders"} component={Reminders} />
+      <Route path={"/admin/opt-out-requests"} component={AdminOptOutRequests} />
       <Route path={"/admin/geo-intelligence"} component={GeoIntelligence} />
 
       {/* Fallback */}

@@ -20,6 +20,7 @@ import {
   Menu,
   X,
   Bell,
+  ClipboardList,
 } from "lucide-react";
 import { useAuth } from "@/_core/hooks/useAuth";
 
@@ -59,6 +60,12 @@ const NAV_ITEMS = [
     href: "/admin/reminders",
     icon: Bell,
     description: "Callback tickler",
+  },
+  {
+    label: "Opt-Out Requests",
+    href: "/admin/opt-out-requests",
+    icon: ClipboardList,
+    description: "Spray & prune opt-outs",
   },
 ];
 

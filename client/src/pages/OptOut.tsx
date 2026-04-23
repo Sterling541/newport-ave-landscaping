@@ -151,7 +151,7 @@ export default function OptOut() {
         {/* ── A. HERO ──────────────────────────────────────────────────────── */}
         <section
           style={{
-            paddingTop: "clamp(7rem, 14vh, 10rem)",
+            paddingTop: "clamp(10rem, 18vh, 14rem)",
             paddingBottom: "4rem",
             backgroundColor: "oklch(0.97 0.005 240)",
           }}
