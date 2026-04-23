@@ -1,20 +1,19 @@
 {
   "version": 2,
-  "buildCommand": "pnpm build",
-  "outputDirectory": "dist",
   "builds": [
     {
-      "src": "dist/index.js",
+      "src": "server/vercel-entry.ts",
       "use": "@vercel/node",
       "config": {
-        "maxLambdaSize": "50mb"
+        "maxLambdaSize": "50mb",
+        "includeFiles": ["dist/**"]
       }
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "/dist/index.js"
+      "dest": "/server/vercel-entry.ts"
     }
   ]
 }
