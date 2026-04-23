@@ -757,3 +757,48 @@ export async function getFollowUpStatusSummary() {
   }
   return latest;
 }
+
+/** Get ALL upcoming reminders (not just overdue) for the Reminders page */
+export async function getAllUpcomingReminders() {
+  const db = await getDb();
+  if (!db) return [];
+  const rows = await db
+    .select({
+      followUp: leadFollowUps,
+      submission: {
+        id: serviceSubmissions.id,
+        firstName: serviceSubmissions.firstName,
+        lastName: serviceSubmissions.lastName,
+        phone: serviceSubmissions.phone,
+        email: serviceSubmissions.email,
+        serviceType: serviceSubmissions.serviceType,
+        createdAt: serviceSubmissions.createdAt,
+      },
+    })
+    .from(leadFollowUps)
+    .innerJoin(serviceSubmissions, eq(leadFollowUps.submissionId, serviceSubmissions.id))
+    .where(
+      and(
+        sql`${leadFollowUps.remindAt} IS NOT NULL`,
+        eq(leadFollowUps.reminderAcked, false),
+      )
+    )
+    .orderBy(leadFollowUps.remindAt);
+  return rows;
+}
+
+/** Snooze a reminder by N days */
+export async function snoozeReminder(followUpId: number, days: number) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  // Get current remindAt
+  const [row] = await db.select().from(leadFollowUps).where(eq(leadFollowUps.id, followUpId)).limit(1);
+  if (!row) throw new Error("Follow-up not found");
+  const base = row.remindAt ? new Date(row.remindAt) : new Date();
+  base.setDate(base.getDate() + days);
+  // Skip weekends
+  if (base.getDay() === 0) base.setDate(base.getDate() + 1);
+  if (base.getDay() === 6) base.setDate(base.getDate() + 2);
+  base.setHours(9, 0, 0, 0);
+  return db.update(leadFollowUps).set({ remindAt: base }).where(eq(leadFollowUps.id, followUpId));
+}

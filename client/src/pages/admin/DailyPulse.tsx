@@ -4,7 +4,7 @@
    active insights, and 7-day forecast.
    ============================================================ */
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import AdminLayout from "@/components/AdminLayout";
 import { trpc } from "@/lib/trpc";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -119,6 +119,23 @@ export default function DailyPulse() {
   const budgetTrendQuery = trpc.insightsEngine.budgetTrend.useQuery();
   const [corrDays, setCorrDays] = useState(30);
   const corrQuery = trpc.weather.correlation.useQuery({ days: corrDays });
+  const backfillMutation = trpc.weather.backfillHistorical.useMutation({
+    onSuccess: () => { corrQuery.refetch(); },
+  });
+  // Auto-backfill 90 days of historical weather on first load if no data
+  const [autoBackfillDone, setAutoBackfillDone] = useState(false);
+  useEffect(() => {
+    if (!autoBackfillDone && !corrQuery.isLoading && (!corrQuery.data || corrQuery.data.every(r => r.tempHighF === null))) {
+      setAutoBackfillDone(true);
+      const endDate = new Date();
+      const startDate = new Date();
+      startDate.setDate(startDate.getDate() - 90);
+      backfillMutation.mutate({
+        startDate: startDate.toISOString().slice(0, 10),
+        endDate: endDate.toISOString().slice(0, 10),
+      });
+    }
+  }, [corrQuery.isLoading, corrQuery.data, autoBackfillDone]);
   const generateBudgetInsightsMutation = trpc.insightsEngine.generateBudgetInsights.useMutation();
 
   const refreshWeatherMutation = trpc.weather.refreshForecast.useMutation();
@@ -525,8 +542,11 @@ export default function DailyPulse() {
             </div>
           </CardHeader>
           <CardContent>
-            {corrQuery.isLoading ? (
-              <div className="h-48 flex items-center justify-center text-slate-400 text-sm">Loading chart…</div>
+            {corrQuery.isLoading || backfillMutation.isPending ? (
+              <div className="h-48 flex flex-col items-center justify-center gap-2 text-slate-400 text-sm">
+                <div className="w-6 h-6 border-2 border-emerald-300 border-t-emerald-600 rounded-full animate-spin" />
+                <span>{backfillMutation.isPending ? "Fetching 90 days of weather history…" : "Loading chart…"}</span>
+              </div>
             ) : corrQuery.data && corrQuery.data.length > 0 ? (
               <div>
                 <ResponsiveContainer width="100%" height={220}>
@@ -601,8 +621,31 @@ export default function DailyPulse() {
               </div>
             ) : (
               <div className="h-32 flex flex-col items-center justify-center gap-2 text-slate-400 text-sm">
-                <BarChart2 className="w-8 h-8 text-slate-200" />
-                <p>No data yet. Refresh weather and wait for leads to accumulate.</p>
+                {backfillMutation.isPending ? (
+                  <>
+                    <div className="w-6 h-6 border-2 border-emerald-300 border-t-emerald-600 rounded-full animate-spin" />
+                    <p>Loading 90 days of weather history…</p>
+                  </>
+                ) : (
+                  <>
+                    <BarChart2 className="w-8 h-8 text-slate-200" />
+                    <p>No weather data yet.</p>
+                    <button
+                      onClick={() => {
+                        const endDate = new Date();
+                        const startDate = new Date();
+                        startDate.setDate(startDate.getDate() - 90);
+                        backfillMutation.mutate({
+                          startDate: startDate.toISOString().slice(0, 10),
+                          endDate: endDate.toISOString().slice(0, 10),
+                        });
+                      }}
+                      className="px-3 py-1.5 text-xs bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors"
+                    >
+                      Load 90 Days of History
+                    </button>
+                  </>
+                )}
               </div>
             )}
           </CardContent>

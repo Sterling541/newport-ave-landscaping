@@ -25,6 +25,7 @@ import DailyPulse from "./pages/admin/DailyPulse";
 import LeadVolumeTrends from "./pages/admin/LeadVolumeTrends";
 import CsvImport from "./pages/admin/CsvImport";
 import GeoIntelligence from "./pages/admin/GeoIntelligence";
+import Reminders from "./pages/admin/Reminders";
 
 // Main pages
 import Home from "./pages/Home";
@@ -505,6 +506,7 @@ function Router() {
       <Route path={"/admin/daily-pulse"} component={DailyPulse} />
       <Route path={"/admin/lead-trends"} component={LeadVolumeTrends} />
       <Route path={"/admin/csv-import"} component={CsvImport} />
+      <Route path={"/admin/reminders"} component={Reminders} />
       <Route path={"/admin/geo-intelligence"} component={GeoIntelligence} />
 
       {/* Fallback */}

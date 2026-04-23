@@ -55,6 +55,8 @@ import {
   getPendingCallbacks,
   ackReminder,
   getFollowUpStatusSummary,
+  getAllUpcomingReminders,
+  snoozeReminder,
 } from "./db";
 
 // ── Admin guard helper ────────────────────────────────────────────────────────
@@ -967,6 +969,19 @@ Be specific, data-driven, and actionable. Format as JSON with keys: bestMonths (
       requireAdmin(ctx);
       return getFollowUpStatusSummary();
     }),
+    /** Get ALL upcoming reminders for the Reminders page */
+    allReminders: protectedProcedure.query(async ({ ctx }) => {
+      requireAdmin(ctx);
+      return getAllUpcomingReminders();
+    }),
+    /** Snooze a reminder by N days */
+    snooze: protectedProcedure
+      .input(z.object({ followUpId: z.number(), days: z.number().int().min(1).max(30) }))
+      .mutation(async ({ ctx, input }) => {
+        requireAdmin(ctx);
+        await snoozeReminder(input.followUpId, input.days);
+        return { success: true };
+      }),
   }),
 
   // ── CSV Import ──────────────────────────────────────────────────────────────────────────────

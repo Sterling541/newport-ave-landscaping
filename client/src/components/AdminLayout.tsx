@@ -19,6 +19,7 @@ import {
   ExternalLink,
   Menu,
   X,
+  Bell,
 } from "lucide-react";
 import { useAuth } from "@/_core/hooks/useAuth";
 
@@ -52,6 +53,12 @@ const NAV_ITEMS = [
     href: "/admin/csv-import",
     icon: Upload,
     description: "Import data",
+  },
+  {
+    label: "Reminders",
+    href: "/admin/reminders",
+    icon: Bell,
+    description: "Callback tickler",
   },
 ];
 

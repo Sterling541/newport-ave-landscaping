@@ -362,6 +362,25 @@ function getTimeOfDayTheme() {
 }
 
 export default function Navbar() {
+  const [adminModalOpen, setAdminModalOpen] = useState(false);
+  const [adminCode, setAdminCode] = useState("");
+  const [adminError, setAdminError] = useState(false);
+  const [adminShake, setAdminShake] = useState(false);
+
+  function handleAdminSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (adminCode === "4132") {
+      setAdminModalOpen(false);
+      setAdminCode("");
+      setAdminError(false);
+      window.location.href = "/admin/submissions";
+    } else {
+      setAdminError(true);
+      setAdminShake(true);
+      setAdminCode("");
+      setTimeout(() => setAdminShake(false), 600);
+    }
+  }
   const [scrolled, setScrolled] = useState(false);
   const [timeTheme, setTimeTheme] = useState(getTimeOfDayTheme);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -451,21 +470,49 @@ export default function Navbar() {
             gap: "1rem",
           }}
         >
-          {/* Left: address */}
-          <span
-            style={{
-              fontFamily: "'Montserrat', sans-serif",
-              fontSize: "0.6rem",
-              fontWeight: 500,
-              letterSpacing: "0.12em",
-              color: "oklch(0.85 0.04 240)",
-              textTransform: "uppercase",
-              whiteSpace: "nowrap",
-            }}
-            className="hidden sm:block"
-          >
-            61535 S Hwy 97, Bend, OR &nbsp;·&nbsp; Visits by Appointment Only
-          </span>
+          {/* Left: star admin button + address */}
+          <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
+            {/* Secret admin star */}
+            <button
+              onClick={() => setAdminModalOpen(true)}
+              style={{
+                background: "none",
+                border: "none",
+                padding: "0 2px",
+                color: "oklch(0.72 0.18 85)",
+                opacity: 0.35,
+                fontSize: "15px",
+                lineHeight: 1,
+                cursor: "pointer",
+                transition: "opacity 0.2s",
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                minWidth: "28px",
+                minHeight: "28px",
+                WebkitTapHighlightColor: "transparent",
+              }}
+              onMouseEnter={(e) => ((e.currentTarget as HTMLButtonElement).style.opacity = "1")}
+              onMouseLeave={(e) => ((e.currentTarget as HTMLButtonElement).style.opacity = "0.35")}
+              aria-label="Admin access"
+            >
+              ★
+            </button>
+            <span
+              style={{
+                fontFamily: "'Montserrat', sans-serif",
+                fontSize: "0.6rem",
+                fontWeight: 500,
+                letterSpacing: "0.12em",
+                color: "oklch(0.85 0.04 240)",
+                textTransform: "uppercase",
+                whiteSpace: "nowrap",
+              }}
+              className="hidden sm:block"
+            >
+              61535 S Hwy 97, Bend, OR &nbsp;·&nbsp; Visits by Appointment Only
+            </span>
+          </div>
           {/* Right: phone + schedule button */}
           <div style={{ display: "flex", alignItems: "center", gap: "1.2rem", marginLeft: "auto" }}>
             <a
@@ -928,6 +975,126 @@ export default function Navbar() {
           </div>
         </div>
       )}
+      {/* Admin code modal */}
+      {adminModalOpen && (
+        <div
+          style={{
+            position: "fixed",
+            inset: 0,
+            zIndex: 99999,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            background: "rgba(0,0,0,0.55)",
+            backdropFilter: "blur(4px)",
+          }}
+          onClick={() => { setAdminModalOpen(false); setAdminCode(""); setAdminError(false); }}
+        >
+          <div
+            style={{
+              background: "oklch(0.98 0.005 75)",
+              borderRadius: "0.75rem",
+              padding: "2rem 2.25rem",
+              width: "min(340px, 90vw)",
+              boxShadow: "0 20px 60px rgba(0,0,0,0.35)",
+              fontFamily: "'Cormorant Garamond', Georgia, serif",
+              position: "relative",
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={() => { setAdminModalOpen(false); setAdminCode(""); setAdminError(false); }}
+              style={{
+                position: "absolute",
+                top: "0.75rem",
+                right: "0.75rem",
+                background: "none",
+                border: "none",
+                cursor: "pointer",
+                color: "oklch(0.6 0.005 0)",
+                fontSize: "1.1rem",
+                lineHeight: 1,
+                padding: "4px",
+              }}
+            >
+              ✕
+            </button>
+            <p style={{ fontSize: "0.65rem", fontFamily: "'Montserrat', sans-serif", letterSpacing: "0.15em", color: "oklch(0.50 0.18 25)", textTransform: "uppercase", marginBottom: "0.5rem" }}>
+              Team Access
+            </p>
+            <h2 style={{ fontSize: "1.5rem", fontWeight: 600, color: "oklch(0.14 0.005 0)", marginBottom: "0.25rem" }}>
+              Admin Login
+            </h2>
+            <p style={{ fontSize: "0.85rem", color: "oklch(0.45 0.005 0)", marginBottom: "1.25rem" }}>
+              Enter your access code to continue.
+            </p>
+            <form onSubmit={handleAdminSubmit}>
+              <div style={{ animation: adminShake ? "adminShake 0.5s ease" : "none" }}>
+                <input
+                  type="password"
+                  inputMode="numeric"
+                  placeholder="Enter code"
+                  value={adminCode}
+                  onChange={(e) => { setAdminCode(e.target.value); setAdminError(false); }}
+                  autoFocus
+                  style={{
+                    width: "100%",
+                    padding: "0.75rem 1rem",
+                    background: "oklch(0.97 0.004 75)",
+                    border: adminError ? "1.5px solid oklch(0.55 0.20 25)" : "1.5px solid oklch(0.88 0.005 75)",
+                    borderRadius: "0.4rem",
+                    color: "oklch(0.14 0.005 0)",
+                    fontSize: "1.1rem",
+                    textAlign: "center",
+                    letterSpacing: "0.35em",
+                    outline: "none",
+                    marginBottom: adminError ? "0.35rem" : "0.75rem",
+                    boxSizing: "border-box",
+                    transition: "border-color 0.2s",
+                    fontFamily: "'Montserrat', sans-serif",
+                  }}
+                />
+                {adminError && (
+                  <p style={{ color: "oklch(0.50 0.20 25)", fontSize: "0.75rem", marginBottom: "0.75rem", fontFamily: "'Montserrat', sans-serif" }}>
+                    Incorrect code — please try again.
+                  </p>
+                )}
+              </div>
+              <button
+                type="submit"
+                style={{
+                  width: "100%",
+                  padding: "0.8rem",
+                  background: "oklch(0.50 0.18 25)",
+                  border: "none",
+                  borderRadius: "0.4rem",
+                  color: "oklch(1 0 0)",
+                  fontSize: "0.75rem",
+                  fontWeight: 700,
+                  letterSpacing: "0.12em",
+                  textTransform: "uppercase",
+                  cursor: "pointer",
+                  fontFamily: "'Montserrat', sans-serif",
+                  transition: "background 0.2s",
+                }}
+                onMouseEnter={(e) => ((e.target as HTMLButtonElement).style.background = "oklch(0.44 0.20 25)")}
+                onMouseLeave={(e) => ((e.target as HTMLButtonElement).style.background = "oklch(0.50 0.18 25)")}
+              >
+                Enter →
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
+      <style>{`
+        @keyframes adminShake {
+          0%, 100% { transform: translateX(0); }
+          20%       { transform: translateX(-8px); }
+          40%       { transform: translateX(8px); }
+          60%       { transform: translateX(-5px); }
+          80%       { transform: translateX(5px); }
+        }
+      `}</style>
     </>
   );
 }

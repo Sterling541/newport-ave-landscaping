@@ -6,7 +6,6 @@ import { createRoot } from "react-dom/client";
 import { HelmetProvider } from "react-helmet-async";
 import superjson from "superjson";
 import App from "./App";
-import StagingGate from "./components/StagingGate";
 import { getLoginUrl } from "./const";
 import "./index.css";
 
@@ -55,13 +54,11 @@ const trpcClient = trpc.createClient({
 });
 
 createRoot(document.getElementById("root")!).render(
-  <StagingGate>
-    <HelmetProvider>
-      <trpc.Provider client={trpcClient} queryClient={queryClient}>
-        <QueryClientProvider client={queryClient}>
-          <App />
-        </QueryClientProvider>
-      </trpc.Provider>
-    </HelmetProvider>
-  </StagingGate>
+  <HelmetProvider>
+    <trpc.Provider client={trpcClient} queryClient={queryClient}>
+      <QueryClientProvider client={queryClient}>
+        <App />
+      </QueryClientProvider>
+    </trpc.Provider>
+  </HelmetProvider>
 );

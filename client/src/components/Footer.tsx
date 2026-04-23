@@ -255,41 +255,7 @@ export default function Footer() {
             <p className="font-body text-xs" style={{ color: "oklch(0.45 0.008 30)" }}>
               © 2025 Newport Avenue Landscaping. All Rights Reserved.
             </p>
-            {/* Secret admin nav — intentionally subtle */}
-            <span style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
-              {[
-                { href: "/admin/submissions", label: "★" },
-                { href: "/admin/daily-pulse", label: "⚡" },
-                { href: "/admin/lead-trends", label: "📈" },
-                { href: "/admin/csv-import", label: "📥" },
-                { href: "/admin/geo-intelligence", label: "🗺" },
-              ].map(({ href, label }) => (
-                <a
-                  key={href}
-                  href={href}
-                  style={{
-                    color: "oklch(0.72 0.18 85)",
-                    opacity: 0.3,
-                    fontSize: "15px",
-                    lineHeight: 1,
-                    textDecoration: "none",
-                    transition: "opacity 0.2s",
-                    cursor: "pointer",
-                    display: "inline-flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    minWidth: "32px",
-                    minHeight: "32px",
-                    WebkitTapHighlightColor: "transparent",
-                    touchAction: "manipulation",
-                  }}
-                  onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.opacity = "1")}
-                  onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.opacity = "0.3")}
-                >
-                  {label}
-                </a>
-              ))}
-            </span>
+
 
           </div>
           <div className="flex gap-6">
