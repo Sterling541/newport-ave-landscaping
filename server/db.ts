@@ -575,3 +575,80 @@ export async function getSubmissionCountsByDayFiltered(
 
   return rows.map(r => ({ date: String(r.date), count: Number(r.count) }));
 }
+
+/**
+ * Budget trend by year — returns, for each year, the count of submissions
+ * in each canonical budget band (normalized). Used for the "Budget Trend Over Time" chart.
+ */
+export const BUDGET_BAND_LABELS = [
+  "Under $7,500",
+  "$7,500–$15K",
+  "$15K–$25K",
+  "$25K–$60K",
+  "$60K+",
+  "Other / Custom",
+] as const;
+
+/** Map a raw budget string to a canonical band label for trend charting */
+function normalizeBudgetToBandLabel(raw: string): string {
+  const s = (raw || "").toLowerCase().replace(/[\s,]/g, "");
+  if (s.includes("under") || s.includes("andunder") ||
+      (s.includes("5000") && !s.includes("50000") && !s.includes("15000") && !s.includes("25000")))
+    return "Under $7,500";
+  if (s.includes("7500") || s.includes("7,500") ||
+      (s.includes("10000") && !s.includes("100000")) ||
+      (s.includes("15000") && s.includes("10000")))
+    return "$7,500–$15K";
+  if (s.includes("15000") || s.includes("15,000") ||
+      s.includes("20000") || s.includes("20,000") ||
+      s.includes("25000") || s.includes("25,000"))
+    return "$15K–$25K";
+  if (s.includes("35000") || s.includes("35,000") ||
+      s.includes("50000") || s.includes("50,000") ||
+      s.includes("60000") || s.includes("60,000"))
+    return "$25K–$60K";
+  if (s.includes("75000") || s.includes("75,000") ||
+      s.includes("100000") || s.includes("100,000") ||
+      s.includes("75000+") || s.includes("+"))
+    return "$60K+";
+  return "Other / Custom";
+}
+
+export async function getBudgetTrendByYear() {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  const rows = await db
+    .select({
+      year: sql<number>`YEAR(createdAt)`,
+      budget: serviceSubmissions.budget,
+      count: sql<number>`count(*)`,
+    })
+    .from(serviceSubmissions)
+    .where(
+      and(
+        sql`budget IS NOT NULL`,
+        sql`budget != ''`,
+        sql`YEAR(createdAt) >= 2022`,
+      )
+    )
+    .groupBy(sql`YEAR(createdAt)`, serviceSubmissions.budget)
+    .orderBy(sql`YEAR(createdAt)`);
+
+  // Aggregate by year + canonical band
+  const byYear: Record<number, Record<string, number>> = {};
+  for (const row of rows) {
+    const yr = Number(row.year);
+    const band = normalizeBudgetToBandLabel(String(row.budget || ""));
+    if (!byYear[yr]) byYear[yr] = {};
+    byYear[yr][band] = (byYear[yr][band] || 0) + Number(row.count);
+  }
+
+  // Convert to chart-friendly array: [{ year, "Under $7,500": n, "$7,500–$15K": n, ... }]
+  return Object.entries(byYear)
+    .sort(([a], [b]) => Number(a) - Number(b))
+    .map(([year, bands]) => ({
+      year: Number(year),
+      ...Object.fromEntries(BUDGET_BAND_LABELS.map(b => [b, bands[b] || 0])),
+    }));
+}

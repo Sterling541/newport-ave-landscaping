@@ -497,3 +497,13 @@
 - [x] Add "Service Popularity by Budget" breakdown panel showing top services for selected budget band
 - [x] Show inquiry count and % share per service type in the breakdown panel
 - [x] Budget filter respects date range selection on Lead Volume Trends
+
+## Session — Apr 23, 2026 (AI Budget Insights + Trend Chart + Admin Link)
+
+- [x] Add discreet "Team Access" link to StagingGate.tsx password screen
+- [x] Add getBudgetTrendByYear query helper to db.ts
+- [x] Add generateBudgetInsights tRPC mutation to insightsEngine router
+- [x] Add budgetTrend tRPC query to insightsEngine router
+- [x] Add "Generate Budget Insights" button + AI result panel to Daily Pulse
+- [x] Add "Generate Budget Insights" button + AI result panel to Lead Volume Trends
+- [x] Add Budget Trend Over Time stacked area chart to Daily Pulse and Lead Volume Trends

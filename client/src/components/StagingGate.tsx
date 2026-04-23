@@ -205,6 +205,26 @@ export default function StagingGate({ children }: { children: React.ReactNode })
             Enter Site →
           </button>
         </form>
+
+        {/* Team admin link */}
+        <div style={{ marginTop: "1.5rem", borderTop: "1px solid oklch(0.92 0.005 75)", paddingTop: "1.25rem" }}>
+          <a
+            href="/admin/submissions"
+            style={{
+              color: "oklch(0.50 0.18 25)",
+              fontSize: "0.75rem",
+              fontFamily: "'Montserrat', sans-serif",
+              letterSpacing: "0.08em",
+              textDecoration: "none",
+              opacity: 0.7,
+              transition: "opacity 0.2s",
+            }}
+            onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.opacity = "1")}
+            onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.opacity = "0.7")}
+          >
+            Team Access →
+          </a>
+        </div>
       </div>
 
       {/* Footer note */}

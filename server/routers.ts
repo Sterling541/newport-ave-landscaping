@@ -45,7 +45,9 @@ import {
   getNeighborhoodClusters,
   countUngeocodedSubmissions,
   getServicePopularityByBudget,
+  getBudgetTrendByYear,
   BUDGET_BANDS,
+  BUDGET_BAND_LABELS,
   type BudgetBandKey,
 } from "./db";
 
@@ -501,6 +503,118 @@ export const appRouter = router({
         requireAdmin(ctx);
         await updateInsightStatus(input.id, input.status, input.feedback);
         return { success: true };
+      }),
+
+    /** Budget trend by year — how budget distribution has shifted over time */
+    budgetTrend: protectedProcedure
+      .query(async ({ ctx }) => {
+        requireAdmin(ctx);
+        const rows = await getBudgetTrendByYear();
+        return { rows, bands: [...BUDGET_BAND_LABELS] };
+      }),
+
+    /** AI-powered cross-budget pattern analysis */
+    generateBudgetInsights: protectedProcedure
+      .input(z.object({
+        budgetKey: z.string().optional(),
+        startDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional(),
+        endDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional(),
+      }).optional())
+      .mutation(async ({ ctx, input }) => {
+        requireAdmin(ctx);
+
+        // Gather data for all budget bands
+        const allBands = await Promise.all(
+          BUDGET_BANDS.map(async (band) => {
+            const pop = await getServicePopularityByBudget(band.key as BudgetBandKey);
+            const total = pop.reduce((s, r) => s + r.count, 0);
+            return { band: band.label, key: band.key, total, services: pop };
+          })
+        );
+
+        const trendRows = await getBudgetTrendByYear();
+
+        // Build context for AI
+        const bandSummaries = allBands
+          .filter(b => b.total > 0)
+          .map(b => {
+            const topService = b.services[0];
+            const topPct = topService ? topService.pct : 0;
+            const topSvc = topService ? topService.serviceType : "N/A";
+            return `${b.band} (${b.total} inquiries): top service = ${topSvc} (${topPct}%)`;
+          })
+          .join("\n");
+
+        const yearTrend = trendRows
+          .map(r => {
+            const top = BUDGET_BAND_LABELS
+              .map(label => ({ label, count: (r as Record<string, number>)[label] || 0 }))
+              .sort((a, b) => b.count - a.count)[0];
+            return `${r.year}: most common band = ${top?.label ?? "N/A"} (${top?.count ?? 0} inquiries)`;
+          })
+          .join("\n");
+
+        const prompt = `You are a marketing analyst for Newport Avenue Landscaping in Bend, Oregon.
+
+Analyze this budget distribution data and provide 4-6 specific, actionable insights about cross-budget patterns:
+
+Service popularity by budget band:
+${bandSummaries}
+
+Budget trend by year:
+${yearTrend}
+
+Focus on:
+1. Which budget segments prefer which services
+2. How the client base is shifting up-market or down-market over time
+3. Specific marketing or pricing recommendations based on the data
+4. Any surprising patterns worth investigating
+
+Return JSON with: { insights: [{ title: string, finding: string, action: string, priority: "high"|"medium"|"low" }], summary: string }`;
+
+        const response = await invokeLLM({
+          messages: [
+            { role: "system", content: "You are a data-driven marketing analyst. Always respond with valid JSON." },
+            { role: "user", content: prompt },
+          ],
+          response_format: {
+            type: "json_schema",
+            json_schema: {
+              name: "budget_insights",
+              strict: true,
+              schema: {
+                type: "object",
+                properties: {
+                  insights: {
+                    type: "array",
+                    items: {
+                      type: "object",
+                      properties: {
+                        title: { type: "string" },
+                        finding: { type: "string" },
+                        action: { type: "string" },
+                        priority: { type: "string", enum: ["high", "medium", "low"] },
+                      },
+                      required: ["title", "finding", "action", "priority"],
+                      additionalProperties: false,
+                    },
+                  },
+                  summary: { type: "string" },
+                },
+                required: ["insights", "summary"],
+                additionalProperties: false,
+              },
+            },
+          },
+        });
+
+        const content = response.choices[0]?.message?.content;
+        if (!content) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "AI response empty" });
+
+        return JSON.parse(content as string) as {
+          insights: Array<{ title: string; finding: string; action: string; priority: string }>;
+          summary: string;
+        };
       }),
 
     /** Budget breakdown — service popularity for a given budget band */

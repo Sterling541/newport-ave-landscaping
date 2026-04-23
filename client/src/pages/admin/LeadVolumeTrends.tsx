@@ -13,7 +13,7 @@ import {
   XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend,
   ReferenceLine,
 } from "recharts";
-import { Calendar, TrendingUp, Users, RefreshCw, DollarSign } from "lucide-react";
+import { Calendar, TrendingUp, Users, RefreshCw, DollarSign, Brain, Lightbulb, ChevronRight } from "lucide-react";
 
 // ── Constants ─────────────────────────────────────────────────────────────────
 
@@ -86,6 +86,11 @@ export default function LeadVolumeTrends() {
   const [preset, setPreset] = useState("90d");
   const [selectedType, setSelectedType] = useState("all");
   const [selectedBudget, setSelectedBudget] = useState("all");
+  const [generatingBudgetAI, setGeneratingBudgetAI] = useState(false);
+  const [budgetAiResult, setBudgetAiResult] = useState<null | {
+    insights: Array<{ title: string; finding: string; action: string; priority: string }>;
+    summary: string;
+  }>(null);
   const { start, end } = useMemo(() => getPresetRange(preset), [preset]);
 
   const trendsQuery = trpc.insightsEngine.volumeTrends.useQuery({ startDate: start, endDate: end, serviceType: selectedType });
@@ -93,6 +98,8 @@ export default function LeadVolumeTrends() {
   const budgetInsightsQuery = trpc.insightsEngine.budgetInsights.useQuery(
     { budgetKey: selectedBudget, startDate: start, endDate: end },
   );
+  const budgetTrendQuery = trpc.insightsEngine.budgetTrend.useQuery();
+  const generateBudgetInsightsMutation = trpc.insightsEngine.generateBudgetInsights.useMutation();
 
   const data = trendsQuery.data;
   const sourceData = sourceQuery.data;
@@ -133,6 +140,18 @@ export default function LeadVolumeTrends() {
   }, [sourceData]);
 
   // ── Stats ─────────────────────────────────────────────────────────────────
+
+  const handleGenerateBudgetAI = async () => {
+    setGeneratingBudgetAI(true);
+    try {
+      const result = await generateBudgetInsightsMutation.mutateAsync({});
+      setBudgetAiResult(result);
+    } catch (_err) {
+      // silent
+    } finally {
+      setGeneratingBudgetAI(false);
+    }
+  };
 
   const totalInRange = useMemo(() => dailyChartData.reduce((s, r) => s + r.count, 0), [dailyChartData]);
   const peakDay = useMemo(() => dailyChartData.reduce((best, r) => r.count > best.count ? r : best, { date: "", count: 0 }), [dailyChartData]);
@@ -505,6 +524,107 @@ export default function LeadVolumeTrends() {
             </CardContent>
           </Card>
         </div>
+
+        {/* Budget Trend Over Time Chart */}
+        <Card className="bg-white shadow-sm">
+          <CardHeader className="pb-3">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <TrendingUp className="w-4 h-4 text-emerald-600" />
+                <CardTitle className="text-sm font-semibold text-slate-700">Budget Range Trend by Year</CardTitle>
+              </div>
+              <span className="text-xs text-slate-400">Client budget distribution over time</span>
+            </div>
+          </CardHeader>
+          <CardContent>
+            {budgetTrendQuery.isLoading ? (
+              <div className="flex items-center gap-2 text-slate-400 text-sm py-8 justify-center">
+                <RefreshCw className="w-4 h-4 animate-spin" /> Loading…
+              </div>
+            ) : budgetTrendQuery.data && budgetTrendQuery.data.rows.length > 0 ? (
+              <ResponsiveContainer width="100%" height={220}>
+                <AreaChart data={budgetTrendQuery.data.rows} margin={{ top: 4, right: 8, left: -20, bottom: 0 }}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
+                  <XAxis dataKey="year" tick={{ fontSize: 11 }} />
+                  <YAxis tick={{ fontSize: 11 }} />
+                  <Tooltip contentStyle={{ fontSize: 11 }} />
+                  <Legend wrapperStyle={{ fontSize: 11 }} />
+                  {(budgetTrendQuery.data.bands ?? []).map((band, i) => {
+                    const colors = ["#059669","#2563eb","#d97706","#7c3aed","#dc2626","#0891b2","#64748b"];
+                    return (
+                      <Area
+                        key={band}
+                        type="monotone"
+                        dataKey={band}
+                        stackId="1"
+                        stroke={colors[i % colors.length]}
+                        fill={colors[i % colors.length]}
+                        fillOpacity={0.6}
+                      />
+                    );
+                  })}
+                </AreaChart>
+              </ResponsiveContainer>
+            ) : (
+              <p className="text-slate-400 text-sm py-8 text-center">No trend data available yet.</p>
+            )}
+          </CardContent>
+        </Card>
+
+        {/* AI Budget Insights */}
+        <Card className="bg-white shadow-sm">
+          <CardHeader className="pb-3">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <Brain className="w-4 h-4 text-purple-600" />
+                <CardTitle className="text-sm font-semibold text-slate-700">AI Budget Insights</CardTitle>
+              </div>
+              <button
+                onClick={handleGenerateBudgetAI}
+                disabled={generatingBudgetAI}
+                className="text-xs px-3 py-1.5 rounded-md border border-purple-200 text-purple-700 hover:bg-purple-50 transition-colors disabled:opacity-50 flex items-center gap-1.5"
+              >
+                <Brain className={`w-3 h-3 ${generatingBudgetAI ? "animate-pulse" : ""}`} />
+                {generatingBudgetAI ? "Analyzing…" : "Generate Budget Insights"}
+              </button>
+            </div>
+          </CardHeader>
+          <CardContent>
+            {!budgetAiResult ? (
+              <div className="text-center py-8">
+                <Lightbulb className="w-8 h-8 text-slate-200 mx-auto mb-3" />
+                <p className="text-slate-400 text-sm">Click "Generate Budget Insights" to analyze cross-budget patterns.</p>
+              </div>
+            ) : (
+              <div className="space-y-4">
+                <div className="bg-purple-50 border border-purple-100 rounded-lg p-3">
+                  <p className="text-sm text-purple-800 leading-relaxed">{budgetAiResult.summary}</p>
+                </div>
+                <div className="space-y-3">
+                  {budgetAiResult.insights.map((insight, i) => (
+                    <div key={i} className={`border-l-4 pl-3 py-1 ${
+                      insight.priority === "high" ? "border-l-amber-500" :
+                      insight.priority === "medium" ? "border-l-blue-400" : "border-l-slate-300"
+                    }`}>
+                      <div className="flex items-center gap-2 mb-0.5">
+                        <span className={`text-xs font-semibold px-1.5 py-0.5 rounded-full ${
+                          insight.priority === "high" ? "bg-amber-100 text-amber-800" :
+                          insight.priority === "medium" ? "bg-blue-100 text-blue-800" : "bg-slate-100 text-slate-600"
+                        }`}>{insight.priority}</span>
+                        <p className="text-sm font-semibold text-slate-800">{insight.title}</p>
+                      </div>
+                      <p className="text-xs text-slate-600 mb-1">{insight.finding}</p>
+                      <div className="flex items-start gap-1.5">
+                        <ChevronRight className="w-3 h-3 text-emerald-600 mt-0.5 flex-shrink-0" />
+                        <p className="text-xs text-emerald-700 font-medium">{insight.action}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </CardContent>
+        </Card>
 
       </div>
     </div>
