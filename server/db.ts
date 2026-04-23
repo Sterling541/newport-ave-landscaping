@@ -865,11 +865,3 @@ export async function getLostLeadsByMonth(months = 12) {
       price_too_high: counts["price_too_high"] ?? 0,
     }));
 }
-
-
-/**
- * Lost-lead breakdown by reason and month.
- * Returns one row per (year-month, status) with a count.
- * Only includes "lost" statuses: not_interested, closed_lost,
- * below_minimum_budget, price_too_high.
- */

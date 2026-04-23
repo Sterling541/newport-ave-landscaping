@@ -1050,6 +1050,16 @@ Be specific, data-driven, and actionable. Format as JSON with keys: bestMonths (
       return listCsvImportJobs();
     }),
   }),
+
+  // ── Lost-lead breakdown analytics ──────────────────────────────────────────
+  lostLeads: router({
+    byMonth: protectedProcedure
+      .input(z.object({ months: z.number().min(1).max(24).default(12) }))
+      .query(async ({ ctx, input }) => {
+        requireAdmin(ctx);
+        return getLostLeadsByMonth(input.months);
+      }),
+  }),
 });
 
 export type AppRouter = typeof appRouter;

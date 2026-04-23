@@ -396,7 +396,7 @@ export default function HeroSection() {
       <div
         style={{
           position: "absolute",
-          bottom: "clamp(5.5rem, 12vh, 9rem)",
+          bottom: "clamp(7rem, 14vh, 11rem)",
           left: "clamp(1.5rem, 5vw, 5rem)",
           right: "clamp(1.5rem, 5vw, 5rem)",
           zIndex: 10,
@@ -407,7 +407,7 @@ export default function HeroSection() {
         <div
           style={{
             fontFamily: "'Cormorant Garamond', 'Playfair Display', Georgia, serif",
-            fontSize: "clamp(3.8rem, 9.5vw, 10.5rem)",
+            fontSize: "clamp(3rem, 7.5vw, 8rem)",
             fontWeight: 700,
             lineHeight: 0.88,
             letterSpacing: "-0.035em",
@@ -420,7 +420,7 @@ export default function HeroSection() {
         <div
           style={{
             fontFamily: "'Cormorant Garamond', 'Playfair Display', Georgia, serif",
-            fontSize: "clamp(3.8rem, 9.5vw, 10.5rem)",
+            fontSize: "clamp(3rem, 7.5vw, 8rem)",
             fontWeight: 700,
             lineHeight: 0.88,
             letterSpacing: "-0.035em",
@@ -433,7 +433,7 @@ export default function HeroSection() {
         <div
           style={{
             fontFamily: "'Cormorant Garamond', 'Playfair Display', Georgia, serif",
-            fontSize: "clamp(3.2rem, 8vw, 9rem)",
+            fontSize: "clamp(2.6rem, 6.5vw, 7.5rem)",
             fontWeight: 300,
             fontStyle: "italic",
             lineHeight: 0.95,
