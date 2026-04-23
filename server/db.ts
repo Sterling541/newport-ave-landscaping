@@ -3,6 +3,7 @@ import { drizzle } from "drizzle-orm/mysql2";
 import {
   InsertCsvImportJob, InsertInsight, InsertLeadFollowUp, InsertServiceSubmission, InsertUser, InsertWeatherDaily,
   LeadFollowUp, csvImportJobs, insights, leadFollowUps, serviceSubmissions, users, weatherDaily,
+  optOutRequests, type InsertOptOutRequest,
 } from "../drizzle/schema";
 import { ENV } from './_core/env';
 
@@ -864,4 +865,35 @@ export async function getLostLeadsByMonth(months = 12) {
       below_minimum_budget: counts["below_minimum_budget"] ?? 0,
       price_too_high: counts["price_too_high"] ?? 0,
     }));
+}
+
+// ── Opt-Out Requests ──────────────────────────────────────────────────────────
+
+export async function createOptOutRequest(data: Omit<InsertOptOutRequest, "id" | "createdAt" | "updatedAt">) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  return db.insert(optOutRequests).values(data);
+}
+
+export async function listOptOutRequests(limit = 100, offset = 0) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  return db.select().from(optOutRequests).orderBy(desc(optOutRequests.createdAt)).limit(limit).offset(offset);
+}
+
+export async function countOptOutRequests() {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  const rows = await db.select({ count: sql<number>`count(*)` }).from(optOutRequests);
+  return Number(rows[0]?.count ?? 0);
+}
+
+export async function updateOptOutRequestStatus(
+  id: number,
+  status: "pending" | "scheduled" | "installed" | "cancelled",
+  adminNotes?: string
+) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  return db.update(optOutRequests).set({ status, ...(adminNotes !== undefined ? { adminNotes } : {}) }).where(eq(optOutRequests.id, id));
 }

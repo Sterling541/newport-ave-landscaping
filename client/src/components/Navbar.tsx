@@ -25,6 +25,7 @@ const maintenanceItems = [
   { label: "Sprinkler Blowout", href: "/services/sprinkler-blowout", num: "05" },
   { label: "Snow Removal", href: "/services/snow-removal", num: "06" },
   { label: "Lawn Fungus Treatment", href: "/services/lawn-fungus", num: "07" },
+  { label: "Spray & Prune Opt-Out", href: "/opt-out", num: "08" },
 ];
 
 const servicesItems = [

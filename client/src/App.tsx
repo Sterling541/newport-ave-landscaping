@@ -26,6 +26,7 @@ import LeadVolumeTrends from "./pages/admin/LeadVolumeTrends";
 import CsvImport from "./pages/admin/CsvImport";
 import GeoIntelligence from "./pages/admin/GeoIntelligence";
 import Reminders from "./pages/admin/Reminders";
+import OptOut from "./pages/OptOut";
 
 // Main pages
 import Home from "./pages/Home";
@@ -500,6 +501,8 @@ function Router() {
       <Route path={"/resources/irrigation-repair-cost-bend-oregon"} component={lazy(() => import('./pages/resources/IrrigationRepairCostBend'))} />
       <Route path={"/resources/commercial-landscaping-cost-bend-oregon"} component={lazy(() => import('./pages/resources/CommercialLandscapingCostBend'))} />
       <Route path={"/resources/lawn-fungus-treatment-bend-oregon"} component={lazy(() => import('./pages/resources/LawnFungusTreatmentBend'))} />
+      {/* Opt-Out Program */}
+      <Route path={"/opt-out"} component={OptOut} />
       {/* Schedule Services + Admin */}
       <Route path={"/schedule-services"} component={ScheduleServices} />
       <Route path={"/admin/submissions"} component={AdminSubmissions} />

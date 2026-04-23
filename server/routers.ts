@@ -58,6 +58,10 @@ import {
   getAllUpcomingReminders,
   snoozeReminder,
   getLostLeadsByMonth,
+  createOptOutRequest,
+  listOptOutRequests,
+  countOptOutRequests,
+  updateOptOutRequestStatus,
 } from "./db";
 
 // ── Admin guard helper ────────────────────────────────────────────────────────
@@ -1058,6 +1062,58 @@ Be specific, data-driven, and actionable. Format as JSON with keys: bestMonths (
       .query(async ({ ctx, input }) => {
         requireAdmin(ctx);
         return getLostLeadsByMonth(input.months);
+      }),
+  }),
+
+  // ── Opt-Out Program ───────────────────────────────────────────────────────
+  optOut: router({
+    /** Public: submit an opt-out request */
+    submit: publicProcedure
+      .input(z.object({
+        fullName: z.string().min(1).max(200),
+        neighborhood: z.string().min(1).max(200),
+        serviceAddress: z.string().min(1).max(500),
+        email: z.string().email().max(320).optional(),
+        phone: z.string().max(30).optional(),
+        optOutTypes: z.string().min(1).max(50), // "no_spray", "no_prune", or "no_spray,no_prune"
+        acknowledged: z.boolean(),
+      }))
+      .mutation(async ({ input }) => {
+        if (!input.acknowledged) throw new TRPCError({ code: "BAD_REQUEST", message: "You must acknowledge the terms." });
+        await createOptOutRequest({ ...input, status: "pending" });
+        const lines = [
+          `**Name:** ${input.fullName}`,
+          `**Address:** ${input.serviceAddress}`,
+          `**Neighborhood/HOA:** ${input.neighborhood}`,
+          input.email ? `**Email:** ${input.email}` : null,
+          input.phone ? `**Phone:** ${input.phone}` : null,
+          `**Opt-Out Types:** ${input.optOutTypes.replace(/,/g, " + ").replace(/_/g, " ").toUpperCase()}`,
+        ].filter(Boolean).join("\n");
+        await notifyOwner({ title: `New Opt-Out Request — ${input.fullName}`, content: lines });
+        return { success: true };
+      }),
+
+    /** Admin: list all opt-out requests */
+    list: protectedProcedure
+      .input(z.object({ limit: z.number().min(1).max(200).default(100), offset: z.number().min(0).default(0) }))
+      .query(async ({ ctx, input }) => {
+        requireAdmin(ctx);
+        const rows = await listOptOutRequests(input.limit, input.offset);
+        const total = await countOptOutRequests();
+        return { rows, total };
+      }),
+
+    /** Admin: update status of an opt-out request */
+    updateStatus: protectedProcedure
+      .input(z.object({
+        id: z.number(),
+        status: z.enum(["pending", "scheduled", "installed", "cancelled"]),
+        adminNotes: z.string().max(2000).optional(),
+      }))
+      .mutation(async ({ ctx, input }) => {
+        requireAdmin(ctx);
+        await updateOptOutRequestStatus(input.id, input.status, input.adminNotes);
+        return { success: true };
       }),
   }),
 });

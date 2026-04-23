@@ -247,3 +247,27 @@ export const leadFollowUps = mysqlTable("lead_follow_ups", {
 });
 export type LeadFollowUp = typeof leadFollowUps.$inferSelect;
 export type InsertLeadFollowUp = typeof leadFollowUps.$inferInsert;
+
+/**
+ * Spray & Prune Opt-Out Program requests submitted by customers.
+ */
+export const optOutRequests = mysqlTable("opt_out_requests", {
+  id: int("id").autoincrement().primaryKey(),
+  fullName: varchar("fullName", { length: 200 }).notNull(),
+  neighborhood: varchar("neighborhood", { length: 200 }).notNull(),
+  serviceAddress: varchar("serviceAddress", { length: 500 }).notNull(),
+  email: varchar("email", { length: 320 }),
+  phone: varchar("phone", { length: 30 }),
+  /** Comma-separated: "no_spray", "no_prune", or "no_spray,no_prune" */
+  optOutTypes: varchar("optOutTypes", { length: 50 }).notNull(),
+  acknowledged: boolean("acknowledged").default(false).notNull(),
+  /** Admin workflow status */
+  status: mysqlEnum("optOutStatus", ["pending", "scheduled", "installed", "cancelled"])
+    .default("pending")
+    .notNull(),
+  adminNotes: text("adminNotes"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+export type OptOutRequest = typeof optOutRequests.$inferSelect;
+export type InsertOptOutRequest = typeof optOutRequests.$inferInsert;

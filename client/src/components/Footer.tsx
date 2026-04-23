@@ -17,6 +17,7 @@ const maintenanceLinks = [
   { label: "Sprinkler Repair", href: "/services/sprinkler-repair" },
   { label: "Snow Removal", href: "/services/snow-removal" },
   { label: "Lawn Fungus Treatment", href: "/services/lawn-fungus" },
+  { label: "Spray & Prune Opt-Out", href: "/opt-out" },
 ];
 
 const landscapingLinks = [
