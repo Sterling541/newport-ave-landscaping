@@ -9,6 +9,7 @@ import { registerRedirects } from "../redirects";
 import { appRouter } from "../routers";
 import { createContext } from "./context";
 import { serveStatic, setupVite } from "./vite";
+import { batchGeocodeSubmissions } from "../geocoder";
 
 function isPortAvailable(port: number): Promise<boolean> {
   return new Promise(resolve => {
@@ -66,7 +67,37 @@ async function startServer() {
 
   server.listen(port, () => {
     console.log(`Server running on http://localhost:${port}/`);
+    // Background geocoding job: process all un-geocoded submissions in batches
+    scheduleGeocoding();
   });
+}
+
+async function scheduleGeocoding() {
+  // Wait 5 seconds after server start before beginning
+  await new Promise(res => setTimeout(res, 5000));
+  let totalGeocoded = 0;
+  let batchNum = 0;
+  while (true) {
+    try {
+      const result = await batchGeocodeSubmissions(50);
+      totalGeocoded += result.geocoded;
+      batchNum++;
+      if (result.geocoded > 0) {
+        console.log(`[geocoder] Batch ${batchNum}: geocoded=${result.geocoded} skipped=${result.skipped} failed=${result.failed} total=${totalGeocoded}`);
+      }
+      // If nothing was geocoded in this batch, we're done (or all remaining failed)
+      if (result.geocoded === 0 && result.skipped === 0) {
+        console.log(`[geocoder] All submissions geocoded. Total: ${totalGeocoded}`);
+        break;
+      }
+      // Small pause between batches
+      await new Promise(res => setTimeout(res, 2000));
+    } catch (err) {
+      console.error("[geocoder] Batch error:", err);
+      // Wait 30 seconds before retrying on error
+      await new Promise(res => setTimeout(res, 30000));
+    }
+  }
 }
 
 startServer().catch(console.error);

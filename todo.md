@@ -480,3 +480,9 @@
 - [x] Filter pins by service type (same pill bar as dashboards)
 - [x] Register /admin/geo-intelligence route in App.tsx
 - [x] Add geo-intelligence link to Footer admin nav (🗺 emoji)
+
+## Geocoding & Data Cleanup (Apr 23, 2026)
+
+- [ ] Fix 6 unknown-service rows by matching against original spreadsheet data
+- [ ] Run full geocoding batch for all 601 un-geocoded submissions
+- [ ] Generate AI neighborhood insights after geocoding completes
