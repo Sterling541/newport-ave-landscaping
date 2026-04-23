@@ -66,6 +66,15 @@ await build({
   ],
   // Suppress warnings about dynamic requires in bundled packages
   logLevel: 'error',
+  // CJS shim: some bundled packages (e.g. dotenv) use require() internally.
+  // When bundled into ESM, these become "Dynamic require of X is not supported".
+  // This banner injects a require() shim that delegates to createRequire.
+  banner: {
+    js: [
+      `import { createRequire } from 'module';`,
+      `const require = createRequire(import.meta.url);`,
+    ].join('\n'),
+  },
 });
 console.log('Compiled .vercel/output/functions/api.func/index.js');
 
