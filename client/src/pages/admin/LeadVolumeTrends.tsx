@@ -73,12 +73,22 @@ const CustomBarTooltip = ({ active, payload, label }: { active?: boolean; payloa
 
 // ── Main Component ────────────────────────────────────────────────────────────
 
+const INQUIRY_TYPES_LVT = [
+  { value: "all", label: "All Inquiries", color: "bg-slate-700 text-white" },
+  { value: "Landscape Design", label: "Design", color: "bg-emerald-700 text-white" },
+  { value: "New Landscape Installation", label: "Installation", color: "bg-blue-700 text-white" },
+  { value: "Enhancements", label: "Enhancements", color: "bg-amber-600 text-white" },
+  { value: "Lighting", label: "Lighting", color: "bg-yellow-600 text-white" },
+  { value: "Irrigation", label: "Irrigation", color: "bg-cyan-700 text-white" },
+];
+
 export default function LeadVolumeTrends() {
   const [preset, setPreset] = useState("90d");
+  const [selectedType, setSelectedType] = useState("all");
   const { start, end } = useMemo(() => getPresetRange(preset), [preset]);
 
-  const trendsQuery = trpc.insightsEngine.volumeTrends.useQuery({ startDate: start, endDate: end });
-  const sourceQuery = trpc.insightsEngine.sourceAttribution.useQuery({ startDate: start, endDate: end });
+  const trendsQuery = trpc.insightsEngine.volumeTrends.useQuery({ startDate: start, endDate: end, serviceType: selectedType });
+  const sourceQuery = trpc.insightsEngine.sourceAttribution.useQuery({ startDate: start, endDate: end, serviceType: selectedType });
 
   const data = trendsQuery.data;
   const sourceData = sourceQuery.data;
@@ -170,6 +180,29 @@ export default function LeadVolumeTrends() {
               </Button>
             ))}
           </div>
+        </div>
+
+        {/* Inquiry Type Filter Pills */}
+        <div className="flex flex-wrap gap-2 items-center">
+          <span className="text-xs font-medium text-slate-500 mr-1">Filter by type:</span>
+          {INQUIRY_TYPES_LVT.map(t => (
+            <button
+              key={t.value}
+              onClick={() => setSelectedType(t.value)}
+              className={`px-3 py-1 rounded-full text-xs font-semibold transition-all border ${
+                selectedType === t.value
+                  ? `${t.color} border-transparent shadow-sm scale-105`
+                  : "bg-white text-slate-600 border-slate-200 hover:border-slate-400"
+              }`}
+            >
+              {t.label}
+            </button>
+          ))}
+          {selectedType !== "all" && (
+            <span className="text-xs text-slate-400 ml-1">
+              Showing <strong className="text-slate-600">{selectedType}</strong> only
+            </span>
+          )}
         </div>
 
         {/* Summary stats */}

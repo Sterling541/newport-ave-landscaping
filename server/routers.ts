@@ -39,6 +39,12 @@ import { ENV } from "./_core/env";
 import { fetchHistoricalWeather, fetchWeatherForecast, describeWeatherCode } from "./weather";
 import { processCsvImport } from "./csvImport";
 import { generateInsights, generateDailyPulseSummary } from "./insightsGenerator";
+import { batchGeocodeSubmissions } from "./geocoder";
+import {
+  getGeocodedSubmissions,
+  getNeighborhoodClusters,
+  countUngeocodedSubmissions,
+} from "./db";
 
 // ── Admin guard helper ────────────────────────────────────────────────────────
 function requireAdmin(ctx: { user: { openId: string; role: string } }) {
@@ -256,8 +262,11 @@ export const appRouter = router({
   // ── Insights Engine ─────────────────────────────────────────────────────────
   insightsEngine: router({
     /** Daily Pulse — the morning briefing view */
-    dailyPulse: protectedProcedure.query(async ({ ctx }) => {
+    dailyPulse: protectedProcedure
+      .input(z.object({ serviceType: z.string().optional() }).optional())
+      .query(async ({ ctx, input }) => {
       requireAdmin(ctx);
+      const svcFilter = input?.serviceType || "all";
 
       const today = new Date();
       const yesterday = new Date(today);
@@ -265,9 +274,9 @@ export const appRouter = router({
       const yesterdayStr = yesterday.toISOString().slice(0, 10);
 
       // Submission stats
-      const yesterdayCount = await getSubmissionCountForDate(yesterday);
-      const avg7day = await getRollingAvgSubmissions(today, 7);
-      const avg30day = await getRollingAvgSubmissions(today, 30);
+      const yesterdayCount = await getSubmissionCountForDate(yesterday, svcFilter);
+      const avg7day = await getRollingAvgSubmissions(today, 7, svcFilter);
+      const avg30day = await getRollingAvgSubmissions(today, 30, svcFilter);
 
       // Same week last year
       const sameWeekLastYear = new Date(today);
@@ -276,15 +285,15 @@ export const appRouter = router({
       sameWeekStart.setDate(sameWeekLastYear.getDate() - 3);
       const sameWeekEnd = new Date(sameWeekLastYear);
       sameWeekEnd.setDate(sameWeekLastYear.getDate() + 3);
-      const sameWeekCounts = await getSubmissionCountsByDay(sameWeekStart, sameWeekEnd);
+      const sameWeekCounts = await getSubmissionCountsByDay(sameWeekStart, sameWeekEnd, svcFilter);
       const sameWeekLastYearTotal = sameWeekCounts.reduce((s, r) => s + r.count, 0);
 
       // This month vs last month
       const monthStart = new Date(today.getFullYear(), today.getMonth(), 1);
       const lastMonthStart = new Date(today.getFullYear(), today.getMonth() - 1, 1);
       const lastMonthEnd = new Date(today.getFullYear(), today.getMonth(), 0);
-      const thisMonthCounts = await getSubmissionCountsByDay(monthStart, today);
-      const lastMonthCounts = await getSubmissionCountsByDay(lastMonthStart, lastMonthEnd);
+      const thisMonthCounts = await getSubmissionCountsByDay(monthStart, today, svcFilter);
+      const lastMonthCounts = await getSubmissionCountsByDay(lastMonthStart, lastMonthEnd, svcFilter);
       const totalThisMonth = thisMonthCounts.reduce((s, r) => s + r.count, 0);
       const totalLastMonth = lastMonthCounts.reduce((s, r) => s + r.count, 0);
 
@@ -293,9 +302,9 @@ export const appRouter = router({
       const maxDailyCountThisMonth = Math.max(0, ...thisMonthCounts.map(r => r.count));
 
       // Service type, source, budget counts for this month
-      const serviceTypeCounts = await getSubmissionsByServiceType(monthStart, today);
-      const sourceCounts = await getSubmissionsBySource(monthStart, today);
-      const budgetCounts = await getSubmissionsByBudget(monthStart, today);
+      const serviceTypeCounts = await getSubmissionsByServiceType(monthStart, today, svcFilter);
+      const sourceCounts = await getSubmissionsBySource(monthStart, today, svcFilter);
+      const budgetCounts = await getSubmissionsByBudget(monthStart, today, svcFilter);
 
       // Weather
       const yesterdayWeatherRow = await getWeatherForDate(yesterdayStr);
@@ -353,12 +362,14 @@ export const appRouter = router({
       .input(z.object({
         startDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
         endDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+        serviceType: z.string().optional(),
       }))
       .query(async ({ ctx, input }) => {
         requireAdmin(ctx);
+        const svcFilter = input.serviceType || "all";
         const start = new Date(input.startDate + "T00:00:00");
         const end = new Date(input.endDate + "T23:59:59");
-        const dailyCounts = await getSubmissionCountsByDay(start, end);
+        const dailyCounts = await getSubmissionCountsByDay(start, end, svcFilter);
 
         // Build rolling 7-day and 28-day averages
         const withRolling = dailyCounts.map((row, i) => {
@@ -393,12 +404,14 @@ export const appRouter = router({
       .input(z.object({
         startDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
         endDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+        serviceType: z.string().optional(),
       }))
       .query(async ({ ctx, input }) => {
         requireAdmin(ctx);
+        const svcFilter = input.serviceType || "all";
         const start = new Date(input.startDate + "T00:00:00");
         const end = new Date(input.endDate + "T23:59:59");
-        const sourceCounts = await getSubmissionsBySource(start, end);
+        const sourceCounts = await getSubmissionsBySource(start, end, svcFilter);
         const total = sourceCounts.reduce((s, r) => s + r.count, 0);
         return {
           sources: sourceCounts.map(r => ({
@@ -410,7 +423,10 @@ export const appRouter = router({
       }),
 
     /** Generate and save new AI insights */
-    generateInsights: protectedProcedure.mutation(async ({ ctx }) => {
+    generateInsights: protectedProcedure
+      .input(z.object({ serviceType: z.string().optional() }).optional())
+      .mutation(async ({ ctx, input }) => {
+      const svcFilter = input?.serviceType || "all";
       requireAdmin(ctx);
 
       const today = new Date();
@@ -420,18 +436,18 @@ export const appRouter = router({
       const lastMonthStart = new Date(today.getFullYear(), today.getMonth() - 1, 1);
       const lastMonthEnd = new Date(today.getFullYear(), today.getMonth(), 0);
 
-      const yesterdayCount = await getSubmissionCountForDate(yesterday);
-      const avg7day = await getRollingAvgSubmissions(today, 7);
-      const avg30day = await getRollingAvgSubmissions(today, 30);
-      const thisMonthCounts = await getSubmissionCountsByDay(monthStart, today);
-      const lastMonthCounts = await getSubmissionCountsByDay(lastMonthStart, lastMonthEnd);
+      const yesterdayCount = await getSubmissionCountForDate(yesterday, svcFilter);
+      const avg7day = await getRollingAvgSubmissions(today, 7, svcFilter);
+      const avg30day = await getRollingAvgSubmissions(today, 30, svcFilter);
+      const thisMonthCounts = await getSubmissionCountsByDay(monthStart, today, svcFilter);
+      const lastMonthCounts = await getSubmissionCountsByDay(lastMonthStart, lastMonthEnd, svcFilter);
       const totalThisMonth = thisMonthCounts.reduce((s, r) => s + r.count, 0);
       const totalLastMonth = lastMonthCounts.reduce((s, r) => s + r.count, 0);
       const zeroSubmissionDaysThisMonth = thisMonthCounts.filter(r => r.count === 0).length;
       const maxDailyCountThisMonth = Math.max(0, ...thisMonthCounts.map(r => r.count));
-      const serviceTypeCounts = await getSubmissionsByServiceType(monthStart, today);
-      const sourceCounts = await getSubmissionsBySource(monthStart, today);
-      const budgetCounts = await getSubmissionsByBudget(monthStart, today);
+      const serviceTypeCounts = await getSubmissionsByServiceType(monthStart, today, svcFilter);
+      const sourceCounts = await getSubmissionsBySource(monthStart, today, svcFilter);
+      const budgetCounts = await getSubmissionsByBudget(monthStart, today, svcFilter);
       const yesterdayWeatherRow = await getWeatherForDate(yesterday.toISOString().slice(0, 10));
       const forecastRows = await getWeatherForecast();
 
@@ -533,7 +549,171 @@ export const appRouter = router({
       }),
   }),
 
-  // ── CSV Import ──────────────────────────────────────────────────────────────
+  // ── Geo-Intelligence ─────────────────────────────────────────────────────────────────────────────
+  geoIntelligence: router({
+    /** Get all geocoded submission pins for the map */
+    pins: protectedProcedure
+      .input(z.object({
+        serviceType: z.string().optional(),
+        startDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional(),
+        endDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional(),
+      }).optional())
+      .query(async ({ ctx, input }) => {
+        requireAdmin(ctx);
+        const opts = {
+          serviceType: input?.serviceType || "all",
+          startDate: input?.startDate ? new Date(input.startDate + "T00:00:00") : undefined,
+          endDate: input?.endDate ? new Date(input.endDate + "T23:59:59") : undefined,
+        };
+        const rows = await getGeocodedSubmissions(opts);
+        return rows.map(r => ({
+          id: r.id,
+          name: `${r.firstName} ${r.lastName}`,
+          address: r.siteAddress,
+          serviceType: r.serviceType,
+          budget: r.budget,
+          lat: Number(r.lat),
+          lng: Number(r.lng),
+          neighborhood: r.neighborhood,
+          city: r.city,
+          createdAt: r.createdAt,
+          leadStatus: r.leadStatus,
+        }));
+      }),
+
+    /** Get neighborhood-level clusters for the sidebar */
+    clusters: protectedProcedure
+      .input(z.object({
+        serviceType: z.string().optional(),
+        startDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional(),
+        endDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional(),
+      }).optional())
+      .query(async ({ ctx, input }) => {
+        requireAdmin(ctx);
+        const opts = {
+          serviceType: input?.serviceType || "all",
+          startDate: input?.startDate ? new Date(input.startDate + "T00:00:00") : undefined,
+          endDate: input?.endDate ? new Date(input.endDate + "T23:59:59") : undefined,
+        };
+        return getNeighborhoodClusters(opts);
+      }),
+
+    /** Trigger geocoding batch job */
+    geocodeBatch: protectedProcedure
+      .input(z.object({ limit: z.number().min(1).max(500).default(100) }).optional())
+      .mutation(async ({ ctx, input }) => {
+        requireAdmin(ctx);
+        const result = await batchGeocodeSubmissions(input?.limit ?? 100);
+        return result;
+      }),
+
+    /** Get geocoding status */
+    geocodeStatus: protectedProcedure.query(async ({ ctx }) => {
+      requireAdmin(ctx);
+      const ungeocoded = await countUngeocodedSubmissions();
+      const total = await countServiceSubmissions();
+      const geocoded = total - ungeocoded;
+      return { total, geocoded, ungeocoded, pct: total > 0 ? Math.round((geocoded / total) * 100) : 0 };
+    }),
+
+    /** Generate AI postcard/marketing recommendations for a neighborhood */
+    neighborhoodInsights: protectedProcedure
+      .input(z.object({
+        neighborhood: z.string(),
+        city: z.string().optional(),
+        serviceType: z.string().optional(),
+      }))
+      .mutation(async ({ ctx, input }) => {
+        requireAdmin(ctx);
+
+        // Get clusters to find data for this neighborhood
+        const clusters = await getNeighborhoodClusters();
+        const cluster = clusters.find(c =>
+          c.neighborhood === input.neighborhood && (!input.city || c.city === input.city)
+        );
+
+        if (!cluster) {
+          throw new TRPCError({ code: "NOT_FOUND", message: "Neighborhood not found" });
+        }
+
+        // Get recent submissions for this neighborhood
+        const allPins = await getGeocodedSubmissions();
+        const neighborhoodPins = allPins.filter(p =>
+          p.neighborhood === input.neighborhood && (!input.city || p.city === input.city)
+        );
+
+        // Build context for AI
+        const serviceBreakdown = Object.entries(cluster.byServiceType)
+          .sort((a, b) => b[1] - a[1])
+          .map(([svc, cnt]) => `${svc}: ${cnt}`)
+          .join(", ");
+
+        const recentMonths = neighborhoodPins
+          .slice(0, 20)
+          .map(p => new Date(p.createdAt).toLocaleDateString("en-US", { month: "short", year: "numeric" }))
+          .join(", ");
+
+        const prompt = `You are a marketing strategist for Newport Avenue Landscaping, a premium landscaping company in Bend, OR.
+
+Analyze this neighborhood data and generate specific, actionable postcard marketing recommendations:
+
+Neighborhood: ${input.neighborhood}, ${cluster.city}
+Total inquiries: ${cluster.total}
+Service breakdown: ${serviceBreakdown}
+Recent inquiry months: ${recentMonths}
+
+Provide:
+1. The best 2-3 months to send postcards to this neighborhood (based on when they historically inquire)
+2. Which service(s) to feature on the postcard
+3. A specific headline/hook for the postcard (1-2 sentences)
+4. Why this neighborhood is a good target (1 sentence)
+
+Be specific, data-driven, and actionable. Format as JSON with keys: bestMonths (array of month names), featuredService (string), postcardHeadline (string), targetingRationale (string).`;
+
+        const response = await invokeLLM({
+          messages: [
+            { role: "system", content: "You are a data-driven marketing strategist. Always respond with valid JSON." },
+            { role: "user", content: prompt },
+          ],
+          response_format: {
+            type: "json_schema",
+            json_schema: {
+              name: "postcard_recommendation",
+              strict: true,
+              schema: {
+                type: "object",
+                properties: {
+                  bestMonths: { type: "array", items: { type: "string" } },
+                  featuredService: { type: "string" },
+                  postcardHeadline: { type: "string" },
+                  targetingRationale: { type: "string" },
+                },
+                required: ["bestMonths", "featuredService", "postcardHeadline", "targetingRationale"],
+                additionalProperties: false,
+              },
+            },
+          },
+        });
+
+        const content = response.choices[0]?.message?.content;
+        if (!content) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "AI response empty" });
+
+        return {
+          neighborhood: input.neighborhood,
+          city: cluster.city,
+          total: cluster.total,
+          byServiceType: cluster.byServiceType,
+          recommendation: JSON.parse(content as string) as {
+            bestMonths: string[];
+            featuredService: string;
+            postcardHeadline: string;
+            targetingRationale: string;
+          },
+        };
+      }),
+  }),
+
+  // ── CSV Import ──────────────────────────────────────────────────────────────────────────────
   csvImport: router({
     /** Process a CSV string and import submissions */
     import: protectedProcedure

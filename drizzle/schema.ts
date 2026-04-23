@@ -96,6 +96,18 @@ export const serviceSubmissions = mysqlTable("service_submissions", {
   // ── Final ─────────────────────────────────────────────────────────────────
   comments: text("comments"),
 
+  // ── Geo-Intelligence fields ─────────────────────────────────────────────
+  /** WGS84 latitude from geocoding siteAddress */
+  lat: decimal("lat", { precision: 10, scale: 7 }),
+  /** WGS84 longitude from geocoding siteAddress */
+  lng: decimal("lng", { precision: 10, scale: 7 }),
+  /** Neighborhood or district name from reverse geocoding */
+  neighborhood: varchar("neighborhood", { length: 128 }),
+  /** City name from reverse geocoding */
+  city: varchar("city", { length: 128 }),
+  /** When geocoding was last attempted */
+  geocodedAt: timestamp("geocodedAt"),
+
   // ── Analytics / Insights Engine fields ───────────────────────────────────
   /** Hashed IP address for anomaly detection (never store raw IP) */
   ipHash: varchar("ipHash", { length: 64 }),

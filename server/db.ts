@@ -112,69 +112,76 @@ export async function countServiceSubmissions() {
   return Number(rows[0]?.count ?? 0);
 }
 
-/** Get daily submission counts for a date range */
-export async function getSubmissionCountsByDay(startDate: Date, endDate: Date) {
+/** Get daily submission counts for a date range, optionally filtered by service type */
+export async function getSubmissionCountsByDay(startDate: Date, endDate: Date, serviceType?: string) {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
+  const conditions = [between(serviceSubmissions.createdAt, startDate, endDate)];
+  if (serviceType && serviceType !== "all") {
+    conditions.push(eq(serviceSubmissions.serviceType, serviceType));
+  }
   const rows = await db
     .select({
       date: sql<string>`DATE(createdAt)`,
       count: sql<number>`count(*)`,
     })
     .from(serviceSubmissions)
-    .where(between(serviceSubmissions.createdAt, startDate, endDate))
+    .where(and(...conditions))
     .groupBy(sql`DATE(createdAt)`)
     .orderBy(sql`DATE(createdAt)`);
   return rows.map(r => ({ date: String(r.date), count: Number(r.count) }));
 }
 
-/** Get submission counts by service type */
-export async function getSubmissionsByServiceType(startDate?: Date, endDate?: Date) {
+/** Get submission counts by service type, optionally filtered by a specific service type */
+export async function getSubmissionsByServiceType(startDate?: Date, endDate?: Date, serviceType?: string) {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
+  const conditions: ReturnType<typeof eq>[] = [];
+  if (startDate && endDate) conditions.push(between(serviceSubmissions.createdAt, startDate, endDate) as ReturnType<typeof eq>);
+  if (serviceType && serviceType !== "all") conditions.push(eq(serviceSubmissions.serviceType, serviceType));
   let query = db
     .select({
       serviceType: serviceSubmissions.serviceType,
       count: sql<number>`count(*)`,
     })
     .from(serviceSubmissions);
-  if (startDate && endDate) {
-    query = query.where(between(serviceSubmissions.createdAt, startDate, endDate)) as typeof query;
-  }
+  if (conditions.length > 0) query = query.where(and(...conditions)) as typeof query;
   const rows = await query.groupBy(serviceSubmissions.serviceType).orderBy(desc(sql`count(*)`));
   return rows.map(r => ({ serviceType: r.serviceType, count: Number(r.count) }));
 }
 
-/** Get submission counts by source (howHeard) */
-export async function getSubmissionsBySource(startDate?: Date, endDate?: Date) {
+/** Get submission counts by source (howHeard), optionally filtered by service type */
+export async function getSubmissionsBySource(startDate?: Date, endDate?: Date, serviceType?: string) {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
+  const conditions: ReturnType<typeof eq>[] = [];
+  if (startDate && endDate) conditions.push(between(serviceSubmissions.createdAt, startDate, endDate) as ReturnType<typeof eq>);
+  if (serviceType && serviceType !== "all") conditions.push(eq(serviceSubmissions.serviceType, serviceType));
   let query = db
     .select({
       howHeard: serviceSubmissions.howHeard,
       count: sql<number>`count(*)`,
     })
     .from(serviceSubmissions);
-  if (startDate && endDate) {
-    query = query.where(between(serviceSubmissions.createdAt, startDate, endDate)) as typeof query;
-  }
+  if (conditions.length > 0) query = query.where(and(...conditions)) as typeof query;
   const rows = await query.groupBy(serviceSubmissions.howHeard).orderBy(desc(sql`count(*)`));
   return rows.map(r => ({ howHeard: r.howHeard ?? "Unknown", count: Number(r.count) }));
 }
 
-/** Get submission counts by budget tier */
-export async function getSubmissionsByBudget(startDate?: Date, endDate?: Date) {
+/** Get submission counts by budget tier, optionally filtered by service type */
+export async function getSubmissionsByBudget(startDate?: Date, endDate?: Date, serviceType?: string) {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
+  const conditions: ReturnType<typeof eq>[] = [];
+  if (startDate && endDate) conditions.push(between(serviceSubmissions.createdAt, startDate, endDate) as ReturnType<typeof eq>);
+  if (serviceType && serviceType !== "all") conditions.push(eq(serviceSubmissions.serviceType, serviceType));
   let query = db
     .select({
       budget: serviceSubmissions.budget,
       count: sql<number>`count(*)`,
     })
     .from(serviceSubmissions);
-  if (startDate && endDate) {
-    query = query.where(between(serviceSubmissions.createdAt, startDate, endDate)) as typeof query;
-  }
+  if (conditions.length > 0) query = query.where(and(...conditions)) as typeof query;
   const rows = await query.groupBy(serviceSubmissions.budget).orderBy(desc(sql`count(*)`));
   return rows.map(r => ({ budget: r.budget ?? "Not specified", count: Number(r.count) }));
 }
@@ -188,28 +195,37 @@ export async function getRecentSubmissions(days = 7) {
   return db.select().from(serviceSubmissions).where(gte(serviceSubmissions.createdAt, since)).orderBy(desc(serviceSubmissions.createdAt));
 }
 
-/** Get submission count for a specific date */
-export async function getSubmissionCountForDate(date: Date) {
+/** Get submission count for a specific date, optionally filtered by service type */
+export async function getSubmissionCountForDate(date: Date, serviceType?: string) {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
   const dateStr = date.toISOString().slice(0, 10);
-  const rows = await db
+  let query = db
     .select({ count: sql<number>`count(*)` })
     .from(serviceSubmissions)
     .where(sql`DATE(createdAt) = ${dateStr}`);
+  if (serviceType && serviceType !== "all") {
+    query = db
+      .select({ count: sql<number>`count(*)` })
+      .from(serviceSubmissions)
+      .where(and(sql`DATE(createdAt) = ${dateStr}`, eq(serviceSubmissions.serviceType, serviceType)));
+  }
+  const rows = await query;
   return Number(rows[0]?.count ?? 0);
 }
 
-/** Get rolling average submissions per day over N days ending at a date */
-export async function getRollingAvgSubmissions(endDate: Date, days: number) {
+/** Get rolling average submissions per day over N days ending at a date, optionally filtered by service type */
+export async function getRollingAvgSubmissions(endDate: Date, days: number, serviceType?: string) {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
   const startDate = new Date(endDate);
   startDate.setDate(startDate.getDate() - days);
+  const conditions: ReturnType<typeof eq>[] = [between(serviceSubmissions.createdAt, startDate, endDate) as ReturnType<typeof eq>];
+  if (serviceType && serviceType !== "all") conditions.push(eq(serviceSubmissions.serviceType, serviceType));
   const rows = await db
     .select({ count: sql<number>`count(*)` })
     .from(serviceSubmissions)
-    .where(between(serviceSubmissions.createdAt, startDate, endDate));
+    .where(and(...conditions));
   const total = Number(rows[0]?.count ?? 0);
   return total / days;
 }
@@ -331,4 +347,123 @@ export async function listCsvImportJobs() {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
   return db.select().from(csvImportJobs).orderBy(desc(csvImportJobs.startedAt)).limit(20);
+}
+
+// ── Geo-Intelligence ──────────────────────────────────────────────────────────
+
+/** Get all geocoded submissions for the map view, optionally filtered by service type and date range */
+export async function getGeocodedSubmissions(options?: {
+  serviceType?: string;
+  startDate?: Date;
+  endDate?: Date;
+}) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  const conditions: ReturnType<typeof eq>[] = [
+    // Only return rows that have been geocoded
+    sql`lat IS NOT NULL AND lng IS NOT NULL` as unknown as ReturnType<typeof eq>,
+  ];
+
+  if (options?.serviceType && options.serviceType !== "all") {
+    conditions.push(eq(serviceSubmissions.serviceType, options.serviceType));
+  }
+  if (options?.startDate && options?.endDate) {
+    conditions.push(between(serviceSubmissions.createdAt, options.startDate, options.endDate) as ReturnType<typeof eq>);
+  }
+
+  return db
+    .select({
+      id: serviceSubmissions.id,
+      firstName: serviceSubmissions.firstName,
+      lastName: serviceSubmissions.lastName,
+      siteAddress: serviceSubmissions.siteAddress,
+      serviceType: serviceSubmissions.serviceType,
+      budget: serviceSubmissions.budget,
+      lat: serviceSubmissions.lat,
+      lng: serviceSubmissions.lng,
+      neighborhood: serviceSubmissions.neighborhood,
+      city: serviceSubmissions.city,
+      createdAt: serviceSubmissions.createdAt,
+      leadStatus: serviceSubmissions.leadStatus,
+    })
+    .from(serviceSubmissions)
+    .where(and(...conditions))
+    .orderBy(desc(serviceSubmissions.createdAt));
+}
+
+/** Get neighborhood-level aggregates for the geo-intelligence sidebar */
+export async function getNeighborhoodClusters(options?: {
+  serviceType?: string;
+  startDate?: Date;
+  endDate?: Date;
+}) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  const conditions: ReturnType<typeof eq>[] = [
+    sql`lat IS NOT NULL AND neighborhood IS NOT NULL` as unknown as ReturnType<typeof eq>,
+  ];
+
+  if (options?.serviceType && options.serviceType !== "all") {
+    conditions.push(eq(serviceSubmissions.serviceType, options.serviceType));
+  }
+  if (options?.startDate && options?.endDate) {
+    conditions.push(between(serviceSubmissions.createdAt, options.startDate, options.endDate) as ReturnType<typeof eq>);
+  }
+
+  const rows = await db
+    .select({
+      neighborhood: serviceSubmissions.neighborhood,
+      city: serviceSubmissions.city,
+      serviceType: serviceSubmissions.serviceType,
+      count: sql<number>`count(*)`,
+      avgLat: sql<number>`AVG(CAST(lat AS DECIMAL(10,7)))`,
+      avgLng: sql<number>`AVG(CAST(lng AS DECIMAL(10,7)))`,
+    })
+    .from(serviceSubmissions)
+    .where(and(...conditions))
+    .groupBy(serviceSubmissions.neighborhood, serviceSubmissions.city, serviceSubmissions.serviceType)
+    .orderBy(desc(sql`count(*)`));
+
+  // Aggregate by neighborhood across service types
+  const neighborhoodMap = new Map<string, {
+    neighborhood: string;
+    city: string;
+    lat: number;
+    lng: number;
+    total: number;
+    byServiceType: Record<string, number>;
+  }>();
+
+  for (const row of rows) {
+    const key = `${row.neighborhood}|${row.city}`;
+    if (!neighborhoodMap.has(key)) {
+      neighborhoodMap.set(key, {
+        neighborhood: row.neighborhood ?? "Unknown",
+        city: row.city ?? "Unknown",
+        lat: Number(row.avgLat),
+        lng: Number(row.avgLng),
+        total: 0,
+        byServiceType: {},
+      });
+    }
+    const entry = neighborhoodMap.get(key)!;
+    const count = Number(row.count);
+    entry.total += count;
+    entry.byServiceType[row.serviceType ?? "Unknown"] = (entry.byServiceType[row.serviceType ?? "Unknown"] ?? 0) + count;
+  }
+
+  return Array.from(neighborhoodMap.values()).sort((a, b) => b.total - a.total);
+}
+
+/** Count submissions that still need geocoding */
+export async function countUngeocodedSubmissions(): Promise<number> {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  const rows = await db
+    .select({ count: sql<number>`count(*)` })
+    .from(serviceSubmissions)
+    .where(sql`lat IS NULL AND geocodedAt IS NULL`);
+  return Number(rows[0]?.count ?? 0);
 }

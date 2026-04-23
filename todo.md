@@ -456,3 +456,27 @@
 - [x] Write 40 vitest tests for insights engine (server/insights-engine.test.ts)
 - [x] Fix 3 pre-existing test failures in new-components.test.ts (CDN URL + BlueSpruceCursor tests)
 - [x] All 128 tests passing
+
+## AI Insights Engine — Phase 2 (April 22, 2026)
+
+- [x] Import 601 historical form responses from Google Sheets CSV into serviceSubmissions table
+- [x] Add inquiryType filter parameter to insightsEngine.dailyPulse tRPC procedure
+- [x] Add inquiryType filter parameter to insightsEngine.volumeTrends tRPC procedure
+- [x] Add inquiryType filter parameter to insightsEngine.generateInsights tRPC procedure
+- [x] Add inquiry-type filter pill/tab bar to Daily Pulse dashboard
+- [x] Add inquiry-type filter pill/tab bar to Lead Volume Trends dashboard
+- [x] AI insights context includes which inquiry type is being analyzed
+- [x] "All Inquiries" default view shows aggregate insights across all types
+
+## Geo-Intelligence Map (April 22, 2026)
+
+- [x] Add lat, lng, neighborhood, city columns to service_submissions schema and push migration
+- [x] Build server-side geocoding batch job using Google Maps Geocoding API (via Manus proxy)
+- [x] Add geo-intelligence tRPC procedures: pins, clusters, geocodeBatch, geocodeStatus, neighborhoodInsights
+- [x] Build /admin/geo-intelligence page with Google Maps integration
+- [x] Map pins color-coded by service type (Design=green, Install=blue, Enhancements=amber, Lighting=yellow, Irrigation=cyan)
+- [x] Neighborhood/city summary sidebar panel with service-type breakdown per area
+- [x] AI postcard recommendation panel: best months, featured service, headline, targeting rationale
+- [x] Filter pins by service type (same pill bar as dashboards)
+- [x] Register /admin/geo-intelligence route in App.tsx
+- [x] Add geo-intelligence link to Footer admin nav (🗺 emoji)

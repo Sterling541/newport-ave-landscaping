@@ -71,13 +71,25 @@ function priorityBadge(priority: string) {
 
 // ── Main Component ────────────────────────────────────────────────────────────
 
+// ── Inquiry type options ─────────────────────────────────────────────────────
+const INQUIRY_TYPES = [
+  { value: "all", label: "All Inquiries", color: "bg-slate-700 text-white" },
+  { value: "Landscape Design", label: "Design", color: "bg-emerald-700 text-white" },
+  { value: "New Landscape Installation", label: "Installation", color: "bg-blue-700 text-white" },
+  { value: "Enhancements", label: "Enhancements", color: "bg-amber-600 text-white" },
+  { value: "Lighting", label: "Lighting", color: "bg-yellow-600 text-white" },
+  { value: "Irrigation", label: "Irrigation", color: "bg-cyan-700 text-white" },
+];
+
 export default function DailyPulse() {
   const [refreshingWeather, setRefreshingWeather] = useState(false);
   const [generatingInsights, setGeneratingInsights] = useState(false);
+  const [selectedType, setSelectedType] = useState("all");
 
-  const pulseQuery = trpc.insightsEngine.dailyPulse.useQuery(undefined, {
-    refetchInterval: 5 * 60 * 1000, // refresh every 5 min
-  });
+  const pulseQuery = trpc.insightsEngine.dailyPulse.useQuery(
+    { serviceType: selectedType },
+    { refetchInterval: 5 * 60 * 1000 }
+  );
 
   const refreshWeatherMutation = trpc.weather.refreshForecast.useMutation();
   const generateInsightsMutation = trpc.insightsEngine.generateInsights.useMutation();
@@ -101,7 +113,7 @@ export default function DailyPulse() {
   const handleGenerateInsights = async () => {
     setGeneratingInsights(true);
     try {
-      const result = await generateInsightsMutation.mutateAsync();
+      const result = await generateInsightsMutation.mutateAsync({ serviceType: selectedType });
       toast.success(`Generated ${result.count} new insights`);
       pulseQuery.refetch();
     } catch (err) {
@@ -179,6 +191,29 @@ export default function DailyPulse() {
               {generatingInsights ? "Generating…" : "Generate Insights"}
             </Button>
           </div>
+        </div>
+
+        {/* Inquiry Type Filter Pills */}
+        <div className="flex flex-wrap gap-2 items-center">
+          <span className="text-xs font-medium text-slate-500 mr-1">Filter by type:</span>
+          {INQUIRY_TYPES.map(t => (
+            <button
+              key={t.value}
+              onClick={() => setSelectedType(t.value)}
+              className={`px-3 py-1 rounded-full text-xs font-semibold transition-all border ${
+                selectedType === t.value
+                  ? `${t.color} border-transparent shadow-sm scale-105`
+                  : "bg-white text-slate-600 border-slate-200 hover:border-slate-400"
+              }`}
+            >
+              {t.label}
+            </button>
+          ))}
+          {selectedType !== "all" && (
+            <span className="text-xs text-slate-400 ml-1">
+              Showing data for <strong className="text-slate-600">{selectedType}</strong> only
+            </span>
+          )}
         </div>
 
         {/* AI Summary */}
