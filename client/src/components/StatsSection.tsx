@@ -40,7 +40,7 @@ export default function StatsSection() {
     return () => obs.disconnect();
   }, []);
 
-  const years = useCountUp(21, 1600, visible);
+  const years = useCountUp(new Date().getFullYear() - 2005, 1600, visible);
   const properties = useCountUp(400, 2000, visible);
   const crew = useCountUp(150, 1800, visible);
 
@@ -151,7 +151,7 @@ export default function StatsSection() {
             }}
           >
             Newport Avenue Landscaping has been Central Oregon's most trusted
-            landscape partner since 2003. From intimate residential gardens to
+            landscape partner since 2005. From intimate residential gardens to
             large-scale commercial properties, we bring the same obsessive
             attention to detail to every project.
           </p>
@@ -316,7 +316,7 @@ export default function StatsSection() {
             color: "oklch(0.97 0.012 75 / 0.6)",
           }}
         >
-          CENTRAL OREGON · SINCE 2003
+          CENTRAL OREGON · SINCE 2005
         </div>
       </div>
     </section>

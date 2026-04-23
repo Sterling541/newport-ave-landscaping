@@ -50,7 +50,7 @@ export default function BendLandscapingCompanyGuide() {
             <p className="mb-4">Also ask: "Do you use your own employees or subcontractors?" Many landscaping companies subcontract work to crews they don't directly supervise. This can affect quality and accountability.</p>
             <div className="bg-gray-100 p-6 rounded-lg mb-8 border-l-4" style={{ borderColor: 'oklch(0.46 0.20 25)' }}>
               <p className="font-bold text-lg mb-2" style={{ color: 'oklch(0.25 0.005 0)' }}>PRO TIP</p>
-              <p>Newport Avenue Landscaping is licensed with the Oregon LCB (License #9153), carries $2M in liability insurance, and employs all our workers directly. We've been serving Central Oregon since 2003.</p>
+              <p>Newport Avenue Landscaping is licensed with the Oregon LCB (License #9153), carries $2M in liability insurance, and employs all our workers directly. We've been serving Central Oregon since 2005.</p>
             </div>
             <div className="p-8 text-center mt-12" style={{ backgroundColor: 'oklch(0.18 0.008 0)' }}>
               <p className="font-label text-xs mb-3" style={{ color:'oklch(0.46 0.20 25)',letterSpacing:'0.18em' }}>GET STARTED TODAY</p>

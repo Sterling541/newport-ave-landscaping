@@ -592,3 +592,26 @@
 - [x] Both scripts added to pnpm build pipeline
 - [x] 67 pages pre-rendered, 53 redirect pages generated
 - [x] 128/128 tests passing, 0 TypeScript errors
+
+## Vercel Migration + Content Fixes (Apr 23, 2026)
+
+- [x] Content fix: change founding year from 2003 to 2005 everywhere
+- [x] Content fix: employee count stays at 150 (confirmed correct by Sterling)
+- [x] Content fix: remove "10,000+" projects/customers claim everywhere (kept in SprinklerRepair page as factual claim)
+- [x] Content fix: fix "0 Years" counter bug — now calculates dynamically from 2005
+- [x] Content fix: update footer copyright year to 2026
+- [x] Content fix: remove Aurora from team page; replaced name in review text with "A technician"
+- [ ] Add vercel.json configuration for Express SSR deployment
+- [ ] Export project to GitHub via Manus Settings → GitHub
+- [ ] Provision TiDB Serverless cluster (PingCAP)
+- [ ] Export Manus database and import to TiDB Serverless
+- [ ] Create Vercel project, connect GitHub repo
+- [ ] Configure all environment variables in Vercel (DATABASE_URL, JWT_SECRET, etc.)
+- [ ] Update Manus OAuth callback URL to Vercel domain
+- [ ] Verify first Vercel deployment builds successfully
+- [ ] SSR View Source test on 5 key pages
+- [ ] Verify 301 redirects return correct status codes
+- [ ] Test Facebook Sharing Debugger on homepage and 2 service pages
+- [ ] Verify admin dashboard works with migrated data
+- [ ] Final checkpoint and GitHub push
+- [ ] Deliver DNS cutover instructions to Sterling

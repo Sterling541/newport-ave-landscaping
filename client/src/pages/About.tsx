@@ -42,7 +42,6 @@ const CDN = "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUap
 const team = [
   { name: "Jana", role: "General Manager", photo: `${CDN}/jana_288ba6d2.jpg` },
   { name: "Mykiah", role: "Front Office", photo: `${CDN}/mykiah_c5827e9e.jpg` },
-  { name: "Aurora", role: "Project Manager", photo: `${CDN}/aurora_ece6d98e.jpg` },
   { name: "Chris", role: "Project Manager", photo: `${CDN}/chris_ef87712c.jpg` },
   { name: "Annelie", role: "Lead Landscape Designer", photo: `${CDN}/annelie_b391729e.jpg` },
   { name: "Milton", role: "Maintenance Dept. Manager", photo: `${CDN}/milton_20cd3e98.jpg` },

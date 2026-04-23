@@ -93,7 +93,7 @@ export default function BendNeighborhoods() {
         />
         <link rel="canonical" href={`${DOMAIN}/bend-neighborhoods`} />
         <meta property="og:title" content="Landscaping by Bend Neighborhood | Newport Avenue Landscaping" />
-        <meta property="og:description" content="We serve every Bend neighborhood from Awbrey Butte and NW Crossing to Tetherow and Brookswood. Local landscaping experts since 2003." />
+        <meta property="og:description" content="We serve every Bend neighborhood from Awbrey Butte and NW Crossing to Tetherow and Brookswood. Local landscaping experts since 2005." />
         <meta property="og:url" content={`${DOMAIN}/bend-neighborhoods`} />
         <meta property="og:type" content="website" />
       </Helmet>
@@ -138,7 +138,7 @@ export default function BendNeighborhoods() {
             style={{ color: "oklch(0.72 0.012 30)", fontSize: "clamp(1rem, 1.5vw, 1.15rem)", maxWidth: "600px", lineHeight: 1.7 }}
           >
             From the gated estates of Tetherow to the family yards of Brookswood, Newport Avenue
-            Landscaping has been the trusted name in Bend landscaping since 2003. Find your
+            Landscaping has been the trusted name in Bend landscaping since 2005. Find your
             neighborhood below and see how we can help.
           </p>
           <div className="flex flex-wrap gap-8">

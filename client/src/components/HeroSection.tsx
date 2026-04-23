@@ -12,7 +12,7 @@
       a vertical list of service names that stagger-fade in.
       Rotated 90deg, reads bottom-to-top. Very editorial.
    
-   3. HORIZONTAL RULE + YEAR — a thin line with "EST. 2003"
+   3. HORIZONTAL RULE + YEAR — a thin line with "EST. 2005"
       that draws in from left. Architectural detail.
    ============================================================ */
 import { useState, useEffect, useRef } from "react";
@@ -388,7 +388,7 @@ export default function HeroSection() {
             color: "oklch(0.42 0.008 30)",
           }}
         >
-          Est. 2003
+          Est. 2005
         </span>
       </div>
 

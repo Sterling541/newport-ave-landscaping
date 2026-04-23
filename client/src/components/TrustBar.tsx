@@ -53,7 +53,7 @@ const TRUST_ITEMS = [
     ),
     value: "21+",
     label: "Years in Business",
-    sub: "Since 2003",
+    sub: "Since 2005",
     highlight: false,
   },
   {

@@ -132,7 +132,7 @@ export default function AboutSection() {
               className="font-body leading-relaxed mb-4"
               style={{ color: "oklch(0.40 0.010 55)", lineHeight: 1.75 }}
             >
-              We started Newport Avenue Landscaping in 2003 with a simple belief:
+              We started Newport Avenue Landscaping in 2005 with a simple belief:
               your outdoor space should be one of the best parts of your home. Twenty-one
               years later, that belief drives everything we do — from the first design
               conversation to the final walkthrough.

@@ -27,7 +27,7 @@ interface BotanicalBandProps {
 }
 
 export default function BotanicalBand({
-  label = "CENTRAL OREGON  ◆  SINCE 2003",
+  label = "CENTRAL OREGON  ◆  SINCE 2005",
   variant = "a",
 }: BotanicalBandProps) {
   const isA = variant === "a";

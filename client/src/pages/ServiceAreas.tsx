@@ -289,7 +289,7 @@ function ServiceAreaMap() {
           <span className="font-body text-xs" style={{ color: 'oklch(0.45 0.005 0)' }}>Coverage zone</span>
         </div>
         <span className="font-body text-xs ml-auto" style={{ color: 'oklch(0.55 0.005 0)' }}>
-          Serving Central Oregon since 2003 &nbsp;·&nbsp; (541) 617-8873
+          Serving Central Oregon since 2005 &nbsp;·&nbsp; (541) 617-8873
         </span>
       </div>
     </div>
@@ -480,7 +480,7 @@ export default function ServiceAreas() {
 
           {/* CTA */}
           <div className="text-center p-12 rounded-xl mt-4" style={{ backgroundColor: 'oklch(0.15 0.005 0)' }}>
-            <p className="font-label mb-3" style={{ color: 'oklch(0.46 0.20 25)', fontSize: '0.62rem', letterSpacing: '0.18em' }}>SERVING CENTRAL OREGON SINCE 2003</p>
+            <p className="font-label mb-3" style={{ color: 'oklch(0.46 0.20 25)', fontSize: '0.62rem', letterSpacing: '0.18em' }}>SERVING CENTRAL OREGON SINCE 2005</p>
             <h3 className="font-display text-white mb-3" style={{ fontSize: 'clamp(1.5rem, 3vw, 2rem)' }}>Don't See Your City?</h3>
             <p className="text-white/70 mb-6 max-w-xl mx-auto font-body" style={{ lineHeight: 1.7 }}>
               We regularly travel throughout Central Oregon for the right project. Call us or send a message — if we can serve you, we will.

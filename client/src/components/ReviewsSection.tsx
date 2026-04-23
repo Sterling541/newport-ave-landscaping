@@ -31,7 +31,7 @@ const REVIEWS = [
   {
     name: "Gary LeFebvre",
     tag: "Sprinkler Service",
-    text: "I called Janna at Newport and she was able to move heaven and earth to get me on the schedule. Aurora showed up the next day and did a very professional and thorough job. I am very grateful and have signed up for your permanent service.",
+    text: "I called Janna at Newport and she was able to move heaven and earth to get me on the schedule. A technician showed up the next day and did a very professional and thorough job. I am very grateful and have signed up for your permanent service.",
     stars: 5,
   },
   {

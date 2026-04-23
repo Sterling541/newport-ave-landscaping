@@ -42,7 +42,7 @@ export default function Home() {
     >
       <SEO
         title="Landscaping Company Bend Oregon | Newport Avenue Landscaping"
-        description="Central Oregon's premier landscaping company since 2003. Custom landscape design, installation, maintenance & irrigation in Bend, Redmond, Sisters & beyond."
+        description="Central Oregon's premier landscaping company since 2005. Custom landscape design, installation, maintenance & irrigation in Bend, Redmond, Sisters & beyond."
         canonical="/"
       />
       <LocalBusinessSchema />

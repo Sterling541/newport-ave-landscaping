@@ -254,7 +254,7 @@ export default function Footer() {
         <div className="container py-5 flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2">
             <p className="font-body text-xs" style={{ color: "oklch(0.45 0.008 30)" }}>
-              © 2025 Newport Avenue Landscaping. All Rights Reserved.
+              © 2026 Newport Avenue Landscaping. All Rights Reserved.
             </p>
 
 
