@@ -1068,7 +1068,10 @@ export default function OurWork() {
           </button>
           <img
             src={currentLightboxPhoto}
-            alt="Project photo"
+            alt={lightbox.isLegacy
+              ? `${LEGACY_PROJECTS[lightbox.index]?.title ?? "Newport Avenue Landscaping project"} — photo ${lightbox.index + 1}`
+              : `${PROJECTS.find((p) => p.id === lightbox.projectId)?.name ?? "Newport Avenue Landscaping project"} — photo ${lightbox.index + 1}`
+            }
             className="max-h-[88vh] max-w-[90vw] object-contain"
             onClick={(e) => e.stopPropagation()}
             style={{ borderRadius: "1.2rem 0.15rem 1.2rem 0.15rem" }}

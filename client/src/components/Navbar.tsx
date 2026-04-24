@@ -171,7 +171,7 @@ function MegaMenu({
       <div style={{ position: "relative", minHeight: "380px", overflow: "hidden" }}>
         <img
           src={photo}
-          alt=""
+          alt={`Newport Avenue Landscaping — ${subline}`}
           style={{
             position: "absolute",
             inset: 0,

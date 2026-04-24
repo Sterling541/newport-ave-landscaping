@@ -93,6 +93,7 @@ export default function BlueSpruceCursor() {
       <img
         src={LOGO_ICON_URL}
         alt=""
+        aria-hidden="true"
         draggable={false}
         style={{
           width: `${iconSize}px`,
