@@ -41,7 +41,7 @@ const CITIES = [
   },
   {
     name: 'Redmond, Oregon',
-    slug: '/service-areas/redmond-landscaping',
+    slug: '/landscaping/redmond',
     desc: 'Full-service landscaping, irrigation, and maintenance for Redmond homeowners and businesses.',
     lat: 44.2726,
     lng: -121.1489,
@@ -71,7 +71,7 @@ const CITIES = [
   },
   {
     name: 'Sunriver, Oregon',
-    slug: '/service-areas/sunriver-landscaping',
+    slug: '/landscaping/sunriver',
     desc: "Vacation home and full-time residence landscaping in Sunriver's resort community.",
     lat: 43.8787,
     lng: -121.4428,

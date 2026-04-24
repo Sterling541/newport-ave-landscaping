@@ -554,17 +554,17 @@ export default function ServicePageLayout({
             </h2>
             <div className="flex flex-wrap gap-2">
               {[
-                { label: "Bend", href: "/service-areas" },
-                { label: "Redmond", href: "/service-areas/redmond" },
-                { label: "Sisters", href: "/service-areas/sisters" },
-                { label: "Sunriver", href: "/service-areas/sunriver" },
-                { label: "La Pine", href: "/service-areas/la-pine" },
-                { label: "Tumalo", href: "/service-areas/tumalo" },
-                { label: "Terrebonne", href: "/service-areas/terrebonne" },
-                { label: "Madras", href: "/service-areas/madras" },
-                { label: "Prineville", href: "/service-areas/prineville" },
-                { label: "Crooked River Ranch", href: "/service-areas/crooked-river-ranch" },
-                { label: "Culver", href: "/service-areas/culver" },
+                { label: "Bend", href: "/landscaping/bend" },
+                { label: "Redmond", href: "/landscaping/redmond" },
+                { label: "Sisters", href: "/landscaping/sisters" },
+                { label: "Sunriver", href: "/landscaping/sunriver" },
+                { label: "La Pine", href: "/landscaping/la-pine" },
+                { label: "Tumalo", href: "/landscaping/tumalo" },
+                { label: "Terrebonne", href: "/landscaping/terrebonne" },
+                { label: "Madras", href: "/landscaping/madras" },
+                { label: "Prineville", href: "/landscaping/prineville" },
+                { label: "Crooked River Ranch", href: "/landscaping/crooked-river-ranch" },
+                { label: "Culver", href: "/service-areas" },
               ].map((area) => (
                 <Link
                   key={area.href}

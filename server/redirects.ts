@@ -129,6 +129,17 @@ const REDIRECTS: Record<string, string> = {
   // === SERVICE AREAS ===
   "/service-areas":  "/service-areas",
   "/service-areas/": "/service-areas",
+  // Canonical city URLs: /landscaping/[city] is canonical.
+  // Redirect /service-areas/[city]-landscaping for the 4 cities that have both patterns
+  // to consolidate ranking signal and prevent duplicate content.
+  "/service-areas/redmond-landscaping":      "/landscaping/redmond",
+  "/service-areas/redmond-landscaping/":     "/landscaping/redmond",
+  "/service-areas/sunriver-landscaping":     "/landscaping/sunriver",
+  "/service-areas/sunriver-landscaping/":    "/landscaping/sunriver",
+  "/service-areas/eagle-crest-landscaping":  "/landscaping/eagle-crest",
+  "/service-areas/eagle-crest-landscaping/": "/landscaping/eagle-crest",
+  "/service-areas/powell-butte-landscaping": "/landscaping/powell-butte",
+  "/service-areas/powell-butte-landscaping/":"/landscaping/powell-butte",
 
   // === FIRE FEATURES (old slug) ===
   "/fire-pits-and-outdoor-fireplaces-bend-oregon":  "/services/fire-features",
