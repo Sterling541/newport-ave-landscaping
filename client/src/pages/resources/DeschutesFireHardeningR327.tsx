@@ -243,7 +243,7 @@ const DeschutesFireHardeningR327: React.FC = () => {
               <li><a href="https://www.deschutes.org/cd/page/fire-hardening-requirements-r327" target="_blank" rel="noopener noreferrer" style={{ color: accentRed, textDecoration: 'underline' }}>Deschutes County: Fire Hardening Requirements (R327)</a></li>
               <li><a href="https://www.oregon.gov/osfm/wildfire/pages/defensiblespace.aspx" target="_blank" rel="noopener noreferrer" style={{ color: accentRed, textDecoration: 'underline' }}>Oregon State Fire Marshal: Defensible Space</a></li>
               <li><a href="https://www.oregon.gov/osfm/Documents/Defensible%20Space%20Checklist.pdf" target="_blank" rel="noopener noreferrer" style={{ color: accentRed, textDecoration: 'underline' }}>Oregon State Fire Marshal: Defensible Space Checklist (PDF)</a></li>
-              <li><a href="https://bendbulletin.com/2025/08/15/flat-fire-near-sisters-contained-after-destroying-four-homes/" target="_blank" rel="noopener noreferrer" style={{ color: accentRed, textDecoration: 'underline' }}>Bend Bulletin: Flat Fire near Sisters contained after destroying four homes (Fictional URL for example)</a></li>
+              <li><a href="https://www.bendbulletin.com/local/wildfire" target="_blank" rel="noopener noreferrer" style={{ color: accentRed, textDecoration: 'underline' }}>Bend Bulletin: Wildfire Coverage &mdash; Central Oregon</a></li>
             </ol>
           </div>
         </section>
