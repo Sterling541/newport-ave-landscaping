@@ -7,6 +7,15 @@ vi.mock("./_core/notification", () => ({
   notifyOwner: vi.fn().mockResolvedValue(true),
 }));
 
+// Mock Resend so no real emails are sent during tests
+vi.mock("resend", () => ({
+  Resend: vi.fn().mockImplementation(() => ({
+    emails: {
+      send: vi.fn().mockResolvedValue({ id: "test-email-id" }),
+    },
+  })),
+}));
+
 import { notifyOwner } from "./_core/notification";
 
 function createPublicContext(): TrpcContext {

@@ -5,6 +5,7 @@ import { systemRouter } from "./_core/systemRouter";
 import { protectedProcedure, publicProcedure, router } from "./_core/trpc";
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
+import { Resend } from "resend";
 import {
   createServiceSubmission,
   listServiceSubmissions,
@@ -106,7 +107,38 @@ export const appRouter = router({
           input.message,
         ].filter(Boolean).join("\n");
 
-        await notifyOwner({ title: `New Quote Request from ${input.name}`, content: lines });
+        // Send email via Resend to info@newportavelandscaping.com
+        if (ENV.resendApiKey) {
+          try {
+            const resend = new Resend(ENV.resendApiKey);
+            const htmlLines = [
+              `<p><strong>Name:</strong> ${input.name}</p>`,
+              `<p><strong>Email:</strong> <a href="mailto:${input.email}">${input.email}</a></p>`,
+              input.phone ? `<p><strong>Phone:</strong> ${input.phone}</p>` : null,
+              input.service ? `<p><strong>Service Requested:</strong> ${input.service}</p>` : null,
+              `<hr/>`,
+              `<p><strong>Message:</strong></p>`,
+              `<p>${input.message.replace(/\n/g, "<br/>")}</p>`,
+            ].filter(Boolean).join("\n");
+            await resend.emails.send({
+              from: "Newport Ave Landscaping <noreply@newportavelandscaping.com>",
+              to: ["info@newportavelandscaping.com"],
+              replyTo: input.email,
+              subject: `New Quote Request from ${input.name}`,
+              html: `<div style="font-family:sans-serif;max-width:600px;margin:0 auto">
+                <h2 style="color:#2d5a27">New Quote Request — Newport Avenue Landscaping</h2>
+                ${htmlLines}
+                <hr/>
+                <p style="color:#666;font-size:12px">Submitted via newportavelandscaping.com contact form</p>
+              </div>`,
+            });
+          } catch (emailErr) {
+            console.error("[quote.submit] Resend email error:", emailErr);
+          }
+        }
+
+        // Also notify via Manus notification system if available
+        await notifyOwner({ title: `New Quote Request from ${input.name}`, content: lines }).catch(() => {});
         return { success: true };
       }),
   }),
