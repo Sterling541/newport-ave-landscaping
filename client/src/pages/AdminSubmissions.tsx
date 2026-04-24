@@ -5,7 +5,7 @@
    ============================================================ */
 import { useState, useMemo } from "react";
 import { trpc } from "@/lib/trpc";
-import { useAuth } from "@/_core/hooks/useAuth";
+import { isAdminAuthenticated } from "@/hooks/useAdminAuth";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -56,7 +56,7 @@ import {
   BarChart3,
 } from "lucide-react";
 import AdminLayout from "@/components/AdminLayout";
-import { getLoginUrl } from "@/const";
+// getLoginUrl removed — using PIN auth instead
 import { toast } from "sonner";
 import {
   PhoneCall, PhoneOff, PhoneMissed, CalendarCheck, ThumbsDown, Clock, Trophy, XCircle,
@@ -381,7 +381,10 @@ function FollowUpBadge({ status }: { status: string | null | undefined }) {
 }
 
 export default function AdminSubmissions() {
-  const { user, loading: authLoading } = useAuth();
+  const [pinAuthed, setPinAuthed] = useState(() => isAdminAuthenticated());
+  // Alias user to pinAuthed for downstream code that checks !!user
+  const user = pinAuthed ? { role: "admin" } : null;
+  const authLoading = false;
   const [search, setSearch] = useState("");
   const [serviceFilter, setServiceFilter] = useState("all");
   const [sortKey, setSortKey] = useState<SortKey>("createdAt");
@@ -485,59 +488,38 @@ export default function AdminSubmissions() {
     else { setSortKey(key); setSortDir("desc"); }
   }
 
-  // ── Auth gate ───────────────────────────────────────────────────────────────
-
-  if (authLoading) {
+  // ── Auth gate (PIN-based) ─────────────────────────────────────────────────
+  if (!pinAuthed) {
     return (
       <div className="min-h-screen bg-stone-50 flex items-center justify-center">
-        <Loader2 className="w-8 h-8 animate-spin text-green-700" />
+        <div className="max-w-sm w-full text-center px-6 py-10 bg-white rounded-2xl shadow-xl border border-stone-100">
+          <ShieldAlert className="w-12 h-12 text-green-700 mx-auto mb-4" />
+          <h1 className="text-2xl font-bold text-stone-900 mb-2">Admin Access</h1>
+          <p className="text-stone-500 mb-6 text-sm">Enter your admin PIN to continue.</p>
+          <form onSubmit={(e) => {
+            e.preventDefault();
+            const pin = (e.currentTarget.elements.namedItem("pin") as HTMLInputElement).value;
+            if (pin === "4132") {
+              try { sessionStorage.setItem("nal_admin_v1", "true"); } catch {}
+              setPinAuthed(true);
+            } else {
+              alert("Incorrect PIN. Please try again.");
+            }
+          }} className="flex flex-col gap-3">
+            <input
+              name="pin"
+              type="password"
+              maxLength={6}
+              placeholder="Enter PIN"
+              autoFocus
+              className="w-full border border-stone-300 rounded-lg px-4 py-3 text-center text-xl tracking-widest focus:outline-none focus:ring-2 focus:ring-green-600"
+            />
+            <Button type="submit" className="bg-green-700 hover:bg-green-800 text-white w-full">
+              Unlock
+            </Button>
+          </form>
+        </div>
       </div>
-    );
-  }
-
-  if (!user) {
-    return (
-      <AdminLayout>
-        <div className="flex items-center justify-center h-full min-h-screen">
-          <div className="max-w-md text-center px-4">
-            <ShieldAlert className="w-12 h-12 text-stone-400 mx-auto mb-4" />
-            <h1 className="text-2xl font-bold text-stone-900 mb-2">Sign In Required</h1>
-            <p className="text-stone-500 mb-6">Please sign in with your Newport Ave Landscaping account to access the admin area.</p>
-            <Button
-              onClick={() => window.location.href = getLoginUrl("/admin/submissions")}
-              className="bg-green-700 hover:bg-green-800 text-white"
-            >
-              Sign In
-            </Button>
-          </div>
-        </div>
-      </AdminLayout>
-    );
-  }
-
-  // Logged in but not owner/admin
-  const isAuthorized = (user as { role?: string }).role === "admin";
-  if (!isAuthorized) {
-    return (
-      <AdminLayout>
-        <div className="flex items-center justify-center h-full min-h-screen">
-          <div className="max-w-md text-center px-4">
-            <ShieldAlert className="w-12 h-12 text-red-400 mx-auto mb-4" />
-            <h1 className="text-2xl font-bold text-stone-900 mb-2">Access Denied</h1>
-            <p className="text-stone-500 mb-6">
-              This page is restricted to Newport Ave Landscaping administrators.
-              If you believe this is an error, please contact the site owner.
-            </p>
-            <Button
-              variant="outline"
-              onClick={() => window.location.href = "/"}
-              className="border-stone-300 text-stone-700"
-            >
-              Return to Home
-            </Button>
-          </div>
-        </div>
-      </AdminLayout>
     );
   }
 

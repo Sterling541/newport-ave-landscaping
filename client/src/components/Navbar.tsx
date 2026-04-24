@@ -12,7 +12,7 @@
    ============================================================ */
 import { useState, useEffect, useRef } from "react";
 import { useLocation } from "wouter";
-import { Menu, X, Phone, ArrowRight, ChevronDown } from "lucide-react";
+import { Menu, X, Phone, ArrowRight, ChevronDown, Calendar, Leaf } from "lucide-react";
 
 const LOGO_NAV =
   "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/logo-nav-tight_c562b49c.png";
@@ -916,6 +916,61 @@ export default function Navbar() {
               </div>
             ))}
 
+            {/* Schedule Services & Opt-Out — compact links for mobile */}
+            <div style={{ display: "flex", gap: "0.5rem", marginTop: "1rem" }}>
+              <a
+                href="/schedule-services"
+                onClick={(e) => { e.preventDefault(); goTo("/schedule-services"); }}
+                style={{
+                  flex: 1,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: "0.4rem",
+                  padding: "0.7rem 0.5rem",
+                  backgroundColor: "oklch(0.35 0.12 145)",
+                  borderRadius: "8px",
+                  textDecoration: "none",
+                  fontFamily: "'Montserrat', sans-serif",
+                  fontSize: "0.62rem",
+                  fontWeight: 700,
+                  letterSpacing: "0.12em",
+                  color: "oklch(1 0 0)",
+                  textTransform: "uppercase",
+                  textAlign: "center",
+                }}
+              >
+                <Calendar size={12} />
+                Schedule
+              </a>
+              <a
+                href="/opt-out"
+                onClick={(e) => { e.preventDefault(); goTo("/opt-out"); }}
+                style={{
+                  flex: 1,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: "0.4rem",
+                  padding: "0.7rem 0.5rem",
+                  backgroundColor: "oklch(0.92 0.006 75)",
+                  border: "1px solid oklch(0.82 0.006 75)",
+                  borderRadius: "8px",
+                  textDecoration: "none",
+                  fontFamily: "'Montserrat', sans-serif",
+                  fontSize: "0.62rem",
+                  fontWeight: 700,
+                  letterSpacing: "0.12em",
+                  color: "oklch(0.22 0.008 30)",
+                  textTransform: "uppercase",
+                  textAlign: "center",
+                }}
+              >
+                <Leaf size={12} />
+                Opt-Out
+              </a>
+            </div>
+
             <a
               href="tel:5416178873"
               style={{
@@ -923,7 +978,7 @@ export default function Navbar() {
                 alignItems: "center",
                 justifyContent: "center",
                 gap: "0.5rem",
-                marginTop: "1.5rem",
+                marginTop: "0.75rem",
                 padding: "0.9rem",
             backgroundColor: "oklch(0.46 0.20 25)",
             borderRadius: "8px",

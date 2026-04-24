@@ -22,6 +22,7 @@ import {
 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import SprinklerGame from "@/components/SprinklerGame";
 
 const LOGO_URL = "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/logo-transparent-stacked_ff350b79.png";
 
@@ -787,6 +788,12 @@ export default function ScheduleServices() {
           <span>&#10003; Licensed &amp; Bonded &middot; LCB #9153</span>
           <span>&#10003; Serving Central Oregon since 2005</span>
           <span>&#10003; 400+ Properties Maintained</span>
+        </div>
+      </div>
+      {/* ── Sprinkler Dodge Game ── */}
+      <div className="w-full bg-gradient-to-b from-green-50 to-white border-t border-green-100">
+        <div className="max-w-3xl mx-auto">
+          <SprinklerGame />
         </div>
       </div>
       <Footer />
