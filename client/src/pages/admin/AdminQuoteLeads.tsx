@@ -25,9 +25,27 @@ function formatDate(ts: Date | number | null | undefined): string {
   });
 }
 
+const SERVICE_OPTIONS = [
+  "Lawn & Maintenance",
+  "Irrigation / Sprinklers",
+  "Landscape Design & Installation",
+  "Paver Patios & Walkways",
+  "Water Features",
+  "Outdoor Kitchens & Living",
+  "Fire Pits & Fireplaces",
+  "Landscape Lighting",
+  "Xeriscaping / Water-Wise",
+  "Retaining Walls",
+  "Drainage Solutions",
+  "Snow Removal",
+  "Firewise Landscaping",
+  "Other / Not Sure",
+];
+
 export default function AdminQuoteLeads() {
   const [statusFilter, setStatusFilter] = useState<string>("all");
   const [search, setSearch] = useState("");
+  const [serviceFilter, setServiceFilter] = useState<string>("all");
   const [editingId, setEditingId] = useState<number | null>(null);
   const [editStatus, setEditStatus] = useState<string>("new");
   const [editNotes, setEditNotes] = useState("");
@@ -57,6 +75,7 @@ export default function AdminQuoteLeads() {
 
   const filtered = rows.filter((r) => {
     const matchStatus = statusFilter === "all" || r.status === statusFilter;
+    const matchService = serviceFilter === "all" || (r.serviceInterest ?? "") === serviceFilter;
     const q = search.toLowerCase();
     const matchSearch =
       !q ||
@@ -64,9 +83,18 @@ export default function AdminQuoteLeads() {
       r.email.toLowerCase().includes(q) ||
       r.phone.toLowerCase().includes(q) ||
       (r.address ?? "").toLowerCase().includes(q) ||
-      (r.serviceInterest ?? "").toLowerCase().includes(q);
-    return matchStatus && matchSearch;
+      (r.serviceInterest ?? "").toLowerCase().includes(q) ||
+      (r.message ?? "").toLowerCase().includes(q);
+    return matchStatus && matchService && matchSearch;
   });
+
+  const hasActiveFilters = search !== "" || statusFilter !== "all" || serviceFilter !== "all";
+
+  const clearFilters = () => {
+    setSearch("");
+    setStatusFilter("all");
+    setServiceFilter("all");
+  };
 
   const openEdit = (row: typeof rows[0]) => {
     setEditingId(row.id);
@@ -166,33 +194,94 @@ export default function AdminQuoteLeads() {
         </div>
 
         {/* Search + filter bar */}
-        <div style={{ display: "flex", gap: "0.75rem", marginBottom: "1.25rem", flexWrap: "wrap" }}>
-          <input
-            type="text"
-            placeholder="Search by name, email, phone, address, or service…"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            style={{
-              flex: "1 1 300px",
-              padding: "0.5rem 0.875rem",
-              border: "1.5px solid oklch(0.88 0.01 240)",
-              borderRadius: "0.5rem",
-              fontSize: "0.875rem",
-              outline: "none",
-              color: NAVY,
-            }}
-          />
+        <div style={{ display: "flex", gap: "0.75rem", marginBottom: "0.75rem", flexWrap: "wrap", alignItems: "center" }}>
+          {/* Search input with icon */}
+          <div style={{ position: "relative", flex: "1 1 280px" }}>
+            <svg
+              viewBox="0 0 20 20"
+              fill="none"
+              stroke="oklch(0.6 0.02 240)"
+              strokeWidth="1.8"
+              style={{ position: "absolute", left: "0.75rem", top: "50%", transform: "translateY(-50%)", width: "16px", height: "16px", pointerEvents: "none" }}
+            >
+              <circle cx="8.5" cy="8.5" r="5.5" />
+              <path d="M14 14l3 3" strokeLinecap="round" />
+            </svg>
+            <input
+              type="text"
+              placeholder="Search by name, email, phone, or message…"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              style={{
+                width: "100%",
+                padding: "0.5rem 0.875rem 0.5rem 2.25rem",
+                border: `1.5px solid ${search ? "oklch(0.55 0.14 240)" : "oklch(0.88 0.01 240)"}`,
+                borderRadius: "0.5rem",
+                fontSize: "0.875rem",
+                outline: "none",
+                color: NAVY,
+                background: "white",
+                transition: "border-color 0.15s ease",
+                boxSizing: "border-box",
+              }}
+            />
+            {search && (
+              <button
+                onClick={() => setSearch("")}
+                style={{
+                  position: "absolute",
+                  right: "0.6rem",
+                  top: "50%",
+                  transform: "translateY(-50%)",
+                  background: "none",
+                  border: "none",
+                  cursor: "pointer",
+                  color: "oklch(0.6 0.02 240)",
+                  fontSize: "1rem",
+                  lineHeight: 1,
+                  padding: "0.1rem 0.25rem",
+                }}
+                title="Clear search"
+              >
+                ×
+              </button>
+            )}
+          </div>
+
+          {/* Service type filter */}
           <select
-            value={statusFilter}
-            onChange={(e) => setStatusFilter(e.target.value)}
+            value={serviceFilter}
+            onChange={(e) => setServiceFilter(e.target.value)}
             style={{
               padding: "0.5rem 0.875rem",
-              border: "1.5px solid oklch(0.88 0.01 240)",
+              border: `1.5px solid ${serviceFilter !== "all" ? "oklch(0.55 0.14 240)" : "oklch(0.88 0.01 240)"}`,
               borderRadius: "0.5rem",
               fontSize: "0.875rem",
               color: NAVY,
               background: "white",
               cursor: "pointer",
+              minWidth: "180px",
+            }}
+          >
+            <option value="all">All Services</option>
+            {SERVICE_OPTIONS.map((s) => (
+              <option key={s} value={s}>{s}</option>
+            ))}
+          </select>
+
+          {/* Status filter */}
+          <select
+            value={statusFilter}
+            onChange={(e) => setStatusFilter(e.target.value)}
+            style={{
+              padding: "0.5rem 0.875rem",
+              border: `1.5px solid ${statusFilter !== "all" ? "oklch(0.55 0.14 240)" : "oklch(0.88 0.01 240)"}`,
+              borderRadius: "0.5rem",
+              fontSize: "0.875rem",
+              color: NAVY,
+              background: "white",
+              cursor: "pointer",
+              minWidth: "140px",
             }}
           >
             <option value="all">All Statuses</option>
@@ -202,7 +291,37 @@ export default function AdminQuoteLeads() {
             <option value="converted">Converted</option>
             <option value="lost">Lost</option>
           </select>
+
+          {/* Clear all filters button */}
+          {hasActiveFilters && (
+            <button
+              onClick={clearFilters}
+              style={{
+                padding: "0.5rem 0.875rem",
+                border: "1.5px solid oklch(0.75 0.12 25)",
+                borderRadius: "0.5rem",
+                fontSize: "0.8rem",
+                fontWeight: 600,
+                color: "oklch(0.46 0.20 25)",
+                background: "oklch(0.98 0.02 25)",
+                cursor: "pointer",
+                whiteSpace: "nowrap",
+              }}
+            >
+              Clear Filters
+            </button>
+          )}
         </div>
+
+        {/* Active filter result count */}
+        {hasActiveFilters && (
+          <p style={{ fontSize: "0.8rem", color: "oklch(0.5 0.02 240)", marginBottom: "1rem" }}>
+            Showing <strong>{filtered.length}</strong> of {total} leads
+            {search && <> matching <em>"{search}"</em></>}
+            {serviceFilter !== "all" && <> in <em>{serviceFilter}</em></>}
+            {statusFilter !== "all" && <> with status <em>{STATUS_COLORS[statusFilter]?.label}</em></>}
+          </p>
+        )}
 
         {/* Table */}
         {isLoading ? (

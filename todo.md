@@ -650,3 +650,6 @@
 - [x] Email notification to info@newportavelandscaping.com on quote submission
 - [x] Add Quote Leads admin section to backend dashboard
 - [x] Rename admin sidebar "Leads" to "Completed Scheduled Service Forms"
+
+## Enhancement — April 24, 2026
+- [x] Add search bar to AdminQuoteLeads page (filter by name and service type)
