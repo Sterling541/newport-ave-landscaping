@@ -645,8 +645,8 @@
 - [ ] Verify Resend domain (newportavelandscaping.com) for contact form emails
 
 ## In Progress
-- [ ] Add quote_leads DB table and tRPC procedures for Quick Quote form
-- [ ] Build Quick Quote form page wired to Get a Quote / Quick Quote buttons
-- [ ] Email notification to info@newportavelandscaping.com on quote submission
-- [ ] Add Quote Leads admin section to backend dashboard
-- [ ] Rename admin sidebar "Leads" to "Completed Scheduled Service Forms"
+- [x] Add quote_leads DB table and tRPC procedures for Quick Quote form
+- [x] Build Quick Quote form page wired to Get a Quote / Quick Quote buttons
+- [x] Email notification to info@newportavelandscaping.com on quote submission
+- [x] Add Quote Leads admin section to backend dashboard
+- [x] Rename admin sidebar "Leads" to "Completed Scheduled Service Forms"
