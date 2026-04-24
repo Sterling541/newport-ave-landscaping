@@ -23,7 +23,6 @@ import {
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Helmet } from "react-helmet-async";
-import SprinklerGame from "@/components/SprinklerGame";
 
 const LOGO_URL = "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/logo-transparent-stacked_ff350b79.png";
 
@@ -799,7 +798,6 @@ export default function ScheduleServices() {
       {/* ── Sprinkler Dodge Game ── */}
       <div className="w-full bg-gradient-to-b from-green-50 to-white border-t border-green-100">
         <div className="max-w-3xl mx-auto">
-          <SprinklerGame />
         </div>
       </div>
       <Footer />

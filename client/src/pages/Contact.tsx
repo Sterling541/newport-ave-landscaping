@@ -8,6 +8,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { trpc } from "@/lib/trpc";
 import SEO from "@/components/SEO";
+import SprinklerGame from "@/components/SprinklerGame";
 
 function FadeIn({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -385,6 +386,7 @@ export default function Contact() {
         </div>
       </section>
 
+      <SprinklerGame />
       <Footer />
     </div>
   );

@@ -1,9 +1,11 @@
 /* ============================================================
-   SPRINKLER DASH — Branded Endless Runner
+   LAWN MOWER DASH — Branded Endless Runner
    Newport Avenue Landscaping
-   - Red-shirt runner, branded idle/dead screens
-   - Mushroom (slow) + Bee (speed boost, chases with face)
+   - Red-shirt guy PUSHING A LAWNMOWER
+   - Mower leaves alternating dark/light MOW STRIPES behind it
+   - Mushroom (slow) + Bee (speed boost, chases with angry face)
    - Combo multiplier, pop-up feedback text
+   - $10 off code — one-time use per person
    - Touch: tap lane or swipe · Keyboard: ↑↓ / W S
    ============================================================ */
 import { useEffect, useRef, useState, useCallback } from "react";
@@ -11,21 +13,23 @@ import { useEffect, useRef, useState, useCallback } from "react";
 // ── Constants ──────────────────────────────────────────────────────────────
 const W = 640;
 const H = 320;
-const PLAYER_X = 90;
-const PLAYER_R = 14;
+const PLAYER_X = 110;
+const PLAYER_R = 16;
 const LANE_COUNT = 5;
 const LANE_H = H / LANE_COUNT;
 const LANE_CENTERS = Array.from({ length: LANE_COUNT }, (_, i) => LANE_H * i + LANE_H / 2);
 const DISCOUNT_CODE = "DRYDASH10";
-const HIGH_SCORE_KEY = "nal_sprinkler_hs";
+const HIGH_SCORE_KEY = "nal_mower_hs";
 const WIN_DISTANCE = 1500;
 
 // Brand colors
 const BRAND_GREEN  = "#2d6a2d";
 const BRAND_LIGHT  = "#e8f5e9";
 const BRAND_GOLD   = "#c8a84b";
-const GRASS_DARK   = "#3a8c3a";
-const GRASS_LIGHT  = "#4db84d";
+const GRASS_BASE   = "#3a8c3a";
+const STRIPE_DARK  = "#2e7a2e";
+const STRIPE_LIGHT = "#4db84d";
+const STRIPE_W     = 28; // width of each mow stripe
 
 // ── Types ──────────────────────────────────────────────────────────────────
 interface Sprinkler {
@@ -36,6 +40,8 @@ interface Mushroom { id: number; x: number; lane: number; collected: boolean; bo
 interface Bee { id: number; x: number; y: number; active: boolean; chasing: boolean; angry: boolean; }
 interface Particle { x: number; y: number; vx: number; vy: number; life: number; color: string; r: number; }
 interface PopText { x: number; y: number; text: string; color: string; life: number; size: number; }
+// A mow stripe segment: covers a horizontal band in a lane
+interface MowStripe { x: number; lane: number; dark: boolean; }
 type GameState = "idle" | "playing" | "dead";
 
 // ── Helpers ────────────────────────────────────────────────────────────────
@@ -65,6 +71,7 @@ export default function SprinklerGame() {
   const bees = useRef<Bee[]>([]);
   const particles = useRef<Particle[]>([]);
   const popTexts = useRef<PopText[]>([]);
+  const mowStripes = useRef<MowStripe[]>([]);
   const distance = useRef(0);
   const baseSpeed = useRef(2.5);
   const playerSpeedMult = useRef(1.0);
@@ -84,6 +91,9 @@ export default function SprinklerGame() {
   const highScoreRef = useRef(highScore);
   const combo = useRef(0);
   const lastSprinklerPassed = useRef(-1);
+  // Track last stripe emitted to alternate dark/light
+  const lastStripeX = useRef(0);
+  const stripeToggle = useRef(false);
 
   const nextId = () => ++idCounter.current;
 
@@ -97,6 +107,7 @@ export default function SprinklerGame() {
     bees.current = [];
     particles.current = [];
     popTexts.current = [];
+    mowStripes.current = [];
     distance.current = 0;
     baseSpeed.current = 2.5;
     playerSpeedMult.current = 1.0;
@@ -112,6 +123,8 @@ export default function SprinklerGame() {
     scoreRef.current = 0;
     combo.current = 0;
     lastSprinklerPassed.current = -1;
+    lastStripeX.current = PLAYER_X;
+    stripeToggle.current = false;
     setScore(0);
     setWonCode("");
     setCopied(false);
@@ -152,67 +165,144 @@ export default function SprinklerGame() {
     popTexts.current.push({ x, y, text, color, life: 1, size });
   }
 
-  // ── Draw player (red shirt) ────────────────────────────────────────────
+  // ── Draw mow stripes (behind everything) ──────────────────────────────
+  function drawMowStripes(ctx: CanvasRenderingContext2D) {
+    for (const stripe of mowStripes.current) {
+      const ly = stripe.lane * LANE_H;
+      ctx.fillStyle = stripe.dark ? STRIPE_DARK : STRIPE_LIGHT;
+      ctx.fillRect(stripe.x, ly, STRIPE_W, LANE_H);
+    }
+  }
+
+  // ── Draw player pushing lawnmower ─────────────────────────────────────
   function drawPlayer(ctx: CanvasRenderingContext2D, frame: number, isInvincible: boolean) {
     const blinking = isInvincible && Math.floor(invincible.current / 6) % 2 === 0;
     if (blinking) return;
     ctx.save();
     ctx.translate(PLAYER_X, playerY.current);
 
-    // Shadow
-    ctx.beginPath();
-    ctx.ellipse(0, PLAYER_R + 2, 12, 4, 0, 0, Math.PI * 2);
-    ctx.fillStyle = "rgba(0,0,0,0.22)";
-    ctx.fill();
-
-    const legSwing = Math.sin(frame * 0.3) * 10;
-    const bounce = Math.abs(Math.sin(frame * 0.3)) * -2;
-
+    const legSwing = Math.sin(frame * 0.28) * 9;
+    const bounce = Math.abs(Math.sin(frame * 0.28)) * -1.5;
     ctx.translate(0, bounce);
 
-    // Legs (dark pants)
+    // ── Lawnmower (drawn first, in front of player) ──────────────────
+    // Mower body
+    ctx.fillStyle = "#e11d48"; // red mower body
+    ctx.beginPath();
+    ctx.roundRect(14, 4, 28, 14, 4);
+    ctx.fill();
+    // Mower deck highlight
+    ctx.fillStyle = "#fb7185";
+    ctx.beginPath();
+    ctx.roundRect(16, 5, 24, 5, 3);
+    ctx.fill();
+    // Mower engine block
+    ctx.fillStyle = "#9f1239";
+    ctx.beginPath();
+    ctx.roundRect(22, 2, 12, 7, 3);
+    ctx.fill();
+    // Engine detail lines
+    ctx.strokeStyle = "#fda4af";
+    ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(25, 3); ctx.lineTo(25, 8); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(29, 3); ctx.lineTo(29, 8); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(33, 3); ctx.lineTo(33, 8); ctx.stroke();
+    // Mower wheels
+    ctx.fillStyle = "#1e293b";
+    ctx.beginPath(); ctx.arc(18, 18, 5, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.arc(38, 18, 5, 0, Math.PI * 2); ctx.fill();
+    // Wheel hubs
+    ctx.fillStyle = "#94a3b8";
+    ctx.beginPath(); ctx.arc(18, 18, 2, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.arc(38, 18, 2, 0, Math.PI * 2); ctx.fill();
+    // Spinning blade indicator (rotates with frame)
+    ctx.save();
+    ctx.translate(28, 11);
+    ctx.rotate(frame * 0.4);
+    ctx.strokeStyle = "rgba(255,255,255,0.5)";
+    ctx.lineWidth = 1.5;
+    ctx.beginPath(); ctx.moveTo(-6, 0); ctx.lineTo(6, 0); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(0, -6); ctx.lineTo(0, 6); ctx.stroke();
+    ctx.restore();
+    // Grass clippings flying out from mower side
+    ctx.fillStyle = "#86efac";
+    for (let i = 0; i < 3; i++) {
+      const gx = 14 - 4 - i * 3;
+      const gy = 10 + Math.sin(frame * 0.3 + i) * 4;
+      ctx.beginPath(); ctx.ellipse(gx, gy, 2, 1, 0.5, 0, Math.PI * 2); ctx.fill();
+    }
+    // Handle bar (connects player hands to mower)
+    ctx.strokeStyle = "#475569";
+    ctx.lineWidth = 3;
+    ctx.lineCap = "round";
+    ctx.beginPath();
+    ctx.moveTo(14, 8);
+    ctx.lineTo(-2, -2);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(14, 14);
+    ctx.lineTo(-2, 6);
+    ctx.stroke();
+    // Handle grip
+    ctx.fillStyle = "#1e293b";
+    ctx.beginPath(); ctx.roundRect(-6, -4, 8, 14, 3); ctx.fill();
+
+    // ── Person ────────────────────────────────────────────────────────
+    // Shadow
+    ctx.beginPath();
+    ctx.ellipse(-8, PLAYER_R + 2, 10, 3, 0, 0, Math.PI * 2);
+    ctx.fillStyle = "rgba(0,0,0,0.18)";
+    ctx.fill();
+
+    // Legs (dark pants) — leaning forward
     ctx.strokeStyle = "#1a1a2e";
     ctx.lineWidth = 5;
     ctx.lineCap = "round";
-    ctx.beginPath(); ctx.moveTo(0, 8); ctx.lineTo(-7 + legSwing, 20); ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(0, 8); ctx.lineTo(7 - legSwing, 20); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(-4, 8); ctx.lineTo(-10 + legSwing, 20); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(-4, 8); ctx.lineTo(2 - legSwing, 20); ctx.stroke();
 
     // Shoes
     ctx.fillStyle = "#1a1a2e";
-    ctx.beginPath(); ctx.ellipse(-7 + legSwing, 21, 5, 3, 0.3, 0, Math.PI * 2); ctx.fill();
-    ctx.beginPath(); ctx.ellipse(7 - legSwing, 21, 5, 3, -0.3, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.ellipse(-10 + legSwing, 21, 5, 3, 0.3, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.ellipse(2 - legSwing, 21, 5, 3, -0.3, 0, Math.PI * 2); ctx.fill();
 
-    // Torso — RED SHIRT
+    // Torso — RED SHIRT (leaning forward ~15°)
+    ctx.save();
+    ctx.translate(-4, 0);
+    ctx.rotate(0.26); // lean forward
     ctx.fillStyle = "#dc2626";
     ctx.beginPath();
     ctx.roundRect(-9, -5, 18, 15, 4);
     ctx.fill();
-
     // Shirt collar
     ctx.fillStyle = "#b91c1c";
     ctx.beginPath();
     ctx.moveTo(-4, -5); ctx.lineTo(0, -2); ctx.lineTo(4, -5);
     ctx.fill();
-
-    // Newport Ave logo on shirt (small "N")
+    // Newport Ave "N" logo on shirt
     ctx.fillStyle = "#fff";
     ctx.font = "bold 8px sans-serif";
     ctx.textAlign = "center";
     ctx.fillText("N", 0, 5);
+    ctx.restore();
 
-    // Arms
+    // Arms — pushing forward
     ctx.strokeStyle = "#dc2626";
     ctx.lineWidth = 4;
     ctx.lineCap = "round";
-    ctx.beginPath(); ctx.moveTo(-9, 0); ctx.lineTo(-15, 9 - legSwing * 0.5); ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(9, 0); ctx.lineTo(15, 9 + legSwing * 0.5); ctx.stroke();
-
-    // Hands
+    // Left arm pushing handle
+    ctx.beginPath(); ctx.moveTo(-10, -2); ctx.lineTo(-4, 4); ctx.stroke();
+    // Right arm pushing handle
+    ctx.beginPath(); ctx.moveTo(-10, 4); ctx.lineTo(-4, 10); ctx.stroke();
+    // Hands on grip
     ctx.fillStyle = "#fde68a";
-    ctx.beginPath(); ctx.arc(-15, 9 - legSwing * 0.5, 3, 0, Math.PI * 2); ctx.fill();
-    ctx.beginPath(); ctx.arc(15, 9 + legSwing * 0.5, 3, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.arc(-4, 2, 3, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.arc(-4, 9, 3, 0, Math.PI * 2); ctx.fill();
 
-    // Head (skin tone)
+    // Head (skin tone) — slightly tilted forward
+    ctx.save();
+    ctx.translate(-4, 0);
+    ctx.rotate(0.15);
     ctx.beginPath();
     ctx.arc(0, -14, 11, 0, Math.PI * 2);
     ctx.fillStyle = "#fde68a";
@@ -220,7 +310,6 @@ export default function SprinklerGame() {
     ctx.strokeStyle = "#d97706";
     ctx.lineWidth = 1;
     ctx.stroke();
-
     // Hair
     ctx.fillStyle = "#92400e";
     ctx.beginPath();
@@ -229,20 +318,20 @@ export default function SprinklerGame() {
     ctx.beginPath();
     ctx.arc(-8, -18, 5, Math.PI * 1.2, Math.PI * 1.8);
     ctx.fill();
-
-    // Eyes
+    // Eyes — focused/determined look
     ctx.fillStyle = "#1e293b";
     ctx.beginPath(); ctx.arc(4, -15, 2.2, 0, Math.PI * 2); ctx.fill();
-    // Eye shine
     ctx.fillStyle = "#fff";
     ctx.beginPath(); ctx.arc(5, -16, 0.9, 0, Math.PI * 2); ctx.fill();
-
-    // Smile
+    // Determined brow
     ctx.strokeStyle = "#92400e";
     ctx.lineWidth = 1.5;
+    ctx.beginPath(); ctx.moveTo(1, -18); ctx.lineTo(7, -17); ctx.stroke();
+    // Slight grin
     ctx.beginPath();
     ctx.arc(1, -12, 4, 0.2, Math.PI - 0.2);
     ctx.stroke();
+    ctx.restore();
 
     ctx.restore();
   }
@@ -254,146 +343,83 @@ export default function SprinklerGame() {
     const bob = Math.sin(frame * 0.05 + m.bobOffset) * 3;
     ctx.save();
     ctx.translate(m.x, my + bob);
-
     // Stem
     ctx.fillStyle = "#fef3c7";
-    ctx.beginPath();
-    ctx.roundRect(-6, 2, 12, 11, 3);
-    ctx.fill();
-
+    ctx.beginPath(); ctx.roundRect(-6, 2, 12, 11, 3); ctx.fill();
     // Spots on stem
     ctx.fillStyle = "rgba(255,255,255,0.6)";
     ctx.beginPath(); ctx.arc(-2, 7, 1.5, 0, Math.PI * 2); ctx.fill();
     ctx.beginPath(); ctx.arc(3, 5, 1, 0, Math.PI * 2); ctx.fill();
-
     // Cap
-    ctx.beginPath();
-    ctx.arc(0, 2, 13, Math.PI, 0);
-    ctx.fillStyle = "#dc2626";
-    ctx.fill();
-
+    ctx.beginPath(); ctx.arc(0, 2, 13, Math.PI, 0);
+    ctx.fillStyle = "#dc2626"; ctx.fill();
     // White spots on cap
     ctx.fillStyle = "#fef3c7";
     ctx.beginPath(); ctx.arc(-4, -3, 3, 0, Math.PI * 2); ctx.fill();
     ctx.beginPath(); ctx.arc(5, -2, 2.5, 0, Math.PI * 2); ctx.fill();
     ctx.beginPath(); ctx.arc(0, -7, 2, 0, Math.PI * 2); ctx.fill();
-
-    // Goofy face on stem
-    // Eyes (X eyes = dizzy)
-    ctx.strokeStyle = "#7c3aed";
-    ctx.lineWidth = 1.5;
-    // Left X eye
+    // X eyes on stem
+    ctx.strokeStyle = "#7c3aed"; ctx.lineWidth = 1.5;
     ctx.beginPath(); ctx.moveTo(-4, 5); ctx.lineTo(-2, 7); ctx.stroke();
     ctx.beginPath(); ctx.moveTo(-2, 5); ctx.lineTo(-4, 7); ctx.stroke();
-    // Right X eye
     ctx.beginPath(); ctx.moveTo(2, 5); ctx.lineTo(4, 7); ctx.stroke();
     ctx.beginPath(); ctx.moveTo(4, 5); ctx.lineTo(2, 7); ctx.stroke();
     // Goofy smile
-    ctx.beginPath();
-    ctx.arc(0, 9, 3, 0.3, Math.PI - 0.3);
-    ctx.stroke();
-
-    // SLOW label
-    ctx.font = "bold 8px sans-serif";
-    ctx.fillStyle = "#7c3aed";
-    ctx.textAlign = "center";
-    ctx.fillText("SLOW", 0, 24);
-
+    ctx.strokeStyle = "#7c3aed"; ctx.lineWidth = 1.5;
+    ctx.beginPath(); ctx.arc(0, 8, 3, 0, Math.PI); ctx.stroke();
     ctx.restore();
   }
 
-  // ── Draw bee (expressive face) ─────────────────────────────────────────
+  // ── Draw bee (happy → angry when chasing) ─────────────────────────────
   function drawBee(ctx: CanvasRenderingContext2D, b: Bee, frame: number) {
     if (!b.active) return;
-    const wobble = Math.sin(frame * 0.35) * 3;
     ctx.save();
-    ctx.translate(b.x, b.y + wobble);
-
-    // Stinger
-    ctx.beginPath();
-    ctx.moveTo(13, 0); ctx.lineTo(19, 0);
-    ctx.strokeStyle = "#92400e";
-    ctx.lineWidth = 2;
-    ctx.stroke();
-    ctx.beginPath();
-    ctx.moveTo(19, 0); ctx.lineTo(22, 1);
-    ctx.stroke();
-
-    // Body
-    ctx.beginPath();
-    ctx.ellipse(0, 0, 13, 9, 0, 0, Math.PI * 2);
-    ctx.fillStyle = "#fbbf24";
-    ctx.fill();
-    ctx.strokeStyle = "#92400e";
-    ctx.lineWidth = 1.5;
-    ctx.stroke();
-
-    // Stripes
-    ctx.strokeStyle = "#92400e";
-    ctx.lineWidth = 2;
-    for (const sx of [-5, 0, 5]) {
-      ctx.beginPath();
-      ctx.moveTo(sx, -8);
-      ctx.lineTo(sx, 8);
-      ctx.stroke();
-    }
-
+    ctx.translate(b.x, b.y);
+    const wingFlap = Math.sin(frame * 0.5) * 4;
     // Wings
-    const wingFlap = Math.sin(frame * 0.5) * 0.15;
-    ctx.beginPath();
-    ctx.ellipse(-5, -10, 8, 5, -0.4 + wingFlap, 0, Math.PI * 2);
-    ctx.fillStyle = "rgba(200,235,255,0.82)";
-    ctx.fill();
-    ctx.strokeStyle = "rgba(100,150,200,0.5)";
-    ctx.lineWidth = 0.8;
-    ctx.stroke();
-
-    ctx.beginPath();
-    ctx.ellipse(5, -10, 8, 5, 0.4 - wingFlap, 0, Math.PI * 2);
-    ctx.fillStyle = "rgba(200,235,255,0.82)";
-    ctx.fill();
-    ctx.stroke();
-
-    // Face — angry when chasing, happy otherwise
-    if (b.chasing || b.angry) {
-      // Angry eyes (slanted)
-      ctx.fillStyle = "#1e293b";
-      ctx.beginPath(); ctx.ellipse(-5, -2, 2.5, 2, -0.4, 0, Math.PI * 2); ctx.fill();
-      ctx.beginPath(); ctx.ellipse(5, -2, 2.5, 2, 0.4, 0, Math.PI * 2); ctx.fill();
-      // Angry brows
-      ctx.strokeStyle = "#92400e";
-      ctx.lineWidth = 1.5;
-      ctx.beginPath(); ctx.moveTo(-8, -5); ctx.lineTo(-3, -4); ctx.stroke();
-      ctx.beginPath(); ctx.moveTo(8, -5); ctx.lineTo(3, -4); ctx.stroke();
+    ctx.fillStyle = "rgba(186,230,253,0.75)";
+    ctx.beginPath(); ctx.ellipse(-5, -10 + wingFlap, 7, 4, -0.4, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.ellipse(5, -10 + wingFlap, 7, 4, 0.4, 0, Math.PI * 2); ctx.fill();
+    // Body
+    ctx.fillStyle = "#fbbf24";
+    ctx.beginPath(); ctx.ellipse(0, 0, 9, 12, 0, 0, Math.PI * 2); ctx.fill();
+    // Stripes
+    ctx.fillStyle = "#1a1a2e";
+    ctx.fillRect(-9, -4, 18, 4);
+    ctx.fillRect(-9, 3, 18, 4);
+    // Stinger
+    ctx.fillStyle = "#92400e";
+    ctx.beginPath(); ctx.moveTo(-2, 12); ctx.lineTo(2, 12); ctx.lineTo(0, 17); ctx.fill();
+    // Face
+    if (b.angry) {
+      // Angry eyes
+      ctx.fillStyle = "#1a1a2e";
+      ctx.beginPath(); ctx.arc(-3, -6, 2.5, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.arc(3, -6, 2.5, 0, Math.PI * 2); ctx.fill();
+      // Angry brows (slanted inward)
+      ctx.strokeStyle = "#1a1a2e"; ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.moveTo(-6, -10); ctx.lineTo(-1, -8); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(6, -10); ctx.lineTo(1, -8); ctx.stroke();
       // Gritted teeth
       ctx.fillStyle = "#fff";
-      ctx.fillRect(-4, 2, 8, 4);
-      ctx.strokeStyle = "#92400e";
-      ctx.lineWidth = 0.8;
-      for (let tx = -4; tx <= 2; tx += 2) {
-        ctx.beginPath(); ctx.moveTo(tx, 2); ctx.lineTo(tx, 6); ctx.stroke();
+      ctx.beginPath(); ctx.roundRect(-4, -2, 8, 4, 1); ctx.fill();
+      ctx.strokeStyle = "#9f1239"; ctx.lineWidth = 0.8;
+      for (let i = -3; i <= 3; i += 2) {
+        ctx.beginPath(); ctx.moveTo(i, -2); ctx.lineTo(i, 2); ctx.stroke();
       }
     } else {
       // Happy eyes
-      ctx.fillStyle = "#1e293b";
-      ctx.beginPath(); ctx.arc(-5, -2, 2.5, 0, Math.PI * 2); ctx.fill();
-      ctx.beginPath(); ctx.arc(5, -2, 2.5, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = "#1a1a2e";
+      ctx.beginPath(); ctx.arc(-3, -6, 2, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.arc(3, -6, 2, 0, Math.PI * 2); ctx.fill();
       // Eye shines
       ctx.fillStyle = "#fff";
-      ctx.beginPath(); ctx.arc(-4, -3, 1, 0, Math.PI * 2); ctx.fill();
-      ctx.beginPath(); ctx.arc(6, -3, 1, 0, Math.PI * 2); ctx.fill();
-      // Smile
-      ctx.strokeStyle = "#92400e";
-      ctx.lineWidth = 1.5;
-      ctx.beginPath(); ctx.arc(0, 1, 4, 0.2, Math.PI - 0.2); ctx.stroke();
+      ctx.beginPath(); ctx.arc(-2, -7, 0.8, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.arc(4, -7, 0.8, 0, Math.PI * 2); ctx.fill();
+      // Happy smile
+      ctx.strokeStyle = "#92400e"; ctx.lineWidth = 1.5;
+      ctx.beginPath(); ctx.arc(0, -3, 3, 0.2, Math.PI - 0.2); ctx.stroke();
     }
-
-    // FAST label
-    ctx.font = "bold 8px sans-serif";
-    ctx.fillStyle = "#92400e";
-    ctx.textAlign = "center";
-    ctx.fillText("FAST", 0, 22);
-
     ctx.restore();
   }
 
@@ -402,105 +428,107 @@ export default function SprinklerGame() {
     const sy = LANE_CENTERS[s.lane];
     ctx.save();
     ctx.translate(s.x, sy);
-
+    // Base
+    ctx.fillStyle = "#64748b";
+    ctx.beginPath(); ctx.arc(0, 0, 7, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = "#94a3b8";
+    ctx.beginPath(); ctx.arc(0, 0, 4, 0, Math.PI * 2); ctx.fill();
     // Water arc
+    const gradient = ctx.createLinearGradient(0, 0,
+      Math.cos(s.angle) * s.arcLen, Math.sin(s.angle) * s.arcLen);
+    gradient.addColorStop(0, "rgba(96,165,250,0.9)");
+    gradient.addColorStop(0.6, "rgba(147,197,253,0.6)");
+    gradient.addColorStop(1, "rgba(191,219,254,0.1)");
+    ctx.strokeStyle = gradient;
+    ctx.lineWidth = 5;
+    ctx.lineCap = "round";
     ctx.beginPath();
-    ctx.moveTo(0, 0);
     ctx.arc(0, 0, s.arcLen, s.angle - s.arcWidth / 2, s.angle + s.arcWidth / 2);
-    ctx.closePath();
-    const g = ctx.createRadialGradient(0, 0, 0, 0, 0, s.arcLen);
-    g.addColorStop(0, "rgba(147,210,255,0.92)");
-    g.addColorStop(0.5, "rgba(100,180,255,0.55)");
-    g.addColorStop(1, "rgba(100,180,255,0)");
-    ctx.fillStyle = g;
-    ctx.fill();
-
+    ctx.stroke();
     // Water droplets along arc
-    for (let d = 20; d < s.arcLen; d += 18) {
-      const ax = Math.cos(s.angle) * d;
-      const ay = Math.sin(s.angle) * d;
+    ctx.fillStyle = "rgba(147,197,253,0.8)";
+    for (let d = 0.2; d <= 0.9; d += 0.35) {
+      const da = s.angle + (Math.random() - 0.5) * s.arcWidth * 0.6;
+      const dr = s.arcLen * d;
       ctx.beginPath();
-      ctx.arc(ax, ay, 2, 0, Math.PI * 2);
-      ctx.fillStyle = "rgba(147,210,255,0.7)";
+      ctx.arc(Math.cos(da) * dr, Math.sin(da) * dr, 2, 0, Math.PI * 2);
       ctx.fill();
     }
-
-    // Head base
-    ctx.beginPath();
-    ctx.arc(0, 0, 10, 0, Math.PI * 2);
-    ctx.fillStyle = "#6b7280";
-    ctx.fill();
-    ctx.strokeStyle = "#4b5563";
-    ctx.lineWidth = 1.5;
-    ctx.stroke();
-
-    // Rotating nozzle
-    ctx.beginPath();
-    ctx.arc(0, 0, 6, 0, Math.PI * 2);
-    ctx.fillStyle = "#374151";
-    ctx.fill();
-
-    ctx.beginPath();
-    ctx.moveTo(0, 0);
-    ctx.lineTo(Math.cos(s.angle) * 10, Math.sin(s.angle) * 10);
-    ctx.strokeStyle = "#60a5fa";
-    ctx.lineWidth = 2.5;
-    ctx.stroke();
-
     ctx.restore();
   }
 
   // ── Game loop ──────────────────────────────────────────────────────────
-  const gameLoop = useCallback(() => {
+  const gameLoop = useCallback((ts: number) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
-    if (!ctx || stateRef.current !== "playing") return;
+    if (!ctx) return;
+    if (stateRef.current !== "playing") return;
 
-    frameCount.current++;
-    const frame = frameCount.current;
+    const frame = frameCount.current++;
+    const scrollSpeed = baseSpeed.current * playerSpeedMult.current;
+    scrollX.current += scrollSpeed;
+    distance.current += scrollSpeed;
 
-    // Speed ramp every 240 frames
-    if (frame % 240 === 0) baseSpeed.current = Math.min(baseSpeed.current + 0.25, 10);
+    // Accelerate over time
+    baseSpeed.current = Math.min(10, 2.5 + distance.current / 8000);
 
-    // Timers
+    // Speed timers
     if (slowTimer.current > 0) { slowTimer.current--; if (slowTimer.current === 0) playerSpeedMult.current = 1.0; }
     if (fastTimer.current > 0) { fastTimer.current--; if (fastTimer.current === 0) playerSpeedMult.current = 1.0; }
     if (invincible.current > 0) invincible.current--;
 
-    const scrollSpeed = baseSpeed.current * playerSpeedMult.current;
-    distance.current += scrollSpeed;
-    scrollX.current = (scrollX.current + scrollSpeed) % 80;
-
-    // Smooth player Y
-    playerY.current = lerp(playerY.current, LANE_CENTERS[targetLane.current], 0.22);
+    // Smooth lane movement
+    playerY.current = lerp(playerY.current, LANE_CENTERS[targetLane.current], 0.14);
+    playerLane.current = targetLane.current;
 
     // Spawn objects
-    if (distance.current >= nextSprinklerDist.current) {
+    if (distance.current > nextSprinklerDist.current) {
       spawnSprinkler();
-      nextSprinklerDist.current = distance.current + rand(110, 250);
+      nextSprinklerDist.current = distance.current + rand(180, 320);
     }
-    if (distance.current >= nextMushroomDist.current) {
+    if (distance.current > nextMushroomDist.current) {
       spawnMushroom();
-      nextMushroomDist.current = distance.current + rand(350, 650);
+      nextMushroomDist.current = distance.current + rand(400, 700);
     }
-    if (distance.current >= nextBeeDist.current) {
+    if (distance.current > nextBeeDist.current) {
       spawnBee();
-      nextBeeDist.current = distance.current + rand(500, 900);
+      nextBeeDist.current = distance.current + rand(600, 1000);
     }
 
-    // Update sprinklers — track combo
-    const prevSprinklers = sprinklers.current.length;
-    sprinklers.current = sprinklers.current.filter(s => s.x > -20);
-    for (const s of sprinklers.current) { s.x -= scrollSpeed; s.angle += s.arcSpeed; }
+    // Emit mow stripes behind the mower
+    if (PLAYER_X - lastStripeX.current >= STRIPE_W) {
+      // We emit stripes scrolling rightward — actually we track them as world-space
+      // and scroll them left each frame. Emit at current scroll position.
+      mowStripes.current.push({
+        x: PLAYER_X, // will scroll left
+        lane: playerLane.current,
+        dark: stripeToggle.current,
+      });
+      stripeToggle.current = !stripeToggle.current;
+      lastStripeX.current = PLAYER_X;
+    }
 
-    // Combo: count sprinklers that passed the player without hitting
-    if (sprinklers.current.length < prevSprinklers && invincible.current === 0) {
-      combo.current++;
-      if (combo.current >= 3) {
-        spawnPopText(PLAYER_X + 20, playerY.current - 30, `${combo.current}x COMBO!`, "#fbbf24", 13);
+    // Scroll mow stripes left and cull off-screen
+    for (const stripe of mowStripes.current) {
+      stripe.x -= scrollSpeed;
+    }
+    mowStripes.current = mowStripes.current.filter(s => s.x > -STRIPE_W);
+
+    // Update sprinklers
+    for (const s of sprinklers.current) {
+      s.x -= scrollSpeed;
+      s.angle += s.arcSpeed;
+      // Combo: passed a sprinkler
+      if (s.x < PLAYER_X - 20 && lastSprinklerPassed.current !== s.id) {
+        lastSprinklerPassed.current = s.id;
+        combo.current++;
+        if (combo.current >= 2) {
+          spawnPopText(PLAYER_X + 20, playerY.current - 30, `${combo.current}x COMBO!`, "#fbbf24", 13);
+        }
       }
     }
+    sprinklers.current = sprinklers.current.filter(s => s.x > -60);
 
     // Update mushrooms
     mushrooms.current = mushrooms.current.filter(m => m.x > -30 && !m.collected);
@@ -584,21 +612,26 @@ export default function SprinklerGame() {
     for (const t of popTexts.current) { t.y -= 0.8; t.life -= 0.018; }
 
     // ── DRAW ──────────────────────────────────────────────────────────
-    // Alternating grass stripes (scrolling)
+    // Base grass lanes
     for (let i = 0; i < LANE_COUNT; i++) {
-      ctx.fillStyle = i % 2 === 0 ? GRASS_DARK : GRASS_LIGHT;
+      ctx.fillStyle = GRASS_BASE;
       ctx.fillRect(0, i * LANE_H, W, LANE_H);
     }
 
-    // Scrolling grass texture lines
-    ctx.strokeStyle = "rgba(0,80,0,0.18)";
-    ctx.lineWidth = 1;
-    for (let x = -(scrollX.current % 80); x < W; x += 80) {
-      ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke();
-    }
+    // Mow stripes (behind everything)
+    drawMowStripes(ctx);
 
-    // Scrolling horizontal grass blades
-    ctx.strokeStyle = "rgba(0,100,0,0.12)";
+    // Lane dividers
+    ctx.setLineDash([10, 10]);
+    ctx.strokeStyle = "rgba(0,60,0,0.2)";
+    ctx.lineWidth = 1;
+    for (let i = 1; i < LANE_COUNT; i++) {
+      ctx.beginPath(); ctx.moveTo(0, i * LANE_H); ctx.lineTo(W, i * LANE_H); ctx.stroke();
+    }
+    ctx.setLineDash([]);
+
+    // Scrolling grass blades (over stripes, subtle)
+    ctx.strokeStyle = "rgba(0,100,0,0.08)";
     ctx.lineWidth = 1;
     for (let i = 0; i < LANE_COUNT; i++) {
       const y = i * LANE_H + LANE_H / 2;
@@ -610,21 +643,12 @@ export default function SprinklerGame() {
       }
     }
 
-    // Lane dividers
-    ctx.setLineDash([10, 10]);
-    ctx.strokeStyle = "rgba(0,60,0,0.2)";
-    ctx.lineWidth = 1;
-    for (let i = 1; i < LANE_COUNT; i++) {
-      ctx.beginPath(); ctx.moveTo(0, i * LANE_H); ctx.lineTo(W, i * LANE_H); ctx.stroke();
-    }
-    ctx.setLineDash([]);
-
     // Draw objects
     for (const s of sprinklers.current) drawSprinkler(ctx, s);
     for (const m of mushrooms.current) drawMushroom(ctx, m, frame);
     for (const b of bees.current) drawBee(ctx, b, frame);
 
-    // Draw player
+    // Draw player (pushing mower)
     drawPlayer(ctx, frame, invincible.current > 0);
 
     // Particles
@@ -685,11 +709,7 @@ export default function SprinklerGame() {
     const speedPct = (baseSpeed.current - 2.5) / (10 - 2.5);
     ctx.fillStyle = "rgba(0,0,0,0.35)";
     ctx.beginPath(); ctx.roundRect(8, H - 22, 100, 13, 5); ctx.fill();
-    const barColor = speedPct < 0.4
-      ? "#4ade80"
-      : speedPct < 0.7
-        ? "#fbbf24"
-        : "#ef4444";
+    const barColor = speedPct < 0.4 ? "#4ade80" : speedPct < 0.7 ? "#fbbf24" : "#ef4444";
     ctx.fillStyle = barColor;
     ctx.beginPath(); ctx.roundRect(8, H - 22, 100 * speedPct, 13, 5); ctx.fill();
     ctx.fillStyle = "#fff"; ctx.font = "bold 8px sans-serif"; ctx.textAlign = "left";
@@ -777,14 +797,12 @@ export default function SprinklerGame() {
 
   // ── Draw idle/dead screens ─────────────────────────────────────────────
   function drawIdleScreen(ctx: CanvasRenderingContext2D) {
-    // Background
-    ctx.fillStyle = GRASS_DARK;
-    ctx.fillRect(0, 0, W, H);
+    // Background — grass
     for (let i = 0; i < LANE_COUNT; i++) {
-      ctx.fillStyle = i % 2 === 0 ? GRASS_DARK : GRASS_LIGHT;
+      ctx.fillStyle = i % 2 === 0 ? STRIPE_DARK : STRIPE_LIGHT;
       ctx.fillRect(0, i * LANE_H, W, LANE_H);
     }
-    ctx.fillStyle = "rgba(0,0,0,0.62)";
+    ctx.fillStyle = "rgba(0,0,0,0.60)";
     ctx.fillRect(0, 0, W, H);
 
     // Brand header bar
@@ -796,13 +814,13 @@ export default function SprinklerGame() {
     ctx.fillText("NEWPORT AVENUE LANDSCAPING", W / 2, 16);
     ctx.fillStyle = "#fff";
     ctx.font = "bold 20px sans-serif";
-    ctx.fillText("💦  SPRINKLER DASH", W / 2, 37);
+    ctx.fillText("🌿  LAWN MOWER DASH", W / 2, 37);
 
     // Tagline
     ctx.fillStyle = BRAND_LIGHT;
     ctx.font = "13px sans-serif";
     ctx.textAlign = "center";
-    ctx.fillText("Dodge sprinklers — run as far as you can!", W / 2, 68);
+    ctx.fillText("Mow the lawn without getting soaked!", W / 2, 68);
 
     // Powerup hints
     ctx.fillStyle = "#a855f7";
@@ -814,29 +832,31 @@ export default function SprinklerGame() {
     // Reward hint
     ctx.fillStyle = BRAND_GOLD;
     ctx.font = "bold 13px sans-serif";
-    ctx.fillText(`Run ${WIN_DISTANCE} ft → unlock $10 off: DRYDASH10`, W / 2, 120);
+    ctx.fillText(`Mow ${WIN_DISTANCE} ft → unlock $10 off: DRYDASH10`, W / 2, 120);
+    ctx.fillStyle = "rgba(255,255,255,0.55)";
+    ctx.font = "10px sans-serif";
+    ctx.fillText("One-time use per person. Valid on any service.", W / 2, 135);
 
     // Controls
     ctx.fillStyle = "rgba(255,255,255,0.65)";
     ctx.font = "12px sans-serif";
-    ctx.fillText("Tap top/bottom of screen · Swipe · or ↑↓ keys", W / 2, 143);
+    ctx.fillText("Tap top/bottom · Swipe · or ↑↓ keys", W / 2, 153);
 
     // Play button
     ctx.fillStyle = BRAND_GREEN;
-    ctx.beginPath(); ctx.roundRect(W / 2 - 80, 156, 160, 44, 10); ctx.fill();
+    ctx.beginPath(); ctx.roundRect(W / 2 - 80, 165, 160, 44, 10); ctx.fill();
     ctx.strokeStyle = BRAND_GOLD;
     ctx.lineWidth = 2;
-    ctx.beginPath(); ctx.roundRect(W / 2 - 80, 156, 160, 44, 10); ctx.stroke();
+    ctx.beginPath(); ctx.roundRect(W / 2 - 80, 165, 160, 44, 10); ctx.stroke();
     ctx.fillStyle = "#fff";
     ctx.font = "bold 17px sans-serif";
     ctx.textAlign = "center";
-    ctx.fillText("▶  TAP TO PLAY", W / 2, 183);
+    ctx.fillText("▶  TAP TO PLAY", W / 2, 192);
   }
 
   function drawDeadScreen(ctx: CanvasRenderingContext2D, s: number, hs: number) {
-    // Background
     for (let i = 0; i < LANE_COUNT; i++) {
-      ctx.fillStyle = i % 2 === 0 ? GRASS_DARK : GRASS_LIGHT;
+      ctx.fillStyle = i % 2 === 0 ? STRIPE_DARK : STRIPE_LIGHT;
       ctx.fillRect(0, i * LANE_H, W, LANE_H);
     }
     ctx.fillStyle = "rgba(0,0,0,0.65)";
@@ -851,7 +871,7 @@ export default function SprinklerGame() {
     ctx.fillText("NEWPORT AVENUE LANDSCAPING", W / 2, 16);
     ctx.fillStyle = "#fff";
     ctx.font = "bold 20px sans-serif";
-    ctx.fillText("💦  SPRINKLER DASH", W / 2, 37);
+    ctx.fillText("🌿  LAWN MOWER DASH", W / 2, 37);
 
     // Result
     ctx.fillStyle = "#ef4444";
@@ -903,19 +923,22 @@ export default function SprinklerGame() {
   }, [displayState, score, highScore]);
 
   return (
-    <section className="py-16" style={{ backgroundColor: "oklch(0.97 0.01 140)" }}>
+    <section className="py-12" style={{ backgroundColor: "oklch(0.97 0.01 140)" }}>
       <div className="container">
         <div className="text-center mb-6">
           <div className="font-label mb-2 text-xs tracking-widest" style={{ color: BRAND_GREEN }}>
             🎮 MINI GAME
           </div>
           <h2 className="font-display font-light text-3xl mb-2" style={{ color: "oklch(0.22 0.005 0)" }}>
-            Sprinkler Dash
+            Lawn Mower Dash
           </h2>
           <p className="font-body text-sm" style={{ color: "oklch(0.45 0.005 30)" }}>
-            Run through the lawn without getting soaked. Make it{" "}
+            Push your mower through the lawn without getting soaked. Mow{" "}
             <strong>{WIN_DISTANCE} feet</strong> to unlock a{" "}
-            <strong>$10 discount</strong> on your next service.
+            <strong>$10 discount</strong> on your next service.{" "}
+            <span style={{ color: "oklch(0.55 0.005 30)" }}>
+              One-time use per person.
+            </span>
           </p>
         </div>
 
@@ -964,8 +987,11 @@ export default function SprinklerGame() {
               style={{ backgroundColor: BRAND_GOLD, color: "#1a1a2e" }}>
               {copied ? "✓ Copied!" : "Copy Code"}
             </button>
-            <div className="mt-2 text-xs" style={{ color: "rgba(255,255,255,0.55)" }}>
-              Use at checkout on your next service booking
+            <div className="mt-2 text-xs" style={{ color: "rgba(255,255,255,0.7)" }}>
+              Use at checkout on your next service booking.
+            </div>
+            <div className="mt-1 text-xs" style={{ color: "rgba(255,255,255,0.45)" }}>
+              One-time use per person. Cannot be combined with other offers.
             </div>
           </div>
         )}
