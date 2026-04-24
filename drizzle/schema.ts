@@ -271,3 +271,28 @@ export const optOutRequests = mysqlTable("opt_out_requests", {
 });
 export type OptOutRequest = typeof optOutRequests.$inferSelect;
 export type InsertOptOutRequest = typeof optOutRequests.$inferInsert;
+
+/**
+ * Quick Quote leads — submitted when a visitor clicks "Get a Quote" or "Quick Quote".
+ * Lighter-weight than the full service submission form.
+ */
+export const quoteLeads = mysqlTable("quote_leads", {
+  id: int("id").autoincrement().primaryKey(),
+  firstName: varchar("firstName", { length: 128 }).notNull(),
+  lastName: varchar("lastName", { length: 128 }).notNull(),
+  email: varchar("email", { length: 320 }).notNull(),
+  phone: varchar("phone", { length: 32 }).notNull(),
+  address: text("address"),
+  serviceInterest: varchar("serviceInterest", { length: 128 }),
+  message: text("message"),
+  /** Where they clicked from: 'hero', 'navbar', 'floating_cta', 'cta_banner', 'services', 'other' */
+  source: varchar("source", { length: 64 }).default("other").notNull(),
+  /** Admin workflow status */
+  status: mysqlEnum("quoteLeadStatus", ["new", "contacted", "quoted", "converted", "lost"]).default("new").notNull(),
+  adminNotes: text("adminNotes"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type QuoteLead = typeof quoteLeads.$inferSelect;
+export type InsertQuoteLead = typeof quoteLeads.$inferInsert;

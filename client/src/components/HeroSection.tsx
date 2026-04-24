@@ -473,9 +473,7 @@ export default function HeroSection() {
 
           <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap" }}>
             <button
-              onClick={() =>
-                document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" })
-              }
+              onClick={() => { window.location.href = "/quote"; }}
               style={{
                 fontFamily: "'Montserrat', sans-serif",
                 fontSize: "0.58rem",

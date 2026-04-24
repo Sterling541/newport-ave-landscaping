@@ -736,8 +736,8 @@ export default function Navbar() {
             />
             {/* Get a Quote — pill CTA, brand red */}
             <a
-              href="/contact"
-              onClick={(e) => { e.preventDefault(); goTo("/contact"); }}
+              href="/quote"
+              onClick={(e) => { e.preventDefault(); goTo("/quote"); }}
               style={{
                 fontFamily: "'Montserrat', sans-serif",
                 fontSize: "0.58rem",

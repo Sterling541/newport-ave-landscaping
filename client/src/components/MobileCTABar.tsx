@@ -11,7 +11,7 @@ export default function MobileCTABar() {
   const [, navigate] = useLocation();
 
   const goToContact = () => {
-    navigate("/contact");
+    navigate("/quote");
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 

@@ -63,6 +63,10 @@ import {
   listOptOutRequests,
   countOptOutRequests,
   updateOptOutRequestStatus,
+  createQuoteLead,
+  listQuoteLeads,
+  countQuoteLeads,
+  updateQuoteLeadStatus,
 } from "./db";
 
 // ── Admin guard helper ────────────────────────────────────────────────────────
@@ -1096,6 +1100,83 @@ Be specific, data-driven, and actionable. Format as JSON with keys: bestMonths (
       .query(async ({ ctx, input }) => {
         requireAdmin(ctx);
         return getLostLeadsByMonth(input.months);
+      }),
+  }),
+
+  // ── Quote Leads (Get a Quote / Quick Quote) ─────────────────────────────
+  quoteLeads: router({
+    /** Public: submit a quick quote request */
+    submit: publicProcedure
+      .input(z.object({
+        firstName: z.string().min(1).max(128),
+        lastName: z.string().min(1).max(128),
+        email: z.string().email().max(320),
+        phone: z.string().min(1).max(32),
+        address: z.string().max(500).optional(),
+        serviceInterest: z.string().max(128).optional(),
+        message: z.string().max(2000).optional(),
+        source: z.string().max(64).default("other"),
+      }))
+      .mutation(async ({ input }) => {
+        await createQuoteLead({ ...input, status: "new" });
+
+        // Email notification to front office
+        if (ENV.resendApiKey) {
+          try {
+            const resend = new Resend(ENV.resendApiKey);
+            const html = [
+              `<h2 style="color:#2d5a27">New Quick Quote Request — Newport Avenue Landscaping</h2>`,
+              `<p><strong>Name:</strong> ${input.firstName} ${input.lastName}</p>`,
+              `<p><strong>Email:</strong> <a href="mailto:${input.email}">${input.email}</a></p>`,
+              `<p><strong>Phone:</strong> ${input.phone}</p>`,
+              input.address ? `<p><strong>Address:</strong> ${input.address}</p>` : "",
+              input.serviceInterest ? `<p><strong>Service Interest:</strong> ${input.serviceInterest}</p>` : "",
+              input.message ? `<hr/><p><strong>Message:</strong></p><p>${input.message.replace(/\n/g, "<br/>")}</p>` : "",
+              `<hr/><p style="color:#666;font-size:12px">Submitted via Quick Quote on newportavelandscaping.com (source: ${input.source})</p>`,
+            ].join("\n");
+            await resend.emails.send({
+              from: "Newport Ave Landscaping <noreply@newportavelandscaping.com>",
+              to: ["info@newportavelandscaping.com"],
+              replyTo: input.email,
+              subject: `New Quick Quote: ${input.firstName} ${input.lastName} — ${input.serviceInterest || "General Inquiry"}`,
+              html: `<div style="font-family:sans-serif;max-width:600px;margin:0 auto">${html}</div>`,
+            });
+          } catch (emailErr) {
+            console.error("[quoteLeads.submit] Resend email error:", emailErr);
+          }
+        }
+
+        await notifyOwner({
+          title: `New Quick Quote: ${input.firstName} ${input.lastName}`,
+          content: `Phone: ${input.phone} | Email: ${input.email} | Service: ${input.serviceInterest || "General"}`,
+        }).catch(() => {});
+
+        return { success: true };
+      }),
+
+    /** Admin: list all quote leads */
+    list: protectedProcedure
+      .input(z.object({ limit: z.number().min(1).max(200).default(100), offset: z.number().min(0).default(0) }).optional())
+      .query(async ({ ctx, input }) => {
+        requireAdmin(ctx);
+        const limit = input?.limit ?? 100;
+        const offset = input?.offset ?? 0;
+        const rows = await listQuoteLeads(limit, offset);
+        const total = await countQuoteLeads();
+        return { rows, total };
+      }),
+
+    /** Admin: update status / notes on a quote lead */
+    updateStatus: protectedProcedure
+      .input(z.object({
+        id: z.number(),
+        status: z.enum(["new", "contacted", "quoted", "converted", "lost"]),
+        adminNotes: z.string().max(2000).optional(),
+      }))
+      .mutation(async ({ ctx, input }) => {
+        requireAdmin(ctx);
+        await updateQuoteLeadStatus(input.id, input.status, input.adminNotes);
+        return { success: true };
       }),
   }),
 

@@ -4,6 +4,7 @@ import {
   InsertCsvImportJob, InsertInsight, InsertLeadFollowUp, InsertServiceSubmission, InsertUser, InsertWeatherDaily,
   LeadFollowUp, csvImportJobs, insights, leadFollowUps, serviceSubmissions, users, weatherDaily,
   optOutRequests, type InsertOptOutRequest,
+  quoteLeads, type InsertQuoteLead,
 } from "../drizzle/schema";
 import { ENV } from './_core/env';
 
@@ -896,4 +897,31 @@ export async function updateOptOutRequestStatus(
   const db = await getDb();
   if (!db) throw new Error("Database not available");
   return db.update(optOutRequests).set({ status, ...(adminNotes !== undefined ? { adminNotes } : {}) }).where(eq(optOutRequests.id, id));
+}
+
+// ── Quote Leads ───────────────────────────────────────────────────────────────
+export async function createQuoteLead(data: Omit<InsertQuoteLead, "id" | "createdAt" | "updatedAt">) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  return db.insert(quoteLeads).values(data);
+}
+export async function listQuoteLeads(limit = 100, offset = 0) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  return db.select().from(quoteLeads).orderBy(desc(quoteLeads.createdAt)).limit(limit).offset(offset);
+}
+export async function countQuoteLeads() {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  const rows = await db.select({ count: sql<number>`count(*)` }).from(quoteLeads);
+  return Number(rows[0]?.count ?? 0);
+}
+export async function updateQuoteLeadStatus(
+  id: number,
+  status: "new" | "contacted" | "quoted" | "converted" | "lost",
+  adminNotes?: string
+) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  return db.update(quoteLeads).set({ status, ...(adminNotes !== undefined ? { adminNotes } : {}) }).where(eq(quoteLeads.id, id));
 }

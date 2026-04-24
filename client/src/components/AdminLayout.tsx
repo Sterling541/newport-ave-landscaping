@@ -21,15 +21,22 @@ import {
   X,
   Bell,
   ClipboardList,
+  MessageSquare,
 } from "lucide-react";
 import { useAuth } from "@/_core/hooks/useAuth";
 
 const NAV_ITEMS = [
   {
-    label: "Leads",
+    label: "Completed Scheduled Service Forms",
     href: "/admin/submissions",
     icon: Users,
-    description: "All inquiries",
+    description: "Scheduled service submissions",
+  },
+  {
+    label: "Quick Quote Leads",
+    href: "/admin/quote-leads",
+    icon: MessageSquare,
+    description: "Get a Quote inquiries",
   },
   {
     label: "Daily Pulse",

@@ -27,6 +27,8 @@ import CsvImport from "./pages/admin/CsvImport";
 import GeoIntelligence from "./pages/admin/GeoIntelligence";
 import Reminders from "./pages/admin/Reminders";
 import AdminOptOutRequests from "./pages/admin/AdminOptOutRequests";
+import QuoteRequest from "./pages/QuoteRequest";
+import AdminQuoteLeads from "./pages/admin/AdminQuoteLeads";
 import OptOut from "./pages/OptOut";
 
 // Main pages
@@ -504,6 +506,9 @@ function Router() {
       <Route path={"/resources/lawn-fungus-treatment-bend-oregon"} component={lazy(() => import('./pages/resources/LawnFungusTreatmentBend'))} />
       {/* Opt-Out Program */}
       <Route path={"/opt-out"} component={OptOut} />
+      {/* Quick Quote */}
+      <Route path={"/quote"} component={() => <QuoteRequest source="quote-page" />} />
+      <Route path={"/get-a-quote"} component={() => <QuoteRequest source="get-a-quote" />} />
       {/* Schedule Services + Admin */}
       <Route path={"/schedule-services"} component={ScheduleServices} />
       <Route path={"/admin/submissions"} component={AdminSubmissions} />
@@ -512,6 +517,7 @@ function Router() {
       <Route path={"/admin/csv-import"} component={CsvImport} />
       <Route path={"/admin/reminders"} component={Reminders} />
       <Route path={"/admin/opt-out-requests"} component={AdminOptOutRequests} />
+      <Route path={"/admin/quote-leads"} component={AdminQuoteLeads} />
       <Route path={"/admin/geo-intelligence"} component={GeoIntelligence} />
 
       {/* Fallback */}
@@ -525,7 +531,7 @@ function Router() {
 function AppShell() {
   const [location] = useLocation();
   // Hide the floating CTA bar on pages that have their own CTAs or forms
-  const hideCTABar = location.startsWith("/schedule-services") || location.startsWith("/admin");
+  const hideCTABar = location.startsWith("/schedule-services") || location.startsWith("/admin") || location.startsWith("/quote") || location.startsWith("/get-a-quote");
   return (
     <>
       <ScrollToTop />
