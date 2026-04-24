@@ -11,9 +11,12 @@ import { useEffect, useRef, useState } from "react";
 const CDN = "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx";
 
 function useCountUp(target: number, duration = 1800, started = false) {
-  const [val, setVal] = useState(0);
+  // Initialize to target so SSR/raw HTML shows the real number, not 0.
+  // Once the IntersectionObserver fires, the animation resets from 0 and counts up.
+  const [val, setVal] = useState(target);
   useEffect(() => {
     if (!started) return;
+    setVal(0); // reset before animating
     let start: number | null = null;
     const step = (ts: number) => {
       if (!start) start = ts;
