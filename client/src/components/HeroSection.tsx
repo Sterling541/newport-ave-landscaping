@@ -17,6 +17,31 @@
    ============================================================ */
 import { useState, useEffect, useRef } from "react";
 
+const heroStyles = `
+  .hero-headline {
+    font-size: clamp(2.2rem, 7.5vw, 8rem);
+  }
+  .hero-accent {
+    font-size: clamp(2rem, 6.5vw, 7.5rem);
+  }
+  @media (max-width: 480px) {
+    .hero-headline {
+      font-size: 1.75rem !important;
+    }
+    .hero-accent {
+      font-size: 1.6rem !important;
+    }
+  }
+  @media (max-width: 390px) {
+    .hero-headline {
+      font-size: 1.55rem !important;
+    }
+    .hero-accent {
+      font-size: 1.4rem !important;
+    }
+  }
+`;
+
 const CDN = "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx";
 
 const SCENES = [
@@ -297,6 +322,7 @@ export default function HeroSection() {
         backgroundColor: "#080808",
       }}
     >
+      <style>{heroStyles}</style>
       {/* ── Full-bleed background photo ── */}
       <div
         style={{
@@ -415,11 +441,13 @@ export default function HeroSection() {
             margin: 0,
             padding: 0,
           }}
+          className="hero-headline"
         >
           {s.line1}
         </h1>
 
         <div
+          className="hero-headline"
           style={{
             fontFamily: "'Cormorant Garamond', 'Playfair Display', Georgia, serif",
             fontSize: "clamp(2.2rem, 7.5vw, 8rem)",
@@ -433,6 +461,7 @@ export default function HeroSection() {
         </div>
 
         <div
+          className="hero-accent"
           style={{
             fontFamily: "'Cormorant Garamond', 'Playfair Display', Georgia, serif",
             fontSize: "clamp(2rem, 6.5vw, 7.5rem)",
@@ -441,7 +470,7 @@ export default function HeroSection() {
             lineHeight: 0.95,
             letterSpacing: "-0.01em",
             color: "oklch(0.82 0.012 75)",
-            marginBottom: "1.8rem",
+            marginBottom: "1.4rem",
           }}
         >
           {s.accent}
