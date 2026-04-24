@@ -5,7 +5,7 @@
    ============================================================ */
 import { useState, useMemo } from "react";
 import { trpc } from "@/lib/trpc";
-import { isAdminAuthenticated } from "@/hooks/useAdminAuth";
+import { isAdminAuthenticated, adminLogin } from "@/hooks/useAdminAuth";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -499,8 +499,7 @@ export default function AdminSubmissions() {
           <form onSubmit={(e) => {
             e.preventDefault();
             const pin = (e.currentTarget.elements.namedItem("pin") as HTMLInputElement).value;
-            if (pin === "4132") {
-              try { sessionStorage.setItem("nal_admin_v1", "true"); } catch {}
+            if (adminLogin(pin)) {
               setPinAuthed(true);
             } else {
               alert("Incorrect PIN. Please try again.");
