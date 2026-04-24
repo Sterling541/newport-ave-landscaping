@@ -258,7 +258,7 @@ export default function OptOut() {
                     width: "145%",
                     height: "145%",
                     objectFit: "cover",
-                    top: "-10%",
+                    top: "5%",
                     left: "-22%",
                   }}
                 />
