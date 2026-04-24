@@ -9,7 +9,7 @@ import Navbar from "@/components/Navbar";
 import SEO from "@/components/SEO";
 
 const TEAM_PHOTO = "/manus-storage/safe-hero-about-team_4082936f.jpg";
-const FOUNDER_PHOTO = "/manus-storage/sterling-headshot_3b347cf4.jpg";
+const FOUNDER_PHOTO = "/manus-storage/sterling-headshot_de2c748a.jpg";
 
 const timeline = [
   {
