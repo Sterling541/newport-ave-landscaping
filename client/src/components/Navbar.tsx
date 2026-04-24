@@ -664,13 +664,18 @@ export default function Navbar() {
           {/* ── Centered logo — HUGE, bleeds above bar ── */}
           <div
             style={{
-              flexShrink: 0,
+              position: "absolute",
+              left: "50%",
+              transform: "translateX(-50%)",
               width: "320px",
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
+              zIndex: 10,
+              pointerEvents: "none",
             }}
           >
+            <div style={{ pointerEvents: "auto" }}>
             <a
               href="/"
               onClick={(e) => { e.preventDefault(); goTo("/"); }}
@@ -690,6 +695,7 @@ export default function Navbar() {
                 }}
               />
             </a>
+            </div>
           </div>
 
           {/* ── Right cluster ── */}
