@@ -239,15 +239,29 @@ export default function OptOut() {
 
             {/* Sign image */}
             <div style={{ textAlign: "center", flexShrink: 0 }}>
-              <img
-                src={SIGN_IMG}
-                alt="Newport Avenue Landscaping opt-out sign installed on green stake in front of home"
+              <div
                 style={{
                   width: "clamp(220px, 28vw, 360px)",
+                  height: "clamp(260px, 34vw, 440px)",
                   borderRadius: "8px",
                   boxShadow: "0 8px 40px rgba(0,0,0,0.18)",
+                  overflow: "hidden",
+                  display: "inline-block",
                 }}
-              />
+              >
+                <img
+                  src={SIGN_IMG}
+                  alt="Newport Avenue Landscaping opt-out sign installed on green stake in front of home"
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                    objectPosition: "center 30%",
+                    transform: "scale(1.45)",
+                    transformOrigin: "center 40%",
+                  }}
+                />
+              </div>
               <p
                 style={{
                   fontSize: "0.75rem",

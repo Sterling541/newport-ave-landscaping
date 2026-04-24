@@ -653,3 +653,7 @@
 
 ## Enhancement — April 24, 2026
 - [x] Add search bar to AdminQuoteLeads page (filter by name and service type)
+
+## Photo Updates — April 24, 2026
+- [x] Replace About page owner headshot with new photo
+- [x] Zoom in on opt-out page lawn sign image so sign is more visible
