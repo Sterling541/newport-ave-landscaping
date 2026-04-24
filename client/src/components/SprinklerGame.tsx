@@ -1,512 +1,618 @@
 /* ============================================================
-   SPRINKLER DODGE GAME
-   Run your lawn-mower guy across the grass without getting wet!
-   Win → reveal DRYDASH10 discount code ($10 off service)
+   SPRINKLER DASH — Endless Runner
+   - Scrolling lawn, player dodges rotating sprinkler arcs
+   - Mushroom: slows you temporarily
+   - Bee: speeds you up (chases you!)
+   - Speed ramps up over time — no finish line
+   - High score saved to localStorage
+   - Touch: tap top/bottom half or swipe to move
+   - Keyboard: ArrowUp / ArrowDown / W / S
    ============================================================ */
 import { useEffect, useRef, useState, useCallback } from "react";
 
-// ── Constants ──────────────────────────────────────────────────────────────────
-const CANVAS_W = 700;
-const CANVAS_H = 320;
-const PLAYER_W = 28;
-const PLAYER_H = 36;
-const PLAYER_X = 48;          // fixed horizontal position
-const GOAL_X = CANVAS_W - 60; // finish line x
-const PLAYER_SPEED = 3.2;
-const LIVES = 3;
-const INVINCIBLE_MS = 1200;   // brief invincibility after hit
+// ── Constants ──────────────────────────────────────────────────────────────
+const W = 640;
+const H = 320;
+const PLAYER_X = 80;
+const PLAYER_R = 14;
+const LANE_COUNT = 5;
+const LANE_H = H / LANE_COUNT;
+const LANE_CENTERS = Array.from({ length: LANE_COUNT }, (_, i) => LANE_H * i + LANE_H / 2);
 const DISCOUNT_CODE = "DRYDASH10";
+const HIGH_SCORE_KEY = "nal_sprinkler_hs";
+const WIN_DISTANCE = 1500; // feet to unlock code
 
-// Sprinkler config per wave
-interface SprinklerDef {
-  x: number;
-  y: number;
-  speed: number;   // rotation speed rad/s
-  arcLen: number;  // arc sweep in radians
-  range: number;   // spray range px
-  startAngle: number;
+// ── Types ──────────────────────────────────────────────────────────────────
+interface Sprinkler {
+  id: number; x: number; lane: number;
+  angle: number; arcSpeed: number; arcWidth: number; arcLen: number;
 }
+interface Mushroom { id: number; x: number; lane: number; collected: boolean; }
+interface Bee { id: number; x: number; y: number; active: boolean; chasing: boolean; }
+interface Particle { x: number; y: number; vx: number; vy: number; life: number; color: string; r: number; }
+type GameState = "idle" | "playing" | "dead";
 
-const WAVES: SprinklerDef[][] = [
-  // Wave 1 – easy
-  [
-    { x: 220, y: 80,  speed: 1.2, arcLen: 1.4, range: 90,  startAngle: 0 },
-    { x: 420, y: 240, speed: 1.0, arcLen: 1.6, range: 100, startAngle: Math.PI },
-  ],
-  // Wave 2 – medium
-  [
-    { x: 200, y: 60,  speed: 1.5, arcLen: 1.6, range: 100, startAngle: 0.3 },
-    { x: 360, y: 200, speed: 1.3, arcLen: 1.8, range: 110, startAngle: 2.0 },
-    { x: 520, y: 100, speed: 1.1, arcLen: 1.4, range: 95,  startAngle: 1.0 },
-  ],
-  // Wave 3 – hard
-  [
-    { x: 190, y: 70,  speed: 1.8, arcLen: 1.8, range: 110, startAngle: 0 },
-    { x: 330, y: 240, speed: 1.6, arcLen: 2.0, range: 120, startAngle: 1.5 },
-    { x: 470, y: 120, speed: 1.4, arcLen: 1.6, range: 105, startAngle: 3.0 },
-    { x: 590, y: 230, speed: 1.2, arcLen: 1.4, range: 95,  startAngle: 0.8 },
-  ],
-];
+// ── Helpers ────────────────────────────────────────────────────────────────
+const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
+const clamp = (v: number, lo: number, hi: number) => Math.max(lo, Math.min(hi, v));
+const rand = (lo: number, hi: number) => lo + Math.random() * (hi - lo);
+const randInt = (lo: number, hi: number) => Math.floor(rand(lo, hi + 1));
 
-// ── Helpers ────────────────────────────────────────────────────────────────────
-function pointInArc(
-  px: number, py: number,
-  cx: number, cy: number,
-  range: number,
-  startAngle: number,
-  arcLen: number
-): boolean {
-  const dx = px - cx;
-  const dy = py - cy;
-  const dist = Math.sqrt(dx * dx + dy * dy);
-  if (dist > range || dist < 8) return false;
-  let angle = Math.atan2(dy, dx);
-  // normalise angle into [startAngle, startAngle+arcLen]
-  let diff = angle - startAngle;
-  diff = ((diff % (Math.PI * 2)) + Math.PI * 2) % (Math.PI * 2);
-  return diff < arcLen;
-}
-
-// ── Component ──────────────────────────────────────────────────────────────────
-type GameState = "idle" | "playing" | "dead" | "won";
-
+// ── Component ──────────────────────────────────────────────────────────────
 export default function SprinklerGame() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const stateRef = useRef<GameState>("idle");
-  const livesRef = useRef(LIVES);
-  const playerYRef = useRef(CANVAS_H / 2);
-  const playerXRef = useRef(PLAYER_X);
-  const invincibleUntilRef = useRef(0);
-  const keysRef = useRef<Set<string>>(new Set());
-  const sprinklersRef = useRef<Array<SprinklerDef & { angle: number }>>([]);
-  const waveRef = useRef(0);
-  const rafRef = useRef<number>(0);
-  const lastTimeRef = useRef<number>(0);
-  const touchStartYRef = useRef<number | null>(null);
-  const touchDirRef = useRef<number>(0); // -1 up, 0 none, 1 down
-
-  const [uiState, setUiState] = useState<GameState>("idle");
-  const [uiLives, setUiLives] = useState(LIVES);
-  const [showCode, setShowCode] = useState(false);
+  const [displayState, setDisplayState] = useState<GameState>("idle");
+  const [score, setScore] = useState(0);
+  const [highScore, setHighScore] = useState(() => {
+    try { return parseInt(localStorage.getItem(HIGH_SCORE_KEY) ?? "0") || 0; } catch { return 0; }
+  });
+  const [wonCode, setWonCode] = useState("");
   const [copied, setCopied] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
+
+  // Mutable game state
+  const playerLane = useRef(2);
+  const playerY = useRef(LANE_CENTERS[2]);
+  const targetLane = useRef(2);
+  const sprinklers = useRef<Sprinkler[]>([]);
+  const mushrooms = useRef<Mushroom[]>([]);
+  const bees = useRef<Bee[]>([]);
+  const particles = useRef<Particle[]>([]);
+  const distance = useRef(0);
+  const baseSpeed = useRef(2.5);
+  const playerSpeedMult = useRef(1.0);
+  const slowTimer = useRef(0);
+  const fastTimer = useRef(0);
+  const nextSprinklerDist = useRef(200);
+  const nextMushroomDist = useRef(500);
+  const nextBeeDist = useRef(800);
+  const idCounter = useRef(0);
+  const rafId = useRef<number>(0);
+  const scrollX = useRef(0);
+  const lives = useRef(3);
+  const invincible = useRef(0);
+  const frameCount = useRef(0);
+  const touchStartY = useRef<number | null>(null);
+  const scoreRef = useRef(0);
+  const highScoreRef = useRef(highScore);
+
+  const nextId = () => ++idCounter.current;
+
+  // ── Reset ──────────────────────────────────────────────────────────────
+  const resetGame = useCallback(() => {
+    playerLane.current = 2;
+    playerY.current = LANE_CENTERS[2];
+    targetLane.current = 2;
+    sprinklers.current = [];
+    mushrooms.current = [];
+    bees.current = [];
+    particles.current = [];
+    distance.current = 0;
+    baseSpeed.current = 2.5;
+    playerSpeedMult.current = 1.0;
+    slowTimer.current = 0;
+    fastTimer.current = 0;
+    nextSprinklerDist.current = 200;
+    nextMushroomDist.current = 500;
+    nextBeeDist.current = 800;
+    scrollX.current = 0;
+    lives.current = 3;
+    invincible.current = 0;
+    frameCount.current = 0;
+    scoreRef.current = 0;
+    setScore(0);
+    setWonCode("");
+    setCopied(false);
+  }, []);
+
+  // ── Spawn helpers ──────────────────────────────────────────────────────
+  function spawnSprinkler() {
+    sprinklers.current.push({
+      id: nextId(), x: W + 40, lane: randInt(0, LANE_COUNT - 1),
+      angle: rand(0, Math.PI * 2),
+      arcSpeed: rand(0.018, 0.042) * (Math.random() < 0.5 ? 1 : -1),
+      arcWidth: rand(0.55, 1.15),
+      arcLen: rand(55, 92),
+    });
+  }
+
+  function spawnMushroom() {
+    mushrooms.current.push({ id: nextId(), x: W + 20, lane: randInt(0, LANE_COUNT - 1), collected: false });
+  }
+
+  function spawnBee() {
+    const lane = randInt(0, LANE_COUNT - 1);
+    bees.current.push({ id: nextId(), x: W + 30, y: LANE_CENTERS[lane], active: true, chasing: false });
+  }
+
+  function spawnParticles(x: number, y: number, color: string, count = 12) {
+    for (let i = 0; i < count; i++) {
+      const a = rand(0, Math.PI * 2);
+      const s = rand(1.5, 4);
+      particles.current.push({ x, y, vx: Math.cos(a) * s, vy: Math.sin(a) * s, life: 1, color, r: rand(3, 7) });
+    }
+  }
+
+  // ── Game loop ──────────────────────────────────────────────────────────
+  const gameLoop = useCallback(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx || stateRef.current !== "playing") return;
+
+    frameCount.current++;
+    const frame = frameCount.current;
+
+    // Speed ramp every 240 frames
+    if (frame % 240 === 0) baseSpeed.current = Math.min(baseSpeed.current + 0.22, 9.5);
+
+    // Timers
+    if (slowTimer.current > 0) { slowTimer.current--; if (slowTimer.current === 0) playerSpeedMult.current = 1.0; }
+    if (fastTimer.current > 0) { fastTimer.current--; if (fastTimer.current === 0) playerSpeedMult.current = 1.0; }
+    if (invincible.current > 0) invincible.current--;
+
+    const scrollSpeed = baseSpeed.current * playerSpeedMult.current;
+    distance.current += scrollSpeed;
+    scrollX.current = (scrollX.current + scrollSpeed) % 64;
+
+    // Smooth player Y
+    playerY.current = lerp(playerY.current, LANE_CENTERS[targetLane.current], 0.2);
+
+    // Spawn objects
+    if (distance.current >= nextSprinklerDist.current) {
+      spawnSprinkler();
+      nextSprinklerDist.current = distance.current + rand(120, 260);
+    }
+    if (distance.current >= nextMushroomDist.current) {
+      spawnMushroom();
+      nextMushroomDist.current = distance.current + rand(350, 650);
+    }
+    if (distance.current >= nextBeeDist.current) {
+      spawnBee();
+      nextBeeDist.current = distance.current + rand(550, 950);
+    }
+
+    // Update sprinklers
+    sprinklers.current = sprinklers.current.filter(s => s.x > -20);
+    for (const s of sprinklers.current) { s.x -= scrollSpeed; s.angle += s.arcSpeed; }
+
+    // Update mushrooms
+    mushrooms.current = mushrooms.current.filter(m => m.x > -30 && !m.collected);
+    for (const m of mushrooms.current) {
+      m.x -= scrollSpeed;
+      const my = LANE_CENTERS[m.lane];
+      const dx = PLAYER_X - m.x, dy = playerY.current - my;
+      if (Math.sqrt(dx * dx + dy * dy) < PLAYER_R + 14) {
+        m.collected = true;
+        playerSpeedMult.current = 0.45;
+        slowTimer.current = 130; fastTimer.current = 0;
+        spawnParticles(m.x, my, "#a855f7", 10);
+      }
+    }
+
+    // Update bees
+    bees.current = bees.current.filter(b => b.x > -50 && b.active);
+    for (const b of bees.current) {
+      b.x -= scrollSpeed;
+      if (b.x < W * 0.75) b.chasing = true;
+      if (b.chasing) { b.y = lerp(b.y, playerY.current, 0.045); b.x -= 0.6; }
+      const dx = PLAYER_X - b.x, dy = playerY.current - b.y;
+      if (Math.sqrt(dx * dx + dy * dy) < PLAYER_R + 12) {
+        b.active = false;
+        playerSpeedMult.current = 1.85;
+        fastTimer.current = 160; slowTimer.current = 0;
+        spawnParticles(b.x, b.y, "#fbbf24", 10);
+      }
+    }
+
+    // Collision with sprinkler arcs
+    if (invincible.current === 0) {
+      for (const s of sprinklers.current) {
+        const sy = LANE_CENTERS[s.lane];
+        const dx = PLAYER_X - s.x, dy = playerY.current - sy;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < s.arcLen + PLAYER_R && dist > 10) {
+          let diff = Math.atan2(dy, dx) - s.angle;
+          while (diff > Math.PI) diff -= Math.PI * 2;
+          while (diff < -Math.PI) diff += Math.PI * 2;
+          if (Math.abs(diff) < s.arcWidth / 2) {
+            lives.current--;
+            invincible.current = 90;
+            spawnParticles(PLAYER_X, playerY.current, "#3b82f6", 16);
+            if (lives.current <= 0) {
+              stateRef.current = "dead";
+              const finalScore = Math.floor(distance.current / 10);
+              scoreRef.current = finalScore;
+              setScore(finalScore);
+              setHighScore(prev => {
+                const newHS = Math.max(prev, finalScore);
+                highScoreRef.current = newHS;
+                try { localStorage.setItem(HIGH_SCORE_KEY, String(newHS)); } catch {}
+                return newHS;
+              });
+              setDisplayState("dead");
+              return;
+            }
+          }
+        }
+      }
+    }
+
+    // Check win (distance threshold)
+    if (distance.current >= WIN_DISTANCE * 10 && wonCode === "") {
+      setWonCode(DISCOUNT_CODE);
+    }
+
+    // Update particles
+    particles.current = particles.current.filter(p => p.life > 0);
+    for (const p of particles.current) { p.x += p.vx; p.y += p.vy; p.vy += 0.08; p.life -= 0.025; }
+
+    // ── DRAW ──────────────────────────────────────────────────────────
+    // Grass background
+    ctx.fillStyle = "#4ade80";
+    ctx.fillRect(0, 0, W, H);
+
+    // Lane shading
+    for (let i = 0; i < LANE_COUNT; i++) {
+      ctx.fillStyle = i % 2 === 0 ? "rgba(0,0,0,0.04)" : "rgba(255,255,255,0.05)";
+      ctx.fillRect(0, i * LANE_H, W, LANE_H);
+    }
+
+    // Scrolling vertical grass lines
+    ctx.strokeStyle = "rgba(0,100,0,0.13)";
+    ctx.lineWidth = 1;
+    for (let x = -(scrollX.current % 64); x < W; x += 64) {
+      ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke();
+    }
+
+    // Lane dividers
+    ctx.setLineDash([8, 8]);
+    ctx.strokeStyle = "rgba(0,80,0,0.18)";
+    ctx.lineWidth = 1;
+    for (let i = 1; i < LANE_COUNT; i++) {
+      ctx.beginPath(); ctx.moveTo(0, i * LANE_H); ctx.lineTo(W, i * LANE_H); ctx.stroke();
+    }
+    ctx.setLineDash([]);
+
+    // Sprinklers
+    for (const s of sprinklers.current) {
+      const sy = LANE_CENTERS[s.lane];
+      ctx.save(); ctx.translate(s.x, sy);
+      // Arc
+      ctx.beginPath(); ctx.moveTo(0, 0);
+      ctx.arc(0, 0, s.arcLen, s.angle - s.arcWidth / 2, s.angle + s.arcWidth / 2);
+      ctx.closePath();
+      const g = ctx.createRadialGradient(0, 0, 0, 0, 0, s.arcLen);
+      g.addColorStop(0, "rgba(147,210,255,0.88)");
+      g.addColorStop(0.65, "rgba(100,180,255,0.5)");
+      g.addColorStop(1, "rgba(100,180,255,0)");
+      ctx.fillStyle = g; ctx.fill();
+      // Head
+      ctx.beginPath(); ctx.arc(0, 0, 9, 0, Math.PI * 2);
+      ctx.fillStyle = "#6b7280"; ctx.fill();
+      ctx.beginPath(); ctx.arc(0, 0, 5, 0, Math.PI * 2);
+      ctx.fillStyle = "#374151"; ctx.fill();
+      ctx.beginPath(); ctx.moveTo(0, 0);
+      ctx.lineTo(Math.cos(s.angle) * 9, Math.sin(s.angle) * 9);
+      ctx.strokeStyle = "#60a5fa"; ctx.lineWidth = 2; ctx.stroke();
+      ctx.restore();
+    }
+
+    // Mushrooms
+    for (const m of mushrooms.current) {
+      if (m.collected) continue;
+      const my = LANE_CENTERS[m.lane];
+      ctx.save(); ctx.translate(m.x, my);
+      ctx.fillStyle = "#fef3c7"; ctx.fillRect(-5, 2, 10, 10);
+      ctx.beginPath(); ctx.arc(0, 2, 12, Math.PI, 0);
+      ctx.fillStyle = "#dc2626"; ctx.fill();
+      ctx.fillStyle = "#fef3c7";
+      ctx.beginPath(); ctx.arc(-4, -2, 2.5, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.arc(4, -2, 2.5, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.arc(0, -5, 2, 0, Math.PI * 2); ctx.fill();
+      ctx.font = "bold 8px sans-serif"; ctx.fillStyle = "#7c3aed";
+      ctx.textAlign = "center"; ctx.fillText("SLOW", 0, 22);
+      ctx.restore();
+    }
+
+    // Bees
+    for (const b of bees.current) {
+      if (!b.active) continue;
+      ctx.save(); ctx.translate(b.x, b.y + Math.sin(frame * 0.3) * 2);
+      ctx.beginPath(); ctx.ellipse(0, 0, 12, 8, 0, 0, Math.PI * 2);
+      ctx.fillStyle = "#fbbf24"; ctx.fill();
+      ctx.strokeStyle = "#92400e"; ctx.lineWidth = 1.5; ctx.stroke();
+      ctx.strokeStyle = "#92400e"; ctx.lineWidth = 2;
+      for (const sx of [-4, 0, 4]) {
+        ctx.beginPath(); ctx.moveTo(sx, -7); ctx.lineTo(sx, 7); ctx.stroke();
+      }
+      ctx.beginPath(); ctx.ellipse(-4, -8, 7, 4, -0.3, 0, Math.PI * 2);
+      ctx.fillStyle = "rgba(200,230,255,0.75)"; ctx.fill();
+      ctx.beginPath(); ctx.ellipse(4, -8, 7, 4, 0.3, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.moveTo(12, 0); ctx.lineTo(17, 0);
+      ctx.strokeStyle = "#92400e"; ctx.lineWidth = 1.5; ctx.stroke();
+      ctx.font = "bold 8px sans-serif"; ctx.fillStyle = "#92400e";
+      ctx.textAlign = "center"; ctx.fillText("FAST", 0, 20);
+      ctx.restore();
+    }
+
+    // Player
+    const blinking = invincible.current > 0 && Math.floor(invincible.current / 6) % 2 === 0;
+    if (!blinking) {
+      ctx.save(); ctx.translate(PLAYER_X, playerY.current);
+      // Shadow
+      ctx.beginPath(); ctx.ellipse(0, PLAYER_R + 2, 12, 4, 0, 0, Math.PI * 2);
+      ctx.fillStyle = "rgba(0,0,0,0.2)"; ctx.fill();
+      // Run animation
+      const legSwing = Math.sin(frame * 0.28) * 9;
+      // Legs
+      ctx.strokeStyle = "#1e40af"; ctx.lineWidth = 4; ctx.lineCap = "round";
+      ctx.beginPath(); ctx.moveTo(0, 6); ctx.lineTo(-6 + legSwing, 18); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(0, 6); ctx.lineTo(6 - legSwing, 18); ctx.stroke();
+      // Torso
+      ctx.fillStyle = "#2563eb";
+      ctx.beginPath(); ctx.roundRect(-8, -4, 16, 14, 4); ctx.fill();
+      // Arms
+      ctx.strokeStyle = "#2563eb"; ctx.lineWidth = 3;
+      ctx.beginPath(); ctx.moveTo(-8, 0); ctx.lineTo(-14, 8 - legSwing * 0.5); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(8, 0); ctx.lineTo(14, 8 + legSwing * 0.5); ctx.stroke();
+      // Head
+      ctx.beginPath(); ctx.arc(0, -12, 10, 0, Math.PI * 2);
+      ctx.fillStyle = "#fbbf24"; ctx.fill();
+      ctx.strokeStyle = "#92400e"; ctx.lineWidth = 1; ctx.stroke();
+      // Eye
+      ctx.fillStyle = "#1e293b"; ctx.beginPath(); ctx.arc(3, -13, 2, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = "#fff"; ctx.beginPath(); ctx.arc(4, -14, 0.8, 0, Math.PI * 2); ctx.fill();
+      ctx.restore();
+    }
+
+    // Particles
+    for (const p of particles.current) {
+      ctx.save(); ctx.globalAlpha = p.life;
+      ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = p.color; ctx.fill(); ctx.restore();
+    }
+
+    // ── HUD ──────────────────────────────────────────────────────────
+    const currentScore = Math.floor(distance.current / 10);
+    scoreRef.current = currentScore;
+
+    // Score pill
+    ctx.fillStyle = "rgba(0,0,0,0.42)";
+    ctx.beginPath(); ctx.roundRect(8, 8, 130, 26, 6); ctx.fill();
+    ctx.fillStyle = "#fff"; ctx.font = "bold 12px sans-serif"; ctx.textAlign = "left";
+    ctx.fillText(`📏 ${currentScore} ft`, 14, 26);
+
+    // High score pill
+    ctx.fillStyle = "rgba(0,0,0,0.42)";
+    ctx.beginPath(); ctx.roundRect(W - 148, 8, 140, 26, 6); ctx.fill();
+    ctx.fillStyle = "#fbbf24"; ctx.font = "bold 12px sans-serif"; ctx.textAlign = "right";
+    ctx.fillText(`🏆 Best: ${highScoreRef.current}`, W - 12, 26);
+
+    // Lives
+    ctx.textAlign = "center";
+    for (let i = 0; i < 3; i++) {
+      ctx.fillStyle = i < lives.current ? "#ef4444" : "rgba(255,255,255,0.18)";
+      ctx.font = "15px sans-serif";
+      ctx.fillText("❤", W / 2 - 18 + i * 18, 26);
+    }
+
+    // Speed bar
+    const speedPct = (baseSpeed.current - 2.5) / (9.5 - 2.5);
+    ctx.fillStyle = "rgba(0,0,0,0.3)";
+    ctx.beginPath(); ctx.roundRect(8, H - 20, 90, 12, 4); ctx.fill();
+    const barColor = `oklch(${0.65 - speedPct * 0.3} 0.25 ${140 - speedPct * 100})`;
+    ctx.fillStyle = barColor;
+    ctx.beginPath(); ctx.roundRect(8, H - 20, 90 * speedPct, 12, 4); ctx.fill();
+    ctx.fillStyle = "#fff"; ctx.font = "8px sans-serif"; ctx.textAlign = "left";
+    ctx.fillText("SPEED", 11, H - 10);
+
+    // Status badge
+    if (slowTimer.current > 0) {
+      ctx.fillStyle = "rgba(124,58,237,0.88)";
+      ctx.beginPath(); ctx.roundRect(W / 2 - 48, H - 26, 96, 18, 5); ctx.fill();
+      ctx.fillStyle = "#fff"; ctx.font = "bold 10px sans-serif"; ctx.textAlign = "center";
+      ctx.fillText("🍄 SLOWED!", W / 2, H - 13);
+    } else if (fastTimer.current > 0) {
+      ctx.fillStyle = "rgba(217,119,6,0.88)";
+      ctx.beginPath(); ctx.roundRect(W / 2 - 48, H - 26, 96, 18, 5); ctx.fill();
+      ctx.fillStyle = "#fff"; ctx.font = "bold 10px sans-serif"; ctx.textAlign = "center";
+      ctx.fillText("🐝 BOOSTED!", W / 2, H - 13);
+    }
+
+    // Win hint
+    if (distance.current < WIN_DISTANCE * 10) {
+      const pct = distance.current / (WIN_DISTANCE * 10);
+      ctx.fillStyle = "rgba(0,0,0,0.3)";
+      ctx.beginPath(); ctx.roundRect(W / 2 - 60, 40, 120, 10, 4); ctx.fill();
+      ctx.fillStyle = "#fbbf24";
+      ctx.beginPath(); ctx.roundRect(W / 2 - 60, 40, 120 * pct, 10, 4); ctx.fill();
+      ctx.fillStyle = "#fff"; ctx.font = "8px sans-serif"; ctx.textAlign = "center";
+      ctx.fillText(`${Math.floor(pct * 100)}% to unlock $10 code`, W / 2, 37);
+    }
+
+    setScore(currentScore);
+    rafId.current = requestAnimationFrame(gameLoop);
+  }, [wonCode]);
+
+  // ── Input ──────────────────────────────────────────────────────────────
+  const moveUp = useCallback(() => {
+    if (stateRef.current !== "playing") return;
+    targetLane.current = clamp(targetLane.current - 1, 0, LANE_COUNT - 1);
+  }, []);
+  const moveDown = useCallback(() => {
+    if (stateRef.current !== "playing") return;
+    targetLane.current = clamp(targetLane.current + 1, 0, LANE_COUNT - 1);
+  }, []);
 
   useEffect(() => {
-    setIsMobile(window.innerWidth < 640);
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "ArrowUp" || e.key === "w" || e.key === "W") { e.preventDefault(); moveUp(); }
+      if (e.key === "ArrowDown" || e.key === "s" || e.key === "S") { e.preventDefault(); moveDown(); }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [moveUp, moveDown]);
+
+  const handleTouchStart = useCallback((e: React.TouchEvent) => {
+    e.preventDefault();
+    touchStartY.current = e.touches[0].clientY;
   }, []);
 
-  // ── Initialise wave ──────────────────────────────────────────────────────────
-  const initWave = useCallback((wave: number) => {
-    const defs = WAVES[Math.min(wave, WAVES.length - 1)];
-    sprinklersRef.current = defs.map(d => ({ ...d, angle: d.startAngle }));
-    playerXRef.current = PLAYER_X;
-    playerYRef.current = CANVAS_H / 2;
-  }, []);
+  const handleTouchEnd = useCallback((e: React.TouchEvent) => {
+    e.preventDefault();
+    if (stateRef.current !== "playing") { startGame(); return; }
+    if (touchStartY.current === null) return;
+    const dy = e.changedTouches[0].clientY - touchStartY.current;
+    if (Math.abs(dy) < 15) {
+      // Tap: move to tapped lane
+      const canvas = canvasRef.current;
+      if (canvas) {
+        const rect = canvas.getBoundingClientRect();
+        const tapY = e.changedTouches[0].clientY - rect.top;
+        const tapLane = clamp(Math.floor((tapY / rect.height) * LANE_COUNT), 0, LANE_COUNT - 1);
+        targetLane.current = tapLane;
+      }
+    } else if (dy < 0) { moveUp(); } else { moveDown(); }
+    touchStartY.current = null;
+  }, [moveUp, moveDown]);
 
-  // ── Start game ───────────────────────────────────────────────────────────────
+  // ── Start ──────────────────────────────────────────────────────────────
   const startGame = useCallback(() => {
+    cancelAnimationFrame(rafId.current);
+    resetGame();
     stateRef.current = "playing";
-    livesRef.current = LIVES;
-    waveRef.current = 0;
-    invincibleUntilRef.current = 0;
-    setUiLives(LIVES);
-    setUiState("playing");
-    setShowCode(false);
-    initWave(0);
-  }, [initWave]);
+    setDisplayState("playing");
+    rafId.current = requestAnimationFrame(gameLoop);
+  }, [resetGame, gameLoop]);
 
-  // ── Game loop ────────────────────────────────────────────────────────────────
+  useEffect(() => () => cancelAnimationFrame(rafId.current), []);
+
+  // ── Draw idle/dead screens ─────────────────────────────────────────────
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const ctx = canvas.getContext("2d")!;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+    if (displayState === "idle") drawIdleScreen(ctx);
+    else if (displayState === "dead") drawDeadScreen(ctx, score, highScore);
+  }, [displayState, score, highScore]);
 
-    function loop(ts: number) {
-      const dt = Math.min((ts - lastTimeRef.current) / 1000, 0.05);
-      lastTimeRef.current = ts;
+  function drawIdleScreen(ctx: CanvasRenderingContext2D) {
+    ctx.fillStyle = "#4ade80"; ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = "rgba(0,0,0,0.52)"; ctx.fillRect(0, 0, W, H);
+    ctx.textAlign = "center";
+    ctx.fillStyle = "#fff"; ctx.font = "bold 26px sans-serif";
+    ctx.fillText("💦 SPRINKLER DASH", W / 2, H / 2 - 52);
+    ctx.font = "14px sans-serif"; ctx.fillStyle = "#d1fae5";
+    ctx.fillText("Dodge sprinklers — run as far as you can!", W / 2, H / 2 - 22);
+    ctx.fillText("🍄 Mushroom = SLOW  •  🐝 Bee = SPEED BOOST", W / 2, H / 2 + 4);
+    ctx.fillStyle = "#fbbf24"; ctx.font = "bold 13px sans-serif";
+    ctx.fillText(`Run ${WIN_DISTANCE} ft → unlock $10 off code: DRYDASH10`, W / 2, H / 2 + 30);
+    ctx.fillStyle = "#fff"; ctx.font = "13px sans-serif";
+    ctx.fillText("Tap top/bottom of screen · Swipe · or ↑↓ keys", W / 2, H / 2 + 56);
+    ctx.fillStyle = "oklch(0.46 0.20 25)";
+    ctx.beginPath(); ctx.roundRect(W / 2 - 70, H / 2 + 68, 140, 38, 8); ctx.fill();
+    ctx.fillStyle = "#fff"; ctx.font = "bold 15px sans-serif";
+    ctx.fillText("▶  TAP TO PLAY", W / 2, H / 2 + 92);
+  }
 
-      const state = stateRef.current;
-
-      // ── Draw background ──────────────────────────────────────────────────────
-      // Sky gradient
-      const sky = ctx.createLinearGradient(0, 0, 0, CANVAS_H);
-      sky.addColorStop(0, "#b8e4ff");
-      sky.addColorStop(1, "#e8f5e9");
-      ctx.fillStyle = sky;
-      ctx.fillRect(0, 0, CANVAS_W, CANVAS_H);
-
-      // Grass
-      const grass = ctx.createLinearGradient(0, 60, 0, CANVAS_H);
-      grass.addColorStop(0, "#4caf50");
-      grass.addColorStop(1, "#2e7d32");
-      ctx.fillStyle = grass;
-      ctx.fillRect(0, 60, CANVAS_W, CANVAS_H - 60);
-
-      // Grass stripe texture
-      ctx.globalAlpha = 0.07;
-      for (let i = 0; i < CANVAS_W; i += 20) {
-        ctx.fillStyle = i % 40 === 0 ? "#000" : "#fff";
-        ctx.fillRect(i, 60, 20, CANVAS_H - 60);
-      }
-      ctx.globalAlpha = 1;
-
-      // Finish line
-      ctx.strokeStyle = "#fff";
-      ctx.lineWidth = 3;
-      ctx.setLineDash([10, 8]);
-      ctx.beginPath();
-      ctx.moveTo(GOAL_X, 60);
-      ctx.lineTo(GOAL_X, CANVAS_H);
-      ctx.stroke();
-      ctx.setLineDash([]);
-
-      // "FINISH" label
-      ctx.fillStyle = "#fff";
-      ctx.font = "bold 11px 'Montserrat', sans-serif";
-      ctx.textAlign = "center";
-      ctx.fillText("FINISH", GOAL_X, 78);
-
-      // Start label
-      ctx.fillStyle = "rgba(255,255,255,0.7)";
-      ctx.font = "10px 'Montserrat', sans-serif";
-      ctx.fillText("START", PLAYER_X, 78);
-
-      if (state === "idle" || state === "dead" || state === "won") {
-        drawOverlay(ctx, state);
-        rafRef.current = requestAnimationFrame(loop);
-        return;
-      }
-
-      // ── Update sprinklers ────────────────────────────────────────────────────
-      const sprinklers = sprinklersRef.current;
-      for (const s of sprinklers) {
-        s.angle += s.speed * dt;
-      }
-
-      // ── Draw sprinklers ──────────────────────────────────────────────────────
-      for (const s of sprinklers) {
-        // Head
-        ctx.fillStyle = "#888";
-        ctx.beginPath();
-        ctx.arc(s.x, s.y, 7, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.fillStyle = "#555";
-        ctx.beginPath();
-        ctx.arc(s.x, s.y, 4, 0, Math.PI * 2);
-        ctx.fill();
-
-        // Water arc
-        const waterGrad = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, s.range);
-        waterGrad.addColorStop(0, "rgba(100,180,255,0.85)");
-        waterGrad.addColorStop(0.6, "rgba(100,180,255,0.4)");
-        waterGrad.addColorStop(1, "rgba(100,180,255,0)");
-        ctx.fillStyle = waterGrad;
-        ctx.beginPath();
-        ctx.moveTo(s.x, s.y);
-        ctx.arc(s.x, s.y, s.range, s.angle, s.angle + s.arcLen);
-        ctx.closePath();
-        ctx.fill();
-
-        // Water droplets along arc edge
-        ctx.fillStyle = "rgba(150,210,255,0.9)";
-        for (let i = 0; i <= 6; i++) {
-          const a = s.angle + (s.arcLen / 6) * i;
-          const r = s.range * (0.7 + 0.3 * Math.sin(ts * 0.003 + i));
-          const dx = Math.cos(a) * r;
-          const dy = Math.sin(a) * r;
-          ctx.beginPath();
-          ctx.arc(s.x + dx, s.y + dy, 2.5, 0, Math.PI * 2);
-          ctx.fill();
-        }
-      }
-
-      // ── Update player ────────────────────────────────────────────────────────
-      const keys = keysRef.current;
-      let dy = 0;
-      if (keys.has("ArrowUp") || keys.has("w") || keys.has("W")) dy -= 1;
-      if (keys.has("ArrowDown") || keys.has("s") || keys.has("S")) dy += 1;
-      // Touch
-      dy += touchDirRef.current;
-
-      playerYRef.current = Math.max(
-        65 + PLAYER_H / 2,
-        Math.min(CANVAS_H - PLAYER_H / 2, playerYRef.current + dy * PLAYER_SPEED * 60 * dt)
-      );
-
-      // Advance player horizontally
-      playerXRef.current = Math.min(GOAL_X + 10, playerXRef.current + PLAYER_SPEED * 60 * dt * 0.18);
-
-      // ── Collision detection ──────────────────────────────────────────────────
-      const now = performance.now();
-      const invincible = now < invincibleUntilRef.current;
-      if (!invincible) {
-        const px = playerXRef.current;
-        const py = playerYRef.current;
-        for (const s of sprinklers) {
-          // Check a few points on the player hitbox
-          const pts = [
-            [px, py - PLAYER_H * 0.3],
-            [px - PLAYER_W * 0.3, py + PLAYER_H * 0.2],
-            [px + PLAYER_W * 0.3, py + PLAYER_H * 0.2],
-          ];
-          for (const [qx, qy] of pts) {
-            if (pointInArc(qx, qy, s.x, s.y, s.range, s.angle, s.arcLen)) {
-              livesRef.current -= 1;
-              invincibleUntilRef.current = now + INVINCIBLE_MS;
-              setUiLives(livesRef.current);
-              if (livesRef.current <= 0) {
-                stateRef.current = "dead";
-                setUiState("dead");
-              }
-              break;
-            }
-          }
-          if (stateRef.current === "dead") break;
-        }
-      }
-
-      // ── Check win ────────────────────────────────────────────────────────────
-      if (playerXRef.current >= GOAL_X) {
-        stateRef.current = "won";
-        setUiState("won");
-        setShowCode(true);
-      }
-
-      // ── Draw player ──────────────────────────────────────────────────────────
-      const px = playerXRef.current;
-      const py = playerYRef.current;
-      const blink = invincible && Math.floor(now / 120) % 2 === 0;
-
-      if (!blink) {
-        // Body
-        ctx.fillStyle = "#f5a623";
-        ctx.beginPath();
-        ctx.roundRect(px - PLAYER_W / 2, py - PLAYER_H * 0.4, PLAYER_W, PLAYER_H * 0.7, 4);
-        ctx.fill();
-
-        // Head
-        ctx.fillStyle = "#ffd5a8";
-        ctx.beginPath();
-        ctx.arc(px, py - PLAYER_H * 0.45, 11, 0, Math.PI * 2);
-        ctx.fill();
-
-        // Hat (straw hat)
-        ctx.fillStyle = "#c8a000";
-        ctx.beginPath();
-        ctx.ellipse(px, py - PLAYER_H * 0.55, 14, 4, 0, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.fillStyle = "#e6b800";
-        ctx.beginPath();
-        ctx.ellipse(px, py - PLAYER_H * 0.62, 9, 6, 0, 0, Math.PI * 2);
-        ctx.fill();
-
-        // Legs (animated walk)
-        const legPhase = ts * 0.008;
-        ctx.strokeStyle = "#333";
-        ctx.lineWidth = 3;
-        ctx.lineCap = "round";
-        ctx.beginPath();
-        ctx.moveTo(px - 5, py + PLAYER_H * 0.25);
-        ctx.lineTo(px - 5 + Math.sin(legPhase) * 6, py + PLAYER_H * 0.55);
-        ctx.stroke();
-        ctx.beginPath();
-        ctx.moveTo(px + 5, py + PLAYER_H * 0.25);
-        ctx.lineTo(px + 5 + Math.sin(legPhase + Math.PI) * 6, py + PLAYER_H * 0.55);
-        ctx.stroke();
-      }
-
-      rafRef.current = requestAnimationFrame(loop);
+  function drawDeadScreen(ctx: CanvasRenderingContext2D, s: number, hs: number) {
+    ctx.fillStyle = "#4ade80"; ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = "rgba(0,0,0,0.56)"; ctx.fillRect(0, 0, W, H);
+    ctx.textAlign = "center";
+    ctx.fillStyle = "#ef4444"; ctx.font = "bold 28px sans-serif";
+    ctx.fillText("💦 SOAKED!", W / 2, H / 2 - 52);
+    ctx.fillStyle = "#fff"; ctx.font = "20px sans-serif";
+    ctx.fillText(`Distance: ${s} ft`, W / 2, H / 2 - 18);
+    ctx.fillStyle = "#fbbf24"; ctx.font = "bold 17px sans-serif";
+    ctx.fillText(`🏆 Best: ${hs} ft`, W / 2, H / 2 + 12);
+    if (s >= WIN_DISTANCE) {
+      ctx.fillStyle = "#4ade80"; ctx.font = "bold 14px sans-serif";
+      ctx.fillText(`🎉 Code unlocked: ${DISCOUNT_CODE}`, W / 2, H / 2 + 38);
+    } else {
+      ctx.fillStyle = "#d1fae5"; ctx.font = "13px sans-serif";
+      ctx.fillText(`${WIN_DISTANCE - s} ft more to unlock $10 code`, W / 2, H / 2 + 38);
     }
+    ctx.fillStyle = "oklch(0.46 0.20 25)";
+    ctx.beginPath(); ctx.roundRect(W / 2 - 70, H / 2 + 54, 140, 36, 8); ctx.fill();
+    ctx.fillStyle = "#fff"; ctx.font = "bold 14px sans-serif";
+    ctx.fillText("🔄  TRY AGAIN", W / 2, H / 2 + 77);
+  }
 
-    function drawOverlay(ctx: CanvasRenderingContext2D, state: GameState) {
-      if (state === "idle") {
-        ctx.fillStyle = "rgba(0,0,0,0.45)";
-        ctx.fillRect(0, 0, CANVAS_W, CANVAS_H);
-        ctx.fillStyle = "#fff";
-        ctx.font = "bold 28px 'Cormorant Garamond', serif";
-        ctx.textAlign = "center";
-        ctx.fillText("🌿 Sprinkler Dodge!", CANVAS_W / 2, CANVAS_H / 2 - 30);
-        ctx.font = "16px 'Montserrat', sans-serif";
-        ctx.fillText("Run through the lawn without getting wet.", CANVAS_W / 2, CANVAS_H / 2 + 5);
-        ctx.fillText("Win and get $10 off your service!", CANVAS_W / 2, CANVAS_H / 2 + 28);
-        ctx.font = "13px 'Montserrat', sans-serif";
-        ctx.fillStyle = "rgba(255,255,255,0.7)";
-        ctx.fillText("↑ ↓ arrow keys or W/S to move · tap buttons on mobile", CANVAS_W / 2, CANVAS_H / 2 + 58);
-      } else if (state === "dead") {
-        ctx.fillStyle = "rgba(0,0,0,0.55)";
-        ctx.fillRect(0, 0, CANVAS_W, CANVAS_H);
-        ctx.fillStyle = "#ff6b6b";
-        ctx.font = "bold 30px 'Cormorant Garamond', serif";
-        ctx.textAlign = "center";
-        ctx.fillText("💦 You got soaked!", CANVAS_W / 2, CANVAS_H / 2 - 20);
-        ctx.fillStyle = "#fff";
-        ctx.font = "16px 'Montserrat', sans-serif";
-        ctx.fillText("Better luck next time — try again!", CANVAS_W / 2, CANVAS_H / 2 + 15);
-      } else if (state === "won") {
-        ctx.fillStyle = "rgba(0,50,0,0.6)";
-        ctx.fillRect(0, 0, CANVAS_W, CANVAS_H);
-        ctx.fillStyle = "#a8ff78";
-        ctx.font = "bold 30px 'Cormorant Garamond', serif";
-        ctx.textAlign = "center";
-        ctx.fillText("🎉 You made it through dry!", CANVAS_W / 2, CANVAS_H / 2 - 20);
-        ctx.fillStyle = "#fff";
-        ctx.font = "16px 'Montserrat', sans-serif";
-        ctx.fillText("Your $10 discount code is below ↓", CANVAS_W / 2, CANVAS_H / 2 + 15);
-      }
-    }
-
-    rafRef.current = requestAnimationFrame(loop);
-    return () => cancelAnimationFrame(rafRef.current);
-  }, []);
-
-  // ── Keyboard listeners ───────────────────────────────────────────────────────
-  useEffect(() => {
-    const down = (e: KeyboardEvent) => {
-      keysRef.current.add(e.key);
-      if (["ArrowUp", "ArrowDown"].includes(e.key)) e.preventDefault();
-    };
-    const up = (e: KeyboardEvent) => keysRef.current.delete(e.key);
-    window.addEventListener("keydown", down);
-    window.addEventListener("keyup", up);
-    return () => {
-      window.removeEventListener("keydown", down);
-      window.removeEventListener("keyup", up);
-    };
-  }, []);
-
-  // ── Touch listeners ──────────────────────────────────────────────────────────
-  const handleTouchStart = (e: React.TouchEvent) => {
-    touchStartYRef.current = e.touches[0].clientY;
-  };
-  const handleTouchMove = (e: React.TouchEvent) => {
-    if (touchStartYRef.current === null) return;
-    const dy = e.touches[0].clientY - touchStartYRef.current;
-    touchDirRef.current = dy > 5 ? 1 : dy < -5 ? -1 : 0;
-    e.preventDefault();
-  };
-  const handleTouchEnd = () => {
-    touchDirRef.current = 0;
-    touchStartYRef.current = null;
-  };
-
-  const copyCode = () => {
-    navigator.clipboard.writeText(DISCOUNT_CODE).then(() => {
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2500);
-    });
-  };
-
-  // Scale canvas for mobile
-  const scale = isMobile ? Math.min(1, (window.innerWidth - 32) / CANVAS_W) : 1;
+  const handleCanvasClick = useCallback(() => {
+    if (stateRef.current !== "playing") startGame();
+  }, [startGame]);
 
   return (
-    <div className="flex flex-col items-center gap-4 py-8 px-4">
-      {/* Header */}
-      <div className="text-center mb-2">
-        <h2 className="font-serif text-3xl font-bold text-stone-800 mb-1">🌿 Sprinkler Dodge</h2>
-        <p className="text-stone-500 text-sm">
-          Run through the lawn without getting wet — win a <strong>$10 discount</strong> on your service!
-        </p>
-      </div>
-
-      {/* Lives display */}
-      {uiState === "playing" && (
-        <div className="flex items-center gap-2 text-sm font-semibold text-stone-700">
-          <span>Lives:</span>
-          {Array.from({ length: LIVES }).map((_, i) => (
-            <span key={i} className={i < uiLives ? "text-red-500 text-lg" : "text-stone-300 text-lg"}>
-              {i < uiLives ? "❤️" : "🖤"}
-            </span>
-          ))}
-        </div>
-      )}
-
-      {/* Canvas */}
-      <div
-        className="relative rounded-xl overflow-hidden shadow-2xl border-2 border-green-200"
-        style={{
-          width: CANVAS_W * scale,
-          height: CANVAS_H * scale,
-          cursor: uiState === "playing" ? "none" : "default",
-        }}
-      >
-        <canvas
-          ref={canvasRef}
-          width={CANVAS_W}
-          height={CANVAS_H}
-          style={{ width: CANVAS_W * scale, height: CANVAS_H * scale, display: "block" }}
-          onTouchStart={handleTouchStart}
-          onTouchMove={handleTouchMove}
-          onTouchEnd={handleTouchEnd}
-        />
-      </div>
-
-      {/* Mobile controls */}
-      {uiState === "playing" && (
-        <div className="flex gap-6 sm:hidden mt-1">
-          <button
-            className="w-16 h-16 rounded-full bg-green-700 text-white text-2xl font-bold shadow-lg active:bg-green-900 select-none"
-            onTouchStart={() => { keysRef.current.add("ArrowUp"); }}
-            onTouchEnd={() => { keysRef.current.delete("ArrowUp"); }}
-            onMouseDown={() => { keysRef.current.add("ArrowUp"); }}
-            onMouseUp={() => { keysRef.current.delete("ArrowUp"); }}
-          >
-            ↑
-          </button>
-          <button
-            className="w-16 h-16 rounded-full bg-green-700 text-white text-2xl font-bold shadow-lg active:bg-green-900 select-none"
-            onTouchStart={() => { keysRef.current.add("ArrowDown"); }}
-            onTouchEnd={() => { keysRef.current.delete("ArrowDown"); }}
-            onMouseDown={() => { keysRef.current.add("ArrowDown"); }}
-            onMouseUp={() => { keysRef.current.delete("ArrowDown"); }}
-          >
-            ↓
-          </button>
-        </div>
-      )}
-
-      {/* CTA buttons */}
-      {uiState === "idle" && (
-        <button
-          onClick={startGame}
-          className="mt-2 px-8 py-3 bg-green-700 hover:bg-green-800 text-white font-bold rounded-full text-base shadow-lg transition-all hover:scale-105 active:scale-95"
-        >
-          🏃 Start Running!
-        </button>
-      )}
-      {uiState === "dead" && (
-        <button
-          onClick={startGame}
-          className="mt-2 px-8 py-3 bg-red-600 hover:bg-red-700 text-white font-bold rounded-full text-base shadow-lg transition-all hover:scale-105 active:scale-95"
-        >
-          💦 Try Again
-        </button>
-      )}
-
-      {/* Win state — discount code */}
-      {uiState === "won" && showCode && (
-        <div className="mt-2 flex flex-col items-center gap-3 bg-green-50 border-2 border-green-400 rounded-2xl px-8 py-6 shadow-xl max-w-sm w-full text-center">
-          <div className="text-4xl">🎉</div>
-          <p className="text-green-800 font-bold text-lg">You stayed dry!</p>
-          <p className="text-stone-600 text-sm">Use this code at checkout for <strong>$10 off</strong> your service:</p>
-          <div className="flex items-center gap-3 bg-white border-2 border-green-300 rounded-xl px-5 py-3 shadow-inner">
-            <span className="font-mono text-2xl font-extrabold text-green-700 tracking-widest">{DISCOUNT_CODE}</span>
-            <button
-              onClick={copyCode}
-              className="ml-2 px-3 py-1.5 bg-green-700 hover:bg-green-800 text-white text-xs font-bold rounded-lg transition-all"
-            >
-              {copied ? "✓ Copied!" : "Copy"}
-            </button>
+    <section className="py-16" style={{ backgroundColor: "oklch(0.97 0.01 140)" }}>
+      <div className="container">
+        <div className="text-center mb-6">
+          <div className="font-label mb-2 text-xs tracking-widest" style={{ color: "oklch(0.46 0.20 25)" }}>
+            🎮 MINI GAME
           </div>
-          <p className="text-xs text-stone-400">Mention this code when you schedule your service.</p>
-          <button
-            onClick={startGame}
-            className="mt-1 text-sm text-green-700 underline hover:text-green-900"
-          >
-            Play again
-          </button>
+          <h2 className="font-display font-light text-3xl mb-2" style={{ color: "oklch(0.22 0.005 0)" }}>
+            Sprinkler Dash
+          </h2>
+          <p className="font-body text-sm" style={{ color: "oklch(0.45 0.005 30)" }}>
+            Run through the lawn without getting soaked. Make it{" "}
+            <strong>{WIN_DISTANCE} feet</strong> to unlock a{" "}
+            <strong>$10 discount</strong> on your next service.
+          </p>
         </div>
-      )}
-    </div>
+
+        <div className="flex justify-center">
+          <div style={{ width: "100%", maxWidth: W, position: "relative" }}>
+            <canvas
+              ref={canvasRef}
+              width={W}
+              height={H}
+              onClick={handleCanvasClick}
+              onTouchStart={handleTouchStart}
+              onTouchEnd={handleTouchEnd}
+              style={{
+                width: "100%", height: "auto",
+                borderRadius: 12,
+                cursor: displayState !== "playing" ? "pointer" : "default",
+                touchAction: "none",
+                userSelect: "none",
+                boxShadow: "0 8px 32px rgba(0,0,0,0.18)",
+                border: "2px solid oklch(0.85 0.04 140)",
+                display: "block",
+              }}
+            />
+          </div>
+        </div>
+
+        {/* Discount code reveal */}
+        {wonCode && (
+          <div className="mt-6 mx-auto max-w-sm text-center p-5 rounded-xl"
+            style={{ backgroundColor: "oklch(0.22 0.005 0)", color: "#fff" }}>
+            <div className="text-2xl mb-1">🎉</div>
+            <div className="font-display text-lg font-semibold mb-1">You made it!</div>
+            <div className="font-body text-sm mb-3" style={{ color: "#d1fae5" }}>
+              Here's your $10 off code:
+            </div>
+            <div className="font-mono text-2xl font-bold tracking-widest mb-3 px-4 py-2 rounded-lg"
+              style={{ backgroundColor: "oklch(0.46 0.20 25)", color: "#fff" }}>
+              {wonCode}
+            </div>
+            <button
+              onClick={() => navigator.clipboard.writeText(wonCode).then(() => setCopied(true))}
+              className="text-sm px-4 py-2 rounded-lg font-semibold"
+              style={{ backgroundColor: "#fff", color: "oklch(0.22 0.005 0)" }}>
+              {copied ? "✓ Copied!" : "Copy Code"}
+            </button>
+            <div className="mt-2 text-xs" style={{ color: "rgba(255,255,255,0.5)" }}>
+              Use at checkout on your next service booking
+            </div>
+          </div>
+        )}
+
+        <div className="text-center mt-4 text-xs" style={{ color: "oklch(0.55 0.005 30)" }}>
+          Tap top/bottom of screen to move · Swipe up/down · or ↑↓ arrow keys
+        </div>
+      </div>
+    </section>
   );
 }
