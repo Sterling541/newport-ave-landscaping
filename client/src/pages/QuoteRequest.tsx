@@ -145,7 +145,7 @@ export default function QuoteRequest({ source = "other" }: QuoteRequestProps) {
                 to provide more details and get on our calendar faster.
               </p>
               <a
-                href="/schedule"
+                href="/schedule-services"
                 className="inline-flex items-center gap-2 bg-green-700 hover:bg-green-800 text-white font-semibold px-6 py-3 rounded-lg transition-colors"
               >
                 Fill Out Schedule Services Form
@@ -325,7 +325,7 @@ export default function QuoteRequest({ source = "other" }: QuoteRequestProps) {
               preferred dates, and service details — this gets you on our calendar faster.
             </p>
             <a
-              href="/schedule"
+              href="/schedule-services"
               className="inline-flex items-center gap-1.5 text-sm font-semibold text-green-700 hover:text-green-800"
             >
               Full Schedule Services Form <ArrowRight className="w-3.5 h-3.5" />
