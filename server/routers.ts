@@ -228,6 +228,37 @@ export const appRouter = router({
           input.comments ? `\n**Comments:** ${input.comments}` : null,
         ].filter(Boolean).join("\n");
 
+        // Send email via Resend to info@newportavelandscaping.com
+        if (ENV.resendApiKey) {
+          try {
+            const resend = new Resend(ENV.resendApiKey);
+            const htmlLines = [
+              `<p><strong>Name:</strong> ${input.firstName} ${input.lastName}</p>`,
+              `<p><strong>Email:</strong> <a href="mailto:${input.email}">${input.email}</a></p>`,
+              `<p><strong>Phone:</strong> ${input.phone}</p>`,
+              `<p><strong>Service:</strong> ${input.serviceType}</p>`,
+              `<p><strong>Site Address:</strong> ${input.siteAddress}</p>`,
+              input.budget ? `<p><strong>Budget:</strong> ${input.budget}</p>` : null,
+              input.howHeard ? `<p><strong>How Heard:</strong> ${input.howHeard}</p>` : null,
+              input.salesConsultant ? `<p><strong>Sales Consultant:</strong> ${input.salesConsultant}</p>` : null,
+              input.comments ? `<hr/><p><strong>Comments:</strong></p><p>${input.comments.replace(/\n/g, "<br/>")}</p>` : null,
+              `<hr/><p style="color:#666;font-size:12px">Submitted via newportavelandscaping.com service form</p>`,
+            ].filter(Boolean).join("\n");
+            await resend.emails.send({
+              from: "Newport Ave Landscaping <noreply@newportavelandscaping.com>",
+              to: ["info@newportavelandscaping.com"],
+              replyTo: input.email,
+              subject: `New Service Request — ${input.serviceType} (${input.firstName} ${input.lastName})`,
+              html: `<div style="font-family:sans-serif;max-width:600px;margin:0 auto">
+                <h2 style="color:#2d5a27">New Service Request — Newport Avenue Landscaping</h2>
+                ${htmlLines}
+              </div>`,
+            });
+          } catch (emailErr) {
+            console.error("[submissions.create] Resend email error:", emailErr);
+          }
+        }
+
         await notifyOwner({
           title: `New Service Request — ${input.serviceType} (${input.firstName} ${input.lastName})`,
           content: notifLines,
