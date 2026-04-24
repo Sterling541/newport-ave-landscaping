@@ -641,5 +641,5 @@
 ## Full Migration — April 24, 2026
 - [ ] FTP connect to GoDaddy and back up old WordPress site
 - [ ] Scrape all project images from old site (deduplicate against existing portfolio)
-- [ ] Categorize and upload new images to correct portfolio pages
+- [x] Categorize and upload new images to correct portfolio pages
 - [ ] Verify Resend domain (newportavelandscaping.com) for contact form emails
