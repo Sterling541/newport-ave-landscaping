@@ -636,3 +636,4 @@
 - [x] Fix 5-year warranty claims in Pavers.tsx and FireFeatures.tsx — align with actual warranty (1-year hardscape)
 - [x] Add noindex meta to /schedule-services and /opt-out pages
 - [x] Inject BUILT_IN_FORGE_API_KEY and BUILT_IN_FORGE_API_URL into Vercel function .vc-config.json so manus-storage proxy works after DNS cutover
+# Lawn Mower Dash + SEO fixes Fri Apr 24 09:05:42 EDT 2026
