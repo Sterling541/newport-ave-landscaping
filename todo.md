@@ -657,3 +657,10 @@
 ## Photo Updates — April 24, 2026
 - [x] Replace About page owner headshot with new photo
 - [x] Zoom in on opt-out page lawn sign image so sign is more visible (absolute positioning, 145% width/height, top -10%, left -22%)
+## Mobile & Nav Fixes — April 24, 2026
+- [x] Fix desktop navbar logo centering (absolute position, left 50%, translateX -50%)
+- [x] Fix broken /schedule link on QuoteRequest page → /schedule-services
+- [x] Comprehensive link audit — 137 links vs 276 routes, 0 broken
+- [x] Make mobile opt-out button prominent (full-width, brand red, larger text)
+- [x] Fix mobile hero text cut off at top (reduce clamp min, increase bottom offset)
+- [x] Fix mobile hero subtitle unreadable (lighter color, text-shadow)

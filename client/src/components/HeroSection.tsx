@@ -396,7 +396,7 @@ export default function HeroSection() {
       <div
         style={{
           position: "absolute",
-          bottom: "clamp(7rem, 14vh, 11rem)",
+          bottom: "clamp(8rem, 16vh, 11rem)",
           left: "clamp(1.5rem, 5vw, 5rem)",
           right: "clamp(1.5rem, 5vw, 5rem)",
           zIndex: 10,
@@ -407,9 +407,9 @@ export default function HeroSection() {
         <h1
           style={{
             fontFamily: "'Cormorant Garamond', 'Playfair Display', Georgia, serif",
-            fontSize: "clamp(3rem, 7.5vw, 8rem)",
+            fontSize: "clamp(2.2rem, 7.5vw, 8rem)",
             fontWeight: 700,
-            lineHeight: 0.88,
+            lineHeight: 0.92,
             letterSpacing: "-0.035em",
             color: "oklch(0.97 0.012 75)",
             margin: 0,
@@ -422,9 +422,9 @@ export default function HeroSection() {
         <div
           style={{
             fontFamily: "'Cormorant Garamond', 'Playfair Display', Georgia, serif",
-            fontSize: "clamp(3rem, 7.5vw, 8rem)",
+            fontSize: "clamp(2.2rem, 7.5vw, 8rem)",
             fontWeight: 700,
-            lineHeight: 0.88,
+            lineHeight: 0.92,
             letterSpacing: "-0.035em",
             color: "oklch(0.97 0.012 75)",
           }}
@@ -435,13 +435,13 @@ export default function HeroSection() {
         <div
           style={{
             fontFamily: "'Cormorant Garamond', 'Playfair Display', Georgia, serif",
-            fontSize: "clamp(2.6rem, 6.5vw, 7.5rem)",
+            fontSize: "clamp(2rem, 6.5vw, 7.5rem)",
             fontWeight: 300,
             fontStyle: "italic",
             lineHeight: 0.95,
             letterSpacing: "-0.01em",
             color: "oklch(0.82 0.012 75)",
-            marginBottom: "2.5rem",
+            marginBottom: "1.8rem",
           }}
         >
           {s.accent}
@@ -459,13 +459,14 @@ export default function HeroSection() {
           <p
             style={{
               fontFamily: "'Montserrat', sans-serif",
-              fontSize: "0.5rem",
-              fontWeight: 500,
+              fontSize: "0.55rem",
+              fontWeight: 600,
               letterSpacing: "0.16em",
-              color: "oklch(0.55 0.008 30)",
+              color: "oklch(0.82 0.008 75)",
               textTransform: "uppercase",
               maxWidth: "200px",
               lineHeight: 1.9,
+              textShadow: "0 1px 4px rgba(0,0,0,0.6)",
             }}
           >
             {s.sub}
