@@ -2,7 +2,7 @@ import { COOKIE_NAME } from "@shared/const";
 import { getSessionCookieOptions } from "./_core/cookies";
 import { notifyOwner } from "./_core/notification";
 import { systemRouter } from "./_core/systemRouter";
-import { protectedProcedure, publicProcedure, router } from "./_core/trpc";
+import { pinProcedure as protectedProcedure, publicProcedure, router } from "./_core/trpc";
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 import { Resend } from "resend";
@@ -66,7 +66,10 @@ import {
 } from "./db";
 
 // ── Admin guard helper ────────────────────────────────────────────────────────
-function requireAdmin(ctx: { user: { openId: string; role: string } }) {
+// pinProcedure passes user as null when auth is via PIN header (already validated).
+// OAuth users are additionally checked against ownerOpenId or admin role.
+function requireAdmin(ctx: { user: { openId: string; role: string } | null }) {
+  if (!ctx.user) return; // PIN-authenticated — already validated by middleware
   if (ctx.user.openId !== ENV.ownerOpenId && ctx.user.role !== "admin") {
     throw new TRPCError({ code: "FORBIDDEN" });
   }
@@ -1032,13 +1035,12 @@ Be specific, data-driven, and actionable. Format as JSON with keys: bestMonths (
         filename: z.string().max(256),
       }))
       .mutation(async ({ ctx, input }) => {
-        requireAdmin(ctx);
-
+         requireAdmin(ctx);
         // Create import job record
         const jobResult = await createCsvImportJob({
           filename: input.filename,
           status: "processing",
-          importedBy: ctx.user.id,
+          importedBy: ctx.user?.id ?? 0,
         });
         const jobId = (jobResult as { insertId?: number }).insertId;
 
