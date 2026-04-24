@@ -656,4 +656,4 @@
 
 ## Photo Updates — April 24, 2026
 - [x] Replace About page owner headshot with new photo
-- [x] Zoom in on opt-out page lawn sign image so sign is more visible
+- [x] Zoom in on opt-out page lawn sign image so sign is more visible (absolute positioning, 145% width/height, top -10%, left -22%)

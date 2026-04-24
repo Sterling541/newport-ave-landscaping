@@ -242,23 +242,24 @@ export default function OptOut() {
               <div
                 style={{
                   width: "clamp(220px, 28vw, 360px)",
-                  height: "clamp(260px, 34vw, 440px)",
+                  height: "clamp(300px, 38vw, 500px)",
                   borderRadius: "8px",
                   boxShadow: "0 8px 40px rgba(0,0,0,0.18)",
                   overflow: "hidden",
                   display: "inline-block",
+                  position: "relative",
                 }}
               >
                 <img
                   src={SIGN_IMG}
                   alt="Newport Avenue Landscaping opt-out sign installed on green stake in front of home"
                   style={{
-                    width: "100%",
-                    height: "100%",
+                    position: "absolute",
+                    width: "145%",
+                    height: "145%",
                     objectFit: "cover",
-                    objectPosition: "center 30%",
-                    transform: "scale(1.45)",
-                    transformOrigin: "center 40%",
+                    top: "-10%",
+                    left: "-22%",
                   }}
                 />
               </div>
