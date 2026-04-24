@@ -144,6 +144,8 @@ const REDIRECTS: Record<string, string> = {
   // === FIRE FEATURES (old slug) ===
   "/fire-pits-and-outdoor-fireplaces-bend-oregon":  "/services/fire-features",
   "/fire-pits-and-outdoor-fireplaces-bend-oregon/": "/services/fire-features",
+  "/fire-pits":  "/services/fire-features",
+  "/fire-pits/": "/services/fire-features",
 
   // === TERMS (old slug) ===
   "/terms-and-conditions":  "/terms",
