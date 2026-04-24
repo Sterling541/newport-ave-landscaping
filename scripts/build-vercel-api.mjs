@@ -79,6 +79,10 @@ await build({
 console.log('Compiled .vercel/output/functions/api.func/index.js');
 
 // ─── 2. Write .vc-config.json for the function ────────────────────────────────
+// Inject RESEND_API_KEY into the Vercel function environment at build time.
+// This key is read from the build environment (set via Vercel project settings
+// or passed as RESEND_API_KEY=... before the build command).
+const resendApiKey = process.env.RESEND_API_KEY || 're_5bnA1tZt_DoWraNNBadaNfL9gjYvc8ayG';
 fs.writeFileSync(
   path.join(funcDir, '.vc-config.json'),
   JSON.stringify({
@@ -86,7 +90,7 @@ fs.writeFileSync(
     handler: 'index.js',
     launcherType: 'Nodejs',
     shouldAddHelpers: true,
-    environment: {},
+    environment: { RESEND_API_KEY: resendApiKey },
   }, null, 2),
 );
 console.log('Wrote .vercel/output/functions/api.func/.vc-config.json');
