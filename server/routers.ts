@@ -121,7 +121,7 @@ export const appRouter = router({
               `<p>${input.message.replace(/\n/g, "<br/>")}</p>`,
             ].filter(Boolean).join("\n");
             await resend.emails.send({
-              from: "Newport Ave Landscaping <noreply@newportavelandscaping.com>",
+              from: "Newport Ave Landscaping <onboarding@resend.dev>",
               to: ["info@newportavelandscaping.com"],
               replyTo: input.email,
               subject: `New Quote Request from ${input.name}`,
