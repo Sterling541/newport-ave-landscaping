@@ -6,6 +6,7 @@ export default function SWBendBackyard() {
       title="SW Bend Backyard Landscaping"
       subtitle="OUTDOOR LIVING — CAMPGROUND THEME"
       heroImage="/manus-storage/sw-bend-01_45e68c0e.jpg"
+      canonicalPath="/portfolio/sw-bend-backyard"
       description={`This new construction home on Bend, Oregon's SW side had a blank slate with tons of potential. The owners wanted to feel like they were camping right in their very own backyard.\n\nTo build this environment, we installed an open beam pergola using cedar stained a grayish/blue color to match the existing trim. Corbels were modeled after the corbels on the roof of the home. A new patio was installed using natural flagstone, and a custom fire pit was built as the centerpiece.\n\nThe planting palette was selected to evoke the feeling of a mountain campsite — native grasses, conifers, and ground covers that thrive in Central Oregon's climate. The result is a backyard that genuinely feels like an escape, right at home.`}
       details={[
         { label: "LOCATION", value: "Southwest Bend, OR" },

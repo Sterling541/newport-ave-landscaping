@@ -6,6 +6,7 @@ export default function PaverPatioFirepit() {
       title="Paver Patio & Gas Firepit"
       subtitle="OUTDOOR LIVING SPACE"
       heroImage="/manus-storage/paver-patio-and-gas-firepit-02_298e674d.jpg"
+      canonicalPath="/portfolio/paver-patio-firepit"
       description={`The client wanted to turn their backyard into a functional retreat. The existing backyard was bark with a drip system and a few shrubs and trees — functional but uninspiring.\n\nWe started by removing the existing bark and cleaning up the yard. We built a solar radiating planter bed, installed a decomposed granite pathway, and installed a Belgard paver patio. We then built a natural gas fire pit with a custom stone surround.\n\nThe combination of the warm paver tones, the crackling gas fire, and the carefully selected plantings creates an outdoor space that feels like a true extension of the home — a place to gather, relax, and enjoy the Central Oregon evenings.`}
       details={[
         { label: "LOCATION", value: "Bend, OR" },

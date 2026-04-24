@@ -54,7 +54,7 @@ export default function FireFeatures() {
         {
           heading: "Built to Last",
           body: [
-            "We only use the best materials because of our five-year warranty. Building options typically depend on the size of your yard, your view, and your yard's topography.",
+            "We only use the best materials, and every fire feature installation is backed by our one-year workmanship warranty. Building options typically depend on the size of your yard, your view, and your yard's topography.",
             "Similarly, fireplaces can be built to burn propane, natural gas, or wood and can use any brick, stone, or pavers. Fireplaces can include amenities like smokers, brick ovens, or other options as part of the build.",
           ],
           accent: true,

@@ -6,6 +6,7 @@ export default function AwbreyGlennFlagstone() {
       title="Awbrey Glenn Flagstone Patio & Walkway"
       subtitle="HARDSCAPE INSTALLATION"
       heroImage="/manus-storage/awbrey-glen-flagstone-01_cd6f3008.jpg"
+      canonicalPath="/portfolio/awbrey-glenn-flagstone"
       description={`This Awbrey Glenn property needed a complete front yard hardscape upgrade. The client wanted a natural, elegant flagstone walkway and patio that would complement the home's architecture and the surrounding high-desert landscape.\n\nWe designed and installed a custom flagstone walkway leading from the driveway to the front entry, with a matching patio area for outdoor seating. The irregular flagstone pattern was carefully laid to create a natural, organic feel while maintaining structural integrity.\n\nNative drought-tolerant plantings were added along the edges to soften the hardscape and integrate it seamlessly with the surrounding landscape.`}
       details={[
         { label: "LOCATION", value: "Awbrey Glenn, Bend, OR" },

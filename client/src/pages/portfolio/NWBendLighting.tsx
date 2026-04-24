@@ -6,6 +6,7 @@ export default function NWBendLighting() {
       title="NW Bend Landscape Lighting"
       subtitle="OUTDOOR LIGHTING · WATER FEATURES"
       heroImage="/manus-storage/nw-bend-lighting-01_32b779e7.jpg"
+      canonicalPath="/portfolio/nw-bend-lighting"
       description={`This NW Bend property had a beautiful stream feature that the clients simply couldn't enjoy after dark. Our goal was to bring the water feature to life at night and illuminate the surrounding landscape to create a stunning evening ambiance.\n\nWe installed 4 uplights to accent the water feature itself, casting dramatic light across the moving water and boulders. Three well lights were positioned to highlight the surrounding trees, creating depth and dimension in the landscape. Finally, 12 stair fixtures from Unique Lighting Systems were installed — a fixture that will develop a beautiful patina finish over time.\n\nThe result is a completely transformed evening experience. What was once invisible after sunset is now a focal point the entire neighborhood admires.`}
       details={[
         { label: "LOCATION", value: "NW Bend, Bend, OR" },

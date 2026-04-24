@@ -22,6 +22,7 @@ import {
 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { Helmet } from "react-helmet-async";
 import SprinklerGame from "@/components/SprinklerGame";
 
 const LOGO_URL = "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/logo-transparent-stacked_ff350b79.png";
@@ -435,7 +436,12 @@ export default function ScheduleServices() {
   }
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: "oklch(0.97 0.012 75)" }}>
+    <>
+      <Helmet>
+        <meta name="robots" content="noindex, nofollow" />
+        <title>Schedule Services | Newport Avenue Landscaping</title>
+      </Helmet>
+      <div className="min-h-screen" style={{ backgroundColor: "oklch(0.97 0.012 75)" }}>
       <Navbar />
 
       {/* Hero */}
@@ -798,5 +804,6 @@ export default function ScheduleServices() {
       </div>
       <Footer />
     </div>
+    </>
   );
 }

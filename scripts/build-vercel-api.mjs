@@ -79,10 +79,16 @@ await build({
 console.log('Compiled .vercel/output/functions/api.func/index.js');
 
 // ─── 2. Write .vc-config.json for the function ────────────────────────────────
-// Inject RESEND_API_KEY into the Vercel function environment at build time.
-// This key is read from the build environment (set via Vercel project settings
-// or passed as RESEND_API_KEY=... before the build command).
-const resendApiKey = process.env.RESEND_API_KEY || 're_5bnA1tZt_DoWraNNBadaNfL9gjYvc8ayG';
+// Inject all required server-side env vars into the Vercel function at build time.
+// These are read from the Vercel project environment variables (set in Vercel dashboard).
+const resendApiKey    = process.env.RESEND_API_KEY           || 're_5bnA1tZt_DoWraNNBadaNfL9gjYvc8ayG';
+const forgeApiKey     = process.env.BUILT_IN_FORGE_API_KEY   || '';
+const forgeApiUrl     = process.env.BUILT_IN_FORGE_API_URL   || '';
+const jwtSecret       = process.env.JWT_SECRET               || '';
+const databaseUrl     = process.env.DATABASE_URL             || '';
+const oauthServerUrl  = process.env.OAUTH_SERVER_URL         || '';
+const ownerOpenId     = process.env.OWNER_OPEN_ID            || '';
+const ownerName       = process.env.OWNER_NAME               || '';
 fs.writeFileSync(
   path.join(funcDir, '.vc-config.json'),
   JSON.stringify({
@@ -90,7 +96,16 @@ fs.writeFileSync(
     handler: 'index.js',
     launcherType: 'Nodejs',
     shouldAddHelpers: true,
-    environment: { RESEND_API_KEY: resendApiKey },
+    environment: {
+      RESEND_API_KEY:         resendApiKey,
+      BUILT_IN_FORGE_API_KEY: forgeApiKey,
+      BUILT_IN_FORGE_API_URL: forgeApiUrl,
+      JWT_SECRET:             jwtSecret,
+      DATABASE_URL:           databaseUrl,
+      OAUTH_SERVER_URL:       oauthServerUrl,
+      OWNER_OPEN_ID:          ownerOpenId,
+      OWNER_NAME:             ownerName,
+    },
   }, null, 2),
 );
 console.log('Wrote .vercel/output/functions/api.func/.vc-config.json');

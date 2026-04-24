@@ -6,6 +6,7 @@ export default function BackyardRenovation() {
       title="Backyard Landscape Renovation"
       subtitle="FULL LANDSCAPE RENOVATION"
       heroImage="/manus-storage/se-bend-renovation-01_487ce10e.jpg"
+      canonicalPath="/portfolio/backyard-renovation"
       description={`This Southeast Bend backyard was completely transformed from a neglected, overgrown space into a beautiful, functional outdoor living area.\n\nThe existing lawn was removed and replaced with a combination of hardscape and drought-tolerant plantings. We installed a new paver patio, updated the irrigation system, and added landscape lighting to extend the usability of the space into the evening hours.\n\nThe client now has a stunning backyard retreat that requires minimal maintenance while providing maximum enjoyment throughout the Central Oregon seasons.`}
       details={[
         { label: "LOCATION", value: "Southeast Bend, OR" },

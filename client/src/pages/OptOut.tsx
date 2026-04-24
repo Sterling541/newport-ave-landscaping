@@ -149,6 +149,7 @@ export default function OptOut() {
       <SEO
         title="Spray & Prune Opt-Out Program | Newport Avenue Landscaping"
         description="Prefer to manage your own pruning or weed control? Newport Avenue Landscaping offers a simple opt-out program for maintenance customers."
+        noIndex={true}
       />
       <div className="min-h-screen" style={{ backgroundColor: "oklch(1 0 0)" }}>
         <Navbar />

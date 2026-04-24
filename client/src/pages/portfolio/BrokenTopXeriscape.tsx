@@ -6,6 +6,7 @@ export default function BrokenTopXeriscape() {
       title="Broken Top Xeriscape"
       subtitle="XERISCAPE RENOVATION"
       heroImage="/manus-storage/brokentop-xeriscape-01_064e5008.jpg"
+      canonicalPath="/portfolio/broken-top-xeriscape"
       description={`Complete landscape renovation inspired by the concept of order versus chaos — man versus nature. The client, a very talented painter, was inspired by landscapes of chaos, which became the design philosophy for this project.\n\nThe large turf area in the back of this Brokentop residence was removed and replaced with usable patio space. All sprinklers and irrigation in the backyard were removed and retrofitted with a low-water drip irrigation system.\n\nNative and drought-tolerant plants were selected to create a dynamic, textured landscape that feels wild and intentional at the same time — a true reflection of the client's artistic vision and Central Oregon's natural environment.`}
       details={[
         { label: "LOCATION", value: "Broken Top, Bend, OR" },

@@ -6,6 +6,7 @@ export default function CenturyDrive() {
       title="Century Drive Landscape Enhancement"
       subtitle="LANDSCAPE ENHANCEMENT"
       heroImage="/manus-storage/century-drive-01_cfe36a70.jpg"
+      canonicalPath="/portfolio/century-drive"
       description={`This older home had been completely renovated — but the landscaping remained untouched. The client wanted to update the landscaping to match the quality of the newly renovated home.\n\nWe started by updating the existing water feature in the front yard, as the liner had a bad leak and the aesthetic needed refreshing. In the rear of the house, we built a half-circle bench and matching fire pit. We then built a walkway using natural flagstone connecting the fire pit to the back door.\n\nThe project brought the outdoor spaces up to the same standard as the beautifully renovated interior, creating a cohesive property that feels complete from every angle.`}
       details={[
         { label: "LOCATION", value: "Century Drive, Bend, OR" },

@@ -6,6 +6,7 @@ export default function NWBendBackyard() {
       title="NW Bend Backyard Landscaping"
       subtitle="OUTDOOR ENTERTAINMENT SPACE"
       heroImage="/manus-storage/nw-bend-backyard-01_e6d82c48.jpg"
+      canonicalPath="/portfolio/nw-bend-backyard"
       description={`The owners wanted to reinvent their yard to be an ideal entertainment and relaxation space. The original space was sage brush, rabbit brush, and small boulder outcroppings — a typical Central Oregon blank slate.\n\nWe installed a pondless water feature with a 40-foot long stream containing mossy boulders to enhance the audible environment. Then we added a 3-hole synthetic grass putting green with fringe to increase entertainment value.\n\nA decomposed granite pathway winds through the space, connecting the various zones. Landscape lighting was integrated throughout, and drought-tolerant plantings were selected to create a lush feel without excessive water use. The result is a backyard that truly lives up to the Central Oregon lifestyle.`}
       details={[
         { label: "LOCATION", value: "Northwest Bend, OR" },

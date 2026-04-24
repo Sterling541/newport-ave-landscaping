@@ -6,6 +6,7 @@ export default function BrokenTopWaterFeature() {
       title="Broken Top Water Feature & Sunken Fire Pit"
       subtitle="WATER FEATURE & OUTDOOR LIVING"
       heroImage="/manus-storage/brokentop-water-fire-01_54836cf3.jpg"
+      canonicalPath="/portfolio/broken-top-water-feature"
       description={`This Broken Top residence received a dramatic outdoor transformation centered around two focal points: a custom water feature and a sunken fire pit area.\n\nThe pondless water feature creates a soothing, naturalistic sound environment with carefully selected boulders and aquatic plantings. The sunken fire pit area was excavated and finished with natural stone seating, creating an intimate gathering space that feels like a natural amphitheater.\n\nLandscape lighting was integrated throughout to ensure the space is equally stunning after dark, making it a year-round entertainment destination.`}
       details={[
         { label: "LOCATION", value: "Broken Top, Bend, OR" },

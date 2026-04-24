@@ -6,6 +6,7 @@ export default function EastBendLandscape() {
       title="East Bend Landscape Install"
       subtitle="NEW CONSTRUCTION LANDSCAPE"
       heroImage="/manus-storage/east-bend-install-01_5ad4daf3.jpg"
+      canonicalPath="/portfolio/east-bend-landscape"
       description={`New construction landscape installation on the East side of Bend. The original space was sage brush and juniper trees — a blank slate with enormous potential.\n\nWe cleared the area and installed approximately 12,000 sq ft of turf grass, 50+ maple trees, fruit trees, a plunge pool, landscape lighting, a sound system, a sandy beach area, a playground area, and even a goat and chicken area.\n\nThis project is a testament to what's possible when a client has a vision and trusts their landscaping team to execute it at the highest level. The result is a fully self-contained outdoor lifestyle property unlike anything else in Central Oregon.`}
       details={[
         { label: "LOCATION", value: "East Bend, OR" },

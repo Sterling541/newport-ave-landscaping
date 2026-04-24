@@ -625,3 +625,14 @@
 - [ ] Verify robots.txt (200, first 20 lines)
 - [ ] Confirm apex/www canonical redirect in vercel.json
 - [ ] Provide exact GoDaddy DNS records (A record + CNAME)
+
+## Pre-Migration Audit Fixes — April 24, 2026
+
+- [x] Fix address discrepancy: index.html schema says "64625 N. HWY 97 #100" but all pages say "61535 S Hwy 97" — unify to correct address
+- [x] Add SEO meta tags (Helmet) to all 14 portfolio project pages via PortfolioProjectLayout
+- [x] Remove /opt-out and /schedule-services from sitemap.xml (utility pages, not indexable content)
+- [x] Fix Resend email from address: change from onboarding@resend.dev to noreply@newportavelandscaping.com (requires domain verification in Resend)
+- [x] Add security headers middleware (X-Frame-Options, X-Content-Type-Options, Referrer-Policy) to Express server
+- [x] Fix 5-year warranty claims in Pavers.tsx and FireFeatures.tsx — align with actual warranty (1-year hardscape)
+- [x] Add noindex meta to /schedule-services and /opt-out pages
+- [x] Inject BUILT_IN_FORGE_API_KEY and BUILT_IN_FORGE_API_URL into Vercel function .vc-config.json so manus-storage proxy works after DNS cutover

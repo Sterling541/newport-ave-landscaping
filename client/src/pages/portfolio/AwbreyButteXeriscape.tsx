@@ -6,6 +6,7 @@ export default function AwbreyButteXeriscape() {
       title="Awbrey Butte Xeriscape"
       subtitle="LANDSCAPE RENOVATION"
       heroImage="/manus-storage/awbrey-xeriscape-01_16545639.jpg"
+      canonicalPath="/portfolio/awbrey-butte-xeriscape"
       description={`This Awbrey Butte property underwent a complete xeriscape transformation. The client wanted a low-water, low-maintenance landscape that still looked lush and beautiful year-round.\n\nWe removed the existing lawn and replaced it with drought-tolerant native plants, decorative rock, and a drip irrigation system designed to minimize water usage while keeping the landscape thriving through Central Oregon's dry summers.\n\nThe result is a stunning, sustainable landscape that complements the natural high-desert environment of Bend, Oregon — and significantly reduces the client's water bill.`}
       details={[
         { label: "LOCATION", value: "Awbrey Butte, Bend, OR" },

@@ -8,6 +8,7 @@ export default function BendFullYardTransformation() {
       title="Bend Full Yard Transformation"
       subtitle="LANDSCAPE DESIGN & INSTALLATION"
       heroImage={`${CDN}/proj-bend-after-backyard1_c8556c78.jpg`}
+      canonicalPath="/portfolio/bend-full-yard-transformation"
       description={`This Bend property was completely reimagined from a sparse, underutilized front and backyard into a lush, layered outdoor retreat that feels like a private garden sanctuary.\n\nIn the backyard, we installed a sweeping paver patio and curved walkway using Belgard-style pavers, surrounded by raised planting beds bordered with natural stone. The plantings were chosen for four-season interest — a golden Japanese maple anchors the space, with hostas, lavender, ornamental grasses, and perennials filling in the beds with texture and color. Deck steps were upgraded with a clean metal handrail for both safety and style.\n\nThe front yard received an equally dramatic transformation. We replaced the tired lawn with a xeriscape-inspired design featuring natural stone borders, boulders, a dry creek bed, and a curated mix of drought-tolerant wildflowers, ornamental grasses, and native plantings. The result is a front yard that requires minimal water and maintenance while delivering maximum curb appeal through every season.`}
       details={[
         { label: "LOCATION", value: "Bend, OR" },

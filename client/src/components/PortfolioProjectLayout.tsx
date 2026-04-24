@@ -3,9 +3,13 @@
 // Performance: hero eager-loaded with fetchpriority=high, gallery images lazy-loaded with sizes hints
 import { useEffect } from "react";
 import { Link } from "wouter";
+import { Helmet } from "react-helmet-async";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import { ArrowLeft, ArrowRight } from "lucide-react";
+
+const BASE_URL = "https://newportavelandscaping.com";
+const SITE_NAME = "Newport Avenue Landscaping";
 
 interface ProjectImage {
   src: string;
@@ -33,6 +37,10 @@ interface PortfolioProjectLayoutProps {
   relatedProjects?: RelatedProject[];
   prevProject?: { title: string; href: string };
   nextProject?: { title: string; href: string };
+  /** Canonical path e.g. "/portfolio/awbrey-glenn-flagstone" */
+  canonicalPath?: string;
+  /** Short SEO description — defaults to first sentence of description */
+  seoDescription?: string;
 }
 
 export default function PortfolioProjectLayout({
@@ -45,11 +53,39 @@ export default function PortfolioProjectLayout({
   relatedProjects = [],
   prevProject,
   nextProject,
+  canonicalPath,
+  seoDescription,
 }: PortfolioProjectLayoutProps) {
   useEffect(() => { window.scrollTo(0, 0); }, []);
 
+  const fullTitle = `${title} | ${SITE_NAME}`;
+  const metaDescription = seoDescription || description.split(/\n/)[0].slice(0, 160);
+  const canonicalUrl = canonicalPath ? `${BASE_URL}${canonicalPath}` : undefined;
+  // Use the hero image as OG image (proxy via manus-storage → CDN)
+  const ogImage = heroImage.startsWith("/manus-storage/")
+    ? `${BASE_URL}${heroImage}`
+    : heroImage;
+
   return (
     <div style={{ backgroundColor: "oklch(0.13 0.005 0)", color: "oklch(0.92 0 0)", minHeight: "100vh" }}>
+      <Helmet>
+        <title>{fullTitle}</title>
+        <meta name="description" content={metaDescription} />
+        {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
+        {/* Open Graph */}
+        <meta property="og:title" content={fullTitle} />
+        <meta property="og:description" content={metaDescription} />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content={ogImage} />
+        {canonicalUrl && <meta property="og:url" content={canonicalUrl} />}
+        <meta property="og:site_name" content={SITE_NAME} />
+        {/* Twitter Card */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={fullTitle} />
+        <meta name="twitter:description" content={metaDescription} />
+        <meta name="twitter:image" content={ogImage} />
+      </Helmet>
+
       <Navbar />
       <div style={{ paddingTop: "160px" }} />
 

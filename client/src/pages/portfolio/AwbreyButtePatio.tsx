@@ -6,6 +6,7 @@ export default function AwbreyButtePatio() {
       title="Awbrey Butte Patio Extension and Wall"
       subtitle="HARDSCAPE · OUTDOOR LIVING"
       heroImage="/manus-storage/awbrey-patio-wall-01_bde91632.jpg"
+      canonicalPath="/portfolio/awbrey-butte-patio"
       description={`The client wanted the existing patio extended, high spots from tree roots repaired, and a wall built for privacy and continuity. They also wanted their hot tub better incorporated into the backyard.\n\nWe excavated and extended the current patio using Vista pavers in a Walnut blend. We then built approximately 30 linear feet of freestanding wall using "Chateau Wall" blocks (made by Western Interlock) in a walnut blend to enclose the new patio and add a sense of privacy and security.\n\nWe were initially concerned that the back of the curved wall would have unattractive gaps, but the end product came out looking fantastic. Finally, a concrete hot tub pad was poured and all electrical was extended — we always recommend pouring a concrete pad rather than setting a spa directly on pavers.`}
       details={[
         { label: "LOCATION", value: "Awbrey Butte, Bend, OR" },

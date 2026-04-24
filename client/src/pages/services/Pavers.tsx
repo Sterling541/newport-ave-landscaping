@@ -77,7 +77,7 @@ export default function Pavers() {
           heading: "Quality & Warranty",
           body: [
             "All hardscapes are built to the highest industry and personal standards. Our landscape construction employees train every winter to stay up-to-date on the latest paver patio and driveway installation techniques and technologies.",
-            "We are so confident in the outcome of what we build that we offer a five-year warranty on all paver patios, retaining walls, and hardscape projects — the only landscape company in Bend to do so.",
+            "We are so confident in the outcome of what we build that we offer a one-year workmanship warranty on all paver patios, retaining walls, and hardscape projects, backed by our 90-day plant warranty and 1-year irrigation warranty.",
           ],
         },
       ]}
