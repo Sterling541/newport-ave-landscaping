@@ -17,6 +17,7 @@ export default function PaverPatioFirepit() {
       images={[
         { src: "/manus-storage/paver-patio-and-gas-firepit-02_298e674d.jpg", alt: "Paver Patio Gas Firepit Photo 2" },
         { src: "/manus-storage/paver-patio-and-gas-firepit-01_04c71c72.jpg", alt: "Paver Patio Gas Firepit Photo 1" },
+        { src: "/manus-storage/bend-oregon-paver-patio-gas-firepit-photo-1_ea8fec72.jpg", alt: "Bend Oregon paver patio with gas firepit — Bend, OR" },
       ]}
       prevProject={{ title: "NW Bend Backyard Landscaping", href: "/portfolio/nw-bend-backyard" }}
       nextProject={{ title: "SW Bend Backyard Landscaping", href: "/portfolio/sw-bend-backyard" }}

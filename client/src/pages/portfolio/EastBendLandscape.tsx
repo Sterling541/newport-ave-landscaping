@@ -19,6 +19,10 @@ export default function EastBendLandscape() {
       images={[
         { src: "/manus-storage/east-bend-install-01_5ad4daf3.jpg", alt: "East Bend Paver Driveway" },
         { src: "/manus-storage/east-bend-install-18_830937d4.jpg", alt: "East Bend Backyard Aerial View" },
+        { src: "/manus-storage/292769550_5337859476252106_6704842826268024670_n_b9b2c245.jpg", alt: "East Bend landscape install — Bend, OR" },
+        { src: "/manus-storage/east-bend-landscape-install-finished-backyard-aeriel-view2_3758f2f5.jpg", alt: "East Bend landscape install finished backyard aerial view — Bend, OR" },
+        { src: "/manus-storage/east-bend-landscaping-redesign_b5a16c50.jpg", alt: "East Bend landscaping redesign — Bend, OR" },
+        { src: "/manus-storage/south-east-bend-oregon-backyard-landscape-renovation-after-photo-1_43e52905.jpg", alt: "South East Bend backyard landscape renovation after — Bend, OR" },
       ]}
       prevProject={{ title: "Century Drive Landscape Enhancement", href: "/portfolio/century-drive" }}
       nextProject={{ title: "NW Bend Backyard Landscaping", href: "/portfolio/nw-bend-backyard" }}

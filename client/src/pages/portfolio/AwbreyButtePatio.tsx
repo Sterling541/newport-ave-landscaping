@@ -25,6 +25,14 @@ export default function AwbreyButtePatio() {
           src: "/manus-storage/awbrey-patio-wall-02_066fe2ff.jpg",
           alt: "Freestanding Chateau Wall and hot tub concrete pad — Awbrey Butte, Bend, OR",
         },
+        {
+          src: "/manus-storage/awbrey-butte-freestanding-wall-pavers-patio-extension_6654682c.jpg",
+          alt: "Awbrey Butte freestanding wall and paver patio extension — Bend, OR",
+        },
+        {
+          src: "/manus-storage/M-Wall-3_94c5f5e0.jpg",
+          alt: "Masonry wall detail — Awbrey Butte patio project, Bend, OR",
+        },
       ]}
       prevProject={{ title: "Awbrey Butte Xeriscape", href: "/portfolio/awbrey-butte-xeriscape" }}
       nextProject={{ title: "Awbrey Glenn Flagstone Patio", href: "/portfolio/awbrey-glenn-flagstone" }}

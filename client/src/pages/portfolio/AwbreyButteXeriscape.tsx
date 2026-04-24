@@ -16,6 +16,7 @@ export default function AwbreyButteXeriscape() {
       images={[
         { src: "/manus-storage/awbrey-xeriscape-01_16545639.jpg", alt: "Awbrey Butte Xeriscape After" },
         { src: "/manus-storage/awbrey-xeriscape-02_3e6c0ad3.jpg", alt: "Awbrey Butte Xeriscape Night Shot" },
+        { src: "/manus-storage/awbrey-butte-xeriscape-landscaping-renovation-day-shot_92c39a4b.jpg", alt: "Awbrey Butte xeriscape landscaping renovation — day shot, Bend, OR" },
       ]}
       prevProject={{ title: "SW Bend Backyard Landscaping", href: "/portfolio/sw-bend-backyard" }}
       nextProject={{ title: "Awbrey Glenn Flagstone Patio", href: "/portfolio/awbrey-glenn-flagstone" }}

@@ -18,6 +18,8 @@ export default function NWBendBackyard() {
       images={[
         { src: "/manus-storage/nw-bend-backyard-01_e6d82c48.jpg", alt: "NW Bend Backyard After" },
         { src: "/manus-storage/nw-bend-backyard-02_2ad725ef.jpeg", alt: "NW Bend Water Feature Pathway" },
+        { src: "/manus-storage/nw-bend-backyard-install-pondless-water-feature-pathway-with-lighting-1_3f4b7cd3.jpeg", alt: "NW Bend backyard pondless water feature pathway with lighting — Bend, OR" },
+        { src: "/manus-storage/nw-bend-backyard-install-pondless-water-feature-pathway-with-lighting-2_371153ab.jpeg", alt: "NW Bend backyard pondless water feature pathway with lighting, view 2 — Bend, OR" },
       ]}
       prevProject={{ title: "East Bend Landscape Install", href: "/portfolio/east-bend-landscape" }}
       nextProject={{ title: "Paver Patio & Gas Firepit", href: "/portfolio/paver-patio-firepit" }}

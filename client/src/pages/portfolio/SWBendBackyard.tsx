@@ -18,6 +18,7 @@ export default function SWBendBackyard() {
       images={[
         { src: "/manus-storage/sw-bend-01_45e68c0e.jpg", alt: "SW Bend Backyard Full View" },
         { src: "/manus-storage/se-bend-renovation-01_487ce10e.jpg", alt: "SW Bend Backyard Detail" },
+        { src: "/manus-storage/south-west-bend-oregon-campground-backyard-full-view_592fdc71.jpg", alt: "South West Bend Oregon campground-themed backyard full view — Bend, OR" },
       ]}
       prevProject={{ title: "Paver Patio & Gas Firepit", href: "/portfolio/paver-patio-firepit" }}
       nextProject={{ title: "Awbrey Butte Xeriscape", href: "/portfolio/awbrey-butte-xeriscape" }}

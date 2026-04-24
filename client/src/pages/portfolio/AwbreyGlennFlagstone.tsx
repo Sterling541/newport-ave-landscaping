@@ -16,6 +16,7 @@ export default function AwbreyGlennFlagstone() {
       images={[
         { src: "/manus-storage/awbrey-glen-flagstone-01_cd6f3008.jpg", alt: "Awbrey Glenn Flagstone Walkway After" },
         { src: "/manus-storage/awbrey-glen-flagstone-09_22e513b4.jpg", alt: "Awbrey Glenn Flagstone Walkway Before" },
+        { src: "/manus-storage/awbrey-glen-flagstone-front-walkway-after-photo-1_bd96f3d0.jpg", alt: "Awbrey Glenn flagstone front walkway after photo — Bend, OR" },
       ]}
       prevProject={{ title: "Awbrey Butte Xeriscape", href: "/portfolio/awbrey-butte-xeriscape" }}
       nextProject={{ title: "Backyard Landscape Renovation", href: "/portfolio/backyard-renovation" }}

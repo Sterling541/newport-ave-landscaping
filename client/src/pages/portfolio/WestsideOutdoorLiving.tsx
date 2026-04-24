@@ -28,6 +28,10 @@ export default function WestsideOutdoorLiving() {
           src: "/manus-storage/westside-living-10_cf34e1da.jpg",
           alt: "Isokern natural gas fireplace with Sebastian veneer and mahogany flagstone — Bend, OR",
         },
+        {
+          src: "/manus-storage/bend-oregon-westside-outdoor-living-space-finished-fireplace_7547dcca.jpg",
+          alt: "Bend Oregon westside outdoor living space with finished fireplace — Bend, OR",
+        },
       ]}
       prevProject={{ title: "NW Bend Landscape Lighting", href: "/portfolio/nw-bend-lighting" }}
       nextProject={{ title: "Century Drive Landscape Enhancement", href: "/portfolio/century-drive" }}

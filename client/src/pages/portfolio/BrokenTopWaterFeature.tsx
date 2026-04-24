@@ -16,6 +16,8 @@ export default function BrokenTopWaterFeature() {
       images={[
         { src: "/manus-storage/brokentop-water-fire-01_54836cf3.jpg", alt: "Broken Top Water Feature After" },
         { src: "/manus-storage/brokentop-water-fire-14_0ef431c5.jpg", alt: "Broken Top Water Feature Before" },
+        { src: "/manus-storage/bend-oregon-brokentop-water-feature-and-sunken-firepit-construction_7d35fed2.jpg", alt: "Broken Top water feature and sunken fire pit under construction — Bend, OR" },
+        { src: "/manus-storage/bend-oregon-brokentop-driveway-finished_d9393560.jpg", alt: "Broken Top finished driveway and landscape — Bend, OR" },
       ]}
       prevProject={{ title: "Backyard Landscape Renovation", href: "/portfolio/backyard-renovation" }}
       nextProject={{ title: "Broken Top Xeriscape", href: "/portfolio/broken-top-xeriscape" }}

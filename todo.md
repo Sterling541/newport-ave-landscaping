@@ -637,3 +637,9 @@
 - [x] Add noindex meta to /schedule-services and /opt-out pages
 - [x] Inject BUILT_IN_FORGE_API_KEY and BUILT_IN_FORGE_API_URL into Vercel function .vc-config.json so manus-storage proxy works after DNS cutover
 # Lawn Mower Dash + SEO fixes Fri Apr 24 09:05:42 EDT 2026
+
+## Full Migration — April 24, 2026
+- [ ] FTP connect to GoDaddy and back up old WordPress site
+- [ ] Scrape all project images from old site (deduplicate against existing portfolio)
+- [ ] Categorize and upload new images to correct portfolio pages
+- [ ] Verify Resend domain (newportavelandscaping.com) for contact form emails

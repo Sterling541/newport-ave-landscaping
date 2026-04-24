@@ -15,6 +15,7 @@ export default function CenturyDrive() {
       ]}
       images={[
         { src: "/manus-storage/century-drive-01_cfe36a70.jpg", alt: "Century Drive Water Feature" },
+        { src: "/manus-storage/century-drive-bend-oregon-stream-pondless-water-feature-enhancement-front-view_08c6f3ae.jpg", alt: "Century Drive stream pondless water feature enhancement — Bend, OR" },
       ]}
       prevProject={{ title: "Broken Top Xeriscape", href: "/portfolio/broken-top-xeriscape" }}
       nextProject={{ title: "East Bend Landscape Install", href: "/portfolio/east-bend-landscape" }}

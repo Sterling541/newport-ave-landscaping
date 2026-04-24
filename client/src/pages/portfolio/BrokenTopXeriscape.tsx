@@ -17,6 +17,7 @@ export default function BrokenTopXeriscape() {
       images={[
         { src: "/manus-storage/brokentop-xeriscape-01_064e5008.jpg", alt: "Broken Top Xeriscape After" },
         { src: "/manus-storage/brokentop-xeriscape-14_b3866afa.png", alt: "Broken Top Xeriscape Before" },
+        { src: "/manus-storage/bend-oregon-brokentop-xeriscape-finished-backyard_b47de221.png", alt: "Broken Top xeriscape finished backyard — Bend, OR" },
       ]}
       prevProject={{ title: "Broken Top Water Feature", href: "/portfolio/broken-top-water-feature" }}
       nextProject={{ title: "Century Drive Landscape Enhancement", href: "/portfolio/century-drive" }}
