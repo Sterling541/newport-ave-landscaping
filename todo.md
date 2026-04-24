@@ -615,3 +615,13 @@
 - [ ] Verify admin dashboard works with migrated data
 - [ ] Final checkpoint and GitHub push
 - [ ] Deliver DNS cutover instructions to Sterling
+
+## Pre-DNS Cutover Verification (Sterling's review — April 23, 2026)
+- [ ] Check if /portfolio/[slug] pages exist (9 specific slugs)
+- [ ] Fix redirect map if portfolio detail pages don't exist (point to /our-work)
+- [ ] Verify contact page SSR (form visible in raw HTML)
+- [ ] Submit test lead and confirm email delivery + admin dashboard
+- [ ] Verify sitemap.xml (200, URL count, first 5 URLs)
+- [ ] Verify robots.txt (200, first 20 lines)
+- [ ] Confirm apex/www canonical redirect in vercel.json
+- [ ] Provide exact GoDaddy DNS records (A record + CNAME)
