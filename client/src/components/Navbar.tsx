@@ -933,7 +933,7 @@ export default function Navbar() {
                   justifyContent: "center",
                   gap: "0.5rem",
                   padding: "0.85rem 1rem",
-                  backgroundColor: "oklch(0.35 0.12 145)",
+                  backgroundColor: "oklch(0.42 0.18 250)",
                   borderRadius: "8px",
                   textDecoration: "none",
                   fontFamily: "'Montserrat', sans-serif",
@@ -942,6 +942,7 @@ export default function Navbar() {
                   letterSpacing: "0.14em",
                   color: "oklch(1 0 0)",
                   textTransform: "uppercase",
+                  boxShadow: "0 2px 12px oklch(0.42 0.18 250 / 0.35)",
                 }}
               >
                 <Calendar size={14} />
@@ -983,7 +984,7 @@ export default function Navbar() {
                 gap: "0.5rem",
                 marginTop: "0.75rem",
                 padding: "0.9rem",
-            backgroundColor: "oklch(0.46 0.20 25)",
+            backgroundColor: "oklch(0.38 0.14 145)",
             borderRadius: "8px",
             textDecoration: "none",
             fontFamily: "'Montserrat', sans-serif",
@@ -991,6 +992,7 @@ export default function Navbar() {
             fontWeight: 700,
             letterSpacing: "0.15em",
             color: "oklch(1 0 0)",
+            boxShadow: "0 2px 12px oklch(0.38 0.14 145 / 0.35)",
                 textTransform: "uppercase",
               }}
             >
