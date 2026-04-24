@@ -141,21 +141,164 @@ if (fs.existsSync(publicSrc)) {
 // ─── 6. Write .vercel/output/config.json ─────────────────────────────────────
 //
 // Routing rules (Build Output API v3):
-//   1. Serve static assets directly (filesystem check)
-//   2. Route everything else to the /api serverless function
+//   1. 301 redirects (old WordPress URLs → new site structure)
+//   2. Serve static assets with long-lived cache headers
+//   3. Check filesystem (serves pre-rendered HTML pages, robots.txt, sitemap)
+//   4. Route everything else to the Express serverless function
 //
+
+// Static 301 redirect map (mirrors server/redirects.ts REDIRECTS)
+const REDIRECTS = {
+  "/home":  "/",
+  "/home/": "/",
+  "/about-us":    "/about",
+  "/about-us/":   "/about",
+  "/contact-us":  "/contact",
+  "/contact-us/": "/contact",
+  "/landscaping-services":  "/services",
+  "/landscaping-services/": "/services",
+  "/landscape-design":   "/services/landscape-design",
+  "/landscape-design/":  "/services/landscape-design",
+  "/pavers-bend-oregon":  "/services/pavers",
+  "/pavers-bend-oregon/": "/services/pavers",
+  "/paver-patios-and-walkways-bend-oregon":  "/services/pavers",
+  "/paver-patios-and-walkways-bend-oregon/": "/services/pavers",
+  "/snow-removal-bend-oregon":  "/services/snow-removal",
+  "/snow-removal-bend-oregon/": "/services/snow-removal",
+  "/sprinkler-system-design-and-installation-bend-oregon":  "/services/irrigation",
+  "/sprinkler-system-design-and-installation-bend-oregon/": "/services/irrigation",
+  "/landscape-lighting-bend-oregon-2":  "/services/landscape-lighting",
+  "/landscape-lighting-bend-oregon-2/": "/services/landscape-lighting",
+  "/landscape-lighting-bend-oregon":  "/services/landscape-lighting",
+  "/landscape-lighting-bend-oregon/": "/services/landscape-lighting",
+  "/commercial-landscape-maintenance-bend-oregon":  "/services/commercial-maintenance",
+  "/commercial-landscape-maintenance-bend-oregon/": "/services/commercial-maintenance",
+  "/water-features-bend-oregon":  "/services/water-features",
+  "/water-features-bend-oregon/": "/services/water-features",
+  "/outdoor-kitchens-and-living-spaces-bend-oregon":  "/services/outdoor-living",
+  "/outdoor-kitchens-and-living-spaces-bend-oregon/": "/services/outdoor-living",
+  "/xeriscape-landscaping-bend-oregon":  "/services/xeriscaping",
+  "/xeriscape-landscaping-bend-oregon/": "/services/xeriscaping",
+  "/retaining-walls-bend-oregon":  "/services/retaining-walls",
+  "/retaining-walls-bend-oregon/": "/services/retaining-walls",
+  "/artificial-turf-bend-oregon":  "/services/artificial-turf",
+  "/artificial-turf-bend-oregon/": "/services/artificial-turf",
+  "/maintenance-services":  "/maintenance",
+  "/maintenance-services/": "/maintenance",
+  "/maintenance-services/lawn-service-bend-oregon":  "/services/lawn-service",
+  "/maintenance-services/lawn-service-bend-oregon/": "/services/lawn-service",
+  "/maintenance-services/residential-lawncare-bend-oregon":  "/services/lawn-service",
+  "/maintenance-services/residential-lawncare-bend-oregon/": "/services/lawn-service",
+  "/maintenance-services/sprinkler-repair-bend-oregon":  "/services/sprinkler-repair",
+  "/maintenance-services/sprinkler-repair-bend-oregon/": "/services/sprinkler-repair",
+  "/maintenance-services/snow-removal-bend-oregon":  "/services/snow-removal",
+  "/maintenance-services/snow-removal-bend-oregon/": "/services/snow-removal",
+  "/sprinkler-system-activation-bend-oregon":  "/services/sprinkler-activation",
+  "/sprinkler-system-activation-bend-oregon/": "/services/sprinkler-activation",
+  "/sprinkler-blowout-service-central-oregon":  "/services/sprinkler-blowout",
+  "/sprinkler-blowout-service-central-oregon/": "/services/sprinkler-blowout",
+  "/sprinkler-repair-bend-oregon":  "/services/sprinkler-repair",
+  "/sprinkler-repair-bend-oregon/": "/services/sprinkler-repair",
+  "/aeration-services-bend-oregon":  "/services/aeration",
+  "/aeration-services-bend-oregon/": "/services/aeration",
+  "/landscaping-portfolio/awbrey-butte-xeriscape":  "/portfolio/awbrey-butte-xeriscape",
+  "/landscaping-portfolio/awbrey-butte-xeriscape/": "/portfolio/awbrey-butte-xeriscape",
+  "/landscaping-portfolio/backyard-landscape-renovation":  "/portfolio/backyard-renovation",
+  "/landscaping-portfolio/backyard-landscape-renovation/": "/portfolio/backyard-renovation",
+  "/landscaping-portfolio/sw-bend-backyard-landscaping":  "/portfolio/sw-bend-backyard",
+  "/landscaping-portfolio/sw-bend-backyard-landscaping/": "/portfolio/sw-bend-backyard",
+  "/landscaping-portfolio/nw-bend-backyard-landscaping":  "/portfolio/nw-bend-backyard",
+  "/landscaping-portfolio/nw-bend-backyard-landscaping/": "/portfolio/nw-bend-backyard",
+  "/portfolio-item/backyard-landscape-renovation":  "/portfolio/backyard-renovation",
+  "/portfolio-item/backyard-landscape-renovation/": "/portfolio/backyard-renovation",
+  "/landscaping-portfolio":  "/our-work",
+  "/landscaping-portfolio/": "/our-work",
+  "/landscaping-portfolio/awbrey-butte-patio-extension-and-wall":  "/portfolio/awbrey-butte-patio",
+  "/landscaping-portfolio/awbrey-butte-patio-extension-and-wall/": "/portfolio/awbrey-butte-patio",
+  "/landscaping-portfolio/nw-bend-landscape-lighting":  "/portfolio/nw-bend-lighting",
+  "/landscaping-portfolio/nw-bend-landscape-lighting/": "/portfolio/nw-bend-lighting",
+  "/landscaping-portfolio/westside-outdoor-living-space":  "/portfolio/westside-outdoor-living",
+  "/landscaping-portfolio/westside-outdoor-living-space/": "/portfolio/westside-outdoor-living",
+  "/landscaping-portfolio/broken-top-water-feature-and-sunken-fire-pit":  "/portfolio/broken-top-water-feature",
+  "/landscaping-portfolio/broken-top-water-feature-and-sunken-fire-pit/": "/portfolio/broken-top-water-feature",
+  "/landscaping-portfolio/century-drive-landscape-enhancement":  "/portfolio/century-drive",
+  "/landscaping-portfolio/century-drive-landscape-enhancement/": "/portfolio/century-drive",
+  "/landscaping-portfolio/broken-top-xeriscape":  "/portfolio/broken-top-xeriscape",
+  "/landscaping-portfolio/broken-top-xeriscape/": "/portfolio/broken-top-xeriscape",
+  "/landscaping-portfolio/awbrey-glenn-flagstone-patio-and-walkway":  "/portfolio/awbrey-glenn-flagstone",
+  "/landscaping-portfolio/awbrey-glenn-flagstone-patio-and-walkway/": "/portfolio/awbrey-glenn-flagstone",
+  "/landscaping-portfolio/east-bend-landscape-install":  "/portfolio/east-bend-landscape",
+  "/landscaping-portfolio/east-bend-landscape-install/": "/portfolio/east-bend-landscape",
+  "/landscaping-portfolio/paver-patio-and-gas-firepit":  "/portfolio/paver-patio-firepit",
+  "/landscaping-portfolio/paver-patio-and-gas-firepit/": "/portfolio/paver-patio-firepit",
+  "/landscaping-portfolio-categories/pavers":  "/our-work",
+  "/landscaping-portfolio-categories/pavers/": "/our-work",
+  "/our-work/nw-delaware-landscape-renovation":  "/our-work",
+  "/our-work/nw-delaware-landscape-renovation/": "/our-work",
+  "/lawn-fungus":  "/resources/lawn-fungus",
+  "/lawn-fungus/": "/resources/lawn-fungus",
+  "/the-impact-of-climate-change-on-landscaping":  "/resources/climate-change-landscaping",
+  "/the-impact-of-climate-change-on-landscaping/": "/resources/climate-change-landscaping",
+  "/your-seasonal-guide-to-seasonal-landscaping-maintenance":  "/resources/seasonal-maintenance",
+  "/your-seasonal-guide-to-seasonal-landscaping-maintenance/": "/resources/seasonal-maintenance",
+  "/fire-pits-and-outdoor-fireplaces-bend-oregon":  "/services/fire-features",
+  "/fire-pits-and-outdoor-fireplaces-bend-oregon/": "/services/fire-features",
+  "/terms-and-conditions":  "/terms",
+  "/terms-and-conditions/": "/terms",
+  "/wp-admin":          "/",
+  "/wp-login.php":      "/",
+  "/feed":              "/",
+  "/feed/":             "/",
+  "/sitemap_index.xml": "/sitemap.xml",
+  "/elementor-3860":    "/",
+  "/elementor-3860/":   "/",
+};
+
+// Wildcard prefix redirects (mirrors server/redirects.ts WILDCARD_PREFIXES)
+const WILDCARD_PREFIXES = [
+  { prefix: '/landscaping-portfolio/', destination: '/portfolio/' },
+  { prefix: '/portfolio-item/',        destination: '/portfolio/' },
+  { prefix: '/our-work/',              destination: '/portfolio/' },
+];
+
+// Build Vercel redirect route entries
+const redirectRoutes = [];
+
+// Static exact-match redirects
+for (const [src, dest] of Object.entries(REDIRECTS)) {
+  // Escape special regex chars in the path
+  const escaped = src.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  redirectRoutes.push({
+    src: `^${escaped}$`,
+    headers: { Location: dest },
+    status: 301,
+  });
+}
+
+// Wildcard prefix redirects
+for (const { prefix, destination } of WILDCARD_PREFIXES) {
+  const escaped = prefix.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  redirectRoutes.push({
+    src: `^${escaped}(.+?)/?$`,
+    headers: { Location: `${destination}$1` },
+    status: 301,
+  });
+}
+
 const config = {
   version: 3,
   routes: [
-    // Serve static assets with long-lived cache headers
+    // 1. 301 redirects — must come BEFORE filesystem check
+    ...redirectRoutes,
+    // 2. Serve static assets with long-lived cache headers
     {
       src: '/assets/(.*)',
       headers: { 'cache-control': 'public, max-age=31536000, immutable' },
       continue: true,
     },
-    // Check filesystem first (serves pre-rendered HTML pages, robots.txt, sitemap, etc.)
+    // 3. Check filesystem (serves pre-rendered HTML pages, robots.txt, sitemap)
     { handle: 'filesystem' },
-    // Route everything else to the Express serverless function
+    // 4. Route everything else to the Express serverless function
     { src: '/(.*)', dest: '/api' },
   ],
 };
