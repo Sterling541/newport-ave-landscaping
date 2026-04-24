@@ -67,7 +67,7 @@ export default function SprinklerWinterizationBend() {
             >
               <p className="font-label text-xs mb-2" style={{ color: "oklch(0.46 0.20 25)", letterSpacing: "0.15em" }}>PRO TIP</p>
               <p className="font-body" style={{ lineHeight: 1.8 }}>
-                Schedule your winterization appointment in August or early September. Our <a href="https://newportavelandscaping.com/irrigation-membership" target="_blank" rel="noopener noreferrer" className="text-green-700 underline hover:text-green-900">Priority Irrigation Membership</a> clients get priority scheduling — we contact them first when our fall calendar opens. By mid-October, our schedule is typically full and we cannot accommodate new appointments before the first freeze.
+                Schedule your winterization appointment in August or early September. Our <a href="https://newportavlandscaping.com/irrigation-program-231244" target="_blank" rel="noopener noreferrer" className="text-green-700 underline hover:text-green-900">Priority Irrigation Membership</a> clients get priority scheduling — we contact them first when our fall calendar opens. By mid-October, our schedule is typically full and we cannot accommodate new appointments before the first freeze.
               </p>
             </div>
 
@@ -106,7 +106,7 @@ export default function SprinklerWinterizationBend() {
                 Schedule Your Fall Winterization Now
               </h3>
               <p className="font-body mb-6" style={{ color: "oklch(0.72 0.005 0)", lineHeight: 1.7 }}>
-                Our <a href="https://newportavelandscaping.com/irrigation-membership" target="_blank" rel="noopener noreferrer" className="text-green-700 underline hover:text-green-900">Priority Irrigation Membership</a> includes both spring activation and fall winterization — plus priority scheduling so you're never scrambling before a freeze. Contact us today to get on the schedule.
+                Our <a href="https://newportavlandscaping.com/irrigation-program-231244" target="_blank" rel="noopener noreferrer" className="text-green-700 underline hover:text-green-900">Priority Irrigation Membership</a> includes both spring activation and fall winterization — plus priority scheduling so you're never scrambling before a freeze. Contact us today to get on the schedule.
               </p>
               <Link href="/contact">
                 <span className="btn-red inline-block">Schedule Winterization →</span>

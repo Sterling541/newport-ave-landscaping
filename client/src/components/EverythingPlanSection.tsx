@@ -209,7 +209,7 @@ export default function EverythingPlanSection() {
                   Get Started Today
                 </button>
                 <a
-                  href="/membership"
+                  href="https://newportavlandscaping.com/irrigation-program-231244" target="_blank" rel="noopener noreferrer"
                   style={{
                     backgroundColor: "transparent",
                     color: "oklch(0.85 0.005 0)",

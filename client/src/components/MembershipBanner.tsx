@@ -151,7 +151,7 @@ export default function MembershipBanner() {
           {/* Red CTA button — matches old site */}
           <button
             onClick={() => {
-              window.open("https://newportavelandscaping.com/irrigation-membership", "_blank", "noopener,noreferrer");
+              window.open("/membership", "_blank", "noopener,noreferrer");
             }}
             style={{
               marginTop: "clamp(4px, 0.8vw, 10px)",

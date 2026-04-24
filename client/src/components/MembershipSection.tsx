@@ -168,7 +168,7 @@ export default function MembershipSection() {
 
             <button
               onClick={() =>
-                window.open("https://newportavelandscaping.com/irrigation-membership", "_blank", "noopener,noreferrer")
+                window.open("/membership", "_blank", "noopener,noreferrer")
               }
               style={{
                 backgroundColor: "oklch(0.46 0.20 25)",

@@ -147,7 +147,7 @@ export default function IrrigationRepairBend() {
 
             <h2 className="font-display text-2xl mt-10 mb-4">Preventative Maintenance with Newport Ave's Priority Irrigation Membership</h2>
             <p className="mb-4">
-              The best way to avoid costly emergency repairs is through proactive maintenance. Newport Ave Landscaping offers a <a href="https://newportavelandscaping.com/irrigation-membership" target="_blank" rel="noopener noreferrer" className="text-green-700 underline hover:text-green-900 font-semibold">Priority Irrigation Membership</a> designed specifically for Bend and Central Oregon homeowners. This membership includes:
+              The best way to avoid costly emergency repairs is through proactive maintenance. Newport Ave Landscaping offers a <a href="https://newportavlandscaping.com/irrigation-program-231244" target="_blank" rel="noopener noreferrer" className="text-green-700 underline hover:text-green-900 font-semibold">Priority Irrigation Membership</a> designed specifically for Bend and Central Oregon homeowners. This membership includes:
             </p>
             <ul className="list-disc list-inside mb-6 ml-4">
               <li className="mb-2">Annual spring activation and system inspection.</li>

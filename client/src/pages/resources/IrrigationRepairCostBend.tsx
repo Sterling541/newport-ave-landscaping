@@ -62,7 +62,7 @@ export default function IrrigationRepairCostBend() {
             <p className="mb-4">If your system wasn't winterized and you're seeing problems in spring, call us for a diagnostic service call. We'll assess the damage and provide a repair estimate.</p>
             <div className="bg-gray-100 p-6 rounded-lg mb-8 border-l-4" style={{ borderColor: 'oklch(0.46 0.20 25)' }}>
               <p className="font-bold text-lg mb-2" style={{ color: 'oklch(0.25 0.005 0)' }}>PRO TIP</p>
-              <p>Our <a href="https://newportavelandscaping.com/irrigation-membership" target="_blank" rel="noopener noreferrer" className="text-green-700 underline hover:text-green-900">Priority Irrigation Membership</a> includes both spring activation and fall winterization, plus 10% off all repairs. For most Bend homeowners, the membership pays for itself in the first repair it prevents.</p>
+              <p>Our <a href="https://newportavlandscaping.com/irrigation-program-231244" target="_blank" rel="noopener noreferrer" className="text-green-700 underline hover:text-green-900">Priority Irrigation Membership</a> includes both spring activation and fall winterization, plus 10% off all repairs. For most Bend homeowners, the membership pays for itself in the first repair it prevents.</p>
             </div>
             <div className="p-8 text-center mt-12" style={{ backgroundColor: 'oklch(0.18 0.008 0)' }}>
               <p className="font-label text-xs mb-3" style={{ color:'oklch(0.46 0.20 25)',letterSpacing:'0.18em' }}>GET STARTED TODAY</p>
