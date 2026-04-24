@@ -168,9 +168,7 @@ export default function MembershipSection() {
 
             <button
               onClick={() =>
-                document
-                  .querySelector("#contact")
-                  ?.scrollIntoView({ behavior: "smooth" })
+                window.open("https://newportavelandscaping.com/irrigation-membership", "_blank", "noopener,noreferrer")
               }
               style={{
                 backgroundColor: "oklch(0.46 0.20 25)",

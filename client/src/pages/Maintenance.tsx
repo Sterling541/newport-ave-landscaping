@@ -329,7 +329,7 @@ export default function Maintenance() {
                 className="font-body mb-6"
                 style={{ color: "oklch(0.70 0.008 0)", lineHeight: 1.8, fontWeight: 300 }}
               >
-                Our Newport Priority Irrigation Membership covers your spring activation, fall blowout, and annual backflow test — everything you need to keep your irrigation system protected year-round and your warranty intact.
+                Our Newport <a href="https://newportavelandscaping.com/irrigation-membership" target="_blank" rel="noopener noreferrer" className="text-green-700 underline hover:text-green-900">Priority Irrigation Membership</a> covers your spring activation, fall blowout, and annual backflow test — everything you need to keep your irrigation system protected year-round and your warranty intact.
               </p>
               <Link
                 href="/contact"

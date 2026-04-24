@@ -38,7 +38,7 @@ const residentialServices = [
   {
     title: "Custom Design & Build",
     href: "/services/landscape-design",
-    description: "Work with our award-winning design team to bring your outdoor oasis to life. We handle everything from initial concept through final installation, with a 1-year warranty on irrigation components for Priority Membership clients.",
+    description: "Work with our award-winning design team to bring your outdoor oasis to life. We handle everything from initial concept through final installation, with a 1-year warranty on irrigation components for Priority Irrigation Membership clients.",
     image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportLandscapingRVParkDay2Photos2_8e8d0bb1.jpg",
   },
   {
