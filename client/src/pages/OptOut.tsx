@@ -13,6 +13,22 @@ const SIGN_IMG = "/manus-storage/newport_sign_rendering_cba5551c.webp";
 const NO_SPRAY_IMG = "/manus-storage/no_spray_branded_20ebea52.png";
 const NO_PRUNE_IMG = "/manus-storage/no_prune_branded_5c6ef3f2.png";
 
+const optOutStyles = `
+  .sign-frame {
+    width: clamp(220px, 28vw, 360px);
+    height: clamp(300px, 38vw, 500px);
+  }
+  @media (max-width: 768px) {
+    .sign-frame {
+      width: min(320px, 85vw) !important;
+      height: min(430px, 115vw) !important;
+    }
+    .sign-img {
+      left: -10% !important;
+    }
+  }
+`;
+
 const NAVY = "oklch(0.22 0.055 240)";
 const RED = "oklch(0.42 0.18 25)";
 
@@ -152,6 +168,7 @@ export default function OptOut() {
         noIndex={true}
       />
       <div className="min-h-screen" style={{ backgroundColor: "oklch(1 0 0)" }}>
+        <style>{optOutStyles}</style>
         <Navbar />
 
         {/* ── A. HERO ──────────────────────────────────────────────────────── */}
@@ -240,6 +257,7 @@ export default function OptOut() {
             {/* Sign image */}
             <div style={{ textAlign: "center", flexShrink: 0 }}>
               <div
+                className="sign-frame"
                 style={{
                   width: "clamp(220px, 28vw, 360px)",
                   height: "clamp(300px, 38vw, 500px)",
@@ -253,6 +271,7 @@ export default function OptOut() {
                 <img
                   src={SIGN_IMG}
                   alt="Newport Avenue Landscaping opt-out sign installed on green stake in front of home"
+                  className="sign-img"
                   style={{
                     position: "absolute",
                     width: "145%",
