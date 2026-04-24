@@ -10,7 +10,7 @@ import { resolve, dirname } from "path";
 import { fileURLToPath } from "url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const BASE_URL = "https://newportavelandscaping.com";
+const BASE_URL = "https://www.newportavelandscaping.com";
 const OUTPUT_PATH = resolve(__dirname, "../client/public/sitemap.xml");
 
 // ─── All public routes ───────────────────────────────────────────────────────
