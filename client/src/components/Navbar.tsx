@@ -539,9 +539,11 @@ export default function Navbar() {
                 (541) 617-8873
               </span>
             </a>
+            {/* Opt-Out — hidden on mobile to prevent overflow */}
             <a
               href="/opt-out"
               onClick={(e) => { e.preventDefault(); navigate("/opt-out"); }}
+              className="hidden md:flex"
               style={{
                 fontFamily: "'Montserrat', sans-serif",
                 fontSize: "0.6rem",
@@ -554,7 +556,6 @@ export default function Navbar() {
                 padding: "0.35rem 0.9rem",
                 borderRadius: "1.8rem 0.2rem 1.8rem 0.2rem",
                 textDecoration: "none",
-                display: "flex",
                 alignItems: "center",
                 gap: "0.35rem",
                 whiteSpace: "nowrap",
@@ -565,9 +566,11 @@ export default function Navbar() {
             >
               Opt-Out Program
             </a>
+            {/* Schedule Services — hidden on mobile to prevent overflow */}
             <a
               href="/schedule-services"
               onClick={(e) => { e.preventDefault(); navigate("/schedule-services"); }}
+              className="hidden md:flex"
               style={{
                 fontFamily: "'Montserrat', sans-serif",
                 fontSize: "0.6rem",
@@ -579,7 +582,6 @@ export default function Navbar() {
                 padding: "0.35rem 1rem",
                 borderRadius: "1.8rem 0.2rem 1.8rem 0.2rem",
                 textDecoration: "none",
-                display: "flex",
                 alignItems: "center",
                 gap: "0.35rem",
                 whiteSpace: "nowrap",
