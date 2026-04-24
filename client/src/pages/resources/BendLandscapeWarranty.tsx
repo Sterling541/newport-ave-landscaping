@@ -8,13 +8,13 @@ export default function BendLandscapeWarranty() {
     <div className="min-h-screen" style={{ backgroundColor: 'oklch(0.97 0.003 0)' }}>
       <SEO
         title="Landscape Warranty in Bend, Oregon | Newport Ave Landscaping"
-        description="What landscape warranties cover in Bend, Oregon. Newport Avenue's 5-year workmanship warranty explained."
+        description="What landscape warranties cover in Bend, Oregon. Newport Avenue's 90-day plant warranty and 1-year irrigation warranty explained."
         canonical="https://newportavelandscaping.com/resources/landscape-warranty-bend-oregon"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },
         { name: 'Resources', url: '/resources' },
-        { name: 'Our 5-Year Landscape Warranty: What It Covers', url: '/resources/landscape-warranty-bend-oregon' },
+        { name: 'Our Landscape Warranty: What It Covers', url: '/resources/landscape-warranty-bend-oregon' },
       ]} />
       <FAQSchema faqs={[
         { question: `What does a typical landscape warranty cover in Bend, Oregon?`, answer: `A comprehensive landscape warranty in Bend typically covers the installation of plants, trees, and shrubs, as well as hardscaping elements like pavers and retaining walls. Given Bend's climate zone 6a and volcanic soil, it's crucial that plants are installed correctly to withstand local conditions. Warranties usually address issues arising from improper installation or material defects.` },
@@ -30,14 +30,14 @@ export default function BendLandscapeWarranty() {
           <div className="absolute inset-0" style={{ backgroundColor: 'oklch(0 0 0 / 0.55)' }} />
           <div className="relative text-center container">
             <p className="font-label mb-3" style={{ color:'oklch(0.72 0.12 25)',fontSize:'0.7rem',letterSpacing:'0.18em' }}>WARRANTY · NEWPORT AVE LANDSCAPING &middot; 2024</p>
-            <h1 className="font-display text-white" style={{ fontSize:'clamp(1.8rem, 4vw, 3rem)',maxWidth:'700px',margin:'0 auto' }}>Our 5-Year Landscape Warranty: What It Covers</h1>
+            <h1 className="font-display text-white" style={{ fontSize:'clamp(1.8rem, 4vw, 3rem)',maxWidth:'700px',margin:'0 auto' }}>Our Landscape Warranty: What It Covers</h1>
           </div>
         </div>
         <div className="container py-16 max-w-3xl mx-auto">
           <div style={{ color: 'oklch(0.25 0.005 0)' }}>
-            <p className="mb-8" style={{ fontSize:'1.05rem',lineHeight:1.85,color:'oklch(0.35 0.005 0)' }}>Newport Avenue Landscaping is the only landscaping company in Central Oregon to offer a 5-year workmanship warranty on all hardscape projects. Here's exactly what our warranty covers, what it doesn't cover, and why it matters for Bend homeowners.</p>
+            <p className="mb-8" style={{ fontSize:'1.05rem',lineHeight:1.85,color:'oklch(0.35 0.005 0)' }}>Newport Avenue Landscaping is the only landscaping company in Central Oregon to offer a 90-day plant warranty and 1-year irrigation warranty on all installation projects. Here's exactly what our warranty covers, what it doesn't cover, and why it matters for Bend homeowners.</p>
 
-            <h2 className="text-3xl font-bold mb-4" style={{ color: 'oklch(0.25 0.005 0)' }}>What Our 5-Year Warranty Covers</h2>
+            <h2 className="text-3xl font-bold mb-4" style={{ color: 'oklch(0.25 0.005 0)' }}>What Our 90-Day Plant Warranty Covers</h2>
             <p className="mb-4">Our warranty covers any settling, shifting, or failure of hardscape work (patios, walkways, driveways, retaining walls) that results from workmanship defects — including base preparation, edge restraint installation, and paver placement.</p>
             <p className="mb-8">If any pavers shift, a wall leans, or a walkway settles due to our workmanship in the first 5 years, we come back and fix it at no cost to you. No questions asked.</p>
 
@@ -59,8 +59,8 @@ export default function BendLandscapeWarranty() {
             </div>
             <div className="p-8 text-center mt-12" style={{ backgroundColor: 'oklch(0.18 0.008 0)' }}>
               <p className="font-label text-xs mb-3" style={{ color:'oklch(0.46 0.20 25)',letterSpacing:'0.18em' }}>GET STARTED TODAY</p>
-              <h3 className="font-display text-white mb-4" style={{ fontSize:'1.6rem' }}>Get a Free Quote Backed by Our 5-Year Warranty</h3>
-              <p className="font-body mb-6" style={{ color:'oklch(0.72 0.005 0)',lineHeight:1.7 }}>Every hardscape project we install is backed by our 5-year workmanship warranty. Contact us for a free consultation and detailed proposal.</p>
+              <h3 className="font-display text-white mb-4" style={{ fontSize:'1.6rem' }}>Get a Free Quote Backed by Our 90-Day Plant Warranty</h3>
+              <p className="font-body mb-6" style={{ color:'oklch(0.72 0.005 0)',lineHeight:1.7 }}>Every hardscape project we install is backed by our 90-day plant warranty and 1-year irrigation warranty. Contact us for a free consultation and detailed proposal.</p>
               <Link href="/contact"><span className="btn-red inline-block">Schedule Your Free Consultation →</span></Link>
               <p className="mt-4 text-sm" style={{ color:'oklch(0.60 0.005 0)' }}>Or call us: (541) 617-8873</p>
             </div>

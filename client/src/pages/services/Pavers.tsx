@@ -32,14 +32,14 @@ export default function Pavers() {
       title="Paver Patios"
       subtitle="& Walkways"
       seoTitle="Paver Patio Bend Oregon | Paver Installation & Walkways | Newport Avenue Landscaping"
-      seoDescription="Custom paver patio and walkway installation in Bend, Oregon. Natural stone, concrete pavers, and retaining walls. 5-year installation warranty. LCB #9153."
+      seoDescription="Custom paver patio and walkway installation in Bend, Oregon. Natural stone, concrete pavers, and retaining walls. 90-day plant warranty, 1-year irrigation warranty. LCB #9153."
       heroImage="https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/GLLPatio2_4916fcde.jpg"
       heroPosition="center 50%"
       intro="Paver patios and paver walkways are one of our favorite landscaping projects to design and build. Not only do you get instant aesthetic results, but you also get a product that, if built correctly, will last a lifetime and will vastly improve the value of your home."
       pricing={[
         { label: "Typical Range", value: "$3,000 – $50,000" },
         { label: "Design Consultation", value: "Complimentary" },
-        { label: "Warranty", value: "5 Years" },
+        { label: "Warranty", value: "90-Day Plants / 1-Yr Irrigation" },
       ]}
       sections={[
         {
@@ -90,11 +90,11 @@ export default function Pavers() {
       ]}
       schemaUrl="/services/pavers"
       schemaName="Paver Patio Installation"
-      schemaDescription="Custom paver patio and walkway installation in Bend, Oregon. Natural stone, concrete pavers, retaining walls. 5-year warranty."
+      schemaDescription="Custom paver patio and walkway installation in Bend, Oregon. Natural stone, concrete pavers, retaining walls. 90-day plant warranty and 1-year irrigation warranty."
       faqs={[
           { question: "How much does a paver patio cost in Bend, Oregon?", answer: "Paver patios in Bend typically cost between $3,000 and $50,000. The wide range reflects differences in size, material choice, site preparation needs, and design complexity. A simple 200 sq ft concrete paver patio starts around $3,000–$6,000, while a large natural stone patio with retaining walls and integrated lighting can reach $30,000–$50,000. We offer complimentary design consultations to give you an accurate estimate." },
           { question: "How long does paver patio installation take?", answer: "Most paver patio projects in Bend take 3–7 days from start to finish, depending on size and complexity. Larger projects with retaining walls or extensive base preparation may take up to 2 weeks. We schedule projects to minimize disruption and keep you informed throughout." },
-          { question: "Do pavers hold up to Central Oregon winters?", answer: "Yes — properly installed pavers are one of the best choices for Central Oregon's freeze-thaw climate. Unlike poured concrete, individual pavers can flex slightly without cracking. We use a compacted gravel base with proper drainage to prevent frost heaving. All our paver projects come with a 5-year warranty." },
+          { question: "Do pavers hold up to Central Oregon winters?", answer: "Yes — properly installed pavers are one of the best choices for Central Oregon's freeze-thaw climate. Unlike poured concrete, individual pavers can flex slightly without cracking. We use a compacted gravel base with proper drainage to prevent frost heaving. All our paver projects come with a 90-day plant warranty and 1-year irrigation warranty." },
           { question: "What is the difference between concrete pavers and natural stone?", answer: "Concrete pavers are manufactured in consistent sizes, colors, and textures — they are durable, cost-effective, and come in hundreds of styles. Natural stone (flagstone, bluestone, slate) has unique organic character and is often used for a more upscale or rustic look. Natural stone typically costs 20–40% more than concrete pavers. We carry both and can help you choose based on your budget and aesthetic goals." },
           { question: "Do you offer financing for paver patio projects?", answer: "We work with several financing partners to help homeowners in Bend manage larger hardscape investments. Ask about financing options during your free consultation." },
       ]}

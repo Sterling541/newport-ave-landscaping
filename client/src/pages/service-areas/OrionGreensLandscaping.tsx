@@ -27,7 +27,7 @@ export default function OrionGreensLandscaping() {
         </div>
         <div className="container py-16 max-w-3xl mx-auto">
           <div style={{ color: 'oklch(0.25 0.005 0)' }}>
-            <p className="mb-8" style={{ fontSize:'1.05rem',lineHeight:1.85,color:'oklch(0.35 0.005 0)' }}>Newport Avenue Landscaping has worked in Orion Greens for over 21 years. We know the soil conditions, the HOA requirements, and the aesthetic that fits this part of Bend. Whether you're looking for a new paver patio, a full landscape renovation, irrigation installation, or ongoing lawn maintenance, our team brings the same craftsmanship and 5-year warranty to every project.</p>
+            <p className="mb-8" style={{ fontSize:'1.05rem',lineHeight:1.85,color:'oklch(0.35 0.005 0)' }}>Newport Avenue Landscaping has worked in Orion Greens for over 21 years. We know the soil conditions, the HOA requirements, and the aesthetic that fits this part of Bend. Whether you're looking for a new paver patio, a full landscape renovation, irrigation installation, or ongoing lawn maintenance, our team brings the same craftsmanship and 90-day plant warranty and 1-year irrigation warranty to every project.</p>
 
             <h2 className="text-3xl font-bold mb-4" style={{ color: 'oklch(0.25 0.005 0)' }}>Services We Provide in Orion Greens</h2>
             <ul className="list-disc pl-5 mb-8 space-y-1">
@@ -44,7 +44,7 @@ export default function OrionGreensLandscaping() {
             </ul>
 
             <h2 className="text-3xl font-bold mb-4" style={{ color: 'oklch(0.25 0.005 0)' }}>Why Orion Greens Homeowners Choose Newport Avenue</h2>
-            <p className="mb-4">We've built a reputation in Orion Greens for showing up on time, communicating clearly, and delivering work that holds up. Our 5-year warranty on all hardscape projects is unique in Central Oregon.</p>
+            <p className="mb-4">We've built a reputation in Orion Greens for showing up on time, communicating clearly, and delivering work that holds up. Our 90-day plant warranty and 1-year irrigation warranty is unique in Central Oregon.</p>
             <p className="mb-4">We're licensed with the Oregon Landscape Contractors Board (LCB #9153), fully insured, and have a team of 150+ employees. We're large enough to handle any project, but local enough to care about every detail.</p>
             <div className="bg-gray-100 p-6 rounded-lg mb-8 border-l-4" style={{ borderColor: 'oklch(0.46 0.20 25)' }}>
               <p className="font-bold text-lg mb-2" style={{ color: 'oklch(0.25 0.005 0)' }}>PRO TIP</p>

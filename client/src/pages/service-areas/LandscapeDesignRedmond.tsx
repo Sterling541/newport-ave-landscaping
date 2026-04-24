@@ -47,7 +47,7 @@ export default function LandscapeDesignRedmond() {
 
             <h2 className="text-3xl font-bold mb-4" style={{ color: 'oklch(0.25 0.005 0)' }}>Landscape Design Cost in Redmond</h2>
             <p className="mb-4">Full landscape design and installation in Redmond typically ranges from $15,000 to $80,000+ depending on scope. Smaller projects like a front yard refresh or patio addition start around $8,000–$15,000.</p>
-            <p className="mb-4">We offer complimentary design consultations and detailed proposals with no obligation. Our 5-year workmanship warranty covers all hardscape projects.</p>
+            <p className="mb-4">We offer complimentary design consultations and detailed proposals with no obligation. Our 90-day plant warranty and 1-year irrigation warranty covers all hardscape projects.</p>
             <div className="bg-gray-100 p-6 rounded-lg mb-8 border-l-4" style={{ borderColor: 'oklch(0.46 0.20 25)' }}>
               <p className="font-bold text-lg mb-2" style={{ color: 'oklch(0.25 0.005 0)' }}>PRO TIP</p>
               <p>The best time to start a landscape project in Redmond is late spring (May–June) or early fall (August–September) when temperatures are moderate and plants establish quickly.</p>

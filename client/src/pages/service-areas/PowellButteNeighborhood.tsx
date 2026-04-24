@@ -133,7 +133,7 @@ export default function PowellButteNeighborhood() {
             We've been serving rural Central Oregon properties for over 21 years. We understand the difference between designing for a Bend subdivision and designing for a Powell Butte acreage — and we bring that knowledge to every project. Our crews are experienced with large-lot work, well water systems, and the native plant communities of the high desert.
           </p>
           <p className="mb-8" style={{ lineHeight: 1.8 }}>
-            We're licensed with the Oregon Landscape Contractors Board (LCB #9153), fully insured, and have a team of 150+ employees. We show up on schedule, communicate throughout the project, and back every hardscape installation with a 5-year workmanship warranty.
+            We're licensed with the Oregon Landscape Contractors Board (LCB #9153), fully insured, and have a team of 150+ employees. We show up on schedule, communicate throughout the project, and back every hardscape installation with a 90-day plant warranty and 1-year irrigation warranty.
           </p>
 
           {/* FAQ */}
@@ -159,7 +159,7 @@ export default function PowellButteNeighborhood() {
             <div className="flex flex-wrap justify-center gap-6 mt-6">
               <span style={{ color: "oklch(0.55 0.005 0)", fontSize: "0.75rem" }}>✓ Licensed &amp; Insured · LCB #9153</span>
               <span style={{ color: "oklch(0.55 0.005 0)", fontSize: "0.75rem" }}>✓ 21+ Years Serving Central Oregon</span>
-              <span style={{ color: "oklch(0.55 0.005 0)", fontSize: "0.75rem" }}>✓ 5-Year Workmanship Warranty</span>
+              <span style={{ color: "oklch(0.55 0.005 0)", fontSize: "0.75rem" }}>✓ 90-Day Plant Warranty · 1-Year Irrigation</span>
             </div>
           </div>
 

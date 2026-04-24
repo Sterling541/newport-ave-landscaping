@@ -27,7 +27,7 @@ export default function RedmondLandscapingHub() {
         </div>
         <div className="container py-16 max-w-3xl mx-auto">
           <div style={{ color: 'oklch(0.25 0.005 0)' }}>
-            <p className="mb-8" style={{ fontSize:'1.05rem',lineHeight:1.85,color:'oklch(0.35 0.005 0)' }}>Redmond is Bend's fastest-growing neighbor, located just 15 miles north. Newport Avenue Landscaping has served Redmond homeowners and businesses for over 21 years. We provide the full range of landscaping services — from paver patios and irrigation to xeriscape and lawn care — with our 5-year workmanship warranty on all hardscape projects.</p>
+            <p className="mb-8" style={{ fontSize:'1.05rem',lineHeight:1.85,color:'oklch(0.35 0.005 0)' }}>Redmond is Bend's fastest-growing neighbor, located just 15 miles north. Newport Avenue Landscaping has served Redmond homeowners and businesses for over 21 years. We provide the full range of landscaping services — from paver patios and irrigation to xeriscape and lawn care — with our 90-day plant warranty and 1-year irrigation warranty on all installation projects.</p>
 
             <h2 className="text-3xl font-bold mb-4" style={{ color: 'oklch(0.25 0.005 0)' }}>Services We Provide in Redmond</h2>
             <ul className="list-disc pl-5 mb-8 space-y-1">
@@ -45,7 +45,7 @@ export default function RedmondLandscapingHub() {
 
             <h2 className="text-3xl font-bold mb-4" style={{ color: 'oklch(0.25 0.005 0)' }}>Why Redmond Homeowners Choose Newport Avenue</h2>
             <p className="mb-4">We've been serving Redmond for over 21 years. Our team knows the local soil conditions, climate challenges, and HOA requirements that affect landscaping in this area.</p>
-            <p className="mb-8">We're licensed with the Oregon Landscape Contractors Board (LCB #9153), fully insured, and offer a 5-year warranty on all hardscape projects. We're large enough to handle any project, but local enough to care about every detail.</p>
+            <p className="mb-8">We're licensed with the Oregon Landscape Contractors Board (LCB #9153), fully insured, and offer a 90-day plant warranty and 1-year irrigation warranty. We're large enough to handle any project, but local enough to care about every detail.</p>
 
             <h2 className="text-3xl font-bold mb-4" style={{ color: 'oklch(0.25 0.005 0)' }}>Get a Free Estimate for Your Redmond Property</h2>
             <p className="mb-4">We provide free on-site consultations throughout Redmond and Central Oregon. Our design team will walk your property, discuss your goals, and provide a detailed proposal — no pressure, no obligation.</p>

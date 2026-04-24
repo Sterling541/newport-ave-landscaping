@@ -8,7 +8,7 @@ export default function LandscapeLightingBend() {
     <div className="min-h-screen" style={{ backgroundColor: "oklch(0.97 0.003 0)" }}>
       <SEO
         title="Landscape Lighting Bend Oregon | Newport Ave Landscaping"
-        description="Enhance your Bend home with expert landscape lighting. Discover low-voltage LED, smart controls, and Newport Ave Landscaping's 5-year warranty. Extend your outdoor living!"
+        description="Enhance your Bend home with expert landscape lighting. Discover low-voltage LED, smart controls, and Newport Ave Landscaping's 90-day plant warranty and 1-year irrigation warranty. Extend your outdoor living!"
         canonical="https://newportavelandscaping.com/resources/landscape-lighting-bend-oregon"
       />
       <BreadcrumbSchema items={[
@@ -88,7 +88,7 @@ export default function LandscapeLightingBend() {
             <div style={{ background: "oklch(0.15 0.005 0)", padding: "2rem 1.5rem", marginBottom: "2rem", textAlign: "center" }}>
               <p style={{ fontFamily: "var(--font-label)", fontSize: "0.65rem", letterSpacing: "0.18em", color: "oklch(0.46 0.20 25)", marginBottom: "0.6rem" }}>FREE CONSULTATION · NO OBLIGATION</p>
               <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 300, color: "#fff", fontSize: "clamp(1.1rem, 2.5vw, 1.5rem)", marginBottom: "0.6rem" }}>Ready to get a free quote for landscape lighting?</h3>
-              <p style={{ color: "oklch(0.72 0.005 0)", marginBottom: "1.25rem", fontSize: "0.9rem", lineHeight: 1.7 }}>LCB #9153 · 21+ years · 5-year workmanship warranty</p>
+              <p style={{ color: "oklch(0.72 0.005 0)", marginBottom: "1.25rem", fontSize: "0.9rem", lineHeight: 1.7 }}>LCB #9153 · 21+ years · 90-day plant warranty and 1-year irrigation warranty</p>
               <div style={{ display: "flex", gap: "1rem", justifyContent: "center", flexWrap: "wrap" }}>
                 <a href="/contact" className="btn-red" style={{ display: "inline-block" }}>Get My Free Quote →</a>
                 <a href="tel:+15416178873" style={{ display: "inline-flex", alignItems: "center", color: "#fff", fontFamily: "var(--font-body)", fontSize: "0.9rem", fontWeight: 500, textDecoration: "none", padding: "0.6rem 1.1rem", border: "1px solid oklch(0.40 0.005 0)", borderRadius: "2px" }}>(541) 617-8873</a>
@@ -117,7 +117,7 @@ export default function LandscapeLightingBend() {
               With over 21 years of experience serving Bend, Redmond, Sisters, Sunriver, and other Central Oregon communities, Newport Ave Landscaping is your trusted partner for landscape lighting. We are Licensed & Bonded (LCB #9153) and deeply familiar with the local environment, from the volcanic soil to the specific needs of homes in neighborhoods like the Old Mill District or Tetherow.
             </p>
             <p className="mb-6">
-              What truly sets us apart in the Bend market is our commitment to quality and customer satisfaction, backed by our unique <strong>5-year warranty</strong> on all landscape lighting installations. This warranty is a testament to the durability of our products and the expertise of our team, giving you peace of mind for years to come.
+              What truly sets us apart in the Bend market is our commitment to quality and customer satisfaction, backed by our strong warranty on all landscape lighting installations. This warranty is a testament to the durability of our products and the expertise of our team, giving you peace of mind for years to come.
             </p>
 
             <h2 className="font-display text-2xl mb-4" style={{ color: "oklch(0.15 0.005 0)" }}>Our Design Process: Bringing Your Vision to Light</h2>
@@ -129,7 +129,7 @@ export default function LandscapeLightingBend() {
               <li className="mb-2"><strong>Custom Design & Proposal:</strong> Our designers create a detailed lighting plan, often with visual renderings, showing how different lighting techniques will enhance your landscape. We provide a comprehensive proposal outlining costs and timelines.</li>
               <li className="mb-2"><strong>Professional Installation:</strong> Our skilled technicians meticulously install your low-voltage LED system, ensuring proper placement, wiring, and functionality, with minimal disruption to your existing landscape.</li>
               <li className="mb-2"><strong>System Demonstration & Adjustment:</strong> Once installed, we walk you through your new system, demonstrating its features and making any final adjustments to achieve the perfect ambiance.</li>
-              <li className="mb-2"><strong>Ongoing Support:</strong> With our 5-year warranty and dedicated service, we're here to ensure your landscape lighting continues to perform beautifully.</li>
+              <li className="mb-2"><strong>Ongoing Support:</strong> With our 90-day plant warranty and 1-year irrigation warranty and dedicated service, we're here to ensure your landscape lighting continues to perform beautifully.</li>
             </ol>
 
             {/* CTA BLOCK at bottom */}

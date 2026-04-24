@@ -103,7 +103,7 @@ export default function Membership() {
     <div style={{ backgroundColor: "oklch(0.97 0.012 85)" }}>
       <SEO
         title="Priority Irrigation Membership | Newport Avenue Landscaping Bend"
-        description="Newport Avenue's Priority Irrigation Membership — guaranteed spring activation, fall blowout, mid-season checks & 5-year warranty on main components. Bend, OR. LCB #9153."
+        description="Newport Avenue's Priority Irrigation Membership — guaranteed spring activation, fall blowout, mid-season checks & 1-year warranty on irrigation components. Bend, OR. LCB #9153."
         canonical="/membership"
       />
       <Navbar />

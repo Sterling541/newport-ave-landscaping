@@ -10,7 +10,7 @@
    - 5-star Google rating with review count (AggregateRating schema)
    - 21+ years in business
    - Licensed & Bonded in Oregon
-   - 5-Year Workmanship Warranty
+   - 90-Day Plant Warranty
    - Free Estimates
    - BBB Accredited / A+ Rating
    
@@ -75,9 +75,9 @@ const TRUST_ITEMS = [
         <path d="M7 11V7a5 5 0 0110 0v4" stroke="oklch(0.46 0.20 25)" strokeWidth="1.5" strokeLinecap="round"/>
       </svg>
     ),
-    value: "5-Year",
+    value: "90-Day Plants",
     label: "Warranty",
-    sub: "Workmanship guarantee",
+    sub: "Plants: 90 days · Irrigation: 1 year",
     highlight: false,
   },
   {

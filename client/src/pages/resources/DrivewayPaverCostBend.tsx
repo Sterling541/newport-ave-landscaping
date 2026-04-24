@@ -59,7 +59,7 @@ export default function DrivewayPaverCostBend() {
               <li>Paver installation with edge restraints</li>
               <li>Joint sand application and compaction</li>
               <li>Final sealing (optional)</li>
-              <li>5-year workmanship warranty</li>
+              <li>90-day plant warranty and 1-year irrigation warranty</li>
             </ul>
             <div className="p-8 text-center mt-12" style={{ backgroundColor: 'oklch(0.18 0.008 0)' }}>
               <p className="font-label text-xs mb-3" style={{ color:'oklch(0.46 0.20 25)',letterSpacing:'0.18em' }}>GET STARTED TODAY</p>

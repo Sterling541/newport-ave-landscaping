@@ -51,7 +51,7 @@ export default function LawnCareCostBend() {
             Ready to get a free quote from Newport Avenue Landscaping?
           </h3>
           <p style={{ color: "oklch(0.72 0.005 0)", marginBottom: "1.5rem", fontSize: "0.95rem", lineHeight: 1.7 }}>
-            We serve Bend, Redmond, Sisters, Sunriver, and all of Central Oregon. LCB #9153 · 21+ years · 5-year warranty.
+            We serve Bend, Redmond, Sisters, Sunriver, and all of Central Oregon. LCB #9153 · 21+ years · 90-day plant warranty and 1-year irrigation warranty.
           </p>
           <div style={{ display: "flex", gap: "1rem", justifyContent: "center", flexWrap: "wrap" }}>
             <a href="/contact" className="btn-red" style={{ display: "inline-block" }}>Get My Free Quote →</a>

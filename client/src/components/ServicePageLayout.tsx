@@ -479,7 +479,7 @@ export default function ServicePageLayout({
                 <span style={{ color: "oklch(0.46 0.20 25)" }}>✓</span> 21+ Years Serving Central Oregon
               </div>
               <div className="flex items-center gap-2" style={{ color: "oklch(0.72 0.005 0)", fontSize: "0.78rem" }}>
-                <span style={{ color: "oklch(0.46 0.20 25)" }}>✓</span> 5-Year Workmanship Warranty
+                <span style={{ color: "oklch(0.46 0.20 25)" }}>✓</span> 90-Day Plant Warranty
               </div>
             </div>
           </FadeIn>

@@ -95,7 +95,7 @@ export default function NorthwestCrossingNeighborhood() {
           {/* Why Newport */}
           <h2 className="text-3xl font-bold mb-4" style={{ color: "oklch(0.25 0.005 0)" }}>Why NWX Homeowners Choose Newport Avenue</h2>
           <p className="mb-4">
-            We maintain more properties in NorthWest Crossing than any other landscaping company in Bend. Our crews work in the neighborhood every week — they know the streets, the soil, and the neighbors. We show up on schedule, communicate throughout the project, and back every hardscape installation with a 5-year warranty.
+            We maintain more properties in NorthWest Crossing than any other landscaping company in Bend. Our crews work in the neighborhood every week — they know the streets, the soil, and the neighbors. We show up on schedule, communicate throughout the project, and back every hardscape installation with a 90-day plant warranty and 1-year irrigation warranty.
           </p>
           <p className="mb-8">
             We're licensed with the Oregon Landscape Contractors Board (LCB #9153), fully insured, and have a team of 150+ employees. Large enough to handle any scope, local enough to care about every detail.
