@@ -57,9 +57,9 @@ export default function GameSection() {
           }}
         >
           Can you survive one day at Newport Avenue Landscaping and mow your entire route?
-          Beat all 4 levels to unlock a{" "}
-          <strong style={{ color: "#fbbf24" }}>$100 discount code</strong>.
-          Nobody beats Giant Sterling.
+          Beat all <strong style={{ color: "#fff" }}>4 levels</strong> to unlock a{" "}
+          <strong style={{ color: "#fbbf24" }}>$100 discount code</strong> —
+          then dare to face <strong style={{ color: "#ef4444" }}>Giant Sterling</strong> for $200.
         </p>
 
         {/* Level preview chips */}
@@ -73,10 +73,10 @@ export default function GameSection() {
           }}
         >
           {[
-            { icon: "🌊", label: "The Neighborhood", color: "#4ade80" },
-            { icon: "📋", label: "The HOA Gauntlet", color: "#fbbf24" },
+            { icon: "🚲", label: "Residential Route", color: "#4ade80" },
+            { icon: "📋", label: "HOA Gauntlet", color: "#fbbf24" },
             { icon: "🚧", label: "Construction Site", color: "#f97316" },
-            { icon: "☀️", label: "The Drought Zone", color: "#ef4444" },
+            { icon: "☀️", label: "Drought Zone", color: "#ef4444" },
           ].map((lv) => (
             <div
               key={lv.label}
@@ -139,7 +139,7 @@ export default function GameSection() {
             marginTop: 16,
           }}
         >
-          Tap top/bottom to change lanes &nbsp;·&nbsp; Arrow keys on desktop &nbsp;·&nbsp; Works on mobile
+          Desktop: Arrow keys / WASD &nbsp;·&nbsp; Mobile: Tap to change lane, hold bottom half to boost &nbsp;·&nbsp; ⛶ Fullscreen button on game page
         </p>
       </div>
     </section>

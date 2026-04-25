@@ -751,3 +751,12 @@
 - [x] Canvas fills full mobile viewport width (no padding/margin shrinking it)
 - [x] Hold down arrow / hold bottom half of screen = speed boost (1.6x scroll speed while held)
 - [x] Speed boost visual indicator: TURBO MODE! banner in HUD while boost is held
+
+## Game Upgrade v10 — Level Theme Overhaul + Full Screen Mobile
+- [x] Level 1 "Residential Route": obstacles = kid's toys (tricycle, soccer ball, garden hose, sprinkler, sandbox, lawn chair)
+- [x] Level 2 "HOA Gauntlet": obstacles = HOA rep with clipboard, measuring tape rep, angry neighbor in bathrobe, violation sign
+- [x] Level 3 "Construction Site": obstacles = lumber pile, porta-potty, hard hat on ground, surveyor stake, mud puddle, cone row
+- [x] Level 4 "Drought Zone": obstacles = fire ants, dead stump, cracked earth, sprinkler head, tumbleweed
+- [x] Mobile full-screen: Fullscreen API button (FULLSCREEN / EXIT) always visible on game page
+- [x] Update level names and HUD labels to match new themes
+- [x] Update GameSection homepage embed with new level names, themes, and fullscreen hint

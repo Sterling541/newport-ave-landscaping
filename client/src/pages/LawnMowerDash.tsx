@@ -83,6 +83,25 @@ export default function LawnMowerDash() {
   const [pendingLevel, setPendingLevel] = useState(1);
   const [initials, setInitials] = useState("");
   const [newEntryRank, setNewEntryRank] = useState(-1);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const gameWrapperRef = useRef<HTMLDivElement>(null);
+
+  // Fullscreen toggle
+  const toggleFullscreen = useCallback(() => {
+    const el = gameWrapperRef.current;
+    if (!el) return;
+    if (!document.fullscreenElement) {
+      el.requestFullscreen().catch(() => {});
+    } else {
+      document.exitFullscreen();
+    }
+  }, []);
+
+  useEffect(() => {
+    const onFSChange = () => setIsFullscreen(!!document.fullscreenElement);
+    document.addEventListener("fullscreenchange", onFSChange);
+    return () => document.removeEventListener("fullscreenchange", onFSChange);
+  }, []);
 
   const playerLane    = useRef(2);
   const playerY       = useRef(LANE_CENTERS[2]);
@@ -145,24 +164,29 @@ export default function LawnMowerDash() {
     const lane = randInt(0, LANE_COUNT - 1);
     const id = nextId();
     if (level === 1) {
-      const t = Math.random() < 0.65 ? "sprinkler" : "gnome";
+      // Real residential hazards: toys, hose, sprinkler, sandbox, lawn chair
+      const types1 = ["tricycle","tricycle","soccer_ball","garden_hose","sprinkler","lawn_chair","sandbox"];
+      const t = types1[randInt(0, types1.length - 1)];
       obstacles.current.push({ id, x: W + 50, lane, type: t,
         angle: rand(0, Math.PI * 2), arcSpeed: rand(0.022, 0.05) * (Math.random() < 0.5 ? 1 : -1),
         arcWidth: rand(0.5, 1.2), arcLen: rand(50, 85), phase: 0 });
     } else if (level === 2) {
-      const types = ["hoa_member","hoa_member","hoa_sign","hoa_group"];
+      // HOA hazards: HOA rep with clipboard, measuring tape, angry neighbor, violation sign
+      const types = ["hoa_member","hoa_member","hoa_sign","hoa_group","measuring_tape","angry_neighbor"];
       const t = types[randInt(0, types.length - 1)];
       obstacles.current.push({ id, x: W + 50, lane, type: t, phase: 0, speed: rand(0.9, 1.6) });
       if (t === "hoa_group" && lane > 0)
         obstacles.current.push({ id: nextId(), x: W + 80, lane: lane - 1, type: "hoa_member", phase: Math.PI * 0.5, speed: rand(0.9, 1.6) });
     } else if (level === 3) {
-      const types = ["boulder","boulder","mud_puddle","skid_steer","cone_row"];
+      // Real construction site hazards: lumber pile, porta-potty, hard hat on ground, surveyor stake, mud puddle, cone row
+      const types = ["lumber_pile","porta_potty","hard_hat_ground","surveyor_stake","mud_puddle","cone_row","cone_row"];
       const t = types[randInt(0, types.length - 1)];
-      obstacles.current.push({ id, x: W + 60, lane, type: t, speed: t === "skid_steer" ? rand(1.8, 3.0) : 0 });
+      obstacles.current.push({ id, x: W + 60, lane, type: t, speed: 0 });
     } else {
-      const types = ["tumbleweed","tumbleweed","water_inspector","dead_patch","fire_ants"];
+      // Drought zone: fire ants, dead stump, cracked earth, sprinkler head, tumbleweed
+      const types = ["fire_ants","fire_ants","dead_stump","cracked_earth","sprinkler_head","tumbleweed"];
       const t = types[randInt(0, types.length - 1)];
-      obstacles.current.push({ id, x: W + 50, lane, type: t, phase: 0, speed: t === "water_inspector" ? rand(1.4, 2.2) : rand(0.6, 1.6) });
+      obstacles.current.push({ id, x: W + 50, lane, type: t, phase: 0, speed: t === "tumbleweed" ? rand(0.6, 1.6) : 0 });
     }
   }
 
@@ -594,21 +618,122 @@ export default function LawnMowerDash() {
     ctx.save(); ctx.translate(obs.x, y);
 
     if (obs.type === "sprinkler") {
-      ctx.fillStyle = "#475569"; ctx.beginPath(); ctx.arc(0,0,12,0,Math.PI*2); ctx.fill();
-      ctx.fillStyle = BRAND_GREEN; ctx.beginPath(); ctx.arc(0,0,8,0,Math.PI*2); ctx.fill();
-      ctx.fillStyle = BRAND_GOLD; ctx.font = "bold 5px sans-serif"; ctx.textAlign = "center"; ctx.fillText("H2O",0,2);
+      // Rotating sprinkler with water arc
+      ctx.fillStyle = "#475569"; ctx.beginPath(); ctx.arc(0,0,14,0,Math.PI*2); ctx.fill();
+      ctx.fillStyle = "#64748b"; ctx.beginPath(); ctx.arc(0,0,9,0,Math.PI*2); ctx.fill();
+      ctx.fillStyle = BRAND_GREEN; ctx.beginPath(); ctx.arc(0,0,6,0,Math.PI*2); ctx.fill();
       ctx.save(); ctx.rotate(obs.angle!);
-      ctx.strokeStyle = "rgba(59,130,246,0.85)"; ctx.lineWidth = 4.5; ctx.lineCap = "round";
+      ctx.strokeStyle = "rgba(59,130,246,0.9)"; ctx.lineWidth = 5.5; ctx.lineCap = "round";
       ctx.beginPath(); ctx.arc(0,0,obs.arcLen!,-obs.arcWidth!/2,obs.arcWidth!/2); ctx.stroke();
       ctx.fillStyle = "rgba(147,197,253,0.95)";
-      for (let i=0;i<7;i++) {
-        const a = -obs.arcWidth!/2+(obs.arcWidth!/6)*i, r=obs.arcLen!+rand(-4,4);
-        ctx.beginPath(); ctx.arc(Math.cos(a)*r,Math.sin(a)*r,3.5,0,Math.PI*2); ctx.fill();
+      for (let i=0;i<9;i++) {
+        const a = -obs.arcWidth!/2+(obs.arcWidth!/8)*i, r=obs.arcLen!+rand(-5,5);
+        ctx.beginPath(); ctx.arc(Math.cos(a)*r,Math.sin(a)*r,4,0,Math.PI*2); ctx.fill();
       }
       ctx.restore();
-      ctx.fillStyle = "rgba(186,230,253,0.22)";
-      ctx.beginPath(); ctx.arc(0,0,obs.arcLen!+12,obs.angle!-obs.arcWidth!/2,obs.angle!+obs.arcWidth!/2);
+      ctx.fillStyle = "rgba(186,230,253,0.25)";
+      ctx.beginPath(); ctx.arc(0,0,obs.arcLen!+14,obs.angle!-obs.arcWidth!/2,obs.angle!+obs.arcWidth!/2);
       ctx.lineTo(0,0); ctx.closePath(); ctx.fill();
+
+    } else if (obs.type === "tricycle") {
+      // Kid's red tricycle
+      ctx.fillStyle = "rgba(0,0,0,0.18)"; ctx.beginPath(); ctx.ellipse(0,24,28,6,0,0,Math.PI*2); ctx.fill();
+      // Frame
+      ctx.strokeStyle = "#dc2626"; ctx.lineWidth = 5; ctx.lineCap = "round";
+      ctx.beginPath(); ctx.moveTo(-18,12); ctx.lineTo(0,0); ctx.lineTo(18,12); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(0,0); ctx.lineTo(0,-14); ctx.stroke();
+      // Handlebars
+      ctx.strokeStyle = "#1a1a1a"; ctx.lineWidth = 4;
+      ctx.beginPath(); ctx.moveTo(-12,-14); ctx.lineTo(12,-14); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(-12,-14); ctx.lineTo(-12,-18); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(12,-14); ctx.lineTo(12,-18); ctx.stroke();
+      // Seat
+      ctx.fillStyle = "#1a1a1a"; ctx.beginPath(); ctx.roundRect(-8,-2,16,5,2); ctx.fill();
+      // Front big wheel
+      ctx.strokeStyle = "#1a1a1a"; ctx.lineWidth = 5;
+      ctx.beginPath(); ctx.arc(0,18,14,0,Math.PI*2); ctx.stroke();
+      ctx.strokeStyle = "#374151"; ctx.lineWidth = 2;
+      for (let a=0;a<Math.PI*2;a+=Math.PI/4) { ctx.beginPath(); ctx.moveTo(0,18); ctx.lineTo(Math.cos(a)*14,18+Math.sin(a)*14); ctx.stroke(); }
+      ctx.fillStyle = "#dc2626"; ctx.beginPath(); ctx.arc(0,18,4,0,Math.PI*2); ctx.fill();
+      // Two back small wheels
+      ctx.strokeStyle = "#1a1a1a"; ctx.lineWidth = 4;
+      ctx.beginPath(); ctx.arc(-18,18,9,0,Math.PI*2); ctx.stroke();
+      ctx.beginPath(); ctx.arc(18,18,9,0,Math.PI*2); ctx.stroke();
+      ctx.fillStyle = "#dc2626"; ctx.beginPath(); ctx.arc(-18,18,3,0,Math.PI*2); ctx.fill();
+      ctx.beginPath(); ctx.arc(18,18,3,0,Math.PI*2); ctx.fill();
+      // Speech bubble
+      if (Math.floor(frame/40)%2===0) {
+        ctx.fillStyle="#fff"; ctx.beginPath(); ctx.roundRect(-30,-44,60,18,4); ctx.fill();
+        ctx.strokeStyle="#dc2626"; ctx.lineWidth=2; ctx.strokeRect(-30,-44,60,18);
+        ctx.fillStyle="#dc2626"; ctx.font="bold 9px sans-serif"; ctx.textAlign="center";
+        ctx.fillText("MY BIKE!",0,-31);
+      }
+
+    } else if (obs.type === "soccer_ball") {
+      // Rolling soccer ball
+      ctx.save(); ctx.rotate(frame*0.12);
+      ctx.fillStyle = "#fff"; ctx.beginPath(); ctx.arc(0,0,20,0,Math.PI*2); ctx.fill();
+      ctx.strokeStyle = "#1a1a1a"; ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.arc(0,0,20,0,Math.PI*2); ctx.stroke();
+      // Pentagon patches
+      ctx.fillStyle = "#1a1a1a";
+      for (let i=0;i<5;i++) {
+        const a=i*Math.PI*2/5-Math.PI/2;
+        ctx.beginPath(); ctx.arc(Math.cos(a)*10,Math.sin(a)*10,5,0,Math.PI*2); ctx.fill();
+      }
+      ctx.beginPath(); ctx.arc(0,0,5,0,Math.PI*2); ctx.fill();
+      ctx.restore();
+      ctx.fillStyle = "rgba(0,0,0,0.18)"; ctx.beginPath(); ctx.ellipse(0,22,20,5,0,0,Math.PI*2); ctx.fill();
+
+    } else if (obs.type === "garden_hose") {
+      // Coiled garden hose
+      ctx.strokeStyle = "#16a34a"; ctx.lineWidth = 7; ctx.lineCap = "round";
+      for (let i=0;i<3;i++) { ctx.beginPath(); ctx.arc(0,0,12+i*9,0,Math.PI*1.75); ctx.stroke(); }
+      ctx.strokeStyle = "#15803d"; ctx.lineWidth = 5;
+      for (let i=0;i<3;i++) { ctx.beginPath(); ctx.arc(0,0,12+i*9,0,Math.PI*1.75); ctx.stroke(); }
+      // Nozzle
+      ctx.fillStyle = "#d97706"; ctx.beginPath(); ctx.roundRect(22,-4,14,8,3); ctx.fill();
+      ctx.fillStyle = "#b45309"; ctx.beginPath(); ctx.roundRect(34,-3,6,6,1); ctx.fill();
+      // Water drip
+      if (frame%16<8) { ctx.fillStyle="rgba(59,130,246,0.8)"; ctx.beginPath(); ctx.arc(40,6,3,0,Math.PI*2); ctx.fill(); }
+
+    } else if (obs.type === "lawn_chair") {
+      // Folding lawn chair
+      ctx.fillStyle = "rgba(0,0,0,0.18)"; ctx.beginPath(); ctx.ellipse(0,26,26,6,0,0,Math.PI*2); ctx.fill();
+      // Back legs
+      ctx.strokeStyle = "#d97706"; ctx.lineWidth = 4; ctx.lineCap = "round";
+      ctx.beginPath(); ctx.moveTo(-16,-12); ctx.lineTo(-20,24); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(16,-12); ctx.lineTo(20,24); ctx.stroke();
+      // Front legs
+      ctx.beginPath(); ctx.moveTo(-14,2); ctx.lineTo(-10,24); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(14,2); ctx.lineTo(10,24); ctx.stroke();
+      // Seat straps (alternating colors)
+      const sc = ["#ef4444","#3b82f6","#fbbf24","#22c55e","#a855f7"];
+      for (let i=0;i<5;i++) {
+        ctx.fillStyle=sc[i]; ctx.fillRect(-18,4+i*4,36,3);
+      }
+      // Back straps
+      for (let i=0;i<4;i++) {
+        ctx.fillStyle=sc[i]; ctx.fillRect(-16,-10+i*4,32,3);
+      }
+
+    } else if (obs.type === "sandbox") {
+      // Sandbox with toys in it
+      ctx.fillStyle = "#f59e0b"; ctx.beginPath(); ctx.roundRect(-28,-14,56,30,4); ctx.fill();
+      ctx.strokeStyle = "#d97706"; ctx.lineWidth = 3; ctx.strokeRect(-28,-14,56,30);
+      // Sand texture
+      ctx.fillStyle = "#fbbf24";
+      ctx.beginPath(); ctx.roundRect(-25,-11,50,24,3); ctx.fill();
+      // Tiny shovel
+      ctx.strokeStyle = "#dc2626"; ctx.lineWidth = 3;
+      ctx.beginPath(); ctx.moveTo(-10,-8); ctx.lineTo(-10,8); ctx.stroke();
+      ctx.fillStyle = "#dc2626"; ctx.beginPath(); ctx.ellipse(-10,10,5,4,0,0,Math.PI*2); ctx.fill();
+      // Tiny bucket
+      ctx.fillStyle = "#3b82f6"; ctx.beginPath(); ctx.roundRect(4,-6,12,14,2); ctx.fill();
+      ctx.strokeStyle = "#2563eb"; ctx.lineWidth = 1.5; ctx.strokeRect(4,-6,12,14);
+      // "KIDS" label
+      ctx.fillStyle = "#d97706"; ctx.font = "bold 8px sans-serif"; ctx.textAlign = "center";
+      ctx.fillText("SANDBOX",0,22);
 
     } else if (obs.type === "gnome") {
       // Retro Bowl-style chunky pixel gnome
@@ -725,6 +850,81 @@ export default function LawnMowerDash() {
         ctx.fillText(msg, 14+bw/2,-35);
       }
 
+    } else if (obs.type === "measuring_tape") {
+      // HOA rep measuring the lawn with a tape measure
+      ctx.fillStyle = "rgba(0,0,0,0.18)"; ctx.beginPath(); ctx.ellipse(0,24,18,5,0,0,Math.PI*2); ctx.fill();
+      // Body (khaki HOA outfit)
+      ctx.fillStyle = "#c8a84b"; ctx.beginPath(); ctx.roundRect(-10,-14,20,24,4); ctx.fill();
+      ctx.strokeStyle = "#a07830"; ctx.lineWidth = 1.5; ctx.strokeRect(-10,-14,20,24);
+      // HOA badge
+      ctx.fillStyle = BRAND_RED; ctx.beginPath(); ctx.roundRect(-6,-12,12,8,2); ctx.fill();
+      ctx.fillStyle = "#fff"; ctx.font = "bold 5px sans-serif"; ctx.textAlign = "center"; ctx.fillText("HOA",0,-7);
+      // Head
+      ctx.fillStyle = "#f5c5a3"; ctx.beginPath(); ctx.arc(0,-22,11,0,Math.PI*2); ctx.fill();
+      ctx.strokeStyle = "#c97b5a"; ctx.lineWidth = 1.5; ctx.strokeRect(-11,-33,22,22);
+      // Hat
+      ctx.fillStyle = "#c8a84b"; ctx.beginPath(); ctx.roundRect(-12,-34,24,6,2); ctx.fill();
+      ctx.fillStyle = "#a07830"; ctx.beginPath(); ctx.roundRect(-9,-40,18,10,2); ctx.fill();
+      // Measuring tape (yellow reel)
+      ctx.fillStyle = "#fbbf24"; ctx.beginPath(); ctx.arc(16,-4,10,0,Math.PI*2); ctx.fill();
+      ctx.strokeStyle = "#d97706"; ctx.lineWidth = 2; ctx.strokeRect(6,-14,20,20);
+      ctx.fillStyle = "#d97706"; ctx.font = "bold 5px sans-serif"; ctx.textAlign = "center"; ctx.fillText("25ft",16,-2);
+      // Tape extending out
+      ctx.strokeStyle = "#fbbf24"; ctx.lineWidth = 3;
+      ctx.beginPath(); ctx.moveTo(-10,-4); ctx.lineTo(-30,-4); ctx.stroke();
+      // Tick marks on tape
+      ctx.strokeStyle = "#d97706"; ctx.lineWidth = 1;
+      for (let i=0;i<4;i++) { ctx.beginPath(); ctx.moveTo(-14-i*5,-4); ctx.lineTo(-14-i*5,-8); ctx.stroke(); }
+      // Speech bubble
+      if (Math.floor(frame/30)%2===0) {
+        ctx.fillStyle="#fff"; ctx.beginPath(); ctx.roundRect(-50,-54,60,18,4); ctx.fill();
+        ctx.strokeStyle=BRAND_RED; ctx.lineWidth=2; ctx.strokeRect(-50,-54,60,18);
+        ctx.fillStyle=BRAND_RED; ctx.font="bold 8px sans-serif"; ctx.textAlign="center";
+        ctx.fillText("TOO LONG!",-20,-41);
+      }
+
+    } else if (obs.type === "angry_neighbor") {
+      // Angry neighbor in bathrobe shaking fist
+      const shake = Math.sin(frame*0.4)*3;
+      ctx.fillStyle = "rgba(0,0,0,0.18)"; ctx.beginPath(); ctx.ellipse(shake,24,16,5,0,0,Math.PI*2); ctx.fill();
+      ctx.translate(shake, 0);
+      // Bathrobe (blue)
+      ctx.fillStyle = "#1e40af"; ctx.beginPath(); ctx.roundRect(-12,-14,24,26,4); ctx.fill();
+      ctx.strokeStyle = "#1e3a8a"; ctx.lineWidth = 2; ctx.strokeRect(-12,-14,24,26);
+      // Robe lapels
+      ctx.fillStyle = "#1e3a8a";
+      ctx.beginPath(); ctx.moveTo(-12,-14); ctx.lineTo(0,-2); ctx.lineTo(0,12); ctx.lineTo(-12,12); ctx.closePath(); ctx.fill();
+      ctx.beginPath(); ctx.moveTo(12,-14); ctx.lineTo(0,-2); ctx.lineTo(0,12); ctx.lineTo(12,12); ctx.closePath(); ctx.fill();
+      // Belt
+      ctx.fillStyle = "#93c5fd"; ctx.fillRect(-12,4,24,4);
+      // Head
+      ctx.fillStyle = "#f5c5a3"; ctx.beginPath(); ctx.arc(0,-22,12,0,Math.PI*2); ctx.fill();
+      // Angry face
+      ctx.fillStyle = "#1a1a2e"; ctx.beginPath(); ctx.arc(-4,-24,2,0,Math.PI*2); ctx.fill();
+      ctx.beginPath(); ctx.arc(4,-24,2,0,Math.PI*2); ctx.fill();
+      // Angry eyebrows
+      ctx.strokeStyle = "#1a1a2e"; ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.moveTo(-7,-28); ctx.lineTo(-1,-26); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(7,-28); ctx.lineTo(1,-26); ctx.stroke();
+      // Frowning mouth
+      ctx.beginPath(); ctx.arc(0,-18,5,-Math.PI+0.3,0.3-Math.PI*0.5); ctx.stroke();
+      // Hair curlers
+      ctx.fillStyle = "#fbbf24";
+      for (let i=0;i<3;i++) { ctx.beginPath(); ctx.arc(-6+i*6,-32,3,0,Math.PI*2); ctx.fill(); }
+      // Raised fist
+      ctx.fillStyle = "#f5c5a3"; ctx.beginPath(); ctx.roundRect(10,-28,10,10,3); ctx.fill();
+      ctx.strokeStyle = "#c97b5a"; ctx.lineWidth = 1; ctx.strokeRect(10,-28,10,10);
+      // Speech bubble
+      if (Math.floor(frame/25)%2===0) {
+        const msgs2 = ["KEEP IT DOWN!","IT'S 7AM!","CALL THE COPS!","MY ROSES!"];
+        const m2 = msgs2[Math.floor(frame/70)%msgs2.length];
+        const bw2 = m2.length*6+14;
+        ctx.fillStyle="#fff"; ctx.beginPath(); ctx.roundRect(14,-50,bw2,18,4); ctx.fill();
+        ctx.strokeStyle="#1e40af"; ctx.lineWidth=2; ctx.strokeRect(14,-50,bw2,18);
+        ctx.fillStyle="#1e40af"; ctx.font="bold 8px sans-serif"; ctx.textAlign="center";
+        ctx.fillText(m2,14+bw2/2,-37);
+      }
+
     } else if (obs.type === "hoa_sign") {
       ctx.strokeStyle = "#5c3d1e"; ctx.lineWidth = 3.5;
       ctx.beginPath(); ctx.moveTo(0,-35); ctx.lineTo(0,22); ctx.stroke();
@@ -735,6 +935,87 @@ export default function LawnMowerDash() {
       ctx.beginPath(); ctx.moveTo(-22,-28); ctx.lineTo(-10,-16); ctx.stroke();
       ctx.fillStyle = "#fff"; ctx.font = "bold 8px sans-serif"; ctx.textAlign = "center";
       ctx.fillText("NO LOUD",10,-26); ctx.fillText("NOISES PAST 10",10,-15);
+
+    } else if (obs.type === "lumber_pile") {
+      // Stack of lumber boards
+      ctx.fillStyle = "rgba(0,0,0,0.18)"; ctx.beginPath(); ctx.ellipse(0,22,36,7,0,0,Math.PI*2); ctx.fill();
+      const lc = ["#92400e","#78350f","#a16207","#854d0e","#7c2d12"];
+      for (let i=4;i>=0;i--) {
+        ctx.fillStyle = lc[i%lc.length];
+        ctx.beginPath(); ctx.roundRect(-32+i*1,-16+i*-6,64,8,1); ctx.fill();
+        ctx.strokeStyle = "rgba(0,0,0,0.3)"; ctx.lineWidth = 1; ctx.strokeRect(-32+i*1,-16+i*-6,64,8);
+        // Wood grain lines
+        ctx.strokeStyle = "rgba(0,0,0,0.15)"; ctx.lineWidth = 0.8;
+        for (let g=0;g<4;g++) { ctx.beginPath(); ctx.moveTo(-28+g*16,-14+i*-6); ctx.lineTo(-28+g*16,-8+i*-6); ctx.stroke(); }
+      }
+      // Caution tape across pile
+      ctx.strokeStyle = "#f59e0b"; ctx.lineWidth = 3;
+      ctx.beginPath(); ctx.moveTo(-32,-16); ctx.lineTo(32,4); ctx.stroke();
+      ctx.fillStyle = "#f59e0b"; ctx.font = "bold 7px sans-serif"; ctx.textAlign = "center";
+      ctx.fillText("CAUTION",0,-2);
+
+    } else if (obs.type === "porta_potty") {
+      // Blue porta-potty
+      ctx.fillStyle = "rgba(0,0,0,0.18)"; ctx.beginPath(); ctx.ellipse(0,26,22,6,0,0,Math.PI*2); ctx.fill();
+      // Main body
+      ctx.fillStyle = "#1d4ed8"; ctx.beginPath(); ctx.roundRect(-18,-28,36,52,4); ctx.fill();
+      ctx.strokeStyle = "#1e3a8a"; ctx.lineWidth = 2; ctx.strokeRect(-18,-28,36,52);
+      // Roof
+      ctx.fillStyle = "#1e3a8a"; ctx.beginPath(); ctx.roundRect(-20,-32,40,8,3); ctx.fill();
+      // Door
+      ctx.fillStyle = "#2563eb"; ctx.beginPath(); ctx.roundRect(-12,-22,24,40,2); ctx.fill();
+      ctx.strokeStyle = "#1e3a8a"; ctx.lineWidth = 1; ctx.strokeRect(-12,-22,24,40);
+      // Door handle
+      ctx.fillStyle = "#fbbf24"; ctx.beginPath(); ctx.arc(8,0,3,0,Math.PI*2); ctx.fill();
+      // Vent
+      ctx.fillStyle = "#1e3a8a"; ctx.beginPath(); ctx.roundRect(-6,-28,12,6,2); ctx.fill();
+      // "WC" sign
+      ctx.fillStyle = "#fff"; ctx.font = "bold 9px sans-serif"; ctx.textAlign = "center";
+      ctx.fillText("WC",-0,-10);
+      // Stink lines
+      if (frame%20<10) {
+        ctx.strokeStyle = "rgba(100,200,100,0.5)"; ctx.lineWidth = 2;
+        ctx.beginPath(); ctx.moveTo(-6,-32); ctx.quadraticCurveTo(-10,-42,-6,-50); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(6,-32); ctx.quadraticCurveTo(10,-42,6,-50); ctx.stroke();
+      }
+
+    } else if (obs.type === "hard_hat_ground") {
+      // Hard hat left on the ground
+      ctx.fillStyle = "rgba(0,0,0,0.18)"; ctx.beginPath(); ctx.ellipse(0,18,22,5,0,0,Math.PI*2); ctx.fill();
+      // Hard hat shell
+      ctx.fillStyle = "#f59e0b";
+      ctx.beginPath(); ctx.arc(0,-4,20,Math.PI,0); ctx.fill();
+      ctx.fillStyle = "#d97706"; ctx.beginPath(); ctx.roundRect(-22,-4,44,7,2); ctx.fill();
+      ctx.strokeStyle = "#b45309"; ctx.lineWidth = 2; ctx.strokeRect(-22,-4,44,7);
+      // NAL logo on hat
+      ctx.fillStyle = BRAND_GREEN; ctx.beginPath(); ctx.roundRect(-10,-8,20,10,2); ctx.fill();
+      ctx.fillStyle = BRAND_GOLD; ctx.font = "bold 7px sans-serif"; ctx.textAlign = "center";
+      ctx.fillText("NAL",0,-1);
+      // Suspension inside (visible from side)
+      ctx.strokeStyle = "#92400e"; ctx.lineWidth = 1.5;
+      ctx.beginPath(); ctx.moveTo(-12,-4); ctx.lineTo(0,-10); ctx.lineTo(12,-4); ctx.stroke();
+
+    } else if (obs.type === "surveyor_stake") {
+      // Orange surveyor stake with flagging tape
+      ctx.fillStyle = "rgba(0,0,0,0.18)"; ctx.beginPath(); ctx.ellipse(0,20,8,3,0,0,Math.PI*2); ctx.fill();
+      // Stake
+      ctx.fillStyle = "#f97316"; ctx.beginPath(); ctx.roundRect(-4,-30,8,50,1); ctx.fill();
+      ctx.strokeStyle = "#ea580c"; ctx.lineWidth = 1; ctx.strokeRect(-4,-30,8,50);
+      // Pointed bottom
+      ctx.fillStyle = "#ea580c";
+      ctx.beginPath(); ctx.moveTo(-4,20); ctx.lineTo(4,20); ctx.lineTo(0,28); ctx.closePath(); ctx.fill();
+      // Orange flagging tape (wavy)
+      ctx.strokeStyle = "#f97316"; ctx.lineWidth = 3; ctx.lineCap = "round";
+      ctx.beginPath();
+      ctx.moveTo(4,-24);
+      for (let i=0;i<5;i++) {
+        const wx = 4+i*8, wy = -24+Math.sin((i+frame*0.08)*1.2)*6;
+        ctx.lineTo(wx,wy);
+      }
+      ctx.stroke();
+      // "SURVEY" text
+      ctx.fillStyle = "#fff"; ctx.font = "bold 5px sans-serif"; ctx.textAlign = "center";
+      ctx.fillText("SURVEY",0,-14);
 
     } else if (obs.type === "boulder") {
       ctx.fillStyle = "rgba(0,0,0,0.2)"; ctx.beginPath(); ctx.ellipse(4,26,24,6,0,0,Math.PI*2); ctx.fill();
@@ -781,6 +1062,68 @@ export default function LawnMowerDash() {
         ctx.fillStyle = "#fff"; ctx.fillRect(-6,0,12,5);
         ctx.fillStyle = "#ea580c"; ctx.fillRect(-10,14,20,6);
         ctx.restore();
+      }
+
+    } else if (obs.type === "dead_stump") {
+      // Dead tree stump
+      ctx.fillStyle = "rgba(0,0,0,0.18)"; ctx.beginPath(); ctx.ellipse(0,22,28,7,0,0,Math.PI*2); ctx.fill();
+      // Stump base
+      ctx.fillStyle = "#78350f"; ctx.beginPath(); ctx.roundRect(-24,0,48,22,3); ctx.fill();
+      ctx.strokeStyle = "#451a03"; ctx.lineWidth = 2; ctx.strokeRect(-24,0,48,22);
+      // Top of stump (cross section)
+      ctx.fillStyle = "#92400e"; ctx.beginPath(); ctx.ellipse(0,0,24,10,0,0,Math.PI*2); ctx.fill();
+      ctx.strokeStyle = "#451a03"; ctx.lineWidth = 1.5; ctx.strokeRect(-24,-10,48,20);
+      // Tree rings
+      ctx.strokeStyle = "#7c2d12"; ctx.lineWidth = 1;
+      for (let r=4;r<22;r+=5) { ctx.beginPath(); ctx.ellipse(0,0,r,r*0.4,0,0,Math.PI*2); ctx.stroke(); }
+      // Bark cracks
+      ctx.strokeStyle = "#451a03"; ctx.lineWidth = 1.5;
+      ctx.beginPath(); ctx.moveTo(-8,2); ctx.lineTo(-6,12); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(5,2); ctx.lineTo(8,14); ctx.stroke();
+      // Dead roots
+      ctx.strokeStyle = "#78350f"; ctx.lineWidth = 3;
+      ctx.beginPath(); ctx.moveTo(-20,8); ctx.quadraticCurveTo(-30,14,-28,22); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(20,8); ctx.quadraticCurveTo(30,14,28,22); ctx.stroke();
+
+    } else if (obs.type === "cracked_earth") {
+      // Cracked dry earth patch
+      ctx.fillStyle = "#92400e"; ctx.beginPath(); ctx.ellipse(0,0,36,18,0,0,Math.PI*2); ctx.fill();
+      ctx.fillStyle = "#78350f"; ctx.beginPath(); ctx.ellipse(0,0,30,14,0,0,Math.PI*2); ctx.fill();
+      // Crack lines
+      ctx.strokeStyle = "#451a03"; ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.moveTo(-20,-5); ctx.lineTo(-5,0); ctx.lineTo(-12,10); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(0,-12); ctx.lineTo(5,0); ctx.lineTo(18,5); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(-5,0); ctx.lineTo(5,0); ctx.lineTo(8,12); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(-5,0); ctx.lineTo(-18,8); ctx.stroke();
+      // Raised edges of cracks
+      ctx.fillStyle = "#b45309";
+      ctx.beginPath(); ctx.arc(-5,0,4,0,Math.PI*2); ctx.fill();
+      ctx.beginPath(); ctx.arc(5,0,3,0,Math.PI*2); ctx.fill();
+      ctx.fillStyle = "#fff"; ctx.font = "bold 8px sans-serif"; ctx.textAlign = "center";
+      ctx.fillText("DRY!",0,6);
+
+    } else if (obs.type === "sprinkler_head") {
+      // Broken/stuck sprinkler head sticking up from ground
+      ctx.fillStyle = "rgba(0,0,0,0.18)"; ctx.beginPath(); ctx.ellipse(0,16,14,4,0,0,Math.PI*2); ctx.fill();
+      // Pipe
+      ctx.fillStyle = "#475569"; ctx.beginPath(); ctx.roundRect(-5,-8,10,24,2); ctx.fill();
+      ctx.strokeStyle = "#334155"; ctx.lineWidth = 1; ctx.strokeRect(-5,-8,10,24);
+      // Head
+      ctx.fillStyle = "#64748b"; ctx.beginPath(); ctx.roundRect(-8,-16,16,10,3); ctx.fill();
+      ctx.strokeStyle = "#334155"; ctx.lineWidth = 1.5; ctx.strokeRect(-8,-16,16,10);
+      // Nozzle
+      ctx.fillStyle = "#94a3b8"; ctx.beginPath(); ctx.roundRect(-3,-22,6,8,1); ctx.fill();
+      // Water spray (if active)
+      if (frame%24<12) {
+        ctx.strokeStyle = "rgba(59,130,246,0.8)"; ctx.lineWidth = 2;
+        for (let a=-0.5;a<=0.5;a+=0.25) {
+          ctx.beginPath(); ctx.moveTo(0,-22);
+          ctx.lineTo(Math.sin(a)*30,-22-Math.cos(a)*25); ctx.stroke();
+        }
+        ctx.fillStyle = "rgba(147,197,253,0.7)";
+        for (let i=0;i<5;i++) {
+          ctx.beginPath(); ctx.arc(rand(-25,25),-22-rand(10,30),2.5,0,Math.PI*2); ctx.fill();
+        }
       }
 
     } else if (obs.type === "tumbleweed") {
@@ -1991,7 +2334,29 @@ export default function LawnMowerDash() {
           </div>
 
           <div className="flex justify-center" style={{ padding: "0" }}>
-            <div style={{ width: "100%", maxWidth: W, position: "relative", margin: "0" }}>
+            <div ref={gameWrapperRef} style={{
+              width: "100%", maxWidth: isFullscreen ? "100vw" : W,
+              position: "relative", margin: "0",
+              backgroundColor: isFullscreen ? "#000" : "transparent",
+              display: isFullscreen ? "flex" : "block",
+              alignItems: isFullscreen ? "center" : undefined,
+              justifyContent: isFullscreen ? "center" : undefined,
+              height: isFullscreen ? "100vh" : undefined,
+            }}>
+              {/* Fullscreen button — mobile only */}
+              <button
+                onClick={toggleFullscreen}
+                style={{
+                  position: "absolute", top: 10, right: 10, zIndex: 20,
+                  background: "rgba(0,0,0,0.6)", border: `2px solid ${BRAND_GOLD}`,
+                  color: BRAND_GOLD, borderRadius: 8, padding: "6px 12px",
+                  fontSize: 13, fontWeight: "bold", cursor: "pointer",
+                  display: "flex", alignItems: "center", gap: 4,
+                }}
+                aria-label={isFullscreen ? "Exit fullscreen" : "Enter fullscreen"}
+              >
+                {isFullscreen ? "✕ EXIT" : "⛶ FULLSCREEN"}
+              </button>
               {/* Initials entry overlay — shown after dying */}
               {displayState==="enter_initials" && (
                 <div style={{
