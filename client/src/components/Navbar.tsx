@@ -699,7 +699,7 @@ export default function Navbar() {
           </div>
 
           {/* ── Right cluster ── */}
-          <div style={{ display: "flex", alignItems: "center", gap: "2.5rem", flex: 1, justifyContent: "flex-end" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "2.5rem", flex: 1, justifyContent: "flex-end", paddingLeft: "180px" }}>
             <div
               onMouseEnter={() => handleMegaEnter("services")}
               onMouseLeave={handleMegaLeave}

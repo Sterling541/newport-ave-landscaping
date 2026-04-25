@@ -355,7 +355,7 @@ export default function HeroSection() {
       <div
         style={{
           position: "absolute",
-          top: "clamp(5.5rem, 10vh, 8rem)",
+          top: "clamp(7.5rem, 13vh, 11rem)",
           left: "clamp(1.5rem, 5vw, 5rem)",
           right: "clamp(1.5rem, 5vw, 5rem)",
           zIndex: 10,
@@ -575,10 +575,11 @@ export default function HeroSection() {
                 fontSize: "0.46rem",
                 fontWeight: 700,
                 letterSpacing: "0.18em",
-                color: "oklch(0.46 0.20 25)",
-              }}
-            >
-              ⚡ BOOKING SPRING — SCHEDULE FILLS FAST
+              color: "oklch(0.85 0.18 85)",
+              textShadow: "0 1px 6px rgba(0,0,0,0.8)",
+            }}
+          >
+            ⚡ BOOKING SPRING — SCHEDULE FILLS FAST
             </span>
             <span style={{ width: "1px", height: "10px", backgroundColor: "oklch(0.35 0.008 30)" }} />
             {["LICENSED & BONDED", "LCB #9153", "21+ YEARS", "FREE ESTIMATES"].map((badge) => (
@@ -704,7 +705,7 @@ export default function HeroSection() {
       <div
         style={{
           position: "absolute",
-          top: "clamp(5.5rem, 10vh, 8rem)",
+          top: "clamp(7.5rem, 13vh, 11rem)",
           right: "clamp(1.5rem, 5vw, 5rem)",
           zIndex: 10,
           fontFamily: "'Montserrat', sans-serif",
