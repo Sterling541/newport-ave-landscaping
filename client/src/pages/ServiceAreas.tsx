@@ -4,11 +4,9 @@
    communities served by Newport Avenue Landscaping
    — with interactive Google Map showing coverage zone
    ============================================================ */
-import { useRef, useCallback } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import SEO from '@/components/SEO';
-import { MapView } from '@/components/Map';
 import { Link } from 'wouter';
 
 /* ── City data ─────────────────────────────────────────────── */
@@ -184,97 +182,18 @@ const SCHEMA = {
 
 /* ── Map section component ──────────────────────────────────── */
 function ServiceAreaMap() {
-  const mapRef = useRef<google.maps.Map | null>(null);
-
-  const handleMapReady = useCallback((map: google.maps.Map) => {
-    mapRef.current = map;
-
-    // Draw the coverage polygon
-    new window.google.maps.Polygon({
-      paths: COVERAGE_POLYGON,
-      strokeColor: '#c0392b',
-      strokeOpacity: 0.7,
-      strokeWeight: 2,
-      fillColor: '#c0392b',
-      fillOpacity: 0.10,
-      map,
-    });
-
-    // Add a marker + info window for each city
-    CITIES.forEach(city => {
-      const marker = new window.google.maps.marker.AdvancedMarkerElement({
-        map,
-        position: { lat: city.lat, lng: city.lng },
-        title: city.name,
-        content: (() => {
-          const pin = document.createElement('div');
-          pin.style.cssText = `
-            width: 14px; height: 14px;
-            background: #c0392b;
-            border: 2.5px solid white;
-            border-radius: 50%;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.35);
-            cursor: pointer;
-          `;
-          return pin;
-        })(),
-      });
-
-      const infoContent = `
-        <div style="font-family:sans-serif;padding:4px 2px;min-width:180px">
-          <p style="font-weight:700;font-size:14px;margin:0 0 4px">${city.name}</p>
-          <p style="font-size:12px;color:#555;margin:0 0 8px;line-height:1.4">${city.desc}</p>
-          <div style="display:flex;flex-wrap:wrap;gap:4px">
-            ${city.services.slice(0, 3).map(s =>
-              `<a href="${s.href}" style="font-size:11px;color:#c0392b;text-decoration:none;background:#fef2f2;padding:2px 7px;border-radius:99px;border:1px solid #fca5a5">${s.name.replace(/ in .*/, '')}</a>`
-            ).join('')}
-          </div>
-          ${city.slug ? `<a href="${city.slug}" style="display:inline-block;margin-top:8px;font-size:11px;font-weight:600;color:#c0392b;text-decoration:none">View ${city.name.split(',')[0]} page →</a>` : ''}
-        </div>
-      `;
-
-      const infoWindow = new window.google.maps.InfoWindow({ content: infoContent });
-
-      marker.addListener('click', () => {
-        infoWindow.open({ anchor: marker, map });
-      });
-    });
-
-    // Newport Ave HQ marker (star pin)
-    const hqPin = document.createElement('div');
-    hqPin.innerHTML = `
-      <div style="
-        background:#c0392b;color:white;
-        font-size:10px;font-weight:700;
-        padding:4px 8px;border-radius:4px;
-        box-shadow:0 2px 8px rgba(0,0,0,0.4);
-        white-space:nowrap;cursor:pointer;
-        position:relative;
-      ">
-        Newport Ave HQ
-        <div style="
-          position:absolute;bottom:-5px;left:50%;transform:translateX(-50%);
-          width:0;height:0;
-          border-left:5px solid transparent;
-          border-right:5px solid transparent;
-          border-top:5px solid #c0392b;
-        "></div>
-      </div>`;
-    new window.google.maps.marker.AdvancedMarkerElement({
-      map,
-      position: { lat: 44.0582, lng: -121.3153 },
-      title: 'Newport Avenue Landscaping HQ',
-      content: hqPin,
-    });
-  }, []);
-
   return (
     <div className="rounded-xl overflow-hidden shadow-lg" style={{ border: '1px solid oklch(0.88 0.005 0)' }}>
-      <MapView
-        initialCenter={{ lat: 44.10, lng: -121.30 }}
-        initialZoom={9}
-        onMapReady={handleMapReady}
-        className="w-full h-[480px]"
+      {/* Google Maps Embed — no API key required, works on all domains */}
+      <iframe
+        title="Newport Avenue Landscaping Service Area — Central Oregon"
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d354847.6!2d-121.3153!3d44.10!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54b8c0c5a7c2a1b3%3A0x8e2b6e3f1a2c4d5e!2sNewport%20Avenue%20Landscaping!5e0!3m2!1sen!2sus!4v1714000000000!5m2!1sen!2sus"
+        width="100%"
+        height="480"
+        style={{ border: 0, display: 'block' }}
+        allowFullScreen
+        loading="lazy"
+        referrerPolicy="no-referrer-when-downgrade"
       />
       <div
         className="flex flex-wrap items-center gap-6 px-5 py-3"
@@ -282,11 +201,7 @@ function ServiceAreaMap() {
       >
         <div className="flex items-center gap-2">
           <div style={{ width: 12, height: 12, borderRadius: '50%', background: '#c0392b', border: '2px solid white', boxShadow: '0 1px 4px rgba(0,0,0,0.3)' }} />
-          <span className="font-body text-xs" style={{ color: 'oklch(0.45 0.005 0)' }}>Service city — click for details</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <div style={{ width: 28, height: 10, background: 'rgba(192,57,43,0.15)', border: '1.5px solid rgba(192,57,43,0.5)', borderRadius: 2 }} />
-          <span className="font-body text-xs" style={{ color: 'oklch(0.45 0.005 0)' }}>Coverage zone</span>
+          <span className="font-body text-xs" style={{ color: 'oklch(0.45 0.005 0)' }}>Newport Ave HQ — 61535 S Hwy 97, Bend OR</span>
         </div>
         <span className="font-body text-xs ml-auto" style={{ color: 'oklch(0.55 0.005 0)' }}>
           Serving Central Oregon since 2005 &nbsp;·&nbsp; (541) 617-8873
