@@ -664,3 +664,12 @@
 - [x] Make mobile opt-out button prominent (full-width, brand red, larger text)
 - [x] Fix mobile hero text cut off at top (reduce clamp min, increase bottom offset)
 - [x] Fix mobile hero subtitle unreadable (lighter color, text-shadow)
+
+## Game Upgrade — April 25, 2026
+- [ ] Create /game route and page in App.tsx
+- [ ] Add game link to mobile menu and footer
+- [ ] Rewrite SprinklerGame with multi-level design (Neighborhood, HOA Gauntlet, Construction Site, Drought Zone)
+- [ ] Upgrade pixel art graphics — bigger sprites, more color, animated characters
+- [ ] HOA board member obstacle with clipboard and violation notice
+- [ ] Construction site obstacles (boulders, skid steer, mud puddles)
+- [ ] Screen shake, particle effects, combo system

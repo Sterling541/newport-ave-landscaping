@@ -838,6 +838,7 @@ export default function Navbar() {
                 { label: "Commercial", href: "/commercial" },
                 { label: "Resources", href: "/resources" },
                 { label: "Service Areas", href: "/service-areas" },
+                { label: "🎮 Play: Lawn Mower Dash", href: "/game" },
               ] as Array<{ label: string; href: string; dropdown?: { label: string; href: string; num: string }[] }>
             ).map((item) => (
               <div key={item.label}>

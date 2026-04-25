@@ -65,6 +65,7 @@ const quickLinks = [
   { label: "Contact Us", href: "/contact" },
   { label: "Get a Free Quote", href: "/schedule-services" },
   { label: "Careers", href: "/careers" },
+  { label: "🎮 Lawn Mower Dash (Game)", href: "/game" },
 ];
 
 const resourceArticleLinks = [

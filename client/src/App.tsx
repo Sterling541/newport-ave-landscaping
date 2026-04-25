@@ -30,6 +30,7 @@ import AdminOptOutRequests from "./pages/admin/AdminOptOutRequests";
 import QuoteRequest from "./pages/QuoteRequest";
 import AdminQuoteLeads from "./pages/admin/AdminQuoteLeads";
 import OptOut from "./pages/OptOut";
+import LawnMowerDash from "./pages/LawnMowerDash";
 
 // Main pages
 import Home from "./pages/Home";
@@ -269,6 +270,9 @@ function Router() {
 
       {/* Careers */}
       <Route path={"/careers"} component={Careers} />
+
+      {/* Game */}
+      <Route path={"/game"} component={LawnMowerDash} />
 
       {/* City landing pages */}
       <Route path={"/landscaping/bend"} component={BendPage} />
