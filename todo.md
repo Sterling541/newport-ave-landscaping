@@ -786,3 +786,14 @@
 - [ ] Backgrounds: layered parallax-style with rich detail per level
 - [ ] HUD: bold retro arcade font style, larger score/level display
 - [ ] Idle screen: premium game title card with pixel art border
+
+## Game Ground-Up Rewrite v12
+- [ ] Complete rewrite of LawnMowerDash.tsx from scratch
+- [ ] Mobile-first: canvas fills full viewport height on phones automatically
+- [ ] Proper pixel art: every sprite drawn on a pixel grid with consistent scale
+- [ ] Exmark Navigator mower: white hopper, red deck, NAVIGATOR text, seated operator in red NAL uniform
+- [ ] All obstacles 2-3x larger and clearly distinguishable at game speed
+- [ ] Rich level backgrounds: suburban houses, HOA lawn signs, construction site, drought landscape
+- [ ] Clean HUD: large readable score/level, top-5 leaderboard always visible
+- [ ] Smooth game feel: proper acceleration, clear lane positions, satisfying collision feedback
+- [ ] All existing features preserved: celebration zoom, Double or Nothing, Giant Sterling, leaderboard, analytics tracking
