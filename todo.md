@@ -746,3 +746,8 @@
 - [x] Operator has animated walking legs — replace with seated legs (bent at knee, no animation)
 - [x] Beating Level 4 does not trigger celebration or Double or Nothing screen — fix level complete → celebration flow
 - [x] Embed Lawn Mower Dash game below the quick contact form on the homepage
+
+## Game Upgrade v9 — Mobile Size + Speed Boost
+- [x] Canvas fills full mobile viewport width (no padding/margin shrinking it)
+- [x] Hold down arrow / hold bottom half of screen = speed boost (1.6x scroll speed while held)
+- [x] Speed boost visual indicator: TURBO MODE! banner in HUD while boost is held

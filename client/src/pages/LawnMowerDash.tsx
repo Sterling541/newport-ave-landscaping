@@ -120,6 +120,8 @@ export default function LawnMowerDash() {
   const CELEB_DURATION = 180; // 3 seconds at 60fps
   // Boss fight state
   const bossResult    = useRef<"pending"|"won"|"lost">("pending");
+  // Speed boost (hold down)
+  const boostHeld     = useRef(false);
 
   const nextId = () => ++idCounter.current;
 
@@ -127,7 +129,7 @@ export default function LawnMowerDash() {
     playerLane.current = 2; playerY.current = LANE_CENTERS[2]; targetLane.current = 2;
     obstacles.current = []; collectibles.current = []; particles.current = []; popTexts.current = [];
     mowStripes.current = []; distance.current = 0; baseSpeed.current = 3.2;
-    playerSpeedMult.current = 1.0; slowTimer.current = 0; fastTimer.current = 0;
+    playerSpeedMult.current = 1.0; slowTimer.current = 0; fastTimer.current = 0; boostHeld.current = false;
     nextObstacleDist.current = 180; nextCollectibleDist.current = 350;
     scrollX.current = 0; lives.current = 3; invincible.current = 0;
     frameCount.current = 0; scoreRef.current = 0; combo.current = 0;
@@ -977,6 +979,10 @@ export default function LawnMowerDash() {
     if (slowTimer.current>0) {
       ctx.fillStyle="rgba(124,58,237,0.92)"; ctx.beginPath(); ctx.roundRect(W/2-120,H-80,240,40,10); ctx.fill();
       ctx.fillStyle="#fff"; ctx.font="bold 22px sans-serif"; ctx.textAlign="center"; ctx.fillText("SLOWED! 🌵",W/2,H-53);
+    } else if (boostHeld.current) {
+      ctx.fillStyle="rgba(220,38,38,0.92)"; ctx.beginPath(); ctx.roundRect(W/2-150,H-80,300,40,10); ctx.fill();
+      ctx.strokeStyle=BRAND_GOLD; ctx.lineWidth=2; ctx.beginPath(); ctx.roundRect(W/2-150,H-80,300,40,10); ctx.stroke();
+      ctx.fillStyle="#fff"; ctx.font="bold 24px sans-serif"; ctx.textAlign="center"; ctx.fillText("TURBO MODE! 🔥",W/2,H-53);
     } else if (fastTimer.current>0) {
       ctx.fillStyle="rgba(217,119,6,0.92)"; ctx.beginPath(); ctx.roundRect(W/2-130,H-80,260,40,10); ctx.fill();
       ctx.fillStyle="#fff"; ctx.font="bold 22px sans-serif"; ctx.textAlign="center"; ctx.fillText("SPEED BOOST! ☕",W/2,H-53);
@@ -1548,7 +1554,9 @@ export default function LawnMowerDash() {
     if (invincible.current > 0) invincible.current--;
     if (screenShake.current > 0) screenShake.current--;
 
-    const scrollSpeed = baseSpeed.current * playerSpeedMult.current;
+    // Hold-down boost: 1.6x speed while held (stacks with collectible multiplier)
+    const boostMult = boostHeld.current && slowTimer.current === 0 ? 1.6 : 1.0;
+    const scrollSpeed = baseSpeed.current * playerSpeedMult.current * boostMult;
     distance.current += scrollSpeed;
     scrollX.current += scrollSpeed;
 
@@ -1755,21 +1763,51 @@ export default function LawnMowerDash() {
   }, []);
 
   useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
+    const onKeyDown = (e: KeyboardEvent) => {
       if (e.key==="ArrowUp"||e.key==="w"||e.key==="W") { e.preventDefault(); moveUp(); }
-      if (e.key==="ArrowDown"||e.key==="s"||e.key==="S") { e.preventDefault(); moveDown(); }
+      if (e.key==="ArrowDown"||e.key==="s"||e.key==="S") {
+        e.preventDefault();
+        if (!e.repeat) {
+          // First press: move down lane
+          moveDown();
+        }
+        // Hold: activate boost
+        boostHeld.current = true;
+      }
     };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
+    const onKeyUp = (e: KeyboardEvent) => {
+      if (e.key==="ArrowDown"||e.key==="s"||e.key==="S") {
+        boostHeld.current = false;
+      }
+    };
+    window.addEventListener("keydown", onKeyDown);
+    window.addEventListener("keyup", onKeyUp);
+    return () => {
+      window.removeEventListener("keydown", onKeyDown);
+      window.removeEventListener("keyup", onKeyUp);
+    };
   }, [moveUp, moveDown]);
 
   const handleTouchStart = useCallback((e: React.TouchEvent) => {
     e.preventDefault();
     touchStartY.current = e.touches[0].clientY;
+    // If touch is on the bottom half of the canvas, activate boost
+    if (stateRef.current === "playing") {
+      const canvas = canvasRef.current;
+      if (canvas) {
+        const rect = canvas.getBoundingClientRect();
+        const tapY = e.touches[0].clientY - rect.top;
+        if (tapY > rect.height / 2) {
+          boostHeld.current = true;
+        }
+      }
+    }
   }, []);
 
   const handleTouchEnd = useCallback((e: React.TouchEvent) => {
     e.preventDefault();
+    // Always release boost on touch end
+    boostHeld.current = false;
     const state = stateRef.current;
 
     // Celebration: tap to skip to double or nothing
@@ -1922,7 +1960,7 @@ export default function LawnMowerDash() {
     <>
       <Navbar />
       <div className="min-h-screen" style={{ backgroundColor: "oklch(0.97 0.01 140)", paddingTop: "80px", paddingBottom: "40px" }}>
-        <div style={{ width: "100%", maxWidth: 1280, margin: "0 auto", padding: "0 8px" }}>
+        <div style={{ width: "100%", maxWidth: 1280, margin: "0 auto", padding: "0" }}>
           <div className="text-center mb-4">
             <div className="font-label mb-1 text-xs tracking-widest" style={{ color: BRAND_RED }}>
               🎮 MINI GAME
@@ -1952,8 +1990,8 @@ export default function LawnMowerDash() {
             })}
           </div>
 
-          <div className="flex justify-center">
-            <div style={{ width: "100%", maxWidth: W, position: "relative" }}>
+          <div className="flex justify-center" style={{ padding: "0" }}>
+            <div style={{ width: "100%", maxWidth: W, position: "relative", margin: "0" }}>
               {/* Initials entry overlay — shown after dying */}
               {displayState==="enter_initials" && (
                 <div style={{
@@ -2019,13 +2057,14 @@ export default function LawnMowerDash() {
                 onTouchEnd={handleTouchEnd}
                 style={{
                   width: "100%", height: "auto",
-                  borderRadius: 16,
+                  borderRadius: "clamp(0px, 2vw, 16px)",
                   cursor: displayState!=="playing" ? "pointer" : "default",
                   touchAction: "none",
                   userSelect: "none",
                   boxShadow: "0 12px 40px rgba(0,0,0,0.25)",
                   border: `3px solid ${BRAND_RED}`,
                   display: "block",
+                  maxWidth: "100vw",
                 }}
               />
             </div>
