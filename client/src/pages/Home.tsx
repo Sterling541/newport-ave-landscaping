@@ -58,6 +58,11 @@ export default function Home() {
         <StatsSection />
       </div>
 
+      {/* Lawn Mower Dash game — high up, right after stats */}
+      <Suspense fallback={<SectionFallback />}>
+        <GameSection />
+      </Suspense>
+
       {/* All below-fold sections are lazy-loaded */}
       <Suspense fallback={<SectionFallback />}>
         <MarqueeBand />
@@ -86,11 +91,6 @@ export default function Home() {
         <ReviewsSection />
         <ServiceAreaBand />
         <ContactSection />
-      </Suspense>
-
-      {/* Lawn Mower Dash game — embedded below contact form */}
-      <Suspense fallback={<SectionFallback />}>
-        <GameSection />
       </Suspense>
 
       <Suspense fallback={<SectionFallback />}>

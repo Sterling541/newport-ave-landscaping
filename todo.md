@@ -760,3 +760,7 @@
 - [x] Mobile full-screen: Fullscreen API button (FULLSCREEN / EXIT) always visible on game page
 - [x] Update level names and HUD labels to match new themes
 - [x] Update GameSection homepage embed with new level names, themes, and fullscreen hint
+
+## Game Discoverability Fix
+- [x] Add "🎮 PLAY" pill button to the desktop navbar (right cluster, before GET A QUOTE)
+- [x] Move GameSection to right after StatsSection so it appears near the top of the homepage
