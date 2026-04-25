@@ -740,39 +740,7 @@ export default function Navbar() {
               active={isActive("/service-areas")}
               onClick={() => goTo("/service-areas")}
             />
-            {/* Game link — fun pill */}
-            <a
-              href="/game"
-              onClick={(e) => { e.preventDefault(); goTo("/game"); }}
-              style={{
-                fontFamily: "'Montserrat', sans-serif",
-                fontSize: "0.58rem",
-                fontWeight: 700,
-                letterSpacing: "0.14em",
-                textTransform: "uppercase",
-                color: "oklch(0.22 0.008 30)",
-                backgroundColor: "oklch(0.92 0.06 100)",
-                padding: "0.55rem 1.1rem",
-                borderRadius: "1.8rem 0.2rem 1.8rem 0.2rem",
-                textDecoration: "none",
-                display: "flex",
-                alignItems: "center",
-                gap: "0.35rem",
-                border: "1.5px solid oklch(0.75 0.12 100)",
-                transition: "background-color 0.2s ease, transform 0.15s ease",
-                whiteSpace: "nowrap",
-              }}
-              onMouseEnter={(e) => {
-                (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "oklch(0.85 0.10 100)";
-                (e.currentTarget as HTMLAnchorElement).style.transform = "translateY(-1px)";
-              }}
-              onMouseLeave={(e) => {
-                (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "oklch(0.92 0.06 100)";
-                (e.currentTarget as HTMLAnchorElement).style.transform = "translateY(0)";
-              }}
-            >
-              🎮 PLAY
-            </a>
+
             {/* Get a Quote — pill CTA, brand red */}
             <a
               href="/quote"
