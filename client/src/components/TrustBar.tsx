@@ -17,21 +17,6 @@
    Schema: AggregateRating injected via JSON-LD for Google rich results
    ============================================================ */
 
-const AGGREGATE_RATING_SCHEMA = {
-  "@context": "https://schema.org",
-  "@type": "LocalBusiness",
-  "@id": "https://newportavelandscaping.com/#business",
-  name: "Newport Avenue Landscaping",
-  aggregateRating: {
-    "@type": "AggregateRating",
-    ratingValue: "5.0",
-    bestRating: "5",
-    worstRating: "1",
-    reviewCount: "127",
-    ratingCount: "127",
-  },
-};
-
 const TRUST_ITEMS = [
   {
     icon: (
@@ -108,12 +93,6 @@ const TRUST_ITEMS = [
 export default function TrustBar() {
   return (
     <>
-      {/* AggregateRating JSON-LD for Google rich results */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(AGGREGATE_RATING_SCHEMA) }}
-      />
-
       <section
         aria-label="Trust signals and credentials"
         style={{

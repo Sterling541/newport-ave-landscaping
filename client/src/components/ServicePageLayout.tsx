@@ -123,7 +123,7 @@ export default function ServicePageLayout({
     aggregateRating: {
       "@type": "AggregateRating",
       ratingValue: "4.9",
-      reviewCount: "127",
+      reviewCount: 127,
       bestRating: "5",
       worstRating: "1",
     },
@@ -133,21 +133,21 @@ export default function ServicePageLayout({
         author: { "@type": "Person", name: "Sarah M." },
         datePublished: "2024-08-15",
         reviewBody: "Newport Avenue completely transformed our backyard. The design was thoughtful, the crew was professional, and the result exceeded our expectations. We've gotten so many compliments from neighbors.",
-        reviewRating: { "@type": "Rating", ratingValue: "5", bestRating: "5" },
+        reviewRating: { "@type": "Rating", ratingValue: "5", bestRating: "5", worstRating: "1" },
       },
       {
         "@type": "Review",
         author: { "@type": "Person", name: "Tom K." },
         datePublished: "2024-06-22",
         reviewBody: "They installed our irrigation system and it has been flawless. The team was knowledgeable about Central Oregon's soil and climate, and they programmed the controller perfectly. Water bill went down noticeably.",
-        reviewRating: { "@type": "Rating", ratingValue: "5", bestRating: "5" },
+        reviewRating: { "@type": "Rating", ratingValue: "5", bestRating: "5", worstRating: "1" },
       },
       {
         "@type": "Review",
         author: { "@type": "Person", name: "Linda R." },
         datePublished: "2024-05-10",
         reviewBody: "We hired Newport Ave for our xeriscape redesign and couldn't be happier. They used beautiful native plants, the design looks stunning, and we've cut our water use dramatically. Highly recommend.",
-        reviewRating: { "@type": "Rating", ratingValue: "5", bestRating: "5" },
+        reviewRating: { "@type": "Rating", ratingValue: "5", bestRating: "5", worstRating: "1" },
       },
     ],
   };
