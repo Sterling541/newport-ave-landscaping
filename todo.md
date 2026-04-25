@@ -688,3 +688,20 @@
 - [x] Upgrade LawnMowerDash: Death screens show level-specific funny subtitles
 - [x] Upgrade LawnMowerDash: Won screen says "Sterling is proud" and "(Yes, it's really $100. We're serious.)"
 - [x] Upgrade LawnMowerDash: Idle screen updated to show $100 prize and all 4 level cards
+
+## Game Upgrade v3 — April 25, 2026
+- [ ] Player wears Newport brand red uniform (not green)
+- [ ] Mower redesigned as Lexmark Navigator-style zero-turn (wide deck, twin hydro levers, roll bar, seat)
+- [ ] More tiny detail elements (fuel cap, hour meter, discharge chute, tire treads, seat cushion, etc.)
+- [ ] Shorter levels but harder — faster speed ramp, more obstacles, tighter spacing, no forgiveness
+- [ ] Very few players should beat Level 4 and see the $100 code
+- [ ] Scale up all sprites ~40-50% larger so characters/obstacles are easy to see
+
+## Game Upgrade v4 — April 25, 2026
+- [x] After beating Level 4: animated zoom-in on mower operator wiping his brow (canvas animation sequence)
+- [x] After zoom celebration: "Double or Nothing" screen — risk $100 for $200
+- [x] Giant Sterling boss fight: enormous Sterling sprite filling most of the screen, says "YOU'RE FIRED"
+- [x] Boss fight odds: 1 in 500 chance of winning (Math.random() < 0.002)
+- [x] If player wins boss: reveal MOWMONEY200 code ($200 off)
+- [x] If player loses boss: "Sterling wins. The $100 code is still yours." — still give MOWMONEY100
+- [x] Decline Double or Nothing: immediately show $100 code (MOWMONEY100)
