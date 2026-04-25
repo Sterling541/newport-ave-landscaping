@@ -6,11 +6,12 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { trpc } from "@/lib/trpc";
 
 const W = 1280;
 const H = 720;
 const PLAYER_X = 160;
-const PLAYER_R = 40;
+const PLAYER_R = 60;
 const LANE_COUNT = 5;
 const LANE_H = H / LANE_COUNT;
 const LANE_CENTERS = Array.from({ length: LANE_COUNT }, (_, i) => LANE_H * i + LANE_H / 2);
@@ -85,6 +86,14 @@ export default function LawnMowerDash() {
   const [newEntryRank, setNewEntryRank] = useState(-1);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const gameWrapperRef = useRef<HTMLDivElement>(null);
+  const sessionId = useRef(`nal-${Date.now()}-${Math.random().toString(36).slice(2,8)}`);
+  const trackEvent = trpc.game.trackEvent.useMutation();
+  const isMobile = typeof navigator !== "undefined" && /Mobi|Android/i.test(navigator.userAgent);
+  const deviceType: "desktop" | "mobile" | "tablet" = typeof navigator !== "undefined"
+    ? /iPad|Tablet/i.test(navigator.userAgent) ? "tablet"
+      : /Mobi|Android/i.test(navigator.userAgent) ? "mobile"
+      : "desktop"
+    : "desktop";
 
   // Fullscreen toggle
   const toggleFullscreen = useCallback(() => {
@@ -615,7 +624,7 @@ export default function LawnMowerDash() {
   //
   function drawObstacle(ctx: CanvasRenderingContext2D, obs: Obstacle, frame: number) {
     const y = LANE_CENTERS[obs.lane];
-    ctx.save(); ctx.translate(obs.x, y);
+    ctx.save(); ctx.translate(obs.x, y); ctx.scale(1.5, 1.5);
 
     if (obs.type === "sprinkler") {
       // Rotating sprinkler with water arc
@@ -1877,10 +1886,12 @@ export default function LawnMowerDash() {
           stateRef.current = "won";
           setWonCode(DOUBLE_CODE);
           setDisplayState("won");
+          trackEvent.mutate({ sessionId: sessionId.current, event: "boss_win", level: 4, score: scoreRef.current, device: deviceType });
         } else {
           stateRef.current = "boss_lost";
           setWonCode(DISCOUNT_CODE);
           setDisplayState("boss_lost");
+          trackEvent.mutate({ sessionId: sessionId.current, event: "boss_loss", level: 4, score: scoreRef.current, device: deviceType });
         }
         return;
       }
@@ -2217,6 +2228,7 @@ export default function LawnMowerDash() {
     stateRef.current = "playing";
     setDisplayState("playing");
     rafId.current = requestAnimationFrame(gameLoop);
+    trackEvent.mutate({ sessionId: sessionId.current, event: "start", level: 1, score: 0, device: deviceType });
   }, [resetGame, gameLoop]);
 
   const submitInitials = useCallback((inits: string) => {
@@ -2226,6 +2238,7 @@ export default function LawnMowerDash() {
     setNewEntryRank(rank);
     stateRef.current = "dead";
     setDisplayState("dead");
+    trackEvent.mutate({ sessionId: sessionId.current, event: "death", level: pendingLevel, score: pendingScore, initials: cleaned, device: deviceType });
   }, [pendingScore, pendingLevel]);
 
   useEffect(() => () => cancelAnimationFrame(rafId.current), []);
@@ -2302,9 +2315,9 @@ export default function LawnMowerDash() {
   return (
     <>
       <Navbar />
-      <div className="min-h-screen" style={{ backgroundColor: "oklch(0.97 0.01 140)", paddingTop: "80px", paddingBottom: "40px" }}>
+      <div style={{ backgroundColor: "oklch(0.97 0.01 140)", paddingTop: "clamp(0px, 10vw, 80px)", paddingBottom: "clamp(0px, 5vw, 40px)" }}>
         <div style={{ width: "100%", maxWidth: 1280, margin: "0 auto", padding: "0" }}>
-          <div className="text-center mb-4">
+          <div className="hidden sm:block text-center mb-4">
             <div className="font-label mb-1 text-xs tracking-widest" style={{ color: BRAND_RED }}>
               🎮 MINI GAME
             </div>
@@ -2318,7 +2331,7 @@ export default function LawnMowerDash() {
             </p>
           </div>
 
-          <div className="flex justify-center gap-2 mb-4 flex-wrap">
+          <div className="hidden sm:flex justify-center gap-2 mb-4 flex-wrap">
             {LEVELS.map((lv, i) => {
               const icons = ["🌊","📋","🚧","☀️"];
               const colors = ["#4ade80","#fbbf24","#f97316","#ef4444"];
@@ -2341,7 +2354,7 @@ export default function LawnMowerDash() {
               display: isFullscreen ? "flex" : "block",
               alignItems: isFullscreen ? "center" : undefined,
               justifyContent: isFullscreen ? "center" : undefined,
-              height: isFullscreen ? "100vh" : undefined,
+              height: isFullscreen ? "100dvh" : undefined,
             }}>
               {/* Fullscreen button — mobile only */}
               <button
@@ -2422,6 +2435,7 @@ export default function LawnMowerDash() {
                 onTouchEnd={handleTouchEnd}
                 style={{
                   width: "100%", height: "auto",
+                  maxHeight: "calc(100svh - 80px)",
                   borderRadius: "clamp(0px, 2vw, 16px)",
                   cursor: displayState!=="playing" ? "pointer" : "default",
                   touchAction: "none",

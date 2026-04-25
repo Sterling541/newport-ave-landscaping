@@ -67,6 +67,8 @@ import {
   listQuoteLeads,
   countQuoteLeads,
   updateQuoteLeadStatus,
+  insertGamePlay,
+  getGameStats,
 } from "./db";
 
 // ── Admin guard helper ────────────────────────────────────────────────────────
@@ -1261,7 +1263,32 @@ Be specific, data-driven, and actionable. Format as JSON with keys: bestMonths (
         await updateOptOutRequestStatus(input.id, input.status, input.adminNotes);
         return { success: true };
       }),
+   }),
+
+  // ── Game Analytics ────────────────────────────────────────────────────────
+  game: router({
+    /** Public: track a game event (start, level_complete, death, win, etc.) */
+    trackEvent: publicProcedure
+      .input(z.object({
+        sessionId: z.string().max(64),
+        event: z.enum(["start", "level_complete", "death", "win", "double_or_nothing", "boss_win", "boss_loss"]),
+        level: z.number().min(1).max(4).optional(),
+        score: z.number().min(0).default(0),
+        initials: z.string().max(3).optional(),
+        device: z.enum(["desktop", "mobile", "tablet"]).default("desktop"),
+        userAgent: z.string().max(256).optional(),
+      }))
+      .mutation(async ({ input }) => {
+        await insertGamePlay(input);
+        return { success: true };
+      }),
+
+    /** Admin: get aggregated game analytics stats */
+    getStats: protectedProcedure
+      .query(async ({ ctx }) => {
+        requireAdmin(ctx);
+        return await getGameStats();
+      }),
   }),
 });
-
 export type AppRouter = typeof appRouter;

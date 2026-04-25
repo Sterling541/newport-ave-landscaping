@@ -22,6 +22,7 @@ import {
   Bell,
   ClipboardList,
   MessageSquare,
+  Gamepad2,
 } from "lucide-react";
 import { useAuth } from "@/_core/hooks/useAuth";
 
@@ -37,6 +38,12 @@ const NAV_ITEMS = [
     href: "/admin/quote-leads",
     icon: MessageSquare,
     description: "Get a Quote inquiries",
+  },
+  {
+    label: "Game Analytics",
+    href: "/admin/game-analytics",
+    icon: Gamepad2,
+    description: "Lawn Mower Dash stats",
   },
   {
     label: "Daily Pulse",

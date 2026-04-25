@@ -296,3 +296,29 @@ export const quoteLeads = mysqlTable("quote_leads", {
 
 export type QuoteLead = typeof quoteLeads.$inferSelect;
 export type InsertQuoteLead = typeof quoteLeads.$inferInsert;
+
+/**
+ * Game analytics — tracks every Lawn Mower Dash play event.
+ * Used in the admin dashboard to see engagement, funnel, and top scores.
+ */
+export const gamePlays = mysqlTable("game_plays", {
+  id: int("id").autoincrement().primaryKey(),
+  /** Session ID (random UUID generated client-side per game session) */
+  sessionId: varchar("sessionId", { length: 64 }).notNull(),
+  /** Event type: 'start' | 'level_complete' | 'death' | 'win' | 'double_or_nothing' | 'boss_win' | 'boss_loss' */
+  event: varchar("event", { length: 32 }).notNull(),
+  /** Level number (1-4), null for start/win events */
+  level: int("level"),
+  /** Score at time of event */
+  score: int("score").default(0).notNull(),
+  /** Player initials (3 chars) entered on leaderboard */
+  initials: varchar("initials", { length: 3 }),
+  /** Device type: 'desktop' | 'mobile' | 'tablet' */
+  device: varchar("device", { length: 16 }).default("desktop").notNull(),
+  /** User agent string (truncated) */
+  userAgent: varchar("userAgent", { length: 256 }),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type GamePlay = typeof gamePlays.$inferSelect;
+export type InsertGamePlay = typeof gamePlays.$inferInsert;

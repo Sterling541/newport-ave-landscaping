@@ -764,3 +764,25 @@
 ## Game Discoverability Fix
 - [x] Add "🎮 PLAY" pill button to the desktop navbar (right cluster, before GET A QUOTE)
 - [x] Move GameSection to right after StatsSection so it appears near the top of the homepage
+
+## Game Analytics — Admin Dashboard
+- [x] Add game_plays table to drizzle/schema.ts (id, event, level, score, device, createdAt)
+- [x] Push DB migration with pnpm db:push
+- [x] Add tRPC procedures: game.trackEvent (public) and game.getStats (admin-only)
+- [x] Wire trackEvent calls into LawnMowerDash: on game start, death, boss win, boss loss
+- [x] Build /admin/game-analytics page with KPI cards, level funnel chart, daily plays chart, device breakdown, top 10 scores
+- [x] Add /admin/game-analytics route to App.tsx and admin nav (Gamepad2 icon)
+
+## Game Redesign v11 — Major Visual Overhaul + Mobile Fix
+- [ ] Fix broken router import (getLostLeadsByMonth merge corruption)
+- [ ] Add insertGamePlay and getGameStats to server/db.ts
+- [ ] Mobile: canvas auto-fills viewport height on phones, no button needed
+- [ ] Mobile: game page uses fixed positioning to fill entire screen
+- [ ] Complete color redesign: rich SNES-era palette (deep greens, warm sky, bold reds)
+- [ ] All sprites redrawn larger with depth shading and highlights
+- [ ] Mower: detailed Exmark Navigator with shadow, highlights, chrome details
+- [ ] Operator: red NAL uniform with shading, sunglasses, proper seated posture
+- [ ] Obstacles: all redrawn 2x bigger with drop shadows and color depth
+- [ ] Backgrounds: layered parallax-style with rich detail per level
+- [ ] HUD: bold retro arcade font style, larger score/level display
+- [ ] Idle screen: premium game title card with pixel art border

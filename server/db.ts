@@ -5,6 +5,7 @@ import {
   LeadFollowUp, csvImportJobs, insights, leadFollowUps, serviceSubmissions, users, weatherDaily,
   optOutRequests, type InsertOptOutRequest,
   quoteLeads, type InsertQuoteLead,
+  gamePlays, type InsertGamePlay,
 } from "../drizzle/schema";
 import { ENV } from './_core/env';
 
@@ -924,4 +925,54 @@ export async function updateQuoteLeadStatus(
   const db = await getDb();
   if (!db) throw new Error("Database not available");
   return db.update(quoteLeads).set({ status, ...(adminNotes !== undefined ? { adminNotes } : {}) }).where(eq(quoteLeads.id, id));
+}
+
+// ── Game Analytics ─────────────────────────────────────────────────────────────
+export async function insertGamePlay(data: Omit<InsertGamePlay, 'id' | 'createdAt'>) {
+  const db = await getDb();
+  if (!db) throw new Error('Database not available');
+  return db.insert(gamePlays).values(data);
+}
+
+export async function getGameStats() {
+  const db = await getDb();
+  if (!db) throw new Error('Database not available');
+
+  // Total plays (start events)
+  const totalPlaysRows = await db.select({ count: sql<number>`count(*)` }).from(gamePlays).where(eq(gamePlays.event, 'start'));
+  const totalPlays = Number(totalPlaysRows[0]?.count ?? 0);
+
+  // Level completion funnel
+  const levelFunnel: Record<number, number> = {};
+  for (let lvl = 1; lvl <= 4; lvl++) {
+    const rows = await db.select({ count: sql<number>`count(distinct sessionId)` }).from(gamePlays)
+      .where(and(eq(gamePlays.event, 'level_complete'), eq(gamePlays.level, lvl)));
+    levelFunnel[lvl] = Number(rows[0]?.count ?? 0);
+  }
+
+  // Total wins
+  const winsRows = await db.select({ count: sql<number>`count(*)` }).from(gamePlays).where(eq(gamePlays.event, 'win'));
+  const totalWins = Number(winsRows[0]?.count ?? 0);
+
+  // Boss wins
+  const bossWinsRows = await db.select({ count: sql<number>`count(*)` }).from(gamePlays).where(eq(gamePlays.event, 'boss_win'));
+  const bossWins = Number(bossWinsRows[0]?.count ?? 0);
+
+  // Device breakdown
+  const deviceRows = await db.select({ device: gamePlays.device, count: sql<number>`count(*)` })
+    .from(gamePlays).where(eq(gamePlays.event, 'start')).groupBy(gamePlays.device);
+  const deviceBreakdown = deviceRows.map(r => ({ device: r.device, count: Number(r.count) }));
+
+  // Top 10 scores
+  const topScores = await db.select({ initials: gamePlays.initials, score: gamePlays.score, createdAt: gamePlays.createdAt })
+    .from(gamePlays).where(eq(gamePlays.event, 'win')).orderBy(desc(gamePlays.score)).limit(10);
+
+  // Plays per day (last 30 days)
+  const playsPerDay = await db.select({
+    date: sql<string>`DATE(createdAt)`,
+    count: sql<number>`count(*)`,
+  }).from(gamePlays).where(and(eq(gamePlays.event, 'start'), gte(gamePlays.createdAt, new Date(Date.now() - 30 * 24 * 60 * 60 * 1000))))
+    .groupBy(sql`DATE(createdAt)`).orderBy(sql`DATE(createdAt)`);
+
+  return { totalPlays, levelFunnel, totalWins, bossWins, deviceBreakdown, topScores, playsPerDay };
 }

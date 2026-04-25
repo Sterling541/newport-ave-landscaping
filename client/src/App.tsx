@@ -29,6 +29,7 @@ import Reminders from "./pages/admin/Reminders";
 import AdminOptOutRequests from "./pages/admin/AdminOptOutRequests";
 import QuoteRequest from "./pages/QuoteRequest";
 import AdminQuoteLeads from "./pages/admin/AdminQuoteLeads";
+import GameAnalytics from "./pages/admin/GameAnalytics";
 import OptOut from "./pages/OptOut";
 import LawnMowerDash from "./pages/LawnMowerDash";
 
@@ -522,6 +523,7 @@ function Router() {
       <Route path={"/admin/reminders"} component={Reminders} />
       <Route path={"/admin/opt-out-requests"} component={AdminOptOutRequests} />
       <Route path={"/admin/quote-leads"} component={AdminQuoteLeads} />
+      <Route path={"/admin/game-analytics"} component={GameAnalytics} />
       <Route path={"/admin/geo-intelligence"} component={GeoIntelligence} />
 
       {/* Fallback */}
