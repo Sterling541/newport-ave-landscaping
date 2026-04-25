@@ -705,3 +705,22 @@
 - [x] If player wins boss: reveal MOWMONEY200 code ($200 off)
 - [x] If player loses boss: "Sterling wins. The $100 code is still yours." — still give MOWMONEY100
 - [x] Decline Double or Nothing: immediately show $100 code (MOWMONEY100)
+
+## Game Upgrade v5 — Leaderboard
+- [ ] Top 10 high scores stored in localStorage with 3-letter initials
+- [ ] After dying or winning: show initials entry screen (3 letters, keyboard + tap)
+- [ ] Leaderboard panel always visible on idle screen and game-over screen
+- [ ] Current run score highlighted in leaderboard if it made the top 10
+- [ ] Leaderboard shows rank, initials, score (ft), and level reached
+
+## Game Upgrade v6 — Retro Bowl Visual Overhaul
+- [x] Retro Bowl-quality pixel art style: chunky outlines, bold colors, pixel-perfect sprites
+- [x] All sprites 40-50% bigger so they are clearly visible
+- [x] HOA signs changed from "NO NAL" to "NO LOUD NOISES PAST 10"
+- [x] Top 5 leaderboard always visible on the game canvas (HUD overlay during play and on all screens)
+- [x] Gnome redrawn as chunky retro pixel gnome (not clip art)
+- [x] All obstacles redrawn with thick outlines and bold retro colors
+- [ ] Player mower redrawn with chunky pixel art Exmark Navigator style
+- [ ] Background elements more detailed and retro
+- [x] Update game description: "Can you survive one day at Newport Avenue Landscaping and mow your entire route?"
+- [x] HOA level: draw taller grass blades in the background lanes

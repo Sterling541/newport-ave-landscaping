@@ -10,7 +10,7 @@ import Footer from "@/components/Footer";
 const W = 640;
 const H = 360;
 const PLAYER_X = 110;
-const PLAYER_R = 22;
+const PLAYER_R = 28;
 const LANE_COUNT = 5;
 const LANE_H = H / LANE_COUNT;
 const LANE_CENTERS = Array.from({ length: LANE_COUNT }, (_, i) => LANE_H * i + LANE_H / 2);
@@ -18,6 +18,25 @@ const LANE_CENTERS = Array.from({ length: LANE_COUNT }, (_, i) => LANE_H * i + L
 const DISCOUNT_CODE = "MOWMONEY100";
 const DOUBLE_CODE   = "MOWMONEY200";
 const HIGH_SCORE_KEY = "nal_mower_hs_v4";
+const LEADERBOARD_KEY = "nal_mower_lb_v1";
+const MAX_LB_ENTRIES = 10;
+interface LBEntry { initials: string; score: number; level: number; ts: number; }
+function loadLeaderboard(): LBEntry[] {
+  try { return JSON.parse(localStorage.getItem(LEADERBOARD_KEY) ?? "[]") || []; } catch { return []; }
+}
+function saveLeaderboard(lb: LBEntry[]) {
+  try { localStorage.setItem(LEADERBOARD_KEY, JSON.stringify(lb)); } catch {}
+}
+function addToLeaderboard(initials: string, score: number, level: number): { lb: LBEntry[]; rank: number } {
+  const lb = loadLeaderboard();
+  const entry: LBEntry = { initials: initials.toUpperCase().slice(0,3).padEnd(3,"_"), score, level, ts: Date.now() };
+  lb.push(entry);
+  lb.sort((a,b) => b.score - a.score);
+  const trimmed = lb.slice(0, MAX_LB_ENTRIES);
+  const rank = trimmed.findIndex(e => e.ts === entry.ts);
+  saveLeaderboard(trimmed);
+  return { lb: trimmed, rank };
+}
 
 const LEVELS = [
   { id: 1, name: "THE NEIGHBORHOOD",     subtitle: "Dodge the sprinklers & keep the NAL signs upright!", targetDist: 600,  tagline: "Just another Tuesday in the 'hood." },
@@ -41,7 +60,7 @@ interface Obstacle {
 interface Collectible { id: number; x: number; lane: number; type: string; collected: boolean; bobOffset: number; }
 interface Particle { x: number; y: number; vx: number; vy: number; life: number; color: string; r: number; }
 interface PopText { x: number; y: number; text: string; color: string; life: number; size: number; }
-type GameState = "idle"|"playing"|"level_complete"|"dead"|"celebration"|"double_or_nothing"|"boss_fight"|"won"|"boss_lost";
+type GameState = "idle"|"playing"|"level_complete"|"dead"|"enter_initials"|"celebration"|"double_or_nothing"|"boss_fight"|"won"|"boss_lost";
 
 const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
 const clamp = (v: number, lo: number, hi: number) => Math.max(lo, Math.min(hi, v));
@@ -59,6 +78,11 @@ export default function LawnMowerDash() {
   });
   const [wonCode, setWonCode] = useState("");
   const [copied, setCopied] = useState(false);
+  const [leaderboard, setLeaderboard] = useState<LBEntry[]>(() => loadLeaderboard());
+  const [pendingScore, setPendingScore] = useState(0);
+  const [pendingLevel, setPendingLevel] = useState(1);
+  const [initials, setInitials] = useState("");
+  const [newEntryRank, setNewEntryRank] = useState(-1);
 
   const playerLane    = useRef(2);
   const playerY       = useRef(LANE_CENTERS[2]);
@@ -111,6 +135,7 @@ export default function LawnMowerDash() {
     levelIntroTimer.current = 120; screenShake.current = 0;
     stripeToggle.current = false; lastStripeX.current = PLAYER_X;
     setScore(0); setWonCode(""); setCopied(false); setCurrentLevel(level);
+    setInitials(""); setNewEntryRank(-1);
   }, []);
 
   //
@@ -235,25 +260,61 @@ export default function LawnMowerDash() {
   }
 
   function drawHOABg(ctx: CanvasRenderingContext2D, _frame: number) {
+    // Tall overgrown grass blades in each lane (the HOA hates this)
+    const grassOff = -(scrollX.current % 18);
+    for (let lane = 0; lane < LANE_COUNT; lane++) {
+      const ly = lane * LANE_H;
+      for (let gx = grassOff; gx < W + 18; gx += 18) {
+        const seed = (gx * 7 + lane * 31) & 255;
+        const h = 22 + (seed % 18);  // tall grass 22-40px
+        const lean = ((seed % 7) - 3) * 0.18;
+        const shade = lane % 2 === 0 ? "#2d7a2d" : "#267326";
+        ctx.strokeStyle = shade; ctx.lineWidth = 2.5; ctx.lineCap = "round";
+        ctx.beginPath();
+        ctx.moveTo(gx, ly + LANE_H);
+        ctx.quadraticCurveTo(gx + lean * h, ly + LANE_H - h * 0.5, gx + lean * h * 1.4, ly + LANE_H - h);
+        ctx.stroke();
+        // Lighter tip
+        ctx.strokeStyle = "#4db84d"; ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.moveTo(gx + lean * h * 1.2, ly + LANE_H - h * 0.85);
+        ctx.lineTo(gx + lean * h * 1.4, ly + LANE_H - h);
+        ctx.stroke();
+      }
+    }
+    // HOA notice signs
     const signX = -(scrollX.current % 280) + 220;
     for (let x = signX; x < W + 280; x += 280) {
-      ctx.fillStyle = "#fff"; ctx.fillRect(x, 3, 90, 26);
-      ctx.strokeStyle = BRAND_RED; ctx.lineWidth = 2; ctx.strokeRect(x, 3, 90, 26);
+      // Sign post
+      ctx.strokeStyle = "#5c3d1e"; ctx.lineWidth = 3;
+      ctx.beginPath(); ctx.moveTo(x+45, 28); ctx.lineTo(x+45, 8); ctx.stroke();
+      ctx.fillStyle = "#fff"; ctx.beginPath(); ctx.roundRect(x, 0, 90, 28, 4); ctx.fill();
+      ctx.strokeStyle = BRAND_RED; ctx.lineWidth = 2.5; ctx.beginPath(); ctx.roundRect(x, 0, 90, 28, 4); ctx.stroke();
       ctx.fillStyle = BRAND_RED; ctx.font = "bold 7px sans-serif"; ctx.textAlign = "center";
-      ctx.fillText("HOA NOTICE", x+45, 14);
-      ctx.fillStyle = "#333"; ctx.font = "5.5px sans-serif"; ctx.fillText("NO NAL ALLOWED", x+45, 24);
+      ctx.fillText("HOA NOTICE", x+45, 12);
+      ctx.fillStyle = "#333"; ctx.font = "bold 5.5px sans-serif"; ctx.fillText("NO LOUD NOISES PAST 10", x+45, 23);
       // Tiny perfect house
       ctx.fillStyle = "#f0ead6"; ctx.fillRect(x+100, 2, 50, 22);
       ctx.fillStyle = "#5a3a1a";
       ctx.beginPath(); ctx.moveTo(x+96,2); ctx.lineTo(x+125,-10); ctx.lineTo(x+154,2); ctx.closePath(); ctx.fill();
       ctx.fillStyle = "#b0d4f1"; ctx.fillRect(x+108, 8, 12, 10);
+      ctx.strokeStyle = "#fff"; ctx.lineWidth = 0.8; ctx.strokeRect(x+108, 8, 12, 10);
     }
+    // Perfectly trimmed hedges (the HOA-approved kind)
     const hedgeX = -(scrollX.current % 60);
     for (let x = hedgeX; x < W + 60; x += 60) {
-      ctx.fillStyle = "#2d6a2d";
-      ctx.beginPath(); ctx.arc(x+15, 4, 10, Math.PI, 0); ctx.fill();
-      ctx.beginPath(); ctx.arc(x+35, 4, 10, Math.PI, 0); ctx.fill();
-      ctx.beginPath(); ctx.arc(x+55, 4, 10, Math.PI, 0); ctx.fill();
+      ctx.fillStyle = "#1a5c1a";
+      ctx.fillRect(x, 0, 18, 14);
+      ctx.fillRect(x+20, 0, 18, 14);
+      ctx.fillRect(x+40, 0, 18, 14);
+      ctx.fillStyle = "#2d7a2d";
+      ctx.fillRect(x, 0, 18, 10);
+      ctx.fillRect(x+20, 0, 18, 10);
+      ctx.fillRect(x+40, 0, 18, 10);
+      ctx.fillStyle = "#4db84d";
+      ctx.fillRect(x, 0, 18, 3);
+      ctx.fillRect(x+20, 0, 18, 3);
+      ctx.fillRect(x+40, 0, 18, 3);
     }
   }
 
@@ -539,21 +600,75 @@ export default function LawnMowerDash() {
       ctx.lineTo(0,0); ctx.closePath(); ctx.fill();
 
     } else if (obs.type === "gnome") {
-      ctx.fillStyle = "rgba(0,0,0,0.18)"; ctx.beginPath(); ctx.ellipse(0,22,14,4,0,0,Math.PI*2); ctx.fill();
-      ctx.fillStyle = "#dc2626"; ctx.beginPath(); ctx.roundRect(-10,-12,20,26,5); ctx.fill();
-      ctx.fillStyle = "#f5f5f5"; ctx.beginPath(); ctx.arc(0,2,10,0,Math.PI); ctx.fill();
-      ctx.fillStyle = "#dc2626";
-      ctx.beginPath(); ctx.moveTo(-9,-12); ctx.lineTo(0,-34); ctx.lineTo(9,-12); ctx.closePath(); ctx.fill();
-      ctx.fillStyle = "#f5c5a3"; ctx.beginPath(); ctx.arc(0,-15,9,0,Math.PI*2); ctx.fill();
-      ctx.fillStyle = "#1a1a2e"; ctx.beginPath(); ctx.arc(-3,-16,2,0,Math.PI*2); ctx.fill();
-      ctx.beginPath(); ctx.arc(3,-16,2,0,Math.PI*2); ctx.fill();
-      ctx.fillStyle = "rgba(255,100,100,0.45)"; ctx.beginPath(); ctx.arc(-5,-12,3.5,0,Math.PI*2); ctx.fill();
-      ctx.beginPath(); ctx.arc(5,-12,3.5,0,Math.PI*2); ctx.fill();
+      // Retro Bowl-style chunky pixel gnome
+      ctx.fillStyle = "rgba(0,0,0,0.25)"; ctx.beginPath(); ctx.ellipse(2,26,16,5,0,0,Math.PI*2); ctx.fill();
+      // Boots (big chunky)
+      ctx.fillStyle = "#1a0a00";
+      ctx.fillRect(-12, 16, 10, 10);
+      ctx.fillRect(2, 16, 10, 10);
+      ctx.fillStyle = "#3d1a00";
+      ctx.fillRect(-12, 16, 10, 4);
+      ctx.fillRect(2, 16, 10, 4);
+      // Body (red coat, thick outline)
+      ctx.fillStyle = "#cc0000";
+      ctx.fillRect(-11, -8, 22, 26);
+      ctx.strokeStyle = "#660000"; ctx.lineWidth = 2; ctx.strokeRect(-11, -8, 22, 26);
+      // White beard (big block)
+      ctx.fillStyle = "#f0f0f0";
+      ctx.fillRect(-9, 4, 18, 14);
+      ctx.strokeStyle = "#ccc"; ctx.lineWidth = 1; ctx.strokeRect(-9, 4, 18, 14);
+      // Belt
+      ctx.fillStyle = "#1a1a00";
+      ctx.fillRect(-11, 2, 22, 5);
+      ctx.fillStyle = "#f5c518";
+      ctx.fillRect(-4, 3, 8, 4);
+      // Head (skin, big)
+      ctx.fillStyle = "#f5c5a3";
+      ctx.fillRect(-9, -22, 18, 16);
+      ctx.strokeStyle = "#c97b5a"; ctx.lineWidth = 2; ctx.strokeRect(-9, -22, 18, 16);
+      // Eyes (pixel dots)
+      ctx.fillStyle = "#1a1a2e";
+      ctx.fillRect(-6, -19, 4, 4);
+      ctx.fillRect(2, -19, 4, 4);
+      // Rosy cheeks
+      ctx.fillStyle = "rgba(220,80,80,0.5)";
+      ctx.fillRect(-9, -14, 5, 4);
+      ctx.fillRect(4, -14, 5, 4);
+      // Hat (tall pointy red, chunky)
+      ctx.fillStyle = "#cc0000";
+      ctx.fillRect(-8, -38, 16, 18);
+      ctx.strokeStyle = "#660000"; ctx.lineWidth = 2; ctx.strokeRect(-8, -38, 16, 18);
+      // Hat brim
+      ctx.fillStyle = "#cc0000";
+      ctx.fillRect(-12, -22, 24, 4);
+      ctx.strokeStyle = "#660000"; ctx.lineWidth = 1.5; ctx.strokeRect(-12, -22, 24, 4);
+      // Hat tip
+      ctx.fillStyle = "#cc0000";
+      ctx.beginPath(); ctx.moveTo(-2, -38); ctx.lineTo(2, -38); ctx.lineTo(0, -50); ctx.closePath(); ctx.fill();
+      ctx.strokeStyle = "#660000"; ctx.lineWidth = 1.5; ctx.stroke();
+      // Arms (chunky)
+      ctx.fillStyle = "#cc0000";
+      ctx.fillRect(-18, -6, 8, 14);
+      ctx.fillRect(10, -6, 8, 14);
+      ctx.strokeStyle = "#660000"; ctx.lineWidth = 1.5;
+      ctx.strokeRect(-18, -6, 8, 14);
+      ctx.strokeRect(10, -6, 8, 14);
+      // Fists (skin)
+      ctx.fillStyle = "#f5c5a3";
+      ctx.fillRect(-19, 6, 9, 8);
+      ctx.fillRect(10, 6, 9, 8);
+      ctx.strokeStyle = "#c97b5a"; ctx.lineWidth = 1;
+      ctx.strokeRect(-19, 6, 9, 8);
+      ctx.strokeRect(10, 6, 9, 8);
+      // Speech bubble
       if (Math.floor(frame/35)%2===0) {
-        ctx.fillStyle = "#fff"; ctx.beginPath(); ctx.roundRect(10,-44,50,16,4); ctx.fill();
-        ctx.strokeStyle = "#dc2626"; ctx.lineWidth = 1; ctx.strokeRect(10,-44,50,16);
-        ctx.fillStyle = "#dc2626"; ctx.font = "bold 7px sans-serif"; ctx.textAlign = "center";
-        ctx.fillText("MY LAWN!", 35,-33);
+        ctx.fillStyle = "#fff"; ctx.beginPath(); ctx.roundRect(10,-52,56,18,4); ctx.fill();
+        ctx.strokeStyle = "#cc0000"; ctx.lineWidth = 2; ctx.beginPath(); ctx.roundRect(10,-52,56,18,4); ctx.stroke();
+        // Bubble tail
+        ctx.fillStyle = "#fff";
+        ctx.beginPath(); ctx.moveTo(14,-34); ctx.lineTo(20,-34); ctx.lineTo(14,-28); ctx.closePath(); ctx.fill();
+        ctx.fillStyle = "#cc0000"; ctx.font = "bold 8px sans-serif"; ctx.textAlign = "center";
+        ctx.fillText("MY LAWN!", 38,-40);
       }
 
     } else if (obs.type === "hoa_member" || obs.type === "hoa_group") {
@@ -571,7 +686,7 @@ export default function LawnMowerDash() {
       ctx.fillStyle = "#1a1a2e"; ctx.font = "bold 4px sans-serif"; ctx.textAlign = "center"; ctx.fillText("HOA",0,-5);
       ctx.fillStyle = BRAND_RED; ctx.beginPath(); ctx.arc(6,-2,5,0,Math.PI*2); ctx.fill();
       ctx.fillStyle = "#fff"; ctx.font = "bold 3.5px sans-serif"; ctx.textAlign = "center";
-      ctx.fillText("NO",6,-3); ctx.fillText("NAL",6,2);
+      ctx.fillText("NO",6,-3); ctx.fillText("LOUD",6,2);
       ctx.strokeStyle = "#1e3a5f"; ctx.lineWidth = 6; ctx.lineCap = "round";
       ctx.beginPath(); ctx.moveTo(-9,-8); ctx.lineTo(-16,5); ctx.stroke();
       ctx.beginPath(); ctx.moveTo(9,-8); ctx.lineTo(16,-1); ctx.stroke();
@@ -589,7 +704,7 @@ export default function LawnMowerDash() {
       ctx.beginPath(); ctx.arc(4,-23,2,0,Math.PI*2); ctx.fill();
       ctx.strokeStyle = BRAND_RED; ctx.lineWidth = 1.5;
       ctx.beginPath(); ctx.arc(0,-18,5,Math.PI+0.3,-0.3); ctx.stroke();
-      const msgs = ["VIOLATION!","NO NAL HERE!","CALL MY LAWYER!","RULE #312!","UNACCEPTABLE!"];
+      const msgs = ["VIOLATION!","TOO LOUD!","CALL MY LAWYER!","RULE #312!","UNACCEPTABLE!"];
       if (Math.floor(frame/28)%2===0) {
         const msg = msgs[Math.floor(frame/90)%msgs.length];
         const bw = msg.length*5+12;
@@ -608,7 +723,7 @@ export default function LawnMowerDash() {
       ctx.beginPath(); ctx.arc(-16,-22,8,0,Math.PI*2); ctx.stroke();
       ctx.beginPath(); ctx.moveTo(-22,-28); ctx.lineTo(-10,-16); ctx.stroke();
       ctx.fillStyle = "#fff"; ctx.font = "bold 8px sans-serif"; ctx.textAlign = "center";
-      ctx.fillText("NO NAL",10,-26); ctx.fillText("ALLOWED",10,-15);
+      ctx.fillText("NO LOUD",10,-26); ctx.fillText("NOISES PAST 10",10,-15);
 
     } else if (obs.type === "boulder") {
       ctx.fillStyle = "rgba(0,0,0,0.2)"; ctx.beginPath(); ctx.ellipse(4,26,24,6,0,0,Math.PI*2); ctx.fill();
@@ -814,6 +929,22 @@ export default function LawnMowerDash() {
     }
     ctx.fillStyle = BRAND_GOLD; ctx.font = "bold 9px sans-serif"; ctx.textAlign = "right";
     ctx.fillText(`🏆 ${highScoreRef.current} ft`, W-8,15);
+    // Top-5 leaderboard always visible on right side
+    const lb5 = loadLeaderboard().slice(0,5);
+    if (lb5.length > 0) {
+      ctx.fillStyle = "rgba(0,0,0,0.72)"; ctx.beginPath(); ctx.roundRect(W-108, 52, 100, 14+lb5.length*14, 6); ctx.fill();
+      ctx.strokeStyle = BRAND_GOLD; ctx.lineWidth = 1; ctx.beginPath(); ctx.roundRect(W-108, 52, 100, 14+lb5.length*14, 6); ctx.stroke();
+      ctx.fillStyle = BRAND_GOLD; ctx.font = "bold 7px sans-serif"; ctx.textAlign = "center";
+      ctx.fillText("TOP 5", W-58, 62);
+      lb5.forEach((e, i) => {
+        const ry = 66 + i*14;
+        ctx.fillStyle = i===0 ? "#fbbf24" : "#fff";
+        ctx.font = "bold 7px sans-serif"; ctx.textAlign = "left";
+        ctx.fillText(`${i+1}. ${e.initials}`, W-104, ry);
+        ctx.textAlign = "right";
+        ctx.fillText(`${e.score}ft`, W-8, ry);
+      });
+    }
     ctx.fillStyle = "rgba(255,255,255,0.12)"; ctx.beginPath(); ctx.roundRect(8,H-20,W-16,12,5); ctx.fill();
     const bc = ["#4ade80","#fbbf24","#f97316","#ef4444"];
     ctx.fillStyle = bc[level-1]; ctx.beginPath(); ctx.roundRect(8,H-20,(W-16)*pct,12,5); ctx.fill();
@@ -1194,12 +1325,52 @@ export default function LawnMowerDash() {
     ctx.fillText("▶  TAP TO PLAY", W/2, 230);
     if (highScoreRef.current>0) {
       ctx.fillStyle = BRAND_GOLD; ctx.font = "bold 12px sans-serif";
-      ctx.fillText(`🏆 Best: ${highScoreRef.current} ft`, W/2, 268);
+      ctx.fillText(`🏆 Best: ${highScoreRef.current} ft`, W/2, 256);
+    }
+    // Leaderboard always shown on idle
+    drawLeaderboardPanel(ctx, loadLeaderboard(), -1, 272);
+  }
+
+  function drawLeaderboardPanel(ctx: CanvasRenderingContext2D, lb: LBEntry[], highlightRank: number, yOffset: number) {
+    const panelX = W/2-160, panelW = 320, panelH = lb.length > 0 ? 22 + lb.length*22 + 10 : 50;
+    ctx.fillStyle = "rgba(0,0,0,0.7)"; ctx.beginPath(); ctx.roundRect(panelX, yOffset, panelW, panelH, 10); ctx.fill();
+    ctx.strokeStyle = BRAND_GOLD; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.roundRect(panelX, yOffset, panelW, panelH, 10); ctx.stroke();
+    ctx.fillStyle = BRAND_GOLD; ctx.font = "bold 11px sans-serif"; ctx.textAlign = "center";
+    ctx.fillText("🏆  HIGH SCORES  🏆", W/2, yOffset+15);
+    if (lb.length === 0) {
+      ctx.fillStyle = "rgba(255,255,255,0.4)"; ctx.font = "10px sans-serif";
+      ctx.fillText("No scores yet — be the first!", W/2, yOffset+36);
+      return;
+    }
+    const rankColors = ["#fbbf24","#d1d5db","#cd7c3a"];
+    for (let i=0; i<lb.length; i++) {
+      const e = lb[i];
+      const ry = yOffset + 26 + i*22;
+      const isNew = i === highlightRank;
+      if (isNew) {
+        ctx.fillStyle = "rgba(200,168,75,0.25)"; ctx.beginPath(); ctx.roundRect(panelX+4, ry-13, panelW-8, 20, 4); ctx.fill();
+        ctx.strokeStyle = BRAND_GOLD; ctx.lineWidth = 1; ctx.beginPath(); ctx.roundRect(panelX+4, ry-13, panelW-8, 20, 4); ctx.stroke();
+      }
+      ctx.fillStyle = i<3 ? rankColors[i] : "rgba(255,255,255,0.5)";
+      ctx.font = `bold ${i<3?11:10}px sans-serif`; ctx.textAlign = "left";
+      ctx.fillText(`${i+1}.`, panelX+12, ry);
+      ctx.fillStyle = isNew ? BRAND_GOLD : "#fff";
+      ctx.font = `bold ${isNew?11:10}px monospace`; ctx.textAlign = "left";
+      ctx.fillText(e.initials, panelX+32, ry);
+      ctx.fillStyle = isNew ? BRAND_GOLD : "rgba(255,255,255,0.8)";
+      ctx.font = `${isNew?"bold ":""} 10px sans-serif`; ctx.textAlign = "right";
+      ctx.fillText(`${e.score} ft`, panelX+panelW-60, ry);
+      ctx.fillStyle = "rgba(255,255,255,0.35)"; ctx.font = "9px sans-serif";
+      ctx.fillText(`Lvl ${e.level}`, panelX+panelW-12, ry);
+      if (isNew) {
+        ctx.fillStyle = BRAND_GOLD; ctx.font = "bold 9px sans-serif"; ctx.textAlign = "center";
+        ctx.fillText("NEW!", panelX+panelW-36, ry);
+      }
     }
   }
 
   //
-  function drawDeadScreen(ctx: CanvasRenderingContext2D, s: number, hs: number, level: number) {
+  function drawDeadScreen(ctx: CanvasRenderingContext2D, s: number, hs: number, level: number, lb: LBEntry[] = [], highlightRank = -1) {
     for (let i=0;i<LANE_COUNT;i++) {
       ctx.fillStyle = i%2===0?"#3a8c3a":"#358035";
       ctx.fillRect(0,i*LANE_H,W,LANE_H);
@@ -1224,7 +1395,9 @@ export default function LawnMowerDash() {
     ctx.strokeStyle = BRAND_GOLD; ctx.lineWidth = 2; ctx.beginPath(); ctx.roundRect(W/2-100,196,200,48,10); ctx.stroke();
     ctx.fillStyle = "#fff"; ctx.font = "bold 18px sans-serif"; ctx.textAlign = "center"; ctx.fillText("🔄  TRY AGAIN", W/2, 225);
     ctx.fillStyle = BRAND_GOLD; ctx.font = "italic 11px sans-serif";
-    ctx.fillText("Sterling believes in you. Probably.", W/2, 262);
+    ctx.fillText("Sterling believes in you. Probably.", W/2, 248);
+    // Leaderboard on dead screen
+    drawLeaderboardPanel(ctx, lb, highlightRank, 262);
   }
 
   //
@@ -1479,7 +1652,7 @@ export default function LawnMowerDash() {
           const hm = ["SOAKED! 💦","CITED! 📋","CRUSHED! 🪨","CAUGHT! 🚰"];
           spawnPopText(PLAYER_X,playerY.current-35,hm[level-1]||"HIT!","#ef4444",17);
           if (lives.current<=0) {
-            stateRef.current="dead";
+            stateRef.current="enter_initials";
             const fs = Math.floor(distance.current/10);
             scoreRef.current=fs; setScore(fs);
             setHighScore(prev => {
@@ -1487,7 +1660,10 @@ export default function LawnMowerDash() {
               try { localStorage.setItem(HIGH_SCORE_KEY,String(nh)); } catch {}
               return nh;
             });
-            setDisplayState("dead");
+            setPendingScore(fs);
+            setPendingLevel(levelRef.current);
+            setInitials("");
+            setDisplayState("enter_initials");
             return;
           }
         }
@@ -1636,6 +1812,15 @@ export default function LawnMowerDash() {
     rafId.current = requestAnimationFrame(gameLoop);
   }, [resetGame, gameLoop]);
 
+  const submitInitials = useCallback((inits: string) => {
+    const cleaned = inits.toUpperCase().replace(/[^A-Z]/g, "").slice(0,3).padEnd(3,"_");
+    const { lb, rank } = addToLeaderboard(cleaned, pendingScore, pendingLevel);
+    setLeaderboard(lb);
+    setNewEntryRank(rank);
+    stateRef.current = "dead";
+    setDisplayState("dead");
+  }, [pendingScore, pendingLevel]);
+
   useEffect(() => () => cancelAnimationFrame(rafId.current), []);
 
   const handleCanvasClick = useCallback((e: React.MouseEvent<HTMLCanvasElement>) => {
@@ -1689,7 +1874,7 @@ export default function LawnMowerDash() {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
     if (displayState==="idle") drawIdleScreen(ctx);
-    else if (displayState==="dead") drawDeadScreen(ctx, score, highScore, currentLevel);
+    else if (displayState==="dead") drawDeadScreen(ctx, score, highScore, currentLevel, leaderboard, newEntryRank);
     else if (displayState==="won") drawWonScreen(ctx);
     else if (displayState==="boss_lost") drawBossLostScreen(ctx);
     else if (displayState==="level_complete") drawLevelComplete(ctx, currentLevel);
@@ -1704,6 +1889,7 @@ export default function LawnMowerDash() {
       cancelAnimationFrame(rafId.current);
       animate();
     }
+    // enter_initials is rendered as React JSX overlay, not canvas
   }, [displayState, score, highScore, currentLevel]);
 
   return (
@@ -1719,8 +1905,9 @@ export default function LawnMowerDash() {
               Lawn Mower Dash
             </h1>
             <p className="font-body text-sm max-w-lg mx-auto" style={{ color: "oklch(0.45 0.005 30)" }}>
-              Push your NAL Exmark Navigator through <strong>4 levels of Central Oregon chaos</strong>.
-              Beat all 4 levels to unlock a <strong>$100 discount</strong> — then dare to face
+              Can you survive one day at Newport Avenue Landscaping and mow your entire route?
+              Push through <strong>4 levels of Central Oregon chaos</strong> on your Exmark Navigator.
+              Beat them all to unlock a <strong>$100 discount</strong> — then dare to face
               <strong> Giant Sterling</strong> for $200. Nobody beats Sterling.
             </p>
           </div>
@@ -1741,6 +1928,62 @@ export default function LawnMowerDash() {
 
           <div className="flex justify-center">
             <div style={{ width: "100%", maxWidth: W, position: "relative" }}>
+              {/* Initials entry overlay — shown after dying */}
+              {displayState==="enter_initials" && (
+                <div style={{
+                  position: "absolute", inset: 0, borderRadius: 16,
+                  background: "rgba(0,0,0,0.88)",
+                  display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
+                  zIndex: 10, gap: 12
+                }}>
+                  <div style={{ color: BRAND_RED, fontWeight: "bold", fontSize: 22 }}>GAME OVER</div>
+                  <div style={{ color: BRAND_GOLD, fontWeight: "bold", fontSize: 14 }}>Score: {pendingScore} ft &nbsp;·&nbsp; Level {pendingLevel}</div>
+                  <div style={{ color: "#fff", fontSize: 13, marginBottom: 4 }}>Enter your 3-letter initials:</div>
+                  <input
+                    autoFocus
+                    maxLength={3}
+                    value={initials}
+                    onChange={e => setInitials(e.target.value.toUpperCase().replace(/[^A-Z]/g,"").slice(0,3))}
+                    onKeyDown={e => { if (e.key==="Enter" && initials.length>0) submitInitials(initials); }}
+                    style={{
+                      fontFamily: "monospace", fontSize: 36, fontWeight: "bold",
+                      textAlign: "center", letterSpacing: 16,
+                      width: 140, padding: "8px 12px",
+                      background: "rgba(255,255,255,0.1)", border: `2px solid ${BRAND_GOLD}`,
+                      borderRadius: 10, color: BRAND_GOLD, outline: "none",
+                      textTransform: "uppercase"
+                    }}
+                    placeholder="___"
+                  />
+                  <div style={{ display: "flex", gap: 8, marginTop: 4 }}>
+                    {["A","B","C","D","E","F","G","H","I","J","K","L","M"].map(l => (
+                      <button key={l} onClick={() => setInitials(p => (p+l).slice(0,3))}
+                        style={{ background: "rgba(255,255,255,0.1)", border: `1px solid rgba(255,255,255,0.3)`,
+                          color: "#fff", borderRadius: 6, padding: "4px 7px", fontSize: 12, cursor: "pointer", fontWeight: "bold" }}>{l}</button>
+                    ))}
+                  </div>
+                  <div style={{ display: "flex", gap: 8 }}>
+                    {["N","O","P","Q","R","S","T","U","V","W","X","Y","Z"].map(l => (
+                      <button key={l} onClick={() => setInitials(p => (p+l).slice(0,3))}
+                        style={{ background: "rgba(255,255,255,0.1)", border: `1px solid rgba(255,255,255,0.3)`,
+                          color: "#fff", borderRadius: 6, padding: "4px 7px", fontSize: 12, cursor: "pointer", fontWeight: "bold" }}>{l}</button>
+                    ))}
+                  </div>
+                  <div style={{ display: "flex", gap: 10, marginTop: 6 }}>
+                    <button onClick={() => setInitials(p => p.slice(0,-1))}
+                      style={{ background: "rgba(255,100,100,0.3)", border: `1px solid #f87171`,
+                        color: "#f87171", borderRadius: 8, padding: "6px 16px", fontSize: 13, cursor: "pointer", fontWeight: "bold" }}>⌫ DEL</button>
+                    <button onClick={() => { if (initials.length>0) submitInitials(initials); }}
+                      disabled={initials.length===0}
+                      style={{ background: initials.length>0 ? BRAND_RED : "rgba(255,255,255,0.1)",
+                        border: `2px solid ${initials.length>0 ? BRAND_GOLD : "rgba(255,255,255,0.2)"}`,
+                        color: initials.length>0 ? "#fff" : "rgba(255,255,255,0.3)",
+                        borderRadius: 8, padding: "6px 20px", fontSize: 14, cursor: initials.length>0 ? "pointer" : "default",
+                        fontWeight: "bold" }}>SUBMIT ✓</button>
+                  </div>
+                  <div style={{ color: "rgba(255,255,255,0.4)", fontSize: 10, marginTop: 2 }}>Or type on keyboard + press Enter</div>
+                </div>
+              )}
               <canvas
                 ref={canvasRef}
                 width={W}
@@ -1794,6 +2037,58 @@ export default function LawnMowerDash() {
               </div>
             </div>
           )}
+
+          {/* Always-visible leaderboard below the canvas */}
+          <div className="mt-6 mx-auto" style={{ maxWidth: W }}>
+            <div className="rounded-2xl overflow-hidden" style={{ background: "rgba(15,53,24,0.95)", border: `2px solid ${BRAND_GOLD}` }}>
+              <div className="px-4 py-2 flex items-center justify-between" style={{ background: BRAND_RED, borderBottom: `1px solid ${BRAND_GOLD}` }}>
+                <span style={{ color: BRAND_GOLD, fontWeight: "bold", fontSize: 13, letterSpacing: 2 }}>🏆 HIGH SCORES</span>
+                <span style={{ color: "rgba(255,255,255,0.6)", fontSize: 10 }}>NEWPORT AVENUE LANDSCAPING</span>
+              </div>
+              {leaderboard.length === 0 ? (
+                <div className="text-center py-4" style={{ color: "rgba(255,255,255,0.4)", fontSize: 12 }}>No scores yet — be the first to play!</div>
+              ) : (
+                <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13 }}>
+                  <thead>
+                    <tr style={{ borderBottom: `1px solid rgba(200,168,75,0.3)` }}>
+                      <th style={{ padding: "6px 12px", color: BRAND_GOLD, textAlign: "left", fontWeight: "bold", fontSize: 11 }}>#</th>
+                      <th style={{ padding: "6px 8px", color: BRAND_GOLD, textAlign: "left", fontWeight: "bold", fontSize: 11 }}>NAME</th>
+                      <th style={{ padding: "6px 8px", color: BRAND_GOLD, textAlign: "right", fontWeight: "bold", fontSize: 11 }}>SCORE</th>
+                      <th style={{ padding: "6px 12px", color: BRAND_GOLD, textAlign: "right", fontWeight: "bold", fontSize: 11 }}>LEVEL</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {leaderboard.map((e, i) => {
+                      const rankColors = ["#fbbf24","#d1d5db","#cd7c3a"];
+                      const isNew = i === newEntryRank;
+                      return (
+                        <tr key={e.ts} style={{
+                          background: isNew ? "rgba(200,168,75,0.15)" : i%2===0?"transparent":"rgba(255,255,255,0.03)",
+                          borderBottom: "1px solid rgba(255,255,255,0.06)",
+                          outline: isNew ? `1px solid ${BRAND_GOLD}` : "none"
+                        }}>
+                          <td style={{ padding: "7px 12px", color: i<3?rankColors[i]:"rgba(255,255,255,0.4)", fontWeight: "bold", fontSize: i<3?14:12 }}>
+                            {i===0?"🥇":i===1?"🥈":i===2?"🥉":i+1}
+                          </td>
+                          <td style={{ padding: "7px 8px", fontFamily: "monospace", fontWeight: "bold", fontSize: 16,
+                            color: isNew ? BRAND_GOLD : "#fff", letterSpacing: 4 }}>
+                            {e.initials}
+                            {isNew && <span style={{ marginLeft: 8, fontSize: 10, color: BRAND_GOLD, letterSpacing: 0 }}>NEW!</span>}
+                          </td>
+                          <td style={{ padding: "7px 8px", textAlign: "right", color: isNew?BRAND_GOLD:"rgba(255,255,255,0.85)", fontWeight: isNew?"bold":"normal" }}>
+                            {e.score} ft
+                          </td>
+                          <td style={{ padding: "7px 12px", textAlign: "right", color: "rgba(255,255,255,0.4)", fontSize: 11 }}>
+                            Lvl {e.level}
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              )}
+            </div>
+          </div>
 
           <div className="text-center mt-6 text-xs" style={{ color: "oklch(0.55 0.005 30)" }}>
             <strong>Mobile:</strong> Tap top/bottom of screen or swipe up/down &nbsp;·&nbsp;
