@@ -374,9 +374,12 @@ export default function LawnMowerDash() {
     ctx.translate(cx, py);
     ctx.scale(zoom, zoom);
 
-    const legSwing = Math.sin(frame * 0.3) * 8;
-    const bounce   = Math.abs(Math.sin(frame * 0.3)) * -2;
+    // No walking — operator is seated, slight mower bounce only
+    const bounce = Math.abs(Math.sin(frame * 0.15)) * -1.5;
     ctx.translate(0, bounce);
+    // Flip so mower faces RIGHT (direction of travel)
+    ctx.scale(-1, 1);
+    ctx.translate(-50, 0);  // re-center after flip (mower is ~50px wide)
 
     // Shadow
     ctx.beginPath(); ctx.ellipse(5, 30, 22, 6, 0, 0, Math.PI*2);
@@ -500,18 +503,24 @@ export default function LawnMowerDash() {
     ctx.fillText("NAL", 27, -12);
 
     //
-    // Legs (dark work pants)
+    // Seated legs (bent at knee, no swing — operator is sitting on the mower)
     ctx.strokeStyle = "#1a1a2e"; ctx.lineWidth = 8; ctx.lineCap = "round";
-    ctx.beginPath(); ctx.moveTo(22, 2); ctx.lineTo(14 + legSwing, 16); ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(30, 2); ctx.lineTo(36 - legSwing, 16); ctx.stroke();
-    // Work boots
+    // Left thigh (horizontal, going left from seat)
+    ctx.beginPath(); ctx.moveTo(22, 4); ctx.lineTo(10, 4); ctx.stroke();
+    // Left shin (drops down from knee)
+    ctx.beginPath(); ctx.moveTo(10, 4); ctx.lineTo(10, 18); ctx.stroke();
+    // Right thigh (horizontal, going right from seat)
+    ctx.beginPath(); ctx.moveTo(28, 4); ctx.lineTo(40, 4); ctx.stroke();
+    // Right shin (drops down from knee)
+    ctx.beginPath(); ctx.moveTo(40, 4); ctx.lineTo(40, 18); ctx.stroke();
+    // Work boots (flat on footrest)
     ctx.fillStyle = "#3d2b1f";
-    ctx.beginPath(); ctx.ellipse(14+legSwing, 18, 9, 4, 0.3, 0, Math.PI*2); ctx.fill();
-    ctx.beginPath(); ctx.ellipse(36-legSwing, 18, 9, 4, -0.3, 0, Math.PI*2); ctx.fill();
+    ctx.beginPath(); ctx.ellipse(10, 20, 9, 4, 0, 0, Math.PI*2); ctx.fill();
+    ctx.beginPath(); ctx.ellipse(40, 20, 9, 4, 0, 0, Math.PI*2); ctx.fill();
     // Boot laces
     ctx.strokeStyle = "#f5c5a3"; ctx.lineWidth = 0.8;
-    ctx.beginPath(); ctx.moveTo(11+legSwing, 16); ctx.lineTo(17+legSwing, 16); ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(33-legSwing, 16); ctx.lineTo(39-legSwing, 16); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(7, 19); ctx.lineTo(13, 19); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(37, 19); ctx.lineTo(43, 19); ctx.stroke();
 
     // Torso — NAL RED uniform shirt
     ctx.save(); ctx.translate(24, -8); ctx.rotate(0.05);
@@ -1498,8 +1507,11 @@ export default function LawnMowerDash() {
       celebTimer.current--;
       if (celebTimer.current <= 0) {
         // Auto-advance to double or nothing
-        stateRef.current = "double_or_nothing";
-        setDisplayState("double_or_nothing");
+        // Use setTimeout to defer the state update so it doesn't kill the current RAF chain
+        setTimeout(() => {
+          stateRef.current = "double_or_nothing";
+          setDisplayState("double_or_nothing");
+        }, 0);
         return;
       }
       rafId.current = requestAnimationFrame(gameLoop);
@@ -1686,7 +1698,8 @@ export default function LawnMowerDash() {
     // Level complete check
     if (distance.current >= lv.targetDist*10) {
       if (level >= 4) {
-        // Start celebration animation
+        // Beat all 4 levels — start celebration animation
+        // NOTE: do NOT call setDisplayState here — it triggers re-render which kills the RAF
         stateRef.current = "celebration";
         celebTimer.current = CELEB_DURATION;
         frameCount.current = 0;

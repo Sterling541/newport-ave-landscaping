@@ -740,3 +740,9 @@
 - [x] Page layout doesn't overflow on small screens (no horizontal scroll)
 - [x] Initials entry keyboard works on mobile (large tap targets)
 - [x] Below-canvas leaderboard table is readable on mobile
+
+## Bug Fixes — April 25
+- [x] Mower sprite is facing backwards — flip horizontal so it faces right (direction of travel)
+- [x] Operator has animated walking legs — replace with seated legs (bent at knee, no animation)
+- [x] Beating Level 4 does not trigger celebration or Double or Nothing screen — fix level complete → celebration flow
+- [x] Embed Lawn Mower Dash game below the quick contact form on the homepage

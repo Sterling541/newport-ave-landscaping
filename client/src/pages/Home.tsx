@@ -27,6 +27,7 @@ const ReviewsSection = lazy(() => import("@/components/ReviewsSection"));
 const ServiceAreaBand = lazy(() => import("@/components/ServiceAreaBand"));
 const ContactSection = lazy(() => import("@/components/ContactSection"));
 const Footer = lazy(() => import("@/components/Footer"));
+const GameSection = lazy(() => import("@/components/GameSection"));
 
 // Lightweight fallback — invisible, just holds space
 const SectionFallback = () => <div style={{ minHeight: "200px" }} />;
@@ -85,6 +86,14 @@ export default function Home() {
         <ReviewsSection />
         <ServiceAreaBand />
         <ContactSection />
+      </Suspense>
+
+      {/* Lawn Mower Dash game — embedded below contact form */}
+      <Suspense fallback={<SectionFallback />}>
+        <GameSection />
+      </Suspense>
+
+      <Suspense fallback={<SectionFallback />}>
         <Footer />
       </Suspense>
 
