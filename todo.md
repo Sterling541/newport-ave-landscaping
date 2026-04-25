@@ -724,3 +724,19 @@
 - [ ] Background elements more detailed and retro
 - [x] Update game description: "Can you survive one day at Newport Avenue Landscaping and mow your entire route?"
 - [x] HOA level: draw taller grass blades in the background lanes
+
+## Game Upgrade v7 — Text Readability Fix
+- [ ] Increase all HUD font sizes (level name, distance, score, leaderboard panel)
+- [ ] Increase idle screen font sizes (title, tagline, level cards, instructions)
+- [ ] Increase level intro/complete font sizes
+- [ ] Increase dead screen font sizes
+- [ ] Increase in-canvas top-5 leaderboard font sizes
+- [ ] Add text shadow/outline to all canvas text for contrast against backgrounds
+
+## Game Upgrade v8 — Mobile + Readability
+- [x] Canvas scales to 100% width on mobile with correct aspect ratio
+- [x] All screen overlay text scaled up for 1280x720 canvas (level intro, complete, dead, won, idle)
+- [x] Touch controls work on mobile (tap top/bottom half to change lanes)
+- [x] Page layout doesn't overflow on small screens (no horizontal scroll)
+- [x] Initials entry keyboard works on mobile (large tap targets)
+- [x] Below-canvas leaderboard table is readable on mobile

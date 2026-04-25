@@ -7,10 +7,10 @@ import { useEffect, useRef, useState, useCallback } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
-const W = 640;
-const H = 360;
-const PLAYER_X = 110;
-const PLAYER_R = 28;
+const W = 1280;
+const H = 720;
+const PLAYER_X = 160;
+const PLAYER_R = 40;
 const LANE_COUNT = 5;
 const LANE_H = H / LANE_COUNT;
 const LANE_CENTERS = Array.from({ length: LANE_COUNT }, (_, i) => LANE_H * i + LANE_H / 2);
@@ -912,56 +912,65 @@ export default function LawnMowerDash() {
   //
   function drawHUD(ctx: CanvasRenderingContext2D, level: number, dist: number, lvDist: number) {
     const pct = Math.min(dist/(lvDist*10),1);
-    ctx.fillStyle = "rgba(0,0,0,0.62)"; ctx.beginPath(); ctx.roundRect(0,0,W,48,0); ctx.fill();
-    ctx.fillStyle = BRAND_RED; ctx.fillRect(0,46,W,2);
-    ctx.fillStyle = BRAND_RED; ctx.beginPath(); ctx.roundRect(8,5,96,36,6); ctx.fill();
-    ctx.strokeStyle = BRAND_GOLD; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.roundRect(8,5,96,36,6); ctx.stroke();
-    ctx.fillStyle = BRAND_GOLD; ctx.font = "bold 8px sans-serif"; ctx.textAlign = "center";
-    ctx.fillText(`LEVEL ${level}`, 56,18);
-    ctx.fillStyle = "#fff"; ctx.font = "bold 7px sans-serif";
+    // HUD bar
+    ctx.fillStyle = "rgba(0,0,0,0.72)"; ctx.beginPath(); ctx.roundRect(0,0,W,88,0); ctx.fill();
+    ctx.fillStyle = BRAND_RED; ctx.fillRect(0,86,W,4);
+    // Level badge
+    ctx.fillStyle = BRAND_RED; ctx.beginPath(); ctx.roundRect(14,8,180,68,10); ctx.fill();
+    ctx.strokeStyle = BRAND_GOLD; ctx.lineWidth = 2.5; ctx.beginPath(); ctx.roundRect(14,8,180,68,10); ctx.stroke();
+    ctx.fillStyle = BRAND_GOLD; ctx.font = "bold 16px sans-serif"; ctx.textAlign = "center";
+    ctx.fillText(`LEVEL ${level}`, 104,32);
+    ctx.fillStyle = "#fff"; ctx.font = "bold 14px sans-serif";
     const sn = ["NEIGHBORHOOD","HOA GAUNTLET","CONSTRUCTION","DROUGHT ZONE"];
-    ctx.fillText(sn[level-1], 56,32);
-    ctx.fillStyle = "#fff"; ctx.font = "bold 16px sans-serif"; ctx.textAlign = "center";
-    ctx.fillText(`${Math.floor(dist/10)} ft`, W/2,30);
+    ctx.fillText(sn[level-1], 104,56);
+    // Distance counter (center)
+    ctx.fillStyle = "#fff"; ctx.font = "bold 36px sans-serif"; ctx.textAlign = "center";
+    ctx.fillText(`${Math.floor(dist/10)} ft`, W/2,58);
+    // Hearts
     for (let i=0;i<3;i++) {
       ctx.fillStyle = i<lives.current?"#ef4444":"rgba(255,255,255,0.2)";
-      ctx.font = "20px sans-serif"; ctx.fillText("❤",W-84+i*24,32);
+      ctx.font = "40px sans-serif"; ctx.fillText("❤",W-200+i*56,62);
     }
-    ctx.fillStyle = BRAND_GOLD; ctx.font = "bold 9px sans-serif"; ctx.textAlign = "right";
-    ctx.fillText(`🏆 ${highScoreRef.current} ft`, W-8,15);
-    // Top-5 leaderboard always visible on right side
+    // Best score
+    ctx.fillStyle = BRAND_GOLD; ctx.font = "bold 18px sans-serif"; ctx.textAlign = "right";
+    ctx.fillText(`🏆 Best: ${highScoreRef.current} ft`, W-14,28);
+    // Top-5 leaderboard panel
     const lb5 = loadLeaderboard().slice(0,5);
     if (lb5.length > 0) {
-      ctx.fillStyle = "rgba(0,0,0,0.72)"; ctx.beginPath(); ctx.roundRect(W-108, 52, 100, 14+lb5.length*14, 6); ctx.fill();
-      ctx.strokeStyle = BRAND_GOLD; ctx.lineWidth = 1; ctx.beginPath(); ctx.roundRect(W-108, 52, 100, 14+lb5.length*14, 6); ctx.stroke();
-      ctx.fillStyle = BRAND_GOLD; ctx.font = "bold 7px sans-serif"; ctx.textAlign = "center";
-      ctx.fillText("TOP 5", W-58, 62);
+      const panelW = 220, panelH = 30 + lb5.length*28;
+      ctx.fillStyle = "rgba(0,0,0,0.80)"; ctx.beginPath(); ctx.roundRect(W-panelW-10, 96, panelW, panelH, 10); ctx.fill();
+      ctx.strokeStyle = BRAND_GOLD; ctx.lineWidth = 2; ctx.beginPath(); ctx.roundRect(W-panelW-10, 96, panelW, panelH, 10); ctx.stroke();
+      ctx.fillStyle = BRAND_GOLD; ctx.font = "bold 16px sans-serif"; ctx.textAlign = "center";
+      ctx.fillText("TOP 5", W-panelW/2-10, 116);
       lb5.forEach((e, i) => {
-        const ry = 66 + i*14;
+        const ry = 130 + i*28;
         ctx.fillStyle = i===0 ? "#fbbf24" : "#fff";
-        ctx.font = "bold 7px sans-serif"; ctx.textAlign = "left";
-        ctx.fillText(`${i+1}. ${e.initials}`, W-104, ry);
+        ctx.font = `bold ${i===0?15:14}px sans-serif`; ctx.textAlign = "left";
+        ctx.fillText(`${i+1}. ${e.initials}`, W-panelW-4, ry);
         ctx.textAlign = "right";
-        ctx.fillText(`${e.score}ft`, W-8, ry);
+        ctx.fillText(`${e.score}ft`, W-14, ry);
       });
     }
-    ctx.fillStyle = "rgba(255,255,255,0.12)"; ctx.beginPath(); ctx.roundRect(8,H-20,W-16,12,5); ctx.fill();
+    // Progress bar
+    ctx.fillStyle = "rgba(255,255,255,0.12)"; ctx.beginPath(); ctx.roundRect(14,H-36,W-28,22,8); ctx.fill();
     const bc = ["#4ade80","#fbbf24","#f97316","#ef4444"];
-    ctx.fillStyle = bc[level-1]; ctx.beginPath(); ctx.roundRect(8,H-20,(W-16)*pct,12,5); ctx.fill();
-    if (pct>0.02) { ctx.fillStyle="#fff"; ctx.beginPath(); ctx.arc(8+(W-16)*pct,H-14,5,0,Math.PI*2); ctx.fill(); }
-    ctx.fillStyle="#fff"; ctx.font="bold 7px sans-serif"; ctx.textAlign="left";
-    ctx.fillText(`${Math.floor(pct*100)}% complete`,12,H-9);
+    ctx.fillStyle = bc[level-1]; ctx.beginPath(); ctx.roundRect(14,H-36,(W-28)*pct,22,8); ctx.fill();
+    if (pct>0.02) { ctx.fillStyle="#fff"; ctx.beginPath(); ctx.arc(14+(W-28)*pct,H-25,8,0,Math.PI*2); ctx.fill(); }
+    ctx.fillStyle="#fff"; ctx.font="bold 14px sans-serif"; ctx.textAlign="left";
+    ctx.fillText(`${Math.floor(pct*100)}% complete`,20,H-18);
+    // Combo
     if (combo.current>=2) {
-      ctx.fillStyle="rgba(251,191,36,0.95)"; ctx.beginPath(); ctx.roundRect(8,54,110,24,5); ctx.fill();
-      ctx.fillStyle="#1a1a2e"; ctx.font="bold 13px sans-serif"; ctx.textAlign="left";
-      ctx.fillText(`${combo.current}x COMBO! 🔥`,14,70);
+      ctx.fillStyle="rgba(251,191,36,0.95)"; ctx.beginPath(); ctx.roundRect(14,96,200,44,8); ctx.fill();
+      ctx.fillStyle="#1a1a2e"; ctx.font="bold 22px sans-serif"; ctx.textAlign="left";
+      ctx.fillText(`${combo.current}x COMBO! 🔥`,22,124);
     }
+    // Status banners
     if (slowTimer.current>0) {
-      ctx.fillStyle="rgba(124,58,237,0.92)"; ctx.beginPath(); ctx.roundRect(W/2-70,H-44,140,24,6); ctx.fill();
-      ctx.fillStyle="#fff"; ctx.font="bold 12px sans-serif"; ctx.textAlign="center"; ctx.fillText("SLOWED! 🌵",W/2,H-27);
+      ctx.fillStyle="rgba(124,58,237,0.92)"; ctx.beginPath(); ctx.roundRect(W/2-120,H-80,240,40,10); ctx.fill();
+      ctx.fillStyle="#fff"; ctx.font="bold 22px sans-serif"; ctx.textAlign="center"; ctx.fillText("SLOWED! 🌵",W/2,H-53);
     } else if (fastTimer.current>0) {
-      ctx.fillStyle="rgba(217,119,6,0.92)"; ctx.beginPath(); ctx.roundRect(W/2-75,H-44,150,24,6); ctx.fill();
-      ctx.fillStyle="#fff"; ctx.font="bold 12px sans-serif"; ctx.textAlign="center"; ctx.fillText("SPEED BOOST! ☕",W/2,H-27);
+      ctx.fillStyle="rgba(217,119,6,0.92)"; ctx.beginPath(); ctx.roundRect(W/2-130,H-80,260,40,10); ctx.fill();
+      ctx.fillStyle="#fff"; ctx.font="bold 22px sans-serif"; ctx.textAlign="center"; ctx.fillText("SPEED BOOST! ☕",W/2,H-53);
     }
   }
 
@@ -971,39 +980,39 @@ export default function LawnMowerDash() {
     const alpha = Math.min(1,timer/30)*Math.min(1,(timer-20)/20+1);
     ctx.fillStyle = `rgba(0,0,0,${0.8*alpha})`; ctx.fillRect(0,0,W,H);
     ctx.save(); ctx.globalAlpha = alpha;
-    ctx.fillStyle=BRAND_RED; ctx.beginPath(); ctx.roundRect(W/2-130,H/2-88,260,32,6); ctx.fill();
-    ctx.fillStyle=BRAND_GOLD; ctx.font="bold 11px sans-serif"; ctx.textAlign="center";
-    ctx.fillText("NEWPORT AVENUE LANDSCAPING",W/2,H/2-66);
-    ctx.fillStyle=BRAND_GOLD; ctx.font="bold 18px sans-serif"; ctx.fillText(`LEVEL ${level} OF 4`,W/2,H/2-24);
-    ctx.fillStyle="#fff"; ctx.font="bold 32px sans-serif"; ctx.fillText(lv.name,W/2,H/2+16);
-    ctx.fillStyle=BRAND_LIGHT; ctx.font="13px sans-serif"; ctx.fillText(lv.subtitle,W/2,H/2+42);
-    ctx.fillStyle=BRAND_GOLD; ctx.font="italic 11px sans-serif"; ctx.fillText(`"${lv.tagline}"`,W/2,H/2+62);
+    ctx.fillStyle=BRAND_RED; ctx.beginPath(); ctx.roundRect(W/2-280,H/2-120,560,52,10); ctx.fill();
+    ctx.fillStyle=BRAND_GOLD; ctx.font="bold 22px sans-serif"; ctx.textAlign="center";
+    ctx.fillText("NEWPORT AVENUE LANDSCAPING",W/2,H/2-88);
+    ctx.fillStyle=BRAND_GOLD; ctx.font="bold 36px sans-serif"; ctx.fillText(`LEVEL ${level} OF 4`,W/2,H/2-28);
+    ctx.fillStyle="#fff"; ctx.font="bold 56px sans-serif"; ctx.fillText(lv.name,W/2,H/2+38);
+    ctx.fillStyle=BRAND_LIGHT; ctx.font="24px sans-serif"; ctx.fillText(lv.subtitle,W/2,H/2+80);
+    ctx.fillStyle=BRAND_GOLD; ctx.font="italic 20px sans-serif"; ctx.fillText(`"${lv.tagline}"`,W/2,H/2+116);
     if (timer<60) {
-      ctx.fillStyle="#4ade80"; ctx.font="bold 22px sans-serif"; ctx.fillText("LET'S MOW! 🌿",W/2,H/2+92);
+      ctx.fillStyle="#4ade80"; ctx.font="bold 40px sans-serif"; ctx.fillText("LET'S MOW! 🌿",W/2,H/2+172);
     } else {
-      ctx.fillStyle="rgba(255,255,255,0.7)"; ctx.font="14px sans-serif"; ctx.fillText("GET READY...",W/2,H/2+92);
+      ctx.fillStyle="rgba(255,255,255,0.7)"; ctx.font="28px sans-serif"; ctx.fillText("GET READY...",W/2,H/2+172);
     }
     ctx.restore();
   }
 
   //
   function drawLevelComplete(ctx: CanvasRenderingContext2D, level: number) {
-    ctx.fillStyle="rgba(0,0,0,0.75)"; ctx.fillRect(0,0,W,H);
-    ctx.fillStyle="#4ade80"; ctx.font="bold 40px sans-serif"; ctx.textAlign="center";
-    ctx.fillText("✅ LEVEL CLEAR!",W/2,H/2-44);
-    ctx.fillStyle=BRAND_GOLD; ctx.font="bold 17px sans-serif"; ctx.fillText(LEVELS[level-1].name,W/2,H/2-8);
-    ctx.fillStyle="#fff"; ctx.font="13px sans-serif";
+    ctx.fillStyle="rgba(0,0,0,0.80)"; ctx.fillRect(0,0,W,H);
+    ctx.fillStyle="#4ade80"; ctx.font="bold 72px sans-serif"; ctx.textAlign="center";
+    ctx.fillText("✅ LEVEL CLEAR!",W/2,H/2-80);
+    ctx.fillStyle=BRAND_GOLD; ctx.font="bold 32px sans-serif"; ctx.fillText(LEVELS[level-1].name,W/2,H/2-24);
+    ctx.fillStyle="#fff"; ctx.font="24px sans-serif";
     if (level<4) {
       ctx.fillText(`Next: Level ${level+1} — ${LEVELS[level].name}`,W/2,H/2+20);
-      ctx.fillStyle="rgba(255,255,255,0.6)"; ctx.font="italic 11px sans-serif";
-      ctx.fillText(`"${LEVELS[level].tagline}"`,W/2,H/2+40);
+      ctx.fillStyle="rgba(255,255,255,0.6)"; ctx.font="italic 20px sans-serif";
+      ctx.fillText(`"${LEVELS[level].tagline}"`,W/2,H/2+56);
     } else {
       ctx.fillText("You beat the game! 🎉 Claim your reward!",W/2,H/2+20);
     }
-    ctx.fillStyle=BRAND_RED; ctx.beginPath(); ctx.roundRect(W/2-100,H/2+58,200,48,10); ctx.fill();
-    ctx.strokeStyle=BRAND_GOLD; ctx.lineWidth=2; ctx.beginPath(); ctx.roundRect(W/2-100,H/2+58,200,48,10); ctx.stroke();
-    ctx.fillStyle="#fff"; ctx.font="bold 18px sans-serif";
-    ctx.fillText(level<4?"▶  NEXT LEVEL":"🎉  CLAIM REWARD",W/2,H/2+89);
+    ctx.fillStyle=BRAND_RED; ctx.beginPath(); ctx.roundRect(W/2-200,H/2+90,400,80,14); ctx.fill();
+    ctx.strokeStyle=BRAND_GOLD; ctx.lineWidth=3; ctx.beginPath(); ctx.roundRect(W/2-200,H/2+90,400,80,14); ctx.stroke();
+    ctx.fillStyle="#fff"; ctx.font="bold 32px sans-serif";
+    ctx.fillText(level<4?"▶  NEXT LEVEL":"🎉  CLAIM REWARD",W/2,H/2+142);
   }
 
   //
@@ -1056,10 +1065,10 @@ export default function LawnMowerDash() {
     if (progress > 0.55) {
       const ta = Math.min(1, (progress-0.55)/0.2);
       ctx.save(); ctx.globalAlpha = ta;
-      ctx.fillStyle = BRAND_GOLD; ctx.font = "bold 28px sans-serif"; ctx.textAlign = "center";
-      ctx.fillText("ALL 4 LEVELS DONE!", W/2, 52);
-      ctx.fillStyle = "#fff"; ctx.font = "16px sans-serif";
-      ctx.fillText("Sterling is proud. Probably.", W/2, 78);
+      ctx.fillStyle = BRAND_GOLD; ctx.font = "bold 52px sans-serif"; ctx.textAlign = "center";
+      ctx.fillText("ALL 4 LEVELS DONE!", W/2, 90);
+      ctx.fillStyle = "#fff"; ctx.font = "28px sans-serif";
+      ctx.fillText("Sterling is proud. Probably.", W/2, 138);
       ctx.restore();
     }
 
@@ -1067,10 +1076,10 @@ export default function LawnMowerDash() {
     if (progress > 0.82) {
       const pa = Math.abs(Math.sin(timer * 0.15));
       ctx.save(); ctx.globalAlpha = pa;
-      ctx.fillStyle = BRAND_GREEN; ctx.beginPath(); ctx.roundRect(W/2-120, H-68, 240, 46, 10); ctx.fill();
-      ctx.strokeStyle = BRAND_GOLD; ctx.lineWidth = 2; ctx.beginPath(); ctx.roundRect(W/2-120, H-68, 240, 46, 10); ctx.stroke();
-      ctx.fillStyle = "#fff"; ctx.font = "bold 18px sans-serif"; ctx.textAlign = "center";
-      ctx.fillText("TAP TO CLAIM REWARD!", W/2, H-39);
+      ctx.fillStyle = BRAND_GREEN; ctx.beginPath(); ctx.roundRect(W/2-240, H-100, 480, 72, 14); ctx.fill();
+      ctx.strokeStyle = BRAND_GOLD; ctx.lineWidth = 3; ctx.beginPath(); ctx.roundRect(W/2-240, H-100, 480, 72, 14); ctx.stroke();
+      ctx.fillStyle = "#fff"; ctx.font = "bold 32px sans-serif"; ctx.textAlign = "center";
+      ctx.fillText("TAP TO CLAIM REWARD!", W/2, H-54);
       ctx.restore();
     }
   }
@@ -1083,47 +1092,47 @@ export default function LawnMowerDash() {
     ctx.strokeStyle = BRAND_GOLD; ctx.lineWidth = 3*pulse;
     ctx.beginPath(); ctx.roundRect(8,8,W-16,H-16,12); ctx.stroke();
 
-    ctx.fillStyle = BRAND_RED; ctx.beginPath(); ctx.roundRect(W/2-160,12,320,36,8); ctx.fill();
-    ctx.fillStyle = BRAND_GOLD; ctx.font = "bold 11px sans-serif"; ctx.textAlign = "center";
-    ctx.fillText("NEWPORT AVENUE LANDSCAPING", W/2, 28);
-    ctx.fillStyle = "#fff"; ctx.font = "bold 13px sans-serif"; ctx.fillText("🌿 LAWN MOWER DASH", W/2, 42);
+    ctx.fillStyle = BRAND_RED; ctx.beginPath(); ctx.roundRect(W/2-320,14,640,60,12); ctx.fill();
+    ctx.fillStyle = BRAND_GOLD; ctx.font = "bold 22px sans-serif"; ctx.textAlign = "center";
+    ctx.fillText("NEWPORT AVENUE LANDSCAPING", W/2, 40);
+    ctx.fillStyle = "#fff"; ctx.font = "bold 24px sans-serif"; ctx.fillText("🌿 LAWN MOWER DASH", W/2, 66);
 
-    ctx.fillStyle = "#fbbf24"; ctx.font = "bold 32px sans-serif"; ctx.textAlign = "center";
-    ctx.fillText("💰 DOUBLE OR NOTHING? 💰", W/2, 90);
+    ctx.fillStyle = "#fbbf24"; ctx.font = "bold 56px sans-serif"; ctx.textAlign = "center";
+    ctx.fillText("💰 DOUBLE OR NOTHING? 💰", W/2, 160);
 
-    ctx.fillStyle = "#fff"; ctx.font = "16px sans-serif";
-    ctx.fillText("You earned $100 off. But are you feeling lucky?", W/2, 118);
+    ctx.fillStyle = "#fff"; ctx.font = "28px sans-serif";
+    ctx.fillText("You earned $100 off. But are you feeling lucky?", W/2, 208);
 
     // The offer
-    ctx.fillStyle = "rgba(255,255,255,0.08)"; ctx.beginPath(); ctx.roundRect(W/2-200,130,400,60,10); ctx.fill();
-    ctx.strokeStyle = BRAND_GOLD; ctx.lineWidth = 1; ctx.beginPath(); ctx.roundRect(W/2-200,130,400,60,10); ctx.stroke();
-    ctx.fillStyle = BRAND_GOLD; ctx.font = "bold 14px sans-serif"; ctx.textAlign = "center";
-    ctx.fillText("Face Giant Sterling in a 1-on-1 showdown.", W/2, 152);
-    ctx.fillStyle = "#4ade80"; ctx.font = "bold 13px sans-serif";
-    ctx.fillText("WIN → $200 off your next service", W/2, 172);
-    ctx.fillStyle = "#f87171"; ctx.font = "13px sans-serif";
-    ctx.fillText("LOSE → still keep your $100 code 😅", W/2, 186);
+    ctx.fillStyle = "rgba(255,255,255,0.08)"; ctx.beginPath(); ctx.roundRect(W/2-380,224,760,110,14); ctx.fill();
+    ctx.strokeStyle = BRAND_GOLD; ctx.lineWidth = 2; ctx.beginPath(); ctx.roundRect(W/2-380,224,760,110,14); ctx.stroke();
+    ctx.fillStyle = BRAND_GOLD; ctx.font = "bold 26px sans-serif"; ctx.textAlign = "center";
+    ctx.fillText("Face Giant Sterling in a 1-on-1 showdown.", W/2, 260);
+    ctx.fillStyle = "#4ade80"; ctx.font = "bold 24px sans-serif";
+    ctx.fillText("WIN → $200 off your next service", W/2, 296);
+    ctx.fillStyle = "#f87171"; ctx.font = "22px sans-serif";
+    ctx.fillText("LOSE → still keep your $100 code 😅", W/2, 326);
 
     // Warning
-    ctx.fillStyle = "rgba(239,68,68,0.85)"; ctx.beginPath(); ctx.roundRect(W/2-160,196,320,26,6); ctx.fill();
-    ctx.fillStyle = "#fff"; ctx.font = "bold 11px sans-serif"; ctx.textAlign = "center";
-    ctx.fillText("⚠️  Sterling has NEVER been beaten. Good luck.", W/2, 213);
+    ctx.fillStyle = "rgba(239,68,68,0.85)"; ctx.beginPath(); ctx.roundRect(W/2-320,344,640,46,10); ctx.fill();
+    ctx.fillStyle = "#fff"; ctx.font = "bold 20px sans-serif"; ctx.textAlign = "center";
+    ctx.fillText("⚠️  Sterling has NEVER been beaten. Good luck.", W/2, 374);
 
-    // YES button
-    ctx.fillStyle = BRAND_RED; ctx.beginPath(); ctx.roundRect(W/2-180,232,160,44,10); ctx.fill();
-    ctx.strokeStyle = BRAND_GOLD; ctx.lineWidth = 2; ctx.beginPath(); ctx.roundRect(W/2-180,232,160,44,10); ctx.stroke();
-    ctx.fillStyle = "#fff"; ctx.font = "bold 16px sans-serif"; ctx.textAlign = "center";
-    ctx.fillText("⚔️  FIGHT STERLING", W/2-100, 259);
+    // YES button (left half)
+    ctx.fillStyle = BRAND_RED; ctx.beginPath(); ctx.roundRect(W/2-360,408,320,80,14); ctx.fill();
+    ctx.strokeStyle = BRAND_GOLD; ctx.lineWidth = 3; ctx.beginPath(); ctx.roundRect(W/2-360,408,320,80,14); ctx.stroke();
+    ctx.fillStyle = "#fff"; ctx.font = "bold 28px sans-serif"; ctx.textAlign = "center";
+    ctx.fillText("⚔️  FIGHT STERLING", W/2-200, 456);
 
-    // NO button
-    ctx.fillStyle = BRAND_GREEN; ctx.beginPath(); ctx.roundRect(W/2+20,232,160,44,10); ctx.fill();
-    ctx.strokeStyle = BRAND_GOLD; ctx.lineWidth = 2; ctx.beginPath(); ctx.roundRect(W/2+20,232,160,44,10); ctx.stroke();
-    ctx.fillStyle = "#fff"; ctx.font = "bold 16px sans-serif"; ctx.textAlign = "center";
-    ctx.fillText("💰 TAKE $100", W/2+100, 259);
+    // NO button (right half)
+    ctx.fillStyle = BRAND_GREEN; ctx.beginPath(); ctx.roundRect(W/2+40,408,320,80,14); ctx.fill();
+    ctx.strokeStyle = BRAND_GOLD; ctx.lineWidth = 3; ctx.beginPath(); ctx.roundRect(W/2+40,408,320,80,14); ctx.stroke();
+    ctx.fillStyle = "#fff"; ctx.font = "bold 28px sans-serif"; ctx.textAlign = "center";
+    ctx.fillText("💰 TAKE $100", W/2+200, 456);
 
-    ctx.fillStyle = "rgba(255,255,255,0.35)"; ctx.font = "italic 10px sans-serif"; ctx.textAlign = "center";
-    ctx.fillText("Odds of beating Sterling: classified. Rumored to be 1 in 500.", W/2, 292);
-    ctx.fillText("(Sterling has been mowing since 1987. He does not lose.)", W/2, 306);
+    ctx.fillStyle = "rgba(255,255,255,0.45)"; ctx.font = "italic 20px sans-serif"; ctx.textAlign = "center";
+    ctx.fillText("Odds of beating Sterling: classified. Rumored to be 1 in 500.", W/2, 520);
+    ctx.fillText("(Sterling has been mowing since 1987. He does not lose.)", W/2, 548);
   }
 
   //
@@ -1241,45 +1250,45 @@ export default function LawnMowerDash() {
     ctx.restore();
 
     // "YOU'RE FIRED" speech bubble (huge, dramatic)
-    const bubbleX = W/2 - 60;
-    const bubbleY = 30;
-    const bw = 280, bh = 60;
+    const bubbleX = W/2 + 80;
+    const bubbleY = 40;
+    const bw = 520, bh = 110;
     ctx.fillStyle = "#fff";
-    ctx.beginPath(); ctx.roundRect(bubbleX-bw/2, bubbleY, bw, bh, 10); ctx.fill();
-    ctx.strokeStyle = BRAND_RED; ctx.lineWidth = 3;
-    ctx.beginPath(); ctx.roundRect(bubbleX-bw/2, bubbleY, bw, bh, 10); ctx.stroke();
+    ctx.beginPath(); ctx.roundRect(bubbleX-bw/2, bubbleY, bw, bh, 16); ctx.fill();
+    ctx.strokeStyle = BRAND_RED; ctx.lineWidth = 5;
+    ctx.beginPath(); ctx.roundRect(bubbleX-bw/2, bubbleY, bw, bh, 16); ctx.stroke();
     // Bubble tail
     ctx.fillStyle = "#fff";
-    ctx.beginPath(); ctx.moveTo(bubbleX+40,bubbleY+bh); ctx.lineTo(bubbleX+60,bubbleY+bh+20); ctx.lineTo(bubbleX+20,bubbleY+bh); ctx.closePath(); ctx.fill();
-    ctx.strokeStyle = BRAND_RED; ctx.lineWidth = 2;
-    ctx.beginPath(); ctx.moveTo(bubbleX+40,bubbleY+bh); ctx.lineTo(bubbleX+60,bubbleY+bh+20); ctx.lineTo(bubbleX+20,bubbleY+bh); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(bubbleX+60,bubbleY+bh); ctx.lineTo(bubbleX+100,bubbleY+bh+36); ctx.lineTo(bubbleX+20,bubbleY+bh); ctx.closePath(); ctx.fill();
+    ctx.strokeStyle = BRAND_RED; ctx.lineWidth = 4;
+    ctx.beginPath(); ctx.moveTo(bubbleX+60,bubbleY+bh); ctx.lineTo(bubbleX+100,bubbleY+bh+36); ctx.lineTo(bubbleX+20,bubbleY+bh); ctx.stroke();
 
     // Animated text — shake on odd frames
-    const shakeX = frame%4<2?2:-2;
+    const shakeX = frame%4<2?3:-3;
     ctx.save(); ctx.translate(shakeX, 0);
-    ctx.fillStyle = BRAND_RED; ctx.font = "bold 28px sans-serif"; ctx.textAlign = "center";
-    ctx.fillText("YOU'RE FIRED! 🔥", bubbleX, bubbleY+40);
+    ctx.fillStyle = BRAND_RED; ctx.font = "bold 52px sans-serif"; ctx.textAlign = "center";
+    ctx.fillText("YOU'RE FIRED! 🔥", bubbleX, bubbleY+68);
     ctx.restore();
 
     // Smaller sub-text
-    ctx.fillStyle = "#333"; ctx.font = "11px sans-serif"; ctx.textAlign = "center";
-    ctx.fillText("(Just kidding. But you still can't beat me.)", bubbleX, bubbleY+56);
+    ctx.fillStyle = "#333"; ctx.font = "20px sans-serif"; ctx.textAlign = "center";
+    ctx.fillText("(Just kidding. But you still can't beat me.)", bubbleX, bubbleY+98);
 
     // Player's mower label
-    ctx.fillStyle = "#fff"; ctx.font = "bold 9px sans-serif"; ctx.textAlign = "center";
-    ctx.fillText("YOU", 80, H*0.72-48);
+    ctx.fillStyle = "#fff"; ctx.font = "bold 18px sans-serif"; ctx.textAlign = "center";
+    ctx.fillText("YOU", 120, H*0.72-80);
 
     // STERLING label
-    ctx.fillStyle = BRAND_GOLD; ctx.font = "bold 16px sans-serif"; ctx.textAlign = "center";
-    ctx.fillText("STERLING", W/2+60, 22);
-    ctx.fillStyle = BRAND_RED; ctx.font = "bold 10px sans-serif";
-    ctx.fillText("BOSS", W/2+60, 36);
+    ctx.fillStyle = BRAND_GOLD; ctx.font = "bold 30px sans-serif"; ctx.textAlign = "center";
+    ctx.fillText("STERLING", W/2+60, 32);
+    ctx.fillStyle = BRAND_RED; ctx.font = "bold 20px sans-serif";
+    ctx.fillText("BOSS", W/2+60, 56);
 
     // "DECIDING FATE..." spinner
     const dotCount = (Math.floor(frame/15)%4);
     const dots = ".".repeat(dotCount);
-    ctx.fillStyle = BRAND_GOLD; ctx.font = "bold 14px sans-serif"; ctx.textAlign = "center";
-    ctx.fillText(`Deciding your fate${dots}`, W/2, H-20);
+    ctx.fillStyle = BRAND_GOLD; ctx.font = "bold 26px sans-serif"; ctx.textAlign = "center";
+    ctx.fillText(`Deciding your fate${dots}`, W/2, H-28);
   }
 
   //
@@ -1288,83 +1297,87 @@ export default function LawnMowerDash() {
       ctx.fillStyle = i%2===0?"#3a8c3a":"#358035";
       ctx.fillRect(0,i*LANE_H,W,LANE_H);
     }
-    ctx.fillStyle = "rgba(0,0,0,0.68)"; ctx.fillRect(0,0,W,H);
-    ctx.fillStyle = BRAND_RED; ctx.fillRect(0,0,W,54);
-    ctx.strokeStyle = BRAND_GOLD; ctx.lineWidth = 2;
-    ctx.beginPath(); ctx.moveTo(0,54); ctx.lineTo(W,54); ctx.stroke();
-    ctx.fillStyle = BRAND_GOLD; ctx.font = "bold 11px sans-serif"; ctx.textAlign = "center";
-    ctx.fillText("NEWPORT AVENUE LANDSCAPING", W/2, 17);
-    ctx.fillStyle = "#fff"; ctx.font = "bold 26px sans-serif";
-    ctx.fillText("🌿  LAWN MOWER DASH", W/2, 44);
-    ctx.fillStyle = BRAND_LIGHT; ctx.font = "bold 12px sans-serif";
-    ctx.fillText("4 LEVELS OF CENTRAL OREGON CHAOS", W/2, 72);
+    ctx.fillStyle = "rgba(0,0,0,0.72)"; ctx.fillRect(0,0,W,H);
+    // Header bar
+    ctx.fillStyle = BRAND_RED; ctx.fillRect(0,0,W,96);
+    ctx.strokeStyle = BRAND_GOLD; ctx.lineWidth = 3;
+    ctx.beginPath(); ctx.moveTo(0,96); ctx.lineTo(W,96); ctx.stroke();
+    ctx.fillStyle = BRAND_GOLD; ctx.font = "bold 22px sans-serif"; ctx.textAlign = "center";
+    ctx.fillText("NEWPORT AVENUE LANDSCAPING", W/2, 30);
+    ctx.fillStyle = "#fff"; ctx.font = "bold 46px sans-serif";
+    ctx.fillText("🌿  LAWN MOWER DASH", W/2, 78);
+    ctx.fillStyle = BRAND_LIGHT; ctx.font = "bold 22px sans-serif";
+    ctx.fillText("4 LEVELS OF CENTRAL OREGON CHAOS", W/2, 128);
+    // Level cards
     const lc = ["#4ade80","#fbbf24","#f97316","#ef4444"];
     const li = ["🌊","📋","🚧","☀️"];
     const ls = ["HOOD","HOA","SITE","DROUGHT"];
     for (let i=0;i<4;i++) {
-      const x = W/2-130+i*68;
+      const x = W/2-230+i*154;
       ctx.fillStyle = lc[i]+"33";
-      ctx.beginPath(); ctx.roundRect(x-22,82,44,44,6); ctx.fill();
-      ctx.strokeStyle = lc[i]; ctx.lineWidth = 1.5;
-      ctx.beginPath(); ctx.roundRect(x-22,82,44,44,6); ctx.stroke();
-      ctx.font = "20px sans-serif"; ctx.textAlign = "center"; ctx.fillText(li[i],x,110);
-      ctx.fillStyle = "#fff"; ctx.font = "bold 7px sans-serif"; ctx.fillText(`LVL ${i+1}`,x,122);
-      ctx.fillStyle = lc[i]; ctx.font = "6px sans-serif"; ctx.fillText(ls[i],x,132);
+      ctx.beginPath(); ctx.roundRect(x-60,148,120,100,10); ctx.fill();
+      ctx.strokeStyle = lc[i]; ctx.lineWidth = 2.5;
+      ctx.beginPath(); ctx.roundRect(x-60,148,120,100,10); ctx.stroke();
+      ctx.font = "40px sans-serif"; ctx.textAlign = "center"; ctx.fillText(li[i],x,200);
+      ctx.fillStyle = "#fff"; ctx.font = "bold 16px sans-serif"; ctx.fillText(`LVL ${i+1}`,x,224);
+      ctx.fillStyle = lc[i]; ctx.font = "bold 14px sans-serif"; ctx.fillText(ls[i],x,242);
     }
-    ctx.fillStyle = BRAND_GOLD; ctx.font = "bold 13px sans-serif"; ctx.textAlign = "center";
-    ctx.fillText("🏆  Beat all 4 levels → unlock a $100 discount code!", W/2, 154);
-    ctx.fillStyle = "rgba(255,255,255,0.45)"; ctx.font = "10px sans-serif";
-    ctx.fillText("Dare to face Giant Sterling for $200? Find out inside.", W/2, 168);
-    ctx.fillStyle = "rgba(255,255,255,0.6)"; ctx.font = "11px sans-serif";
-    ctx.fillText("Tap top/bottom · Swipe up/down · ↑↓ arrow keys", W/2, 186);
+    ctx.fillStyle = BRAND_GOLD; ctx.font = "bold 24px sans-serif"; ctx.textAlign = "center";
+    ctx.fillText("🏆  Beat all 4 levels → unlock a $100 discount code!", W/2, 278);
+    ctx.fillStyle = "rgba(255,255,255,0.55)"; ctx.font = "20px sans-serif";
+    ctx.fillText("Dare to face Giant Sterling for $200? Find out inside.", W/2, 308);
+    ctx.fillStyle = "rgba(255,255,255,0.7)"; ctx.font = "20px sans-serif";
+    ctx.fillText("Tap top/bottom · Swipe up/down · ↑↓ arrow keys", W/2, 334);
+    // Play button
     ctx.fillStyle = BRAND_RED;
-    ctx.beginPath(); ctx.roundRect(W/2-100,198,200,52,12); ctx.fill();
-    ctx.strokeStyle = BRAND_GOLD; ctx.lineWidth = 2.5;
-    ctx.beginPath(); ctx.roundRect(W/2-100,198,200,52,12); ctx.stroke();
-    ctx.fillStyle = "#fff"; ctx.font = "bold 22px sans-serif"; ctx.textAlign = "center";
-    ctx.fillText("▶  TAP TO PLAY", W/2, 230);
+    ctx.beginPath(); ctx.roundRect(W/2-200,352,400,88,16); ctx.fill();
+    ctx.strokeStyle = BRAND_GOLD; ctx.lineWidth = 4;
+    ctx.beginPath(); ctx.roundRect(W/2-200,352,400,88,16); ctx.stroke();
+    ctx.fillStyle = "#fff"; ctx.font = "bold 40px sans-serif"; ctx.textAlign = "center";
+    ctx.fillText("▶  TAP TO PLAY", W/2, 406);
     if (highScoreRef.current>0) {
-      ctx.fillStyle = BRAND_GOLD; ctx.font = "bold 12px sans-serif";
-      ctx.fillText(`🏆 Best: ${highScoreRef.current} ft`, W/2, 256);
+      ctx.fillStyle = BRAND_GOLD; ctx.font = "bold 22px sans-serif";
+      ctx.fillText(`🏆 Best: ${highScoreRef.current} ft`, W/2, 456);
     }
     // Leaderboard always shown on idle
-    drawLeaderboardPanel(ctx, loadLeaderboard(), -1, 272);
+    drawLeaderboardPanel(ctx, loadLeaderboard(), -1, 472);
   }
 
   function drawLeaderboardPanel(ctx: CanvasRenderingContext2D, lb: LBEntry[], highlightRank: number, yOffset: number) {
-    const panelX = W/2-160, panelW = 320, panelH = lb.length > 0 ? 22 + lb.length*22 + 10 : 50;
-    ctx.fillStyle = "rgba(0,0,0,0.7)"; ctx.beginPath(); ctx.roundRect(panelX, yOffset, panelW, panelH, 10); ctx.fill();
-    ctx.strokeStyle = BRAND_GOLD; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.roundRect(panelX, yOffset, panelW, panelH, 10); ctx.stroke();
-    ctx.fillStyle = BRAND_GOLD; ctx.font = "bold 11px sans-serif"; ctx.textAlign = "center";
-    ctx.fillText("🏆  HIGH SCORES  🏆", W/2, yOffset+15);
+    const panelX = W/2-320, panelW = 640, rowH = 36;
+    const panelH = lb.length > 0 ? 44 + lb.length*rowH + 14 : 80;
+    ctx.fillStyle = "rgba(0,0,0,0.80)"; ctx.beginPath(); ctx.roundRect(panelX, yOffset, panelW, panelH, 14); ctx.fill();
+    ctx.strokeStyle = BRAND_GOLD; ctx.lineWidth = 2.5; ctx.beginPath(); ctx.roundRect(panelX, yOffset, panelW, panelH, 14); ctx.stroke();
+    ctx.fillStyle = BRAND_GOLD; ctx.font = "bold 22px sans-serif"; ctx.textAlign = "center";
+    ctx.fillText("🏆  HIGH SCORES  🏆", W/2, yOffset+28);
     if (lb.length === 0) {
-      ctx.fillStyle = "rgba(255,255,255,0.4)"; ctx.font = "10px sans-serif";
-      ctx.fillText("No scores yet — be the first!", W/2, yOffset+36);
+      ctx.fillStyle = "rgba(255,255,255,0.5)"; ctx.font = "20px sans-serif";
+      ctx.fillText("No scores yet — be the first!", W/2, yOffset+60);
       return;
     }
     const rankColors = ["#fbbf24","#d1d5db","#cd7c3a"];
     for (let i=0; i<lb.length; i++) {
       const e = lb[i];
-      const ry = yOffset + 26 + i*22;
+      const ry = yOffset + 48 + i*rowH;
       const isNew = i === highlightRank;
       if (isNew) {
-        ctx.fillStyle = "rgba(200,168,75,0.25)"; ctx.beginPath(); ctx.roundRect(panelX+4, ry-13, panelW-8, 20, 4); ctx.fill();
-        ctx.strokeStyle = BRAND_GOLD; ctx.lineWidth = 1; ctx.beginPath(); ctx.roundRect(panelX+4, ry-13, panelW-8, 20, 4); ctx.stroke();
+        ctx.fillStyle = "rgba(200,168,75,0.25)"; ctx.beginPath(); ctx.roundRect(panelX+6, ry-20, panelW-12, rowH, 6); ctx.fill();
+        ctx.strokeStyle = BRAND_GOLD; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.roundRect(panelX+6, ry-20, panelW-12, rowH, 6); ctx.stroke();
       }
-      ctx.fillStyle = i<3 ? rankColors[i] : "rgba(255,255,255,0.5)";
-      ctx.font = `bold ${i<3?11:10}px sans-serif`; ctx.textAlign = "left";
-      ctx.fillText(`${i+1}.`, panelX+12, ry);
+      ctx.fillStyle = i<3 ? rankColors[i] : "rgba(255,255,255,0.6)";
+      ctx.font = `bold ${i<3?20:18}px sans-serif`; ctx.textAlign = "left";
+      ctx.fillText(`${i+1}.`, panelX+20, ry);
       ctx.fillStyle = isNew ? BRAND_GOLD : "#fff";
-      ctx.font = `bold ${isNew?11:10}px monospace`; ctx.textAlign = "left";
-      ctx.fillText(e.initials, panelX+32, ry);
-      ctx.fillStyle = isNew ? BRAND_GOLD : "rgba(255,255,255,0.8)";
-      ctx.font = `${isNew?"bold ":""} 10px sans-serif`; ctx.textAlign = "right";
-      ctx.fillText(`${e.score} ft`, panelX+panelW-60, ry);
-      ctx.fillStyle = "rgba(255,255,255,0.35)"; ctx.font = "9px sans-serif";
-      ctx.fillText(`Lvl ${e.level}`, panelX+panelW-12, ry);
+      ctx.font = `bold ${isNew?20:18}px monospace`; ctx.textAlign = "left";
+      ctx.fillText(e.initials, panelX+60, ry);
+      ctx.fillStyle = isNew ? BRAND_GOLD : "rgba(255,255,255,0.85)";
+      ctx.font = `${isNew?"bold ":""} 18px sans-serif`; ctx.textAlign = "right";
+      ctx.fillText(`${e.score} ft`, panelX+panelW-100, ry);
+      ctx.fillStyle = "rgba(255,255,255,0.45)"; ctx.font = "16px sans-serif";
+      ctx.fillText(`Lvl ${e.level}`, panelX+panelW-16, ry);
       if (isNew) {
-        ctx.fillStyle = BRAND_GOLD; ctx.font = "bold 9px sans-serif"; ctx.textAlign = "center";
-        ctx.fillText("NEW!", panelX+panelW-36, ry);
+        ctx.fillStyle = BRAND_GOLD; ctx.font = "bold 16px sans-serif"; ctx.textAlign = "center";
+        ctx.fillText("NEW!", panelX+panelW-60, ry);
       }
     }
   }
@@ -1375,88 +1388,88 @@ export default function LawnMowerDash() {
       ctx.fillStyle = i%2===0?"#3a8c3a":"#358035";
       ctx.fillRect(0,i*LANE_H,W,LANE_H);
     }
-    ctx.fillStyle = "rgba(0,0,0,0.72)"; ctx.fillRect(0,0,W,H);
-    ctx.fillStyle = BRAND_RED; ctx.fillRect(0,0,W,54);
-    ctx.strokeStyle = BRAND_GOLD; ctx.lineWidth = 2;
-    ctx.beginPath(); ctx.moveTo(0,54); ctx.lineTo(W,54); ctx.stroke();
-    ctx.fillStyle = BRAND_GOLD; ctx.font = "bold 11px sans-serif"; ctx.textAlign = "center";
-    ctx.fillText("NEWPORT AVENUE LANDSCAPING", W/2, 17);
-    ctx.fillStyle = "#fff"; ctx.font = "bold 22px sans-serif"; ctx.fillText("🌿  LAWN MOWER DASH", W/2, 44);
+    ctx.fillStyle = "rgba(0,0,0,0.78)"; ctx.fillRect(0,0,W,H);
+    ctx.fillStyle = BRAND_RED; ctx.fillRect(0,0,W,96);
+    ctx.strokeStyle = BRAND_GOLD; ctx.lineWidth = 3;
+    ctx.beginPath(); ctx.moveTo(0,96); ctx.lineTo(W,96); ctx.stroke();
+    ctx.fillStyle = BRAND_GOLD; ctx.font = "bold 22px sans-serif"; ctx.textAlign = "center";
+    ctx.fillText("NEWPORT AVENUE LANDSCAPING", W/2, 30);
+    ctx.fillStyle = "#fff"; ctx.font = "bold 40px sans-serif"; ctx.fillText("🌿  LAWN MOWER DASH", W/2, 78);
     const dm = ["SOAKED! 💦","CITED BY THE HOA! 📋","BURIED IN MUD! 🚧","DEHYDRATED! ☀️"];
     const ds = ["The sprinkler got you. Classic.","The HOA wins this round. For now.","Construction chaos: 1, NAL: 0.","The drought inspector got your plates."];
-    ctx.fillStyle = "#ef4444"; ctx.font = "bold 28px sans-serif"; ctx.textAlign = "center";
-    ctx.fillText(dm[level-1]||"GAME OVER!", W/2, 90);
-    ctx.fillStyle = "rgba(255,255,255,0.6)"; ctx.font = "italic 12px sans-serif";
-    ctx.fillText(ds[level-1]||"", W/2, 110);
-    ctx.fillStyle = "#fff"; ctx.font = "bold 20px sans-serif"; ctx.fillText(`Distance: ${s} ft`, W/2, 136);
-    ctx.fillStyle = BRAND_GOLD; ctx.font = "bold 15px sans-serif"; ctx.fillText(`🏆 Best: ${hs} ft`, W/2, 158);
-    ctx.fillStyle = BRAND_LIGHT; ctx.font = "13px sans-serif"; ctx.fillText(`Reached Level ${level} — ${LEVELS[level-1].name}`, W/2, 178);
-    ctx.fillStyle = BRAND_RED; ctx.beginPath(); ctx.roundRect(W/2-100,196,200,48,10); ctx.fill();
-    ctx.strokeStyle = BRAND_GOLD; ctx.lineWidth = 2; ctx.beginPath(); ctx.roundRect(W/2-100,196,200,48,10); ctx.stroke();
-    ctx.fillStyle = "#fff"; ctx.font = "bold 18px sans-serif"; ctx.textAlign = "center"; ctx.fillText("🔄  TRY AGAIN", W/2, 225);
-    ctx.fillStyle = BRAND_GOLD; ctx.font = "italic 11px sans-serif";
-    ctx.fillText("Sterling believes in you. Probably.", W/2, 248);
+    ctx.fillStyle = "#ef4444"; ctx.font = "bold 52px sans-serif"; ctx.textAlign = "center";
+    ctx.fillText(dm[level-1]||"GAME OVER!", W/2, 162);
+    ctx.fillStyle = "rgba(255,255,255,0.7)"; ctx.font = "italic 22px sans-serif";
+    ctx.fillText(ds[level-1]||"", W/2, 196);
+    ctx.fillStyle = "#fff"; ctx.font = "bold 36px sans-serif"; ctx.fillText(`Distance: ${s} ft`, W/2, 244);
+    ctx.fillStyle = BRAND_GOLD; ctx.font = "bold 28px sans-serif"; ctx.fillText(`🏆 Best: ${hs} ft`, W/2, 284);
+    ctx.fillStyle = BRAND_LIGHT; ctx.font = "22px sans-serif"; ctx.fillText(`Reached Level ${level} — ${LEVELS[level-1].name}`, W/2, 318);
+    ctx.fillStyle = BRAND_RED; ctx.beginPath(); ctx.roundRect(W/2-200,336,400,76,14); ctx.fill();
+    ctx.strokeStyle = BRAND_GOLD; ctx.lineWidth = 3; ctx.beginPath(); ctx.roundRect(W/2-200,336,400,76,14); ctx.stroke();
+    ctx.fillStyle = "#fff"; ctx.font = "bold 32px sans-serif"; ctx.textAlign = "center"; ctx.fillText("🔄  TRY AGAIN", W/2, 384);
+    ctx.fillStyle = BRAND_GOLD; ctx.font = "italic 20px sans-serif";
+    ctx.fillText("Sterling believes in you. Probably.", W/2, 428);
     // Leaderboard on dead screen
-    drawLeaderboardPanel(ctx, lb, highlightRank, 262);
+    drawLeaderboardPanel(ctx, lb, highlightRank, 448);
   }
 
   //
   function drawBossLostScreen(ctx: CanvasRenderingContext2D) {
     ctx.fillStyle = "rgba(0,0,0,0.88)"; ctx.fillRect(0,0,W,H);
-    ctx.fillStyle = BRAND_RED; ctx.fillRect(0,0,W,54);
-    ctx.strokeStyle = BRAND_GOLD; ctx.lineWidth = 2;
-    ctx.beginPath(); ctx.moveTo(0,54); ctx.lineTo(W,54); ctx.stroke();
-    ctx.fillStyle = BRAND_GOLD; ctx.font = "bold 11px sans-serif"; ctx.textAlign = "center";
-    ctx.fillText("NEWPORT AVENUE LANDSCAPING", W/2, 17);
-    ctx.fillStyle = "#fff"; ctx.font = "bold 22px sans-serif"; ctx.fillText("🌿  LAWN MOWER DASH", W/2, 44);
-    ctx.fillStyle = "#f87171"; ctx.font = "bold 28px sans-serif"; ctx.textAlign = "center";
-    ctx.fillText("💼 STERLING WINS. AGAIN.", W/2, 88);
-    ctx.fillStyle = "rgba(255,255,255,0.7)"; ctx.font = "italic 12px sans-serif";
-    ctx.fillText("He's been mowing since 1987. He does not lose.", W/2, 110);
-    ctx.fillStyle = "#4ade80"; ctx.font = "bold 15px sans-serif";
-    ctx.fillText("BUT — your $100 code is still yours! 🎉", W/2, 140);
+    ctx.fillStyle = BRAND_RED; ctx.fillRect(0,0,W,96);
+    ctx.strokeStyle = BRAND_GOLD; ctx.lineWidth = 3;
+    ctx.beginPath(); ctx.moveTo(0,96); ctx.lineTo(W,96); ctx.stroke();
+    ctx.fillStyle = BRAND_GOLD; ctx.font = "bold 22px sans-serif"; ctx.textAlign = "center";
+    ctx.fillText("NEWPORT AVENUE LANDSCAPING", W/2, 30);
+    ctx.fillStyle = "#fff"; ctx.font = "bold 40px sans-serif"; ctx.fillText("🌿  LAWN MOWER DASH", W/2, 78);
+    ctx.fillStyle = "#f87171"; ctx.font = "bold 52px sans-serif"; ctx.textAlign = "center";
+    ctx.fillText("💼 STERLING WINS. AGAIN.", W/2, 164);
+    ctx.fillStyle = "rgba(255,255,255,0.7)"; ctx.font = "italic 22px sans-serif";
+    ctx.fillText("He's been mowing since 1987. He does not lose.", W/2, 202);
+    ctx.fillStyle = "#4ade80"; ctx.font = "bold 28px sans-serif";
+    ctx.fillText("BUT — your $100 code is still yours! 🎉", W/2, 248);
     // Code box
-    ctx.fillStyle = BRAND_DARK; ctx.beginPath(); ctx.roundRect(W/2-110,152,220,40,8); ctx.fill();
-    ctx.strokeStyle = BRAND_GOLD; ctx.lineWidth = 2.5; ctx.beginPath(); ctx.roundRect(W/2-110,152,220,40,8); ctx.stroke();
-    ctx.fillStyle = BRAND_GOLD; ctx.font = "bold 24px monospace"; ctx.textAlign = "center";
-    ctx.fillText(DISCOUNT_CODE, W/2, 179);
-    ctx.fillStyle = "rgba(255,255,255,0.55)"; ctx.font = "10px sans-serif";
-    ctx.fillText("One-time use. $100 off any service.", W/2, 204);
-    ctx.fillStyle = BRAND_RED; ctx.beginPath(); ctx.roundRect(W/2-100,218,200,46,10); ctx.fill();
-    ctx.strokeStyle = BRAND_GOLD; ctx.lineWidth = 2; ctx.beginPath(); ctx.roundRect(W/2-100,218,200,46,10); ctx.stroke();
-    ctx.fillStyle = "#fff"; ctx.font = "bold 16px sans-serif"; ctx.textAlign = "center";
-    ctx.fillText("🔄  PLAY AGAIN", W/2, 246);
-    ctx.fillStyle = BRAND_GOLD; ctx.font = "italic 10px sans-serif";
-    ctx.fillText("(Nobody beats Sterling. This is known.)", W/2, 278);
+    ctx.fillStyle = BRAND_DARK; ctx.beginPath(); ctx.roundRect(W/2-220,264,440,72,12); ctx.fill();
+    ctx.strokeStyle = BRAND_GOLD; ctx.lineWidth = 3; ctx.beginPath(); ctx.roundRect(W/2-220,264,440,72,12); ctx.stroke();
+    ctx.fillStyle = BRAND_GOLD; ctx.font = "bold 44px monospace"; ctx.textAlign = "center";
+    ctx.fillText(DISCOUNT_CODE, W/2, 314);
+    ctx.fillStyle = "rgba(255,255,255,0.65)"; ctx.font = "20px sans-serif";
+    ctx.fillText("One-time use. $100 off any service.", W/2, 356);
+    ctx.fillStyle = BRAND_RED; ctx.beginPath(); ctx.roundRect(W/2-200,378,400,76,14); ctx.fill();
+    ctx.strokeStyle = BRAND_GOLD; ctx.lineWidth = 3; ctx.beginPath(); ctx.roundRect(W/2-200,378,400,76,14); ctx.stroke();
+    ctx.fillStyle = "#fff"; ctx.font = "bold 32px sans-serif"; ctx.textAlign = "center";
+    ctx.fillText("🔄  PLAY AGAIN", W/2, 426);
+    ctx.fillStyle = BRAND_GOLD; ctx.font = "italic 20px sans-serif";
+    ctx.fillText("(Nobody beats Sterling. This is known.)", W/2, 472);
   }
 
   //
   function drawWonScreen(ctx: CanvasRenderingContext2D) {
     ctx.fillStyle = "rgba(0,0,0,0.88)"; ctx.fillRect(0,0,W,H);
-    ctx.fillStyle = BRAND_RED; ctx.fillRect(0,0,W,54);
-    ctx.strokeStyle = BRAND_GOLD; ctx.lineWidth = 2;
-    ctx.beginPath(); ctx.moveTo(0,54); ctx.lineTo(W,54); ctx.stroke();
-    ctx.fillStyle = BRAND_GOLD; ctx.font = "bold 11px sans-serif"; ctx.textAlign = "center";
-    ctx.fillText("NEWPORT AVENUE LANDSCAPING", W/2, 17);
-    ctx.fillStyle = "#fff"; ctx.font = "bold 22px sans-serif"; ctx.fillText("🌿  LAWN MOWER DASH", W/2, 44);
-    ctx.fillStyle = "#fbbf24"; ctx.font = "bold 26px sans-serif"; ctx.textAlign = "center";
-    ctx.fillText("🏆 YOU BEAT STERLING!!! 🏆", W/2, 84);
-    ctx.fillStyle = "#fff"; ctx.font = "14px sans-serif";
-    ctx.fillText("IMPOSSIBLE. Sterling is shook.", W/2, 106);
-    ctx.fillStyle = "#4ade80"; ctx.font = "bold 13px sans-serif";
-    ctx.fillText("Your $200 off code:", W/2, 132);
-    ctx.fillStyle = BRAND_DARK; ctx.beginPath(); ctx.roundRect(W/2-115,140,230,42,8); ctx.fill();
-    ctx.strokeStyle = BRAND_GOLD; ctx.lineWidth = 2.5; ctx.beginPath(); ctx.roundRect(W/2-115,140,230,42,8); ctx.stroke();
-    ctx.fillStyle = BRAND_GOLD; ctx.font = "bold 26px monospace"; ctx.textAlign = "center";
-    ctx.fillText(DOUBLE_CODE, W/2, 168);
-    ctx.fillStyle = "rgba(255,255,255,0.55)"; ctx.font = "10px sans-serif";
-    ctx.fillText("One-time use. $200 off any service. You earned it.", W/2, 196);
-    ctx.fillStyle = "rgba(255,255,255,0.4)"; ctx.font = "italic 10px sans-serif";
-    ctx.fillText("(Sterling is currently questioning all his life choices.)", W/2, 210);
-    ctx.fillStyle = BRAND_RED; ctx.beginPath(); ctx.roundRect(W/2-100,222,200,46,10); ctx.fill();
-    ctx.strokeStyle = BRAND_GOLD; ctx.lineWidth = 2; ctx.beginPath(); ctx.roundRect(W/2-100,222,200,46,10); ctx.stroke();
-    ctx.fillStyle = "#fff"; ctx.font = "bold 16px sans-serif"; ctx.textAlign = "center";
-    ctx.fillText("🔄  PLAY AGAIN", W/2, 250);
+    ctx.fillStyle = BRAND_RED; ctx.fillRect(0,0,W,96);
+    ctx.strokeStyle = BRAND_GOLD; ctx.lineWidth = 3;
+    ctx.beginPath(); ctx.moveTo(0,96); ctx.lineTo(W,96); ctx.stroke();
+    ctx.fillStyle = BRAND_GOLD; ctx.font = "bold 22px sans-serif"; ctx.textAlign = "center";
+    ctx.fillText("NEWPORT AVENUE LANDSCAPING", W/2, 30);
+    ctx.fillStyle = "#fff"; ctx.font = "bold 40px sans-serif"; ctx.fillText("🌿  LAWN MOWER DASH", W/2, 78);
+    ctx.fillStyle = "#fbbf24"; ctx.font = "bold 52px sans-serif"; ctx.textAlign = "center";
+    ctx.fillText("🏆 YOU BEAT STERLING!!! 🏆", W/2, 166);
+    ctx.fillStyle = "#fff"; ctx.font = "26px sans-serif";
+    ctx.fillText("IMPOSSIBLE. Sterling is shook.", W/2, 208);
+    ctx.fillStyle = "#4ade80"; ctx.font = "bold 24px sans-serif";
+    ctx.fillText("Your $200 off code:", W/2, 252);
+    ctx.fillStyle = BRAND_DARK; ctx.beginPath(); ctx.roundRect(W/2-230,268,460,76,12); ctx.fill();
+    ctx.strokeStyle = BRAND_GOLD; ctx.lineWidth = 3; ctx.beginPath(); ctx.roundRect(W/2-230,268,460,76,12); ctx.stroke();
+    ctx.fillStyle = BRAND_GOLD; ctx.font = "bold 48px monospace"; ctx.textAlign = "center";
+    ctx.fillText(DOUBLE_CODE, W/2, 322);
+    ctx.fillStyle = "rgba(255,255,255,0.65)"; ctx.font = "20px sans-serif";
+    ctx.fillText("One-time use. $200 off any service. You earned it.", W/2, 368);
+    ctx.fillStyle = "rgba(255,255,255,0.5)"; ctx.font = "italic 18px sans-serif";
+    ctx.fillText("(Sterling is currently questioning all his life choices.)", W/2, 398);
+    ctx.fillStyle = BRAND_RED; ctx.beginPath(); ctx.roundRect(W/2-200,416,400,76,14); ctx.fill();
+    ctx.strokeStyle = BRAND_GOLD; ctx.lineWidth = 3; ctx.beginPath(); ctx.roundRect(W/2-200,416,400,76,14); ctx.stroke();
+    ctx.fillStyle = "#fff"; ctx.font = "bold 32px sans-serif"; ctx.textAlign = "center";
+    ctx.fillText("🔄  PLAY AGAIN", W/2, 464);
   }
 
   //
@@ -1895,32 +1908,32 @@ export default function LawnMowerDash() {
   return (
     <>
       <Navbar />
-      <div className="min-h-screen" style={{ backgroundColor: "oklch(0.97 0.01 140)", paddingTop: "120px", paddingBottom: "60px" }}>
-        <div className="container">
-          <div className="text-center mb-8">
-            <div className="font-label mb-2 text-xs tracking-widest" style={{ color: BRAND_RED }}>
+      <div className="min-h-screen" style={{ backgroundColor: "oklch(0.97 0.01 140)", paddingTop: "80px", paddingBottom: "40px" }}>
+        <div style={{ width: "100%", maxWidth: 1280, margin: "0 auto", padding: "0 8px" }}>
+          <div className="text-center mb-4">
+            <div className="font-label mb-1 text-xs tracking-widest" style={{ color: BRAND_RED }}>
               🎮 MINI GAME
             </div>
-            <h1 className="font-display font-light text-4xl mb-3" style={{ color: "oklch(0.22 0.005 0)" }}>
+            <h1 className="font-display font-light text-2xl sm:text-4xl mb-2" style={{ color: "oklch(0.22 0.005 0)" }}>
               Lawn Mower Dash
             </h1>
-            <p className="font-body text-sm max-w-lg mx-auto" style={{ color: "oklch(0.45 0.005 30)" }}>
+            <p className="font-body text-xs sm:text-sm max-w-lg mx-auto" style={{ color: "oklch(0.45 0.005 30)" }}>
               Can you survive one day at Newport Avenue Landscaping and mow your entire route?
-              Push through <strong>4 levels of Central Oregon chaos</strong> on your Exmark Navigator.
-              Beat them all to unlock a <strong>$100 discount</strong> — then dare to face
-              <strong> Giant Sterling</strong> for $200. Nobody beats Sterling.
+              Beat all <strong>4 levels</strong> to unlock a <strong>$100 discount</strong> — then dare to face
+              <strong> Giant Sterling</strong> for $200.
             </p>
           </div>
 
-          <div className="flex justify-center gap-3 mb-6 flex-wrap">
+          <div className="flex justify-center gap-2 mb-4 flex-wrap">
             {LEVELS.map((lv, i) => {
               const icons = ["🌊","📋","🚧","☀️"];
               const colors = ["#4ade80","#fbbf24","#f97316","#ef4444"];
               return (
-                <div key={lv.id} className="flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-semibold"
+                <div key={lv.id} className="flex items-center gap-1 px-2 py-1 rounded-lg text-xs font-semibold"
                   style={{ backgroundColor: `${colors[i]}22`, border: `1.5px solid ${colors[i]}`, color: "oklch(0.25 0.005 0)" }}>
                   <span>{icons[i]}</span>
-                  <span>Level {lv.id}: {lv.name}</span>
+                  <span className="hidden sm:inline">Level {lv.id}: {lv.name}</span>
+                  <span className="sm:hidden">Lvl {lv.id}</span>
                 </div>
               );
             })}
