@@ -1,12 +1,12 @@
 /* ============================================================
    LAWN MOWER DASH — Multi-Level Retro Runner
    Newport Avenue Landscaping
-   
+
    LEVELS:
-   1. The Neighborhood   — dodge sprinklers & mushrooms
-   2. The HOA Gauntlet   — angry board members with clipboards
-   3. The Construction Site — boulders, skid steers, mud puddles
-   4. The Drought Zone   — tumbleweeds, cracked earth, water inspector
+   1. The Neighborhood   — dodge sprinklers, NAL yard signs everywhere
+   2. The HOA Gauntlet   — angry board members, "NO NAL ALLOWED" signs
+   3. The Construction Site — NAL branded equipment, boulders, mud
+   4. The Drought Zone   — dead lawns NAL is saving, water inspector, tumbleweeds
 
    Controls: Tap top/bottom · Swipe · ↑↓ keys
    ============================================================ */
@@ -22,15 +22,48 @@ const PLAYER_R = 18;
 const LANE_COUNT = 5;
 const LANE_H = H / LANE_COUNT;
 const LANE_CENTERS = Array.from({ length: LANE_COUNT }, (_, i) => LANE_H * i + LANE_H / 2);
-const DISCOUNT_CODE = "DRYDASH10";
-const HIGH_SCORE_KEY = "nal_mower_hs_v2";
+// Funny discount code — only revealed after beating Level 4
+const DISCOUNT_CODE = "MOWMONEY100";
+const HIGH_SCORE_KEY = "nal_mower_hs_v3";
 
 // ── Level definitions ─────────────────────────────────────────────────────
 const LEVELS = [
-  { id: 1, name: "THE NEIGHBORHOOD",    subtitle: "Dodge the sprinklers!",        targetDist: 1000, bgColor: "#3a8c3a", skyColor: "#87ceeb" },
-  { id: 2, name: "THE HOA GAUNTLET",    subtitle: "Watch out for the board!",     targetDist: 1500, bgColor: "#4a7c4a", skyColor: "#c8e6c9" },
-  { id: 3, name: "THE CONSTRUCTION SITE", subtitle: "Navigate the chaos!",        targetDist: 2000, bgColor: "#8b7355", skyColor: "#b0bec5" },
-  { id: 4, name: "THE DROUGHT ZONE",    subtitle: "Survive the inspector!",       targetDist: 2500, bgColor: "#c8a96e", skyColor: "#ffe082" },
+  {
+    id: 1,
+    name: "THE NEIGHBORHOOD",
+    subtitle: "Dodge the sprinklers & keep the NAL signs upright!",
+    targetDist: 1000,
+    bgColor: "#3a8c3a",
+    skyColor: "#87ceeb",
+    tagline: "Just another Tuesday in the 'hood.",
+  },
+  {
+    id: 2,
+    name: "THE HOA GAUNTLET",
+    subtitle: "They HATE us. We mow anyway.",
+    targetDist: 1500,
+    bgColor: "#4a7c4a",
+    skyColor: "#c8e6c9",
+    tagline: "HOA Rule #312: No fun allowed.",
+  },
+  {
+    id: 3,
+    name: "THE CONSTRUCTION SITE",
+    subtitle: "Navigate the chaos — NAL builds through it!",
+    targetDist: 2000,
+    bgColor: "#8b7355",
+    skyColor: "#b0bec5",
+    tagline: "Hard hats required. Complaints not.",
+  },
+  {
+    id: 4,
+    name: "THE DROUGHT ZONE",
+    subtitle: "Dead lawns? Not on Sterling's watch.",
+    targetDist: 2500,
+    bgColor: "#c8a96e",
+    skyColor: "#ffe082",
+    tagline: "Central Oregon summer. Pray for rain.",
+  },
 ];
 
 // ── Brand colors ──────────────────────────────────────────────────────────
@@ -38,14 +71,15 @@ const BRAND_GREEN  = "#1a5c2a";
 const BRAND_RED    = "#c0392b";
 const BRAND_GOLD   = "#c8a84b";
 const BRAND_LIGHT  = "#e8f5e9";
+const BRAND_DARK   = "#0f3518";
 
 // ── Types ─────────────────────────────────────────────────────────────────
 interface Obstacle {
   id: number; x: number; lane: number; type: string;
   y?: number;
   angle?: number; arcSpeed?: number; arcWidth?: number; arcLen?: number;
-  phase?: number; // for HOA walking animation
-  speed?: number; // for skid steer
+  phase?: number;
+  speed?: number;
 }
 interface Collectible { id: number; x: number; lane: number; type: string; collected: boolean; bobOffset: number; }
 interface Particle { x: number; y: number; vx: number; vy: number; life: number; color: string; r: number; }
@@ -146,29 +180,32 @@ export default function LawnMowerDash() {
     const lane = randInt(0, LANE_COUNT - 1);
     const id = nextId();
     if (level === 1) {
-      // Sprinklers
+      // Neighborhood: sprinklers + rogue garden gnomes
+      const t = Math.random() < 0.7 ? "sprinkler" : "gnome";
       obstacles.current.push({
-        id, x: W + 50, lane, type: "sprinkler",
+        id, x: W + 50, lane, type: t,
         angle: rand(0, Math.PI * 2),
         arcSpeed: rand(0.018, 0.042) * (Math.random() < 0.5 ? 1 : -1),
         arcWidth: rand(0.55, 1.15),
         arcLen: rand(55, 90),
+        phase: 0,
       });
     } else if (level === 2) {
-      // HOA board members — march in groups of 2-3
-      const type = Math.random() < 0.6 ? "hoa_member" : "hoa_group";
-      obstacles.current.push({ id, x: W + 50, lane, type, phase: 0, speed: rand(0.8, 1.4) });
-      if (type === "hoa_group" && lane > 0) {
-        obstacles.current.push({ id: nextId(), x: W + 50, lane: lane - 1, type: "hoa_member", phase: Math.PI * 0.5, speed: rand(0.8, 1.4) });
+      // HOA Gauntlet: angry board members + "NO NAL ALLOWED" signs
+      const types = ["hoa_member", "hoa_member", "hoa_sign", "hoa_group"];
+      const t = types[randInt(0, types.length - 1)];
+      obstacles.current.push({ id, x: W + 50, lane, type: t, phase: 0, speed: rand(0.8, 1.4) });
+      if (t === "hoa_group" && lane > 0) {
+        obstacles.current.push({ id: nextId(), x: W + 80, lane: lane - 1, type: "hoa_member", phase: Math.PI * 0.5, speed: rand(0.8, 1.4) });
       }
     } else if (level === 3) {
-      // Construction: boulders, skid steer, mud puddles
-      const types = ["boulder", "boulder", "mud_puddle", "skid_steer"];
+      // Construction: boulders, skid steer, mud puddles, orange cones
+      const types = ["boulder", "boulder", "mud_puddle", "skid_steer", "cone_row"];
       const t = types[randInt(0, types.length - 1)];
       obstacles.current.push({ id, x: W + 60, lane, type: t, speed: t === "skid_steer" ? rand(1.5, 2.5) : 0 });
     } else if (level === 4) {
-      // Drought: tumbleweeds, water inspector, cracked patches
-      const types = ["tumbleweed", "tumbleweed", "water_inspector", "crack_patch"];
+      // Drought: tumbleweeds, water inspector, dead lawn patches, fire ant mounds
+      const types = ["tumbleweed", "tumbleweed", "water_inspector", "dead_patch", "fire_ants"];
       const t = types[randInt(0, types.length - 1)];
       obstacles.current.push({ id, x: W + 50, lane, type: t, phase: 0, speed: t === "water_inspector" ? rand(1.2, 2.0) : rand(0.5, 1.5) });
     }
@@ -176,10 +213,12 @@ export default function LawnMowerDash() {
 
   function spawnCollectible(level: number) {
     const lane = randInt(0, LANE_COUNT - 1);
-    const types = level === 1 ? ["mushroom", "bee", "star"] :
-                  level === 2 ? ["coffee", "star", "permit"] :
-                  level === 3 ? ["hard_hat", "star", "coffee"] :
-                                ["water_bottle", "star", "cactus"];
+    // Level-specific collectibles — all landscaping themed
+    const types =
+      level === 1 ? ["nal_sign", "coffee", "star", "leaf_bag"] :
+      level === 2 ? ["permit", "star", "coffee", "nal_flag"] :
+      level === 3 ? ["hard_hat", "star", "coffee", "nal_truck"] :
+                    ["water_bottle", "star", "nal_hose", "cactus"];
     const type = types[randInt(0, types.length - 1)];
     collectibles.current.push({ id: nextId(), x: W + 20, lane, type, collected: false, bobOffset: rand(0, Math.PI * 2) });
   }
@@ -199,10 +238,8 @@ export default function LawnMowerDash() {
   // ── Draw helpers ───────────────────────────────────────────────────────
 
   function drawBackground(ctx: CanvasRenderingContext2D, level: number, frame: number) {
-    const lv = LEVELS[level - 1];
-    
     if (level === 1) {
-      // Neighborhood: green grass with mow stripes
+      // Neighborhood: lush green grass, NAL yard signs, houses
       for (let i = 0; i < LANE_COUNT; i++) {
         ctx.fillStyle = i % 2 === 0 ? "#3a8c3a" : "#358035";
         ctx.fillRect(0, i * LANE_H, W, LANE_H);
@@ -213,51 +250,48 @@ export default function LawnMowerDash() {
         ctx.fillStyle = stripe.dark ? "#2e7a2e" : "#4db84d";
         ctx.fillRect(stripe.x, ly, 28, LANE_H);
       }
-      // Scrolling houses in background (top strip)
-      drawHouses(ctx, frame);
+      // Scrolling houses + NAL yard signs in background strip
+      drawNeighborhoodBg(ctx, frame);
     } else if (level === 2) {
-      // HOA neighborhood — manicured, slightly oppressive
+      // HOA neighborhood — manicured, oppressive, "NO NAL ALLOWED" banners
       for (let i = 0; i < LANE_COUNT; i++) {
         ctx.fillStyle = i % 2 === 0 ? "#4a7c4a" : "#427042";
         ctx.fillRect(0, i * LANE_H, W, LANE_H);
       }
       // Perfect grid lines (HOA approved)
-      ctx.strokeStyle = "rgba(255,255,255,0.12)";
+      ctx.strokeStyle = "rgba(255,255,255,0.1)";
       ctx.lineWidth = 1;
       for (let i = 1; i < LANE_COUNT; i++) {
         ctx.beginPath(); ctx.moveTo(0, i * LANE_H); ctx.lineTo(W, i * LANE_H); ctx.stroke();
       }
-      // HOA signs scrolling past
-      drawHOASigns(ctx, frame);
+      drawHOABg(ctx, frame);
     } else if (level === 3) {
-      // Construction site — dirt, gravel, chaos
+      // Construction site — dirt, gravel, NAL equipment in background
       for (let i = 0; i < LANE_COUNT; i++) {
         const shade = i % 2 === 0 ? "#8b7355" : "#7a6548";
         ctx.fillStyle = shade;
         ctx.fillRect(0, i * LANE_H, W, LANE_H);
       }
-      // Gravel texture
-      ctx.fillStyle = "rgba(0,0,0,0.08)";
+      // Gravel texture dots
+      ctx.fillStyle = "rgba(0,0,0,0.07)";
       for (let x = -(scrollX.current % 20); x < W; x += 20) {
         for (let y = 0; y < H; y += 20) {
-          if (Math.random() < 0.3) ctx.fillRect(x + rand(0,8), y + rand(0,8), 3, 3);
+          if (Math.random() < 0.25) ctx.fillRect(x + rand(0, 8), y + rand(0, 8), 3, 3);
         }
       }
-      // Construction tape stripes on edges
-      drawConstructionTape(ctx, frame);
+      drawConstructionBg(ctx, frame);
     } else {
-      // Drought zone — cracked earth
+      // Drought zone — cracked earth, dead grass, NAL to the rescue
       for (let i = 0; i < LANE_COUNT; i++) {
         ctx.fillStyle = i % 2 === 0 ? "#c8a96e" : "#b8996e";
         ctx.fillRect(0, i * LANE_H, W, LANE_H);
       }
-      // Crack lines
-      drawCracks(ctx, frame);
+      drawDroughtBg(ctx, frame);
     }
 
     // Lane dividers
     ctx.setLineDash([8, 12]);
-    ctx.strokeStyle = "rgba(0,0,0,0.15)";
+    ctx.strokeStyle = "rgba(0,0,0,0.12)";
     ctx.lineWidth = 1;
     for (let i = 1; i < LANE_COUNT; i++) {
       ctx.beginPath(); ctx.moveTo(0, i * LANE_H); ctx.lineTo(W, i * LANE_H); ctx.stroke();
@@ -265,41 +299,71 @@ export default function LawnMowerDash() {
     ctx.setLineDash([]);
   }
 
-  function drawHouses(ctx: CanvasRenderingContext2D, frame: number) {
-    // Tiny scrolling houses at top of screen for flavor
-    const houseX = -(scrollX.current % 200);
-    for (let x = houseX; x < W + 200; x += 200) {
-      ctx.fillStyle = "#e8d5b0";
-      ctx.fillRect(x + 10, 2, 40, 20);
-      ctx.fillStyle = "#8b4513";
+  // Level 1 background: houses + NAL yard signs
+  function drawNeighborhoodBg(ctx: CanvasRenderingContext2D, frame: number) {
+    const houseX = -(scrollX.current % 240);
+    for (let x = houseX; x < W + 240; x += 240) {
+      // House body
+      ctx.fillStyle = ["#e8d5b0", "#d4c5a0", "#c8b89a"][Math.floor(x / 240) % 3];
+      ctx.fillRect(x + 10, 2, 50, 22);
+      // Roof
+      ctx.fillStyle = ["#8b4513", "#6b3410", "#a0522d"][Math.floor(x / 240) % 3];
       ctx.beginPath();
-      ctx.moveTo(x + 5, 2); ctx.lineTo(x + 30, -8); ctx.lineTo(x + 55, 2);
+      ctx.moveTo(x + 5, 2); ctx.lineTo(x + 35, -10); ctx.lineTo(x + 65, 2);
       ctx.closePath(); ctx.fill();
+      // Window
       ctx.fillStyle = "#87ceeb";
-      ctx.fillRect(x + 18, 8, 10, 8);
+      ctx.fillRect(x + 18, 8, 12, 10);
+      ctx.strokeStyle = "#fff"; ctx.lineWidth = 0.5;
+      ctx.strokeRect(x + 18, 8, 12, 10);
+      // Door
+      ctx.fillStyle = BRAND_GREEN;
+      ctx.fillRect(x + 34, 12, 8, 12);
+      // NAL yard sign in front of house
+      drawNALYardSign(ctx, x + 70, 20);
     }
   }
 
-  function drawHOASigns(ctx: CanvasRenderingContext2D, frame: number) {
-    const signX = -(scrollX.current % 300) + 250;
-    for (let x = signX; x < W + 300; x += 300) {
+  // Tiny NAL yard sign
+  function drawNALYardSign(ctx: CanvasRenderingContext2D, x: number, y: number) {
+    // Sign stake
+    ctx.strokeStyle = "#5c3d1e"; ctx.lineWidth = 1.5;
+    ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x, y + 14); ctx.stroke();
+    // Sign board
+    ctx.fillStyle = BRAND_GREEN;
+    ctx.fillRect(x - 14, y - 10, 28, 12);
+    ctx.fillStyle = BRAND_GOLD; ctx.font = "bold 5px sans-serif"; ctx.textAlign = "center";
+    ctx.fillText("NAL", x, y - 2);
+    ctx.fillStyle = "#fff"; ctx.font = "4px sans-serif";
+    ctx.fillText("LANDSCAPING", x, y + 4);
+  }
+
+  // Level 2 background: HOA signs + "NO NAL ALLOWED" banners
+  function drawHOABg(ctx: CanvasRenderingContext2D, frame: number) {
+    const signX = -(scrollX.current % 280) + 220;
+    for (let x = signX; x < W + 280; x += 280) {
       // HOA violation sign
       ctx.fillStyle = "#fff";
-      ctx.fillRect(x, 5, 70, 22);
-      ctx.strokeStyle = "#c0392b";
-      ctx.lineWidth = 2;
-      ctx.strokeRect(x, 5, 70, 22);
-      ctx.fillStyle = "#c0392b";
-      ctx.font = "bold 7px sans-serif";
-      ctx.textAlign = "center";
-      ctx.fillText("HOA NOTICE", x + 35, 14);
-      ctx.fillStyle = "#333";
-      ctx.font = "6px sans-serif";
-      ctx.fillText("VIOLATION #47", x + 35, 23);
+      ctx.fillRect(x, 4, 80, 24);
+      ctx.strokeStyle = BRAND_RED; ctx.lineWidth = 2;
+      ctx.strokeRect(x, 4, 80, 24);
+      ctx.fillStyle = BRAND_RED; ctx.font = "bold 7px sans-serif"; ctx.textAlign = "center";
+      ctx.fillText("HOA NOTICE", x + 40, 14);
+      ctx.fillStyle = "#333"; ctx.font = "5.5px sans-serif";
+      ctx.fillText("NO NAL ALLOWED", x + 40, 24);
+    }
+    // Perfectly manicured hedge row at top
+    const hedgeX = -(scrollX.current % 60);
+    for (let x = hedgeX; x < W + 60; x += 60) {
+      ctx.fillStyle = "#2d6a2d";
+      ctx.beginPath(); ctx.arc(x + 15, 4, 10, Math.PI, 0); ctx.fill();
+      ctx.beginPath(); ctx.arc(x + 35, 4, 10, Math.PI, 0); ctx.fill();
+      ctx.beginPath(); ctx.arc(x + 55, 4, 10, Math.PI, 0); ctx.fill();
     }
   }
 
-  function drawConstructionTape(ctx: CanvasRenderingContext2D, frame: number) {
+  // Level 3 background: construction tape + NAL branded equipment in bg
+  function drawConstructionBg(ctx: CanvasRenderingContext2D, frame: number) {
     // Yellow/black caution tape along top and bottom
     const tapeOffset = -(scrollX.current % 40);
     for (let x = tapeOffset; x < W + 40; x += 40) {
@@ -308,27 +372,52 @@ export default function LawnMowerDash() {
       ctx.fillStyle = x % 80 < 40 ? "#1a1a1a" : "#f59e0b";
       ctx.fillRect(x, H - 8, 40, 8);
     }
+    // NAL branded trailer in background
+    const trailX = -(scrollX.current % 500) + 400;
+    for (let x = trailX; x < W + 500; x += 500) {
+      ctx.fillStyle = BRAND_GREEN;
+      ctx.fillRect(x, 2, 80, 18);
+      ctx.fillStyle = BRAND_GOLD; ctx.font = "bold 6px sans-serif"; ctx.textAlign = "center";
+      ctx.fillText("NEWPORT AVE LANDSCAPING", x + 40, 14);
+    }
   }
 
-  function drawCracks(ctx: CanvasRenderingContext2D, frame: number) {
-    ctx.strokeStyle = "rgba(100,60,0,0.4)";
-    ctx.lineWidth = 1;
+  // Level 4 background: cracks + dead grass patches + NAL "before/after" signs
+  function drawDroughtBg(ctx: CanvasRenderingContext2D, frame: number) {
+    // Crack lines
+    ctx.strokeStyle = "rgba(100,60,0,0.4)"; ctx.lineWidth = 1;
     const offset = -(scrollX.current % 160);
     for (let x = offset; x < W + 160; x += 160) {
       for (let y = 20; y < H - 20; y += 60) {
         ctx.beginPath();
-        ctx.moveTo(x + 20, y);
-        ctx.lineTo(x + 35, y + 15);
-        ctx.lineTo(x + 28, y + 28);
-        ctx.stroke();
+        ctx.moveTo(x + 20, y); ctx.lineTo(x + 35, y + 15); ctx.lineTo(x + 28, y + 28); ctx.stroke();
         ctx.beginPath();
-        ctx.moveTo(x + 35, y + 15);
-        ctx.lineTo(x + 50, y + 10);
+        ctx.moveTo(x + 35, y + 15); ctx.lineTo(x + 50, y + 10); ctx.stroke();
+      }
+    }
+    // "NAL SAVES LAWNS" signs scrolling past
+    const nalX = -(scrollX.current % 380) + 300;
+    for (let x = nalX; x < W + 380; x += 380) {
+      ctx.fillStyle = BRAND_GREEN;
+      ctx.fillRect(x, 3, 90, 20);
+      ctx.fillStyle = BRAND_GOLD; ctx.font = "bold 6px sans-serif"; ctx.textAlign = "center";
+      ctx.fillText("NAL SAVES LAWNS! 🌿", x + 45, 16);
+    }
+    // Heat shimmer effect (wavy lines)
+    if (frame % 3 === 0) {
+      ctx.strokeStyle = "rgba(255,200,100,0.08)"; ctx.lineWidth = 2;
+      for (let y = 30; y < H - 30; y += 40) {
+        ctx.beginPath();
+        for (let x = 0; x < W; x += 8) {
+          const wy = y + Math.sin((x + frame * 2) * 0.05) * 3;
+          if (x === 0) ctx.moveTo(x, wy); else ctx.lineTo(x, wy);
+        }
         ctx.stroke();
       }
     }
   }
 
+  // ── Player sprite (NAL branded mower + landscaper) ─────────────────────
   function drawPlayer(ctx: CanvasRenderingContext2D, frame: number, isInvincible: boolean) {
     const blinking = isInvincible && Math.floor(invincible.current / 5) % 2 === 0;
     if (blinking) return;
@@ -345,159 +434,210 @@ export default function LawnMowerDash() {
     ctx.fillStyle = "rgba(0,0,0,0.2)";
     ctx.fill();
 
-    // ── Lawnmower ──────────────────────────────────────────────────────
-    // Mower body
-    ctx.fillStyle = "#e11d48";
-    ctx.beginPath(); ctx.roundRect(12, 2, 34, 16, 5); ctx.fill();
-    // Mower highlight
-    ctx.fillStyle = "#fb7185";
-    ctx.beginPath(); ctx.roundRect(14, 3, 28, 6, 3); ctx.fill();
+    // ── NAL Commercial Mower (green branded) ──────────────────────────────
+    // Mower deck — brand green
+    ctx.fillStyle = BRAND_GREEN;
+    ctx.beginPath(); ctx.roundRect(8, 2, 40, 18, 5); ctx.fill();
+    // Deck highlight
+    ctx.fillStyle = "#2a7a3a";
+    ctx.beginPath(); ctx.roundRect(10, 3, 32, 7, 3); ctx.fill();
+    // NAL logo on deck
+    ctx.fillStyle = BRAND_GOLD;
+    ctx.font = "bold 6px sans-serif"; ctx.textAlign = "center";
+    ctx.fillText("NAL", 28, 14);
     // Engine block
-    ctx.fillStyle = "#9f1239";
-    ctx.beginPath(); ctx.roundRect(20, 0, 14, 8, 3); ctx.fill();
+    ctx.fillStyle = BRAND_DARK;
+    ctx.beginPath(); ctx.roundRect(18, 0, 16, 9, 3); ctx.fill();
     // Engine fins
-    ctx.strokeStyle = "#fda4af"; ctx.lineWidth = 1;
+    ctx.strokeStyle = "#4a9a5a"; ctx.lineWidth = 1;
     for (let i = 0; i < 3; i++) {
-      ctx.beginPath(); ctx.moveTo(23 + i*4, 1); ctx.lineTo(23 + i*4, 7); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(21 + i * 4, 1); ctx.lineTo(21 + i * 4, 8); ctx.stroke();
     }
-    // Wheels
+    // Exhaust pipe
+    ctx.fillStyle = "#555";
+    ctx.beginPath(); ctx.roundRect(30, -4, 4, 6, 1); ctx.fill();
+    // Exhaust puff
+    if (frame % 12 < 6) {
+      ctx.fillStyle = "rgba(180,180,180,0.4)";
+      ctx.beginPath(); ctx.arc(32, -6, 3, 0, Math.PI * 2); ctx.fill();
+    }
+    // Wheels — big commercial mower wheels
     ctx.fillStyle = "#1e293b";
-    ctx.beginPath(); ctx.arc(16, 20, 6, 0, Math.PI * 2); ctx.fill();
-    ctx.beginPath(); ctx.arc(42, 20, 6, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.arc(14, 22, 7, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.arc(44, 22, 7, 0, Math.PI * 2); ctx.fill();
     // Wheel treads
     ctx.strokeStyle = "#475569"; ctx.lineWidth = 1.5;
     for (let a = 0; a < Math.PI * 2; a += Math.PI / 3) {
       const ra = a + frame * 0.35;
       ctx.beginPath();
-      ctx.moveTo(16 + Math.cos(ra)*3, 20 + Math.sin(ra)*3);
-      ctx.lineTo(16 + Math.cos(ra)*6, 20 + Math.sin(ra)*6);
+      ctx.moveTo(14 + Math.cos(ra) * 3.5, 22 + Math.sin(ra) * 3.5);
+      ctx.lineTo(14 + Math.cos(ra) * 7, 22 + Math.sin(ra) * 7);
       ctx.stroke();
       ctx.beginPath();
-      ctx.moveTo(42 + Math.cos(ra)*3, 20 + Math.sin(ra)*3);
-      ctx.lineTo(42 + Math.cos(ra)*6, 20 + Math.sin(ra)*6);
+      ctx.moveTo(44 + Math.cos(ra) * 3.5, 22 + Math.sin(ra) * 3.5);
+      ctx.lineTo(44 + Math.cos(ra) * 7, 22 + Math.sin(ra) * 7);
       ctx.stroke();
     }
     // Wheel hubs
-    ctx.fillStyle = "#94a3b8";
-    ctx.beginPath(); ctx.arc(16, 20, 2.5, 0, Math.PI * 2); ctx.fill();
-    ctx.beginPath(); ctx.arc(42, 20, 2.5, 0, Math.PI * 2); ctx.fill();
-    // Spinning blade
-    ctx.save(); ctx.translate(29, 10); ctx.rotate(frame * 0.5);
-    ctx.strokeStyle = "rgba(255,255,255,0.6)"; ctx.lineWidth = 2;
-    ctx.beginPath(); ctx.moveTo(-7, 0); ctx.lineTo(7, 0); ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(0, -7); ctx.lineTo(0, 7); ctx.stroke();
+    ctx.fillStyle = BRAND_GOLD;
+    ctx.beginPath(); ctx.arc(14, 22, 2.5, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.arc(44, 22, 2.5, 0, Math.PI * 2); ctx.fill();
+    // Spinning blade indicator
+    ctx.save(); ctx.translate(28, 11); ctx.rotate(frame * 0.6);
+    ctx.strokeStyle = "rgba(200,255,200,0.7)"; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(-8, 0); ctx.lineTo(8, 0); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(0, -8); ctx.lineTo(0, 8); ctx.stroke();
     ctx.restore();
-    // Grass clippings
+    // Grass clippings flying out left
     ctx.fillStyle = "#86efac";
-    for (let i = 0; i < 4; i++) {
-      const gx = 12 - 5 - i * 4;
-      const gy = 10 + Math.sin(frame * 0.35 + i * 1.2) * 5;
+    for (let i = 0; i < 5; i++) {
+      const gx = 8 - 6 - i * 5;
+      const gy = 11 + Math.sin(frame * 0.35 + i * 1.2) * 6;
       ctx.beginPath(); ctx.ellipse(gx, gy, 2.5, 1.2, 0.5, 0, Math.PI * 2); ctx.fill();
     }
-    // Handle
-    ctx.strokeStyle = "#475569"; ctx.lineWidth = 3.5; ctx.lineCap = "round";
-    ctx.beginPath(); ctx.moveTo(12, 6); ctx.lineTo(-4, -4); ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(12, 14); ctx.lineTo(-4, 8); ctx.stroke();
-    // Grip
+    // Handle bars
+    ctx.strokeStyle = "#374151"; ctx.lineWidth = 3.5; ctx.lineCap = "round";
+    ctx.beginPath(); ctx.moveTo(10, 5); ctx.lineTo(-5, -5); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(10, 15); ctx.lineTo(-5, 7); ctx.stroke();
+    // Grip bar
     ctx.fillStyle = "#1e293b";
-    ctx.beginPath(); ctx.roundRect(-8, -6, 9, 16, 3); ctx.fill();
+    ctx.beginPath(); ctx.roundRect(-9, -7, 10, 18, 3); ctx.fill();
 
-    // ── Person ──────────────────────────────────────────────────────────
+    // ── Landscaper (Sterling-ish) ──────────────────────────────────────────
     // Legs
     ctx.strokeStyle = "#1a1a2e"; ctx.lineWidth = 6; ctx.lineCap = "round";
     ctx.beginPath(); ctx.moveTo(-2, 8); ctx.lineTo(-10 + legSwing, 22); ctx.stroke();
     ctx.beginPath(); ctx.moveTo(-2, 8); ctx.lineTo(4 - legSwing, 22); ctx.stroke();
-    // Shoes
-    ctx.fillStyle = "#1a1a2e";
-    ctx.beginPath(); ctx.ellipse(-10 + legSwing, 24, 6, 3, 0.3, 0, Math.PI * 2); ctx.fill();
-    ctx.beginPath(); ctx.ellipse(4 - legSwing, 24, 6, 3, -0.3, 0, Math.PI * 2); ctx.fill();
-    // Torso — red shirt, leaning forward
-    ctx.save(); ctx.translate(-2, 0); ctx.rotate(0.22);
-    ctx.fillStyle = "#dc2626";
+    // Boots (work boots)
+    ctx.fillStyle = "#3d2b1f";
+    ctx.beginPath(); ctx.ellipse(-10 + legSwing, 24, 7, 3.5, 0.3, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.ellipse(4 - legSwing, 24, 7, 3.5, -0.3, 0, Math.PI * 2); ctx.fill();
+    // Torso — NAL green uniform shirt
+    ctx.save(); ctx.translate(-2, 0); ctx.rotate(0.2);
+    ctx.fillStyle = BRAND_GREEN;
     ctx.beginPath(); ctx.roundRect(-9, -16, 18, 22, 5); ctx.fill();
     // Shirt collar
-    ctx.fillStyle = "#ef4444";
+    ctx.fillStyle = "#2a7a3a";
     ctx.beginPath(); ctx.roundRect(-7, -16, 14, 6, 3); ctx.fill();
-    // Newport logo on shirt (tiny leaf)
-    ctx.fillStyle = "#fff";
-    ctx.font = "bold 6px sans-serif"; ctx.textAlign = "center";
-    ctx.fillText("NAL", 0, -4);
+    // NAL logo patch on shirt
+    ctx.fillStyle = BRAND_GOLD;
+    ctx.beginPath(); ctx.roundRect(-6, -10, 12, 7, 2); ctx.fill();
+    ctx.fillStyle = BRAND_DARK; ctx.font = "bold 5px sans-serif"; ctx.textAlign = "center";
+    ctx.fillText("NAL", 0, -5);
     // Arms
-    ctx.strokeStyle = "#dc2626"; ctx.lineWidth = 5; ctx.lineCap = "round";
+    ctx.strokeStyle = BRAND_GREEN; ctx.lineWidth = 5; ctx.lineCap = "round";
     ctx.beginPath(); ctx.moveTo(-8, -8); ctx.lineTo(-14, 2); ctx.stroke();
     ctx.beginPath(); ctx.moveTo(8, -8); ctx.lineTo(4, 2); ctx.stroke();
-    // Hands
-    ctx.fillStyle = "#f5c5a3";
+    // Gloves
+    ctx.fillStyle = "#f59e0b";
     ctx.beginPath(); ctx.arc(-14, 2, 4, 0, Math.PI * 2); ctx.fill();
     ctx.beginPath(); ctx.arc(4, 2, 4, 0, Math.PI * 2); ctx.fill();
     ctx.restore();
     // Head
     ctx.fillStyle = "#f5c5a3";
     ctx.beginPath(); ctx.arc(-2, -22, 10, 0, Math.PI * 2); ctx.fill();
-    // Hair
-    ctx.fillStyle = "#5c3d1e";
+    // Hair (dark)
+    ctx.fillStyle = "#3d2b1f";
     ctx.beginPath(); ctx.arc(-2, -28, 8, Math.PI, 0); ctx.fill();
     // Eyes
     ctx.fillStyle = "#1a1a2e";
     ctx.beginPath(); ctx.arc(-5, -23, 1.5, 0, Math.PI * 2); ctx.fill();
     ctx.beginPath(); ctx.arc(1, -23, 1.5, 0, Math.PI * 2); ctx.fill();
-    // Smile
+    // Confident smile
     ctx.strokeStyle = "#1a1a2e"; ctx.lineWidth = 1.5;
     ctx.beginPath(); ctx.arc(-2, -21, 4, 0.2, Math.PI - 0.2); ctx.stroke();
-    // Hat (NAL branded cap)
+    // NAL branded cap (green with gold logo)
     ctx.fillStyle = BRAND_GREEN;
-    ctx.beginPath(); ctx.roundRect(-10, -34, 20, 10, 3); ctx.fill();
-    ctx.fillStyle = "#1a4a1a";
-    ctx.beginPath(); ctx.roundRect(-12, -26, 24, 4, 2); ctx.fill();
-    ctx.fillStyle = BRAND_GOLD;
-    ctx.font = "bold 5px sans-serif"; ctx.textAlign = "center";
+    ctx.beginPath(); ctx.roundRect(-11, -34, 22, 11, 3); ctx.fill();
+    ctx.fillStyle = BRAND_DARK;
+    ctx.beginPath(); ctx.roundRect(-13, -25, 26, 4, 2); ctx.fill();
+    // Cap logo
+    ctx.fillStyle = BRAND_GOLD; ctx.font = "bold 5px sans-serif"; ctx.textAlign = "center";
     ctx.fillText("NAL", -2, -27);
+    // Cap button
+    ctx.fillStyle = BRAND_GOLD;
+    ctx.beginPath(); ctx.arc(-2, -34, 2, 0, Math.PI * 2); ctx.fill();
 
     ctx.restore();
   }
 
+  // ── Obstacle drawing ───────────────────────────────────────────────────
   function drawObstacle(ctx: CanvasRenderingContext2D, obs: Obstacle, frame: number) {
     const y = LANE_CENTERS[obs.lane];
     ctx.save();
     ctx.translate(obs.x, y);
 
     if (obs.type === "sprinkler") {
-      // Sprinkler head
-      ctx.fillStyle = "#64748b";
-      ctx.beginPath(); ctx.arc(0, 0, 8, 0, Math.PI * 2); ctx.fill();
-      ctx.fillStyle = "#94a3b8";
-      ctx.beginPath(); ctx.arc(0, 0, 5, 0, Math.PI * 2); ctx.fill();
+      // Improved sprinkler with NAL-branded head
+      ctx.fillStyle = "#475569";
+      ctx.beginPath(); ctx.arc(0, 0, 9, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = BRAND_GREEN;
+      ctx.beginPath(); ctx.arc(0, 0, 6, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = BRAND_GOLD; ctx.font = "bold 4px sans-serif"; ctx.textAlign = "center";
+      ctx.fillText("H2O", 0, 2);
       // Water arc
       ctx.save();
       ctx.rotate(obs.angle!);
-      ctx.strokeStyle = "rgba(59,130,246,0.75)";
-      ctx.lineWidth = 3;
+      ctx.strokeStyle = "rgba(59,130,246,0.8)";
+      ctx.lineWidth = 3.5;
       ctx.lineCap = "round";
       ctx.beginPath();
       ctx.arc(0, 0, obs.arcLen!, -obs.arcWidth! / 2, obs.arcWidth! / 2);
       ctx.stroke();
       // Water droplets along arc
-      ctx.fillStyle = "rgba(147,197,253,0.9)";
-      for (let i = 0; i < 5; i++) {
-        const a = -obs.arcWidth! / 2 + (obs.arcWidth! / 4) * i;
-        const r = obs.arcLen! + rand(-5, 5);
+      ctx.fillStyle = "rgba(147,197,253,0.95)";
+      for (let i = 0; i < 6; i++) {
+        const a = -obs.arcWidth! / 2 + (obs.arcWidth! / 5) * i;
+        const r = obs.arcLen! + rand(-4, 4);
         ctx.beginPath();
-        ctx.arc(Math.cos(a) * r, Math.sin(a) * r, 2.5, 0, Math.PI * 2);
+        ctx.arc(Math.cos(a) * r, Math.sin(a) * r, 3, 0, Math.PI * 2);
         ctx.fill();
       }
       ctx.restore();
-      // Spray mist
-      ctx.fillStyle = "rgba(186,230,253,0.3)";
+      // Mist
+      ctx.fillStyle = "rgba(186,230,253,0.25)";
       ctx.beginPath();
-      ctx.arc(0, 0, obs.arcLen! + 8, obs.angle! - obs.arcWidth! / 2, obs.angle! + obs.arcWidth! / 2);
+      ctx.arc(0, 0, obs.arcLen! + 10, obs.angle! - obs.arcWidth! / 2, obs.angle! + obs.arcWidth! / 2);
       ctx.lineTo(0, 0); ctx.closePath(); ctx.fill();
 
+    } else if (obs.type === "gnome") {
+      // Garden gnome — rogue obstacle
+      // Body (red coat)
+      ctx.fillStyle = "#dc2626";
+      ctx.beginPath(); ctx.roundRect(-8, -10, 16, 20, 4); ctx.fill();
+      // White beard
+      ctx.fillStyle = "#f5f5f5";
+      ctx.beginPath(); ctx.arc(0, 0, 8, 0, Math.PI); ctx.fill();
+      // Hat (tall pointy red)
+      ctx.fillStyle = "#dc2626";
+      ctx.beginPath();
+      ctx.moveTo(-7, -10); ctx.lineTo(0, -28); ctx.lineTo(7, -10);
+      ctx.closePath(); ctx.fill();
+      // Face
+      ctx.fillStyle = "#f5c5a3";
+      ctx.beginPath(); ctx.arc(0, -12, 7, 0, Math.PI * 2); ctx.fill();
+      // Eyes
+      ctx.fillStyle = "#1a1a2e";
+      ctx.beginPath(); ctx.arc(-2.5, -13, 1.5, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.arc(2.5, -13, 1.5, 0, Math.PI * 2); ctx.fill();
+      // Rosy cheeks
+      ctx.fillStyle = "rgba(255,100,100,0.4)";
+      ctx.beginPath(); ctx.arc(-4, -10, 3, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.arc(4, -10, 3, 0, Math.PI * 2); ctx.fill();
+      // Speech bubble
+      if (Math.floor(frame / 35) % 2 === 0) {
+        ctx.fillStyle = "#fff";
+        ctx.beginPath(); ctx.roundRect(8, -38, 44, 14, 4); ctx.fill();
+        ctx.strokeStyle = "#dc2626"; ctx.lineWidth = 1;
+        ctx.strokeRect(8, -38, 44, 14);
+        ctx.fillStyle = "#dc2626"; ctx.font = "bold 6px sans-serif"; ctx.textAlign = "center";
+        ctx.fillText("MY LAWN!", 30, -28);
+      }
+
     } else if (obs.type === "hoa_member" || obs.type === "hoa_group") {
-      // HOA board member — angry person in khakis with clipboard
-      const walk = Math.sin((obs.phase || 0) + frame * 0.25) * 8;
+      // HOA board member — angry, khakis, clipboard, "NO NAL" button
       const legSwing = Math.sin((obs.phase || 0) + frame * 0.25) * 10;
       
-      // Shadow
       ctx.beginPath(); ctx.ellipse(0, 20, 12, 4, 0, 0, Math.PI * 2);
       ctx.fillStyle = "rgba(0,0,0,0.2)"; ctx.fill();
       
@@ -505,14 +645,13 @@ export default function LawnMowerDash() {
       ctx.strokeStyle = "#c8a84b"; ctx.lineWidth = 6; ctx.lineCap = "round";
       ctx.beginPath(); ctx.moveTo(0, 8); ctx.lineTo(-8 + legSwing, 22); ctx.stroke();
       ctx.beginPath(); ctx.moveTo(0, 8); ctx.lineTo(6 - legSwing, 22); ctx.stroke();
-      // Shoes
+      // Loafers
       ctx.fillStyle = "#5c3d1e";
       ctx.beginPath(); ctx.ellipse(-8 + legSwing, 24, 6, 3, 0.3, 0, Math.PI * 2); ctx.fill();
       ctx.beginPath(); ctx.ellipse(6 - legSwing, 24, 6, 3, -0.3, 0, Math.PI * 2); ctx.fill();
-      // Torso (polo shirt — HOA navy blue)
+      // Torso (HOA polo — navy)
       ctx.fillStyle = "#1e3a5f";
       ctx.beginPath(); ctx.roundRect(-9, -14, 18, 22, 4); ctx.fill();
-      // Polo collar
       ctx.fillStyle = "#2563eb";
       ctx.beginPath(); ctx.roundRect(-7, -14, 14, 5, 2); ctx.fill();
       // HOA badge
@@ -520,123 +659,191 @@ export default function LawnMowerDash() {
       ctx.beginPath(); ctx.roundRect(-4, -8, 8, 5, 1); ctx.fill();
       ctx.fillStyle = "#1a1a2e"; ctx.font = "bold 4px sans-serif"; ctx.textAlign = "center";
       ctx.fillText("HOA", 0, -4);
+      // "NO NAL" button pin
+      ctx.fillStyle = BRAND_RED;
+      ctx.beginPath(); ctx.arc(5, -2, 4, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = "#fff"; ctx.font = "bold 3px sans-serif"; ctx.textAlign = "center";
+      ctx.fillText("NO", 5, -3);
+      ctx.fillText("NAL", 5, 1);
       // Arms
       ctx.strokeStyle = "#1e3a5f"; ctx.lineWidth = 5; ctx.lineCap = "round";
       ctx.beginPath(); ctx.moveTo(-8, -8); ctx.lineTo(-14, 4); ctx.stroke();
       ctx.beginPath(); ctx.moveTo(8, -8); ctx.lineTo(14, -2); ctx.stroke();
       // Clipboard (right hand)
       ctx.fillStyle = "#f5f5dc";
-      ctx.beginPath(); ctx.roundRect(10, -8, 12, 16, 2); ctx.fill();
+      ctx.beginPath(); ctx.roundRect(10, -8, 14, 18, 2); ctx.fill();
       ctx.strokeStyle = "#8b7355"; ctx.lineWidth = 1;
-      ctx.strokeRect(10, -8, 12, 16);
-      // Clipboard lines
+      ctx.strokeRect(10, -8, 14, 18);
       ctx.strokeStyle = "#999"; ctx.lineWidth = 0.8;
-      for (let i = 0; i < 4; i++) {
-        ctx.beginPath(); ctx.moveTo(12, -4 + i*3); ctx.lineTo(20, -4 + i*3); ctx.stroke();
+      for (let i = 0; i < 5; i++) {
+        ctx.beginPath(); ctx.moveTo(12, -4 + i * 3); ctx.lineTo(22, -4 + i * 3); ctx.stroke();
       }
-      // Clipboard clip
       ctx.fillStyle = "#888";
-      ctx.beginPath(); ctx.roundRect(13, -10, 6, 4, 1); ctx.fill();
+      ctx.beginPath(); ctx.roundRect(13, -10, 8, 4, 1); ctx.fill();
       // Head
       ctx.fillStyle = "#f5c5a3";
       ctx.beginPath(); ctx.arc(0, -20, 10, 0, Math.PI * 2); ctx.fill();
-      // Grey hair
+      // Grey hair (thinning)
       ctx.fillStyle = "#9ca3af";
       ctx.beginPath(); ctx.arc(0, -26, 8, Math.PI, 0); ctx.fill();
       // Angry eyebrows
-      ctx.strokeStyle = "#1a1a2e"; ctx.lineWidth = 2;
-      ctx.beginPath(); ctx.moveTo(-6, -24); ctx.lineTo(-2, -22); ctx.stroke();
-      ctx.beginPath(); ctx.moveTo(6, -24); ctx.lineTo(2, -22); ctx.stroke();
+      ctx.strokeStyle = "#1a1a2e"; ctx.lineWidth = 2.5;
+      ctx.beginPath(); ctx.moveTo(-6, -25); ctx.lineTo(-2, -22); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(6, -25); ctx.lineTo(2, -22); ctx.stroke();
       // Angry eyes
       ctx.fillStyle = "#1a1a2e";
       ctx.beginPath(); ctx.arc(-4, -21, 1.5, 0, Math.PI * 2); ctx.fill();
       ctx.beginPath(); ctx.arc(4, -21, 1.5, 0, Math.PI * 2); ctx.fill();
       // Frown
-      ctx.strokeStyle = "#c0392b"; ctx.lineWidth = 1.5;
+      ctx.strokeStyle = BRAND_RED; ctx.lineWidth = 1.5;
       ctx.beginPath(); ctx.arc(0, -16, 4, Math.PI + 0.3, -0.3); ctx.stroke();
-      // Violation notice speech bubble
-      if (Math.floor(frame / 30) % 2 === 0) {
+      // Speech bubble (alternating messages)
+      const msgs = ["VIOLATION!", "NO NAL HERE!", "CALL MY LAWYER!", "RULE #312!"];
+      if (Math.floor(frame / 28) % 2 === 0) {
+        const msg = msgs[Math.floor(frame / 90) % msgs.length];
+        const bw = msg.length * 5 + 10;
         ctx.fillStyle = "#fff";
-        ctx.beginPath(); ctx.roundRect(12, -36, 40, 14, 4); ctx.fill();
-        ctx.strokeStyle = "#c0392b"; ctx.lineWidth = 1;
-        ctx.strokeRect(12, -36, 40, 14);
-        ctx.fillStyle = "#c0392b"; ctx.font = "bold 6px sans-serif"; ctx.textAlign = "center";
-        ctx.fillText("VIOLATION!", 32, -26);
+        ctx.beginPath(); ctx.roundRect(12, -40, bw, 14, 4); ctx.fill();
+        ctx.strokeStyle = BRAND_RED; ctx.lineWidth = 1;
+        ctx.strokeRect(12, -40, bw, 14);
+        ctx.fillStyle = BRAND_RED; ctx.font = "bold 6px sans-serif"; ctx.textAlign = "center";
+        ctx.fillText(msg, 12 + bw / 2, -30);
       }
+
+    } else if (obs.type === "hoa_sign") {
+      // "NO NAL ALLOWED" sign post
+      ctx.strokeStyle = "#5c3d1e"; ctx.lineWidth = 3;
+      ctx.beginPath(); ctx.moveTo(0, -30); ctx.lineTo(0, 20); ctx.stroke();
+      // Sign board
+      ctx.fillStyle = BRAND_RED;
+      ctx.beginPath(); ctx.roundRect(-28, -30, 56, 22, 4); ctx.fill();
+      ctx.strokeStyle = "#fff"; ctx.lineWidth = 2;
+      ctx.strokeRect(-28, -30, 56, 22);
+      // Circle with slash
+      ctx.strokeStyle = "#fff"; ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.arc(-14, -19, 7, 0, Math.PI * 2); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(-19, -24); ctx.lineTo(-9, -14); ctx.stroke();
+      // NAL text
+      ctx.fillStyle = "#fff"; ctx.font = "bold 7px sans-serif"; ctx.textAlign = "center";
+      ctx.fillText("NO NAL", 8, -23);
+      ctx.fillText("ALLOWED", 8, -13);
 
     } else if (obs.type === "boulder") {
-      // Big boulder
+      // Big boulder with shadow
+      ctx.fillStyle = "rgba(0,0,0,0.2)";
+      ctx.beginPath(); ctx.ellipse(4, 22, 20, 5, 0, 0, Math.PI * 2); ctx.fill();
       ctx.fillStyle = "#78716c";
-      ctx.beginPath(); ctx.arc(0, 0, 18, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.arc(0, 0, 20, 0, Math.PI * 2); ctx.fill();
+      // Rock texture
       ctx.fillStyle = "#a8a29e";
-      ctx.beginPath(); ctx.arc(-5, -5, 8, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.arc(-6, -6, 9, 0, Math.PI * 2); ctx.fill();
       ctx.fillStyle = "#57534e";
-      ctx.beginPath(); ctx.arc(6, 4, 5, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.arc(7, 5, 6, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = "#d6d3d1";
+      ctx.beginPath(); ctx.arc(-8, -8, 4, 0, Math.PI * 2); ctx.fill();
       // Dust cloud at base
-      ctx.fillStyle = "rgba(180,160,120,0.4)";
-      ctx.beginPath(); ctx.ellipse(0, 16, 20, 6, 0, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = "rgba(180,160,120,0.35)";
+      ctx.beginPath(); ctx.ellipse(0, 18, 22, 7, 0, 0, Math.PI * 2); ctx.fill();
 
     } else if (obs.type === "mud_puddle") {
-      // Mud puddle
-      ctx.fillStyle = "rgba(101,67,33,0.85)";
-      ctx.beginPath(); ctx.ellipse(0, 0, 28, 14, 0, 0, Math.PI * 2); ctx.fill();
+      // Mud puddle with NAL boot print
+      ctx.fillStyle = "rgba(101,67,33,0.9)";
+      ctx.beginPath(); ctx.ellipse(0, 0, 30, 15, 0, 0, Math.PI * 2); ctx.fill();
       ctx.fillStyle = "rgba(139,90,43,0.6)";
-      ctx.beginPath(); ctx.ellipse(-5, -3, 16, 8, 0.3, 0, Math.PI * 2); ctx.fill();
-      // Mud splatter dots
+      ctx.beginPath(); ctx.ellipse(-5, -3, 18, 9, 0.3, 0, Math.PI * 2); ctx.fill();
+      // Mud splatter
       ctx.fillStyle = "rgba(101,67,33,0.7)";
-      for (let i = 0; i < 5; i++) {
+      for (let i = 0; i < 6; i++) {
         ctx.beginPath();
-        ctx.arc(rand(-35, 35), rand(-18, 18), rand(2, 5), 0, Math.PI * 2);
+        ctx.arc(rand(-38, 38), rand(-20, 20), rand(2, 5), 0, Math.PI * 2);
         ctx.fill();
       }
-      // "MUD" label
       ctx.fillStyle = "#fff"; ctx.font = "bold 9px sans-serif"; ctx.textAlign = "center";
-      ctx.fillText("MUD", 0, 4);
+      ctx.fillText("MUD!", 0, 4);
 
     } else if (obs.type === "skid_steer") {
-      // Skid steer loader crossing lanes
+      // NAL branded skid steer (yellow)
+      ctx.fillStyle = "rgba(0,0,0,0.2)";
+      ctx.beginPath(); ctx.ellipse(0, 18, 24, 6, 0, 0, Math.PI * 2); ctx.fill();
       ctx.fillStyle = "#f59e0b";
-      ctx.beginPath(); ctx.roundRect(-20, -14, 40, 28, 4); ctx.fill();
+      ctx.beginPath(); ctx.roundRect(-22, -14, 44, 30, 4); ctx.fill();
+      // NAL stripe on body
+      ctx.fillStyle = BRAND_GREEN;
+      ctx.fillRect(-22, -2, 44, 6);
+      ctx.fillStyle = BRAND_GOLD; ctx.font = "bold 5px sans-serif"; ctx.textAlign = "center";
+      ctx.fillText("NAL", 0, 3);
       // Cab
       ctx.fillStyle = "#d97706";
-      ctx.beginPath(); ctx.roundRect(-10, -24, 20, 14, 3); ctx.fill();
+      ctx.beginPath(); ctx.roundRect(-12, -26, 24, 16, 3); ctx.fill();
       // Windshield
-      ctx.fillStyle = "rgba(147,197,253,0.7)";
-      ctx.beginPath(); ctx.roundRect(-7, -22, 14, 10, 2); ctx.fill();
+      ctx.fillStyle = "rgba(147,197,253,0.75)";
+      ctx.beginPath(); ctx.roundRect(-9, -24, 18, 12, 2); ctx.fill();
+      // Operator silhouette
+      ctx.fillStyle = "#1a1a2e";
+      ctx.beginPath(); ctx.arc(0, -20, 4, 0, Math.PI * 2); ctx.fill();
       // Tracks
       ctx.fillStyle = "#1e293b";
-      ctx.beginPath(); ctx.roundRect(-22, -10, 8, 20, 3); ctx.fill();
-      ctx.beginPath(); ctx.roundRect(14, -10, 8, 20, 3); ctx.fill();
+      ctx.beginPath(); ctx.roundRect(-24, -10, 8, 22, 3); ctx.fill();
+      ctx.beginPath(); ctx.roundRect(16, -10, 8, 22, 3); ctx.fill();
+      // Track detail
+      ctx.strokeStyle = "#374151"; ctx.lineWidth = 1;
+      for (let i = 0; i < 4; i++) {
+        ctx.beginPath(); ctx.moveTo(-24, -6 + i * 5); ctx.lineTo(-16, -6 + i * 5); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(16, -6 + i * 5); ctx.lineTo(24, -6 + i * 5); ctx.stroke();
+      }
       // Bucket
       ctx.fillStyle = "#b45309";
-      ctx.beginPath(); ctx.roundRect(-22, 8, 44, 10, 2); ctx.fill();
+      ctx.beginPath(); ctx.roundRect(-24, 10, 48, 10, 2); ctx.fill();
       // Exhaust puff
       if (frame % 8 < 4) {
-        ctx.fillStyle = "rgba(100,100,100,0.5)";
-        ctx.beginPath(); ctx.arc(8, -28, 5, 0, Math.PI * 2); ctx.fill();
-        ctx.beginPath(); ctx.arc(14, -34, 3, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = "rgba(100,100,100,0.4)";
+        ctx.beginPath(); ctx.arc(14, -32, 4, 0, Math.PI * 2); ctx.fill();
+        ctx.beginPath(); ctx.arc(18, -38, 3, 0, Math.PI * 2); ctx.fill();
+      }
+
+    } else if (obs.type === "cone_row") {
+      // Row of orange traffic cones
+      for (let i = -1; i <= 1; i++) {
+        ctx.save(); ctx.translate(i * 18, 0);
+        ctx.fillStyle = "#f97316";
+        ctx.beginPath();
+        ctx.moveTo(-7, 14); ctx.lineTo(7, 14); ctx.lineTo(3, -14); ctx.lineTo(-3, -14);
+        ctx.closePath(); ctx.fill();
+        // White stripe
+        ctx.fillStyle = "#fff";
+        ctx.fillRect(-5, 0, 10, 4);
+        // Base
+        ctx.fillStyle = "#ea580c";
+        ctx.fillRect(-9, 12, 18, 5);
+        ctx.restore();
       }
 
     } else if (obs.type === "tumbleweed") {
       // Tumbleweed rolling
       ctx.save(); ctx.rotate(frame * 0.08);
-      ctx.strokeStyle = "#a16207"; ctx.lineWidth = 2;
+      ctx.strokeStyle = "#a16207"; ctx.lineWidth = 2.5;
       for (let a = 0; a < Math.PI * 2; a += Math.PI / 4) {
         ctx.beginPath();
-        ctx.arc(0, 0, 16, a, a + Math.PI / 3);
+        ctx.arc(0, 0, 18, a, a + Math.PI / 3);
         ctx.stroke();
       }
       ctx.strokeStyle = "#ca8a04"; ctx.lineWidth = 1.5;
       for (let a = Math.PI / 8; a < Math.PI * 2; a += Math.PI / 4) {
         ctx.beginPath();
-        ctx.arc(0, 0, 10, a, a + Math.PI / 4);
+        ctx.arc(0, 0, 11, a, a + Math.PI / 4);
+        ctx.stroke();
+      }
+      // Inner detail
+      ctx.strokeStyle = "#d97706"; ctx.lineWidth = 1;
+      for (let a = Math.PI / 6; a < Math.PI * 2; a += Math.PI / 3) {
+        ctx.beginPath();
+        ctx.arc(0, 0, 6, a, a + Math.PI / 5);
         ctx.stroke();
       }
       ctx.restore();
 
     } else if (obs.type === "water_inspector") {
-      // Water inspector — official uniform, clipboard, chasing
-      const walk = Math.sin((obs.phase || 0) + frame * 0.3) * 8;
+      // Water inspector — official tan uniform, clipboard, chasing the player
       const legSwing = Math.sin((obs.phase || 0) + frame * 0.3) * 10;
       
       ctx.beginPath(); ctx.ellipse(0, 20, 12, 4, 0, 0, Math.PI * 2);
@@ -654,7 +861,7 @@ export default function LawnMowerDash() {
       ctx.beginPath(); ctx.roundRect(-9, -14, 18, 22, 4); ctx.fill();
       ctx.fillStyle = "#b45309";
       ctx.beginPath(); ctx.roundRect(-7, -14, 14, 5, 2); ctx.fill();
-      // Badge
+      // Official badge
       ctx.fillStyle = "#fbbf24";
       ctx.beginPath(); ctx.arc(0, -6, 5, 0, Math.PI * 2); ctx.fill();
       ctx.fillStyle = "#1a1a2e"; ctx.font = "bold 4px sans-serif"; ctx.textAlign = "center";
@@ -665,44 +872,78 @@ export default function LawnMowerDash() {
       ctx.beginPath(); ctx.moveTo(8, -8); ctx.lineTo(14, -2); ctx.stroke();
       // Clipboard
       ctx.fillStyle = "#f5f5dc";
-      ctx.beginPath(); ctx.roundRect(10, -8, 12, 16, 2); ctx.fill();
+      ctx.beginPath(); ctx.roundRect(10, -8, 14, 18, 2); ctx.fill();
       ctx.strokeStyle = "#8b7355"; ctx.lineWidth = 1;
-      ctx.strokeRect(10, -8, 12, 16);
+      ctx.strokeRect(10, -8, 14, 18);
+      ctx.strokeStyle = "#999"; ctx.lineWidth = 0.8;
+      for (let i = 0; i < 5; i++) {
+        ctx.beginPath(); ctx.moveTo(12, -4 + i * 3); ctx.lineTo(22, -4 + i * 3); ctx.stroke();
+      }
       // Head
       ctx.fillStyle = "#f5c5a3";
       ctx.beginPath(); ctx.arc(0, -20, 10, 0, Math.PI * 2); ctx.fill();
-      // Hat
+      // Ranger hat
       ctx.fillStyle = "#92400e";
       ctx.beginPath(); ctx.roundRect(-10, -32, 20, 10, 2); ctx.fill();
       ctx.fillStyle = "#78350f";
-      ctx.beginPath(); ctx.roundRect(-12, -24, 24, 4, 1); ctx.fill();
-      // Eyes (suspicious)
+      ctx.beginPath(); ctx.roundRect(-13, -24, 26, 4, 1); ctx.fill();
+      // Suspicious squint eyes
       ctx.fillStyle = "#1a1a2e";
       ctx.beginPath(); ctx.arc(-4, -21, 1.5, 0, Math.PI * 2); ctx.fill();
       ctx.beginPath(); ctx.arc(4, -21, 1.5, 0, Math.PI * 2); ctx.fill();
+      // Squint lines
+      ctx.strokeStyle = "#1a1a2e"; ctx.lineWidth = 1.5;
+      ctx.beginPath(); ctx.moveTo(-7, -23); ctx.lineTo(-1, -21); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(7, -23); ctx.lineTo(1, -21); ctx.stroke();
       // Speech bubble
+      const inspMsgs = ["WATER AUDIT!", "SPRINKLER FINE!", "VIOLATION!", "CALL THE COUNTY!"];
       if (Math.floor(frame / 25) % 2 === 0) {
+        const msg = inspMsgs[Math.floor(frame / 80) % inspMsgs.length];
+        const bw = msg.length * 5 + 10;
         ctx.fillStyle = "#fff";
-        ctx.beginPath(); ctx.roundRect(12, -40, 50, 14, 4); ctx.fill();
+        ctx.beginPath(); ctx.roundRect(12, -44, bw, 14, 4); ctx.fill();
         ctx.strokeStyle = "#1e3a5f"; ctx.lineWidth = 1;
-        ctx.strokeRect(12, -40, 50, 14);
+        ctx.strokeRect(12, -44, bw, 14);
         ctx.fillStyle = "#1e3a5f"; ctx.font = "bold 6px sans-serif"; ctx.textAlign = "center";
-        ctx.fillText("WATER AUDIT!", 37, -30);
+        ctx.fillText(msg, 12 + bw / 2, -34);
       }
 
-    } else if (obs.type === "crack_patch") {
-      // Large crack patch in the ground
-      ctx.fillStyle = "rgba(80,40,0,0.7)";
-      ctx.beginPath(); ctx.ellipse(0, 0, 24, 12, 0, 0, Math.PI * 2); ctx.fill();
-      ctx.strokeStyle = "#5c3d1e"; ctx.lineWidth = 2;
-      ctx.beginPath(); ctx.moveTo(-20, 0); ctx.lineTo(-5, -5); ctx.lineTo(0, 8); ctx.lineTo(12, -2); ctx.lineTo(20, 5); ctx.stroke();
-      ctx.fillStyle = "#fff"; ctx.font = "bold 8px sans-serif"; ctx.textAlign = "center";
-      ctx.fillText("CRACK", 0, 4);
+    } else if (obs.type === "dead_patch") {
+      // Dead lawn patch — brown, cracked
+      ctx.fillStyle = "rgba(120,80,20,0.85)";
+      ctx.beginPath(); ctx.ellipse(0, 0, 28, 14, 0, 0, Math.PI * 2); ctx.fill();
+      // Dead grass blades
+      ctx.strokeStyle = "#a16207"; ctx.lineWidth = 1.5;
+      for (let i = -3; i <= 3; i++) {
+        ctx.beginPath();
+        ctx.moveTo(i * 7, 0);
+        ctx.lineTo(i * 7 + rand(-3, 3), -10 + rand(0, 4));
+        ctx.stroke();
+      }
+      ctx.fillStyle = "#fff"; ctx.font = "bold 7px sans-serif"; ctx.textAlign = "center";
+      ctx.fillText("DEAD", 0, 4);
+
+    } else if (obs.type === "fire_ants") {
+      // Fire ant mound
+      ctx.fillStyle = "#c2410c";
+      ctx.beginPath(); ctx.arc(0, 4, 16, Math.PI, 0); ctx.fill();
+      ctx.fillStyle = "#ea580c";
+      ctx.beginPath(); ctx.arc(0, 4, 10, Math.PI, 0); ctx.fill();
+      // Ants crawling
+      ctx.fillStyle = "#7c2d12";
+      for (let i = 0; i < 6; i++) {
+        const ax = Math.cos(frame * 0.1 + i * 1.05) * 20;
+        const ay = Math.sin(frame * 0.1 + i * 1.05) * 8 + 4;
+        ctx.beginPath(); ctx.arc(ax, ay, 2, 0, Math.PI * 2); ctx.fill();
+      }
+      ctx.fillStyle = "#fff"; ctx.font = "bold 7px sans-serif"; ctx.textAlign = "center";
+      ctx.fillText("ANTS!", 0, -6);
     }
 
     ctx.restore();
   }
 
+  // ── Collectible drawing ────────────────────────────────────────────────
   function drawCollectible(ctx: CanvasRenderingContext2D, col: Collectible, frame: number) {
     if (col.collected) return;
     const y = LANE_CENTERS[col.lane] + Math.sin(col.bobOffset + frame * 0.08) * 4;
@@ -710,32 +951,81 @@ export default function LawnMowerDash() {
     ctx.translate(col.x, y);
 
     // Glow effect
-    ctx.shadowColor = col.type === "star" ? "#fbbf24" : col.type === "coffee" ? "#92400e" : "#4ade80";
-    ctx.shadowBlur = 8;
+    const glowColor = col.type === "star" ? "#fbbf24" :
+                      col.type === "cactus" ? "#ef4444" :
+                      col.type.startsWith("nal") ? BRAND_GOLD : "#4ade80";
+    ctx.shadowColor = glowColor;
+    ctx.shadowBlur = 10;
 
-    if (col.type === "mushroom") {
-      ctx.fillStyle = "#a855f7";
-      ctx.beginPath(); ctx.arc(0, -4, 10, Math.PI, 0); ctx.fill();
-      ctx.fillStyle = "#fff";
-      ctx.beginPath(); ctx.arc(-4, -6, 3, 0, Math.PI * 2); ctx.fill();
-      ctx.beginPath(); ctx.arc(4, -6, 3, 0, Math.PI * 2); ctx.fill();
-      ctx.fillStyle = "#f5f5f5";
-      ctx.beginPath(); ctx.roundRect(-5, -4, 10, 12, 2); ctx.fill();
-    } else if (col.type === "bee") {
-      ctx.fillStyle = "#fbbf24";
-      ctx.beginPath(); ctx.ellipse(0, 0, 10, 7, 0, 0, Math.PI * 2); ctx.fill();
-      ctx.strokeStyle = "#1a1a2e"; ctx.lineWidth = 2;
-      for (let i = -1; i <= 1; i++) {
-        ctx.beginPath(); ctx.moveTo(i * 4, -7); ctx.lineTo(i * 4, 7); ctx.stroke();
+    if (col.type === "nal_sign") {
+      // NAL yard sign collectible
+      ctx.strokeStyle = "#5c3d1e"; ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.moveTo(0, 6); ctx.lineTo(0, 18); ctx.stroke();
+      ctx.fillStyle = BRAND_GREEN;
+      ctx.beginPath(); ctx.roundRect(-14, -6, 28, 14, 3); ctx.fill();
+      ctx.fillStyle = BRAND_GOLD; ctx.font = "bold 7px sans-serif"; ctx.textAlign = "center";
+      ctx.fillText("NAL", 0, 2);
+      ctx.fillStyle = "#fff"; ctx.font = "4px sans-serif";
+      ctx.fillText("LANDSCAPING", 0, 8);
+
+    } else if (col.type === "nal_flag") {
+      // NAL branded flag
+      ctx.strokeStyle = "#5c3d1e"; ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.moveTo(-4, -16); ctx.lineTo(-4, 16); ctx.stroke();
+      ctx.fillStyle = BRAND_GREEN;
+      ctx.beginPath();
+      ctx.moveTo(-4, -16); ctx.lineTo(18, -10); ctx.lineTo(-4, -4);
+      ctx.closePath(); ctx.fill();
+      ctx.fillStyle = BRAND_GOLD; ctx.font = "bold 5px sans-serif"; ctx.textAlign = "center";
+      ctx.fillText("NAL", 6, -8);
+
+    } else if (col.type === "nal_truck") {
+      // Mini NAL truck collectible
+      ctx.fillStyle = BRAND_GREEN;
+      ctx.beginPath(); ctx.roundRect(-16, -8, 32, 16, 3); ctx.fill();
+      ctx.fillStyle = "#2a7a3a";
+      ctx.beginPath(); ctx.roundRect(-4, -14, 14, 10, 2); ctx.fill();
+      ctx.fillStyle = "rgba(147,197,253,0.7)";
+      ctx.beginPath(); ctx.roundRect(-2, -12, 10, 7, 1); ctx.fill();
+      ctx.fillStyle = "#1e293b";
+      ctx.beginPath(); ctx.arc(-10, 8, 4, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.arc(10, 8, 4, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = BRAND_GOLD; ctx.font = "bold 5px sans-serif"; ctx.textAlign = "center";
+      ctx.fillText("NAL", 0, 0);
+
+    } else if (col.type === "nal_hose") {
+      // NAL garden hose (green coil)
+      ctx.strokeStyle = BRAND_GREEN; ctx.lineWidth = 4; ctx.lineCap = "round";
+      ctx.beginPath();
+      for (let i = 0; i < 3; i++) {
+        ctx.arc(0, 0, 8 + i * 3, 0, Math.PI * 1.8);
       }
-      ctx.fillStyle = "rgba(200,230,255,0.7)";
-      ctx.beginPath(); ctx.ellipse(-6, -5, 6, 4, -0.5, 0, Math.PI * 2); ctx.fill();
-      ctx.beginPath(); ctx.ellipse(6, -5, 6, 4, 0.5, 0, Math.PI * 2); ctx.fill();
+      ctx.stroke();
+      ctx.fillStyle = "#fbbf24";
+      ctx.beginPath(); ctx.arc(10, -2, 3, 0, Math.PI * 2); ctx.fill();
+
+    } else if (col.type === "leaf_bag") {
+      // NAL leaf bag
+      ctx.fillStyle = "#f59e0b";
+      ctx.beginPath(); ctx.roundRect(-9, -12, 18, 22, 4); ctx.fill();
+      ctx.fillStyle = "#d97706";
+      ctx.beginPath(); ctx.roundRect(-9, -12, 18, 8, 4); ctx.fill();
+      // Tie
+      ctx.strokeStyle = "#1a1a2e"; ctx.lineWidth = 1.5;
+      ctx.beginPath(); ctx.moveTo(-5, -4); ctx.lineTo(5, -4); ctx.stroke();
+      ctx.fillStyle = BRAND_GREEN; ctx.font = "bold 5px sans-serif"; ctx.textAlign = "center";
+      ctx.fillText("NAL", 0, 4);
+      // Leaf on bag
+      ctx.fillStyle = "#4ade80";
+      ctx.beginPath(); ctx.ellipse(0, 10, 5, 7, 0.3, 0, Math.PI * 2); ctx.fill();
+
     } else if (col.type === "star") {
       ctx.fillStyle = "#fbbf24";
       ctx.font = "22px sans-serif"; ctx.textAlign = "center";
       ctx.fillText("⭐", 0, 8);
+
     } else if (col.type === "coffee") {
+      // Coffee cup
       ctx.fillStyle = "#92400e";
       ctx.beginPath(); ctx.roundRect(-8, -8, 16, 18, 3); ctx.fill();
       ctx.fillStyle = "#6b2d0e";
@@ -748,7 +1038,9 @@ export default function LawnMowerDash() {
         ctx.beginPath(); ctx.moveTo(-2, -10); ctx.quadraticCurveTo(2, -16, -2, -20); ctx.stroke();
         ctx.beginPath(); ctx.moveTo(2, -10); ctx.quadraticCurveTo(-2, -16, 2, -20); ctx.stroke();
       }
+
     } else if (col.type === "permit") {
+      // Building permit
       ctx.fillStyle = "#fff";
       ctx.beginPath(); ctx.roundRect(-10, -12, 20, 24, 2); ctx.fill();
       ctx.strokeStyle = "#22c55e"; ctx.lineWidth = 2;
@@ -756,54 +1048,74 @@ export default function LawnMowerDash() {
       ctx.fillStyle = "#22c55e"; ctx.font = "bold 7px sans-serif"; ctx.textAlign = "center";
       ctx.fillText("PERMIT", 0, -4);
       ctx.fillText("✓", 0, 6);
+
     } else if (col.type === "hard_hat") {
+      // Hard hat
       ctx.fillStyle = "#f59e0b";
-      ctx.beginPath(); ctx.arc(0, -4, 12, Math.PI, 0); ctx.fill();
+      ctx.beginPath(); ctx.arc(0, -4, 13, Math.PI, 0); ctx.fill();
       ctx.fillStyle = "#d97706";
-      ctx.beginPath(); ctx.roundRect(-14, -4, 28, 5, 2); ctx.fill();
+      ctx.beginPath(); ctx.roundRect(-15, -4, 30, 5, 2); ctx.fill();
+      ctx.fillStyle = BRAND_GREEN; ctx.font = "bold 5px sans-serif"; ctx.textAlign = "center";
+      ctx.fillText("NAL", 0, -6);
+
     } else if (col.type === "water_bottle") {
+      // Water bottle
       ctx.fillStyle = "#93c5fd";
       ctx.beginPath(); ctx.roundRect(-6, -12, 12, 22, 4); ctx.fill();
       ctx.fillStyle = "#bfdbfe";
       ctx.beginPath(); ctx.roundRect(-4, -10, 8, 10, 2); ctx.fill();
       ctx.fillStyle = "#1e40af";
       ctx.beginPath(); ctx.roundRect(-5, -14, 10, 5, 2); ctx.fill();
+      ctx.fillStyle = "#fff"; ctx.font = "bold 4px sans-serif"; ctx.textAlign = "center";
+      ctx.fillText("H2O", 0, -1);
+
     } else if (col.type === "cactus") {
-      // Cactus = bad! Avoid
+      // Cactus — bad! Avoid
       ctx.fillStyle = "#4d7c0f";
       ctx.beginPath(); ctx.roundRect(-5, -16, 10, 24, 3); ctx.fill();
       ctx.beginPath(); ctx.roundRect(-14, -8, 10, 6, 3); ctx.fill();
       ctx.beginPath(); ctx.roundRect(4, -10, 10, 6, 3); ctx.fill();
-      // Spines
       ctx.strokeStyle = "#1a1a2e"; ctx.lineWidth = 1;
       for (let i = -3; i <= 3; i++) {
-        ctx.beginPath(); ctx.moveTo(i * 1.5, -16 + Math.abs(i)*2); ctx.lineTo(i * 3, -20 + Math.abs(i)*2); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(i * 1.5, -16 + Math.abs(i) * 2); ctx.lineTo(i * 3, -20 + Math.abs(i) * 2); ctx.stroke();
       }
+      // Warning X
+      ctx.strokeStyle = BRAND_RED; ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.moveTo(-4, -4); ctx.lineTo(4, 4); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(4, -4); ctx.lineTo(-4, 4); ctx.stroke();
     }
 
     ctx.shadowBlur = 0;
     ctx.restore();
   }
 
+  // ── HUD ────────────────────────────────────────────────────────────────
   function drawHUD(ctx: CanvasRenderingContext2D, level: number, dist: number, lvDist: number, frame: number) {
     const currentScore = Math.floor(dist / 10);
     const pct = Math.min(dist / (lvDist * 10), 1);
 
-    // Top bar background
-    ctx.fillStyle = "rgba(0,0,0,0.55)";
-    ctx.beginPath(); ctx.roundRect(0, 0, W, 44, 0); ctx.fill();
+    // Top bar background with gradient effect
+    ctx.fillStyle = "rgba(0,0,0,0.6)";
+    ctx.beginPath(); ctx.roundRect(0, 0, W, 46, 0); ctx.fill();
+    // Brand green accent line
+    ctx.fillStyle = BRAND_GREEN;
+    ctx.fillRect(0, 44, W, 2);
 
     // Level badge
     ctx.fillStyle = BRAND_GREEN;
-    ctx.beginPath(); ctx.roundRect(8, 6, 80, 32, 6); ctx.fill();
+    ctx.beginPath(); ctx.roundRect(8, 5, 88, 34, 6); ctx.fill();
+    ctx.strokeStyle = BRAND_GOLD; ctx.lineWidth = 1.5;
+    ctx.beginPath(); ctx.roundRect(8, 5, 88, 34, 6); ctx.stroke();
     ctx.fillStyle = BRAND_GOLD; ctx.font = "bold 8px sans-serif"; ctx.textAlign = "center";
-    ctx.fillText(`LEVEL ${level}`, 48, 18);
-    ctx.fillStyle = "#fff"; ctx.font = "bold 9px sans-serif";
-    ctx.fillText(LEVELS[level-1].name.split(" ").slice(1).join(" "), 48, 32);
+    ctx.fillText(`LEVEL ${level}`, 52, 17);
+    ctx.fillStyle = "#fff"; ctx.font = "bold 8px sans-serif";
+    // Short level name
+    const shortNames = ["NEIGHBORHOOD", "HOA GAUNTLET", "CONSTRUCTION", "DROUGHT ZONE"];
+    ctx.fillText(shortNames[level - 1], 52, 32);
 
-    // Score
-    ctx.fillStyle = "#fff"; ctx.font = "bold 14px sans-serif"; ctx.textAlign = "center";
-    ctx.fillText(`${currentScore} ft`, W / 2, 28);
+    // Score (center)
+    ctx.fillStyle = "#fff"; ctx.font = "bold 15px sans-serif"; ctx.textAlign = "center";
+    ctx.fillText(`${currentScore} ft`, W / 2, 30);
 
     // Lives (hearts)
     for (let i = 0; i < 3; i++) {
@@ -813,220 +1125,280 @@ export default function LawnMowerDash() {
     }
 
     // High score
-    ctx.fillStyle = BRAND_GOLD; ctx.font = "bold 10px sans-serif"; ctx.textAlign = "right";
+    ctx.fillStyle = BRAND_GOLD; ctx.font = "bold 9px sans-serif"; ctx.textAlign = "right";
     ctx.fillText(`🏆 ${highScoreRef.current} ft`, W - 8, 14);
 
     // Progress bar
-    ctx.fillStyle = "rgba(255,255,255,0.15)";
-    ctx.beginPath(); ctx.roundRect(8, H - 16, W - 16, 10, 5); ctx.fill();
-    const barColor = level === 1 ? "#4ade80" : level === 2 ? "#fbbf24" : level === 3 ? "#f97316" : "#ef4444";
-    ctx.fillStyle = barColor;
-    ctx.beginPath(); ctx.roundRect(8, H - 16, (W - 16) * pct, 10, 5); ctx.fill();
+    ctx.fillStyle = "rgba(255,255,255,0.12)";
+    ctx.beginPath(); ctx.roundRect(8, H - 18, W - 16, 11, 5); ctx.fill();
+    const barColors = ["#4ade80", "#fbbf24", "#f97316", "#ef4444"];
+    ctx.fillStyle = barColors[level - 1];
+    ctx.beginPath(); ctx.roundRect(8, H - 18, (W - 16) * pct, 11, 5); ctx.fill();
+    // Progress bar glow at tip
+    if (pct > 0.02) {
+      ctx.fillStyle = "#fff";
+      ctx.beginPath(); ctx.arc(8 + (W - 16) * pct, H - 12, 4, 0, Math.PI * 2); ctx.fill();
+    }
     ctx.fillStyle = "#fff"; ctx.font = "bold 7px sans-serif"; ctx.textAlign = "left";
-    ctx.fillText(`${Math.floor(pct * 100)}% to next level`, 12, H - 8);
+    ctx.fillText(`${Math.floor(pct * 100)}% complete`, 12, H - 8);
 
     // Combo badge
     if (combo.current >= 2) {
-      ctx.fillStyle = "rgba(251,191,36,0.92)";
-      ctx.beginPath(); ctx.roundRect(8, 50, 90, 20, 5); ctx.fill();
-      ctx.fillStyle = "#1a1a2e"; ctx.font = "bold 11px sans-serif"; ctx.textAlign = "left";
-      ctx.fillText(`${combo.current}x COMBO!`, 14, 64);
+      ctx.fillStyle = "rgba(251,191,36,0.95)";
+      ctx.beginPath(); ctx.roundRect(8, 52, 100, 22, 5); ctx.fill();
+      ctx.strokeStyle = "#d97706"; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.roundRect(8, 52, 100, 22, 5); ctx.stroke();
+      ctx.fillStyle = "#1a1a2e"; ctx.font = "bold 12px sans-serif"; ctx.textAlign = "left";
+      ctx.fillText(`${combo.current}x COMBO! 🔥`, 14, 67);
     }
 
     // Status badge
     if (slowTimer.current > 0) {
-      ctx.fillStyle = "rgba(124,58,237,0.9)";
-      ctx.beginPath(); ctx.roundRect(W / 2 - 60, H - 36, 120, 20, 6); ctx.fill();
+      ctx.fillStyle = "rgba(124,58,237,0.92)";
+      ctx.beginPath(); ctx.roundRect(W / 2 - 65, H - 40, 130, 22, 6); ctx.fill();
       ctx.fillStyle = "#fff"; ctx.font = "bold 11px sans-serif"; ctx.textAlign = "center";
-      ctx.fillText("SLOWED! 🍄", W / 2, H - 22);
+      ctx.fillText("SLOWED! 🌵", W / 2, H - 24);
     } else if (fastTimer.current > 0) {
-      ctx.fillStyle = "rgba(217,119,6,0.9)";
-      ctx.beginPath(); ctx.roundRect(W / 2 - 65, H - 36, 130, 20, 6); ctx.fill();
+      ctx.fillStyle = "rgba(217,119,6,0.92)";
+      ctx.beginPath(); ctx.roundRect(W / 2 - 70, H - 40, 140, 22, 6); ctx.fill();
       ctx.fillStyle = "#fff"; ctx.font = "bold 11px sans-serif"; ctx.textAlign = "center";
-      ctx.fillText("SPEED BOOST! 🐝", W / 2, H - 22);
+      ctx.fillText("SPEED BOOST! ☕", W / 2, H - 24);
     }
   }
 
+  // ── Level intro screen ─────────────────────────────────────────────────
   function drawLevelIntro(ctx: CanvasRenderingContext2D, level: number, timer: number) {
     const lv = LEVELS[level - 1];
     const alpha = Math.min(1, timer / 30) * Math.min(1, (timer - 20) / 20 + 1);
-    ctx.fillStyle = `rgba(0,0,0,${0.75 * alpha})`;
+    ctx.fillStyle = `rgba(0,0,0,${0.78 * alpha})`;
     ctx.fillRect(0, 0, W, H);
 
     ctx.save();
     ctx.globalAlpha = alpha;
+
+    // NAL brand header
+    ctx.fillStyle = BRAND_GREEN;
+    ctx.beginPath(); ctx.roundRect(W / 2 - 120, H / 2 - 80, 240, 30, 6); ctx.fill();
+    ctx.fillStyle = BRAND_GOLD; ctx.font = "bold 10px sans-serif"; ctx.textAlign = "center";
+    ctx.fillText("NEWPORT AVENUE LANDSCAPING", W / 2, H / 2 - 60);
+
     // Level number
     ctx.fillStyle = BRAND_GOLD;
-    ctx.font = "bold 14px sans-serif"; ctx.textAlign = "center";
-    ctx.fillText(`LEVEL ${level}`, W / 2, H / 2 - 50);
+    ctx.font = "bold 16px sans-serif"; ctx.textAlign = "center";
+    ctx.fillText(`LEVEL ${level} OF 4`, W / 2, H / 2 - 22);
     // Level name
     ctx.fillStyle = "#fff";
-    ctx.font = "bold 32px sans-serif";
-    ctx.fillText(lv.name, W / 2, H / 2 - 10);
+    ctx.font = "bold 30px sans-serif";
+    ctx.fillText(lv.name, W / 2, H / 2 + 16);
     // Subtitle
     ctx.fillStyle = BRAND_LIGHT;
-    ctx.font = "16px sans-serif";
-    ctx.fillText(lv.subtitle, W / 2, H / 2 + 25);
+    ctx.font = "13px sans-serif";
+    ctx.fillText(lv.subtitle, W / 2, H / 2 + 40);
+    // Tagline (funny)
+    ctx.fillStyle = BRAND_GOLD;
+    ctx.font = "italic 11px sans-serif";
+    ctx.fillText(`"${lv.tagline}"`, W / 2, H / 2 + 60);
     // Ready text
     if (timer < 60) {
       ctx.fillStyle = "#4ade80";
-      ctx.font = "bold 18px sans-serif";
-      ctx.fillText("GO!", W / 2, H / 2 + 60);
+      ctx.font = "bold 20px sans-serif";
+      ctx.fillText("LET'S MOW! 🌿", W / 2, H / 2 + 88);
     } else {
       ctx.fillStyle = "rgba(255,255,255,0.7)";
       ctx.font = "14px sans-serif";
-      ctx.fillText("GET READY...", W / 2, H / 2 + 60);
+      ctx.fillText("GET READY...", W / 2, H / 2 + 88);
     }
     ctx.restore();
   }
 
+  // ── Level complete screen ──────────────────────────────────────────────
   function drawLevelComplete(ctx: CanvasRenderingContext2D, level: number) {
-    ctx.fillStyle = "rgba(0,0,0,0.7)";
+    ctx.fillStyle = "rgba(0,0,0,0.72)";
     ctx.fillRect(0, 0, W, H);
 
+    // Green checkmark burst
     ctx.fillStyle = "#4ade80";
-    ctx.font = "bold 36px sans-serif"; ctx.textAlign = "center";
-    ctx.fillText("LEVEL COMPLETE!", W / 2, H / 2 - 40);
+    ctx.font = "bold 38px sans-serif"; ctx.textAlign = "center";
+    ctx.fillText("✅ LEVEL CLEAR!", W / 2, H / 2 - 42);
     ctx.fillStyle = BRAND_GOLD;
     ctx.font = "bold 16px sans-serif";
-    ctx.fillText(LEVELS[level - 1].name, W / 2, H / 2);
+    ctx.fillText(LEVELS[level - 1].name, W / 2, H / 2 - 6);
     ctx.fillStyle = "#fff";
-    ctx.font = "14px sans-serif";
+    ctx.font = "13px sans-serif";
     if (level < 4) {
-      ctx.fillText(`Next: ${LEVELS[level].name}`, W / 2, H / 2 + 30);
+      ctx.fillText(`Next up: Level ${level + 1} — ${LEVELS[level].name}`, W / 2, H / 2 + 22);
+      ctx.fillStyle = "rgba(255,255,255,0.6)";
+      ctx.font = "italic 11px sans-serif";
+      ctx.fillText(`"${LEVELS[level].tagline}"`, W / 2, H / 2 + 42);
     } else {
-      ctx.fillText("You beat the game! 🎉", W / 2, H / 2 + 30);
+      ctx.fillText("You beat the game! 🎉 Claim your $100 code!", W / 2, H / 2 + 22);
     }
+
+    // Next level / claim button
     ctx.fillStyle = BRAND_GREEN;
-    ctx.beginPath(); ctx.roundRect(W / 2 - 90, H / 2 + 50, 180, 44, 10); ctx.fill();
+    ctx.beginPath(); ctx.roundRect(W / 2 - 95, H / 2 + 58, 190, 46, 10); ctx.fill();
     ctx.strokeStyle = BRAND_GOLD; ctx.lineWidth = 2;
-    ctx.beginPath(); ctx.roundRect(W / 2 - 90, H / 2 + 50, 180, 44, 10); ctx.stroke();
+    ctx.beginPath(); ctx.roundRect(W / 2 - 95, H / 2 + 58, 190, 46, 10); ctx.stroke();
     ctx.fillStyle = "#fff"; ctx.font = "bold 17px sans-serif";
-    ctx.fillText(level < 4 ? "▶  NEXT LEVEL" : "🎉  CLAIM CODE", W / 2, H / 2 + 78);
+    ctx.fillText(level < 4 ? "▶  NEXT LEVEL" : "🎉  CLAIM $100 CODE", W / 2, H / 2 + 87);
   }
 
+  // ── Idle screen ────────────────────────────────────────────────────────
   function drawIdleScreen(ctx: CanvasRenderingContext2D) {
     // Animated grass background
     for (let i = 0; i < LANE_COUNT; i++) {
       ctx.fillStyle = i % 2 === 0 ? "#3a8c3a" : "#358035";
       ctx.fillRect(0, i * LANE_H, W, LANE_H);
     }
-    ctx.fillStyle = "rgba(0,0,0,0.65)";
+    ctx.fillStyle = "rgba(0,0,0,0.68)";
     ctx.fillRect(0, 0, W, H);
 
-    // Brand header
+    // Brand header bar
     ctx.fillStyle = BRAND_GREEN;
-    ctx.fillRect(0, 0, W, 50);
+    ctx.fillRect(0, 0, W, 52);
+    ctx.strokeStyle = BRAND_GOLD; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(0, 52); ctx.lineTo(W, 52); ctx.stroke();
     ctx.fillStyle = BRAND_GOLD; ctx.font = "bold 11px sans-serif"; ctx.textAlign = "center";
     ctx.fillText("NEWPORT AVENUE LANDSCAPING", W / 2, 16);
-    ctx.fillStyle = "#fff"; ctx.font = "bold 22px sans-serif";
-    ctx.fillText("🌿  LAWN MOWER DASH", W / 2, 40);
+    ctx.fillStyle = "#fff"; ctx.font = "bold 24px sans-serif";
+    ctx.fillText("🌿  LAWN MOWER DASH", W / 2, 42);
 
-    // Level preview
-    ctx.fillStyle = BRAND_LIGHT; ctx.font = "bold 13px sans-serif"; ctx.textAlign = "center";
-    ctx.fillText("4 LEVELS OF LANDSCAPING CHAOS", W / 2, 72);
+    // Tagline
+    ctx.fillStyle = BRAND_LIGHT; ctx.font = "bold 12px sans-serif"; ctx.textAlign = "center";
+    ctx.fillText("4 LEVELS OF CENTRAL OREGON CHAOS", W / 2, 72);
 
-    // Level list
+    // Level preview cards
     const levelColors = ["#4ade80", "#fbbf24", "#f97316", "#ef4444"];
     const levelIcons = ["🌊", "📋", "🚧", "☀️"];
+    const levelShort = ["HOOD", "HOA", "SITE", "DROUGHT"];
     for (let i = 0; i < 4; i++) {
-      const x = W / 2 - 120 + i * 60;
-      ctx.fillStyle = levelColors[i];
-      ctx.beginPath(); ctx.roundRect(x - 20, 82, 40, 40, 6); ctx.fill();
-      ctx.font = "18px sans-serif"; ctx.textAlign = "center";
-      ctx.fillText(levelIcons[i], x, 108);
-      ctx.fillStyle = "#fff"; ctx.font = "bold 8px sans-serif";
-      ctx.fillText(`LVL ${i+1}`, x, 130);
+      const x = W / 2 - 130 + i * 68;
+      ctx.fillStyle = levelColors[i] + "33";
+      ctx.beginPath(); ctx.roundRect(x - 22, 82, 44, 44, 6); ctx.fill();
+      ctx.strokeStyle = levelColors[i]; ctx.lineWidth = 1.5;
+      ctx.beginPath(); ctx.roundRect(x - 22, 82, 44, 44, 6); ctx.stroke();
+      ctx.font = "20px sans-serif"; ctx.textAlign = "center";
+      ctx.fillText(levelIcons[i], x, 110);
+      ctx.fillStyle = "#fff"; ctx.font = "bold 7px sans-serif";
+      ctx.fillText(`LVL ${i + 1}`, x, 122);
+      ctx.fillStyle = levelColors[i]; ctx.font = "6px sans-serif";
+      ctx.fillText(levelShort[i], x, 132);
     }
 
-    // Reward
+    // Prize teaser
     ctx.fillStyle = BRAND_GOLD; ctx.font = "bold 13px sans-serif"; ctx.textAlign = "center";
-    ctx.fillText("Beat all 4 levels → unlock $10 off: " + DISCOUNT_CODE, W / 2, 152);
-    ctx.fillStyle = "rgba(255,255,255,0.5)"; ctx.font = "10px sans-serif";
+    ctx.fillText("🏆  Beat all 4 levels → unlock a $100 discount code!", W / 2, 152);
+    ctx.fillStyle = "rgba(255,255,255,0.45)"; ctx.font = "10px sans-serif";
     ctx.fillText("One-time use per person. Valid on any service.", W / 2, 166);
 
     // Controls
-    ctx.fillStyle = "rgba(255,255,255,0.65)"; ctx.font = "12px sans-serif";
-    ctx.fillText("Tap top/bottom · Swipe · or ↑↓ keys to move", W / 2, 185);
+    ctx.fillStyle = "rgba(255,255,255,0.6)"; ctx.font = "11px sans-serif";
+    ctx.fillText("Tap top/bottom · Swipe up/down · ↑↓ arrow keys", W / 2, 184);
 
     // Play button
     ctx.fillStyle = BRAND_GREEN;
-    ctx.beginPath(); ctx.roundRect(W / 2 - 90, 198, 180, 48, 12); ctx.fill();
+    ctx.beginPath(); ctx.roundRect(W / 2 - 95, 196, 190, 50, 12); ctx.fill();
     ctx.strokeStyle = BRAND_GOLD; ctx.lineWidth = 2.5;
-    ctx.beginPath(); ctx.roundRect(W / 2 - 90, 198, 180, 48, 12); ctx.stroke();
-    ctx.fillStyle = "#fff"; ctx.font = "bold 18px sans-serif"; ctx.textAlign = "center";
-    ctx.fillText("▶  TAP TO PLAY", W / 2, 228);
+    ctx.beginPath(); ctx.roundRect(W / 2 - 95, 196, 190, 50, 12); ctx.stroke();
+    ctx.fillStyle = "#fff"; ctx.font = "bold 20px sans-serif"; ctx.textAlign = "center";
+    ctx.fillText("▶  TAP TO PLAY", W / 2, 227);
 
     // High score
     if (highScoreRef.current > 0) {
       ctx.fillStyle = BRAND_GOLD; ctx.font = "bold 12px sans-serif";
-      ctx.fillText(`🏆 Best: ${highScoreRef.current} ft`, W / 2, 262);
+      ctx.fillText(`🏆 Best: ${highScoreRef.current} ft`, W / 2, 264);
     }
   }
 
+  // ── Dead screen ────────────────────────────────────────────────────────
   function drawDeadScreen(ctx: CanvasRenderingContext2D, s: number, hs: number, level: number) {
     for (let i = 0; i < LANE_COUNT; i++) {
       ctx.fillStyle = i % 2 === 0 ? "#3a8c3a" : "#358035";
       ctx.fillRect(0, i * LANE_H, W, LANE_H);
     }
-    ctx.fillStyle = "rgba(0,0,0,0.7)";
+    ctx.fillStyle = "rgba(0,0,0,0.72)";
     ctx.fillRect(0, 0, W, H);
 
-    ctx.fillStyle = BRAND_GREEN; ctx.fillRect(0, 0, W, 50);
+    ctx.fillStyle = BRAND_GREEN; ctx.fillRect(0, 0, W, 52);
+    ctx.strokeStyle = BRAND_GOLD; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(0, 52); ctx.lineTo(W, 52); ctx.stroke();
     ctx.fillStyle = BRAND_GOLD; ctx.font = "bold 11px sans-serif"; ctx.textAlign = "center";
     ctx.fillText("NEWPORT AVENUE LANDSCAPING", W / 2, 16);
     ctx.fillStyle = "#fff"; ctx.font = "bold 22px sans-serif";
-    ctx.fillText("🌿  LAWN MOWER DASH", W / 2, 40);
+    ctx.fillText("🌿  LAWN MOWER DASH", W / 2, 42);
 
     const deathMessages = [
-      "SOAKED! 💦", "VIOLATION NOTICE! 📋", "BURIED IN MUD! 🚧", "DEHYDRATED! ☀️"
+      "SOAKED! 💦", "CITED BY THE HOA! 📋", "BURIED IN MUD! 🚧", "DEHYDRATED! ☀️"
     ];
-    ctx.fillStyle = "#ef4444"; ctx.font = "bold 28px sans-serif"; ctx.textAlign = "center";
-    ctx.fillText(deathMessages[level - 1] || "GAME OVER!", W / 2, 90);
+    const deathSubtitles = [
+      "The sprinkler got you. Classic.",
+      "The HOA wins this round. For now.",
+      "Construction chaos: 1, NAL: 0.",
+      "The drought inspector got your plates.",
+    ];
+    ctx.fillStyle = "#ef4444"; ctx.font = "bold 26px sans-serif"; ctx.textAlign = "center";
+    ctx.fillText(deathMessages[level - 1] || "GAME OVER!", W / 2, 88);
+    ctx.fillStyle = "rgba(255,255,255,0.6)"; ctx.font = "italic 11px sans-serif";
+    ctx.fillText(deathSubtitles[level - 1] || "", W / 2, 108);
 
     ctx.fillStyle = "#fff"; ctx.font = "bold 18px sans-serif";
-    ctx.fillText(`Distance: ${s} ft`, W / 2, 122);
-    ctx.fillStyle = BRAND_GOLD; ctx.font = "bold 15px sans-serif";
-    ctx.fillText(`🏆 Best: ${hs} ft`, W / 2, 148);
-    ctx.fillStyle = BRAND_LIGHT; ctx.font = "13px sans-serif";
-    ctx.fillText(`Reached Level ${level} — ${LEVELS[level-1].name}`, W / 2, 172);
+    ctx.fillText(`Distance: ${s} ft`, W / 2, 132);
+    ctx.fillStyle = BRAND_GOLD; ctx.font = "bold 14px sans-serif";
+    ctx.fillText(`🏆 Best: ${hs} ft`, W / 2, 154);
+    ctx.fillStyle = BRAND_LIGHT; ctx.font = "12px sans-serif";
+    ctx.fillText(`Reached Level ${level} — ${LEVELS[level - 1].name}`, W / 2, 174);
 
     // Try again button
     ctx.fillStyle = BRAND_GREEN;
-    ctx.beginPath(); ctx.roundRect(W / 2 - 90, 190, 180, 44, 10); ctx.fill();
+    ctx.beginPath(); ctx.roundRect(W / 2 - 95, 192, 190, 46, 10); ctx.fill();
     ctx.strokeStyle = BRAND_GOLD; ctx.lineWidth = 2;
-    ctx.beginPath(); ctx.roundRect(W / 2 - 90, 190, 180, 44, 10); ctx.stroke();
-    ctx.fillStyle = "#fff"; ctx.font = "bold 16px sans-serif"; ctx.textAlign = "center";
-    ctx.fillText("🔄  TRY AGAIN", W / 2, 218);
+    ctx.beginPath(); ctx.roundRect(W / 2 - 95, 192, 190, 46, 10); ctx.stroke();
+    ctx.fillStyle = "#fff"; ctx.font = "bold 17px sans-serif"; ctx.textAlign = "center";
+    ctx.fillText("🔄  TRY AGAIN", W / 2, 221);
+
+    // Encouragement
+    ctx.fillStyle = BRAND_GOLD; ctx.font = "italic 11px sans-serif";
+    ctx.fillText("Sterling believes in you. Probably.", W / 2, 256);
   }
 
+  // ── Won screen ─────────────────────────────────────────────────────────
   function drawWonScreen(ctx: CanvasRenderingContext2D) {
-    ctx.fillStyle = "rgba(0,0,0,0.8)"; ctx.fillRect(0, 0, W, H);
-    ctx.fillStyle = BRAND_GREEN; ctx.fillRect(0, 0, W, 50);
+    ctx.fillStyle = "rgba(0,0,0,0.82)"; ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = BRAND_GREEN; ctx.fillRect(0, 0, W, 52);
+    ctx.strokeStyle = BRAND_GOLD; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(0, 52); ctx.lineTo(W, 52); ctx.stroke();
     ctx.fillStyle = BRAND_GOLD; ctx.font = "bold 11px sans-serif"; ctx.textAlign = "center";
     ctx.fillText("NEWPORT AVENUE LANDSCAPING", W / 2, 16);
     ctx.fillStyle = "#fff"; ctx.font = "bold 22px sans-serif";
-    ctx.fillText("🌿  LAWN MOWER DASH", W / 2, 40);
+    ctx.fillText("🌿  LAWN MOWER DASH", W / 2, 42);
 
     ctx.fillStyle = "#4ade80"; ctx.font = "bold 30px sans-serif"; ctx.textAlign = "center";
-    ctx.fillText("🎉 YOU WON! 🎉", W / 2, 90);
-    ctx.fillStyle = "#fff"; ctx.font = "bold 16px sans-serif";
-    ctx.fillText("You beat all 4 levels!", W / 2, 120);
+    ctx.fillText("🎉 YOU BEAT THE GAME! 🎉", W / 2, 88);
+    ctx.fillStyle = "#fff"; ctx.font = "14px sans-serif";
+    ctx.fillText("All 4 levels conquered. Sterling is proud.", W / 2, 112);
     ctx.fillStyle = BRAND_GOLD; ctx.font = "bold 14px sans-serif";
-    ctx.fillText("Here's your $10 off code:", W / 2, 148);
-    ctx.fillStyle = "#fff"; ctx.font = "bold 28px monospace";
-    ctx.fillText(DISCOUNT_CODE, W / 2, 182);
-    ctx.strokeStyle = BRAND_GOLD; ctx.lineWidth = 2;
-    ctx.beginPath(); ctx.roundRect(W / 2 - 80, 160, 160, 32, 6); ctx.stroke();
-    ctx.fillStyle = "rgba(255,255,255,0.6)"; ctx.font = "11px sans-serif";
-    ctx.fillText("One-time use per person. Valid on any service.", W / 2, 210);
+    ctx.fillText("Here's your $100 off code:", W / 2, 138);
 
+    // Code box
+    ctx.fillStyle = BRAND_DARK;
+    ctx.beginPath(); ctx.roundRect(W / 2 - 100, 148, 200, 38, 8); ctx.fill();
+    ctx.strokeStyle = BRAND_GOLD; ctx.lineWidth = 2.5;
+    ctx.beginPath(); ctx.roundRect(W / 2 - 100, 148, 200, 38, 8); ctx.stroke();
+    ctx.fillStyle = BRAND_GOLD; ctx.font = "bold 26px monospace"; ctx.textAlign = "center";
+    ctx.fillText(DISCOUNT_CODE, W / 2, 175);
+
+    ctx.fillStyle = "rgba(255,255,255,0.55)"; ctx.font = "10px sans-serif";
+    ctx.fillText("One-time use per person. Valid on any service.", W / 2, 202);
+    ctx.fillStyle = "rgba(255,255,255,0.4)"; ctx.font = "italic 10px sans-serif";
+    ctx.fillText("(Yes, it's really $100. We're serious.)", W / 2, 216);
+
+    // Play again button
     ctx.fillStyle = BRAND_GREEN;
-    ctx.beginPath(); ctx.roundRect(W / 2 - 90, 225, 180, 44, 10); ctx.fill();
+    ctx.beginPath(); ctx.roundRect(W / 2 - 95, 228, 190, 46, 10); ctx.fill();
     ctx.strokeStyle = BRAND_GOLD; ctx.lineWidth = 2;
-    ctx.beginPath(); ctx.roundRect(W / 2 - 90, 225, 180, 44, 10); ctx.stroke();
+    ctx.beginPath(); ctx.roundRect(W / 2 - 95, 228, 190, 46, 10); ctx.stroke();
     ctx.fillStyle = "#fff"; ctx.font = "bold 16px sans-serif";
-    ctx.fillText("🔄  PLAY AGAIN", W / 2, 253);
+    ctx.fillText("🔄  PLAY AGAIN", W / 2, 257);
   }
 
   // ── Main game loop ─────────────────────────────────────────────────────
@@ -1115,33 +1487,37 @@ export default function LawnMowerDash() {
       if (col.collected) continue;
       const cy = LANE_CENTERS[col.lane];
       const dx = PLAYER_X - col.x, dy = playerY.current - cy;
-      if (Math.sqrt(dx*dx + dy*dy) < PLAYER_R + 16) {
+      if (Math.sqrt(dx * dx + dy * dy) < PLAYER_R + 16) {
         col.collected = true;
-        if (col.type === "mushroom" || col.type === "cactus") {
+        if (col.type === "cactus") {
           playerSpeedMult.current = 0.45; slowTimer.current = 140; fastTimer.current = 0;
-          spawnParticles(col.x, cy, "#a855f7", 12);
-          spawnPopText(col.x, cy - 25, col.type === "cactus" ? "OUCH! 🌵" : "SLOWED! 🍄", "#a855f7", 14);
+          spawnParticles(col.x, cy, "#ef4444", 12);
+          spawnPopText(col.x, cy - 25, "OUCH! CACTUS! 🌵", "#ef4444", 14);
           combo.current = 0;
-        } else if (col.type === "bee") {
-          playerSpeedMult.current = 1.9; fastTimer.current = 170; slowTimer.current = 0;
-          spawnParticles(col.x, cy, "#fbbf24", 14);
-          spawnPopText(col.x, cy - 25, "SPEED BOOST! 🐝", "#f59e0b", 14);
-        } else if (col.type === "star") {
-          spawnParticles(col.x, cy, "#fbbf24", 16);
-          spawnPopText(col.x, cy - 25, "+STAR! ⭐", "#fbbf24", 14);
-          combo.current += 2;
         } else if (col.type === "coffee" || col.type === "hard_hat") {
-          playerSpeedMult.current = 1.5; fastTimer.current = 120; slowTimer.current = 0;
+          playerSpeedMult.current = 1.6; fastTimer.current = 140; slowTimer.current = 0;
           spawnParticles(col.x, cy, "#f59e0b", 12);
-          spawnPopText(col.x, cy - 25, col.type === "coffee" ? "CAFFEINATED! ☕" : "PROTECTED! 🪖", "#f59e0b", 13);
+          spawnPopText(col.x, cy - 25, col.type === "coffee" ? "CAFFEINATED! ☕" : "HARD HAT! 🪖", "#f59e0b", 13);
+        } else if (col.type === "star") {
+          spawnParticles(col.x, cy, "#fbbf24", 18);
+          spawnPopText(col.x, cy - 25, "+STAR! ⭐", "#fbbf24", 15);
+          combo.current += 2;
         } else if (col.type === "permit") {
-          invincible.current = 120;
-          spawnParticles(col.x, cy, "#22c55e", 14);
+          invincible.current = 130;
+          spawnParticles(col.x, cy, "#22c55e", 16);
           spawnPopText(col.x, cy - 25, "PERMIT! INVINCIBLE! 📋", "#22c55e", 13);
-        } else if (col.type === "water_bottle") {
-          playerSpeedMult.current = 1.3; fastTimer.current = 100; slowTimer.current = 0;
+        } else if (col.type === "water_bottle" || col.type === "nal_hose") {
+          playerSpeedMult.current = 1.4; fastTimer.current = 110; slowTimer.current = 0;
           spawnParticles(col.x, cy, "#93c5fd", 12);
-          spawnPopText(col.x, cy - 25, "HYDRATED! 💧", "#93c5fd", 13);
+          spawnPopText(col.x, cy - 25, col.type === "water_bottle" ? "HYDRATED! 💧" : "NAL HOSE! 💦", "#93c5fd", 13);
+        } else if (col.type === "nal_sign" || col.type === "nal_flag" || col.type === "leaf_bag") {
+          spawnParticles(col.x, cy, BRAND_GOLD, 14);
+          spawnPopText(col.x, cy - 25, "NAL POWER! 🌿", BRAND_GOLD, 14);
+          combo.current++;
+        } else if (col.type === "nal_truck") {
+          playerSpeedMult.current = 1.8; fastTimer.current = 160; slowTimer.current = 0;
+          spawnParticles(col.x, cy, BRAND_GREEN, 18);
+          spawnPopText(col.x, cy - 25, "NAL TRUCK! TURBO! 🚛", BRAND_GREEN, 14);
         }
       }
     }
@@ -1152,7 +1528,7 @@ export default function LawnMowerDash() {
       for (const obs of obstacles.current) {
         const oy = obs.y !== undefined ? obs.y : LANE_CENTERS[obs.lane];
         const dx = PLAYER_X - obs.x, dy = playerY.current - oy;
-        const dist = Math.sqrt(dx*dx + dy*dy);
+        const dist = Math.sqrt(dx * dx + dy * dy);
         let hit = false;
 
         if (obs.type === "sprinkler") {
@@ -1162,27 +1538,38 @@ export default function LawnMowerDash() {
             while (diff < -Math.PI) diff += Math.PI * 2;
             if (Math.abs(diff) < obs.arcWidth! / 2) hit = true;
           }
-        } else if (obs.type === "boulder" || obs.type === "hoa_member" || obs.type === "hoa_group") {
+        } else if (obs.type === "gnome" || obs.type === "hoa_member" || obs.type === "hoa_group" || obs.type === "boulder") {
           if (dist < PLAYER_R + 20) hit = true;
-        } else if (obs.type === "mud_puddle" || obs.type === "crack_patch") {
-          if (Math.abs(dx) < 30 && Math.abs(dy) < 16) {
-            playerSpeedMult.current = 0.35; slowTimer.current = 100;
+        } else if (obs.type === "hoa_sign") {
+          if (Math.abs(dx) < 28 && Math.abs(dy) < 20) hit = true;
+        } else if (obs.type === "mud_puddle" || obs.type === "dead_patch") {
+          if (Math.abs(dx) < 32 && Math.abs(dy) < 17) {
+            playerSpeedMult.current = 0.35; slowTimer.current = 110;
             spawnParticles(PLAYER_X, playerY.current, "#92400e", 10);
-            spawnPopText(PLAYER_X, playerY.current - 30, obs.type === "mud_puddle" ? "STUCK IN MUD! 🟤" : "CRACKED GROUND!", "#92400e", 13);
+            spawnPopText(PLAYER_X, playerY.current - 30, obs.type === "mud_puddle" ? "STUCK IN MUD! 🟤" : "DEAD GRASS! 🟫", "#92400e", 13);
             obs.x = -200; // remove
+          }
+        } else if (obs.type === "fire_ants") {
+          if (Math.abs(dx) < 20 && Math.abs(dy) < 18) {
+            playerSpeedMult.current = 0.4; slowTimer.current = 120;
+            spawnParticles(PLAYER_X, playerY.current, "#c2410c", 12);
+            spawnPopText(PLAYER_X, playerY.current - 30, "FIRE ANTS! 🐜", "#c2410c", 14);
+            obs.x = -200;
           }
         } else if (obs.type === "skid_steer" || obs.type === "water_inspector" || obs.type === "tumbleweed") {
           if (dist < PLAYER_R + 22) hit = true;
+        } else if (obs.type === "cone_row") {
+          if (Math.abs(dx) < 28 && Math.abs(dy) < 18) hit = true;
         }
 
         if (hit) {
           lives.current--;
           invincible.current = 100;
           combo.current = 0;
-          screenShake.current = 12;
-          spawnParticles(PLAYER_X, playerY.current, "#3b82f6", 20);
+          screenShake.current = 14;
+          spawnParticles(PLAYER_X, playerY.current, "#3b82f6", 22);
           const hitMsgs = ["SOAKED! 💦", "CITED! 📋", "CRUSHED! 🪨", "CAUGHT! 🚰"];
-          spawnPopText(PLAYER_X, playerY.current - 35, hitMsgs[level - 1] || "HIT!", "#ef4444", 16);
+          spawnPopText(PLAYER_X, playerY.current - 35, hitMsgs[level - 1] || "HIT!", "#ef4444", 17);
           if (lives.current <= 0) {
             stateRef.current = "dead";
             const finalScore = Math.floor(distance.current / 10);
@@ -1204,6 +1591,7 @@ export default function LawnMowerDash() {
     // Check level complete
     if (distance.current >= lv.targetDist * 10) {
       if (level >= 4) {
+        // Only reveal code after beating Level 4
         stateRef.current = "won";
         setWonCode(DISCOUNT_CODE);
         setDisplayState("won");
@@ -1225,7 +1613,7 @@ export default function LawnMowerDash() {
     // ── DRAW ──────────────────────────────────────────────────────────────
     ctx.save();
     if (screenShake.current > 0) {
-      ctx.translate(rand(-3, 3) * (screenShake.current / 12), rand(-2, 2) * (screenShake.current / 12));
+      ctx.translate(rand(-3, 3) * (screenShake.current / 14), rand(-2, 2) * (screenShake.current / 14));
     }
 
     drawBackground(ctx, level, frame);
@@ -1367,9 +1755,9 @@ export default function LawnMowerDash() {
               Lawn Mower Dash
             </h1>
             <p className="font-body text-sm max-w-lg mx-auto" style={{ color: "oklch(0.45 0.005 30)" }}>
-              Push your mower through <strong>4 levels of Central Oregon chaos</strong> — dodge sprinklers, 
+              Push your NAL mower through <strong>4 levels of Central Oregon chaos</strong> — dodge sprinklers,
               outrun angry HOA board members, navigate construction sites, and survive the drought inspector.
-              Beat all 4 levels to unlock a <strong>$10 discount</strong> on your next service.
+              Beat all 4 levels to unlock a <strong>$100 discount</strong> on your next service.
             </p>
           </div>
 
@@ -1412,7 +1800,7 @@ export default function LawnMowerDash() {
             </div>
           </div>
 
-          {/* Discount code reveal */}
+          {/* Discount code reveal — ONLY shown after beating Level 4 */}
           {wonCode && (
             <div className="mt-8 mx-auto max-w-sm text-center p-6 rounded-2xl"
               style={{ backgroundColor: BRAND_GREEN, color: "#fff" }}>
@@ -1420,6 +1808,9 @@ export default function LawnMowerDash() {
               <div className="font-display text-xl font-semibold mb-1">You beat all 4 levels!</div>
               <div className="text-xs font-semibold tracking-widest mb-3" style={{ color: BRAND_GOLD }}>
                 NEWPORT AVENUE LANDSCAPING
+              </div>
+              <div className="text-sm mb-3" style={{ color: "rgba(255,255,255,0.8)" }}>
+                Your $100 off discount code:
               </div>
               <div className="font-mono text-2xl font-bold tracking-widest mb-4 px-4 py-3 rounded-xl"
                 style={{ backgroundColor: "rgba(0,0,0,0.3)", color: BRAND_GOLD, border: `1px solid ${BRAND_GOLD}` }}>
@@ -1432,7 +1823,7 @@ export default function LawnMowerDash() {
                 {copied ? "✓ Copied!" : "Copy Code"}
               </button>
               <div className="text-xs mt-2" style={{ color: "rgba(255,255,255,0.7)" }}>
-                Use at checkout on your next service booking.
+                Use at checkout on your next service booking. $100 off any service.
               </div>
               <div className="text-xs mt-1" style={{ color: "rgba(255,255,255,0.45)" }}>
                 One-time use per person. Cannot be combined with other offers.

@@ -673,3 +673,18 @@
 - [ ] HOA board member obstacle with clipboard and violation notice
 - [ ] Construction site obstacles (boulders, skid steer, mud puddles)
 - [ ] Screen shake, particle effects, combo system
+
+## Game Upgrade v2 — April 25, 2026
+- [x] Upgrade LawnMowerDash: better NAL branding per level (NAL yard signs, branded mower, NAL truck collectible, NAL flag, NAL hose)
+- [x] Upgrade LawnMowerDash: improved retro pixel art graphics (commercial mower with gold hubs, landscaper in NAL green uniform with gold gloves)
+- [x] Upgrade LawnMowerDash: Level 1 — NAL yard signs in neighborhood background, garden gnome obstacle, leaf bag collectible
+- [x] Upgrade LawnMowerDash: Level 2 — "NO NAL ALLOWED" sign obstacle, HOA members with "NO NAL" button pins, alternating speech bubbles (VIOLATION!/NO NAL HERE!/CALL MY LAWYER!/RULE #312!)
+- [x] Upgrade LawnMowerDash: Level 3 — NAL branded skid steer with green stripe, cone row obstacle, NAL trailer in background
+- [x] Upgrade LawnMowerDash: Level 4 — fire ant mound obstacle, dead lawn patch, "NAL SAVES LAWNS" scrolling signs, heat shimmer effect
+- [x] Upgrade LawnMowerDash: Change prize from $10 to $100 off
+- [x] Upgrade LawnMowerDash: Funny discount code changed to MOWMONEY100
+- [x] Upgrade LawnMowerDash: Code ONLY revealed after beating Level 4 (verified — setWonCode only called on level >= 4 win)
+- [x] Upgrade LawnMowerDash: Level intro screens show funny taglines per level
+- [x] Upgrade LawnMowerDash: Death screens show level-specific funny subtitles
+- [x] Upgrade LawnMowerDash: Won screen says "Sterling is proud" and "(Yes, it's really $100. We're serious.)"
+- [x] Upgrade LawnMowerDash: Idle screen updated to show $100 prize and all 4 level cards
