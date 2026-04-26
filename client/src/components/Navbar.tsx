@@ -1124,6 +1124,7 @@ export default function Navbar() {
                 <input
                   type="password"
                   inputMode="numeric"
+                  aria-label="Admin access code"
                   placeholder="Enter code"
                   value={adminCode}
                   onChange={(e) => { setAdminCode(e.target.value); setAdminError(false); }}

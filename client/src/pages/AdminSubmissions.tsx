@@ -680,7 +680,7 @@ export default function AdminSubmissions() {
                       <td className="px-4 py-3">
                         <DropdownMenu>
                           <DropdownMenuTrigger asChild>
-                            <button className="focus:outline-none">
+                            <button className="focus:outline-none" aria-label="Change follow-up status">
                               <FollowUpBadge status={followUpMap.get(row.id) ?? null} />
                             </button>
                           </DropdownMenuTrigger>

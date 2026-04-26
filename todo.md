@@ -886,3 +886,23 @@
 - [x] Audit PageSpeed SEO score gaps: found 2 issues costing points
 - [x] Fix viewport maximum-scale=1 (was blocking accessibility zoom, now removed)
 - [x] Fix non-descriptive logo link: added aria-label="Newport Avenue Landscaping — Home" to Navbar logo <a>
+
+## Session — April 26, 2026 (Google Ads Conversion Tracking)
+
+- [ ] Verify Google Ads gtag ID is in index.html
+- [ ] Add gtag conversion event to ContactSection form submit
+- [ ] Add gtag conversion event to QuoteForm / GetAQuote form submit
+- [ ] Add gtag conversion event to IrrigationMembership / Membership form submit
+- [ ] Add gtag conversion event to ScheduleServices form submit
+- [ ] Add gtag conversion event to FloatingCTA / mobile CTA form submit
+
+## Session — April 26, 2026 (Accessibility Fixes — Score 70 → 90+)
+
+- [x] Audit all accessibility issues from PageSpeed report
+- [x] Fix color contrast violations — HeroSection, Footer, ContactSection raised to oklch(0.65+) on dark, oklch(0.28+) on light
+- [x] Fix missing form labels — ContactSection inputs now have htmlFor/id pairs; Navbar admin input has aria-label
+- [x] Fix missing alt text on img tags — all images already had alt text
+- [x] Fix missing ARIA attributes — GeoIntelligence map mode buttons, close button; AdminSubmissions follow-up dropdown trigger
+- [x] Fix prohibited aria-disabled on non-interactive span in breadcrumb.tsx
+- [x] Fix touch targets — hero dot navigation buttons now 44×44px clickable area with visual dot inside
+- [x] Fix any other WCAG 2.1 AA violations found

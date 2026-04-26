@@ -411,7 +411,7 @@ export default function HeroSection() {
             fontStyle: "italic",
             fontSize: "0.6rem",
             letterSpacing: "0.2em",
-            color: "oklch(0.42 0.008 30)",
+            color: "oklch(0.72 0.008 30)",
           }}
         >
           Est. 2005
@@ -581,7 +581,7 @@ export default function HeroSection() {
           >
             ⚡ BOOKING SPRING — SCHEDULE FILLS FAST
             </span>
-            <span style={{ width: "1px", height: "10px", backgroundColor: "oklch(0.35 0.008 30)" }} />
+            <span style={{ width: "1px", height: "10px", backgroundColor: "oklch(0.65 0.008 30)" }} />
             {["LICENSED & BONDED", "LCB #9153", "21+ YEARS", "FREE ESTIMATES"].map((badge) => (
               <span
                 key={badge}
@@ -590,7 +590,7 @@ export default function HeroSection() {
                   fontSize: "0.44rem",
                   fontWeight: 600,
                   letterSpacing: "0.14em",
-                  color: "oklch(0.55 0.008 30)",
+                  color: "oklch(0.82 0.008 30)",
                 }}
               >
                 {badge}
@@ -685,19 +685,32 @@ export default function HeroSection() {
             key={i}
             onClick={() => goTo(i)}
             style={{
-              width: i === scene ? "6px" : "4px",
-              height: i === scene ? "24px" : "4px",
-              borderRadius: "999px",
-              backgroundColor:
-                i === scene
-                  ? "oklch(0.92 0.06 25)"
-                  : "oklch(0.35 0.008 30)",
+              width: "44px",
+              height: "44px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              background: "none",
               border: "none",
               padding: 0,
               cursor: "pointer",
-              transition: "all 0.35s ease",
             }}
-          />
+            aria-label={`Go to slide ${i + 1}`}
+          >
+            <span
+              style={{
+                display: "block",
+                width: i === scene ? "6px" : "4px",
+                height: i === scene ? "24px" : "4px",
+                borderRadius: "999px",
+                backgroundColor:
+                  i === scene
+                    ? "oklch(0.92 0.06 25)"
+                    : "oklch(0.65 0.008 30)",
+                transition: "all 0.35s ease",
+              }}
+            />
+          </button>
         ))}
       </div>
 
@@ -712,8 +725,9 @@ export default function HeroSection() {
           fontSize: "0.5rem",
           fontWeight: 600,
           letterSpacing: "0.2em",
-          color: "oklch(0.38 0.008 30)",
+          color: "oklch(0.75 0.008 30)",
         }}
+        aria-label={`Slide ${scene + 1} of ${SCENES.length}`}
       >
         {String(scene + 1).padStart(2, "0")} / {String(SCENES.length).padStart(2, "0")}
       </div>

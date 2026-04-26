@@ -110,7 +110,7 @@ const blogArticleLinks = [
 
 // Shared link style
 const linkStyle: React.CSSProperties = {
-  color: "oklch(0.55 0.005 0)",
+  color: "oklch(0.72 0.005 0)",
   textDecoration: "none",
   fontSize: "0.875rem",
   fontFamily: "'Source Serif 4', serif",
@@ -126,7 +126,7 @@ function FooterLink({ href, label }: { href: string; label: string }) {
         href={href}
         style={linkStyle}
         onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "oklch(0.60 0.14 185)")}
-        onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "oklch(0.55 0.005 0)")}
+        onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "oklch(0.72 0.005 0)")}
       >
         {label}
       </Link>
@@ -153,7 +153,7 @@ export default function Footer() {
             </Link>
             <p
               className="font-body text-sm leading-relaxed mb-6"
-              style={{ color: "oklch(0.55 0.005 0)" }}
+              style={{ color: "oklch(0.72 0.005 0)" }}
             >
               Central Oregon's premier landscaping company, serving Bend and
               surrounding communities since 2005. Licensed &amp; Bonded LCB #9153.
@@ -177,7 +177,7 @@ export default function Footer() {
               >
                 info@newportavelandscaping.com
               </a>
-              <p className="font-body text-sm" style={{ color: "oklch(0.42 0.005 0)" }}>
+              <p className="font-body text-sm" style={{ color: "oklch(0.68 0.005 0)" }}>
                 61535 S Hwy 97
                 <br />
                 Bend, OR 97702
@@ -254,7 +254,7 @@ export default function Footer() {
       <div className="border-t" style={{ borderColor: "oklch(0.25 0.008 30)" }}>
         <div className="container py-5 flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2">
-            <p className="font-body text-xs" style={{ color: "oklch(0.45 0.008 30)" }}>
+            <p className="font-body text-xs" style={{ color: "oklch(0.68 0.008 30)" }}>
               © 2026 Newport Avenue Landscaping. All Rights Reserved.
             </p>
 
@@ -264,23 +264,23 @@ export default function Footer() {
             <Link
               href="/privacy-policy"
               className="font-body text-xs transition-colors"
-              style={{ color: "oklch(0.42 0.005 0)", textDecoration: "none" }}
+              style={{ color: "oklch(0.68 0.005 0)", textDecoration: "none" }}
               onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "oklch(0.60 0.14 185)")}
-              onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "oklch(0.42 0.005 0)")}
+              onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "oklch(0.68 0.005 0)")}
             >
               Privacy Policy
             </Link>
             <Link
               href="/terms"
               className="font-body text-xs transition-colors"
-              style={{ color: "oklch(0.42 0.005 0)", textDecoration: "none" }}
+              style={{ color: "oklch(0.68 0.005 0)", textDecoration: "none" }}
               onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "oklch(0.60 0.14 185)")}
-              onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "oklch(0.42 0.005 0)")}
+              onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "oklch(0.68 0.005 0)")}
             >
               Terms &amp; Conditions
             </Link>
           </div>
-          <p className="font-body text-xs" style={{ color: "oklch(0.38 0.005 0)" }}>
+          <p className="font-body text-xs" style={{ color: "oklch(0.68 0.005 0)" }}>
             LCB #9153 — Licensed, Bonded &amp; Insured
           </p>
         </div>

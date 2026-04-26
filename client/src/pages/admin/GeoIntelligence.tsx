@@ -509,10 +509,14 @@ export default function GeoIntelligence() {
           </div>
           <div className="flex items-center gap-1 bg-slate-100 rounded-lg p-0.5">
             <button onClick={() => { if (mapMode !== "pins") handleToggleMapMode(); }}
+              aria-label="Switch to pins map view"
+              aria-pressed={mapMode === "pins"}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${mapMode === "pins" ? "bg-white text-slate-900 shadow-sm" : "text-slate-500 hover:text-slate-700"}`}>
               <MapPin className="w-3.5 h-3.5" /> Pins
             </button>
             <button onClick={() => { if (mapMode !== "heatmap") handleToggleMapMode(); }}
+              aria-label="Switch to heatmap view"
+              aria-pressed={mapMode === "heatmap"}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${mapMode === "heatmap" ? "bg-white text-slate-900 shadow-sm" : "text-slate-500 hover:text-slate-700"}`}>
               <Flame className="w-3.5 h-3.5" /> Heatmap
             </button>
@@ -609,7 +613,7 @@ export default function GeoIntelligence() {
                   <h3 className="text-sm font-bold text-slate-800">{selectedCluster.neighborhood}</h3>
                   <p className="text-xs text-slate-500">{selectedCluster.city} · {selectedCluster.total} inquiries</p>
                 </div>
-                <button onClick={() => { setSelectedCluster(null); setPostcardRec(null); }} className="text-slate-400 hover:text-slate-600">
+                <button onClick={() => { setSelectedCluster(null); setPostcardRec(null); }} aria-label="Close cluster details" className="text-slate-400 hover:text-slate-600">
                   <X className="w-4 h-4" />
                 </button>
               </div>

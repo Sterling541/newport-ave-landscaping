@@ -43,7 +43,7 @@ export default function ContactSection() {
   };
 
   const labelStyle = {
-    color: "oklch(0.38 0.005 0)",
+    color: "oklch(0.32 0.005 0)",
     fontSize: "0.65rem",
   };
 
@@ -106,7 +106,7 @@ export default function ContactSection() {
                 <div className="font-display text-2xl mb-4" style={{ color: "oklch(0.46 0.20 25)" }}>
                   You're on the list!
                 </div>
-                <p className="font-body" style={{ color: "oklch(0.38 0.005 0)" }}>
+                <p className="font-body" style={{ color: "oklch(0.28 0.005 0)" }}>
                   We've received your request and will call you within 1 business day to discuss your project.
                   We look forward to transforming your outdoor space!
                 </p>
@@ -155,10 +155,11 @@ export default function ContactSection() {
                       Just two quick fields — we'll call you to discuss the details.
                     </p>
                     <div className="mb-5">
-                      <label className="font-label block mb-2" style={labelStyle}>
+                      <label htmlFor="contact-name" className="font-label block mb-2" style={labelStyle}>
                         Your Name *
                       </label>
                       <input
+                        id="contact-name"
                         type="text"
                         name="name"
                         value={formData.name}
@@ -172,10 +173,11 @@ export default function ContactSection() {
                       />
                     </div>
                     <div className="mb-8">
-                      <label className="font-label block mb-2" style={labelStyle}>
+                      <label htmlFor="contact-phone" className="font-label block mb-2" style={labelStyle}>
                         Best Phone Number *
                       </label>
                       <input
+                        id="contact-phone"
                         type="tel"
                         name="phone"
                         value={formData.phone}
@@ -219,10 +221,11 @@ export default function ContactSection() {
                     </p>
 
                     <div className="mb-5">
-                      <label className="font-label block mb-2" style={labelStyle}>
+                      <label htmlFor="contact-email" className="font-label block mb-2" style={labelStyle}>
                         Email Address
                       </label>
                       <input
+                        id="contact-email"
                         type="email"
                         name="email"
                         value={formData.email}
@@ -236,10 +239,11 @@ export default function ContactSection() {
                     </div>
 
                     <div className="mb-5">
-                      <label className="font-label block mb-2" style={labelStyle}>
+                      <label htmlFor="contact-service" className="font-label block mb-2" style={labelStyle}>
                         Service Needed
                       </label>
                       <select
+                        id="contact-service"
                         name="service"
                         value={formData.service}
                         onChange={handleChange}
@@ -273,10 +277,11 @@ export default function ContactSection() {
                     </div>
 
                     <div className="mb-8">
-                      <label className="font-label block mb-2" style={labelStyle}>
+                      <label htmlFor="contact-message" className="font-label block mb-2" style={labelStyle}>
                         Tell Us About Your Project
                       </label>
                       <textarea
+                        id="contact-message"
                         name="message"
                         value={formData.message}
                         onChange={handleChange}
