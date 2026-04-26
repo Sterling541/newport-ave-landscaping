@@ -70,7 +70,7 @@ const SCENES = [
     sub: "Full-service landscape design and installation",
   },
   {
-    img: `${CDN}/outdoor-kitchen-water_90c45e1a.jpg`,
+    img: "/manus-storage/outdoor-kitchen-water_90c45e1a_63d85a27.webp",
     category: "OUTDOOR LIVING",
     line1: "Live Outside",
     line2: "All Year",

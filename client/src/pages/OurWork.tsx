@@ -74,7 +74,7 @@ const HOSMER_PHOTOS = [
   `${CDN}/lVVEgyfcxeKKnmyY_2a04bfb2.webp`,
   `${CDN}/zCMVyaDdngZZHvwY_66d79f05.webp`,
   `${CDN}/oFCNJlnwxjSikzrO_14283c30.webp`,
-  `${CDN}/ITP_7558_e52a40c9.jpg`,
+  "/manus-storage/ITP_7558_e52a40c9_7af26cea.webp",
   `${CDN}/woXXsjlTaYTOCsnM_2e95a253.webp`,
   `${CDN}/lqqurINoAUnLOUdf_2f92d950.webp`,
   `${CDN}/TBxIerDoaHLuautE_76db8efa.webp`,
@@ -103,7 +103,7 @@ const MCGRATH_PHOTOS = [
   `${CDN}/veogFfZmynMseowj_8f8ae20b.webp`,
   `${CDN}/tHsXSKcevhyhsRjZ_a22ce559.webp`,
   `${CDN}/hIxjTkMgIukczrmz_89b818ae.webp`,
-  `${CDN}/GLLPatio9_9e7ea695.jpg`,
+  "/manus-storage/GLLPatio9_9e7ea695_fc9c47b6.webp",
 ];
 
 // Awbrey Butte Loop — luxury outdoor living: pond, fire pit, pergola, xeriscape
@@ -317,7 +317,7 @@ const AWBREY_GLEN_FLAGSTONE_PHOTOS = [
 ];
 // Legacy portfolio thumbnail grid (CDN-hosted)
 const LEGACY_PROJECTS = [
-  { title: "Bend Full Yard Transformation", category: "Design & Build · Xeriscape · Pavers", img: `${CDN}/proj-bend-after-backyard1_c8556c78.jpg`, href: "/portfolio/bend-full-yard-transformation" },
+  { title: "Bend Full Yard Transformation", category: "Design & Build · Xeriscape · Pavers", img: "/manus-storage/proj-bend-after-backyard1_c8556c78_33f6b99d.webp", href: "/portfolio/bend-full-yard-transformation" },
   { title: "Broken Top Water Feature & Sunken Fire Pit", category: "Water Features · Fire Features", img: "/manus-storage/brokentop-water-fire-01_54836cf3.jpg", href: "/portfolio/broken-top-water-feature" },
   { title: "NW Bend Backyard Landscaping", category: "Design & Build · Water Features", img: "/manus-storage/nw-bend-backyard-01_e6d82c48.jpg", href: "/portfolio/nw-bend-backyard" },
   { title: "East Bend Landscape Install", category: "Design & Build · Irrigation", img: "/manus-storage/east-bend-install-01_5ad4daf3.jpg", href: "/portfolio/east-bend-landscape" },

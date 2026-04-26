@@ -39,7 +39,7 @@ const portfolioItems = [
   {
     title: "Elevated Patio & Stone Wall",
     subtitle: "Bend, OR",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/GLLPatio9_9e7ea695.jpg",
+    image: "/manus-storage/GLLPatio9_9e7ea695_fc9c47b6.webp",
   },
   {
     title: "Patio & Outdoor Dining",

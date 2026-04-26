@@ -28,7 +28,7 @@ const photos = [
     span: "col-span-1 row-span-2",
   },
   {
-    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/ITP_7558_e52a40c9.jpg",
+    src: "/manus-storage/ITP_7558_e52a40c9_7af26cea.webp",
     title: "Outdoor Kitchen & BBQ",
     category: "Outdoor Living",
     span: "col-span-1 row-span-1",
