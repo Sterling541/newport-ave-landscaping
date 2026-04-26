@@ -43,7 +43,7 @@ const segments = [
     ],
     cta: { label: "Request a Commercial Bid", href: "/commercial" },
     cta2: { label: "(541) 617-8873", href: "tel:5416178873" },
-    photo: `${CDN}/DiscoveryWestPlazaHiResPhotos55_79ba9dd5.jpg`,
+    photo: "/manus-storage/DiscoveryWestPlazaHiResPhotos55_79ba9dd5_e0d97b76.webp",
     photoAlt: "Discovery West Plaza commercial landscape installation by Newport Avenue Landscaping",
     accent: "oklch(0.42 0.14 240)",
     accentBg: "oklch(0.97 0.008 240)",

@@ -825,3 +825,8 @@
 
 - [x] Remove LawnMowerDash from all navigation links and entry points (Navbar, Footer, Home.tsx GameSection, AdminLayout Game Analytics)
 - [x] Keep the route/component intact (just hidden, not deleted)
+
+## Session — April 26, 2026 (PageSpeed Round 3)
+
+- [x] Convert ITP_7385_f2bbba86.jpg to WebP and replace all references (StatsSection backgroundImage fix)
+- [x] Audit and fix all remaining CloudFront .jpg/.png references — 34 images converted, 41 replacements across 11 files. Zero CloudFront JPG/PNG refs remain.

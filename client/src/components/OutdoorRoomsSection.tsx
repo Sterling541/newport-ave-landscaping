@@ -38,7 +38,7 @@ const ROOMS = [
     tagline: "Cook. Entertain. Live Outside.",
     description:
       "Full outdoor kitchen builds with built-in grills, countertops, refrigeration, and bar seating. Designed around your entertaining style and integrated into your landscape.",
-    img: `${CDN}/outdoor-kitchen-water_90c45e1a.jpg`,
+    img: "/manus-storage/outdoor-kitchen-water_90c45e1a_63d85a27.webp",
     accent: "oklch(0.68 0.10 85)",
   },
   {
@@ -58,7 +58,7 @@ const ROOMS = [
     tagline: "Your Home After Dark",
     description:
       "Low-voltage LED systems for uplighting, path lighting, water feature illumination, and architectural accents. Smart-home compatible and energy efficient.",
-    img: `${CDN}/3771NESuchyBackyardHiResPhotos11-min-min_32e40dc0.jpg`,
+    img: "/manus-storage/3771NESuchyBackyardHiResPhotos11-min-min_32e40dc0_0de28f1b.webp",
     accent: "oklch(0.72 0.14 65)",
   },
 ];

@@ -40,20 +40,20 @@ const timeline = [
 
 const CDN = "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx";
 const team = [
-  { name: "Jana", role: "General Manager", photo: `${CDN}/jana_288ba6d2.jpg` },
-  { name: "Mykiah", role: "Front Office", photo: `${CDN}/mykiah_c5827e9e.jpg` },
-  { name: "Chris", role: "Project Manager", photo: `${CDN}/chris_ef87712c.jpg` },
-  { name: "Annelie", role: "Lead Landscape Designer", photo: `${CDN}/annelie_b391729e.jpg` },
-  { name: "Milton", role: "Maintenance Dept. Manager", photo: `${CDN}/milton_20cd3e98.jpg` },
-  { name: "Francis", role: "Irrigation Technician", photo: `${CDN}/francis_cf91fcf3.jpg` },
-  { name: "John", role: "Landscape Consultant", photo: `${CDN}/john_cbd8568a.jpg` },
-  { name: "Nathan", role: "Landscape Consultant", photo: `${CDN}/nathan_751cedd4.jpg` },
-  { name: "Jesus", role: "Construction Foreman", photo: `${CDN}/jesus_ce498865.jpg` },
-  { name: "Patrick", role: "Construction Foreman", photo: `${CDN}/patrick_d8adde10.jpg` },
-  { name: "Tommy", role: "Construction Foreman", photo: `${CDN}/tommy_01635e68.jpg` },
-  { name: "Miguel", role: "Construction Foreman", photo: `${CDN}/miguel_e78e38ce.jpg` },
-  { name: "Miguel Jr.", role: "Construction Foreman", photo: `${CDN}/miguel-jr_2042b338.jpg` },
-  { name: "Neri", role: "Maintenance Lead", photo: `${CDN}/neri_761c04b2.jpg` },
+  { name: "Jana", role: "General Manager", photo: "/manus-storage/jana_288ba6d2_c85bf91e.webp" },
+  { name: "Mykiah", role: "Front Office", photo: "/manus-storage/mykiah_c5827e9e_f334d1a0.webp" },
+  { name: "Chris", role: "Project Manager", photo: "/manus-storage/chris_ef87712c_f8eaa342.webp" },
+  { name: "Annelie", role: "Lead Landscape Designer", photo: "/manus-storage/annelie_b391729e_72156901.webp" },
+  { name: "Milton", role: "Maintenance Dept. Manager", photo: "/manus-storage/milton_20cd3e98_04e3e16c.webp" },
+  { name: "Francis", role: "Irrigation Technician", photo: "/manus-storage/francis_cf91fcf3_4ba4e30d.webp" },
+  { name: "John", role: "Landscape Consultant", photo: "/manus-storage/john_cbd8568a_5ffc7278.webp" },
+  { name: "Nathan", role: "Landscape Consultant", photo: "/manus-storage/nathan_751cedd4_1727ba56.webp" },
+  { name: "Jesus", role: "Construction Foreman", photo: "/manus-storage/jesus_ce498865_2fe85fac.webp" },
+  { name: "Patrick", role: "Construction Foreman", photo: "/manus-storage/patrick_d8adde10_c10fbba1.webp" },
+  { name: "Tommy", role: "Construction Foreman", photo: "/manus-storage/tommy_01635e68_624279a9.webp" },
+  { name: "Miguel", role: "Construction Foreman", photo: "/manus-storage/miguel_e78e38ce_a824f501.webp" },
+  { name: "Miguel Jr.", role: "Construction Foreman", photo: "/manus-storage/miguel-jr_2042b338_ce494c8c.webp" },
+  { name: "Neri", role: "Maintenance Lead", photo: "/manus-storage/neri_761c04b2_c5aea616.webp" },
 ];
 
 function FadeIn({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) {
