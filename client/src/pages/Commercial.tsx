@@ -32,21 +32,21 @@ const DW_CREW_PLANTING = "https://d2xsxph8kpxj0f.cloudfront.net/3105196635030281
 const NINES_CREW = "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NinesProject3_602cdeb8.jpg";
 
 const HERO_IMAGE =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportLandscapingRVParkPhotos50_5ba97805.jpg";
+  "/manus-storage/NewportLandscapingRVParkPhotos50_5ba97805_22d33efe.webp";
 const CREW_PLANTING =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportLandscapingRVParkDay2Photos2_8e8d0bb1.jpg";
+  "/manus-storage/NewportLandscapingRVParkDay2Photos2_8e8d0bb1_cd405dc0.webp";
 const CREW_ACTION =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportLandscapingRVParkDay2Photos2_8e8d0bb1.jpg";
+  "/manus-storage/NewportLandscapingRVParkDay2Photos2_8e8d0bb1_cd405dc0.webp";
 const CREW_IRRIGATION =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportLandscapingRVParkPhotos16_5e801b45.jpg";
+  "/manus-storage/NewportLandscapingRVParkPhotos16_5e801b45_fc8ec8ea.webp";
 const CREW_SOIL =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportLandscapingRVParkPhotos16_5e801b45.jpg";
+  "/manus-storage/NewportLandscapingRVParkPhotos16_5e801b45_fc8ec8ea.webp";
 const HOA_COMMUNITY =
   "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/hoa-central-oregon-aerial-FqxDA5HTtAdmvC4C8zTkoF.webp";
 const CREW_DAY2_11 =
   "/manus-storage/NewportLandscapingRVParkDay2Photos11_f8570f3e_1068a462.webp";
 const CREW_DAY2_25 =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportLandscapingRVParkDay2Photos25_79f2b575.jpg";
+  "/manus-storage/NewportLandscapingRVParkDay2Photos25_79f2b575_4f35f0ec.webp";
 
 // ── FadeIn helper ────────────────────────────────────────────
 function FadeIn({

@@ -812,3 +812,11 @@
 - [x] Add rel=preconnect for fonts.googleapis.com and fonts.gstatic.com
 - [x] Add <link rel=preload> for hero WebP image in client/index.html
 - [x] Fix storageProxy.ts: Cache-Control changed from no-store to public, max-age=31536000, immutable
+
+## Session — April 26, 2026 (PageSpeed Round 2)
+
+- [x] Convert NewportLandscapingRVParkDay2Photos11 JPG to WebP and update AboutSection.tsx
+- [x] Convert 4 more RVPark JPGs to WebP (91-94% reduction each) — 15 refs across 9 files
+- [x] Fix render-blocking Google Fonts (both font links now use print media trick)
+- [x] Add inline critical CSS to index.html for above-fold rendering
+- [ ] Fix bunny.net font missing font-display:swap (minor, 30ms savings)
