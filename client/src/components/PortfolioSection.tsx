@@ -29,7 +29,7 @@ const portfolioItems = [
   {
     title: "Outdoor Living Space",
     subtitle: "Bend, OR",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/GLLPatio2_4916fcde.jpg",
+    image: "/manus-storage/GLLPatio2_4916fcde_95c74f23.webp",
   },
   {
     title: "Commercial Landscape Installation",
@@ -44,12 +44,12 @@ const portfolioItems = [
   {
     title: "Patio & Outdoor Dining",
     subtitle: "Bend, OR",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/GLLPatio1_90e2e0c4.jpg",
+    image: "/manus-storage/GLLPatio1_90e2e0c4_166b9312.webp",
   },
   {
     title: "Paver Patio & Cable Railing",
     subtitle: "Bend, OR",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/GLLPatio2_4916fcde.jpg",
+    image: "/manus-storage/GLLPatio2_4916fcde_95c74f23.webp",
   },
   {
     title: "Tree Planting & Installation",

@@ -46,7 +46,7 @@ const CDN = "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUap
 
 const SCENES = [
   {
-    img: `${CDN}/NewportAveLandcaping-9_97b731b0.jpg`,
+    img: `/manus-storage/NewportAveLandcaping-9_97b731b0_1204d3ca.webp`,
     category: "WATER FEATURES & OUTDOOR LIVING",
     line1: "Where Every",
     line2: "Evening Feels",
@@ -54,7 +54,7 @@ const SCENES = [
     sub: "Central Oregon's premier landscaping company",
   },
   {
-    img: `${CDN}/fire7_f0b582ff.jpg`,
+    img: `/manus-storage/fire7_f0b582ff_56d05738.webp`,
     category: "FIRE FEATURES",
     line1: "Gather Around",
     line2: "Something",

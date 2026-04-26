@@ -7,7 +7,7 @@ import Footer from "@/components/Footer";
 import { Helmet } from "react-helmet-async";
 import { Link } from "wouter";
 
-const HERO_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/landscaping-native_fa3d1cfe.jpg";
+const HERO_IMG = "/manus-storage/landscaping-native_fa3d1cfe_e2d50e2c.webp";
 
 const SERVICES = [
   { title: "New Sprinkler System Installation", desc: "Full design and installation of residential and commercial irrigation systems — rotors, spray heads, drip zones, and smart controllers.", href: "/services/irrigation" },

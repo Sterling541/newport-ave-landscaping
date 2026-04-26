@@ -1,5 +1,6 @@
 import type { Express } from "express";
 import { ENV } from "./env";
+
 export function registerStorageProxy(app: Express) {
   app.get("/manus-storage/*", async (req, res) => {
     const key = (req.params as Record<string, string>)[0];
@@ -31,8 +32,11 @@ export function registerStorageProxy(app: Express) {
         res.status(502).send("Empty signed URL from backend");
         return;
       }
-      res.set("Cache-Control", "no-store");
-      res.redirect(307, url);
+      // Assets uploaded via manus-upload-file have content-hash filenames — safe to cache long-term.
+      // Using 301 (permanent) redirect so browsers and CDNs cache the redirect itself.
+      // max-age=31536000 = 1 year; immutable tells browsers not to revalidate.
+      res.set("Cache-Control", "public, max-age=31536000, immutable");
+      res.redirect(301, url);
     } catch (err) {
       console.error("[StorageProxy] failed:", err);
       res.status(502).send("Storage proxy error");

@@ -16,7 +16,7 @@
 import { useEffect, useRef, useState } from "react";
 
 const FOREST_HOME_4 =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/forest-home4_9324e5db.jpg";
+  "/manus-storage/forest-home4_9324e5db_31f1b27d.webp";
 
 export default function LightingSection() {
   const sectionRef = useRef<HTMLDivElement>(null);

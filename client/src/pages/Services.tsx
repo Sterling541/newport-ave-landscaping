@@ -51,7 +51,7 @@ const residentialServices = [
     title: "Sprinklers & Irrigation",
     href: "/services/irrigation",
     description: "With a full-time team dedicated exclusively to sprinkler installation and maintenance, we design and install efficient irrigation systems that keep your landscape thriving while conserving water.",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/water-feature-sunset_f7b219d3.jpg",
+    image: "/manus-storage/water-feature-sunset_f7b219d3_87f250b3.webp",
   },
   {
     title: "Water Features",
@@ -81,7 +81,7 @@ const residentialServices = [
     title: "Landscape Lighting",
     href: "/services/landscape-lighting",
     description: "Professional low-voltage LED landscape lighting that highlights your home's architecture, illuminates pathways, and creates dramatic nighttime ambiance. Energy-efficient and built to last.",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/maintenance-hero-bg_3219f29e.jpeg",
+    image: "/manus-storage/maintenance-hero-bg_3219f29e_7ba0517e.webp",
   },
   {
     title: "Xeriscaping",
@@ -93,7 +93,7 @@ const residentialServices = [
     title: "Drainage Solutions",
     href: "/services/drainage",
     description: "French drains, dry creek beds, catch basins, and grading solutions to protect your property from water damage. We solve drainage problems permanently and beautifully.",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/water-feature-sunset_f7b219d3.jpg",
+    image: "/manus-storage/water-feature-sunset_f7b219d3_87f250b3.webp",
   },
 ];
 

@@ -797,3 +797,18 @@
 - [ ] Clean HUD: large readable score/level, top-5 leaderboard always visible
 - [ ] Smooth game feel: proper acceleration, clear lane positions, satisfying collision feedback
 - [ ] All existing features preserved: celebration zoom, Double or Nothing, Giant Sterling, leaderboard, analytics tracking
+
+## Session — April 26, 2026 (PageSpeed Performance Fixes)
+
+- [x] Convert plant-outdoor-1/2/3/4/5 PNGs to WebP at 900px max width and re-upload
+- [x] Convert hero JPG (NewportAv….jpg) to WebP at 1600px max width and re-upload
+- [x] Convert GLLPatio1/2 JPGs to WebP and re-upload
+- [x] Convert NewportLa….jpg, ITP_7385.jpg, forest-home4.jpg to WebP and re-upload
+- [x] Convert logo PNGs to WebP and re-upload
+- [x] Update BotanicalBand.tsx with new WebP CDN URLs
+- [x] Update HeroSection.tsx with new WebP hero URL
+- [x] Update WhoWeServe.tsx, PortfolioSection.tsx, and other components with WebP URLs (99 replacements across 69 files)
+- [x] Add font-display=swap to Google Fonts URL in client/index.html
+- [x] Add rel=preconnect for fonts.googleapis.com and fonts.gstatic.com
+- [x] Add <link rel=preload> for hero WebP image in client/index.html
+- [x] Fix storageProxy.ts: Cache-Control changed from no-store to public, max-age=31536000, immutable
