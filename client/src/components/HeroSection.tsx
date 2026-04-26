@@ -298,6 +298,17 @@ export default function HeroSection() {
     }, 450);
   };
 
+  // Preload subsequent scene images after initial paint to avoid jank on first transition
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      SCENES.slice(1).forEach((sc) => {
+        const img = new window.Image();
+        img.src = sc.img;
+      });
+    }, 2000); // wait 2s so preloads don't compete with LCP
+    return () => clearTimeout(timer);
+  }, []);
+
   useEffect(() => {
     intervalRef.current = setInterval(() => {
       setFading(true);

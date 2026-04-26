@@ -209,7 +209,7 @@ function MegaMenu({
           >
             {subline}
           </p>
-          <h3
+          <h2
             style={{
               fontFamily: "'Cormorant Garamond', serif",
               fontWeight: 700,
@@ -222,7 +222,7 @@ function MegaMenu({
             }}
           >
             {headline}
-          </h3>
+          </h2>
         </div>
         {/* Green corner accent */}
         <div
@@ -489,8 +489,8 @@ export default function Navbar() {
                 display: "inline-flex",
                 alignItems: "center",
                 justifyContent: "center",
-                minWidth: "28px",
-                minHeight: "28px",
+                minWidth: "44px",
+                minHeight: "44px",
                 WebkitTapHighlightColor: "transparent",
               }}
               onMouseEnter={(e) => ((e.currentTarget as HTMLButtonElement).style.opacity = "1")}
@@ -799,11 +799,13 @@ export default function Navbar() {
 
           <button
             onClick={() => goTo("/")}
+            aria-label="Newport Avenue Landscaping — Home"
             style={{ background: "none", border: "none", cursor: "pointer", padding: 0 }}
           >
             <img
               src={LOGO_NAV}
-              alt="Newport Avenue Landscaping"
+              alt=""
+              aria-hidden="true"
               style={{ height: "44px", width: "auto", objectFit: "contain" }}
             />
           </button>
@@ -1096,6 +1098,7 @@ export default function Navbar() {
           >
             <button
               onClick={() => { setAdminModalOpen(false); setAdminCode(""); setAdminError(false); }}
+              aria-label="Close admin login"
               style={{
                 position: "absolute",
                 top: "0.75rem",
@@ -1107,6 +1110,8 @@ export default function Navbar() {
                 fontSize: "1.1rem",
                 lineHeight: 1,
                 padding: "4px",
+                minWidth: "32px",
+                minHeight: "32px",
               }}
             >
               ✕
