@@ -21,8 +21,54 @@ export default function PrinevillePage() {
         { icon: "architecture", name: "Sustainable Prineville Xeriscaping", description: "Embrace water-wise landscaping with our xeriscaping solutions, ideal for Prineville's arid conditions and commitment to sustainability. We create beautiful, low-maintenance landscapes using drought-tolerant plants, efficient irrigation, and thoughtful hardscaping elements. Our xeriscaping designs reduce water consumption while enhancing the natural beauty of your Prineville property, making it both eco-friendly and stunning.", href: "/services/xeriscaping" },
         { icon: "commercial", name: "Commercial Landscaping in Prineville", description: "Newport Avenue Landscaping provides comprehensive commercial landscaping services for businesses and properties throughout Prineville. We understand the importance of a professional and inviting exterior for your commercial space, from regular maintenance to large-scale landscape installations. Our team ensures your business makes a lasting positive impression, reflecting the quality and care you put into your operations.", href: "/services/snow-removal" },
       ]}
+      neighborhoodSections={[
+        {
+          name: "Downtown Prineville & Ochoco Creek Corridor",
+          description: "The historic heart of Prineville runs along the Ochoco Creek corridor, where mature trees, riparian vegetation, and older residential lots create a distinctive landscape character. Properties in this area often feature larger, established trees that require skilled pruning and care, along with opportunities for lush irrigated lawns and ornamental gardens that take advantage of the creek's moderating influence on the local microclimate.",
+          highlights: [
+            "Mature tree care and preservation for established downtown properties",
+            "Riparian-edge planting design using native willows, alders, and sedges",
+            "Irrigated lawn programs for older residential lots",
+            "Hardscape restoration and patio installation for historic homes",
+          ],
+          projectNote: "Our downtown Prineville clients often have mature landscapes that need thoughtful renovation rather than wholesale replacement — we specialize in enhancing what's already there.",
+        },
+        {
+          name: "Meadow Lakes Golf Course Area",
+          description: "The neighborhoods surrounding Meadow Lakes Golf Course represent some of Prineville's most desirable residential real estate, with properties that benefit from the golf course's green backdrop and the community's well-maintained aesthetic. Homeowners here typically want landscapes that complement the resort-like setting while managing the high-desert climate's demands on water and plant selection.",
+          highlights: [
+            "Golf-course-adjacent landscape design that complements the resort aesthetic",
+            "Smart irrigation systems calibrated for Prineville's dry summers",
+            "Drought-tolerant turf alternatives and xeriscape conversions",
+            "Outdoor living spaces with fire features for cool Crook County evenings",
+          ],
+          projectNote: "Meadow Lakes area clients frequently invest in outdoor living spaces — the views and the golf course setting make patios and fire features especially appealing here.",
+        },
+        {
+          name: "Ochoco Reservoir & Rural Acreage Properties",
+          description: "The rural properties east of Prineville near Ochoco Reservoir and throughout the Ochoco foothills present unique landscaping opportunities and challenges. Large acreage lots, dramatic views of the Ochoco Mountains, and the proximity to the national forest create a setting where thoughtful landscape design can dramatically enhance property value and livability. Fire-wise landscaping is a genuine priority for many of these properties.",
+          highlights: [
+            "Large-lot irrigation design for acreage properties",
+            "Fire-wise landscaping and defensible space creation per Crook County requirements",
+            "Native plant integration that complements the Ochoco Mountain backdrop",
+            "Orchard and vegetable garden installation for rural homesteads",
+          ],
+          projectNote: "Rural properties near the reservoir often need comprehensive irrigation planning — we design systems that can cover large areas efficiently without waste.",
+        },
+        {
+          name: "Juniper Acres & North Prineville Subdivisions",
+          description: "The newer residential subdivisions north of downtown Prineville, including the Juniper Acres area, feature more recently built homes on standard suburban lots where homeowners are establishing landscapes from scratch or renovating builder-grade installations. These properties benefit from thoughtful design that embraces Prineville's high-desert character while creating functional, beautiful outdoor spaces.",
+          highlights: [
+            "New construction landscape installation from bare ground",
+            "Builder-grade lawn and irrigation system upgrades",
+            "Xeriscape front yard conversions that reduce water bills",
+            "Paver patio and walkway installation for outdoor entertaining",
+          ],
+          projectNote: "Many of our Juniper Acres clients are first-time homeowners establishing their landscape for the first time — we guide them through the entire process from design to installation.",
+        },
+      ]}
       whyUs={[
-        "Over 19 years of dedicated service in Central Oregon, including the Prineville community, since 2005.",
+        "Over 21 years of dedicated service in Central Oregon, including the Prineville community, since 2005.",
         "Oregon Landscape Contractor Bond #9153 (LCB #9153), fully licensed, bonded, and insured for your peace of mind.",
         "A robust team of 110+ in-house staff, ensuring consistent quality and timely project completion without relying on subcontractors.",
         "Deep understanding of Prineville's unique climate, soil, and local landscaping challenges, guaranteeing tailored solutions.",
@@ -32,7 +78,7 @@ export default function PrinevillePage() {
       nearbyAreas={[
         { label: "Bend", href: "/landscaping/bend" },
         { label: "Redmond", href: "/landscaping/redmond" },
-        { label: "Crooked River Ranch", href: "/landscaping/crooked-river-ranch" },
+        { label: "Crooked River Ranch", href: "/service-areas/crooked-river-ranch" },
         { label: "Powell Butte", href: "/landscaping/powell-butte" },
         { label: "Madras", href: "/landscaping/madras" },
         { label: "Sisters", href: "/landscaping/sisters" },
@@ -48,6 +94,6 @@ export default function PrinevillePage() {
         { question: "How does Prineville's climate impact plant choices for landscaping?", answer: "Prineville's distinct high-desert climate, with its warmer summers, colder winters, and lower annual precipitation compared to other Central Oregon cities, significantly influences optimal plant selection. We recommend and utilize a variety of drought-tolerant and native species that are well-adapted to USDA Zone 6a conditions and the local soil composition. Our designs prioritize plants that can withstand temperature extremes and require less water, ensuring your landscape remains vibrant and healthy with minimal intervention, perfectly suited to Prineville's environmental characteristics." },
       ]}
       mapEmbedUrl="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d23548.5!2d-120.8340!3d44.2998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54b8e0b8b8b8b8b8%3A0x1088e7acc720d1b4!2sPrineville%2C%20OR!5e0!3m2!1sen!2sus!4v1713400000005"
-/>
+    />
   );
 }

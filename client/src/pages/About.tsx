@@ -87,7 +87,7 @@ export default function About() {
     <div style={{ backgroundColor: "oklch(0.97 0.012 85)" }}>
       <SEO
         title="About Newport Avenue Landscaping | Bend, Oregon Since 2005"
-        description="Meet Sterling West and the Newport Avenue team — Central Oregon's most experienced full-service landscape contractor. 150+ professionals, 21+ years serving Bend, OR. LCB #9153."
+        description="Meet Sterling West and the Newport Avenue team — Central Oregon's most experienced full-service landscape contractor. 110+ professionals, 21+ years serving Bend, OR. LCB #9153."
         canonical="/about"
       />
       <Navbar />
@@ -312,7 +312,7 @@ export default function About() {
                 className="font-display font-light text-white mb-2"
                 style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)" }}
               >
-                150<span style={{ color: "oklch(0.72 0.12 25)" }}>+</span>
+                110<span style={{ color: "oklch(0.72 0.12 25)" }}>+</span>
               </div>
               <div className="font-label" style={{ color: "oklch(0.60 0.008 0)" }}>
                 Incredibly Hard-Working Landscapers in the Field Every Day

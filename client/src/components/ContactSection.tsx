@@ -34,6 +34,16 @@ export default function ContactSection() {
   const handleStep2 = (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitted(true);
+    // Google Ads conversion tracking
+    try {
+      if (typeof (window as any).gtag === "function") {
+        (window as any).gtag("event", "conversion", {
+          send_to: "AW-CONVERSION_ID/CONTACT_LABEL",
+          event_category: "Lead",
+          event_label: "Contact Form Submission",
+        });
+      }
+    } catch (_) {}
   };
 
   const inputStyle = {
@@ -442,7 +452,7 @@ export default function ContactSection() {
                   "Licensed Landscape Contractor — LCB #9153",
                   "Fully licensed & bonded in Oregon",
                   "21+ years serving Central Oregon",
-                  "400+ completed residential projects",
+                  "350+ completed residential projects",
                   "Same dedicated crew every visit",
                   "Free estimates on all projects",
                 ].map((item) => (

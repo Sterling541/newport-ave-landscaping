@@ -176,7 +176,7 @@ export default function Services() {
                 className="font-body mb-5"
                 style={{ color: "oklch(0.38 0.008 0)", lineHeight: 1.8, fontWeight: 300 }}
               >
-                Newport Avenue Landscaping handles every aspect of landscape installation — from award-winning custom design to the final walkthrough. Our team of 150+ professionals has completed thousands of projects across Central Oregon, from intimate residential gardens to large commercial developments and government contracts.
+                Newport Avenue Landscaping handles every aspect of landscape installation — from award-winning custom design to the final walkthrough. Our team of 110+ professionals has completed thousands of projects across Central Oregon, from intimate residential gardens to large commercial developments and government contracts.
               </p>
               <p
                 className="font-body"

@@ -208,7 +208,7 @@ export default function Maintenance() {
                 {[
                   { num: "21+", label: "Years Serving Central Oregon" },
                   { num: "1000s", label: "Properties Maintained" },
-                  { num: "150+", label: "Team Members" },
+                  { num: "110+", label: "Team Members" },
                   { num: "7", label: "Maintenance Services" },
                 ].map((s) => (
                   <div key={s.label} className="p-6" style={{ backgroundColor: "oklch(0.97 0.012 85)" }}>

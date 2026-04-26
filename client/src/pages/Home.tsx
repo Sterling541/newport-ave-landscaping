@@ -74,7 +74,7 @@ export default function Home() {
       </Suspense>
 
       <Suspense fallback={<SectionFallback />}>
-        <BotanicalBand label="PORTFOLIO  ◆  150+ PROJECTS" variant="b" />
+        <BotanicalBand label="PORTFOLIO  ◆  350+ PROJECTS" variant="b" />
         <AboutSection />
         <PhotoGallery />
       </Suspense>

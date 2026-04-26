@@ -48,7 +48,53 @@ export default function EagleCrestPage() {
           icon: "flame",
           name: "Eagle Crest Fire-Wise Landscaping",
           description: "Eagle Crest sits within the Wildland-Urban Interface zone, making defensible space a critical consideration for every property. We assess your property's fire risk zones, remove high-risk vegetation (junipers, manzanita, ladder fuels), and replant with fire-resistant species that maintain the resort's natural aesthetic while protecting your home. We are familiar with Deschutes County's defensible space ordinance and can bring your property into full compliance.",
-          href: "/services/firewise-landscaping"
+          href: "/firewise-landscaping-bend-oregon"
+        },
+      ]}
+      neighborhoodSections={[
+        {
+          name: "Eagle Crest Golf Course Neighborhoods",
+          description: "The residential areas surrounding Eagle Crest's three golf courses — Eagle Crest, Resort, and Coyote Run — represent the heart of the resort community. Properties here benefit from the golf course's manicured aesthetic and the community's strong HOA standards, which create a consistently well-maintained environment. Homeowners in these neighborhoods typically want landscapes that complement the resort's polished look while expressing their individual style within HOA guidelines.",
+          highlights: [
+            "HOA-compliant landscape design that meets Eagle Crest's exterior standards",
+            "Golf-course-adjacent turf programs for pristine lawn appearance",
+            "Drought-tolerant plant selections that reduce irrigation costs",
+            "Seasonal maintenance programs for vacation rental owners between guest stays",
+          ],
+          projectNote: "Golf course neighborhood clients often need help navigating HOA approval for landscape changes — we handle the documentation and submission process on their behalf.",
+        },
+        {
+          name: "Eagle Crest Rimrock & High-Desert Residential Areas",
+          description: "The residential areas along Eagle Crest's dramatic basalt rimrock and high-desert terrain offer some of the most spectacular settings in Central Oregon. Properties here have views of the Cascades, the Crooked River canyon, and the surrounding high desert that deserve landscape designs focused on view enhancement and natural integration. The rimrock terrain also creates unique challenges for irrigation and planting that require specialized expertise.",
+          highlights: [
+            "View-framing landscape design for Cascade and canyon vistas",
+            "Rimrock-edge planting using native bunchgrasses and drought-tolerant shrubs",
+            "Irrigation system design for fast-draining volcanic soil",
+            "Fire-wise defensible space creation per Deschutes County R327 ordinance",
+          ],
+          projectNote: "Rimrock properties require careful irrigation design — the basalt substrate drains so quickly that standard irrigation schedules are inadequate, and we calibrate systems specifically for these conditions.",
+        },
+        {
+          name: "Eagle Crest Vacation Rental Properties",
+          description: "Eagle Crest has a significant concentration of vacation rental properties, and the landscaping needs of vacation rental owners are distinctly different from full-time residents. Curb appeal directly drives rental income and reviews, and the property must look its best at all times without the owner being present to manage it. We offer maintenance programs specifically designed for vacation rental owners, with flexible scheduling and priority response for any issues.",
+          highlights: [
+            "Flexible maintenance scheduling that works around rental calendars",
+            "Priority response for landscape issues between guest stays",
+            "Seasonal services (spring startup, fall cleanup, irrigation winterization)",
+            "Curb appeal enhancements that drive higher rental rates and better reviews",
+          ],
+          projectNote: "Many of our Eagle Crest vacation rental clients are out-of-area owners who rely on us as their trusted on-the-ground partner — we send photo reports after each service visit.",
+        },
+        {
+          name: "Eagle Crest Commercial & Resort Amenity Areas",
+          description: "Eagle Crest's resort amenities — the clubhouses, fitness centers, pools, and trail systems — require commercial-grade landscape maintenance that meets the resort's high standards. Newport Avenue Landscaping provides commercial maintenance services for Eagle Crest's common areas and amenity zones, ensuring the resort's public spaces look as polished as its private residences.",
+          highlights: [
+            "Commercial-grade maintenance for resort common areas and amenities",
+            "Irrigation system management for large commercial turf areas",
+            "Seasonal color programs for resort entry and amenity areas",
+            "Snow removal and winter maintenance for resort access roads and parking areas",
+          ],
+          projectNote: "Commercial maintenance at Eagle Crest requires coordination with the resort's HOA management team — we have established relationships with Eagle Crest's property management and understand their standards.",
         },
       ]}
       whyUs={[

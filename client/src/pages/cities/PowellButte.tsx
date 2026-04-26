@@ -67,6 +67,41 @@ export default function PowellButtePage() {
         { label: "Eagle Crest", href: "/landscaping/eagle-crest" },
         { label: "Sisters", href: "/landscaping/sisters" },
       ]}
+      neighborhoodSections={[
+        {
+          name: "Powell Butte Nature Park Area & Rural Homesteads",
+          description: "The properties surrounding the Powell Butte Nature Park represent the heart of this rural community. Large lots with views of the butte itself, native bunchgrass meadows, and the quiet agricultural character of the area create a setting where thoughtful landscape design enhances rather than competes with the natural environment. Many properties here are established homesteads with mature trees and existing landscapes that need thoughtful renovation.",
+          highlights: [
+            "Native plant restoration using Central Oregon bunchgrasses, sagebrush, and wildflowers",
+            "Large-lot irrigation design for properties with well or irrigation district water",
+            "Mature tree care and preservation for established homestead properties",
+            "Fire-wise defensible space creation per Deschutes County R327 ordinance",
+          ],
+          projectNote: "Nature Park area properties often want landscapes that blend seamlessly with the park's natural character — we design with native plants and natural materials that feel at home in this setting.",
+        },
+        {
+          name: "Powell Butte Ranch & Farm Properties",
+          description: "Powell Butte's agricultural heritage is reflected in its many working ranches, farms, and horse properties. These large acreage properties combine functional agricultural areas with residential landscapes, and the best designs serve both purposes. Pasture management, orchard installation, and large-lot irrigation are common needs, alongside ornamental landscaping near the home that creates a welcoming, well-maintained appearance.",
+          highlights: [
+            "Pasture management and large-area mowing programs",
+            "Orchard and productive garden installation for rural homesteads",
+            "Large-lot irrigation systems for properties with multiple water uses",
+            "Windbreak design using native conifers and shrubs for horse and livestock properties",
+          ],
+          projectNote: "Ranch and farm clients often need irrigation systems that serve both ornamental and agricultural areas — we design integrated systems that handle both needs efficiently.",
+        },
+        {
+          name: "Powell Butte WUI-Zone Properties",
+          description: "The majority of Powell Butte sits within Deschutes County's Wildland-Urban Interface zone, making fire-wise landscaping not just a good idea but a legal requirement. Properties throughout the community need defensible space assessments and, in many cases, significant vegetation management to bring them into compliance with Deschutes County's R327 ordinance. Our team is experienced with the ordinance requirements and can guide property owners through the compliance process.",
+          highlights: [
+            "Defensible space assessment and written compliance documentation",
+            "Juniper, sagebrush, and ladder fuel removal within Zone 1 (0–30 ft)",
+            "Zone 2 (30–100 ft) vegetation management and thinning",
+            "Fire-resistant replanting with native bunchgrasses and low-growing shrubs",
+          ],
+          projectNote: "WUI compliance work often qualifies for insurance discounts — we provide written documentation of all defensible space work completed that clients can submit to their insurer.",
+        },
+      ]}
       ctaNote="Ready to improve your Powell Butte property? Contact Newport Avenue Landscaping today for a free, no-obligation estimate. We understand the unique challenges of rural Central Oregon landscaping and have the crew, equipment, and expertise to handle properties of any size."
       faqs={[
         {

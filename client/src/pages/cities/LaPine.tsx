@@ -21,21 +21,67 @@ export default function LaPinePage() {
         { icon: "architecture", name: "Xeriscaping & Fire-Wise Landscaping in La Pine", description: "Embrace water-wise and fire-wise landscaping with our xeriscape solutions, perfectly suited for La Pine's dry summers, sandy soils, and proximity to the urban-wildland interface. We design and install beautiful, low-maintenance landscapes using drought-tolerant, cold-hardy plants and efficient drip irrigation. Reduce your water usage, lower your fire risk, and create a resilient garden that thrives in La Pine's unique conditions.", href: "/services/xeriscaping" },
         { icon: "commercial", name: "Commercial Landscaping & Snow Removal in La Pine", description: "Newport Avenue Landscaping provides comprehensive commercial services for businesses in La Pine, ensuring your property remains attractive and safe year-round. From regular landscape maintenance to critical snow removal during heavy La Pine winters, we keep your commercial spaces pristine. Our reliable team and equipment handle large-scale commercial and rural properties efficiently.", href: "/services/snow-removal" },
       ]}
+      neighborhoodSections={[
+        {
+          name: "La Pine City Center & Finley Butte Area",
+          description: "La Pine's city center and the Finley Butte area represent the commercial and civic heart of South Deschutes County. Residential properties here are a mix of older established homes and newer construction, all sharing the challenge of La Pine's Zone 5b climate. The Finley Butte area's higher elevation and exposure to prevailing winds creates a slightly more demanding microclimate that requires careful plant selection and windbreak design.",
+          highlights: [
+            "Cold-hardy plant selection proven for Zone 5b La Pine winters",
+            "Windbreak design using native ponderosa pine and shrubs",
+            "Irrigated lawn programs timed around La Pine's short growing season",
+            "Commercial landscape maintenance for La Pine's business district",
+          ],
+          projectNote: "City center clients often need help timing their spring landscape startup correctly — La Pine's late frosts can catch homeowners off guard, and we manage the seasonal calendar for them.",
+        },
+        {
+          name: "La Pine State Park & Little Deschutes River Corridor",
+          description: "The properties near La Pine State Park and along the Little Deschutes River corridor enjoy some of the most beautiful natural settings in South Deschutes County. The river corridor creates a riparian microclimate with more moisture and slightly milder temperatures than the surrounding high desert, opening up plant palette options not available elsewhere in La Pine. These properties often have spectacular views of the river and surrounding ponderosa forest.",
+          highlights: [
+            "Riparian edge planting using native sedges, willows, and moisture-tolerant species",
+            "View-framing landscape design that highlights the river and forest backdrop",
+            "Fire-wise landscaping for WUI-zone properties near the national forest",
+            "Native plant restoration and habitat enhancement",
+          ],
+          projectNote: "River corridor properties require careful attention to riparian setback requirements and native plant protection — our team is experienced with the relevant Deschutes County regulations.",
+        },
+        {
+          name: "Wickiup Reservoir & South La Pine Rural Properties",
+          description: "The rural properties south of La Pine near Wickiup Reservoir and throughout the Deschutes National Forest interface represent some of the most fire-sensitive landscapes in Central Oregon. Large acreage lots, dense ponderosa pine, and the proximity to national forest land create both beautiful settings and real fire risk. Defensible space creation and fire-wise landscaping are the top priorities for many of these property owners.",
+          highlights: [
+            "Defensible space creation per Deschutes County R327 ordinance",
+            "Juniper and ladder fuel removal around structures",
+            "Fire-resistant replanting with native bunchgrasses and low-growing shrubs",
+            "Large-lot irrigation design for acreage properties",
+          ],
+          projectNote: "Rural properties near Wickiup often need comprehensive fire-wise assessments — we provide written defensible space plans that document the work completed for insurance and county compliance purposes.",
+        },
+        {
+          name: "Newberry Estates & La Pine Subdivisions",
+          description: "The newer residential subdivisions in and around La Pine, including the Newberry Estates area, feature homes on standard suburban lots where homeowners are establishing or renovating landscapes in La Pine's demanding climate. These properties benefit most from cold-hardy design, efficient irrigation, and low-maintenance plant selections that look great without requiring constant attention during the short growing season.",
+          highlights: [
+            "New construction landscape installation from bare ground",
+            "Low-maintenance xeriscape designs for busy homeowners",
+            "Efficient drip irrigation systems for La Pine's sandy volcanic soil",
+            "Paver patio and fire feature installation for outdoor entertaining",
+          ],
+          projectNote: "Subdivision clients in La Pine often want landscapes that are beautiful but genuinely low-maintenance — we design with that goal in mind from the start, not as an afterthought.",
+        },
+      ]}
       whyUs={[
         "Over 21 years of dedicated landscaping service in Central Oregon, including the La Pine and South Deschutes County area.",
         "Oregon Landscape Contractor Bond #9153 (LCB #9153) -- fully licensed, bonded, and insured for your peace of mind.",
         "A robust team of 110+ in-house staff, guaranteeing consistent quality and timely project completion.",
         "Deep understanding of La Pine's Zone 5b climate, short growing season, and fire-wise landscaping requirements.",
         "We never use subcontractors, ensuring accountability and the highest standards on every La Pine project.",
-        "industry-standard plant and irrigation warranties on all installation projects."
+        "Industry-standard plant and irrigation warranties on all installation projects."
       ]}
       nearbyAreas={[
         { label: "Bend", href: "/landscaping/bend" },
         { label: "Sunriver", href: "/landscaping/sunriver" },
-        { label: "Crescent", href: "/landscaping/crescent" },
-        { label: "Chemult", href: "/landscaping/chemult" },
-        { label: "Gilchrist", href: "/landscaping/gilchrist" },
-        { label: "Klamath Falls", href: "/landscaping/klamath-falls" }
+        { label: "Tumalo", href: "/landscaping/tumalo" },
+        { label: "Sisters", href: "/landscaping/sisters" },
+        { label: "Redmond", href: "/landscaping/redmond" },
+        { label: "Powell Butte", href: "/landscaping/powell-butte" }
       ]}
       ctaNote="Ready to transform your La Pine property? Contact Newport Avenue Landscaping today for a free estimate and discover our seasonal programs tailored for La Pine's unique climate. We pride ourselves on prompt response times and personalized service, ensuring your outdoor vision becomes a reality. Let's create a landscape that thrives in La Pine's beautiful but demanding environment."
       faqs={[
@@ -43,11 +89,11 @@ export default function LaPinePage() {
         { question: "What landscaping services does Newport Avenue offer in La Pine?", answer: "Newport Avenue Landscaping provides a full spectrum of services specifically adapted for the La Pine area's challenging climate. This includes expert lawn care, custom landscape design, efficient irrigation system installation and repair, and the creation of inviting outdoor living spaces with fire features and covered patios. We also specialize in xeriscaping and fire-wise landscaping, retaining walls, landscape lighting, and essential commercial landscaping and snow removal services." },
         { question: "Is Newport Avenue Landscaping licensed and insured in Oregon?", answer: "Yes. Newport Avenue Landscaping holds Oregon Landscape Contractor Bond #9153 (LCB #9153). We are fully licensed, bonded, and insured for all residential and commercial landscaping work in La Pine and throughout Central Oregon. All work is performed by our own employees -- we never use subcontractors." },
         { question: "Do you offer free estimates in La Pine, Oregon?", answer: "Absolutely. Newport Avenue Landscaping is pleased to offer free, no-obligation estimates for all prospective projects in La Pine. We typically respond to inquiries within 24–48 hours to schedule a convenient site visit. During this visit, our experts will assess your property, discuss your vision, and provide a detailed written proposal tailored to La Pine's specific landscaping requirements." },
-        { question: "What areas of La Pine do you serve?", answer: "Newport Avenue Landscaping proudly serves all key areas within and around La Pine, Oregon. This includes the La Pine State Park area, properties near Wickiup Reservoir, the Finley Butte area, the Little Deschutes River corridor, and various rural residential lots throughout South Deschutes County. We also extend our services to Sunriver, Crescent, and other surrounding communities." },
+        { question: "What areas of La Pine do you serve?", answer: "Newport Avenue Landscaping proudly serves all key areas within and around La Pine, Oregon. This includes the La Pine State Park area, properties near Wickiup Reservoir, the Finley Butte area, the Little Deschutes River corridor, Newberry Estates, and various rural residential lots throughout South Deschutes County. We also extend our services to Sunriver, Crescent, and other surrounding communities." },
         { question: "How do you manage La Pine's short growing season and late frosts?", answer: "Managing La Pine's short growing season and late frosts requires careful planning and plant selection, which is a cornerstone of our approach. We prioritize cold-hardy, native, and adapted plant species that are proven to thrive in USDA Zone 5b conditions and can withstand unexpected temperature drops well into June. Our team also implements strategies like proper mulching to extend soil warmth, and we time installations carefully to avoid frost damage to new plantings." },
         { question: "Do you do fire-wise landscaping in La Pine?", answer: "Yes -- fire-wise landscaping is an important consideration for many La Pine properties, particularly those near the Deschutes National Forest and the urban-wildland interface. We design fire-wise landscapes that reduce fuel loads around structures while maintaining beauty and curb appeal. This includes selecting fire-resistant plants, creating defensible space zones at the recommended distances from structures, and using non-combustible hardscaping materials near the home. Given La Pine's fire history and the density of ponderosa pine in the area, this is one of the most valuable investments a La Pine homeowner can make." },
       ]}
       mapEmbedUrl="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d23548.5!2d-121.5049!3d43.6679!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54b8a0b8b8b8b8b8%3A0x1088e7acc720d1b4!2sLa%20Pine%2C%20OR!5e0!3m2!1sen!2sus!4v1713400000006"
-/>
+    />
   );
 }

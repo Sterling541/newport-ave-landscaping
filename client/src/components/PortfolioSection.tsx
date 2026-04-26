@@ -17,52 +17,52 @@ const FACILITY_SHOWROOM =
 const CDN_BASE = "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx";
 const portfolioItems = [
   {
-    title: "Bend Full Yard Transformation",
+    title: "Full Backyard Landscape Renovation — Bend, Oregon",
     subtitle: "Bend, OR",
     image: "/manus-storage/proj-bend-after-backyard1_c8556c78_6a253543.webp",
   },
   {
-    title: "Paver Patio & Fire Feature",
+    title: "Custom Paver Patio with Gas Fire Pit — Bend, OR",
     subtitle: "Bend, OR",
     image: "/manus-storage/GLLPatio10_2ffabcfb_2fda87b6.webp",
   },
   {
-    title: "Outdoor Living Space",
+    title: "Outdoor Living Space with Pergola — Bend, OR",
     subtitle: "Bend, OR",
     image: "/manus-storage/GLLPatio2_600w_127ef46c.webp",
   },
   {
-    title: "Commercial Landscape Installation",
+    title: "Commercial Landscape Installation — Central Oregon",
     subtitle: "Central Oregon",
     image: "/manus-storage/NewportLandscapingRVParkDay2Photos2_8e8d0bb1_cd405dc0.webp",
   },
   {
-    title: "Elevated Patio & Stone Wall",
+    title: "Elevated Concrete Paver Patio & Stone Retaining Wall — Bend",
     subtitle: "Bend, OR",
     image: "/manus-storage/GLLPatio9_9e7ea695_fc9c47b6.webp",
   },
   {
-    title: "Patio & Outdoor Dining",
+    title: "Paver Patio & Outdoor Dining Area — Bend, Oregon",
     subtitle: "Bend, OR",
     image: "/manus-storage/GLLPatio1_600w_0ffadc69.webp",
   },
   {
-    title: "Paver Patio & Cable Railing",
+    title: "Paver Patio with Cable Railing — Bend, OR",
     subtitle: "Bend, OR",
     image: "/manus-storage/GLLPatio2_600w_127ef46c.webp",
   },
   {
-    title: "Tree Planting & Installation",
+    title: "Large Tree Planting & Installation — Central Oregon",
     subtitle: "Central Oregon",
     image: "/manus-storage/NewportLandscapingRVParkPhotos16_5e801b45_fc8ec8ea.webp",
   },
   {
-    title: "Residential Landscaping",
+    title: "Residential Landscape Design & Installation — Bend, OR",
     subtitle: "Bend, OR",
     image: "/manus-storage/IMG_1336_4fa29027_3d91d101.webp",
   },
   {
-    title: "Our Nursery & Plant Yard",
+    title: "Newport Avenue Landscaping Nursery & Plant Yard — 61535 S Hwy 97, Bend",
     subtitle: "61535 S Hwy 97, Bend",
     image: FACILITY_NURSERY,
   },

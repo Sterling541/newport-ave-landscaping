@@ -374,7 +374,7 @@ export default function CityPageLayout(props: CityPageProps) {
           <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-2">
             {[
               "Serving " + city + " Since 2005",
-              "150+ In-House Professionals",
+              "110+ In-House Professionals",
               "Licensed, Bonded & Insured — LCB #9153",
               "Free Estimates",
             ].map((item) => (

@@ -37,6 +37,41 @@ export default function TerrebonnePage() {
         { label: "Prineville", href: "/landscaping/prineville" },
         { label: "Sisters", href: "/landscaping/sisters" },
       ]}
+      neighborhoodSections={[
+        {
+          name: "Smith Rock Gateway & Highway 97 Corridor",
+          description: "The properties along Highway 97 north of Redmond and at the gateway to Smith Rock State Park benefit from high visibility and the dramatic backdrop of the Crooked River canyon and the iconic Smith Rock formations. Commercial properties here need landscapes that make a strong first impression, while residential properties can take advantage of the spectacular natural setting with designs that frame the canyon views.",
+          highlights: [
+            "Commercial landscape maintenance for Highway 97 corridor businesses",
+            "View-framing residential design that highlights Smith Rock and canyon vistas",
+            "Drought-tolerant plant selections suited to Terrebonne's rocky volcanic soil",
+            "Seasonal color programs for commercial properties near the park entrance",
+          ],
+          projectNote: "Highway 97 commercial clients often need reliable, consistent maintenance that keeps their property looking professional year-round — we offer annual maintenance contracts with guaranteed service schedules.",
+        },
+        {
+          name: "Crooked River Canyon & Rural Terrebonne Properties",
+          description: "The rural properties surrounding Terrebonne and along the Crooked River canyon represent some of the most scenically dramatic settings in Jefferson County. Large acreage lots, rocky volcanic terrain, and the proximity to the canyon create unique landscaping opportunities and challenges. Slope stabilization, erosion control, and fire-wise design are important considerations for many of these properties.",
+          highlights: [
+            "Slope stabilization and retaining wall installation for canyon-edge properties",
+            "Erosion control and native plant revegetation for disturbed areas",
+            "Fire-wise landscaping for WUI-zone properties near the canyon",
+            "Large-lot irrigation design for rural acreage properties",
+          ],
+          projectNote: "Canyon-edge properties often need engineered retaining walls and erosion control measures — we work with geotechnical engineers when site conditions require it.",
+        },
+        {
+          name: "Terrebonne Residential Neighborhoods",
+          description: "Terrebonne's residential neighborhoods feature a mix of established homes and newer construction on standard suburban lots. These properties benefit from Terrebonne's warm, dry climate and the community's rural character. Homeowners here typically want landscapes that are low-maintenance, water-efficient, and visually appealing without requiring constant attention.",
+          highlights: [
+            "Low-maintenance xeriscape designs for busy homeowners",
+            "Efficient drip irrigation systems for Terrebonne's rocky volcanic soil",
+            "Paver patio and outdoor living space installation",
+            "Lawn care and seasonal maintenance programs",
+          ],
+          projectNote: "Terrebonne residential clients often want the 'best of both worlds' — a beautiful, well-maintained landscape that doesn't require constant attention. We design with that goal in mind.",
+        },
+      ]}
       ctaNote="Ready to transform your Terrebonne property? Contact Newport Avenue Landscaping today for a free, no-obligation estimate. Our team is familiar with the unique conditions of Terrebonne and Jefferson County, and we are ready to help you create an outdoor space that complements the stunning natural beauty of the Smith Rock area."
       faqs={[
         { question: "What landscaping services does Newport Avenue offer in Terrebonne?", answer: "We offer a full range of landscaping services in Terrebonne, including lawn care and maintenance, custom landscape design, irrigation system installation and repair, xeriscaping, fire-wise landscaping, paver patios, outdoor living spaces, retaining walls, landscape lighting, and commercial landscaping and snow removal. All services are tailored to Terrebonne's high-desert climate and unique soil conditions." },

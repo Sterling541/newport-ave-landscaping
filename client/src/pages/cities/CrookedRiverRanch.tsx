@@ -37,6 +37,41 @@ export default function CrookedRiverRanchPage() {
         { label: "Tumalo", href: "/landscaping/tumalo" },
         { label: "Bend", href: "/landscaping/bend" },
       ]}
+      neighborhoodSections={[
+        {
+          name: "Canyon Rim Properties",
+          description: "Crooked River Ranch's most coveted properties sit along the rim of the Crooked River canyon, offering dramatic views of the canyon walls and the river below. These properties combine the prestige of panoramic views with the challenges of rocky volcanic terrain, steep slopes, and exposure to prevailing westerly winds. Landscape design on the canyon rim requires careful attention to slope stabilization, wind protection, and view preservation.",
+          highlights: [
+            "View-framing landscape design that highlights canyon and river panoramas",
+            "Slope stabilization and retaining wall installation for canyon-rim terrain",
+            "Windbreak design using native conifers and drought-tolerant shrubs",
+            "Drought-tolerant plant selection suited to exposed, rocky canyon-rim conditions",
+          ],
+          projectNote: "Canyon-rim properties often need engineered retaining walls — we work with structural engineers when wall heights require permits.",
+        },
+        {
+          name: "Ranch Interior Neighborhoods",
+          description: "The interior neighborhoods of Crooked River Ranch feature standard residential lots with the community's characteristic high-desert setting. These properties benefit from the Ranch's planned community infrastructure while facing the same water-limited, wind-exposed conditions as the rest of the community. Homeowners here typically want landscapes that are attractive, low-maintenance, and appropriate for the Ranch's rural character.",
+          highlights: [
+            "Low-maintenance xeriscape designs with native and drought-tolerant plants",
+            "Efficient drip irrigation systems for water-limited properties",
+            "Paver patio and outdoor living space installation",
+            "Lawn care and seasonal maintenance programs",
+          ],
+          projectNote: "Ranch interior clients often appreciate our design-build approach — we handle everything from initial design through installation and ongoing maintenance.",
+        },
+        {
+          name: "Crooked River Ranch Golf Course Area",
+          description: "Properties near the Crooked River Ranch Golf Course benefit from the course's maintained landscape and the community amenity of a nearby recreational facility. These properties often have slightly more established landscapes and homeowners who appreciate well-maintained, attractive outdoor spaces that complement the golf course setting.",
+          highlights: [
+            "Ornamental landscape design that complements the golf course aesthetic",
+            "Irrigation system installation and maintenance for golf course-adjacent properties",
+            "Seasonal color programs with annuals and perennials",
+            "Landscape lighting for evening enjoyment of outdoor spaces",
+          ],
+          projectNote: "Golf course-adjacent properties often have HOA landscape guidelines — we review these before proposing any significant changes.",
+        },
+      ]}
       ctaNote="Ready to create a landscape that works with Crooked River Ranch's unique conditions? Contact Newport Avenue Landscaping today for a free, no-obligation estimate. Our team understands the Ranch's specific challenges — from limited water to canyon winds — and we are ready to help you create an outdoor space that thrives and enhances your property's dramatic setting."
       faqs={[
         { question: "What landscaping services does Newport Avenue offer at Crooked River Ranch?", answer: "We offer a full range of landscaping services at Crooked River Ranch, including xeriscaping and drought-tolerant landscape design, irrigation system installation and repair, lawn care and maintenance, paver patios and outdoor living spaces, retaining walls, landscape lighting, and commercial landscaping and snow removal. All services are tailored to the Ranch's high-desert climate and limited water conditions." },

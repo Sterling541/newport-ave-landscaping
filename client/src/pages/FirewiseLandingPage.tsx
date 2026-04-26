@@ -103,6 +103,16 @@ export default function FirewiseLandingPage() {
     onSuccess: () => {
       setSubmitted(true);
       toast.success("Request received! We'll contact you within 1 business day.");
+      // Google Ads conversion tracking
+      try {
+        if (typeof (window as any).gtag === "function") {
+          (window as any).gtag("event", "conversion", {
+            send_to: "AW-CONVERSION_ID/FIREWISE_LABEL",
+            event_category: "Lead",
+            event_label: "Firewise Landing Page Submission",
+          });
+        }
+      } catch (_) {}
     },
     onError: () => {
       toast.error("Something went wrong. Please call us directly at " + PHONE);

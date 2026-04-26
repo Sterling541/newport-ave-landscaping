@@ -104,7 +104,7 @@ export default function LandscapingBendOregon() {
       {/* TRUST BAR */}
       <section style={{ background: "oklch(0.15 0.005 0)", padding: "1.25rem 0" }}>
         <div style={{ maxWidth: "860px", margin: "0 auto", padding: "0 1.5rem", display: "flex", gap: "2rem", justifyContent: "center", flexWrap: "wrap" }}>
-          {["21+ Years in Business", "Licensed & Bonded (LCB#)", "150+ Crew Members", "400+ Properties Served", "Free On-Site Estimates"].map(t => (
+          {["21+ Years in Business", "Licensed & Bonded (LCB#)", "110+ Crew Members", "350+ Properties Served", "Free On-Site Estimates"].map(t => (
             <span key={t} style={{ fontFamily: "var(--font-label)", fontSize: "0.6rem", letterSpacing: "0.14em", color: "oklch(0.72 0.12 25)" }}>{t}</span>
           ))}
         </div>
@@ -118,7 +118,7 @@ export default function LandscapingBendOregon() {
             Bend's Premier Landscape Contractor
           </h2>
           <p style={{ color: "oklch(0.38 0.008 0)", lineHeight: 1.8, fontWeight: 300, marginBottom: "1rem" }}>
-            Newport Avenue Landscaping has been transforming outdoor spaces in Bend and throughout Central Oregon for over 21 years. We are a full-service landscape contractor offering everything from initial design and installation through ongoing maintenance — all under one roof. Our team of 150+ crew members handles residential properties, commercial complexes, HOA communities, and government facilities.
+            Newport Avenue Landscaping has been transforming outdoor spaces in Bend and throughout Central Oregon for over 21 years. We are a full-service landscape contractor offering everything from initial design and installation through ongoing maintenance — all under one roof. Our team of 110+ crew members handles residential properties, commercial complexes, HOA communities, and government facilities.
           </p>
           <p style={{ color: "oklch(0.38 0.008 0)", lineHeight: 1.8, fontWeight: 300, marginBottom: "1rem" }}>
             Bend's unique high-desert climate at 3,600 feet elevation presents specific challenges for landscaping: extreme temperature swings, low annual precipitation (around 12 inches), volcanic pumice soil, and an increasingly fire-prone environment. We have spent two decades developing expertise in exactly these conditions — from drought-tolerant xeriscape designs and efficient drip irrigation to firewise defensible space planning and snow removal.

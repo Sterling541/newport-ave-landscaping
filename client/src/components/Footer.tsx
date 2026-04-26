@@ -31,7 +31,7 @@ const landscapingLinks = [
   { label: "Xeriscaping", href: "/services/xeriscaping" },
   { label: "Retaining Walls", href: "/services/retaining-walls" },
   { label: "Drainage Solutions", href: "/services/drainage" },
-  { label: "Firewise Landscaping", href: "/services/firewise-landscaping" },
+  { label: "Firewise Landscaping", href: "/firewise-landscaping-bend-oregon" },
   { label: "Water-Wise Landscaping", href: "/services/water-wise-landscaping" },
 ];
 

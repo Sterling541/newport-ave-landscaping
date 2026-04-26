@@ -37,6 +37,30 @@ export default function AlfalfaPage() {
         { label: "Powell Butte", href: "/landscaping/powell-butte" },
         { label: "Prineville", href: "/landscaping/prineville" },
       ]}
+      neighborhoodSections={[
+        {
+          name: "Alfalfa Rural Acreage Properties",
+          description: "Alfalfa's defining landscape feature is its large rural acreage properties — typically 5 to 40+ acres — spread across the high-desert plateau east of Bend. These properties combine the freedom of rural living with the challenges of Deschutes County's dry climate, rocky volcanic soils, and limited water availability. The best landscape designs for Alfalfa acreage properties work with the land's natural character rather than fighting it.",
+          highlights: [
+            "Large-lot irrigation design for properties with well or irrigation district water",
+            "Native and drought-tolerant plant selection for high-desert acreage",
+            "Fire-wise defensible space creation for WUI-zone properties",
+            "Outdoor living space design that takes advantage of Alfalfa's dark skies and views",
+          ],
+          projectNote: "Alfalfa acreage clients often want to establish a beautiful landscape around the home while leaving the natural high-desert character of the larger property intact — we design with that balance in mind.",
+        },
+        {
+          name: "Alfalfa Agricultural & Horse Properties",
+          description: "Many Alfalfa properties have an agricultural heritage, with hay fields, pastures, orchards, and horse facilities alongside the residential landscape. These properties need landscaping that serves both functional agricultural purposes and creates an attractive, welcoming residential environment. Irrigation design that serves both ornamental and agricultural areas is a common need.",
+          highlights: [
+            "Integrated irrigation systems that serve both ornamental and agricultural areas",
+            "Pasture and hay field management programs",
+            "Windbreak design using native conifers for horse and livestock properties",
+            "Orchard installation and maintenance for rural homesteads",
+          ],
+          projectNote: "Agricultural property clients often have water rights from irrigation districts — we design irrigation systems that work efficiently with these water rights.",
+        },
+      ]}
       ctaNote="Ready to enhance your Alfalfa property? Contact Newport Avenue Landscaping today for a free, no-obligation estimate. Our team understands the unique conditions of Alfalfa's rural high-desert properties, and we are ready to help you create an outdoor space that thrives and reflects the natural beauty of this special part of Central Oregon."
       faqs={[
         { question: "What landscaping services does Newport Avenue offer in Alfalfa?", answer: "We offer a full range of landscaping services in Alfalfa, including xeriscaping and drought-tolerant landscape design, irrigation system installation and repair, lawn care and maintenance, paver patios and outdoor living spaces, retaining walls, landscape lighting, and fire-wise landscaping. All services are tailored to Alfalfa's high-desert climate and rural property conditions." },

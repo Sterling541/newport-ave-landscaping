@@ -976,3 +976,28 @@
 - [ ] Register all neighborhood routes in App.tsx
 - [ ] Add neighborhood pages to sitemap.xml
 - [ ] Link from Bend city page and ServiceAreaBand
+
+## Session — April 26, 2026 (Continued Build Sprint)
+- [x] Add neighborhoodSections to Prineville city page
+- [x] Add neighborhoodSections to La Pine city page
+- [x] Add neighborhoodSections to Madras city page
+- [x] Add neighborhoodSections to Eagle Crest city page
+- [x] Add neighborhoodSections to Terrebonne city page
+- [x] Add neighborhoodSections to Powell Butte city page
+- [x] Add neighborhoodSections to Crooked River Ranch city page
+- [x] Add neighborhoodSections to Alfalfa city page
+- [x] Add neighborhoodSections to Cline Falls city page
+- [x] Expand OldBendLandscaping.tsx with full rich content (neighborhoods, FAQs, services, CTA)
+- [x] Add skip-to-content accessibility link to index.html
+- [x] Fix numberOfEmployees in index.html schema (150 → 110)
+- [x] Add Google Ads gtag placeholder to index.html (commented out, ready to activate)
+- [x] Add Google Ads conversion tracking to QuoteRequest form onSuccess
+- [x] Add Google Ads conversion tracking to ContactSection form onSuccess
+- [x] Add Google Ads conversion tracking to Contact.tsx form onSuccess
+- [x] Add Google Ads conversion tracking to ScheduleServices form onSuccess
+- [x] Add Google Ads conversion tracking to FirewiseLandingPage form onSuccess
+- [x] Update PortfolioSection image titles with location-specific SEO descriptions
+- [x] Update PhotoGallery photo titles with location-specific SEO descriptions
+- [x] Fix 150+ crew references → 110+ across all files
+- [x] Fix 400+ properties references → 350+ across all files
+- [x] Update Firewise links in Navbar and Footer to point to /firewise dedicated landing page

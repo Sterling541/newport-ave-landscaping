@@ -66,7 +66,19 @@ export default function QuoteRequest({ source = "other" }: QuoteRequestProps) {
   const [errors, setErrors] = useState<Partial<FormState>>({});
 
   const submitMutation = trpc.quoteLeads.submit.useMutation({
-    onSuccess: () => setSubmitted(true),
+    onSuccess: () => {
+      setSubmitted(true);
+      // Google Ads conversion tracking
+      try {
+        if (typeof (window as any).gtag === "function") {
+          (window as any).gtag("event", "conversion", {
+            send_to: "AW-CONVERSION_ID/QUOTE_LABEL",
+            event_category: "Lead",
+            event_label: "Quote Form Submission",
+          });
+        }
+      } catch (_) {}
+    },
   });
 
   function validate(): boolean {

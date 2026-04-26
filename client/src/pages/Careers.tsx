@@ -163,7 +163,7 @@ export default function Careers() {
               </h2>
               <div className="space-y-4 font-body" style={{ color: "oklch(0.38 0.008 0)", lineHeight: 1.8, fontWeight: 300 }}>
                 <p>
-                  Newport Avenue Landscaping has been Central Oregon's most qualified full-service landscape firm for over 21 years. We've grown to 150+ professionals not by cutting corners, but by investing in the people who make every project exceptional.
+                  Newport Avenue Landscaping has been Central Oregon's most qualified full-service landscape firm for over 21 years. We've grown to 110+ professionals not by cutting corners, but by investing in the people who make every project exceptional.
                 </p>
                 <p>
                   We promote from within. Many of our foremen and crew leads started as entry-level crew members. If you show up, work hard, and take pride in your craft, there is a long-term career here for you.

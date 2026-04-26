@@ -119,8 +119,8 @@ export default function CommercialLandscapingBend() {
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: "2rem" }}>
             {[
               { stat: "21+", label: "Years in Business" },
-              { stat: "150+", label: "Crew Members" },
-              { stat: "400+", label: "Properties Served" },
+              { stat: "110+", label: "Crew Members" },
+              { stat: "350+", label: "Properties Served" },
               { stat: "LCB#", label: "Licensed & Bonded" },
             ].map(s => (
               <div key={s.label}>

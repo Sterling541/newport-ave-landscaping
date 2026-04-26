@@ -21,21 +21,67 @@ export default function MadrasPage() {
         { icon: "architecture", name: "Sustainable Madras Xeriscaping", description: "Specialized xeriscaping services for Madras, focusing on drought-tolerant plants and water-wise designs that conserve water and reduce maintenance. Ideal for the arid conditions of Jefferson County, our xeriscape designs use native and adapted plants that thrive in Madras's heat while dramatically reducing water bills and maintenance time.", href: "/services/xeriscaping" },
         { icon: "commercial", name: "Commercial Landscaping in Madras", description: "Professional commercial landscaping services for businesses, retail centers, and public spaces across Madras, ensuring attractive and well-maintained properties year-round. We handle everything from routine lawn care and irrigation maintenance to large-scale landscape installations for new commercial developments in Jefferson County.", href: "/services/commercial-maintenance" },
       ]}
+      neighborhoodSections={[
+        {
+          name: "Downtown Madras & Sahalee Subdivision",
+          description: "Downtown Madras and the Sahalee subdivision represent the established residential core of Jefferson County's largest city. Properties in the Sahalee area are among Madras's most desirable, featuring larger lots, mature trees, and views toward the Cascade Range. The warm Zone 6b/7a climate allows for a broader plant palette than most Central Oregon communities, and our designs take full advantage of Madras's longer growing season.",
+          highlights: [
+            "Warm-climate plant selection that thrives in Zone 6b/7a Madras summers",
+            "Mature tree care and preservation for established Sahalee properties",
+            "Irrigated lawn programs leveraging North Unit Irrigation District water",
+            "Paver patio and outdoor kitchen installation for warm-evening entertaining",
+          ],
+          projectNote: "Sahalee clients often want lush, traditional landscapes that take advantage of Madras's warm climate — we design for color and abundance while keeping irrigation efficient.",
+        },
+        {
+          name: "Round Butte & Deschutes River Confluence Area",
+          description: "The area near Round Butte Overlook and the Deschutes and Crooked River confluence is one of the most scenically dramatic settings in Jefferson County. Properties here often have spectacular canyon and reservoir views that deserve landscape designs focused on view preservation and enhancement. The dramatic terrain also creates interesting opportunities for terraced gardens, retaining walls, and naturalistic planting schemes that complement the canyon landscape.",
+          highlights: [
+            "View-framing landscape design for canyon and reservoir vistas",
+            "Terraced garden and retaining wall installation on sloped properties",
+            "Native and drought-tolerant plant integration that complements the canyon setting",
+            "Erosion control and slope stabilization for properties near the canyon rim",
+          ],
+          projectNote: "Round Butte area properties often need retaining walls and terracing to manage their dramatic slopes — we engineer these structures for both beauty and long-term stability.",
+        },
+        {
+          name: "Crestview Hills & North Madras Residential Areas",
+          description: "The Crestview Hills area and newer residential developments north of downtown Madras feature a mix of established and newer homes where homeowners are looking to establish or upgrade their landscapes. These neighborhoods benefit from Madras's warm climate and the availability of irrigation district water, which makes lush, traditional landscaping more achievable here than in drier parts of Central Oregon.",
+          highlights: [
+            "New construction landscape installation from bare ground",
+            "Irrigation system design leveraging North Unit Irrigation District water rights",
+            "Lawn establishment and turf programs for new homeowners",
+            "Xeriscape front yard conversions that reduce water bills",
+          ],
+          projectNote: "New homeowners in Crestview Hills often need guidance on how to best use their irrigation district water allocation — we design systems that maximize their water rights.",
+        },
+        {
+          name: "Madras Airport Area & Agricultural Outskirts",
+          description: "The agricultural outskirts of Madras, including properties near the Madras Airport and throughout the surrounding farmland, present unique landscaping opportunities for larger acreage properties. These rural properties often combine ornamental landscaping near the home with functional agricultural areas, orchards, or large irrigated fields. Our team is experienced with the full range of rural Jefferson County property types.",
+          highlights: [
+            "Large-lot irrigation design for acreage properties",
+            "Orchard and edible garden installation for rural homesteads",
+            "Windbreak design using native and adapted trees and shrubs",
+            "Commercial and agricultural property maintenance programs",
+          ],
+          projectNote: "Agricultural outskirt properties often need irrigation systems that can handle both ornamental and agricultural areas — we design integrated systems that serve both needs efficiently.",
+        },
+      ]}
       whyUs={[
         "Over 21 years of dedicated landscaping service in Central Oregon, including the Madras and Jefferson County community.",
         "Oregon Landscape Contractor Bond #9153 (LCB #9153) -- fully licensed, bonded, and insured.",
         "A large team of 110+ in-house staff ensures consistent quality and timely project completion.",
         "Deep understanding of Madras's unique Zone 6b/7a climate, soil, and irrigation district water conditions.",
         "We never use subcontractors, guaranteeing accountability and superior craftsmanship on every Madras project.",
-        "industry-standard plant and irrigation warranties on all installation projects."
+        "Industry-standard plant and irrigation warranties on all installation projects."
       ]}
       nearbyAreas={[
         { label: "Redmond", href: "/landscaping/redmond" },
-        { label: "Culver", href: "/landscaping/culver" },
+        { label: "Culver", href: "/service-areas/culver" },
         { label: "Terrebonne", href: "/landscaping/terrebonne" },
-        { label: "Crooked River Ranch", href: "/landscaping/crooked-river-ranch" },
+        { label: "Crooked River Ranch", href: "/service-areas/crooked-river-ranch" },
         { label: "Prineville", href: "/landscaping/prineville" },
-        { label: "Warm Springs", href: "/landscaping/warm-springs" }
+        { label: "Bend", href: "/landscaping/bend" }
       ]}
       ctaNote="Ready to transform your Madras property? Contact Newport Avenue Landscaping today for a free, no-obligation estimate. Our team is known for quick response times and can discuss seasonal programs designed specifically for the Madras climate. Let us bring our expertise to your home or business, ensuring your landscape thrives beautifully in Jefferson County."
       faqs={[
@@ -48,6 +94,6 @@ export default function MadrasPage() {
         { question: "Can you help with landscaping for acreage properties near Madras?", answer: "Yes -- we regularly work on larger acreage properties in the Madras area. Larger lots present different opportunities and challenges than typical suburban properties: longer irrigation runs, more extensive soil preparation, the potential for orchard or vegetable garden integration, and the need for thoughtful design to create defined outdoor spaces within a larger canvas. Our design team is experienced with acreage properties and can help you create a landscape plan that makes the most of your land while keeping maintenance manageable." },
       ]}
       mapEmbedUrl="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d23548.5!2d-121.1296!3d44.6329!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54b8f0b8b8b8b8b8%3A0x1088e7acc720d1b4!2sMadras%2C%20OR!5e0!3m2!1sen!2sus!4v1713400000007"
-/>
+    />
   );
 }

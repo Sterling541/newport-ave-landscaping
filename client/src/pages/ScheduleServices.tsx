@@ -271,7 +271,7 @@ function FormSidebar({ steps, currentStep }: { steps: string[]; currentStep: num
         </div>
       </div>
       <div className="space-y-2 mt-8">
-        {["Licensed & Bonded \u00b7 LCB #9153", "Serving Central Oregon since 2005", "400+ Properties Maintained"].map(b => (
+        {["Licensed & Bonded \u00b7 LCB #9153", "Serving Central Oregon since 2005", "350+ Properties Maintained"].map(b => (
           <div key={b} className="flex items-center gap-2 text-green-300/80 text-xs">
             <CheckCircle2 className="w-3.5 h-3.5 shrink-0 text-emerald-400" />
             <span>{b}</span>
@@ -313,7 +313,21 @@ export default function ScheduleServices() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitted, setSubmitted] = useState(false);
 
-  const submitMutation = trpc.submissions.create.useMutation({ onSuccess: () => setSubmitted(true) });
+  const submitMutation = trpc.submissions.create.useMutation({
+    onSuccess: () => {
+      setSubmitted(true);
+      // Google Ads conversion tracking
+      try {
+        if (typeof (window as any).gtag === "function") {
+          (window as any).gtag("event", "conversion", {
+            send_to: "AW-CONVERSION_ID/SCHEDULE_LABEL",
+            event_category: "Lead",
+            event_label: "Schedule Services Submission",
+          });
+        }
+      } catch (_) {}
+    },
+  });
 
   const set = <K extends keyof FormData>(key: K, value: FormData[K]) => {
     setForm(f => ({ ...f, [key]: value }));
@@ -792,7 +806,7 @@ export default function ScheduleServices() {
         <div className="flex flex-wrap justify-center gap-5 mt-5 text-xs text-stone-400">
           <span>&#10003; Licensed &amp; Bonded &middot; LCB #9153</span>
           <span>&#10003; Serving Central Oregon since 2005</span>
-          <span>&#10003; 400+ Properties Maintained</span>
+          <span>&#10003; 350+ Properties Maintained</span>
         </div>
       </div>
       {/* ── Sprinkler Dodge Game ── */}

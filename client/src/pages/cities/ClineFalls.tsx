@@ -37,6 +37,30 @@ export default function ClineFallsPage() {
         { label: "Sisters", href: "/landscaping/sisters" },
         { label: "Crooked River Ranch", href: "/landscaping/crooked-river-ranch" },
       ]}
+      neighborhoodSections={[
+        {
+          name: "Deschutes River Riparian Properties",
+          description: "The properties along the Deschutes River near Cline Falls enjoy a riparian microclimate that supports a much broader palette of plants than the surrounding upland high desert. Proximity to the river moderates temperatures, increases humidity, and provides access to water that makes lush, traditional gardens possible. These properties are among the most desirable in the area, and their landscapes can be correspondingly rich and varied.",
+          highlights: [
+            "Riparian-edge planting using native willows, alders, and moisture-tolerant perennials",
+            "Lush ornamental garden design that takes advantage of the river microclimate",
+            "Erosion control and bank stabilization for properties at the river's edge",
+            "Irrigation system design that complements natural river proximity",
+          ],
+          projectNote: "Riparian properties near the Deschutes may be subject to Oregon Department of State Lands regulations regarding vegetation removal near waterways — we research applicable regulations before proposing any work near the river bank.",
+        },
+        {
+          name: "Cline Falls Upland High-Desert Properties",
+          description: "The upland properties surrounding Cline Falls State Park and the Deschutes River corridor feature the classic Central Oregon high-desert conditions: volcanic rocky soils, limited precipitation, and the dramatic open landscape of the high desert plateau. These properties are ideal candidates for drought-tolerant and xeriscape designs that honor the natural character of the area while creating functional, beautiful outdoor spaces.",
+          highlights: [
+            "Drought-tolerant and xeriscape landscape design for upland properties",
+            "Efficient drip irrigation systems for rocky volcanic soils",
+            "View-framing design that highlights Cascade Mountain panoramas",
+            "Outdoor living spaces with fire features for cool high-desert evenings",
+          ],
+          projectNote: "Upland clients near Cline Falls often want landscapes that feel native to the high desert — we design with locally native plants and natural materials that blend seamlessly with the surrounding landscape.",
+        },
+      ]}
       ctaNote="Ready to enhance your Cline Falls property? Contact Newport Avenue Landscaping today for a free, no-obligation estimate. Our team understands the unique conditions of the Deschutes River corridor and the surrounding high-desert terrain, and we are ready to help you create an outdoor space that thrives and reflects the natural beauty of this special part of Central Oregon."
       faqs={[
         { question: "What landscaping services does Newport Avenue offer in the Cline Falls area?", answer: "We offer a full range of landscaping services in the Cline Falls area, including custom landscape design, irrigation system installation and repair, xeriscaping and drought-tolerant landscaping, lawn care and maintenance, paver patios and outdoor living spaces, retaining walls, landscape lighting, and fire-wise landscaping. All services are tailored to the area's unique combination of upland high-desert and riparian conditions." },
