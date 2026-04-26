@@ -869,3 +869,8 @@
 - [x] CTABanner text: all low-contrast colors raised to oklch(0.72+) — START YOUR PROJECT, italic headline, phone link, trust strip all now readable on dark background
 - [x] Navbar: mega menu wrapper z-index raised from 48 to 200 — Services/Maintenance dropdown no longer hides behind logo
 - [x] Aeration page: hourly rate corrected from $92 to $95/man hour (consistent with rest of site)
+
+## Session — April 26, 2026 (Navbar Layout)
+
+- [x] Move Services and Maintenance dropdowns to the left side of the centered logo
+- [x] Left cluster: About, Our Work, Services, Maintenance | Right cluster: Commercial, Resources, Service Areas, Get a Quote
