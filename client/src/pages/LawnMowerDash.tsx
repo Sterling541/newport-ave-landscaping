@@ -1,1202 +1,936 @@
-/* ============================================================
-   LAWN MOWER DASH — Radical Overhaul
-   Newport Avenue Landscaping
-   
-   Architecture: Jump/Duck endless runner (Chrome Dino style)
-   - 4-layer parallax backgrounds
-   - Physics-based jump with double-jump
-   - Duck mechanic for high obstacles
-   - Animated mower: spinning wheels, blade, dust/grass particles
-   - Screen shake, squash/stretch, speed lines
-   - Cinematic idle screen with animated mower loop
-   - 4 auto-transitioning biomes
-   ============================================================ */
-
 import { useEffect, useRef, useState, useCallback } from "react";
 import { useLocation } from "wouter";
 import { trpc } from "@/lib/trpc";
 
-// ─── CONSTANTS ───────────────────────────────────────────────
-const CW = 480;
-const CH = 270;
-const GROUND_Y = 210;       // y of ground surface
-const PLAYER_X = 80;        // fixed x position of mower
-const GRAVITY = 0.55;
-const JUMP_VY = -11.5;
-const DOUBLE_JUMP_VY = -10;
-const DUCK_SCALE = 0.55;
+// ============================================================
+// CONSTANTS
+// ============================================================
+const W = 480;
+const H = 270;
+const LANE_COUNT = 3;
+const LANE_H = H / LANE_COUNT;
+const LANE_CENTERS = [LANE_H * 0.5, LANE_H * 1.5, LANE_H * 2.5];
+const PLAYER_X = 90;
+const PLAYER_W = 88;
+const PLAYER_H = 48;
+const OBS_W = 48;
+const OBS_H = 48;
 const DISCOUNT_CODE = "MOWMONEY100";
 const DOUBLE_CODE = "MOWMONEY200";
-const LB_KEY = "nal_mower_v7";
+const LEADERBOARD_KEY = "nal_mower_lb_v6";
 
-// Biome definitions
-const BIOMES = [
+type GameState =
+  | "idle" | "playing" | "level_complete" | "dead"
+  | "enter_initials" | "celebration" | "double_or_nothing"
+  | "boss_fight" | "won" | "boss_lost";
+
+interface LeaderEntry { initials: string; score: number; level: number; }
+interface Obstacle { x: number; lane: number; type: string; frame: number; }
+interface Collectible { x: number; lane: number; }
+interface Particle { x: number; y: number; vx: number; vy: number; life: number; maxLife: number; color: string; size: number; }
+
+function loadLB(): LeaderEntry[] {
+  try { return JSON.parse(localStorage.getItem(LEADERBOARD_KEY) ?? "[]") || []; } catch { return []; }
+}
+function saveLB(lb: LeaderEntry[]) {
+  try { localStorage.setItem(LEADERBOARD_KEY, JSON.stringify(lb)); } catch {}
+}
+
+const LEVELS = [
   {
-    name: "Residential Route",
+    id: 1, name: "Residential Route",
     tagline: "Dodge the toys. Mow the lawn.",
-    skyTop: "#1a6b9e", skyBot: "#87ceeb",
-    groundTop: "#5aaf3c", groundBot: "#2a7a18",
-    horizonColor: "#a8d4a0",
-    startDist: 0,
+    obstacleTypes: ["tricycle","soccer_ball","garden_hose","sprinkler","sandbox","lawn_chair"],
+    bgColor: "#3a8a20", skyColor: "#5ba3e8",
+    baseSpeed: 2.4, speedPerSec: 0.04, spawnInterval: 88, duration: 1800,
   },
   {
-    name: "HOA Gauntlet",
+    id: 2, name: "HOA Gauntlet",
     tagline: "No loud noises past 10.",
-    skyTop: "#1a4a7a", skyBot: "#6a9ed8",
-    groundTop: "#3a9a28", groundBot: "#1a6a10",
-    horizonColor: "#88c888",
-    startDist: 1500,
+    obstacleTypes: ["hoa_rep","violation_sign","measuring_tape","angry_neighbor"],
+    bgColor: "#2a7a18", skyColor: "#8ab8e8",
+    baseSpeed: 3.0, speedPerSec: 0.05, spawnInterval: 78, duration: 1800,
   },
   {
-    name: "Construction Site",
+    id: 3, name: "Construction Site",
     tagline: "Hard hats required.",
-    skyTop: "#8a6a30", skyBot: "#c8a870",
-    groundTop: "#b88a40", groundBot: "#7a5820",
-    horizonColor: "#c8a060",
-    startDist: 3500,
+    obstacleTypes: ["lumber_pile","porta_potty","hard_hat","cone_row","mud_puddle"],
+    bgColor: "#b89050", skyColor: "#c8b890",
+    baseSpeed: 3.4, speedPerSec: 0.06, spawnInterval: 72, duration: 1800,
   },
   {
-    name: "Drought Zone",
+    id: 4, name: "Drought Zone",
     tagline: "Pray for rain.",
-    skyTop: "#8a2a0a", skyBot: "#e87030",
-    groundTop: "#c89040", groundBot: "#7a5010",
-    horizonColor: "#d8a050",
-    startDist: 6000,
+    obstacleTypes: ["fire_ants","dead_stump","cracked_earth","tumbleweed"],
+    bgColor: "#b88030", skyColor: "#e89030",
+    baseSpeed: 3.8, speedPerSec: 0.07, spawnInterval: 65, duration: 1800,
   },
 ];
 
-type GameState = "idle" | "playing" | "dead" | "enter_initials" | "won" | "double_or_nothing" | "boss_fight" | "boss_lost";
-
-interface Particle {
-  x: number; y: number; vx: number; vy: number;
-  life: number; maxLife: number; color: string; size: number; gravity?: number;
+// ============================================================
+// DRAWING PRIMITIVES
+// ============================================================
+function r(ctx: CanvasRenderingContext2D, x: number, y: number, w: number, h: number, color: string) {
+  ctx.fillStyle = color;
+  ctx.fillRect(Math.round(x), Math.round(y), Math.round(w), Math.round(h));
+}
+function rr(ctx: CanvasRenderingContext2D, x: number, y: number, w: number, h: number, radius: number, color: string) {
+  ctx.fillStyle = color;
+  ctx.beginPath();
+  ctx.roundRect(Math.round(x), Math.round(y), Math.round(w), Math.round(h), radius);
+  ctx.fill();
+}
+function stroke(ctx: CanvasRenderingContext2D, x: number, y: number, w: number, h: number, color: string, lw = 2) {
+  ctx.strokeStyle = color;
+  ctx.lineWidth = lw;
+  ctx.strokeRect(Math.round(x) + 0.5, Math.round(y) + 0.5, Math.round(w) - 1, Math.round(h) - 1);
+}
+function txt(ctx: CanvasRenderingContext2D, s: string, x: number, y: number, size: number, color: string, align: CanvasTextAlign = "center", shadow = true) {
+  ctx.font = `bold ${size}px 'Courier New', monospace`;
+  ctx.textAlign = align;
+  ctx.textBaseline = "middle";
+  if (shadow) {
+    ctx.fillStyle = "rgba(0,0,0,0.7)";
+    ctx.fillText(s, x + 1, y + 1);
+  }
+  ctx.fillStyle = color;
+  ctx.fillText(s, x, y);
+}
+function circle(ctx: CanvasRenderingContext2D, x: number, y: number, rad: number, color: string) {
+  ctx.fillStyle = color;
+  ctx.beginPath(); ctx.arc(x, y, rad, 0, Math.PI * 2); ctx.fill();
 }
 
-interface Obstacle {
-  x: number; w: number; h: number; type: string;
-  y: number; // top of obstacle
-  frame: number;
-}
-
-interface Coin {
-  x: number; y: number; collected: boolean; frame: number;
-}
-
-interface Cloud {
-  x: number; y: number; w: number; h: number; speed: number;
-}
-
-interface BgElement {
-  x: number; y: number; type: string; scale: number;
-}
-
-interface LeaderEntry { initials: string; score: number; dist: number; }
-
-function loadLB(): LeaderEntry[] {
-  try { return JSON.parse(localStorage.getItem(LB_KEY) ?? "[]") || []; } catch { return []; }
-}
-function saveLB(lb: LeaderEntry[]) {
-  try { localStorage.setItem(LB_KEY, JSON.stringify(lb)); } catch {}
-}
-
-// ─── DRAW HELPERS ────────────────────────────────────────────
-function r(ctx: CanvasRenderingContext2D, x: number, y: number, w: number, h: number, c: string) {
-  ctx.fillStyle = c; ctx.fillRect(~~x, ~~y, ~~w, ~~h);
-}
-function rr(ctx: CanvasRenderingContext2D, x: number, y: number, w: number, h: number, rad: number, c: string) {
-  ctx.fillStyle = c; ctx.beginPath(); ctx.roundRect(~~x, ~~y, ~~w, ~~h, rad); ctx.fill();
-}
-function circ(ctx: CanvasRenderingContext2D, x: number, y: number, rad: number, c: string) {
-  ctx.fillStyle = c; ctx.beginPath(); ctx.arc(x, y, rad, 0, Math.PI * 2); ctx.fill();
-}
-function txt(ctx: CanvasRenderingContext2D, s: string, x: number, y: number, size: number, c: string, align: CanvasTextAlign = "center", bold = true) {
-  ctx.font = `${bold ? "bold " : ""}${size}px 'Courier New', monospace`;
-  ctx.textAlign = align; ctx.textBaseline = "middle";
-  ctx.fillStyle = "rgba(0,0,0,0.5)"; ctx.fillText(s, x + 1, y + 1);
-  ctx.fillStyle = c; ctx.fillText(s, x, y);
-}
-function txtNoShadow(ctx: CanvasRenderingContext2D, s: string, x: number, y: number, size: number, c: string, align: CanvasTextAlign = "center", bold = true) {
-  ctx.font = `${bold ? "bold " : ""}${size}px 'Courier New', monospace`;
-  ctx.textAlign = align; ctx.textBaseline = "middle";
-  ctx.fillStyle = c; ctx.fillText(s, x, y);
-}
-
-// ─── MOWER SPRITE ────────────────────────────────────────────
-function drawMower(
-  ctx: CanvasRenderingContext2D,
-  cx: number, cy: number,
-  wheelFrame: number,
-  scaleX = 1, scaleY = 1,
-  hurt = false,
-  ducking = false
-) {
-  if (hurt && Math.floor(wheelFrame / 3) % 2 === 0) return;
-
-  ctx.save();
-  ctx.translate(cx, cy);
-  ctx.scale(scaleX, scaleY);
-
-  const duckMod = ducking ? 0.6 : 1;
-  const W = 72 * duckMod;
-  const H = 44 * duckMod;
-  const ox = -W / 2;
-  const oy = -H;
+// ============================================================
+// MOWER SPRITE — Exmark Navigator, red deck, white hopper
+// ============================================================
+function drawMower(ctx: CanvasRenderingContext2D, cx: number, cy: number, frame: number, hurt = false) {
+  if (hurt && Math.floor(frame / 3) % 2 === 0) return; // flash on hurt
+  const x = cx - PLAYER_W / 2;
+  const y = cy - PLAYER_H / 2;
 
   // Ground shadow
-  ctx.fillStyle = "rgba(0,0,0,0.25)";
-  ctx.beginPath(); ctx.ellipse(0, 2, W * 0.48, 5 * duckMod, 0, 0, Math.PI * 2); ctx.fill();
+  ctx.fillStyle = "rgba(0,0,0,0.22)";
+  ctx.beginPath(); ctx.ellipse(cx, cy + PLAYER_H / 2 + 2, PLAYER_W * 0.42, 5, 0, 0, Math.PI * 2); ctx.fill();
 
-  // ── REAR LARGE WHEEL ──
-  const rWheelX = ox + 12;
-  const rWheelY = oy + H - 2;
-  const rWheelR = ducking ? 10 : 14;
-  circ(ctx, rWheelX, rWheelY, rWheelR, "#1a1a1a");
-  circ(ctx, rWheelX, rWheelY, rWheelR - 3, "#2a2a2a");
-  circ(ctx, rWheelX, rWheelY, rWheelR - 7, "#444");
-  // tire tread
-  for (let i = 0; i < 6; i++) {
-    const a = (i * 60 + wheelFrame * 5) * Math.PI / 180;
-    ctx.strokeStyle = "#333"; ctx.lineWidth = 2;
-    ctx.beginPath();
-    ctx.moveTo(rWheelX + Math.cos(a) * (rWheelR - 7), rWheelY + Math.sin(a) * (rWheelR - 7));
-    ctx.lineTo(rWheelX + Math.cos(a) * (rWheelR - 2), rWheelY + Math.sin(a) * (rWheelR - 2));
-    ctx.stroke();
-  }
-  circ(ctx, rWheelX, rWheelY, 3, "#666");
-
-  // ── FRONT SMALL WHEEL ──
-  const fWheelX = ox + W - 10;
-  const fWheelY = oy + H - 2;
-  const fWheelR = ducking ? 7 : 9;
-  circ(ctx, fWheelX, fWheelY, fWheelR, "#1a1a1a");
-  circ(ctx, fWheelX, fWheelY, fWheelR - 2, "#2a2a2a");
-  circ(ctx, fWheelX, fWheelY, fWheelR - 4, "#444");
+  // === REAR LARGE WHEELS ===
+  circle(ctx, x + 14, cy + 16, 14, "#111");
+  circle(ctx, x + 14, cy + 16, 9, "#333");
+  circle(ctx, x + 14, cy + 16, 4, "#555");
+  // wheel spokes
   for (let i = 0; i < 4; i++) {
-    const a = (i * 90 + wheelFrame * 6) * Math.PI / 180;
-    ctx.strokeStyle = "#333"; ctx.lineWidth = 1.5;
+    const a = (i * 90 + frame * 4) * Math.PI / 180;
+    ctx.strokeStyle = "#444"; ctx.lineWidth = 1.5;
     ctx.beginPath();
-    ctx.moveTo(fWheelX + Math.cos(a) * (fWheelR - 4), fWheelY + Math.sin(a) * (fWheelR - 4));
-    ctx.lineTo(fWheelX + Math.cos(a) * (fWheelR - 1), fWheelY + Math.sin(a) * (fWheelR - 1));
+    ctx.moveTo(x + 14 + Math.cos(a) * 4, cy + 16 + Math.sin(a) * 4);
+    ctx.lineTo(x + 14 + Math.cos(a) * 9, cy + 16 + Math.sin(a) * 9);
     ctx.stroke();
   }
 
-  // ── MAIN BODY / FRAME ──
-  rr(ctx, ox + 6, oy + H * 0.3, W - 12, H * 0.55, 3, "#2a2a2a");
+  // === FRONT SMALL WHEELS ===
+  circle(ctx, x + PLAYER_W - 14, cy + 16, 9, "#111");
+  circle(ctx, x + PLAYER_W - 14, cy + 16, 5, "#333");
 
-  // ── RED CUTTING DECK ──
-  const deckY = oy + H * 0.52;
-  const deckH = H * 0.28;
-  rr(ctx, ox + 4, deckY, W - 8, deckH, 2, "#cc1111");
-  rr(ctx, ox + 4, deckY, W - 8, deckH * 0.4, 2, "#ee2222"); // highlight
-  ctx.strokeStyle = "#880000"; ctx.lineWidth = 1.5;
-  ctx.beginPath(); ctx.roundRect(ox + 4, deckY, W - 8, deckH, 2); ctx.stroke();
+  // === MAIN BODY / FRAME (dark charcoal) ===
+  rr(ctx, x + 10, y + 14, PLAYER_W - 20, 26, 3, "#2a2a2a");
 
-  // Blade spinner
-  const bladeA = (wheelFrame * 9) * Math.PI / 180;
-  const bladeCX = ox + W * 0.5;
-  const bladeCY = deckY + deckH * 0.5;
-  ctx.strokeStyle = "rgba(255,255,255,0.25)"; ctx.lineWidth = 1.5;
-  for (let i = 0; i < 3; i++) {
-    const a = bladeA + i * (Math.PI * 2 / 3);
-    ctx.beginPath();
-    ctx.moveTo(bladeCX + Math.cos(a) * 3, bladeCY + Math.sin(a) * 3);
-    ctx.lineTo(bladeCX + Math.cos(a) * 9, bladeCY + Math.sin(a) * 9);
-    ctx.stroke();
-  }
-
-  // NAVIGATOR text
+  // === RED CUTTING DECK ===
+  rr(ctx, x + 8, cy + 6, PLAYER_W - 16, 14, 2, "#cc1111");
+  rr(ctx, x + 8, cy + 6, PLAYER_W - 16, 5, 2, "#ee2222");
+  stroke(ctx, x + 8, cy + 6, PLAYER_W - 16, 14, "#880000", 1.5);
+  // NAVIGATOR text on deck
   ctx.font = "bold 5px 'Courier New', monospace";
   ctx.textAlign = "center"; ctx.textBaseline = "middle";
-  ctx.fillStyle = "rgba(255,255,255,0.8)";
-  ctx.fillText("NAVIGATOR", ox + W * 0.52, deckY + deckH * 0.5);
+  ctx.fillStyle = "#fff";
+  ctx.fillText("NAVIGATOR", cx + 4, cy + 13);
+  // Blade spinner hint
+  const bladeAngle = (frame * 8) * Math.PI / 180;
+  ctx.strokeStyle = "rgba(255,255,255,0.3)"; ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(cx - 8 + Math.cos(bladeAngle) * 6, cy + 13 + Math.sin(bladeAngle) * 3);
+  ctx.lineTo(cx - 8 + Math.cos(bladeAngle + Math.PI) * 6, cy + 13 + Math.sin(bladeAngle + Math.PI) * 3);
+  ctx.stroke();
 
-  // ── WHITE HOPPER (grass catcher) ──
-  const hopperW = W * 0.36;
-  const hopperH = H * 0.62;
-  rr(ctx, ox + 2, oy + H * 0.05, hopperW, hopperH, 3, "#e0e0e0");
-  rr(ctx, ox + 2, oy + H * 0.05, hopperW, hopperH * 0.25, 3, "#f0f0f0");
-  ctx.strokeStyle = "#b0b0b0"; ctx.lineWidth = 1.5;
-  ctx.beginPath(); ctx.roundRect(ox + 2, oy + H * 0.05, hopperW, hopperH, 3); ctx.stroke();
+  // === WHITE HOPPER / GRASS CATCHER (back of mower) ===
+  rr(ctx, x + 2, y + 4, 28, 28, 3, "#e0e0e0");
+  rr(ctx, x + 2, y + 4, 28, 7, 3, "#f0f0f0");
+  stroke(ctx, x + 2, y + 4, 28, 28, "#aaa", 1.5);
   // vent slats
   for (let i = 0; i < 3; i++) {
-    r(ctx, ox + 6, oy + H * 0.3 + i * (hopperH * 0.18), hopperW - 8, 2, "#ccc");
+    r(ctx, x + 6, y + 14 + i * 6, 20, 2, "#ccc");
   }
   // EXMARK label
   ctx.font = "bold 4px 'Courier New', monospace";
   ctx.textAlign = "center"; ctx.textBaseline = "middle";
   ctx.fillStyle = "#cc1111";
-  ctx.fillText("EXMARK", ox + 2 + hopperW / 2, oy + H * 0.05 + hopperH * 0.82);
+  ctx.fillText("EXMARK", x + 16, y + 30);
 
-  if (!ducking) {
-    // ── OPERATOR ──
-    const opX = ox + W * 0.46;
-    const opY = oy + H * 0.04;
+  // === OPERATOR SEAT ===
+  rr(ctx, x + 34, cy - 2, 16, 8, 2, "#5a3010");
 
-    // Seat
-    rr(ctx, opX - 2, opY + 22, 18, 7, 2, "#5a3010");
+  // === OPERATOR BODY ===
+  const bx = x + 36;
+  const by = y + 2;
+  // torso — red NAL shirt
+  rr(ctx, bx, by + 8, 16, 14, 2, "#cc1111");
+  r(ctx, bx + 2, by + 8, 12, 4, "#dd2222");
+  stroke(ctx, bx, by + 8, 16, 14, "#880000", 1);
+  // arms
+  r(ctx, bx - 4, by + 10, 6, 8, "#cc1111");
+  r(ctx, bx + 16, by + 10, 6, 8, "#cc1111");
+  // hands on controls
+  rr(ctx, bx - 4, by + 16, 6, 5, 2, "#f4c07a");
+  rr(ctx, bx + 16, by + 16, 6, 5, 2, "#f4c07a");
+  // legs (seated)
+  r(ctx, bx + 2, by + 22, 6, 7, "#1a1a4a");
+  r(ctx, bx + 8, by + 22, 6, 7, "#1a1a4a");
+  // boots
+  rr(ctx, bx, by + 28, 8, 4, 1, "#111");
+  rr(ctx, bx + 8, by + 28, 8, 4, 1, "#111");
+  // head
+  rr(ctx, bx + 2, by - 1, 12, 11, 2, "#f4c07a");
+  stroke(ctx, bx + 2, by - 1, 12, 11, "#c8843a", 1);
+  // eyes
+  r(ctx, bx + 4, by + 2, 2, 2, "#111");
+  r(ctx, bx + 8, by + 2, 2, 2, "#111");
+  // smile
+  r(ctx, bx + 5, by + 7, 4, 1, "#c8843a");
+  // cap — red NAL
+  rr(ctx, bx + 1, by - 5, 14, 5, 1, "#cc1111");
+  r(ctx, bx + 1, by - 5, 14, 2, "#ee2222");
+  stroke(ctx, bx + 1, by - 5, 14, 5, "#880000", 1);
+  r(ctx, bx + 11, by - 3, 7, 3, "#cc1111"); // brim
+  ctx.font = "bold 3px 'Courier New', monospace";
+  ctx.textAlign = "center"; ctx.textBaseline = "middle";
+  ctx.fillStyle = "#fff";
+  ctx.fillText("NAL", bx + 8, by - 2);
 
-    // Legs (seated)
-    r(ctx, opX + 2, opY + 24, 6, 10, "#1a1a4a");
-    r(ctx, opX + 8, opY + 24, 6, 10, "#1a1a4a");
-    rr(ctx, opX, opY + 32, 8, 4, 1, "#111");
-    rr(ctx, opX + 8, opY + 32, 8, 4, 1, "#111");
-
-    // Torso — red NAL shirt
-    rr(ctx, opX, opY + 8, 16, 16, 2, "#cc1111");
-    r(ctx, opX + 2, opY + 8, 12, 5, "#dd2222");
-    ctx.strokeStyle = "#880000"; ctx.lineWidth = 1;
-    ctx.beginPath(); ctx.roundRect(opX, opY + 8, 16, 16, 2); ctx.stroke();
-
-    // Arms
-    r(ctx, opX - 4, opY + 10, 6, 9, "#cc1111");
-    r(ctx, opX + 16, opY + 10, 6, 9, "#cc1111");
-    rr(ctx, opX - 5, opY + 17, 7, 5, 2, "#f4c07a");
-    rr(ctx, opX + 16, opY + 17, 7, 5, 2, "#f4c07a");
-
-    // Head
-    rr(ctx, opX + 2, opY - 2, 12, 12, 2, "#f4c07a");
-    ctx.strokeStyle = "#c8843a"; ctx.lineWidth = 1;
-    ctx.beginPath(); ctx.roundRect(opX + 2, opY - 2, 12, 12, 2); ctx.stroke();
-    // Eyes
-    r(ctx, opX + 4, opY + 1, 2, 2, "#111");
-    r(ctx, opX + 8, opY + 1, 2, 2, "#111");
-    // Smile
-    r(ctx, opX + 5, opY + 6, 4, 1, "#c8843a");
-
-    // Cap — red NAL
-    rr(ctx, opX + 1, opY - 7, 14, 6, 1, "#cc1111");
-    r(ctx, opX + 1, opY - 7, 14, 2, "#ee2222");
-    ctx.strokeStyle = "#880000"; ctx.lineWidth = 1;
-    ctx.beginPath(); ctx.roundRect(opX + 1, opY - 7, 14, 6, 1); ctx.stroke();
-    r(ctx, opX + 11, opY - 5, 7, 3, "#cc1111"); // brim
-    ctx.font = "bold 3px 'Courier New', monospace";
-    ctx.textAlign = "center"; ctx.textBaseline = "middle";
-    ctx.fillStyle = "#fff";
-    ctx.fillText("NAL", opX + 8, opY - 4);
+  // === SPEED LINES ===
+  ctx.strokeStyle = "rgba(255,255,255,0.35)";
+  ctx.lineWidth = 1;
+  for (let i = 0; i < 3; i++) {
+    const lx = x - 6 - (frame % 12) * 1.2;
+    const ly = y + 8 + i * 12;
+    const len = 10 + i * 4;
+    ctx.beginPath(); ctx.moveTo(lx, ly); ctx.lineTo(lx - len, ly); ctx.stroke();
   }
-
-  ctx.restore();
 }
 
-// ─── OBSTACLE SPRITES ────────────────────────────────────────
-function drawObstacle(ctx: CanvasRenderingContext2D, obs: Obstacle) {
-  const { x, y, w, h, type, frame } = obs;
+// ============================================================
+// OBSTACLE SPRITES
+// ============================================================
+function drawObstacle(ctx: CanvasRenderingContext2D, type: string, cx: number, cy: number, frame: number) {
+  const x = cx - OBS_W / 2;
+  const y = cy - OBS_H / 2;
   ctx.save();
 
   switch (type) {
-    case "rock": {
-      // Chunky rock
-      ctx.fillStyle = "#7a7a7a";
-      ctx.beginPath();
-      ctx.moveTo(x + w * 0.1, y + h);
-      ctx.lineTo(x, y + h * 0.6);
-      ctx.lineTo(x + w * 0.15, y + h * 0.2);
-      ctx.lineTo(x + w * 0.4, y);
-      ctx.lineTo(x + w * 0.7, y + h * 0.05);
-      ctx.lineTo(x + w, y + h * 0.35);
-      ctx.lineTo(x + w * 0.9, y + h);
-      ctx.closePath(); ctx.fill();
-      ctx.fillStyle = "#9a9a9a";
-      ctx.beginPath();
-      ctx.moveTo(x + w * 0.2, y + h * 0.25);
-      ctx.lineTo(x + w * 0.5, y + h * 0.05);
-      ctx.lineTo(x + w * 0.75, y + h * 0.2);
-      ctx.lineTo(x + w * 0.55, y + h * 0.5);
-      ctx.lineTo(x + w * 0.25, y + h * 0.45);
-      ctx.closePath(); ctx.fill();
-      ctx.strokeStyle = "#555"; ctx.lineWidth = 1.5;
-      ctx.beginPath();
-      ctx.moveTo(x + w * 0.1, y + h);
-      ctx.lineTo(x, y + h * 0.6);
-      ctx.lineTo(x + w * 0.15, y + h * 0.2);
-      ctx.lineTo(x + w * 0.4, y);
-      ctx.lineTo(x + w * 0.7, y + h * 0.05);
-      ctx.lineTo(x + w, y + h * 0.35);
-      ctx.lineTo(x + w * 0.9, y + h);
-      ctx.closePath(); ctx.stroke();
-      break;
-    }
-    case "stump": {
-      // Tree stump
-      rr(ctx, x + w * 0.15, y, w * 0.7, h * 0.7, 2, "#6b4020");
-      ctx.strokeStyle = "#3a1a00"; ctx.lineWidth = 1.5;
-      ctx.beginPath(); ctx.roundRect(x + w * 0.15, y, w * 0.7, h * 0.7, 2); ctx.stroke();
-      // rings
-      ctx.fillStyle = "#7a5030";
-      ctx.beginPath(); ctx.ellipse(x + w * 0.5, y, w * 0.35, h * 0.12, 0, 0, Math.PI * 2); ctx.fill();
-      ctx.strokeStyle = "#3a1a00"; ctx.lineWidth = 1;
-      ctx.beginPath(); ctx.ellipse(x + w * 0.5, y, w * 0.35, h * 0.12, 0, 0, Math.PI * 2); ctx.stroke();
-      ctx.beginPath(); ctx.ellipse(x + w * 0.5, y, w * 0.2, h * 0.07, 0, 0, Math.PI * 2); ctx.stroke();
-      // roots
-      rr(ctx, x, y + h * 0.65, w, h * 0.35, 2, "#8a5a28");
-      ctx.strokeStyle = "#3a1a00"; ctx.lineWidth = 1;
-      ctx.beginPath(); ctx.roundRect(x, y + h * 0.65, w, h * 0.35, 2); ctx.stroke();
-      break;
-    }
-    case "fire_ants": {
-      // Mound
-      ctx.fillStyle = "#c8703a";
-      ctx.beginPath(); ctx.ellipse(x + w * 0.5, y + h, w * 0.5, h * 0.5, 0, Math.PI, 0); ctx.fill();
-      ctx.fillStyle = "#a04c18";
-      ctx.beginPath(); ctx.ellipse(x + w * 0.5, y + h, w * 0.35, h * 0.35, 0, Math.PI, 0); ctx.fill();
-      // Ants
-      for (let i = 0; i < 5; i++) {
-        const ax = x + w * 0.2 + i * w * 0.15 + Math.sin(frame * 0.2 + i) * 3;
-        const ay = y + h * 0.3 - i * h * 0.08;
-        circ(ctx, ax, ay, 2.5, "#111");
-        circ(ctx, ax + 4, ay, 1.5, "#111");
-        circ(ctx, ax - 4, ay, 1.5, "#111");
-      }
-      // ! warning
-      ctx.font = "bold 12px 'Courier New', monospace";
-      ctx.textAlign = "center"; ctx.textBaseline = "middle";
-      ctx.fillStyle = "#ff4400";
-      ctx.fillText("!", x + w * 0.5, y - 6);
-      break;
-    }
     case "tricycle": {
       // Frame
-      ctx.strokeStyle = "#e84040"; ctx.lineWidth = 3;
-      ctx.beginPath(); ctx.moveTo(x + w * 0.35, y + h * 0.3); ctx.lineTo(x + w * 0.65, y + h * 0.3); ctx.stroke();
-      ctx.beginPath(); ctx.moveTo(x + w * 0.35, y + h * 0.3); ctx.lineTo(x + w * 0.2, y + h * 0.8); ctx.stroke();
-      ctx.beginPath(); ctx.moveTo(x + w * 0.65, y + h * 0.3); ctx.lineTo(x + w * 0.8, y + h * 0.8); ctx.stroke();
+      r(ctx, x + 10, y + 14, 28, 14, "#e84040");
+      stroke(ctx, x + 10, y + 14, 28, 14, "#990000", 2);
       // Wheels
-      const wSpin = (frame * 4) * Math.PI / 180;
-      [x + w * 0.2, x + w * 0.8].forEach(wx => {
-        circ(ctx, wx, y + h * 0.85, w * 0.18, "#111");
-        circ(ctx, wx, y + h * 0.85, w * 0.1, "#333");
-        ctx.strokeStyle = "#555"; ctx.lineWidth = 1.5;
-        for (let i = 0; i < 4; i++) {
-          const a = wSpin + i * Math.PI / 2;
-          ctx.beginPath();
-          ctx.moveTo(wx + Math.cos(a) * w * 0.04, y + h * 0.85 + Math.sin(a) * w * 0.04);
-          ctx.lineTo(wx + Math.cos(a) * w * 0.1, y + h * 0.85 + Math.sin(a) * w * 0.1);
-          ctx.stroke();
-        }
-      });
-      // Seat
-      rr(ctx, x + w * 0.28, y + h * 0.15, w * 0.44, h * 0.18, 2, "#2244cc");
+      circle(ctx, x + 16, cy + 14, 11, "#111");
+      circle(ctx, x + 16, cy + 14, 6, "#333");
+      circle(ctx, x + 36, cy + 14, 8, "#111");
+      circle(ctx, x + 36, cy + 14, 4, "#333");
       // Handlebars
-      r(ctx, x + w * 0.58, y, w * 0.04, h * 0.32, "#888");
-      r(ctx, x + w * 0.48, y, w * 0.2, h * 0.06, "#888");
+      r(ctx, x + 28, y + 6, 4, 10, "#888");
+      r(ctx, x + 22, y + 6, 14, 3, "#888");
+      // Seat
+      rr(ctx, x + 18, y + 10, 14, 5, 2, "#2244cc");
       break;
     }
-    case "hoa_sign": {
-      // Post
-      r(ctx, x + w * 0.45, y + h * 0.5, w * 0.1, h * 0.5, "#888");
-      // Sign board
-      rr(ctx, x + w * 0.05, y, w * 0.9, h * 0.52, 3, "#cc1111");
-      ctx.strokeStyle = "#880000"; ctx.lineWidth = 2;
-      ctx.beginPath(); ctx.roundRect(x + w * 0.05, y, w * 0.9, h * 0.52, 3); ctx.stroke();
-      // Text
-      ctx.font = "bold 6px 'Courier New', monospace";
-      ctx.textAlign = "center"; ctx.textBaseline = "middle";
-      ctx.fillStyle = "#fff";
-      ctx.fillText("HOA", x + w * 0.5, y + h * 0.15);
-      ctx.fillText("VIOLATION", x + w * 0.5, y + h * 0.3);
-      ctx.font = "bold 4px 'Courier New', monospace";
-      ctx.fillText("NO LOUD NOISES", x + w * 0.5, y + h * 0.44);
-      break;
-    }
-    case "branch": {
-      // Hanging branch (high obstacle — duck under)
-      r(ctx, x, y, w, h * 0.3, "#5a3010");
-      ctx.strokeStyle = "#3a1a00"; ctx.lineWidth = 1.5;
-      ctx.strokeRect(x, y, w, h * 0.3);
-      // Leaves
-      const leafColors = ["#2a7a18", "#3a8a28", "#4a9a38"];
-      for (let i = 0; i < 6; i++) {
-        const lx = x + w * 0.1 + i * w * 0.14;
-        const ly = y + h * 0.3 + Math.sin(frame * 0.05 + i) * 3;
-        ctx.fillStyle = leafColors[i % 3];
+    case "soccer_ball": {
+      circle(ctx, cx, cy + 2, 20, "#fff");
+      ctx.strokeStyle = "#111"; ctx.lineWidth = 1.5;
+      ctx.beginPath(); ctx.arc(cx, cy + 2, 20, 0, Math.PI * 2); ctx.stroke();
+      ctx.fillStyle = "#111";
+      [[0,-12],[10,6],[-10,6]].forEach(([px2,py2]) => {
         ctx.beginPath();
-        ctx.ellipse(lx, ly + 6, 6, 9, Math.sin(i) * 0.5, 0, Math.PI * 2);
-        ctx.fill();
-      }
-      // Rope/chain from top
-      ctx.strokeStyle = "#888"; ctx.lineWidth = 2; ctx.setLineDash([3, 2]);
-      ctx.beginPath(); ctx.moveTo(x + w * 0.5, 0); ctx.lineTo(x + w * 0.5, y); ctx.stroke();
-      ctx.setLineDash([]);
+        for (let i = 0; i < 5; i++) {
+          const a = (i*72-90)*Math.PI/180;
+          if (i===0) ctx.moveTo(cx+px2+Math.cos(a)*5, cy+2+py2+Math.sin(a)*5);
+          else ctx.lineTo(cx+px2+Math.cos(a)*5, cy+2+py2+Math.sin(a)*5);
+        }
+        ctx.closePath(); ctx.fill();
+      });
+      ctx.fillStyle = "rgba(0,0,0,0.18)";
+      ctx.beginPath(); ctx.ellipse(cx, cy+24, 16, 4, 0, 0, Math.PI*2); ctx.fill();
       break;
     }
-    case "cone": {
-      // Traffic cone
-      ctx.fillStyle = "#ff6600";
+    case "garden_hose": {
+      ctx.strokeStyle = "#228b22"; ctx.lineWidth = 5; ctx.lineCap = "round";
       ctx.beginPath();
-      ctx.moveTo(x + w * 0.5, y);
-      ctx.lineTo(x + w * 0.1, y + h * 0.85);
-      ctx.lineTo(x + w * 0.9, y + h * 0.85);
-      ctx.closePath(); ctx.fill();
-      ctx.fillStyle = "#fff";
-      ctx.beginPath();
-      ctx.moveTo(x + w * 0.38, y + h * 0.38);
-      ctx.lineTo(x + w * 0.62, y + h * 0.38);
-      ctx.lineTo(x + w * 0.68, y + h * 0.55);
-      ctx.lineTo(x + w * 0.32, y + h * 0.55);
-      ctx.closePath(); ctx.fill();
-      rr(ctx, x + w * 0.05, y + h * 0.83, w * 0.9, h * 0.17, 1, "#ff6600");
-      ctx.strokeStyle = "#cc4400"; ctx.lineWidth = 1.5;
-      ctx.beginPath();
-      ctx.moveTo(x + w * 0.5, y);
-      ctx.lineTo(x + w * 0.1, y + h * 0.85);
-      ctx.lineTo(x + w * 0.9, y + h * 0.85);
-      ctx.closePath(); ctx.stroke();
+      ctx.moveTo(x+8, y+44); ctx.bezierCurveTo(x+8,y+8,x+44,y+8,x+44,y+44);
+      ctx.bezierCurveTo(x+44,y+26,x+26,y+26,x+26,y+44); ctx.stroke();
+      rr(ctx, x+22, y+38, 8, 12, 2, "#888");
+      if (frame%6<3) {
+        ctx.strokeStyle="#4af"; ctx.lineWidth=2;
+        for(let i=0;i<3;i++){ctx.beginPath();ctx.moveTo(x+26,y+36);ctx.lineTo(x+26+(i-1)*8,y+26);ctx.stroke();}
+      }
+      break;
+    }
+    case "sprinkler": {
+      r(ctx, cx-3, y+28, 6, 22, "#888");
+      rr(ctx, cx-10, y+20, 20, 10, 3, "#aaa");
+      stroke(ctx, cx-10, y+20, 20, 10, "#666", 1.5);
+      const a = (frame*4)*Math.PI/180;
+      ctx.strokeStyle="#aaa"; ctx.lineWidth=3;
+      ctx.beginPath(); ctx.moveTo(cx,y+25); ctx.lineTo(cx+Math.cos(a)*14,y+25+Math.sin(a)*3); ctx.stroke();
+      if(frame%4<2){ctx.strokeStyle="#4af";ctx.lineWidth=1.5;for(let i=0;i<4;i++){ctx.beginPath();ctx.moveTo(cx+Math.cos(a)*14,y+25);ctx.lineTo(cx+Math.cos(a)*14+Math.cos(a+0.5+i*0.3)*10,y+25-8-i*3);ctx.stroke();}}
+      break;
+    }
+    case "sandbox": {
+      rr(ctx, x+4, y+18, 40, 28, 3, "#f4d03f");
+      stroke(ctx, x+4, y+18, 40, 28, "#c9a227", 2);
+      rr(ctx, x+8, y+22, 32, 20, 2, "#f9e07a");
+      rr(ctx, x+10, y+26, 10, 8, 2, "#e84040");
+      r(ctx, x+26, y+28, 12, 4, "#2244cc");
+      r(ctx, x+4, y+18, 40, 5, "#c9a227");
+      break;
+    }
+    case "lawn_chair": {
+      r(ctx, x+8, y+26, 4, 22, "#888"); r(ctx, x+36, y+26, 4, 22, "#888");
+      r(ctx, x+6, y+42, 16, 4, "#888"); r(ctx, x+28, y+42, 16, 4, "#888");
+      r(ctx, x+6, y+24, 36, 7, "#2244cc");
+      r(ctx, x+6, y+8, 8, 18, "#2244cc"); r(ctx, x+34, y+8, 8, 18, "#2244cc"); r(ctx, x+6, y+8, 36, 7, "#2244cc");
+      for(let i=0;i<4;i++) r(ctx, x+6+i*9, y+8, 4, 26, "#4466ee");
+      stroke(ctx, x+6, y+8, 36, 24, "#1133aa", 2);
+      break;
+    }
+    case "hoa_rep": {
+      ctx.fillStyle="rgba(0,0,0,0.18)"; ctx.beginPath(); ctx.ellipse(cx,cy+24,12,4,0,0,Math.PI*2); ctx.fill();
+      r(ctx, cx-9, cy+4, 7, 18, "#2a2a6a"); r(ctx, cx+2, cy+4, 7, 18, "#2a2a6a");
+      rr(ctx, cx-10, cy-14, 20, 20, 2, "#c8a860"); stroke(ctx, cx-10, cy-14, 20, 20, "#8a7040", 1.5);
+      // clipboard
+      rr(ctx, cx+8, cy-10, 14, 18, 2, "#f5f5dc"); stroke(ctx, cx+8, cy-10, 14, 18, "#888", 1.5);
+      r(ctx, cx+10, cy-6, 10, 2, "#aaa"); r(ctx, cx+10, cy-2, 10, 2, "#aaa"); r(ctx, cx+10, cy+2, 10, 2, "#aaa");
+      r(ctx, cx+13, cy-12, 4, 4, "#888");
+      rr(ctx, cx-7, cy-28, 14, 14, 2, "#f4c07a"); stroke(ctx, cx-7, cy-28, 14, 14, "#c8843a", 1);
+      r(ctx, cx-4, cy-23, 3, 3, "#111"); r(ctx, cx+1, cy-23, 3, 3, "#111");
+      r(ctx, cx-4, cy-16, 8, 2, "#c8843a"); r(ctx, cx-5, cy-15, 2, 2, "#c8843a"); r(ctx, cx+3, cy-15, 2, 2, "#c8843a");
+      r(ctx, cx-9, cy-32, 18, 6, "#2a2a6a"); r(ctx, cx-7, cy-38, 14, 8, "#2a2a6a");
+      // speech bubble
+      const bob = Math.sin(frame*0.1)*2;
+      rr(ctx, cx-26, cy-52+bob, 48, 16, 4, "#fffde7"); stroke(ctx, cx-26, cy-52+bob, 48, 16, "#888", 1.5);
+      r(ctx, cx-3, cy-36+bob, 6, 6, "#fffde7");
+      ctx.font="bold 5px 'Courier New',monospace"; ctx.textAlign="center"; ctx.textBaseline="middle"; ctx.fillStyle="#cc0000";
+      const msgs=["VIOLATION!","RULE #47!","TOO LOUD!","CALL HOA!"];
+      ctx.fillText(msgs[Math.floor(frame/40)%4], cx, cy-44+bob);
+      break;
+    }
+    case "violation_sign": {
+      r(ctx, cx-3, y+22, 6, 30, "#888");
+      rr(ctx, x+2, y+4, 44, 20, 3, "#cc1111"); stroke(ctx, x+2, y+4, 44, 20, "#880000", 2.5);
+      ctx.font="bold 6px 'Courier New',monospace"; ctx.textAlign="center"; ctx.textBaseline="middle"; ctx.fillStyle="#fff";
+      ctx.fillText("NO LOUD", cx, y+11); ctx.fillText("NOISES", cx, y+18);
+      ctx.font="bold 4px 'Courier New',monospace"; ctx.fillText("PAST 10PM", cx, y+24);
+      break;
+    }
+    case "measuring_tape": {
+      ctx.fillStyle="#f4c430"; ctx.beginPath(); ctx.arc(cx,cy,20,0,Math.PI*2); ctx.fill();
+      stroke(ctx, cx-20, cy-20, 40, 40, "#c8a000", 2);
+      circle(ctx, cx, cy, 7, "#888");
+      r(ctx, cx+7, cy-3, 26, 6, "#f5f5dc"); stroke(ctx, cx+7, cy-3, 26, 6, "#888", 1);
+      for(let i=0;i<5;i++) r(ctx, cx+11+i*5, cy-3, 1, 6, "#888");
+      ctx.font="bold 5px 'Courier New',monospace"; ctx.textAlign="center"; ctx.textBaseline="middle"; ctx.fillStyle="#111"; ctx.fillText("HOA",cx,cy);
+      break;
+    }
+    case "angry_neighbor": {
+      ctx.fillStyle="rgba(0,0,0,0.18)"; ctx.beginPath(); ctx.ellipse(cx,cy+24,10,4,0,0,Math.PI*2); ctx.fill();
+      rr(ctx, cx-10, cy-12, 20, 22, 2, "#c8c8c8"); stroke(ctx, cx-10, cy-12, 20, 22, "#888", 1.5);
+      r(ctx, cx-3, cy-12, 6, 22, "#aaa");
+      r(ctx, cx-7, cy+10, 7, 14, "#c8c8c8"); r(ctx, cx, cy+10, 7, 14, "#c8c8c8");
+      rr(ctx, cx-9, cy+22, 10, 5, 2, "#e8c880"); rr(ctx, cx+1, cy+22, 10, 5, 2, "#e8c880");
+      rr(ctx, cx-7, cy-28, 14, 14, 2, "#f4c07a"); stroke(ctx, cx-7, cy-28, 14, 14, "#c8843a", 1);
+      r(ctx, cx-4, cy-23, 3, 3, "#111"); r(ctx, cx+1, cy-23, 3, 3, "#111");
+      r(ctx, cx-4, cy-25, 6, 2, "#c8843a"); r(ctx, cx+1, cy-25, 6, 2, "#c8843a");
+      r(ctx, cx-3, cy-16, 6, 2, "#c8843a");
+      r(ctx, cx-7, cy-34, 14, 8, "#888"); r(ctx, cx-9, cy-32, 4, 6, "#888"); r(ctx, cx+5, cy-32, 4, 6, "#888");
+      rr(ctx, cx+8, cy-6, 10, 12, 2, "#fff"); stroke(ctx, cx+8, cy-6, 10, 12, "#888", 1.5);
+      ctx.strokeStyle="#888"; ctx.lineWidth=2; ctx.beginPath(); ctx.arc(cx+20,cy,4,-Math.PI/2,Math.PI/2); ctx.stroke();
+      if(frame%8<4){ctx.strokeStyle="rgba(200,200,200,0.6)";ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(cx+12,cy-8);ctx.lineTo(cx+10,cy-16);ctx.stroke();ctx.beginPath();ctx.moveTo(cx+16,cy-8);ctx.lineTo(cx+18,cy-16);ctx.stroke();}
+      break;
+    }
+    case "lumber_pile": {
+      for(let i=0;i<4;i++){
+        const ly=y+38-i*8;
+        rr(ctx, x+4+i*2, ly, 40-i*4, 7, 1, i%2===0?"#c8a060":"#b08040");
+        stroke(ctx, x+4+i*2, ly, 40-i*4, 7, "#7a5020", 1);
+        for(let j=0;j<3;j++) r(ctx, x+10+j*10+i*2, ly+2, 2, 3, "rgba(0,0,0,0.15)");
+      }
+      ctx.fillStyle="#8a5c20"; ctx.beginPath(); ctx.arc(x+8,y+22,5,0,Math.PI*2); ctx.fill();
+      ctx.beginPath(); ctx.arc(x+8,y+30,5,0,Math.PI*2); ctx.fill();
+      ctx.fillStyle="#c8a060"; ctx.beginPath(); ctx.arc(x+8,y+22,2,0,Math.PI*2); ctx.fill();
+      ctx.beginPath(); ctx.arc(x+8,y+30,2,0,Math.PI*2); ctx.fill();
       break;
     }
     case "porta_potty": {
-      rr(ctx, x + w * 0.1, y, w * 0.8, h, 3, "#4488cc");
-      ctx.strokeStyle = "#2255aa"; ctx.lineWidth = 2;
-      ctx.beginPath(); ctx.roundRect(x + w * 0.1, y, w * 0.8, h, 3); ctx.stroke();
-      rr(ctx, x + w * 0.08, y, w * 0.84, h * 0.12, 2, "#3366bb");
-      rr(ctx, x + w * 0.3, y + h * 0.4, w * 0.4, h * 0.6, 2, "#3366bb");
-      ctx.strokeStyle = "#2255aa"; ctx.lineWidth = 1.5;
-      ctx.beginPath(); ctx.roundRect(x + w * 0.3, y + h * 0.4, w * 0.4, h * 0.6, 2); ctx.stroke();
-      r(ctx, x + w * 0.62, y + h * 0.55, w * 0.06, h * 0.15, "#f4c430");
-      ctx.font = "bold 4px 'Courier New', monospace";
-      ctx.textAlign = "center"; ctx.textBaseline = "middle";
-      ctx.fillStyle = "#fff";
-      ctx.fillText("OCCUPIED", x + w * 0.5, y + h * 0.25);
-      if (frame % 10 < 5) {
-        ctx.strokeStyle = "rgba(150,200,50,0.5)"; ctx.lineWidth = 1;
-        for (let i = 0; i < 3; i++) {
-          ctx.beginPath();
-          ctx.moveTo(x + w * 0.3 + i * w * 0.15, y);
-          ctx.bezierCurveTo(x + w * 0.25 + i * w * 0.15, y - 8, x + w * 0.35 + i * w * 0.15, y - 14, x + w * 0.3 + i * w * 0.15, y - 20);
-          ctx.stroke();
-        }
+      rr(ctx, x+8, y+8, 32, 42, 3, "#4488cc"); stroke(ctx, x+8, y+8, 32, 42, "#2255aa", 2.5);
+      rr(ctx, x+6, y+4, 36, 8, 2, "#3366bb");
+      rr(ctx, x+16, y+24, 16, 26, 2, "#3366bb"); stroke(ctx, x+16, y+24, 16, 26, "#2255aa", 1.5);
+      r(ctx, x+28, y+34, 3, 6, "#f4c430");
+      rr(ctx, x+10, y+12, 8, 8, 2, "#2255aa");
+      for(let i=0;i<3;i++) r(ctx, x+11, y+13+i*2, 6, 1, "#88aadd");
+      ctx.font="bold 4px 'Courier New',monospace"; ctx.textAlign="center"; ctx.textBaseline="middle"; ctx.fillStyle="#fff";
+      ctx.fillText("OCCUPIED", cx, y+18);
+      if(frame%10<5){ctx.strokeStyle="rgba(150,200,50,0.4)";ctx.lineWidth=1;for(let i=0;i<3;i++){ctx.beginPath();ctx.moveTo(x+14+i*8,y+4);ctx.bezierCurveTo(x+10+i*8,y-4,x+18+i*8,y-8,x+14+i*8,y-14);ctx.stroke();}}
+      break;
+    }
+    case "hard_hat": {
+      ctx.fillStyle="#f4c430"; ctx.beginPath(); ctx.arc(cx,cy+2,20,Math.PI,0); ctx.fill();
+      r(ctx, x+2, cy+2, 44, 6, "#f4c430"); stroke(ctx, x+2, cy+2, 44, 6, "#c8a000", 1.5);
+      ctx.strokeStyle="#c8a000"; ctx.lineWidth=2; ctx.beginPath(); ctx.arc(cx,cy+2,20,Math.PI,0); ctx.stroke();
+      r(ctx, cx-14, cy, 28, 4, "#e8b800");
+      ctx.fillStyle="rgba(0,0,0,0.18)"; ctx.beginPath(); ctx.ellipse(cx,cy+24,18,5,0,0,Math.PI*2); ctx.fill();
+      break;
+    }
+    case "cone_row": {
+      for(let i=0;i<3;i++){
+        const cx2=x+8+i*16;
+        ctx.fillStyle="#ff6600"; ctx.beginPath(); ctx.moveTo(cx2,y+8); ctx.lineTo(cx2-9,y+42); ctx.lineTo(cx2+9,y+42); ctx.closePath(); ctx.fill();
+        ctx.fillStyle="#fff"; ctx.beginPath(); ctx.moveTo(cx2-4,y+22); ctx.lineTo(cx2+4,y+22); ctx.lineTo(cx2+6,y+30); ctx.lineTo(cx2-6,y+30); ctx.closePath(); ctx.fill();
+        r(ctx, cx2-11, y+40, 22, 5, "#ff6600");
+        ctx.strokeStyle="#cc4400"; ctx.lineWidth=1; ctx.beginPath(); ctx.moveTo(cx2,y+8); ctx.lineTo(cx2-9,y+42); ctx.lineTo(cx2+9,y+42); ctx.closePath(); ctx.stroke();
       }
       break;
     }
-    case "tumbleweed": {
-      const roll = (frame * 6) % 360;
-      ctx.save(); ctx.translate(x + w * 0.5, y + h * 0.5); ctx.rotate(roll * Math.PI / 180);
-      ctx.strokeStyle = "#8a6020"; ctx.lineWidth = 2;
-      for (let i = 0; i < 6; i++) {
-        const a = i * 60 * Math.PI / 180;
-        ctx.beginPath();
-        ctx.moveTo(0, 0);
-        ctx.bezierCurveTo(Math.cos(a) * 8, Math.sin(a) * 8, Math.cos(a + 0.5) * w * 0.4, Math.sin(a + 0.5) * h * 0.4, Math.cos(a) * w * 0.45, Math.sin(a) * h * 0.45);
-        ctx.stroke();
-      }
-      ctx.strokeStyle = "#a07830"; ctx.lineWidth = 1.5;
-      ctx.beginPath(); ctx.arc(0, 0, w * 0.35, 0, Math.PI * 2); ctx.stroke();
-      ctx.beginPath(); ctx.arc(0, 0, w * 0.2, 0, Math.PI * 2); ctx.stroke();
-      ctx.restore();
+    case "mud_puddle": {
+      ctx.fillStyle="#6b4423"; ctx.beginPath(); ctx.ellipse(cx,cy+12,24,12,0,0,Math.PI*2); ctx.fill();
+      ctx.fillStyle="#7a5030"; ctx.beginPath(); ctx.ellipse(cx-4,cy+8,16,8,-0.2,0,Math.PI*2); ctx.fill();
+      ctx.strokeStyle="rgba(100,60,20,0.35)"; ctx.lineWidth=1;
+      ctx.beginPath(); ctx.ellipse(cx,cy+12,18+(frame%20),9+(frame%20)*0.4,0,0,Math.PI*2); ctx.stroke();
+      ctx.fillStyle="#8a6040";
+      for(let i=0;i<4;i++){const a=(i*90+frame*5)*Math.PI/180; ctx.beginPath(); ctx.arc(cx+Math.cos(a)*20,cy+12+Math.sin(a)*9,3,0,Math.PI*2); ctx.fill();}
+      break;
+    }
+    case "fire_ants": {
+      ctx.fillStyle="#c8703a"; ctx.beginPath(); ctx.arc(cx,cy+12,22,Math.PI,0); ctx.fill();
+      for(let i=0;i<6;i++){ctx.fillStyle="#a04c18"; ctx.beginPath(); ctx.arc(cx-14+i*6,cy+8,3,0,Math.PI*2); ctx.fill();}
+      ctx.fillStyle="#1a0a00";
+      [[cx-18,cy+2],[cx+16,cy+4],[cx-6,cy-4],[cx+4,cy-6],[cx-12,cy+12],[cx+18,cy+10]].forEach(([ax,ay],i)=>{
+        const off=Math.sin(frame*0.2+i)*3;
+        ctx.beginPath(); ctx.arc(ax+off,ay,2,0,Math.PI*2); ctx.fill();
+        ctx.beginPath(); ctx.arc(ax+off+4,ay+1,1.5,0,Math.PI*2); ctx.fill();
+        ctx.beginPath(); ctx.arc(ax+off-4,ay+1,1.5,0,Math.PI*2); ctx.fill();
+      });
+      ctx.font="bold 9px 'Courier New',monospace"; ctx.textAlign="center"; ctx.textBaseline="middle"; ctx.fillStyle="#ff4400"; ctx.fillText("!",cx,cy-10);
+      break;
+    }
+    case "dead_stump": {
+      ctx.fillStyle="#5a3010"; ctx.beginPath(); ctx.moveTo(cx-18,cy+22); ctx.bezierCurveTo(cx-12,cy+12,cx-6,cy+16,cx,cy+18); ctx.bezierCurveTo(cx+6,cy+16,cx+12,cy+12,cx+18,cy+22); ctx.fill();
+      ctx.fillStyle="#6b4020"; ctx.beginPath(); ctx.moveTo(cx-16,cy+20); ctx.lineTo(cx-12,cy-10); ctx.lineTo(cx+12,cy-10); ctx.lineTo(cx+16,cy+20); ctx.closePath(); ctx.fill();
+      stroke(ctx, cx-16, cy-10, 32, 30, "#3a1a00", 1.5);
+      ctx.strokeStyle="#5a3010"; ctx.lineWidth=1;
+      ctx.beginPath(); ctx.ellipse(cx,cy-10,12,4,0,0,Math.PI*2); ctx.stroke();
+      ctx.beginPath(); ctx.ellipse(cx,cy-10,7,3,0,0,Math.PI*2); ctx.stroke();
+      ctx.fillStyle="#7a5030"; ctx.beginPath(); ctx.ellipse(cx,cy-10,12,4,0,0,Math.PI*2); ctx.fill();
+      ctx.strokeStyle="#3a1a00"; ctx.lineWidth=1; ctx.beginPath(); ctx.ellipse(cx,cy-10,12,4,0,0,Math.PI*2); ctx.stroke();
       break;
     }
     case "cracked_earth": {
-      rr(ctx, x, y, w, h, 2, "#c8903a");
-      ctx.strokeStyle = "#8a5a1a"; ctx.lineWidth = 2;
-      [[x + w * 0.2, y + h * 0.1, x + w * 0.4, y + h * 0.6, x + w * 0.3, y + h],
-       [x + w * 0.6, y, x + w * 0.75, y + h * 0.5, x + w * 0.65, y + h]].forEach(([x1, y1, x2, y2, x3, y3]) => {
-        ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.lineTo(x3, y3); ctx.stroke();
+      rr(ctx, x+2, y+14, 44, 32, 3, "#c8903a");
+      ctx.strokeStyle="#8a5a1a"; ctx.lineWidth=2;
+      [[[cx-18,cy+8],[cx-6,cy+18],[cx-14,cy+28]],[[cx+8,cy+6],[cx+18,cy+16],[cx+10,cy+26]],[[cx-2,cy+12],[cx+10,cy+20],[cx+4,cy+30]]].forEach(pts=>{
+        ctx.beginPath(); ctx.moveTo(pts[0][0],pts[0][1]); pts.slice(1).forEach(p=>ctx.lineTo(p[0],p[1])); ctx.stroke();
       });
       break;
     }
-    case "lumber": {
-      for (let i = 0; i < 3; i++) {
-        const ly = y + h - (i + 1) * (h / 3);
-        rr(ctx, x + i * 2, ly, w - i * 4, h / 3 - 2, 1, i % 2 === 0 ? "#c8a060" : "#b08040");
-        ctx.strokeStyle = "#7a5020"; ctx.lineWidth = 1;
-        ctx.beginPath(); ctx.roundRect(x + i * 2, ly, w - i * 4, h / 3 - 2, 1); ctx.stroke();
-        for (let j = 0; j < 3; j++) r(ctx, x + 8 + j * 10 + i * 2, ly + 2, 2, 4, "rgba(0,0,0,0.15)");
-      }
+    case "tumbleweed": {
+      const roll=(frame*5)%360;
+      ctx.save(); ctx.translate(cx,cy+6); ctx.rotate(roll*Math.PI/180);
+      ctx.strokeStyle="#8a6020"; ctx.lineWidth=2;
+      for(let i=0;i<6;i++){const a=(i*60)*Math.PI/180; ctx.beginPath(); ctx.moveTo(0,0); ctx.bezierCurveTo(Math.cos(a)*8,Math.sin(a)*8,Math.cos(a+0.5)*18,Math.sin(a+0.5)*18,Math.cos(a)*20,Math.sin(a)*20); ctx.stroke();}
+      ctx.strokeStyle="#a07830"; ctx.beginPath(); ctx.arc(0,0,16,0,Math.PI*2); ctx.stroke(); ctx.beginPath(); ctx.arc(0,0,9,0,Math.PI*2); ctx.stroke();
+      ctx.restore();
+      ctx.fillStyle="rgba(0,0,0,0.18)"; ctx.beginPath(); ctx.ellipse(cx,cy+28,16,4,0,0,Math.PI*2); ctx.fill();
       break;
     }
   }
-
   ctx.restore();
 }
 
-// ─── COIN SPRITE ─────────────────────────────────────────────
-function drawCoin(ctx: CanvasRenderingContext2D, coin: Coin) {
-  if (coin.collected) return;
-  const bob = Math.sin(coin.frame * 0.12) * 2;
-  const { x, y } = coin;
-
-  // Glow
-  const grd = ctx.createRadialGradient(x, y + bob, 1, x, y + bob, 12);
-  grd.addColorStop(0, "rgba(255,220,0,0.5)");
-  grd.addColorStop(1, "rgba(255,220,0,0)");
+// ============================================================
+// COLLECTIBLE — glowing leaf bag
+// ============================================================
+function drawCollectible(ctx: CanvasRenderingContext2D, cx: number, cy: number, frame: number) {
+  const bob = Math.sin(frame * 0.15) * 3;
+  // glow
+  const grd = ctx.createRadialGradient(cx, cy+bob, 2, cx, cy+bob, 20);
+  grd.addColorStop(0, "rgba(100,220,80,0.4)");
+  grd.addColorStop(1, "rgba(100,220,80,0)");
   ctx.fillStyle = grd;
-  ctx.beginPath(); ctx.arc(x, y + bob, 12, 0, Math.PI * 2); ctx.fill();
-
-  // Coin body
-  circ(ctx, x, y + bob, 7, "#f4c430");
-  circ(ctx, x, y + bob, 5, "#ffd700");
-  ctx.strokeStyle = "#c8a000"; ctx.lineWidth = 1.5;
-  ctx.beginPath(); ctx.arc(x, y + bob, 7, 0, Math.PI * 2); ctx.stroke();
-
-  // $ symbol
-  ctx.font = "bold 7px 'Courier New', monospace";
-  ctx.textAlign = "center"; ctx.textBaseline = "middle";
-  ctx.fillStyle = "#c8a000";
-  ctx.fillText("$", x, y + bob);
-}
-
-// ─── PARALLAX BACKGROUNDS ────────────────────────────────────
-function drawBackground(
-  ctx: CanvasRenderingContext2D,
-  biomeIdx: number,
-  scrollX: number,
-  frame: number,
-  clouds: Cloud[],
-  bgElements: BgElement[]
-) {
-  const biome = BIOMES[biomeIdx];
-
-  // ── SKY GRADIENT ──
-  const skyGrad = ctx.createLinearGradient(0, 0, 0, GROUND_Y);
-  skyGrad.addColorStop(0, biome.skyTop);
-  skyGrad.addColorStop(1, biome.skyBot);
-  ctx.fillStyle = skyGrad; ctx.fillRect(0, 0, CW, GROUND_Y);
-
-  // ── SUN / MOON ──
-  if (biomeIdx < 2) {
-    // Sun
-    const sunX = CW * 0.82;
-    const sunY = GROUND_Y * 0.22;
-    const sunGrd = ctx.createRadialGradient(sunX, sunY, 2, sunX, sunY, 22);
-    sunGrd.addColorStop(0, "rgba(255,240,180,1)");
-    sunGrd.addColorStop(0.5, "rgba(255,220,100,0.8)");
-    sunGrd.addColorStop(1, "rgba(255,200,50,0)");
-    ctx.fillStyle = sunGrd;
-    ctx.beginPath(); ctx.arc(sunX, sunY, 22, 0, Math.PI * 2); ctx.fill();
-    circ(ctx, sunX, sunY, 12, "#fff8d0");
-  } else if (biomeIdx === 3) {
-    // Angry sun (drought)
-    const sunX = CW * 0.82;
-    const sunY = GROUND_Y * 0.25;
-    circ(ctx, sunX, sunY, 18, "#ff8800");
-    circ(ctx, sunX, sunY, 12, "#ffcc00");
-    ctx.strokeStyle = "#ff6600"; ctx.lineWidth = 2;
-    for (let i = 0; i < 8; i++) {
-      const a = (i * 45 + frame * 0.5) * Math.PI / 180;
-      ctx.beginPath();
-      ctx.moveTo(sunX + Math.cos(a) * 20, sunY + Math.sin(a) * 20);
-      ctx.lineTo(sunX + Math.cos(a) * 28, sunY + Math.sin(a) * 28);
-      ctx.stroke();
-    }
-  }
-
-  // ── CLOUDS (layer 1 — slowest) ──
-  ctx.fillStyle = biomeIdx < 2 ? "rgba(255,255,255,0.92)" : "rgba(200,180,140,0.5)";
-  clouds.forEach(cloud => {
-    ctx.beginPath();
-    ctx.ellipse(cloud.x, cloud.y, cloud.w, cloud.h, 0, 0, Math.PI * 2); ctx.fill();
-    ctx.beginPath();
-    ctx.ellipse(cloud.x - cloud.w * 0.5, cloud.y + cloud.h * 0.3, cloud.w * 0.65, cloud.h * 0.7, 0, 0, Math.PI * 2); ctx.fill();
-    ctx.beginPath();
-    ctx.ellipse(cloud.x + cloud.w * 0.5, cloud.y + cloud.h * 0.3, cloud.w * 0.65, cloud.h * 0.7, 0, 0, Math.PI * 2); ctx.fill();
-  });
-
-  // ── FAR BACKGROUND ELEMENTS (layer 2 — slow) ──
-  bgElements.forEach(el => {
-    if (el.y > GROUND_Y * 0.6) return; // only far elements here
-    ctx.save(); ctx.translate(el.x, el.y); ctx.scale(el.scale, el.scale);
-    drawBgElement(ctx, el.type, biomeIdx);
-    ctx.restore();
-  });
-
-  // ── HORIZON LINE ──
-  const horizGrad = ctx.createLinearGradient(0, GROUND_Y - 20, 0, GROUND_Y + 10);
-  horizGrad.addColorStop(0, biome.horizonColor);
-  horizGrad.addColorStop(1, biome.groundTop);
-  ctx.fillStyle = horizGrad; ctx.fillRect(0, GROUND_Y - 20, CW, 30);
-
-  // ── GROUND ──
-  const groundGrad = ctx.createLinearGradient(0, GROUND_Y, 0, CH);
-  groundGrad.addColorStop(0, biome.groundTop);
-  groundGrad.addColorStop(1, biome.groundBot);
-  ctx.fillStyle = groundGrad; ctx.fillRect(0, GROUND_Y, CW, CH - GROUND_Y);
-
-  // Ground texture — mow stripes
-  for (let i = 0; i < 8; i++) {
-    ctx.fillStyle = i % 2 === 0 ? "rgba(255,255,255,0.04)" : "rgba(0,0,0,0.04)";
-    ctx.fillRect(0, GROUND_Y + i * ((CH - GROUND_Y) / 8), CW, (CH - GROUND_Y) / 8);
-  }
-
-  // Ground line
-  ctx.strokeStyle = "rgba(0,0,0,0.2)"; ctx.lineWidth = 1.5;
-  ctx.beginPath(); ctx.moveTo(0, GROUND_Y); ctx.lineTo(CW, GROUND_Y); ctx.stroke();
-
-  // ── MID BACKGROUND ELEMENTS (layer 3 — medium) ──
-  bgElements.forEach(el => {
-    if (el.y <= GROUND_Y * 0.6 || el.y > GROUND_Y * 0.85) return;
-    ctx.save(); ctx.translate(el.x, el.y); ctx.scale(el.scale, el.scale);
-    drawBgElement(ctx, el.type, biomeIdx);
-    ctx.restore();
-  });
-
-  // ── NEAR BACKGROUND ELEMENTS (layer 4 — faster) ──
-  bgElements.forEach(el => {
-    if (el.y <= GROUND_Y * 0.85) return;
-    ctx.save(); ctx.translate(el.x, el.y); ctx.scale(el.scale, el.scale);
-    drawBgElement(ctx, el.type, biomeIdx);
-    ctx.restore();
-  });
-}
-
-function drawBgElement(ctx: CanvasRenderingContext2D, type: string, biomeIdx: number) {
-  switch (type) {
-    case "house": {
-      r(ctx, -28, -36, 56, 36, "#f5e6d0");
-      ctx.strokeStyle = "#c8a880"; ctx.lineWidth = 1;
-      ctx.strokeRect(-28, -36, 56, 36);
-      ctx.fillStyle = "#8B4513";
-      ctx.beginPath(); ctx.moveTo(-32, -36); ctx.lineTo(0, -56); ctx.lineTo(32, -36); ctx.closePath(); ctx.fill();
-      r(ctx, -8, -16, 16, 16, "#8B4513");
-      r(ctx, -20, -28, 12, 10, "#87ceeb");
-      r(ctx, 8, -28, 12, 10, "#87ceeb");
-      ctx.strokeStyle = "#888"; ctx.lineWidth = 0.5;
-      ctx.strokeRect(-20, -28, 12, 10); ctx.strokeRect(8, -28, 12, 10);
-      break;
-    }
-    case "tree": {
-      r(ctx, -4, -8, 8, 24, "#5a3010");
-      ctx.fillStyle = "#2a7a18";
-      ctx.beginPath(); ctx.arc(0, -20, 18, 0, Math.PI * 2); ctx.fill();
-      ctx.fillStyle = "#3a8a28";
-      ctx.beginPath(); ctx.arc(-6, -26, 12, 0, Math.PI * 2); ctx.fill();
-      ctx.beginPath(); ctx.arc(8, -24, 10, 0, Math.PI * 2); ctx.fill();
-      break;
-    }
-    case "dead_tree": {
-      r(ctx, -4, -40, 8, 40, "#5a3010");
-      ctx.strokeStyle = "#5a3010"; ctx.lineWidth = 3;
-      [[-20, -30, 0, -22], [18, -26, 0, -20], [-14, -14, 0, -10], [12, -12, 0, -8]].forEach(([x1, y1, x2, y2]) => {
-        ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
-      });
-      break;
-    }
-    case "fence_post": {
-      r(ctx, -3, -18, 6, 18, "#f0f0f0");
-      ctx.fillStyle = "#f0f0f0";
-      ctx.beginPath(); ctx.moveTo(-3, -18); ctx.lineTo(0, -24); ctx.lineTo(3, -18); ctx.closePath(); ctx.fill();
-      break;
-    }
-    case "fence_rail": {
-      r(ctx, -40, -14, 80, 3, "#f0f0f0");
-      r(ctx, -40, -7, 80, 3, "#f0f0f0");
-      break;
-    }
-    case "building_frame": {
-      ctx.strokeStyle = "#777"; ctx.lineWidth = 3;
-      for (let i = 0; i < 3; i++) { ctx.beginPath(); ctx.moveTo(-40 + i * 40, -80); ctx.lineTo(-40 + i * 40, 0); ctx.stroke(); }
-      for (let i = 0; i < 4; i++) { ctx.beginPath(); ctx.moveTo(-40, -20 * i); ctx.lineTo(40, -20 * i); ctx.stroke(); }
-      break;
-    }
-    case "cactus": {
-      r(ctx, -5, -36, 10, 36, "#3a7a2a");
-      r(ctx, -18, -22, 14, 6, "#3a7a2a");
-      r(ctx, -18, -28, 6, 12, "#3a7a2a");
-      r(ctx, 4, -18, 14, 6, "#3a7a2a");
-      r(ctx, 10, -24, 6, 12, "#3a7a2a");
-      ctx.strokeStyle = "#2a5a1a"; ctx.lineWidth = 1;
-      ctx.strokeRect(-5, -36, 10, 36);
-      break;
-    }
-    case "hoa_house": {
-      r(ctx, -30, -38, 60, 38, "#e8dcc8");
-      ctx.strokeStyle = "#c8b898"; ctx.lineWidth = 1; ctx.strokeRect(-30, -38, 60, 38);
-      ctx.fillStyle = "#6a3a1a";
-      ctx.beginPath(); ctx.moveTo(-34, -38); ctx.lineTo(0, -58); ctx.lineTo(34, -38); ctx.closePath(); ctx.fill();
-      r(ctx, -10, -18, 20, 18, "#6a3a1a");
-      r(ctx, -22, -30, 14, 12, "#87ceeb");
-      r(ctx, 8, -30, 14, 12, "#87ceeb");
-      // HOA flag
-      r(ctx, 26, -52, 2, 18, "#888");
-      rr(ctx, 28, -52, 12, 8, 1, "#cc1111");
-      break;
+  ctx.beginPath(); ctx.arc(cx, cy+bob, 20, 0, Math.PI*2); ctx.fill();
+  // bag
+  ctx.fillStyle = "#2a7a2a";
+  ctx.beginPath();
+  ctx.moveTo(cx-10, cy+12+bob);
+  ctx.bezierCurveTo(cx-12, cy-2+bob, cx+12, cy-2+bob, cx+10, cy+12+bob);
+  ctx.closePath(); ctx.fill();
+  stroke(ctx, cx-10, cy-2+bob, 20, 14, "#1a5a1a", 1.5);
+  r(ctx, cx-4, cy-4+bob, 8, 4, "#8B4513");
+  // leaf
+  ctx.fillStyle = "#f4c430";
+  ctx.beginPath(); ctx.moveTo(cx, cy+2+bob); ctx.bezierCurveTo(cx-7,cy-7+bob,cx+7,cy-7+bob,cx,cy+2+bob); ctx.fill();
+  // sparkle
+  if (frame % 20 < 10) {
+    ctx.strokeStyle = "rgba(255,220,0,0.7)"; ctx.lineWidth = 1;
+    const sa = (frame * 15) * Math.PI / 180;
+    for (let i = 0; i < 4; i++) {
+      const a = sa + i * Math.PI / 2;
+      ctx.beginPath(); ctx.moveTo(cx+Math.cos(a)*12, cy+bob+Math.sin(a)*12); ctx.lineTo(cx+Math.cos(a)*16, cy+bob+Math.sin(a)*16); ctx.stroke();
     }
   }
 }
 
+// ============================================================
+// BACKGROUNDS
+// ============================================================
+function drawBg(ctx: CanvasRenderingContext2D, level: number, scrollX: number, frame: number) {
+  if (level === 1) {
+    // Sky gradient
+    const sg = ctx.createLinearGradient(0,0,0,H*0.44);
+    sg.addColorStop(0,"#4a90d9"); sg.addColorStop(1,"#a8d4f5");
+    ctx.fillStyle=sg; ctx.fillRect(0,0,W,H*0.44);
+    // Clouds
+    ctx.fillStyle="rgba(255,255,255,0.92)";
+    [[80,28,38,16],[230,18,48,18],[380,32,32,14]].forEach(([cx2,cy2,cw,ch])=>{
+      const ox=((cx2-scrollX*0.25)%(W+120)+W+120)%(W+120)-60;
+      ctx.beginPath(); ctx.ellipse(ox,cy2,cw,ch,0,0,Math.PI*2); ctx.fill();
+      ctx.beginPath(); ctx.ellipse(ox-18,cy2+4,cw*0.65,ch*0.75,0,0,Math.PI*2); ctx.fill();
+      ctx.beginPath(); ctx.ellipse(ox+18,cy2+4,cw*0.65,ch*0.75,0,0,Math.PI*2); ctx.fill();
+    });
+    // Lawn gradient
+    const lg = ctx.createLinearGradient(0,H*0.44,0,H);
+    lg.addColorStop(0,"#5aaf3c"); lg.addColorStop(1,"#2a7a18");
+    ctx.fillStyle=lg; ctx.fillRect(0,H*0.44,W,H*0.56);
+    // Mow stripes
+    for(let i=0;i<5;i++){ctx.fillStyle=i%2===0?"rgba(255,255,255,0.04)":"rgba(0,0,0,0.04)";ctx.fillRect(0,H*0.44+i*(H*0.56/5),W,H*0.56/5);}
+    // Houses
+    [30,170,320,470].forEach(hx=>{
+      const ox=((hx-scrollX*0.45)%(W+120)+W+120)%(W+120)-60;
+      r(ctx,ox,H*0.22,64,42,"#f5e6d0"); stroke(ctx,ox,H*0.22,64,42,"#c8a880",1);
+      ctx.fillStyle="#8B4513"; ctx.beginPath(); ctx.moveTo(ox-4,H*0.22); ctx.lineTo(ox+32,H*0.1); ctx.lineTo(ox+68,H*0.22); ctx.closePath(); ctx.fill();
+      r(ctx,ox+24,H*0.42,16,22,"#8B4513");
+      r(ctx,ox+6,H*0.27,14,12,"#87ceeb"); stroke(ctx,ox+6,H*0.27,14,12,"#888",1);
+      r(ctx,ox+44,H*0.27,14,12,"#87ceeb"); stroke(ctx,ox+44,H*0.27,14,12,"#888",1);
+    });
+    // Fence
+    for(let i=0;i<22;i++){const fx=((i*26-scrollX*0.65)%(W+52)+W+52)%(W+52)-26;r(ctx,fx,H*0.44-14,3,18,"#f0f0f0");r(ctx,fx+3,H*0.44-10,20,3,"#f0f0f0");}
+    // Lane dividers
+    ctx.strokeStyle="rgba(255,255,255,0.12)"; ctx.setLineDash([18,9]); ctx.lineWidth=1;
+    for(let i=1;i<LANE_COUNT;i++){ctx.beginPath();ctx.moveTo(0,LANE_H*i);ctx.lineTo(W,LANE_H*i);ctx.stroke();}
+    ctx.setLineDash([]);
 
-// ─── HUD ─────────────────────────────────────────────────────
-function drawHUD(
-  ctx: CanvasRenderingContext2D,
-  dist: number, coins: number, lives: number,
-  speed: number, lb: LeaderEntry[], frame: number,
-  biomeIdx: number, biomeTransition: number
-) {
-  // Top bar gradient
-  const barGrad = ctx.createLinearGradient(0, 0, 0, 28);
-  barGrad.addColorStop(0, "rgba(0,0,0,0.82)");
-  barGrad.addColorStop(1, "rgba(0,0,0,0.55)");
-  ctx.fillStyle = barGrad; ctx.fillRect(0, 0, CW, 28);
-
-  // Biome badge (left)
-  const biome = BIOMES[biomeIdx];
-  rr(ctx, 4, 4, 6, 20, 2, "#cc1111");
-  txtNoShadow(ctx, biome.name.toUpperCase(), 14, 14, 5.5, "#f4c430", "left");
-
-  // Distance (center)
-  const distStr = `${dist}ft`;
-  ctx.font = "bold 12px 'Courier New', monospace";
-  ctx.textAlign = "center"; ctx.textBaseline = "middle";
-  ctx.fillStyle = "rgba(0,0,0,0.5)"; ctx.fillText(distStr, CW / 2 + 1, 14 + 1);
-  ctx.fillStyle = "#fff"; ctx.fillText(distStr, CW / 2, 14);
-
-  // Speed indicator
-  const mph = Math.round(speed * 8);
-  ctx.font = "bold 6px 'Courier New', monospace";
-  ctx.textAlign = "center"; ctx.textBaseline = "middle";
-  ctx.fillStyle = speed > 6 ? "#ff6600" : "#aaa";
-  ctx.fillText(`${mph}mph`, CW / 2, 23);
-
-  // Coins (right of center)
-  rr(ctx, CW / 2 + 38, 6, 40, 16, 3, "rgba(0,0,0,0.5)");
-  circ(ctx, CW / 2 + 48, 14, 5, "#f4c430");
-  ctx.font = "bold 5px 'Courier New', monospace";
-  ctx.textAlign = "center"; ctx.textBaseline = "middle";
-  ctx.fillStyle = "#c8a000"; ctx.fillText("$", CW / 2 + 48, 14);
-  ctx.font = "bold 7px 'Courier New', monospace";
-  ctx.textAlign = "left"; ctx.textBaseline = "middle";
-  ctx.fillStyle = "#f4c430"; ctx.fillText(`${coins}`, CW / 2 + 56, 14);
-
-  // Lives (far right)
-  for (let i = 0; i < 3; i++) {
-    const hx = CW - 10 - i * 16;
-    const hy = 14;
-    const filled = i < lives;
-    circ(ctx, hx, hy, 6, filled ? "#cc1111" : "rgba(100,0,0,0.4)");
-    if (filled) {
-      circ(ctx, hx - 2, hy - 2, 2.5, "#ee2222");
+  } else if (level === 2) {
+    const sg=ctx.createLinearGradient(0,0,0,H*0.4);
+    sg.addColorStop(0,"#6a9ed8"); sg.addColorStop(1,"#b8d8f0");
+    ctx.fillStyle=sg; ctx.fillRect(0,0,W,H*0.4);
+    const lg=ctx.createLinearGradient(0,H*0.4,0,H);
+    lg.addColorStop(0,"#4a9e30"); lg.addColorStop(1,"#1a6a10");
+    ctx.fillStyle=lg; ctx.fillRect(0,H*0.4,W,H*0.6);
+    // Tall grass
+    for(let lane=0;lane<LANE_COUNT;lane++){
+      const gy=LANE_H*lane+LANE_H*0.65;
+      for(let i=0;i<28;i++){
+        const gx=((i*17-scrollX*0.88)%(W+34)+W+34)%(W+34)-17;
+        const gh=16+Math.sin(i*1.7+frame*0.05)*5;
+        const sway=Math.sin(frame*0.08+i*0.5)*3;
+        ctx.strokeStyle=lane%2===0?"#3a8a20":"#2a7a18"; ctx.lineWidth=2;
+        ctx.beginPath(); ctx.moveTo(gx,gy); ctx.quadraticCurveTo(gx+sway,gy-gh*0.5,gx+sway*2,gy-gh); ctx.stroke();
+      }
     }
-  }
+    // HOA houses
+    [20,160,310].forEach(hx=>{
+      const ox=((hx-scrollX*0.38)%(W+100)+W+100)%(W+100)-50;
+      r(ctx,ox,H*0.16,72,46,"#e8dcc8"); stroke(ctx,ox,H*0.16,72,46,"#c8b898",1);
+      ctx.fillStyle="#6a3a1a"; ctx.beginPath(); ctx.moveTo(ox-4,H*0.16); ctx.lineTo(ox+36,H*0.04); ctx.lineTo(ox+76,H*0.16); ctx.closePath(); ctx.fill();
+      r(ctx,ox+28,H*0.38,16,24,"#6a3a1a");
+      r(ctx,ox+8,H*0.21,14,12,"#87ceeb"); stroke(ctx,ox+8,H*0.21,14,12,"#888",1);
+      r(ctx,ox+50,H*0.21,14,12,"#87ceeb"); stroke(ctx,ox+50,H*0.21,14,12,"#888",1);
+    });
+    ctx.strokeStyle="rgba(255,255,255,0.18)"; ctx.setLineDash([14,7]); ctx.lineWidth=1;
+    for(let i=1;i<LANE_COUNT;i++){ctx.beginPath();ctx.moveTo(0,LANE_H*i);ctx.lineTo(W,LANE_H*i);ctx.stroke();}
+    ctx.setLineDash([]);
 
-  // Biome transition flash
-  if (biomeTransition > 0) {
-    const alpha = Math.min(biomeTransition / 20, 1) * 0.7;
-    ctx.fillStyle = `rgba(255,255,255,${alpha})`;
-    ctx.fillRect(0, 0, CW, CH);
-    if (biomeTransition > 10) {
-      txt(ctx, biome.name.toUpperCase(), CW / 2, CH / 2 - 10, 14, "#f4c430");
-      txt(ctx, biome.tagline, CW / 2, CH / 2 + 10, 7, "#fff");
-    }
-  }
+  } else if (level === 3) {
+    const sg=ctx.createLinearGradient(0,0,0,H*0.4);
+    sg.addColorStop(0,"#b8a880"); sg.addColorStop(1,"#d4c4a0");
+    ctx.fillStyle=sg; ctx.fillRect(0,0,W,H*0.4);
+    const dg=ctx.createLinearGradient(0,H*0.4,0,H);
+    dg.addColorStop(0,"#c8a060"); dg.addColorStop(1,"#906830");
+    ctx.fillStyle=dg; ctx.fillRect(0,H*0.4,W,H*0.6);
+    // Gravel
+    for(let i=0;i<50;i++){const gx=((i*11+7-scrollX*0.93)%(W+22)+W+22)%(W+22)-11;const gy=H*0.4+(i*19%(H*0.6));ctx.fillStyle=`rgba(${100+i%40},${80+i%30},${40+i%20},0.35)`;ctx.beginPath();ctx.arc(gx,gy,1.5+i%3,0,Math.PI*2);ctx.fill();}
+    // Building frame
+    const bldX=((50-scrollX*0.28)%(W+120)+W+120)%(W+120)-60;
+    ctx.strokeStyle="#777"; ctx.lineWidth=3;
+    for(let i=0;i<4;i++){ctx.beginPath();ctx.moveTo(bldX+i*30,H*0.04);ctx.lineTo(bldX+i*30,H*0.4);ctx.stroke();}
+    for(let i=0;i<4;i++){ctx.beginPath();ctx.moveTo(bldX,H*0.04+i*(H*0.36/3));ctx.lineTo(bldX+90,H*0.04+i*(H*0.36/3));ctx.stroke();}
+    // Chain link
+    ctx.strokeStyle="#888"; ctx.lineWidth=1;
+    for(let i=0;i<26;i++){const fx=((i*20-scrollX*0.78)%(W+40)+W+40)%(W+40)-20;ctx.beginPath();ctx.moveTo(fx,H*0.4);ctx.lineTo(fx+10,H*0.4-12);ctx.lineTo(fx+20,H*0.4);ctx.stroke();ctx.beginPath();ctx.moveTo(fx,H*0.4-12);ctx.lineTo(fx+10,H*0.4);ctx.lineTo(fx+20,H*0.4-12);ctx.stroke();}
+    for(let i=0;i<8;i++){const fx=((i*62-scrollX*0.78)%(W+124)+W+124)%(W+124)-62;r(ctx,fx-2,H*0.4-16,4,20,"#666");}
+    ctx.strokeStyle="rgba(100,70,30,0.35)"; ctx.setLineDash([22,8]); ctx.lineWidth=2;
+    for(let i=1;i<LANE_COUNT;i++){ctx.beginPath();ctx.moveTo(0,LANE_H*i);ctx.lineTo(W,LANE_H*i);ctx.stroke();}
+    ctx.setLineDash([]);
 
-  // Speed milestone flash
-  if (frame % 300 < 20 && frame > 60) {
-    const a = Math.sin((frame % 300) * Math.PI / 20);
-    ctx.fillStyle = `rgba(255,100,0,${a * 0.15})`;
-    ctx.fillRect(0, 0, CW, CH);
-    if (frame % 300 < 10) {
-      txt(ctx, "FASTER!", CW / 2, CH * 0.4, 16, "#ff6600");
-    }
+  } else {
+    const sg=ctx.createLinearGradient(0,0,0,H*0.45);
+    sg.addColorStop(0,"#d06010"); sg.addColorStop(0.5,"#e89030"); sg.addColorStop(1,"#f8c060");
+    ctx.fillStyle=sg; ctx.fillRect(0,0,W,H*0.45);
+    if(frame%4<2){ctx.fillStyle="rgba(255,180,80,0.04)";ctx.fillRect(0,H*0.3,W,H*0.2);}
+    const dg=ctx.createLinearGradient(0,H*0.45,0,H);
+    dg.addColorStop(0,"#c4a050"); dg.addColorStop(1,"#7a5018");
+    ctx.fillStyle=dg; ctx.fillRect(0,H*0.45,W,H*0.55);
+    // Cracks
+    ctx.strokeStyle="rgba(100,60,10,0.28)"; ctx.lineWidth=1;
+    for(let i=0;i<10;i++){const cx2=((i*58+18-scrollX*0.88)%(W+116)+W+116)%(W+116)-58;const cy2=H*0.5+(i*21%(H*0.4));ctx.beginPath();ctx.moveTo(cx2,cy2);ctx.lineTo(cx2+18,cy2+10);ctx.lineTo(cx2+8,cy2+20);ctx.stroke();}
+    // Dead trees
+    [70,230,390].forEach(tx=>{
+      const ox=((tx-scrollX*0.48)%(W+80)+W+80)%(W+80)-40;
+      r(ctx,ox-4,H*0.18,8,H*0.27,"#5a3010");
+      ctx.strokeStyle="#5a3010"; ctx.lineWidth=2;
+      [[ox-14,H*0.2,ox,H*0.26],[ox+14,H*0.23,ox,H*0.28],[ox-10,H*0.31,ox,H*0.34],[ox+12,H*0.33,ox,H*0.37]].forEach(([x1,y1,x2,y2])=>{ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();});
+    });
+    ctx.strokeStyle="rgba(180,140,60,0.28)"; ctx.setLineDash([18,9]); ctx.lineWidth=1;
+    for(let i=1;i<LANE_COUNT;i++){ctx.beginPath();ctx.moveTo(0,LANE_H*i);ctx.lineTo(W,LANE_H*i);ctx.stroke();}
+    ctx.setLineDash([]);
   }
-
-  // Leaderboard (top right corner)
-  const lbX = CW - 88, lbY = 32;
-  rr(ctx, lbX - 2, lbY - 2, 90, 68, 4, "rgba(0,0,0,0.6)");
-  ctx.strokeStyle = "rgba(244,196,48,0.35)"; ctx.lineWidth = 1;
-  ctx.beginPath(); ctx.roundRect(lbX - 2, lbY - 2, 90, 68, 4); ctx.stroke();
-  txtNoShadow(ctx, "TOP 5", lbX + 43, lbY + 7, 6, "#f4c430");
-  const top5 = lb.slice(0, 5);
-  top5.forEach((e, i) => {
-    const ey = lbY + 18 + i * 11;
-    const c = i === 0 ? "#f4c430" : "#aaa";
-    txtNoShadow(ctx, `${i + 1}.${e.initials}`, lbX + 2, ey, 6, c, "left");
-    txtNoShadow(ctx, `${e.dist}`, lbX + 88, ey, 6, c, "right");
-  });
-  if (top5.length === 0) txtNoShadow(ctx, "BE FIRST!", lbX + 43, lbY + 38, 6, "#555");
 }
 
-// ─── IDLE SCREEN ─────────────────────────────────────────────
-function drawIdleScreen(
-  ctx: CanvasRenderingContext2D,
-  lb: LeaderEntry[],
-  frame: number,
-  idleMowerX: number
-) {
-  // Rich background
-  const skyGrad = ctx.createLinearGradient(0, 0, 0, GROUND_Y);
-  skyGrad.addColorStop(0, "#0d2a4a");
-  skyGrad.addColorStop(1, "#1a4a7a");
-  ctx.fillStyle = skyGrad; ctx.fillRect(0, 0, CW, GROUND_Y);
+// ============================================================
+// HUD
+// ============================================================
+function drawHUD(ctx: CanvasRenderingContext2D, level: number, score: number, lives: number, lb: LeaderEntry[], frame: number, boost: boolean) {
+  // Top bar
+  const hg=ctx.createLinearGradient(0,0,0,26);
+  hg.addColorStop(0,"rgba(0,0,0,0.78)"); hg.addColorStop(1,"rgba(0,0,0,0.55)");
+  ctx.fillStyle=hg; ctx.fillRect(0,0,W,26);
 
-  // Stars
-  for (let i = 0; i < 40; i++) {
-    const sx = (i * 137 + 17) % CW;
-    const sy = (i * 89 + 23) % (GROUND_Y * 0.7);
-    const twinkle = Math.sin(frame * 0.05 + i) * 0.5 + 0.5;
-    ctx.fillStyle = `rgba(255,255,255,${0.3 + twinkle * 0.7})`;
-    ctx.fillRect(sx, sy, 1.5, 1.5);
+  // Level badge
+  rr(ctx, 4, 4, 6, 18, 2, "#cc1111");
+  txt(ctx, `L${level}`, 7, 13, 7, "#fff", "center", false);
+  txt(ctx, LEVELS[level-1].name.toUpperCase(), 16, 13, 6, "#f4c430", "left", false);
+
+  // Score (center)
+  txt(ctx, `${score}ft`, W/2, 13, 10, "#fff", "center", false);
+
+  // Lives (right)
+  for(let i=0;i<lives;i++){
+    const hx=W-8-i*16;
+    ctx.fillStyle="#cc1111"; ctx.beginPath(); ctx.arc(hx,10,6,0,Math.PI*2); ctx.fill();
+    ctx.fillStyle="#ee2222"; ctx.beginPath(); ctx.arc(hx-2,8,2.5,0,Math.PI*2); ctx.fill();
   }
 
-  // Moon
-  circ(ctx, CW * 0.85, GROUND_Y * 0.2, 18, "#fff8d0");
-  circ(ctx, CW * 0.85 + 8, GROUND_Y * 0.2 - 4, 14, "#0d2a4a"); // crescent
+  // Boost bar
+  if(boost){
+    rr(ctx, W/2-38, 26, 76, 12, 2, "rgba(255,80,0,0.88)");
+    txt(ctx, "⚡ TURBO MODE ⚡", W/2, 32, 7, "#fff", "center", false);
+  }
 
-  // Silhouette houses
-  [40, 140, 260, 370, 450].forEach((hx, i) => {
-    const hh = 40 + i * 5;
-    ctx.fillStyle = "#0a1a2a";
-    ctx.fillRect(hx, GROUND_Y - hh, 50, hh);
-    ctx.beginPath(); ctx.moveTo(hx - 4, GROUND_Y - hh); ctx.lineTo(hx + 25, GROUND_Y - hh - 18); ctx.lineTo(hx + 54, GROUND_Y - hh); ctx.closePath(); ctx.fill();
-    // Windows (lit)
-    if (i % 2 === 0) {
-      ctx.fillStyle = "rgba(255,220,100,0.6)";
-      ctx.fillRect(hx + 8, GROUND_Y - hh + 10, 10, 8);
-      ctx.fillRect(hx + 28, GROUND_Y - hh + 10, 10, 8);
-    }
+  // Leaderboard panel (top right)
+  const lbX=W-86, lbY=38;
+  rr(ctx, lbX-3, lbY-3, 89, 72, 4, "rgba(0,0,0,0.58)");
+  ctx.strokeStyle="rgba(244,196,48,0.4)"; ctx.lineWidth=1;
+  ctx.beginPath(); ctx.roundRect(lbX-3,lbY-3,89,72,4); ctx.stroke();
+  txt(ctx, "TOP 5", lbX+40, lbY+6, 6, "#f4c430", "center", false);
+  const top5=lb.slice(0,5);
+  top5.forEach((e,i)=>{
+    const ey=lbY+16+i*11;
+    txt(ctx, `${i+1}.${e.initials}`, lbX+2, ey, 6, i===0?"#f4c430":"#ccc", "left", false);
+    txt(ctx, `${e.score}`, lbX+86, ey, 6, i===0?"#f4c430":"#ccc", "right", false);
+  });
+  if(top5.length===0) txt(ctx, "BE FIRST!", lbX+40, lbY+38, 6, "#666", "center", false);
+}
+
+// ============================================================
+// SCREENS
+// ============================================================
+function drawIdle(ctx: CanvasRenderingContext2D, lb: LeaderEntry[], frame: number) {
+  // Overlay
+  const og=ctx.createLinearGradient(0,0,0,H);
+  og.addColorStop(0,"rgba(0,15,0,0.93)"); og.addColorStop(1,"rgba(0,8,0,0.97)");
+  ctx.fillStyle=og; ctx.fillRect(0,0,W,H);
+
+  // Decorative border
+  ctx.strokeStyle="#cc1111"; ctx.lineWidth=3; ctx.strokeRect(5,5,W-10,H-10);
+  ctx.strokeStyle="#f4c430"; ctx.lineWidth=1; ctx.strokeRect(9,9,W-18,H-18);
+
+  // Title with glow
+  const pulse=1+Math.sin(frame*0.05)*0.025;
+  ctx.save(); ctx.translate(W/2,36); ctx.scale(pulse,pulse);
+  // glow
+  ctx.shadowColor="#f4c430"; ctx.shadowBlur=12;
+  txt(ctx, "LAWN MOWER DASH", 0, 0, 17, "#f4c430", "center");
+  ctx.shadowBlur=0; ctx.restore();
+
+  txt(ctx, "NEWPORT AVENUE LANDSCAPING", W/2, 54, 6, "#cc1111", "center");
+  txt(ctx, "Can you survive one day at NAL", W/2, 68, 7, "#ddd", "center");
+  txt(ctx, "and mow your entire route?", W/2, 78, 7, "#ddd", "center");
+
+  // Level cards
+  const cardW=100, cardH=52, startX=(W-(cardW*4+6*3))/2;
+  LEVELS.forEach((lv,i)=>{
+    const cx2=startX+i*(cardW+6);
+    const cy2=90;
+    const hover=Math.sin(frame*0.08+i*0.8)*2;
+    const colors=[["#0d3d0d","#1a7a1a"],["#0d0d3d","#1a1a7a"],["#2a1e08","#7a5a18"],["#2a0d08","#7a2a18"]];
+    rr(ctx, cx2, cy2+hover, cardW, cardH, 4, colors[i][0]);
+    ctx.strokeStyle=colors[i][1]; ctx.lineWidth=1.5; ctx.beginPath(); ctx.roundRect(cx2,cy2+hover,cardW,cardH,4); ctx.stroke();
+    txt(ctx, `LVL ${lv.id}`, cx2+cardW/2, cy2+12+hover, 8, "#f4c430", "center");
+    const words=lv.name.split(" ");
+    if(words.length<=2){txt(ctx, lv.name.toUpperCase(), cx2+cardW/2, cy2+26+hover, 6, "#fff", "center");}
+    else{txt(ctx, words.slice(0,2).join(" ").toUpperCase(), cx2+cardW/2, cy2+23+hover, 6, "#fff", "center");txt(ctx, words.slice(2).join(" ").toUpperCase(), cx2+cardW/2, cy2+31+hover, 6, "#fff", "center");}
+    txt(ctx, lv.tagline.length>20?lv.tagline.slice(0,20)+"..":lv.tagline, cx2+cardW/2, cy2+44+hover, 5, "#888", "center");
   });
 
-  // Ground
-  const groundGrad = ctx.createLinearGradient(0, GROUND_Y, 0, CH);
-  groundGrad.addColorStop(0, "#2a5a18");
-  groundGrad.addColorStop(1, "#1a3a10");
-  ctx.fillStyle = groundGrad; ctx.fillRect(0, GROUND_Y, CW, CH - GROUND_Y);
-
-  // Animated idle mower
-  const mowerBob = Math.sin(frame * 0.06) * 2;
-  drawMower(ctx, idleMowerX, GROUND_Y + mowerBob, frame, 1, 1, false, false);
-
-  // Dust from idle mower
-  if (frame % 3 === 0) {
-    // Just visual — handled by particle system
-  }
-
-  // ── TITLE CARD ──
-  const titleY = 38;
-  // Background panel
-  ctx.fillStyle = "rgba(0,0,0,0.75)";
-  ctx.beginPath(); ctx.roundRect(CW / 2 - 160, titleY - 22, 320, 44, 6); ctx.fill();
-  ctx.strokeStyle = "#cc1111"; ctx.lineWidth = 2;
-  ctx.beginPath(); ctx.roundRect(CW / 2 - 160, titleY - 22, 320, 44, 6); ctx.stroke();
-
-  // Glow effect
-  ctx.shadowColor = "#f4c430"; ctx.shadowBlur = 12;
-  const pulse = 1 + Math.sin(frame * 0.04) * 0.015;
-  ctx.save(); ctx.translate(CW / 2, titleY); ctx.scale(pulse, pulse);
-  ctx.font = "bold 20px 'Courier New', monospace";
-  ctx.textAlign = "center"; ctx.textBaseline = "middle";
-  ctx.fillStyle = "#f4c430"; ctx.fillText("LAWN MOWER DASH", 0, 0);
-  ctx.restore();
-  ctx.shadowBlur = 0;
-
-  // Subtitle
-  txt(ctx, "NEWPORT AVENUE LANDSCAPING", CW / 2, titleY + 16, 6, "#cc1111");
-
-  // Tagline
-  txt(ctx, "Can you survive the full route?", CW / 2, 90, 7, "#ddd");
-
-  // Controls hint
-  rr(ctx, CW / 2 - 130, 100, 260, 22, 3, "rgba(0,0,0,0.5)");
-  txtNoShadow(ctx, "SPACE / TAP = JUMP  |  ↓ HOLD = DUCK", CW / 2, 111, 6, "#666");
+  // Controls
+  txt(ctx, "↑↓ ARROWS / TAP = CHANGE LANE  |  ↓ HOLD = TURBO", W/2, 156, 6, "#666", "center");
 
   // Prize box
-  rr(ctx, CW / 2 - 130, 128, 260, 36, 5, "rgba(180,14,14,0.2)");
-  ctx.strokeStyle = "#cc1111"; ctx.lineWidth = 1.5;
-  ctx.beginPath(); ctx.roundRect(CW / 2 - 130, 128, 260, 36, 5); ctx.stroke();
-  txt(ctx, "BEAT ALL 4 BIOMES:", CW / 2, 140, 8, "#f4c430");
-  txt(ctx, "WIN $100 OFF YOUR SERVICE!", CW / 2, 155, 8, "#cc1111");
+  rr(ctx, W/2-118, 164, 236, 30, 4, "rgba(180,14,14,0.18)");
+  ctx.strokeStyle="#cc1111"; ctx.lineWidth=1; ctx.beginPath(); ctx.roundRect(W/2-118,164,236,30,4); ctx.stroke();
+  txt(ctx, "BEAT ALL 4 LEVELS:", W/2, 174, 8, "#f4c430", "center");
+  txt(ctx, "WIN $100 OFF YOUR SERVICE!", W/2, 186, 8, "#cc1111", "center");
 
   // Leaderboard
-  txt(ctx, "HALL OF FAME", CW / 2, 174, 8, "#f4c430");
-  const top5 = lb.slice(0, 5);
-  if (top5.length === 0) {
-    txt(ctx, "No scores yet — be the first!", CW / 2, 190, 7, "#555");
-  } else {
-    top5.forEach((e, i) => {
-      const ey = 186 + i * 11;
-      const colors = ["#f4c430", "#c0c0c0", "#cd7f32", "#888", "#888"];
-      txt(ctx, `${i + 1}. ${e.initials}`, CW / 2 - 55, ey, 7, colors[i], "left");
-      txt(ctx, `${e.dist}ft`, CW / 2 + 15, ey, 7, colors[i], "left");
-    });
-  }
+  txt(ctx, "HALL OF FAME", W/2, 204, 8, "#f4c430", "center");
+  const top5=lb.slice(0,5);
+  if(top5.length===0){txt(ctx, "No scores yet — be the first!", W/2, 218, 7, "#555", "center");}
+  else{top5.forEach((e,i)=>{const ey=216+i*10;const color=i===0?"#f4c430":i===1?"#c0c0c0":i===2?"#cd7f32":"#888";txt(ctx,`${i+1}. ${e.initials}`,W/2-58,ey,7,color,"left");txt(ctx,`${e.score}ft`,W/2+18,ey,7,color,"left");txt(ctx,`L${e.level}`,W/2+68,ey,7,color,"left");});}
 
-  // Blink CTA
-  if (frame % 44 < 30) {
-    const ctaY = CH - 14;
-    ctx.font = "bold 9px 'Courier New', monospace";
-    ctx.textAlign = "center"; ctx.textBaseline = "middle";
-    ctx.fillStyle = "rgba(0,0,0,0.5)"; ctx.fillText("PRESS SPACE OR TAP TO START", CW / 2 + 1, ctaY + 1);
-    ctx.fillStyle = "#fff"; ctx.fillText("PRESS SPACE OR TAP TO START", CW / 2, ctaY);
-  }
+  // Blink
+  if(frame%40<26) txt(ctx, "PRESS SPACE OR TAP TO START", W/2, H-12, 8, "#fff", "center");
 }
 
-// ─── DEATH SCREEN ────────────────────────────────────────────
-function drawDeathScreen(
-  ctx: CanvasRenderingContext2D,
-  dist: number, coins: number,
-  lb: LeaderEntry[], rank: number,
-  frame: number
-) {
-  const og = ctx.createLinearGradient(0, 0, 0, CH);
-  og.addColorStop(0, "rgba(20,0,0,0.94)");
-  og.addColorStop(1, "rgba(8,0,0,0.97)");
-  ctx.fillStyle = og; ctx.fillRect(0, 0, CW, CH);
+function drawLevelIntro(ctx: CanvasRenderingContext2D, level: number, frame: number) {
+  const alpha=Math.min(1, Math.min(frame/10, (90-frame)/20));
+  ctx.fillStyle=`rgba(0,0,0,${0.72*alpha})`;
+  ctx.fillRect(0, H/2-38, W, 76);
+  ctx.strokeStyle=`rgba(244,196,48,${alpha})`; ctx.lineWidth=2;
+  ctx.strokeRect(0, H/2-38, W, 76);
+  txt(ctx, `LEVEL ${level}`, W/2, H/2-18, 16, `rgba(244,196,48,${alpha})`, "center");
+  txt(ctx, LEVELS[level-1].name.toUpperCase(), W/2, H/2+2, 10, `rgba(255,255,255,${alpha})`, "center");
+  txt(ctx, LEVELS[level-1].tagline, W/2, H/2+18, 7, `rgba(170,170,170,${alpha})`, "center");
+  if(frame%30<20) txt(ctx, "GET READY!", W/2, H/2+32, 8, `rgba(204,17,17,${alpha})`, "center");
+}
 
-  ctx.strokeStyle = "#cc1111"; ctx.lineWidth = 3;
-  ctx.strokeRect(5, 5, CW - 10, CH - 10);
-  ctx.strokeStyle = "rgba(244,196,48,0.3)"; ctx.lineWidth = 1;
-  ctx.strokeRect(9, 9, CW - 18, CH - 18);
+function drawLevelComplete(ctx: CanvasRenderingContext2D, level: number, score: number, frame: number) {
+  ctx.fillStyle="rgba(0,25,0,0.88)"; ctx.fillRect(0,H/2-48,W,96);
+  ctx.strokeStyle="#2a8a2a"; ctx.lineWidth=2; ctx.strokeRect(0,H/2-48,W,96);
+  txt(ctx, `LEVEL ${level} COMPLETE!`, W/2, H/2-28, 14, "#f4c430", "center");
+  txt(ctx, `Score: ${score}ft`, W/2, H/2-8, 10, "#fff", "center");
+  if(level<4){txt(ctx, `NEXT: ${LEVELS[level].name.toUpperCase()}`, W/2, H/2+12, 8, "#aaa", "center");if(frame%30<20)txt(ctx,"CONTINUING...",W/2,H/2+30,8,"#2a8a2a","center");}
+  else{txt(ctx,"YOU BEAT THE ROUTE!",W/2,H/2+12,10,"#cc1111","center");if(frame%30<20)txt(ctx,"CALCULATING REWARD...",W/2,H/2+30,8,"#f4c430","center");}
+}
 
-  ctx.shadowColor = "#cc1111"; ctx.shadowBlur = 10;
-  txt(ctx, "WIPED OUT!", CW / 2, 28, 18, "#cc1111");
-  ctx.shadowBlur = 0;
-
-  const subs = [
-    "The HOA wins this round.",
-    "That tricycle came outta nowhere.",
-    "Shoulda ducked that branch.",
-    "Fire ants: 1. You: 0.",
-    "The porta-potty had other plans.",
-  ];
-  txt(ctx, subs[Math.floor(dist / 100) % subs.length], CW / 2, 46, 7, "#666");
-
-  txt(ctx, `Distance: ${dist}ft`, CW / 2, 62, 9, "#fff");
-  txt(ctx, `Coins: ${coins}`, CW / 2, 76, 8, "#f4c430");
-
-  txt(ctx, "LEADERBOARD", CW / 2, 94, 9, "#f4c430");
-  const top5 = lb.slice(0, 5);
-  top5.forEach((e, i) => {
-    const ey = 108 + i * 14;
-    const isNew = i === rank;
-    if (isNew) {
-      rr(ctx, CW / 2 - 100, ey - 7, 200, 14, 2, "rgba(200,160,0,0.22)");
-    }
-    const c = isNew ? "#f4c430" : i === 0 ? "#f4c430" : "#aaa";
-    txt(ctx, `${i + 1}. ${e.initials}`, CW / 2 - 60, ey, 8, c, "left");
-    txt(ctx, `${e.dist}ft`, CW / 2 + 20, ey, 8, c, "left");
+function drawDead(ctx: CanvasRenderingContext2D, level: number, score: number, lb: LeaderEntry[], rank: number, frame: number) {
+  const og=ctx.createLinearGradient(0,0,0,H);
+  og.addColorStop(0,"rgba(25,0,0,0.92)"); og.addColorStop(1,"rgba(10,0,0,0.96)");
+  ctx.fillStyle=og; ctx.fillRect(0,0,W,H);
+  ctx.strokeStyle="#cc1111"; ctx.lineWidth=3; ctx.strokeRect(5,5,W-10,H-10);
+  ctx.shadowColor="#cc1111"; ctx.shadowBlur=8;
+  txt(ctx, "WIPED OUT!", W/2, 28, 18, "#cc1111", "center");
+  ctx.shadowBlur=0;
+  const subs=["The HOA wins this round.","Shoulda dodged that tricycle.","That porta-potty came outta nowhere.","Fire ants: 1. You: 0."];
+  txt(ctx, subs[(level-1)%4], W/2, 46, 7, "#666", "center");
+  txt(ctx, `Level ${level}  |  Score: ${score}ft`, W/2, 60, 9, "#fff", "center");
+  txt(ctx, "LEADERBOARD", W/2, 78, 9, "#f4c430", "center");
+  const top5=lb.slice(0,5);
+  top5.forEach((e,i)=>{
+    const ey=92+i*14;
+    const isNew=i===rank;
+    if(isNew){rr(ctx,W/2-98,ey-7,196,14,2,"rgba(200,160,0,0.22)");}
+    txt(ctx,`${i+1}. ${e.initials}`,W/2-58,ey,8,isNew?"#f4c430":i===0?"#f4c430":"#aaa","left");
+    txt(ctx,`${e.score}ft`,W/2+18,ey,8,isNew?"#f4c430":"#aaa","left");
+    txt(ctx,`L${e.level}`,W/2+78,ey,8,isNew?"#f4c430":"#aaa","left");
   });
-
-  if (frame % 44 < 30) {
-    txt(ctx, "SPACE / TAP TO TRY AGAIN", CW / 2, CH - 12, 8, "#fff");
-  }
+  if(frame%40<26) txt(ctx, "SPACE / TAP TO TRY AGAIN", W/2, H-12, 8, "#fff", "center");
 }
 
-// ─── WIN SCREEN ──────────────────────────────────────────────
-function drawWinScreen(ctx: CanvasRenderingContext2D, code: string, isBoss: boolean, frame: number) {
-  const og = ctx.createLinearGradient(0, 0, 0, CH);
-  og.addColorStop(0, "#082008"); og.addColorStop(1, "#143814");
-  ctx.fillStyle = og; ctx.fillRect(0, 0, CW, CH);
-  ctx.strokeStyle = "#f4c430"; ctx.lineWidth = 3; ctx.strokeRect(5, 5, CW - 10, CH - 10);
-
+function drawCelebration(ctx: CanvasRenderingContext2D, score: number, zoom: number, browWipe: number, frame: number) {
+  const og=ctx.createLinearGradient(0,0,0,H);
+  og.addColorStop(0,"#0a2a0a"); og.addColorStop(1,"#1a4a1a");
+  ctx.fillStyle=og; ctx.fillRect(0,0,W,H);
   // Confetti
-  for (let i = 0; i < 50; i++) {
-    const cx2 = (i * 47 + frame * (2 + i % 3)) % CW;
-    const cy2 = (i * 31 + frame * (1 + i % 2)) % CH;
-    ctx.fillStyle = ["#cc1111", "#f4c430", "#2a8a2a", "#fff", "#4488ff"][i % 5];
-    ctx.save(); ctx.translate(cx2, cy2); ctx.rotate(frame * 0.05 + i);
-    ctx.fillRect(-3, -3, 6, 4); ctx.restore();
+  for(let i=0;i<36;i++){const cx2=(i*47+frame*(2+i%3))%W;const cy2=(i*31+frame*(1+i%2))%H;ctx.fillStyle=["#cc1111","#f4c430","#2a8a2a","#fff","#4488ff"][i%5];ctx.fillRect(cx2,cy2,4,4);}
+  const scale=1+zoom*1.4;
+  ctx.save(); ctx.translate(W/2,H/2+8); ctx.scale(scale,scale);
+  drawMower(ctx,0,0,frame);
+  if(browWipe>0){
+    const ar=Math.min(browWipe*3,1);
+    ctx.save(); ctx.translate(14,-18); ctx.rotate(-ar*1.1);
+    r(ctx,0,0,5,16,"#cc1111"); r(ctx,0,0,5,4,"#f4c07a"); ctx.restore();
+    if(browWipe>0.5){ctx.fillStyle="#4488ff";for(let i=0;i<3;i++){const sx=8+i*7+Math.sin(frame*0.3+i)*2;const sy=-30-(browWipe*18)+i*5;ctx.beginPath();ctx.arc(sx,sy,2,0,Math.PI*2);ctx.fill();}}
   }
-
-  ctx.shadowColor = "#f4c430"; ctx.shadowBlur = 12;
-  txt(ctx, isBoss ? "YOU BEAT STERLING!" : "ROUTE COMPLETE!", CW / 2, 28, 14, "#f4c430");
-  ctx.shadowBlur = 0;
-
-  txt(ctx, isBoss ? "Impossible. Absolutely impossible." : "Sterling is proud. (Yes, really.)", CW / 2, 46, 7, "#aaa");
-  txt(ctx, "YOUR DISCOUNT CODE:", CW / 2, 64, 9, "#fff");
-
-  const pulse = 1 + Math.sin(frame * 0.1) * 0.02;
-  ctx.save(); ctx.translate(CW / 2, 90); ctx.scale(pulse, pulse);
-  rr(ctx, -90, -20, 180, 40, 6, "#cc1111");
-  ctx.strokeStyle = "#f4c430"; ctx.lineWidth = 2;
-  ctx.beginPath(); ctx.roundRect(-90, -20, 180, 40, 6); ctx.stroke();
-  ctx.shadowColor = "#f4c430"; ctx.shadowBlur = 8;
-  txtNoShadow(ctx, code, 0, 0, 16, "#fff");
-  ctx.shadowBlur = 0; ctx.restore();
-
-  txt(ctx, isBoss ? "$200 OFF any service!" : "$100 OFF any service!", CW / 2, 120, 9, "#f4c430");
-  txt(ctx, "(Yes, it's real. We're serious.)", CW / 2, 134, 7, "#888");
-  txt(ctx, "Call (541) 617-8873 to redeem", CW / 2, 148, 7, "#fff");
-  txt(ctx, "newportavelandscaping.com", CW / 2, 162, 7, "#4488ff");
-
-  if (frame % 44 < 30) txt(ctx, "SPACE / TAP TO PLAY AGAIN", CW / 2, CH - 12, 8, "#888");
+  ctx.restore();
+  txt(ctx,"ROUTE COMPLETE!",W/2,20,14,"#f4c430","center");
+  txt(ctx,`Total: ${score}ft mowed`,W/2,38,9,"#fff","center");
+  txt(ctx,"Sterling is proud.",W/2,52,8,"#aaa","center");
 }
 
-// ─── DOUBLE OR NOTHING ───────────────────────────────────────
-function drawDoubleOrNothing(ctx: CanvasRenderingContext2D, frame: number) {
-  ctx.fillStyle = "rgba(0,0,0,0.95)"; ctx.fillRect(0, 0, CW, CH);
-  ctx.strokeStyle = "#f4c430"; ctx.lineWidth = 3; ctx.strokeRect(5, 5, CW - 10, CH - 10);
-
-  ctx.shadowColor = "#f4c430"; ctx.shadowBlur = 10;
-  txt(ctx, "DOUBLE OR NOTHING?", CW / 2, 26, 13, "#f4c430");
-  ctx.shadowBlur = 0;
-
-  txt(ctx, "You earned: $100 off", CW / 2, 44, 9, "#fff");
-  txt(ctx, "But do you dare face...", CW / 2, 58, 8, "#aaa");
-
-  ctx.shadowColor = "#cc1111"; ctx.shadowBlur = 8;
-  txt(ctx, "GIANT STERLING?", CW / 2, 74, 12, "#cc1111");
-  ctx.shadowBlur = 0;
-
-  txt(ctx, "Win: $200 off  |  Lose: Keep $100", CW / 2, 90, 7, "#888");
-  txt(ctx, "(1 in 500 chance. He's very large.)", CW / 2, 102, 6, "#555");
-
+function drawDoubleOrNothing(ctx: CanvasRenderingContext2D, score: number, frame: number) {
+  ctx.fillStyle="rgba(0,0,0,0.94)"; ctx.fillRect(0,0,W,H);
+  ctx.strokeStyle="#f4c430"; ctx.lineWidth=3; ctx.strokeRect(5,5,W-10,H-10);
+  ctx.shadowColor="#f4c430"; ctx.shadowBlur=10;
+  txt(ctx,"DOUBLE OR NOTHING?",W/2,26,13,"#f4c430","center");
+  ctx.shadowBlur=0;
+  txt(ctx,`You earned: $100 off`,W/2,44,9,"#fff","center");
+  txt(ctx,"But do you dare face...",W/2,58,8,"#aaa","center");
+  ctx.shadowColor="#cc1111"; ctx.shadowBlur=8;
+  txt(ctx,"GIANT STERLING?",W/2,74,12,"#cc1111","center");
+  ctx.shadowBlur=0;
+  txt(ctx,"Win: $200 off  |  Lose: Keep $100",W/2,90,7,"#888","center");
+  txt(ctx,"(1 in 500 chance. He's very large.)",W/2,102,6,"#555","center");
   // Buttons
-  rr(ctx, 18, 114, CW / 2 - 24, 62, 6, "#8a0000");
-  ctx.strokeStyle = "#cc1111"; ctx.lineWidth = 2;
-  ctx.beginPath(); ctx.roundRect(18, 114, CW / 2 - 24, 62, 6); ctx.stroke();
-  txt(ctx, "FIGHT", CW / 4 + 9, 138, 13, "#fff");
-  txt(ctx, "STERLING", CW / 4 + 9, 154, 9, "#fff");
-  txt(ctx, "(risk it)", CW / 4 + 9, 168, 7, "#ffaaaa");
-
-  rr(ctx, CW / 2 + 6, 114, CW / 2 - 24, 62, 6, "#0a4a0a");
-  ctx.strokeStyle = "#2a8a2a"; ctx.lineWidth = 2;
-  ctx.beginPath(); ctx.roundRect(CW / 2 + 6, 114, CW / 2 - 24, 62, 6); ctx.stroke();
-  txt(ctx, "TAKE", CW * 3 / 4 - 9, 138, 13, "#fff");
-  txt(ctx, "$100 OFF", CW * 3 / 4 - 9, 154, 9, "#fff");
-  txt(ctx, "(safe!)", CW * 3 / 4 - 9, 168, 7, "#aaffaa");
-
-  if (frame % 30 < 20) txt(ctx, "TAP LEFT = FIGHT  |  TAP RIGHT = TAKE $100", CW / 2, CH - 12, 7, "#666");
+  rr(ctx,18,114,W/2-24,62,6,"#8a0000");
+  ctx.strokeStyle="#cc1111"; ctx.lineWidth=2; ctx.beginPath(); ctx.roundRect(18,114,W/2-24,62,6); ctx.stroke();
+  txt(ctx,"FIGHT",W/4+9,138,13,"#fff","center");
+  txt(ctx,"STERLING",W/4+9,154,9,"#fff","center");
+  txt(ctx,"(risk it)",W/4+9,168,7,"#ffaaaa","center");
+  rr(ctx,W/2+6,114,W/2-24,62,6,"#0a4a0a");
+  ctx.strokeStyle="#2a8a2a"; ctx.lineWidth=2; ctx.beginPath(); ctx.roundRect(W/2+6,114,W/2-24,62,6); ctx.stroke();
+  txt(ctx,"TAKE",W*3/4-9,138,13,"#fff","center");
+  txt(ctx,"$100 OFF",W*3/4-9,154,9,"#fff","center");
+  txt(ctx,"(safe!)",W*3/4-9,168,7,"#aaffaa","center");
+  if(frame%30<20) txt(ctx,"TAP LEFT = FIGHT  |  TAP RIGHT = TAKE $100",W/2,H-12,7,"#666","center");
 }
 
-// ─── BOSS SCREEN ─────────────────────────────────────────────
-function drawBossScreen(ctx: CanvasRenderingContext2D, frame: number) {
-  const og = ctx.createLinearGradient(0, 0, 0, CH);
-  og.addColorStop(0, "#060000"); og.addColorStop(1, "#180000");
-  ctx.fillStyle = og; ctx.fillRect(0, 0, CW, CH);
-
-  if (frame % 40 < 4) { ctx.fillStyle = "rgba(255,180,80,0.12)"; ctx.fillRect(0, 0, CW, CH); }
-
-  const shake = Math.sin(frame * 0.3) * 3;
-  const bob = Math.sin(frame * 0.08) * 4;
-
-  // Giant Sterling
-  ctx.save(); ctx.translate(CW * 0.62 + shake, CH * 0.08 + bob); ctx.scale(2.8, 2.8);
-  r(ctx, -17, 18, 34, 52, "#1a1a3a");
-  r(ctx, -4, 20, 8, 32, "#cc1111");
-  r(ctx, -2, 20, 4, 10, "#ee2222");
-  ctx.fillStyle = "#2a2a4a";
-  ctx.beginPath(); ctx.moveTo(-17, 18); ctx.lineTo(-4, 34); ctx.lineTo(-17, 70); ctx.closePath(); ctx.fill();
-  ctx.beginPath(); ctx.moveTo(17, 18); ctx.lineTo(4, 34); ctx.lineTo(17, 70); ctx.closePath(); ctx.fill();
-  r(ctx, -27, 22, 12, 36, "#1a1a3a"); r(ctx, 15, 22, 12, 36, "#1a1a3a");
-  rr(ctx, -29, 56, 14, 10, 2, "#f4c07a"); rr(ctx, 15, 56, 14, 10, 2, "#f4c07a");
-  r(ctx, -15, 70, 13, 24, "#1a1a3a"); r(ctx, 2, 70, 13, 24, "#1a1a3a");
-  rr(ctx, -17, 92, 15, 6, 2, "#0a0a0a"); rr(ctx, 2, 92, 15, 6, 2, "#0a0a0a");
-  rr(ctx, -13, -6, 26, 28, 3, "#f4c07a");
-  ctx.strokeStyle = "#c8843a"; ctx.lineWidth = 2;
-  ctx.beginPath(); ctx.roundRect(-13, -6, 26, 28, 3); ctx.stroke();
-  r(ctx, -13, -10, 26, 8, "#c8c8c8");
-  r(ctx, -7, 2, 4, 4, "#111"); r(ctx, 3, 2, 4, 4, "#111");
-  r(ctx, -5, 14, 10, 3, "#c8843a");
+function drawBoss(ctx: CanvasRenderingContext2D, frame: number) {
+  const og=ctx.createLinearGradient(0,0,0,H);
+  og.addColorStop(0,"#060000"); og.addColorStop(1,"#180000");
+  ctx.fillStyle=og; ctx.fillRect(0,0,W,H);
+  if(frame%40<4){ctx.fillStyle="rgba(255,180,80,0.12)";ctx.fillRect(0,0,W,H);}
+  const shake=Math.sin(frame*0.3)*3;
+  const bob=Math.sin(frame*0.08)*4;
+  ctx.save(); ctx.translate(W*0.62+shake, H*0.08+bob); ctx.scale(2.6,2.6);
+  // Sterling body
+  r(ctx,-17,18,34,52,"#1a1a3a"); stroke(ctx,-17,18,34,52,"#0a0a2a",2);
+  r(ctx,-4,20,8,32,"#cc1111"); r(ctx,-2,20,4,10,"#ee2222");
+  ctx.fillStyle="#2a2a4a"; ctx.beginPath(); ctx.moveTo(-17,18); ctx.lineTo(-4,34); ctx.lineTo(-17,70); ctx.closePath(); ctx.fill();
+  ctx.beginPath(); ctx.moveTo(17,18); ctx.lineTo(4,34); ctx.lineTo(17,70); ctx.closePath(); ctx.fill();
+  r(ctx,-27,22,12,36,"#1a1a3a"); r(ctx,15,22,12,36,"#1a1a3a");
+  rr(ctx,-29,56,14,10,2,"#f4c07a"); rr(ctx,15,56,14,10,2,"#f4c07a");
+  r(ctx,-15,70,13,24,"#1a1a3a"); r(ctx,2,70,13,24,"#1a1a3a");
+  rr(ctx,-17,92,15,6,2,"#0a0a0a"); rr(ctx,2,92,15,6,2,"#0a0a0a");
+  rr(ctx,-13,-6,26,28,3,"#f4c07a"); stroke(ctx,-13,-6,26,28,"#c8843a",2);
+  r(ctx,-13,-10,26,8,"#c8c8c8"); r(ctx,-15,-8,4,10,"#c8c8c8"); r(ctx,11,-8,4,10,"#c8c8c8");
+  r(ctx,-7,2,4,4,"#111"); r(ctx,3,2,4,4,"#111");
+  r(ctx,-9,0,8,2,"#c8843a"); r(ctx,1,0,8,2,"#c8843a");
+  r(ctx,-5,14,10,3,"#c8843a"); r(ctx,-7,13,2,2,"#c8843a"); r(ctx,5,13,2,2,"#c8843a");
   ctx.restore();
-
   // Speech bubble
-  const bx = CW * 0.04, by = CH * 0.06, bw = 160, bh = 36;
-  rr(ctx, bx, by, bw, bh, 6, "#fffde7");
-  ctx.strokeStyle = "#cc1111"; ctx.lineWidth = 2;
-  ctx.beginPath(); ctx.roundRect(bx, by, bw, bh, 6); ctx.stroke();
-  ctx.fillStyle = "#fffde7";
-  ctx.beginPath(); ctx.moveTo(bx + bw * 0.68, by + bh); ctx.lineTo(bx + bw * 0.78, by + bh + 14); ctx.lineTo(bx + bw * 0.83, by + bh); ctx.fill();
-  txt(ctx, "YOU'RE FIRED! 🔥", bx + bw / 2, by + 14, 11, "#cc1111");
-  txt(ctx, "(and mowed)", bx + bw / 2, by + 28, 7, "#888");
-
-  // Small mower
-  ctx.save(); ctx.translate(CW * 0.14, CH * 0.72); ctx.scale(0.48, 0.48);
-  drawMower(ctx, 0, 0, frame, 1, 1, false, false);
-  ctx.restore();
-
-  ctx.shadowColor = "#cc1111"; ctx.shadowBlur = 6;
-  txt(ctx, "BOSS FIGHT!", CW / 2, CH - 28, 12, "#cc1111");
-  ctx.shadowBlur = 0;
-  if (frame % 30 < 20) txt(ctx, "Deciding your fate...", CW / 2, CH - 12, 8, "#555");
+  const bx=W*0.04, by=H*0.06, bw=160, bh=36;
+  rr(ctx,bx,by,bw,bh,6,"#fffde7"); ctx.strokeStyle="#cc1111"; ctx.lineWidth=2; ctx.beginPath(); ctx.roundRect(bx,by,bw,bh,6); ctx.stroke();
+  ctx.fillStyle="#fffde7"; ctx.beginPath(); ctx.moveTo(bx+bw*0.68,by+bh); ctx.lineTo(bx+bw*0.78,by+bh+14); ctx.lineTo(bx+bw*0.83,by+bh); ctx.fill();
+  txt(ctx,"YOU'RE FIRED! 🔥",bx+bw/2,by+14,11,"#cc1111","center");
+  txt(ctx,"(and mowed)",bx+bw/2,by+28,7,"#888","center");
+  ctx.save(); ctx.translate(W*0.14,H*0.72); ctx.scale(0.48,0.48); drawMower(ctx,0,0,frame); ctx.restore();
+  ctx.shadowColor="#cc1111"; ctx.shadowBlur=6;
+  txt(ctx,"BOSS FIGHT!",W/2,H-28,12,"#cc1111","center");
+  ctx.shadowBlur=0;
+  if(frame%30<20) txt(ctx,"Deciding your fate...",W/2,H-12,8,"#555","center");
 }
 
-// ─── BOSS LOST SCREEN ────────────────────────────────────────
-function drawBossLostScreen(ctx: CanvasRenderingContext2D, code: string, frame: number) {
-  ctx.fillStyle = "rgba(8,0,0,0.96)"; ctx.fillRect(0, 0, CW, CH);
-  ctx.strokeStyle = "#cc1111"; ctx.lineWidth = 3; ctx.strokeRect(5, 5, CW - 10, CH - 10);
-  ctx.shadowColor = "#cc1111"; ctx.shadowBlur = 8;
-  txt(ctx, "STERLING WINS.", CW / 2, 26, 14, "#cc1111");
-  ctx.shadowBlur = 0;
-  txt(ctx, "He's very large. It was always unlikely.", CW / 2, 44, 7, "#666");
-  txt(ctx, "But you beat the route, so...", CW / 2, 58, 7, "#aaa");
-  txt(ctx, "YOUR $100 CODE:", CW / 2, 76, 9, "#fff");
-
-  const pulse = 1 + Math.sin(frame * 0.1) * 0.02;
-  ctx.save(); ctx.translate(CW / 2, 100); ctx.scale(pulse, pulse);
-  rr(ctx, -90, -20, 180, 40, 6, "#1a5a1a");
-  ctx.strokeStyle = "#f4c430"; ctx.lineWidth = 2;
-  ctx.beginPath(); ctx.roundRect(-90, -20, 180, 40, 6); ctx.stroke();
-  ctx.shadowColor = "#f4c430"; ctx.shadowBlur = 8;
-  txtNoShadow(ctx, code, 0, 0, 16, "#fff");
-  ctx.shadowBlur = 0; ctx.restore();
-
-  txt(ctx, "$100 OFF any service!", CW / 2, 124, 9, "#f4c430");
-  txt(ctx, "Call (541) 617-8873 to redeem", CW / 2, 140, 7, "#fff");
-  txt(ctx, "newportavelandscaping.com", CW / 2, 154, 7, "#4488ff");
-  if (frame % 44 < 30) txt(ctx, "SPACE / TAP TO PLAY AGAIN", CW / 2, CH - 12, 8, "#888");
+function drawWon(ctx: CanvasRenderingContext2D, code: string, isBoss: boolean, frame: number) {
+  const og=ctx.createLinearGradient(0,0,0,H);
+  og.addColorStop(0,"#082008"); og.addColorStop(1,"#143814");
+  ctx.fillStyle=og; ctx.fillRect(0,0,W,H);
+  ctx.strokeStyle="#f4c430"; ctx.lineWidth=3; ctx.strokeRect(5,5,W-10,H-10);
+  for(let i=0;i<44;i++){const cx2=(i*47+frame*(2+i%3))%W;const cy2=(i*31+frame*(1+i%2))%H;ctx.fillStyle=["#cc1111","#f4c430","#2a8a2a","#fff","#4488ff"][i%5];ctx.fillRect(cx2,cy2,4,4);}
+  ctx.shadowColor="#f4c430"; ctx.shadowBlur=10;
+  txt(ctx,isBoss?"YOU BEAT STERLING!":"YOU DID IT!",W/2,26,14,"#f4c430","center");
+  ctx.shadowBlur=0;
+  txt(ctx,isBoss?"IMPOSSIBLE. Absolutely impossible.":"Sterling is proud. (Yes, really.)",W/2,44,7,"#aaa","center");
+  txt(ctx,"YOUR DISCOUNT CODE:",W/2,62,9,"#fff","center");
+  const pulse=1+Math.sin(frame*0.1)*0.02;
+  ctx.save(); ctx.translate(W/2,88); ctx.scale(pulse,pulse);
+  rr(ctx,-82,-18,164,36,6,"#cc1111"); ctx.strokeStyle="#f4c430"; ctx.lineWidth=2; ctx.beginPath(); ctx.roundRect(-82,-18,164,36,6); ctx.stroke();
+  ctx.shadowColor="#f4c430"; ctx.shadowBlur=8;
+  txt(ctx,code,0,0,16,"#fff","center");
+  ctx.shadowBlur=0; ctx.restore();
+  txt(ctx,isBoss?"$200 OFF any service!":"$100 OFF any service!",W/2,114,9,"#f4c430","center");
+  txt(ctx,"(Yes, it's real. We're serious.)",W/2,128,7,"#888","center");
+  txt(ctx,"Call (541) 617-8873 to redeem",W/2,142,7,"#fff","center");
+  txt(ctx,"newportavelandscaping.com",W/2,156,7,"#4488ff","center");
+  if(frame%40<26) txt(ctx,"SPACE / TAP TO PLAY AGAIN",W/2,H-12,8,"#888","center");
 }
 
-// ─── MAIN COMPONENT ──────────────────────────────────────────
+function drawBossLost(ctx: CanvasRenderingContext2D, code: string, frame: number) {
+  ctx.fillStyle="rgba(8,0,0,0.96)"; ctx.fillRect(0,0,W,H);
+  ctx.strokeStyle="#cc1111"; ctx.lineWidth=3; ctx.strokeRect(5,5,W-10,H-10);
+  ctx.shadowColor="#cc1111"; ctx.shadowBlur=8;
+  txt(ctx,"STERLING WINS.",W/2,26,14,"#cc1111","center");
+  ctx.shadowBlur=0;
+  txt(ctx,"He's very large. It was always unlikely.",W/2,44,7,"#666","center");
+  txt(ctx,"But you beat the route, so...",W/2,58,7,"#aaa","center");
+  txt(ctx,"YOUR $100 CODE:",W/2,76,9,"#fff","center");
+  const pulse=1+Math.sin(frame*0.1)*0.02;
+  ctx.save(); ctx.translate(W/2,100); ctx.scale(pulse,pulse);
+  rr(ctx,-82,-18,164,36,6,"#1a5a1a"); ctx.strokeStyle="#f4c430"; ctx.lineWidth=2; ctx.beginPath(); ctx.roundRect(-82,-18,164,36,6); ctx.stroke();
+  ctx.shadowColor="#f4c430"; ctx.shadowBlur=8;
+  txt(ctx,code,0,0,16,"#fff","center");
+  ctx.shadowBlur=0; ctx.restore();
+  txt(ctx,"$100 OFF any service!",W/2,124,9,"#f4c430","center");
+  txt(ctx,"Call (541) 617-8873 to redeem",W/2,140,7,"#fff","center");
+  txt(ctx,"newportavelandscaping.com",W/2,154,7,"#4488ff","center");
+  if(frame%40<26) txt(ctx,"SPACE / TAP TO PLAY AGAIN",W/2,H-12,8,"#888","center");
+}
+
+// ============================================================
+// MAIN COMPONENT
+// ============================================================
 export default function LawnMowerDash() {
   const [, goTo] = useLocation();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const rafId = useRef(0);
-
-  // ── Game state refs (no re-render needed) ──
   const stateRef = useRef<GameState>("idle");
   const frameRef = useRef(0);
-
-  // Player physics
-  const pyRef = useRef(GROUND_Y);           // player y (bottom of mower)
-  const pvyRef = useRef(0);                  // vertical velocity
-  const onGroundRef = useRef(true);
-  const jumpCountRef = useRef(0);            // 0=ground, 1=jumped, 2=double jumped
-  const duckingRef = useRef(false);
-  const scaleXRef = useRef(1);              // squash/stretch
-  const scaleYRef = useRef(1);
-
-  // Game metrics
-  const distRef = useRef(0);
-  const coinsRef = useRef(0);
+  const rafId = useRef(0);
+  const scoreRef = useRef(0);
   const livesRef = useRef(3);
-  const speedRef = useRef(3.2);
-  const hurtFrameRef = useRef(0);
-  const shakeRef = useRef(0);               // screen shake magnitude
-
-  // Objects
+  const scrollRef = useRef(0);
+  const speedRef = useRef(0);
+  const spawnCounterRef = useRef(0);
+  const playerLaneRef = useRef(1);
+  const targetLaneRef = useRef(1);
+  const playerYRef = useRef(LANE_CENTERS[1]);
   const obstaclesRef = useRef<Obstacle[]>([]);
-  const coinsObjRef = useRef<Coin[]>([]);
+  const collectiblesRef = useRef<Collectible[]>([]);
   const particlesRef = useRef<Particle[]>([]);
-  const cloudsRef = useRef<Cloud[]>([]);
-  const bgElementsRef = useRef<BgElement[]>([]);
-
-  // Biome
-  const biomeIdxRef = useRef(0);
-  const biomeTransitionRef = useRef(0);
-
-  // Spawn
-  const spawnTimerRef = useRef(0);
-  const coinSpawnTimerRef = useRef(0);
-  const bgSpawnTimerRef = useRef(0);
-
-  // Idle mower
-  const idleMowerXRef = useRef(-80);
-
-  // Leaderboard
+  const boostRef = useRef(false);
+  const hurtFrameRef = useRef(0);
+  const celebTimerRef = useRef(0);
+  const celebZoomRef = useRef(0);
+  const celebBrowRef = useRef(0);
+  const sessionId = useRef(`s_${Date.now()}_${Math.random().toString(36).slice(2)}`);
   const lbRef = useRef<LeaderEntry[]>(loadLB());
 
-  // React state (for overlays)
   const [displayState, setDisplayState] = useState<GameState>("idle");
-  const [finalDist, setFinalDist] = useState(0);
-  const [finalCoins, setFinalCoins] = useState(0);
+  const [currentLevel, setCurrentLevel] = useState(1);
+  const [score, setScore] = useState(0);
   const [wonCode, setWonCode] = useState("");
   const [copied, setCopied] = useState(false);
-  const [initials, setInitials] = useState(["A", "A", "A"]);
+  const [initials, setInitials] = useState(["A","A","A"]);
   const [initialsPos, setInitialsPos] = useState(0);
   const [newEntryRank, setNewEntryRank] = useState(-1);
-  const sessionId = useRef(`s_${Date.now()}`);
+  const currentLevelRef = useRef(1);
   const deviceType = /Mobi|Android/i.test(navigator.userAgent) ? "mobile" : "desktop";
 
   const trackEvent = trpc.game.trackEvent.useMutation();
 
-  // ── Canvas resize ──
+  // Resize canvas to fill container
   const resizeCanvas = useCallback(() => {
     const canvas = canvasRef.current;
     const container = containerRef.current;
     if (!canvas || !container) return;
     const cw = container.clientWidth;
     const ch = container.clientHeight;
-    const scale = Math.min(cw / CW, ch / CH);
-    canvas.style.width = `${CW * scale}px`;
-    canvas.style.height = `${CH * scale}px`;
+    const scale = Math.min(cw / W, ch / H);
+    canvas.style.width = `${W * scale}px`;
+    canvas.style.height = `${H * scale}px`;
   }, []);
 
   useEffect(() => {
@@ -1205,581 +939,297 @@ export default function LawnMowerDash() {
     return () => window.removeEventListener("resize", resizeCanvas);
   }, [resizeCanvas]);
 
-  // ── Init clouds ──
-  const initClouds = useCallback(() => {
-    cloudsRef.current = Array.from({ length: 6 }, (_, i) => ({
-      x: (i * CW / 5) + Math.random() * 80,
-      y: 20 + Math.random() * 50,
-      w: 30 + Math.random() * 40,
-      h: 12 + Math.random() * 16,
-      speed: 0.15 + Math.random() * 0.2,
-    }));
-  }, []);
-
-  // ── Reset game ──
-  const resetGame = useCallback(() => {
+  const resetGame = useCallback((level = 1) => {
     stateRef.current = "playing";
     frameRef.current = 0;
-    pyRef.current = GROUND_Y;
-    pvyRef.current = 0;
-    onGroundRef.current = true;
-    jumpCountRef.current = 0;
-    duckingRef.current = false;
-    scaleXRef.current = 1;
-    scaleYRef.current = 1;
-    distRef.current = 0;
-    coinsRef.current = 0;
+    scoreRef.current = 0;
     livesRef.current = 3;
-    speedRef.current = 3.2;
-    hurtFrameRef.current = 0;
-    shakeRef.current = 0;
+    scrollRef.current = 0;
+    speedRef.current = LEVELS[level-1].baseSpeed;
+    spawnCounterRef.current = 0;
+    playerLaneRef.current = 1;
+    targetLaneRef.current = 1;
+    playerYRef.current = LANE_CENTERS[1];
     obstaclesRef.current = [];
-    coinsObjRef.current = [];
+    collectiblesRef.current = [];
     particlesRef.current = [];
-    bgElementsRef.current = [];
-    biomeIdxRef.current = 0;
-    biomeTransitionRef.current = 0;
-    spawnTimerRef.current = 0;
-    coinSpawnTimerRef.current = 0;
-    bgSpawnTimerRef.current = 0;
-    setFinalDist(0);
-    setFinalCoins(0);
+    boostRef.current = false;
+    hurtFrameRef.current = 0;
+    celebTimerRef.current = 0;
+    celebZoomRef.current = 0;
+    celebBrowRef.current = 0;
+    currentLevelRef.current = level;
+    setCurrentLevel(level);
+    setScore(0);
     setWonCode("");
     setCopied(false);
-    initClouds();
-    sessionId.current = `s_${Date.now()}`;
-    trackEvent.mutate({ sessionId: sessionId.current, event: "start", level: 1, score: 0, device: deviceType });
-  }, [initClouds, trackEvent, deviceType]);
-
-  // ── Jump ──
-  const doJump = useCallback(() => {
-    if (jumpCountRef.current === 0) {
-      pvyRef.current = JUMP_VY;
-      jumpCountRef.current = 1;
-      onGroundRef.current = false;
-      scaleXRef.current = 0.8; scaleYRef.current = 1.25; // stretch up
-    } else if (jumpCountRef.current === 1) {
-      pvyRef.current = DOUBLE_JUMP_VY;
-      jumpCountRef.current = 2;
-      scaleXRef.current = 0.85; scaleYRef.current = 1.2;
-      // Double jump particles
-      for (let i = 0; i < 8; i++) {
-        particlesRef.current.push({
-          x: PLAYER_X, y: pyRef.current,
-          vx: (Math.random() - 0.5) * 3, vy: Math.random() * 2,
-          life: 14, maxLife: 14, color: "#f4c430", size: 2 + Math.random() * 2,
-        });
-      }
-    }
   }, []);
 
-  // ── Submit initials ──
+  const startGame = useCallback(() => {
+    sessionId.current = `s_${Date.now()}_${Math.random().toString(36).slice(2)}`;
+    resetGame(1);
+    setDisplayState("playing");
+    trackEvent.mutate({ sessionId: sessionId.current, event: "start", level: 1, score: 0, device: deviceType });
+  }, [resetGame, trackEvent, deviceType]);
+
   const submitInitials = useCallback(() => {
     const ini = initials.join("");
-    const entry: LeaderEntry = { initials: ini, score: 0, dist: distRef.current };
+    const entry: LeaderEntry = { initials: ini, score: scoreRef.current, level: currentLevelRef.current };
     const lb = loadLB();
     lb.push(entry);
-    lb.sort((a, b) => b.dist - a.dist);
-    const top10 = lb.slice(0, 10);
+    lb.sort((a,b) => b.score - a.score);
+    const top10 = lb.slice(0,10);
     saveLB(top10);
     lbRef.current = top10;
-    const rank = top10.findIndex(e => e.initials === ini && e.dist === entry.dist);
+    const rank = top10.findIndex(e => e.initials === ini && e.score === entry.score);
     setNewEntryRank(rank);
-    trackEvent.mutate({ sessionId: sessionId.current, event: "death", level: biomeIdxRef.current + 1, score: distRef.current, device: deviceType });
+    trackEvent.mutate({ sessionId: sessionId.current, event: "death", level: currentLevelRef.current, score: scoreRef.current, device: deviceType });
     setDisplayState("dead");
   }, [initials, trackEvent, deviceType]);
 
-  // ── GAME LOOP ──
+  // ---- GAME LOOP ----
   const gameLoop = useCallback(() => {
     const canvas = canvasRef.current;
-    if (!canvas) { rafId.current = requestAnimationFrame(gameLoop); return; }
+    if (!canvas) return;
     const ctx = canvas.getContext("2d");
-    if (!ctx) { rafId.current = requestAnimationFrame(gameLoop); return; }
-
+    if (!ctx) return;
     const state = stateRef.current;
     const frame = frameRef.current;
+    const level = currentLevelRef.current;
+    const lv = LEVELS[level-1];
 
-    // ── IDLE ──
     if (state === "idle") {
-      ctx.clearRect(0, 0, CW, CH);
-      // Animate idle mower
-      idleMowerXRef.current += 1.2;
-      if (idleMowerXRef.current > CW + 100) idleMowerXRef.current = -100;
-      // Animate clouds
-      cloudsRef.current.forEach(c => {
-        c.x -= c.speed;
-        if (c.x < -80) c.x = CW + 80;
-      });
-      drawIdleScreen(ctx, lbRef.current, frame, idleMowerXRef.current);
+      drawBg(ctx, 1, scrollRef.current, frame);
+      scrollRef.current += 0.8;
+      drawIdle(ctx, lbRef.current, frame);
       frameRef.current++;
       rafId.current = requestAnimationFrame(gameLoop);
       return;
     }
-
-    // ── ENTER INITIALS (handled by React overlay) ──
     if (state === "enter_initials") {
+      drawBg(ctx, level, scrollRef.current, frame);
       frameRef.current++;
       rafId.current = requestAnimationFrame(gameLoop);
       return;
     }
-
-    // ── DEAD ──
     if (state === "dead") {
-      ctx.clearRect(0, 0, CW, CH);
-      drawDeathScreen(ctx, finalDist, finalCoins, lbRef.current, newEntryRank, frame);
+      drawBg(ctx, level, scrollRef.current, frame);
+      drawDead(ctx, level, scoreRef.current, lbRef.current, newEntryRank, frame);
       frameRef.current++;
       rafId.current = requestAnimationFrame(gameLoop);
       return;
     }
-
-    // ── DOUBLE OR NOTHING ──
-    if (state === "double_or_nothing") {
-      ctx.clearRect(0, 0, CW, CH);
-      drawDoubleOrNothing(ctx, frame);
-      frameRef.current++;
-      rafId.current = requestAnimationFrame(gameLoop);
-      return;
-    }
-
-    // ── BOSS FIGHT ──
-    if (state === "boss_fight") {
-      ctx.clearRect(0, 0, CW, CH);
-      drawBossScreen(ctx, frame);
-      if (frame > 180) {
-        const wins = Math.random() < 0.002;
-        if (wins) {
-          stateRef.current = "won";
-          setWonCode(DOUBLE_CODE);
-          setDisplayState("won");
-          trackEvent.mutate({ sessionId: sessionId.current, event: "boss_win", level: 4, score: distRef.current, device: deviceType });
-        } else {
-          stateRef.current = "boss_lost";
-          setWonCode(DISCOUNT_CODE);
-          setDisplayState("boss_lost");
-          trackEvent.mutate({ sessionId: sessionId.current, event: "boss_loss", level: 4, score: distRef.current, device: deviceType });
-        }
-        frameRef.current = 0;
+    if (state === "level_complete") {
+      drawBg(ctx, level, scrollRef.current, frame);
+      drawLevelComplete(ctx, level, scoreRef.current, frame);
+      if (frame > 100) {
+        if (level < 4) { resetGame(level+1); setDisplayState("playing"); }
+        else { stateRef.current = "celebration"; setDisplayState("celebration"); frameRef.current = 0; }
         return;
       }
       frameRef.current++;
       rafId.current = requestAnimationFrame(gameLoop);
       return;
     }
-
-    // ── WON ──
+    if (state === "celebration") {
+      celebTimerRef.current++;
+      const t = celebTimerRef.current;
+      celebZoomRef.current = Math.min(t/60,1)*0.4;
+      celebBrowRef.current = t>60 ? Math.min((t-60)/40,1) : 0;
+      drawCelebration(ctx, scoreRef.current, celebZoomRef.current, celebBrowRef.current, frame);
+      if (t > 160) { stateRef.current = "double_or_nothing"; setDisplayState("double_or_nothing"); frameRef.current = 0; return; }
+      frameRef.current++;
+      rafId.current = requestAnimationFrame(gameLoop);
+      return;
+    }
+    if (state === "double_or_nothing") {
+      drawDoubleOrNothing(ctx, scoreRef.current, frame);
+      frameRef.current++;
+      rafId.current = requestAnimationFrame(gameLoop);
+      return;
+    }
+    if (state === "boss_fight") {
+      drawBoss(ctx, frame);
+      if (frame > 180) {
+        const wins = Math.random() < 0.002;
+        if (wins) { stateRef.current = "won"; setWonCode(DOUBLE_CODE); setDisplayState("won"); trackEvent.mutate({sessionId:sessionId.current,event:"boss_win",level:4,score:scoreRef.current,device:deviceType}); }
+        else { stateRef.current = "boss_lost"; setWonCode(DISCOUNT_CODE); setDisplayState("boss_lost"); trackEvent.mutate({sessionId:sessionId.current,event:"boss_loss",level:4,score:scoreRef.current,device:deviceType}); }
+        return;
+      }
+      frameRef.current++;
+      rafId.current = requestAnimationFrame(gameLoop);
+      return;
+    }
     if (state === "won") {
-      ctx.clearRect(0, 0, CW, CH);
-      drawWinScreen(ctx, wonCode || DOUBLE_CODE, wonCode === DOUBLE_CODE, frame);
+      drawWon(ctx, wonCode||DOUBLE_CODE, wonCode===DOUBLE_CODE, frame);
       frameRef.current++;
       rafId.current = requestAnimationFrame(gameLoop);
       return;
     }
-
-    // ── BOSS LOST ──
     if (state === "boss_lost") {
-      ctx.clearRect(0, 0, CW, CH);
-      drawBossLostScreen(ctx, wonCode || DISCOUNT_CODE, frame);
+      drawBossLost(ctx, wonCode||DISCOUNT_CODE, frame);
       frameRef.current++;
       rafId.current = requestAnimationFrame(gameLoop);
       return;
     }
+    if (state !== "playing") return;
 
-    if (state !== "playing") {
-      rafId.current = requestAnimationFrame(gameLoop);
-      return;
-    }
+    // ---- PLAYING ----
+    const boost = boostRef.current;
+    const speedMult = boost ? 1.6 : 1;
+    speedRef.current = Math.min(lv.baseSpeed + (frame/60)*lv.speedPerSec, lv.baseSpeed*2.5) * speedMult;
+    scrollRef.current += speedRef.current;
+    scoreRef.current = Math.floor(scrollRef.current / 10);
+    setScore(scoreRef.current);
 
-    // ════════════════════════════════════════════════
-    // PLAYING STATE
-    // ════════════════════════════════════════════════
+    // Lane transition
+    const targetY = LANE_CENTERS[targetLaneRef.current];
+    playerYRef.current += (targetY - playerYRef.current) * 0.2;
 
-    // Speed ramp
-    speedRef.current = Math.min(3.2 + distRef.current * 0.0012, 9.5);
-    const speed = speedRef.current;
-
-    // Distance
-    distRef.current = Math.floor(frame * speed / 10);
-
-    // Biome check
-    const newBiomeIdx = BIOMES.findIndex((b, i) =>
-      distRef.current >= b.startDist && (i === BIOMES.length - 1 || distRef.current < BIOMES[i + 1].startDist)
-    );
-    if (newBiomeIdx !== biomeIdxRef.current) {
-      biomeIdxRef.current = newBiomeIdx;
-      biomeTransitionRef.current = 60;
-    }
-    if (biomeTransitionRef.current > 0) biomeTransitionRef.current--;
-
-    // Win condition
-    if (distRef.current >= 8000 && state === "playing") {
-      stateRef.current = "double_or_nothing";
-      setFinalDist(distRef.current);
-      setFinalCoins(coinsRef.current);
-      setDisplayState("double_or_nothing");
-      trackEvent.mutate({ sessionId: sessionId.current, event: "win", level: 4, score: distRef.current, device: deviceType });
-      frameRef.current = 0;
-      return;
-    }
-
-    // ── PHYSICS ──
-    if (!onGroundRef.current) {
-      pvyRef.current += GRAVITY;
-      pyRef.current += pvyRef.current;
-      if (pyRef.current >= GROUND_Y) {
-        pyRef.current = GROUND_Y;
-        pvyRef.current = 0;
-        onGroundRef.current = true;
-        jumpCountRef.current = 0;
-        // Land squash
-        scaleXRef.current = 1.3; scaleYRef.current = 0.7;
-        // Land dust
-        for (let i = 0; i < 6; i++) {
-          particlesRef.current.push({
-            x: PLAYER_X + (Math.random() - 0.5) * 20,
-            y: GROUND_Y,
-            vx: (Math.random() - 0.5) * 3,
-            vy: -Math.random() * 2,
-            life: 12, maxLife: 12, color: "#a8c880", size: 2 + Math.random() * 2,
-          });
-        }
+    // Spawn
+    spawnCounterRef.current++;
+    if (spawnCounterRef.current >= lv.spawnInterval) {
+      spawnCounterRef.current = 0;
+      const lane = Math.floor(Math.random() * LANE_COUNT);
+      const type = lv.obstacleTypes[Math.floor(Math.random() * lv.obstacleTypes.length)];
+      obstaclesRef.current.push({ x: W+OBS_W, lane, type, frame: 0 });
+      if (Math.random() < 0.32) {
+        const cLane = (lane+1+Math.floor(Math.random()*(LANE_COUNT-1)))%LANE_COUNT;
+        collectiblesRef.current.push({ x: W+24, lane: cLane });
       }
     }
 
-    // Squash/stretch recovery
-    scaleXRef.current += (1 - scaleXRef.current) * 0.18;
-    scaleYRef.current += (1 - scaleYRef.current) * 0.18;
+    // Move
+    obstaclesRef.current = obstaclesRef.current.map(o=>({...o,x:o.x-speedRef.current,frame:o.frame+1})).filter(o=>o.x>-OBS_W);
+    collectiblesRef.current = collectiblesRef.current.map(c=>({...c,x:c.x-speedRef.current})).filter(c=>c.x>-24);
 
-    // Hurt timer
-    if (hurtFrameRef.current > 0) hurtFrameRef.current--;
+    // Particles
+    particlesRef.current = particlesRef.current.map(p=>({...p,x:p.x+p.vx,y:p.y+p.vy,vy:p.vy+0.15,life:p.life-1})).filter(p=>p.life>0);
 
-    // Screen shake decay
-    if (shakeRef.current > 0) shakeRef.current *= 0.8;
+    // Draw
+    drawBg(ctx, level, scrollRef.current, frame);
+    collectiblesRef.current.forEach(c=>drawCollectible(ctx,c.x,LANE_CENTERS[c.lane],frame));
+    obstaclesRef.current.forEach(o=>drawObstacle(ctx,o.type,o.x,LANE_CENTERS[o.lane],o.frame));
 
-    // ── CLOUDS ──
-    cloudsRef.current.forEach(c => {
-      c.x -= c.speed * (speed * 0.08);
-      if (c.x < -80) c.x = CW + 80;
+    // Particles
+    particlesRef.current.forEach(p=>{
+      ctx.globalAlpha=p.life/p.maxLife;
+      ctx.fillStyle=p.color; ctx.beginPath(); ctx.arc(p.x,p.y,p.size,0,Math.PI*2); ctx.fill();
     });
+    ctx.globalAlpha=1;
 
-    // ── BACKGROUND ELEMENTS ──
-    bgSpawnTimerRef.current++;
-    if (bgSpawnTimerRef.current > 60) {
-      bgSpawnTimerRef.current = 0;
-      const biome = biomeIdxRef.current;
-      const farTypes = biome === 0 ? ["house", "tree"] : biome === 1 ? ["hoa_house", "tree"] : biome === 2 ? ["building_frame"] : ["dead_tree", "cactus"];
-      const midTypes = biome === 0 ? ["fence_post", "fence_rail", "tree"] : biome === 1 ? ["fence_post", "fence_rail"] : biome === 2 ? ["cone"] : ["cactus"];
-      bgElementsRef.current.push(
-        { x: CW + 40, y: GROUND_Y * 0.45, type: farTypes[Math.floor(Math.random() * farTypes.length)], scale: 0.7 + Math.random() * 0.3 },
-        { x: CW + 20, y: GROUND_Y * 0.75, type: midTypes[Math.floor(Math.random() * midTypes.length)], scale: 0.8 + Math.random() * 0.2 },
-      );
-    }
-    bgElementsRef.current = bgElementsRef.current.map(el => ({
-      ...el,
-      x: el.x - speed * (el.y < GROUND_Y * 0.6 ? 0.18 : el.y < GROUND_Y * 0.85 ? 0.45 : 0.75),
-    })).filter(el => el.x > -100);
+    const hurt = hurtFrameRef.current > 0;
+    if (hurt) hurtFrameRef.current--;
+    drawMower(ctx, PLAYER_X, playerYRef.current, frame, hurt);
+    drawHUD(ctx, level, scoreRef.current, livesRef.current, lbRef.current, frame, boost);
+    if (frame < 90) drawLevelIntro(ctx, level, frame);
 
-    // ── OBSTACLES ──
-    const spawnInterval = Math.max(55, 110 - speed * 5);
-    spawnTimerRef.current++;
-    if (spawnTimerRef.current >= spawnInterval) {
-      spawnTimerRef.current = 0;
-      const biome = biomeIdxRef.current;
-      const lowTypes = biome === 0 ? ["rock", "stump", "fire_ants", "tricycle"] : biome === 1 ? ["hoa_sign", "stump", "fire_ants"] : biome === 2 ? ["cone", "lumber", "porta_potty"] : ["cracked_earth", "tumbleweed", "stump"];
-      const highTypes = biome === 0 ? ["branch"] : biome === 1 ? ["branch"] : biome === 2 ? ["branch"] : ["branch"];
-
-      // Decide: low or high obstacle
-      const isHigh = Math.random() < 0.28 && distRef.current > 300;
-      if (isHigh) {
-        const type = highTypes[Math.floor(Math.random() * highTypes.length)];
-        // Branch hangs from top — player must duck
-        const obsH = 50 + Math.random() * 20;
-        obstaclesRef.current.push({ x: CW + 50, y: 0, w: 80, h: obsH, type, frame: 0 });
-      } else {
-        const type = lowTypes[Math.floor(Math.random() * lowTypes.length)];
-        const obsW = 36 + Math.random() * 24;
-        const obsH = 28 + Math.random() * 20;
-        obstaclesRef.current.push({ x: CW + 50, y: GROUND_Y - obsH, w: obsW, h: obsH, type, frame: 0 });
-      }
-
-      // Sometimes double obstacle
-      if (Math.random() < 0.2 && distRef.current > 600) {
-        const type2 = lowTypes[Math.floor(Math.random() * lowTypes.length)];
-        const obsW2 = 32 + Math.random() * 20;
-        const obsH2 = 28 + Math.random() * 16;
-        obstaclesRef.current.push({ x: CW + 130, y: GROUND_Y - obsH2, w: obsW2, h: obsH2, type: type2, frame: 0 });
-      }
-    }
-    obstaclesRef.current = obstaclesRef.current
-      .map(o => ({ ...o, x: o.x - speed, frame: o.frame + 1 }))
-      .filter(o => o.x > -100);
-
-    // ── COINS ──
-    coinSpawnTimerRef.current++;
-    if (coinSpawnTimerRef.current >= 45) {
-      coinSpawnTimerRef.current = 0;
-      // Spawn coins in arcs
-      const arcCount = 3 + Math.floor(Math.random() * 4);
-      for (let i = 0; i < arcCount; i++) {
-        const arcY = GROUND_Y - 30 - Math.sin(i / (arcCount - 1) * Math.PI) * 60;
-        coinsObjRef.current.push({ x: CW + 30 + i * 28, y: arcY, collected: false, frame: i * 5 });
-      }
-    }
-    coinsObjRef.current = coinsObjRef.current
-      .map(c => ({ ...c, x: c.x - speed, frame: c.frame + 1 }))
-      .filter(c => c.x > -20 && !c.collected);
-
-    // ── WHEEL DUST PARTICLES ──
-    if (onGroundRef.current && frame % 3 === 0) {
-      particlesRef.current.push({
-        x: PLAYER_X - 30,
-        y: GROUND_Y,
-        vx: -speed * 0.4 - Math.random() * 1.5,
-        vy: -Math.random() * 1.5,
-        life: 10, maxLife: 10,
-        color: biomeIdxRef.current < 2 ? "#a8c880" : biomeIdxRef.current === 2 ? "#c8a060" : "#c8a040",
-        size: 2 + Math.random() * 2,
-      });
-    }
-
-    // ── GRASS PARTICLES FROM BLADE ──
-    if (onGroundRef.current && frame % 4 === 0) {
-      for (let i = 0; i < 2; i++) {
-        particlesRef.current.push({
-          x: PLAYER_X + 10 + Math.random() * 10,
-          y: GROUND_Y - 5,
-          vx: speed * 0.3 + Math.random() * 2,
-          vy: -2 - Math.random() * 3,
-          life: 12, maxLife: 12,
-          color: biomeIdxRef.current < 2 ? "#5aaf3c" : "#a08030",
-          size: 1.5 + Math.random() * 1.5,
-          gravity: 0.2,
-        });
-      }
-    }
-
-    // ── UPDATE PARTICLES ──
-    particlesRef.current = particlesRef.current
-      .map(p => ({
-        ...p,
-        x: p.x + p.vx,
-        y: p.y + p.vy,
-        vy: p.vy + (p.gravity ?? 0.1),
-        life: p.life - 1,
-      }))
-      .filter(p => p.life > 0);
-
-    // ── COLLISION DETECTION ──
-    const mowerLeft = PLAYER_X - 28;
-    const mowerRight = PLAYER_X + 28;
-    const mowerTop = pyRef.current - (duckingRef.current ? 28 : 44);
-    const mowerBottom = pyRef.current;
-
-    for (const obs of obstaclesRef.current) {
-      const obsLeft = obs.x;
-      const obsRight = obs.x + obs.w;
-      const obsTop = obs.y;
-      const obsBottom = obs.y + obs.h;
-
-      const hit = mowerRight - 6 > obsLeft + 4 && mowerLeft + 6 < obsRight - 4 &&
-        mowerBottom - 4 > obsTop + 4 && mowerTop + 4 < obsBottom - 4;
-
-      if (hit) {
-        obstaclesRef.current = obstaclesRef.current.filter(o => o !== obs);
+    // Collision
+    const hitW = PLAYER_W*0.48, hitH = PLAYER_H*0.48;
+    for (const o of obstaclesRef.current) {
+      if (Math.abs(o.x-PLAYER_X)<(hitW+OBS_W*0.4) && Math.abs(LANE_CENTERS[o.lane]-playerYRef.current)<(hitH+OBS_H*0.4)) {
+        obstaclesRef.current = obstaclesRef.current.filter(ob=>ob!==o);
         livesRef.current--;
-        hurtFrameRef.current = 50;
-        shakeRef.current = 8;
-        // Hit particles
-        for (let i = 0; i < 16; i++) {
-          particlesRef.current.push({
-            x: PLAYER_X, y: pyRef.current - 20,
-            vx: (Math.random() - 0.5) * 6,
-            vy: (Math.random() - 0.5) * 6 - 2,
-            life: 22, maxLife: 22,
-            color: ["#cc1111", "#f4c430", "#ff6600", "#fff"][i % 4],
-            size: 2 + Math.random() * 4,
-            gravity: 0.15,
-          });
+        hurtFrameRef.current = 40;
+        // Spawn hit particles
+        for (let i=0;i<12;i++) {
+          particlesRef.current.push({x:PLAYER_X,y:playerYRef.current,vx:(Math.random()-0.5)*4,vy:(Math.random()-0.5)*4-1,life:20,maxLife:20,color:["#cc1111","#f4c430","#ff6600"][i%3],size:3+Math.random()*3});
         }
-        if (livesRef.current <= 0) {
-          setFinalDist(distRef.current);
-          setFinalCoins(coinsRef.current);
-          stateRef.current = "enter_initials";
-          setDisplayState("enter_initials");
-          setInitials(["A", "A", "A"]);
-          setInitialsPos(0);
-          return;
+        if (livesRef.current<=0) { stateRef.current="enter_initials"; setDisplayState("enter_initials"); setInitials(["A","A","A"]); setInitialsPos(0); return; }
+        break;
+      }
+    }
+    // Collectible pickup
+    for (const c of collectiblesRef.current) {
+      if (Math.abs(c.x-PLAYER_X)<(hitW+20) && Math.abs(LANE_CENTERS[c.lane]-playerYRef.current)<(hitH+20)) {
+        collectiblesRef.current = collectiblesRef.current.filter(cb=>cb!==c);
+        livesRef.current = Math.min(livesRef.current+1,3);
+        for (let i=0;i<8;i++) {
+          particlesRef.current.push({x:c.x,y:LANE_CENTERS[c.lane],vx:(Math.random()-0.5)*3,vy:(Math.random()-0.5)*3-1,life:16,maxLife:16,color:"#f4c430",size:2+Math.random()*2});
         }
         break;
       }
     }
-
-    // ── COIN COLLECTION ──
-    for (const coin of coinsObjRef.current) {
-      if (coin.collected) continue;
-      const dx = Math.abs(coin.x - PLAYER_X);
-      const dy = Math.abs(coin.y - (pyRef.current - 20));
-      if (dx < 18 && dy < 18) {
-        coin.collected = true;
-        coinsRef.current++;
-        // Coin particles
-        for (let i = 0; i < 6; i++) {
-          particlesRef.current.push({
-            x: coin.x, y: coin.y,
-            vx: (Math.random() - 0.5) * 4,
-            vy: -2 - Math.random() * 3,
-            life: 14, maxLife: 14,
-            color: "#f4c430",
-            size: 2 + Math.random() * 2,
-          });
-        }
-      }
-    }
-
-    // ── DRAW ──
-    ctx.save();
-    // Screen shake
-    if (shakeRef.current > 0.5) {
-      ctx.translate(
-        (Math.random() - 0.5) * shakeRef.current,
-        (Math.random() - 0.5) * shakeRef.current
-      );
-    }
-
-    drawBackground(ctx, biomeIdxRef.current, distRef.current, frame, cloudsRef.current, bgElementsRef.current);
-
-    // Coins
-    coinsObjRef.current.forEach(c => drawCoin(ctx, c));
-
-    // Obstacles
-    obstaclesRef.current.forEach(o => drawObstacle(ctx, o));
-
-    // Particles (behind mower)
-    particlesRef.current.forEach(p => {
-      ctx.globalAlpha = p.life / p.maxLife;
-      circ(ctx, p.x, p.y, p.size, p.color);
-    });
-    ctx.globalAlpha = 1;
-
-    // Mower
-    const hurt = hurtFrameRef.current > 0;
-    drawMower(
-      ctx,
-      PLAYER_X,
-      pyRef.current,
-      frame,
-      scaleXRef.current,
-      scaleYRef.current,
-      hurt,
-      duckingRef.current
-    );
-
-    // Speed lines at high speed
-    if (speed > 5.5) {
-      const lineAlpha = Math.min((speed - 5.5) / 3, 0.5);
-      ctx.strokeStyle = `rgba(255,255,255,${lineAlpha})`;
-      ctx.lineWidth = 1;
-      for (let i = 0; i < 8; i++) {
-        const ly = 20 + i * 28 + (frame * speed * 0.5) % 28;
-        const llen = 15 + Math.random() * 30;
-        ctx.beginPath(); ctx.moveTo(0, ly); ctx.lineTo(llen, ly); ctx.stroke();
-      }
-    }
-
-    ctx.restore();
-
-    // HUD (no shake)
-    drawHUD(ctx, distRef.current, coinsRef.current, livesRef.current, speed, lbRef.current, frame, biomeIdxRef.current, biomeTransitionRef.current);
+    // Level end
+    if (frame >= lv.duration) { stateRef.current="level_complete"; setDisplayState("level_complete"); frameRef.current=0; return; }
 
     frameRef.current++;
     rafId.current = requestAnimationFrame(gameLoop);
-  }, [displayState, finalDist, finalCoins, newEntryRank, wonCode, trackEvent, deviceType]);
+  }, [resetGame, newEntryRank, wonCode, trackEvent, deviceType]);
 
-  // ── Start loop ──
   useEffect(() => {
-    initClouds();
     cancelAnimationFrame(rafId.current);
     rafId.current = requestAnimationFrame(gameLoop);
     return () => cancelAnimationFrame(rafId.current);
-  }, [displayState, gameLoop, initClouds]);
+  }, [displayState, gameLoop]);
 
-  // ── Keyboard ──
+  // Keyboard
   useEffect(() => {
     const onDown = (e: KeyboardEvent) => {
-      const s = stateRef.current;
-      if (e.code === "Space" || e.code === "ArrowUp" || e.code === "KeyW") {
+      if (e.code==="ArrowDown"||e.code==="KeyS") { boostRef.current=true; return; }
+      if (e.code==="Space"||e.code==="ArrowUp"||e.code==="KeyW") {
         e.preventDefault();
-        if (s === "idle" || s === "dead" || s === "won" || s === "boss_lost") {
-          resetGame(); setDisplayState("playing"); return;
-        }
-        if (s === "playing") doJump();
+        const s=stateRef.current;
+        if (s==="idle"||s==="dead"||s==="won"||s==="boss_lost") { startGame(); return; }
+        if (s==="playing") { targetLaneRef.current=Math.max(0,targetLaneRef.current-1); playerLaneRef.current=targetLaneRef.current; }
       }
-      if (e.code === "ArrowDown" || e.code === "KeyS") {
-        e.preventDefault();
-        if (s === "playing") duckingRef.current = true;
+      if (e.code==="ArrowDown"||e.code==="KeyS") {
+        const s=stateRef.current;
+        if (s==="playing") { targetLaneRef.current=Math.min(LANE_COUNT-1,targetLaneRef.current+1); playerLaneRef.current=targetLaneRef.current; }
       }
     };
-    const onUp = (e: KeyboardEvent) => {
-      if (e.code === "ArrowDown" || e.code === "KeyS") duckingRef.current = false;
-    };
-    window.addEventListener("keydown", onDown);
-    window.addEventListener("keyup", onUp);
-    return () => { window.removeEventListener("keydown", onDown); window.removeEventListener("keyup", onUp); };
-  }, [resetGame, doJump]);
+    const onUp = (e: KeyboardEvent) => { if (e.code==="ArrowDown"||e.code==="KeyS") boostRef.current=false; };
+    window.addEventListener("keydown",onDown);
+    window.addEventListener("keyup",onUp);
+    return () => { window.removeEventListener("keydown",onDown); window.removeEventListener("keyup",onUp); };
+  }, [startGame]);
 
-  // ── Touch ──
-  const touchStartY = useRef(0);
-  const handleTouchStart = useCallback((e: React.TouchEvent) => {
+  // Touch
+  const handleTouch = useCallback((e: React.TouchEvent) => {
     e.preventDefault();
-    touchStartY.current = e.touches[0].clientY;
-    const s = stateRef.current;
-    if (s === "idle" || s === "dead" || s === "won" || s === "boss_lost") {
-      resetGame(); setDisplayState("playing"); return;
-    }
-    if (s === "double_or_nothing") {
-      const canvas = canvasRef.current;
-      if (!canvas) return;
-      const rect = canvas.getBoundingClientRect();
-      const relX = (e.touches[0].clientX - rect.left) / rect.width;
-      if (relX < 0.5) { stateRef.current = "boss_fight"; setDisplayState("boss_fight"); frameRef.current = 0; }
-      else { stateRef.current = "boss_lost"; setWonCode(DISCOUNT_CODE); setDisplayState("boss_lost"); }
+    const s=stateRef.current;
+    const canvas=canvasRef.current;
+    if (!canvas) return;
+    const rect=canvas.getBoundingClientRect();
+    const touch=e.changedTouches[0];
+    const relY=(touch.clientY-rect.top)/rect.height;
+    const relX=(touch.clientX-rect.left)/rect.width;
+    if (s==="idle"||s==="dead"||s==="won"||s==="boss_lost") { startGame(); return; }
+    if (s==="double_or_nothing") {
+      if (relX<0.5) { stateRef.current="boss_fight"; setDisplayState("boss_fight"); frameRef.current=0; }
+      else { stateRef.current="boss_lost"; setWonCode(DISCOUNT_CODE); setDisplayState("boss_lost"); }
       return;
     }
-    if (s === "playing") doJump();
-  }, [resetGame, doJump]);
-
-  const handleTouchMove = useCallback((e: React.TouchEvent) => {
-    e.preventDefault();
-    const dy = e.touches[0].clientY - touchStartY.current;
-    if (dy > 20 && stateRef.current === "playing") duckingRef.current = true;
-  }, []);
-
-  const handleTouchEnd = useCallback((e: React.TouchEvent) => {
-    e.preventDefault();
-    duckingRef.current = false;
-  }, []);
+    if (s==="playing") {
+      if (relY<0.5) { targetLaneRef.current=Math.max(0,targetLaneRef.current-1); playerLaneRef.current=targetLaneRef.current; }
+      else { targetLaneRef.current=Math.min(LANE_COUNT-1,targetLaneRef.current+1); playerLaneRef.current=targetLaneRef.current; boostRef.current=true; setTimeout(()=>{boostRef.current=false;},400); }
+    }
+  }, [startGame]);
 
   const handleClick = useCallback((e: React.MouseEvent) => {
-    const s = stateRef.current;
-    if (s === "idle" || s === "dead" || s === "won" || s === "boss_lost") {
-      resetGame(); setDisplayState("playing"); return;
-    }
-    if (s === "double_or_nothing") {
-      const canvas = canvasRef.current;
-      if (!canvas) return;
-      const rect = canvas.getBoundingClientRect();
-      const relX = (e.clientX - rect.left) / rect.width;
-      if (relX < 0.5) { stateRef.current = "boss_fight"; setDisplayState("boss_fight"); frameRef.current = 0; }
-      else { stateRef.current = "boss_lost"; setWonCode(DISCOUNT_CODE); setDisplayState("boss_lost"); }
+    const s=stateRef.current;
+    const canvas=canvasRef.current;
+    if (!canvas) return;
+    const rect=canvas.getBoundingClientRect();
+    const relX=(e.clientX-rect.left)/rect.width;
+    const relY=(e.clientY-rect.top)/rect.height;
+    if (s==="idle"||s==="dead"||s==="won"||s==="boss_lost") { startGame(); return; }
+    if (s==="double_or_nothing") {
+      if (relX<0.5) { stateRef.current="boss_fight"; setDisplayState("boss_fight"); frameRef.current=0; }
+      else { stateRef.current="boss_lost"; setWonCode(DISCOUNT_CODE); setDisplayState("boss_lost"); }
       return;
     }
-    if (s === "playing") doJump();
-  }, [resetGame, doJump]);
+    if (s==="playing") {
+      if (relY<0.5) { targetLaneRef.current=Math.max(0,targetLaneRef.current-1); playerLaneRef.current=targetLaneRef.current; }
+      else { targetLaneRef.current=Math.min(LANE_COUNT-1,targetLaneRef.current+1); playerLaneRef.current=targetLaneRef.current; }
+    }
+  }, [startGame]);
 
   const cycleInitial = (pos: number, dir: number) => {
     setInitials(prev => {
-      const next = [...prev];
-      const code = next[pos].charCodeAt(0) + dir;
-      next[pos] = String.fromCharCode(code < 65 ? 90 : code > 90 ? 65 : code);
+      const next=[...prev];
+      const code=next[pos].charCodeAt(0)+dir;
+      next[pos]=String.fromCharCode(code<65?90:code>90?65:code);
       return next;
     });
   };
@@ -1792,23 +1242,20 @@ export default function LawnMowerDash() {
         background: "#000",
         display: "flex", alignItems: "center", justifyContent: "center",
         overflow: "hidden",
-        userSelect: "none",
-        WebkitUserSelect: "none",
       }}
     >
       {/* Back button */}
       <button
         onClick={() => goTo("/")}
         style={{
-          position: "absolute", top: 12, left: 12, zIndex: 20,
-          background: "rgba(0,0,0,0.75)", border: "1px solid rgba(255,255,255,0.25)",
+          position: "absolute", top: 12, left: 12, zIndex: 10,
+          background: "rgba(0,0,0,0.7)", border: "1px solid rgba(255,255,255,0.2)",
           color: "#fff", fontFamily: "'Courier New', monospace", fontWeight: 700,
-          fontSize: "11px", padding: "6px 14px", borderRadius: "4px",
+          fontSize: "11px", padding: "6px 12px", borderRadius: "4px",
           cursor: "pointer", letterSpacing: "0.08em",
-          transition: "background 0.15s ease",
         }}
-        onMouseEnter={e => (e.currentTarget.style.background = "rgba(50,50,50,0.9)")}
-        onMouseLeave={e => (e.currentTarget.style.background = "rgba(0,0,0,0.75)")}
+        onMouseEnter={e=>(e.currentTarget.style.background="rgba(40,40,40,0.9)")}
+        onMouseLeave={e=>(e.currentTarget.style.background="rgba(0,0,0,0.7)")}
       >
         ← BACK
       </button>
@@ -1816,12 +1263,15 @@ export default function LawnMowerDash() {
       {/* Canvas */}
       <canvas
         ref={canvasRef}
-        width={CW}
-        height={CH}
-        style={{ imageRendering: "pixelated", cursor: "pointer", display: "block" }}
-        onTouchStart={handleTouchStart}
-        onTouchMove={handleTouchMove}
-        onTouchEnd={handleTouchEnd}
+        width={W}
+        height={H}
+        style={{
+          imageRendering: "pixelated",
+          cursor: "pointer",
+          display: "block",
+        }}
+        onTouchStart={handleTouch}
+        onTouchEnd={() => { boostRef.current = false; }}
         onClick={handleClick}
       />
 
@@ -1829,36 +1279,26 @@ export default function LawnMowerDash() {
       {displayState === "enter_initials" && (
         <div style={{
           position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center",
-          background: "rgba(0,0,0,0.9)", zIndex: 30,
+          background: "rgba(0,0,0,0.88)",
         }}>
           <div style={{
-            background: "#111", border: "2px solid #f4c430", borderRadius: "10px",
-            padding: "28px 24px", textAlign: "center", maxWidth: "300px", width: "90%",
+            background: "#111", border: "2px solid #f4c430", borderRadius: "8px",
+            padding: "24px", textAlign: "center", maxWidth: "280px", width: "90%",
           }}>
-            <div style={{ fontFamily: "'Courier New',monospace", fontWeight: 700, fontSize: "17px", color: "#f4c430", marginBottom: "4px" }}>
-              ENTER YOUR INITIALS
-            </div>
-            <div style={{ fontFamily: "'Courier New',monospace", fontSize: "12px", color: "#888", marginBottom: "20px" }}>
-              Distance: {finalDist}ft · Coins: {finalCoins}
-            </div>
-            <div style={{ display: "flex", justifyContent: "center", gap: "14px", marginBottom: "22px" }}>
-              {[0, 1, 2].map(pos => (
-                <div key={pos} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "6px" }}>
-                  <button onClick={() => cycleInitial(pos, 1)} style={{ width: "46px", height: "36px", background: "#8a0000", border: "none", color: "#fff", fontFamily: "'Courier New',monospace", fontWeight: 700, fontSize: "18px", borderRadius: "4px", cursor: "pointer" }}>▲</button>
-                  <div
-                    onClick={() => setInitialsPos(pos)}
-                    style={{ width: "46px", height: "46px", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "'Courier New',monospace", fontWeight: 700, fontSize: "26px", borderRadius: "4px", border: `2px solid ${initialsPos === pos ? "#f4c430" : "#444"}`, background: initialsPos === pos ? "#222" : "#1a1a1a", color: initialsPos === pos ? "#f4c430" : "#fff", cursor: "pointer" }}
-                  >
+            <div style={{fontFamily:"'Courier New',monospace",fontWeight:700,fontSize:"16px",color:"#f4c430",marginBottom:"4px"}}>ENTER YOUR INITIALS</div>
+            <div style={{fontFamily:"'Courier New',monospace",fontSize:"12px",color:"#888",marginBottom:"16px"}}>Score: {score}ft — Level {currentLevel}</div>
+            <div style={{display:"flex",justifyContent:"center",gap:"12px",marginBottom:"20px"}}>
+              {[0,1,2].map(pos=>(
+                <div key={pos} style={{display:"flex",flexDirection:"column",alignItems:"center",gap:"4px"}}>
+                  <button onClick={()=>cycleInitial(pos,1)} style={{width:"44px",height:"36px",background:"#8a0000",border:"none",color:"#fff",fontFamily:"'Courier New',monospace",fontWeight:700,fontSize:"18px",borderRadius:"4px",cursor:"pointer"}}>▲</button>
+                  <div onClick={()=>setInitialsPos(pos)} style={{width:"44px",height:"44px",display:"flex",alignItems:"center",justifyContent:"center",fontFamily:"'Courier New',monospace",fontWeight:700,fontSize:"24px",borderRadius:"4px",border:`2px solid ${initialsPos===pos?"#f4c430":"#444"}`,background:initialsPos===pos?"#222":"#1a1a1a",color:initialsPos===pos?"#f4c430":"#fff",cursor:"pointer"}}>
                     {initials[pos]}
                   </div>
-                  <button onClick={() => cycleInitial(pos, -1)} style={{ width: "46px", height: "36px", background: "#8a0000", border: "none", color: "#fff", fontFamily: "'Courier New',monospace", fontWeight: 700, fontSize: "18px", borderRadius: "4px", cursor: "pointer" }}>▼</button>
+                  <button onClick={()=>cycleInitial(pos,-1)} style={{width:"44px",height:"36px",background:"#8a0000",border:"none",color:"#fff",fontFamily:"'Courier New',monospace",fontWeight:700,fontSize:"18px",borderRadius:"4px",cursor:"pointer"}}>▼</button>
                 </div>
               ))}
             </div>
-            <button
-              onClick={submitInitials}
-              style={{ width: "100%", padding: "13px", background: "#cc1111", border: "2px solid #880000", color: "#fff", fontFamily: "'Courier New',monospace", fontWeight: 700, fontSize: "16px", borderRadius: "5px", cursor: "pointer", letterSpacing: "0.1em" }}
-            >
+            <button onClick={submitInitials} style={{width:"100%",padding:"12px",background:"#cc1111",border:"2px solid #880000",color:"#fff",fontFamily:"'Courier New',monospace",fontWeight:700,fontSize:"16px",borderRadius:"4px",cursor:"pointer",letterSpacing:"0.1em"}}>
               SUBMIT
             </button>
           </div>
@@ -1866,30 +1306,19 @@ export default function LawnMowerDash() {
       )}
 
       {/* Copy code button */}
-      {(displayState === "won" || displayState === "boss_lost") && wonCode && (
+      {(displayState==="won"||displayState==="boss_lost") && wonCode && (
         <button
-          onClick={() => { navigator.clipboard.writeText(wonCode); setCopied(true); }}
+          onClick={()=>{navigator.clipboard.writeText(wonCode);setCopied(true);}}
           style={{
-            position: "absolute", bottom: "16px", left: "50%", transform: "translateX(-50%)",
-            padding: "10px 28px", background: copied ? "#2a7a2a" : "#f4c430",
-            border: `2px solid ${copied ? "#1a5a1a" : "#c8a000"}`,
-            color: copied ? "#fff" : "#000", fontFamily: "'Courier New',monospace", fontWeight: 700,
-            fontSize: "13px", borderRadius: "5px", cursor: "pointer", letterSpacing: "0.1em", zIndex: 20,
+            position:"absolute",bottom:"16px",left:"50%",transform:"translateX(-50%)",
+            padding:"10px 24px",background:copied?"#2a7a2a":"#f4c430",
+            border:`2px solid ${copied?"#1a5a1a":"#c8a000"}`,
+            color:copied?"#fff":"#000",fontFamily:"'Courier New',monospace",fontWeight:700,
+            fontSize:"13px",borderRadius:"4px",cursor:"pointer",letterSpacing:"0.1em",zIndex:10,
           }}
         >
-          {copied ? "✓ COPIED!" : "📋 COPY CODE"}
+          {copied?"✓ COPIED!":"📋 COPY CODE"}
         </button>
-      )}
-
-      {/* Mobile duck hint */}
-      {displayState === "playing" && (
-        <div style={{
-          position: "absolute", bottom: "6px", left: "50%", transform: "translateX(-50%)",
-          fontFamily: "'Courier New',monospace", fontSize: "9px", color: "rgba(255,255,255,0.35)",
-          pointerEvents: "none", letterSpacing: "0.06em", whiteSpace: "nowrap",
-        }}>
-          TAP = JUMP · SWIPE DOWN = DUCK
-        </div>
       )}
     </div>
   );

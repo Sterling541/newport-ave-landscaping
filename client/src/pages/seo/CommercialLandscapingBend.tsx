@@ -7,7 +7,7 @@ import Footer from "@/components/Footer";
 import { Helmet } from "react-helmet-async";
 import { Link } from "wouter";
 
-const HERO_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/GLLPatio1_90e2e0c4.jpg";
+const HERO_IMG = "/manus-storage/GLLPatio1_90e2e0c4_166b9312.webp";
 
 const SERVICES = [
   { title: "Commercial Landscape Maintenance", desc: "Weekly and bi-weekly maintenance programs for office parks, retail centers, and commercial properties.", href: "/services/commercial-maintenance" },

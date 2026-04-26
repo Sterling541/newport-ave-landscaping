@@ -44,7 +44,7 @@ const CREW_SOIL =
 const HOA_COMMUNITY =
   "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/hoa-central-oregon-aerial-FqxDA5HTtAdmvC4C8zTkoF.webp";
 const CREW_DAY2_11 =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportLandscapingRVParkDay2Photos11_f8570f3e.jpg";
+  "/manus-storage/NewportLandscapingRVParkDay2Photos11_f8570f3e_1068a462.webp";
 const CREW_DAY2_25 =
   "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportLandscapingRVParkDay2Photos25_79f2b575.jpg";
 

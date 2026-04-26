@@ -24,7 +24,7 @@ const posts = [
     title: "Paver Patio Ideas for Bend, Oregon Homes",
     excerpt: "Belgard & Unilock paver styles, layout patterns, fire pit integration, and outdoor kitchen ideas for Central Oregon's outdoor lifestyle.",
     date: "April 2024",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportAveLandcaping-9_97b731b0.jpg",
+    image: "/manus-storage/NewportAveLandcaping-9_97b731b0_1204d3ca.webp",
     category: "Hardscape & Outdoor Living",
   },
   {
@@ -40,7 +40,7 @@ const posts = [
     title: "The Impact of Climate Change on Landscaping",
     excerpt: "As global climate patterns shift, the landscape around us must adapt to new environmental stresses and weather conditions. Learn how Newport Ave Landscaping is staying ahead of these changes.",
     date: "January 2024",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/landscaping-native_fa3d1cfe.jpg",
+    image: "/manus-storage/landscaping-native_fa3d1cfe_e2d50e2c.webp",
     category: "Lawn Care Tips",
   },
   {
@@ -48,7 +48,7 @@ const posts = [
     title: "Your Seasonal Guide to Landscaping Maintenance",
     excerpt: "A comprehensive guide to keeping your Central Oregon landscape healthy through every season — from spring activation to fall blowout and winter prep.",
     date: "February 2024",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/water-feature-sunset_f7b219d3.jpg",
+    image: "/manus-storage/water-feature-sunset_f7b219d3_87f250b3.webp",
     category: "Seasonal Tips",
   },
   {

@@ -70,7 +70,7 @@ const HOSMER_PHOTOS = [
   `${CDN}/XdRaSxrsEsCUxGCF_5ab35a5d.webp`,
   `${CDN}/QfQcioagkxhCEHdy_d82c4087.webp`,
   `${CDN}/QuZbCMdvWnmWDtAV_0d002a48.webp`,
-  `${CDN}/ITP_7385_f2bbba86.jpg`,
+  "/manus-storage/ITP_7385_f2bbba86_390dbedf.webp",
   `${CDN}/lVVEgyfcxeKKnmyY_2a04bfb2.webp`,
   `${CDN}/zCMVyaDdngZZHvwY_66d79f05.webp`,
   `${CDN}/oFCNJlnwxjSikzrO_14283c30.webp`,
@@ -84,7 +84,7 @@ const HOSMER_PHOTOS = [
 ];
 
 const MCGRATH_PHOTOS = [
-  `${CDN}/GLLPatio1_90e2e0c4.jpg`,
+  "/manus-storage/GLLPatio1_90e2e0c4_166b9312.webp",
   `${CDN}/iLQzysWAIpshLExs_cd686ebc.webp`,
   `${CDN}/GnijvQODFDMrKxrg_bdc4efee.webp`,
   `${CDN}/uTOcvbcZVEyEexUs_42a3a31f.webp`,
@@ -92,7 +92,7 @@ const MCGRATH_PHOTOS = [
   `${CDN}/retHcMWUuJjuarBk_5cb6b5e7.webp`,
   `${CDN}/ambqMQAjmNxaGfTz_ddd94228.webp`,
   `${CDN}/znXAXegIgUZJRcee_2ed965e4.webp`,
-  `${CDN}/GLLPatio2_4916fcde.jpg`,
+  "/manus-storage/GLLPatio2_4916fcde_95c74f23.webp",
   `${CDN}/YvOMYOfUTJLIYxhZ_1a5428d7.webp`,
   `${CDN}/PtamSQtLZMVcIwap_033c59df.webp`,
   `${CDN}/fCBGPaTPIXfgNAhf_92fdbfd4.webp`,

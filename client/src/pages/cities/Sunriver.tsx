@@ -5,7 +5,7 @@ export default function SunriverPage() {
     <CityPageLayout
       city="Sunriver"
       region="Central Oregon"
-      heroImage="https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportAveLandcaping-9_97b731b0.jpg"
+      heroImage="/manus-storage/NewportAveLandcaping-9_97b731b0_1204d3ca.webp"
       heroPosition="center 40%"
       tagline="Elevate Your Sunriver Landscape: Expert Design, Installation, and Maintenance for High-Desert Living"
       seoTitle="Sunriver Landscaping Oregon | Premier Sunriver Lawn Care & Design"

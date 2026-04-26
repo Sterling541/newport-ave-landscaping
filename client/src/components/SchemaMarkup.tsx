@@ -18,8 +18,8 @@ export function LocalBusinessSchema() {
     telephone: "+15416178873",
     email: "info@newportavelandscaping.com",
     foundingDate: "2005",
-    logo: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/logo-nav-tight_c562b49c.png",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/water-feature-sunset_f7b219d3.jpg",
+    logo: "/manus-storage/logo-nav-tight_c562b49c_21958b81.webp",
+    image: "/manus-storage/water-feature-sunset_f7b219d3_87f250b3.webp",
     address: {
       "@type": "PostalAddress",
       streetAddress: "61535 S Hwy 97",
@@ -77,7 +77,6 @@ export function LocalBusinessSchema() {
     aggregateRating: {
       "@type": "AggregateRating",
       ratingValue: "4.9",
-      reviewCount: 127,
       bestRating: "5",
       worstRating: "1",
     },
@@ -172,7 +171,6 @@ export function AggregateRatingSchema({ serviceName, serviceUrl }: { serviceName
     aggregateRating: {
       "@type": "AggregateRating",
       ratingValue: "4.9",
-      reviewCount: 127,
       bestRating: "5",
       worstRating: "1",
     },

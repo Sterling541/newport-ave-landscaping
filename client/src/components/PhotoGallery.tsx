@@ -10,19 +10,19 @@ import { X, ChevronLeft, ChevronRight } from "lucide-react";
 const photos = [
   // Row 1 — hero shots
   {
-    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportAveLandcaping-9_97b731b0.jpg",
+    src: "/manus-storage/NewportAveLandcaping-9_97b731b0_1204d3ca.webp",
     title: "Flagstone Patio & Stream at Sunset",
     category: "Water Features",
     span: "col-span-2 row-span-2",
   },
   {
-    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/fire7_f0b582ff.jpg",
+    src: "/manus-storage/fire7_f0b582ff_56d05738.webp",
     title: "Fire Pit at Dusk",
     category: "Fire Features",
     span: "col-span-1 row-span-1",
   },
   {
-    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/ITP_7385_f2bbba86.jpg",
+    src: "/manus-storage/ITP_7385_f2bbba86_390dbedf.webp",
     title: "Pool Deck & Composite Decking",
     category: "Hardscape",
     span: "col-span-1 row-span-2",
@@ -35,7 +35,7 @@ const photos = [
   },
   // Row 2
   {
-    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/water-feature-sunset_f7b219d3.jpg",
+    src: "/manus-storage/water-feature-sunset_f7b219d3_87f250b3.webp",
     title: "Pond & Patio with Landscape Lighting",
     category: "Water Features",
     span: "col-span-2 row-span-2",
@@ -47,13 +47,13 @@ const photos = [
     span: "col-span-1 row-span-1",
   },
   {
-    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/water-feature-sunset_f7b219d3.jpg",
+    src: "/manus-storage/water-feature-sunset_f7b219d3_87f250b3.webp",
     title: "Pond & Flagstone Path at Sunset",
     category: "Water Features",
     span: "col-span-1 row-span-1",
   },
   {
-    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/landscaping-native_fa3d1cfe.jpg",
+    src: "/manus-storage/landscaping-native_fa3d1cfe_e2d50e2c.webp",
     title: "Native Rock Garden & Plantings",
     category: "Landscaping",
     span: "col-span-1 row-span-1",
@@ -66,7 +66,7 @@ const photos = [
     span: "col-span-1 row-span-1",
   },
   {
-    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/GLLPatio2_4916fcde.jpg",
+    src: "/manus-storage/GLLPatio2_4916fcde_95c74f23.webp",
     title: "Fire Pit at Sunset",
     category: "Hardscape",
     span: "col-span-1 row-span-1",

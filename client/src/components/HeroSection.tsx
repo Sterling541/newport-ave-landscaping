@@ -46,7 +46,7 @@ const CDN = "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUap
 
 const SCENES = [
   {
-    img: `${CDN}/NewportAveLandcaping-9_97b731b0.jpg`,
+    img: `/manus-storage/NewportAveLandcaping-9_97b731b0_1204d3ca.webp`,
     category: "WATER FEATURES & OUTDOOR LIVING",
     line1: "Where Every",
     line2: "Evening Feels",
@@ -54,7 +54,7 @@ const SCENES = [
     sub: "Central Oregon's premier landscaping company",
   },
   {
-    img: `${CDN}/fire7_f0b582ff.jpg`,
+    img: `/manus-storage/fire7_f0b582ff_56d05738.webp`,
     category: "FIRE FEATURES",
     line1: "Gather Around",
     line2: "Something",
@@ -355,7 +355,7 @@ export default function HeroSection() {
       <div
         style={{
           position: "absolute",
-          top: "clamp(5.5rem, 10vh, 8rem)",
+          top: "clamp(7.5rem, 13vh, 11rem)",
           left: "clamp(1.5rem, 5vw, 5rem)",
           right: "clamp(1.5rem, 5vw, 5rem)",
           zIndex: 10,
@@ -575,10 +575,11 @@ export default function HeroSection() {
                 fontSize: "0.46rem",
                 fontWeight: 700,
                 letterSpacing: "0.18em",
-                color: "oklch(0.46 0.20 25)",
-              }}
-            >
-              ⚡ BOOKING SPRING — SCHEDULE FILLS FAST
+              color: "oklch(0.85 0.18 85)",
+              textShadow: "0 1px 6px rgba(0,0,0,0.8)",
+            }}
+          >
+            ⚡ BOOKING SPRING — SCHEDULE FILLS FAST
             </span>
             <span style={{ width: "1px", height: "10px", backgroundColor: "oklch(0.35 0.008 30)" }} />
             {["LICENSED & BONDED", "LCB #9153", "21+ YEARS", "FREE ESTIMATES"].map((badge) => (
@@ -704,7 +705,7 @@ export default function HeroSection() {
       <div
         style={{
           position: "absolute",
-          top: "clamp(5.5rem, 10vh, 8rem)",
+          top: "clamp(7.5rem, 13vh, 11rem)",
           right: "clamp(1.5rem, 5vw, 5rem)",
           zIndex: 10,
           fontFamily: "'Montserrat', sans-serif",

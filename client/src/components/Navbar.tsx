@@ -15,7 +15,7 @@ import { useLocation } from "wouter";
 import { Menu, X, Phone, ArrowRight, ChevronDown, Calendar, Leaf } from "lucide-react";
 
 const LOGO_NAV =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/logo-nav-tight_c562b49c.png";
+  "/manus-storage/logo-nav-tight_c562b49c_21958b81.webp";
 
 const maintenanceItems = [
   { label: "Lawn Service", href: "/services/lawn-service", num: "01" },
@@ -60,11 +60,11 @@ const resourcesItems = [
   { label: "All 100 Guides →", href: "/resources", num: "→" },
 ];
 const MEGA_PHOTO_RESOURCES =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportAveLandcaping-9_97b731b0.jpg";
+  "/manus-storage/NewportAveLandcaping-9_97b731b0_1204d3ca.webp";
 
 // Maintenance mega menu — Newport Ave residential lawn & maintenance photo
 const MEGA_PHOTO_MAINTENANCE =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportAveLandcaping-9_97b731b0.jpg";
+  "/manus-storage/NewportAveLandcaping-9_97b731b0_1204d3ca.webp";
 // Services mega menu — Discovery West Plaza commercial installation (polished hardscape)
 const MEGA_PHOTO_SERVICES =
   "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/DiscoveryWestPlazaHiResPhotos55_79ba9dd5.jpg";
@@ -699,7 +699,7 @@ export default function Navbar() {
           </div>
 
           {/* ── Right cluster ── */}
-          <div style={{ display: "flex", alignItems: "center", gap: "2.5rem", flex: 1, justifyContent: "flex-end" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "2.5rem", flex: 1, justifyContent: "flex-end", paddingLeft: "180px" }}>
             <div
               onMouseEnter={() => handleMegaEnter("services")}
               onMouseLeave={handleMegaLeave}
