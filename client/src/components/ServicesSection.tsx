@@ -38,7 +38,7 @@ const SERVICES = [
     name: "COMMERCIAL",
     sub: "& HOA SERVICES",
     desc: "Large-scale property management for HOAs, commercial properties, and government contracts.",
-    img: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportLandscapingRVParkDay2Photos2_8e8d0bb1.jpg",
+    img: "/manus-storage/NewportLandscapingRVParkDay2Photos2_8e8d0bb1_cd405dc0.webp",
     href: "/commercial",
     position: "center 40%",
   },

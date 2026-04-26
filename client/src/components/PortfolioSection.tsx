@@ -34,7 +34,7 @@ const portfolioItems = [
   {
     title: "Commercial Landscape Installation",
     subtitle: "Central Oregon",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportLandscapingRVParkDay2Photos2_8e8d0bb1.jpg",
+    image: "/manus-storage/NewportLandscapingRVParkDay2Photos2_8e8d0bb1_cd405dc0.webp",
   },
   {
     title: "Elevated Patio & Stone Wall",
@@ -54,7 +54,7 @@ const portfolioItems = [
   {
     title: "Tree Planting & Installation",
     subtitle: "Central Oregon",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportLandscapingRVParkPhotos16_5e801b45.jpg",
+    image: "/manus-storage/NewportLandscapingRVParkPhotos16_5e801b45_fc8ec8ea.webp",
   },
   {
     title: "Residential Landscaping",

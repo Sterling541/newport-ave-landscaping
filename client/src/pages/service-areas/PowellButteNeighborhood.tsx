@@ -4,7 +4,7 @@ import SEO from "@/components/SEO";
 import { BreadcrumbSchema, FAQSchema } from "@/components/SchemaMarkup";
 import { Link } from "wouter";
 
-const HERO_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportLandscapingRVParkPhotos16_5e801b45.jpg";
+const HERO_IMG = "/manus-storage/NewportLandscapingRVParkPhotos16_5e801b45_fc8ec8ea.webp";
 
 const FAQ_ITEMS = [
   {
