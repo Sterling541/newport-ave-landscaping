@@ -39,12 +39,7 @@ const NAV_ITEMS = [
     icon: MessageSquare,
     description: "Get a Quote inquiries",
   },
-  {
-    label: "Game Analytics",
-    href: "/admin/game-analytics",
-    icon: Gamepad2,
-    description: "Lawn Mower Dash stats",
-  },
+  // { label: "Game Analytics", href: "/admin/game-analytics", icon: Gamepad2, description: "Lawn Mower Dash stats" }, // hidden
   {
     label: "Daily Pulse",
     href: "/admin/daily-pulse",

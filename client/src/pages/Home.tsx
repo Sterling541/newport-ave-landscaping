@@ -27,7 +27,7 @@ const ReviewsSection = lazy(() => import("@/components/ReviewsSection"));
 const ServiceAreaBand = lazy(() => import("@/components/ServiceAreaBand"));
 const ContactSection = lazy(() => import("@/components/ContactSection"));
 const Footer = lazy(() => import("@/components/Footer"));
-const GameSection = lazy(() => import("@/components/GameSection"));
+// const GameSection = lazy(() => import("@/components/GameSection")); // hidden
 
 // Lightweight fallback — invisible, just holds space
 const SectionFallback = () => <div style={{ minHeight: "200px" }} />;
@@ -58,10 +58,10 @@ export default function Home() {
         <StatsSection />
       </div>
 
-      {/* Lawn Mower Dash game — high up, right after stats */}
-      <Suspense fallback={<SectionFallback />}>
+      {/* Lawn Mower Dash game — hidden for now */}
+      {/* <Suspense fallback={<SectionFallback />}>
         <GameSection />
-      </Suspense>
+      </Suspense> */}
 
       {/* All below-fold sections are lazy-loaded */}
       <Suspense fallback={<SectionFallback />}>

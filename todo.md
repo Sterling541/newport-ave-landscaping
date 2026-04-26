@@ -820,3 +820,8 @@
 - [x] Fix render-blocking Google Fonts (both font links now use print media trick)
 - [x] Add inline critical CSS to index.html for above-fold rendering
 - [ ] Fix bunny.net font missing font-display:swap (minor, 30ms savings)
+
+## Session — April 26, 2026 (Hide Lawn Mower Dash)
+
+- [x] Remove LawnMowerDash from all navigation links and entry points (Navbar, Footer, Home.tsx GameSection, AdminLayout Game Analytics)
+- [x] Keep the route/component intact (just hidden, not deleted)
