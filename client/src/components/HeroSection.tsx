@@ -355,7 +355,7 @@ export default function HeroSection() {
       <div
         style={{
           position: "absolute",
-          top: "clamp(7.5rem, 13vh, 11rem)",
+          top: "clamp(13rem, 18vh, 16rem)",
           left: "clamp(1.5rem, 5vw, 5rem)",
           right: "clamp(1.5rem, 5vw, 5rem)",
           zIndex: 10,
@@ -705,7 +705,7 @@ export default function HeroSection() {
       <div
         style={{
           position: "absolute",
-          top: "clamp(7.5rem, 13vh, 11rem)",
+          top: "clamp(13rem, 18vh, 16rem)",
           right: "clamp(1.5rem, 5vw, 5rem)",
           zIndex: 10,
           fontFamily: "'Montserrat', sans-serif",
