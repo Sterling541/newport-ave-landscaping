@@ -12,151 +12,156 @@ function ScrollToTop() {
 import MobileCTABar from "@/components/MobileCTABar";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import NotFound from "@/pages/NotFound";
-import ImageTracker from "@/pages/admin/ImageTracker";
 import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 
+// ── Eagerly loaded (always needed) ──────────────────────────────────────────
+import Home from "./pages/Home";
+import NotFound from "@/pages/NotFound";
+
+// ── Lazy-loaded pages (code-split per route) ─────────────────────────────────
+
 // Schedule Services + Admin
-import ScheduleServices from "./pages/ScheduleServices";
-import AdminSubmissions from "./pages/AdminSubmissions";
-import DailyPulse from "./pages/admin/DailyPulse";
-import LeadVolumeTrends from "./pages/admin/LeadVolumeTrends";
-import CsvImport from "./pages/admin/CsvImport";
-import GeoIntelligence from "./pages/admin/GeoIntelligence";
-import Reminders from "./pages/admin/Reminders";
-import AdminOptOutRequests from "./pages/admin/AdminOptOutRequests";
-import QuoteRequest from "./pages/QuoteRequest";
-import AdminQuoteLeads from "./pages/admin/AdminQuoteLeads";
-import GameAnalytics from "./pages/admin/GameAnalytics";
-import OptOut from "./pages/OptOut";
-import LawnMowerDash from "./pages/LawnMowerDash";
+const ScheduleServices = lazy(() => import("./pages/ScheduleServices"));
+const AdminSubmissions = lazy(() => import("./pages/AdminSubmissions"));
+const DailyPulse = lazy(() => import("./pages/admin/DailyPulse"));
+const LeadVolumeTrends = lazy(() => import("./pages/admin/LeadVolumeTrends"));
+const CsvImport = lazy(() => import("./pages/admin/CsvImport"));
+const GeoIntelligence = lazy(() => import("./pages/admin/GeoIntelligence"));
+const Reminders = lazy(() => import("./pages/admin/Reminders"));
+const AdminOptOutRequests = lazy(() => import("./pages/admin/AdminOptOutRequests"));
+const QuoteRequest = lazy(() => import("./pages/QuoteRequest"));
+const AdminQuoteLeads = lazy(() => import("./pages/admin/AdminQuoteLeads"));
+const GameAnalytics = lazy(() => import("./pages/admin/GameAnalytics"));
+const ImageTracker = lazy(() => import("./pages/admin/ImageTracker"));
+const OptOut = lazy(() => import("./pages/OptOut"));
+const LawnMowerDash = lazy(() => import("./pages/LawnMowerDash"));
 
 // Main pages
-import Home from "./pages/Home";
-import About from "./pages/About";
-import Commercial from "./pages/Commercial";
-import Maintenance from "./pages/Maintenance";
-import Services from "./pages/Services";
-import OurWork from "./pages/OurWork";
-import Contact from "./pages/Contact";
-import Blog from "./pages/Blog";
-import Resources from "./pages/Resources";
-import ServiceAreas from "./pages/ServiceAreas";
-import BendNeighborhoods from "./pages/BendNeighborhoods";
-import PrivacyPolicy from "./pages/PrivacyPolicy";
-import Membership from "./pages/Membership";
-import Terms from "./pages/Terms";
+const About = lazy(() => import("./pages/About"));
+const Commercial = lazy(() => import("./pages/Commercial"));
+const Maintenance = lazy(() => import("./pages/Maintenance"));
+const Services = lazy(() => import("./pages/Services"));
+const OurWork = lazy(() => import("./pages/OurWork"));
+const Contact = lazy(() => import("./pages/Contact"));
+const Blog = lazy(() => import("./pages/Blog"));
+const Resources = lazy(() => import("./pages/Resources"));
+const ServiceAreas = lazy(() => import("./pages/ServiceAreas"));
+const BendNeighborhoods = lazy(() => import("./pages/BendNeighborhoods"));
+const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
+const Membership = lazy(() => import("./pages/Membership"));
+const Terms = lazy(() => import("./pages/Terms"));
+const Careers = lazy(() => import("./pages/Careers"));
 
 // Maintenance sub-pages
-import LawnService from "./pages/services/LawnService";
-import CommercialMaintenance from "./pages/services/CommercialMaintenance";
-import CommercialHOAMaintenance from "./pages/maintenance/CommercialHOAMaintenance";
-import Aeration from "./pages/services/Aeration";
-import SprinklerActivation from "./pages/services/SprinklerActivation";
-import SprinklerBlowout from "./pages/services/SprinklerBlowout";
-import SnowRemoval from "./pages/services/SnowRemoval";
-import LawnFungus from "./pages/services/LawnFungus";
+const LawnService = lazy(() => import("./pages/services/LawnService"));
+const CommercialMaintenance = lazy(() => import("./pages/services/CommercialMaintenance"));
+const CommercialHOAMaintenance = lazy(() => import("./pages/maintenance/CommercialHOAMaintenance"));
+const Aeration = lazy(() => import("./pages/services/Aeration"));
+const SprinklerActivation = lazy(() => import("./pages/services/SprinklerActivation"));
+const SprinklerBlowout = lazy(() => import("./pages/services/SprinklerBlowout"));
+const SnowRemoval = lazy(() => import("./pages/services/SnowRemoval"));
+const LawnFungus = lazy(() => import("./pages/services/LawnFungus"));
 
 // Installation / service sub-pages
-import LandscapeDesign from "./pages/services/LandscapeDesign";
-import Irrigation from "./pages/services/Irrigation";
-import SprinklerRepair from "./pages/services/SprinklerRepair";
-import Pavers from "./pages/services/Pavers";
-import WaterFeatures from "./pages/services/WaterFeatures";
-import OutdoorLiving from "./pages/services/OutdoorLiving";
-import FireFeatures from "./pages/services/FireFeatures";
-import LandscapeLighting from "./pages/services/LandscapeLighting";
-import Xeriscaping from "./pages/services/Xeriscaping";
-import RetainingWalls from "./pages/services/RetainingWalls";
-import Drainage from "./pages/services/Drainage";
-import FirewiseLandscaping from "./pages/services/FirewiseLandscaping";
-import Careers from "./pages/Careers";
+const LandscapeDesign = lazy(() => import("./pages/services/LandscapeDesign"));
+const Irrigation = lazy(() => import("./pages/services/Irrigation"));
+const SprinklerRepair = lazy(() => import("./pages/services/SprinklerRepair"));
+const Pavers = lazy(() => import("./pages/services/Pavers"));
+const WaterFeatures = lazy(() => import("./pages/services/WaterFeatures"));
+const OutdoorLiving = lazy(() => import("./pages/services/OutdoorLiving"));
+const FireFeatures = lazy(() => import("./pages/services/FireFeatures"));
+const LandscapeLighting = lazy(() => import("./pages/services/LandscapeLighting"));
+const Xeriscaping = lazy(() => import("./pages/services/Xeriscaping"));
+const RetainingWalls = lazy(() => import("./pages/services/RetainingWalls"));
+const Drainage = lazy(() => import("./pages/services/Drainage"));
+const FirewiseLandscaping = lazy(() => import("./pages/services/FirewiseLandscaping"));
 
 // City landing pages
-import BendPage from "./pages/cities/Bend";
-import RedmondPage from "./pages/cities/Redmond";
-import SistersPage from "./pages/cities/Sisters";
-import SunriverPage from "./pages/cities/Sunriver";
-import TumaloPage from "./pages/cities/Tumalo";
-import PrinevillePage from "./pages/cities/Prineville";
-import LaPinePage from "./pages/cities/LaPine";
-import MadrasPage from "./pages/cities/Madras";
-import EagleCrestPage from "./pages/cities/EagleCrest";
-import PowellButtePage from "./pages/cities/PowellButte";
-import TerrebonnePage from "./pages/cities/Terrebonne";
-import CrookedRiverRanchPage from "./pages/cities/CrookedRiverRanch";
-import AlfalfaPage from "./pages/cities/Alfalfa";
-import ClineFallsPage from "./pages/cities/ClineFalls";
+const BendPage = lazy(() => import("./pages/cities/Bend"));
+const RedmondPage = lazy(() => import("./pages/cities/Redmond"));
+const SistersPage = lazy(() => import("./pages/cities/Sisters"));
+const SunriverPage = lazy(() => import("./pages/cities/Sunriver"));
+const TumaloPage = lazy(() => import("./pages/cities/Tumalo"));
+const PrinevillePage = lazy(() => import("./pages/cities/Prineville"));
+const LaPinePage = lazy(() => import("./pages/cities/LaPine"));
+const MadrasPage = lazy(() => import("./pages/cities/Madras"));
+const EagleCrestPage = lazy(() => import("./pages/cities/EagleCrest"));
+const PowellButtePage = lazy(() => import("./pages/cities/PowellButte"));
+const TerrebonnePage = lazy(() => import("./pages/cities/Terrebonne"));
+const CrookedRiverRanchPage = lazy(() => import("./pages/cities/CrookedRiverRanch"));
+const AlfalfaPage = lazy(() => import("./pages/cities/Alfalfa"));
+const ClineFallsPage = lazy(() => import("./pages/cities/ClineFalls"));
 
 // Blog posts
-import ClimateChange from "./pages/blog/ClimateChange";
-import SeasonalGuide from "./pages/blog/SeasonalGuide";
-import XeriscapeBend from "./pages/blog/XeriscapeBend";
-import SprinklerWinterizationBend from "./pages/blog/SprinklerWinterizationBend";
-import PaverPatioIdeasBend from "./pages/blog/PaverPatioIdeasBend";
-import LawnCareBendOregon from "./pages/blog/LawnCareBendOregon";
+const ClimateChange = lazy(() => import("./pages/blog/ClimateChange"));
+const SeasonalGuide = lazy(() => import("./pages/blog/SeasonalGuide"));
+const XeriscapeBend = lazy(() => import("./pages/blog/XeriscapeBend"));
+const SprinklerWinterizationBend = lazy(() => import("./pages/blog/SprinklerWinterizationBend"));
+const PaverPatioIdeasBend = lazy(() => import("./pages/blog/PaverPatioIdeasBend"));
+const LawnCareBendOregon = lazy(() => import("./pages/blog/LawnCareBendOregon"));
 
 // SEO Resource pages
-import PaverPatioCostBend from "./pages/resources/PaverPatioCostBend";
-import SprinklerSystemCostBend from "./pages/resources/SprinklerSystemCostBend";
-import XeriscapeCostBend from "./pages/resources/XeriscapeCostBend";
-import LandscapeDesignCostBend from "./pages/resources/LandscapeDesignCostBend";
-import RetainingWallCostBend from "./pages/resources/RetainingWallCostBend";
-import SodInstallationCostBend from "./pages/resources/SodInstallationCostBend";
-import OutdoorLightingCostBend from "./pages/resources/OutdoorLightingCostBend";
-import WaterFeatureCostBend from "./pages/resources/WaterFeatureCostBend";
-import LawnMaintenanceCostBend from "./pages/resources/LawnMaintenanceCostBend";
-import FirePitPatioCostBend from "./pages/resources/FirePitPatioCostBend";
-import BestPlantsXeriscapeCentralOregon from "./pages/resources/BestPlantsXeriscapeCentralOregon";
-import WhenToAerateLawnBend from "./pages/resources/WhenToAerateLawnBend";
-import SprinklerWinterizationGuideBend from "./pages/resources/SprinklerWinterizationGuideBend";
-import HowToChooseLandscaperBend from "./pages/resources/HowToChooseLandscaperBend";
-import BendTurfRebateProgram from "./pages/resources/BendTurfRebateProgram";
-import IrrigationRepairBend from "./pages/resources/IrrigationRepairBend";
-import CommercialLandscapingBend from "./pages/resources/CommercialLandscapingBend";
-import SnowRemovalBendResource from "./pages/resources/SnowRemovalBend";
-import LandscapeLightingBend from "./pages/resources/LandscapeLightingBend";
+const PaverPatioCostBend = lazy(() => import("./pages/resources/PaverPatioCostBend"));
+const SprinklerSystemCostBend = lazy(() => import("./pages/resources/SprinklerSystemCostBend"));
+const XeriscapeCostBend = lazy(() => import("./pages/resources/XeriscapeCostBend"));
+const LandscapeDesignCostBend = lazy(() => import("./pages/resources/LandscapeDesignCostBend"));
+const RetainingWallCostBend = lazy(() => import("./pages/resources/RetainingWallCostBend"));
+const SodInstallationCostBend = lazy(() => import("./pages/resources/SodInstallationCostBend"));
+const OutdoorLightingCostBend = lazy(() => import("./pages/resources/OutdoorLightingCostBend"));
+const WaterFeatureCostBend = lazy(() => import("./pages/resources/WaterFeatureCostBend"));
+const LawnMaintenanceCostBend = lazy(() => import("./pages/resources/LawnMaintenanceCostBend"));
+const FirePitPatioCostBend = lazy(() => import("./pages/resources/FirePitPatioCostBend"));
+const BestPlantsXeriscapeCentralOregon = lazy(() => import("./pages/resources/BestPlantsXeriscapeCentralOregon"));
+const WhenToAerateLawnBend = lazy(() => import("./pages/resources/WhenToAerateLawnBend"));
+const SprinklerWinterizationGuideBend = lazy(() => import("./pages/resources/SprinklerWinterizationGuideBend"));
+const HowToChooseLandscaperBend = lazy(() => import("./pages/resources/HowToChooseLandscaperBend"));
+const BendTurfRebateProgram = lazy(() => import("./pages/resources/BendTurfRebateProgram"));
+const IrrigationRepairBend = lazy(() => import("./pages/resources/IrrigationRepairBend"));
+const CommercialLandscapingBend = lazy(() => import("./pages/resources/CommercialLandscapingBend"));
+const SnowRemovalBendResource = lazy(() => import("./pages/resources/SnowRemovalBend"));
+const LandscapeLightingBend = lazy(() => import("./pages/resources/LandscapeLightingBend"));
 
 // Core SEO sub-pages
-import ConcretePaversBend from "./pages/seo/ConcretePayersBend";
-import HOALandscapeDesignBend from "./pages/seo/HOALandscapeDesignBend";
-import ModernLandscapeDesignBend from "./pages/seo/ModernLandscapeDesignBend";
+const ConcretePaversBend = lazy(() => import("./pages/seo/ConcretePayersBend"));
+const HOALandscapeDesignBend = lazy(() => import("./pages/seo/HOALandscapeDesignBend"));
+const ModernLandscapeDesignBend = lazy(() => import("./pages/seo/ModernLandscapeDesignBend"));
 
 // Core SEO landing pages
-import LandscapingBendOregon from "./pages/seo/LandscapingBendOregon";
-import PaverPatiosBend from "./pages/seo/PaverPatiosBend";
-import IrrigationBendOregon from "./pages/seo/IrrigationBendOregon";
-import LandscapeDesignBend from "./pages/seo/LandscapeDesignBend";
-import CommercialLandscapingBendSeo from "./pages/seo/CommercialLandscapingBend";
+const LandscapingBendOregon = lazy(() => import("./pages/seo/LandscapingBendOregon"));
+const PaverPatiosBend = lazy(() => import("./pages/seo/PaverPatiosBend"));
+const IrrigationBendOregon = lazy(() => import("./pages/seo/IrrigationBendOregon"));
+const LandscapeDesignBend = lazy(() => import("./pages/seo/LandscapeDesignBend"));
+const CommercialLandscapingBendSeo = lazy(() => import("./pages/seo/CommercialLandscapingBend"));
 
 // SEO Neighborhood / Service Area pages
-import AwbreyButteNeighborhood from "./pages/service-areas/AwbreyButteNeighborhood";
-import NorthwestCrossingNeighborhood from "./pages/service-areas/NorthwestCrossingNeighborhood";
-import BrokenTopNeighborhood from "./pages/service-areas/BrokenTopNeighborhood";
-import DiscoveryWestNeighborhood from "./pages/service-areas/DiscoveryWestNeighborhood";
-import SunriverLandscaping from "./pages/service-areas/SunriverLandscaping";
-import RedmondLandscaping from "./pages/service-areas/RedmondLandscaping";
-import PowellButteNeighborhood from "./pages/service-areas/PowellButteNeighborhood";
-import EagleCrestNeighborhood from "./pages/service-areas/EagleCrestNeighborhood";
+const AwbreyButteNeighborhood = lazy(() => import("./pages/service-areas/AwbreyButteNeighborhood"));
+const NorthwestCrossingNeighborhood = lazy(() => import("./pages/service-areas/NorthwestCrossingNeighborhood"));
+const BrokenTopNeighborhood = lazy(() => import("./pages/service-areas/BrokenTopNeighborhood"));
+const DiscoveryWestNeighborhood = lazy(() => import("./pages/service-areas/DiscoveryWestNeighborhood"));
+const SunriverLandscaping = lazy(() => import("./pages/service-areas/SunriverLandscaping"));
+const RedmondLandscaping = lazy(() => import("./pages/service-areas/RedmondLandscaping"));
+const PowellButteNeighborhood = lazy(() => import("./pages/service-areas/PowellButteNeighborhood"));
+const EagleCrestNeighborhood = lazy(() => import("./pages/service-areas/EagleCrestNeighborhood"));
 
 // Portfolio project pages
-import BendFullYardTransformation from "./pages/portfolio/BendFullYardTransformation";
-import AwbreyButteXeriscape from "./pages/portfolio/AwbreyButteXeriscape";
-import AwbreyGlennFlagstone from "./pages/portfolio/AwbreyGlennFlagstone";
-import BackyardRenovation from "./pages/portfolio/BackyardRenovation";
-import BrokenTopWaterFeature from "./pages/portfolio/BrokenTopWaterFeature";
-import BrokenTopXeriscape from "./pages/portfolio/BrokenTopXeriscape";
-import CenturyDrive from "./pages/portfolio/CenturyDrive";
-import EastBendLandscape from "./pages/portfolio/EastBendLandscape";
-import NWBendBackyard from "./pages/portfolio/NWBendBackyard";
-import PaverPatioFirepit from "./pages/portfolio/PaverPatioFirepit";
-import SWBendBackyard from "./pages/portfolio/SWBendBackyard";
-import AwbreyButtePatio from "./pages/portfolio/AwbreyButtePatio";
-import NWBendLighting from "./pages/portfolio/NWBendLighting";
-import WestsideOutdoorLiving from "./pages/portfolio/WestsideOutdoorLiving";
+const BendFullYardTransformation = lazy(() => import("./pages/portfolio/BendFullYardTransformation"));
+const AwbreyButteXeriscape = lazy(() => import("./pages/portfolio/AwbreyButteXeriscape"));
+const AwbreyGlennFlagstone = lazy(() => import("./pages/portfolio/AwbreyGlennFlagstone"));
+const BackyardRenovation = lazy(() => import("./pages/portfolio/BackyardRenovation"));
+const BrokenTopWaterFeature = lazy(() => import("./pages/portfolio/BrokenTopWaterFeature"));
+const BrokenTopXeriscape = lazy(() => import("./pages/portfolio/BrokenTopXeriscape"));
+const CenturyDrive = lazy(() => import("./pages/portfolio/CenturyDrive"));
+const EastBendLandscape = lazy(() => import("./pages/portfolio/EastBendLandscape"));
+const NWBendBackyard = lazy(() => import("./pages/portfolio/NWBendBackyard"));
+const PaverPatioFirepit = lazy(() => import("./pages/portfolio/PaverPatioFirepit"));
+const SWBendBackyard = lazy(() => import("./pages/portfolio/SWBendBackyard"));
+const AwbreyButtePatio = lazy(() => import("./pages/portfolio/AwbreyButtePatio"));
+const NWBendLighting = lazy(() => import("./pages/portfolio/NWBendLighting"));
+const WestsideOutdoorLiving = lazy(() => import("./pages/portfolio/WestsideOutdoorLiving"));
 
+// Lazy-loaded service-area pages (already lazy)
 const RedmondPavers = lazy(() => import("@/pages/service-areas/RedmondPavers"));
 const RedmondIrrigation = lazy(() => import("@/pages/service-areas/RedmondIrrigation"));
 const RedmondXeriscaping = lazy(() => import("@/pages/service-areas/RedmondXeriscaping"));
@@ -211,6 +216,7 @@ const OldBendLandscaping = lazy(() => import("@/pages/service-areas/OldBendLands
 const IrrigationFAQBend = lazy(() => import("@/pages/resources/IrrigationFAQBend"));
 const PaverFAQBend = lazy(() => import("@/pages/resources/PaverFAQBend"));
 const XeriscapeFAQBend = lazy(() => import("@/pages/resources/XeriscapeFAQBend"));
+
 function Router() {
   // make sure to consider if you need authentication for certain routes
   return (
@@ -346,7 +352,6 @@ function Router() {
       <Route path={"/service-areas/powell-butte-landscaping"} component={PowellButteNeighborhood} />
       <Route path={"/service-areas/eagle-crest-landscaping"} component={EagleCrestNeighborhood} />
 
-
       {/* New SEO Resource Pages */}
       <Route path={"/resources/hoa-landscaping-bend-oregon"} component={lazy(() => import('./pages/resources/BendHOALandscaping'))} />
       <Route path={"/resources/landscape-transformation-bend-oregon"} component={lazy(() => import('./pages/resources/BendLandscapeBeforeAfter'))} />
@@ -409,7 +414,7 @@ function Router() {
       <Route path={"/resources/defensible-space-bend-oregon"} component={lazy(() => import('./pages/resources/DefensibleSpaceBendOregon'))} />
       <Route path={"/resources/deschutes-county-fire-hardening-requirements"} component={lazy(() => import('./pages/resources/DeschutesFireHardeningR327'))} />
       <Route path={"/resources/fire-resistant-plants-central-oregon"} component={lazy(() => import('./pages/resources/FireResistantPlantsCentralOregon'))} />
-       <Route path={"/resources/juniper-removal-bend-oregon"} component={lazy(() => import('./pages/resources/JuniperRemovalBendOregon'))} />
+      <Route path={"/resources/juniper-removal-bend-oregon"} component={lazy(() => import('./pages/resources/JuniperRemovalBendOregon'))} />
       {/* Water-Wise Landscaping */}
       <Route path={"/services/water-wise-landscaping"} component={lazy(() => import('./pages/services/WaterWiseLandscapingService'))} />
       <Route path={"/resources/bend-watering-restrictions"} component={lazy(() => import('./pages/resources/BendWateringRestrictions'))} />
@@ -528,9 +533,58 @@ function Router() {
 
       {/* Fallback */}
       <Route path={"/admin/image-tracker"} component={ImageTracker} />
+      <Route path={"/service-areas/old-bend-landscaping"} component={OldBendLandscaping} />
+      <Route path={"/service-areas/redmond-pavers"} component={RedmondPavers} />
+      <Route path={"/service-areas/redmond-irrigation"} component={RedmondIrrigation} />
+      <Route path={"/service-areas/redmond-xeriscaping"} component={RedmondXeriscaping} />
+      <Route path={"/service-areas/redmond-landscape-design"} component={RedmondLandscapeDesign} />
+      <Route path={"/service-areas/redmond-lawn-service"} component={RedmondLawnService} />
+      <Route path={"/service-areas/redmond-snow-removal"} component={RedmondSnowRemoval} />
+      <Route path={"/service-areas/sisters-pavers"} component={SistersPavers} />
+      <Route path={"/service-areas/sisters-irrigation"} component={SistersIrrigation} />
+      <Route path={"/service-areas/sisters-xeriscaping"} component={SistersXeriscaping} />
+      <Route path={"/service-areas/sisters-landscape-design"} component={SistersLandscapeDesign} />
+      <Route path={"/service-areas/sisters-lawn-service"} component={SistersLawnService} />
+      <Route path={"/service-areas/sisters-snow-removal"} component={SistersSnowRemoval} />
+      <Route path={"/service-areas/sunriver-pavers"} component={SunriverPavers} />
+      <Route path={"/service-areas/sunriver-irrigation"} component={SunriverIrrigation} />
+      <Route path={"/service-areas/sunriver-xeriscaping"} component={SunriverXeriscaping} />
+      <Route path={"/service-areas/sunriver-landscape-design"} component={SunriverLandscapeDesign} />
+      <Route path={"/service-areas/sunriver-lawn-service"} component={SunriverLawnService} />
+      <Route path={"/service-areas/sunriver-snow-removal"} component={SunriverSnowRemoval} />
+      <Route path={"/service-areas/la-pine-pavers"} component={LaPinePavers} />
+      <Route path={"/service-areas/la-pine-irrigation"} component={LaPineIrrigation} />
+      <Route path={"/service-areas/la-pine-xeriscaping"} component={LaPineXeriscaping} />
+      <Route path={"/service-areas/la-pine-landscape-design"} component={LaPineLandscapeDesign} />
+      <Route path={"/service-areas/la-pine-lawn-service"} component={LaPineLawnService} />
+      <Route path={"/service-areas/la-pine-snow-removal"} component={LaPineSnowRemoval} />
+      <Route path={"/service-areas/prineville-pavers"} component={PrinevillePavers} />
+      <Route path={"/service-areas/prineville-irrigation"} component={PrinevilleIrrigation} />
+      <Route path={"/service-areas/prineville-xeriscaping"} component={PrinevilleXeriscaping} />
+      <Route path={"/service-areas/prineville-landscape-design"} component={PrinevilleLandscapeDesign} />
+      <Route path={"/service-areas/prineville-lawn-service"} component={PrinevilleLawnService} />
+      <Route path={"/service-areas/prineville-snow-removal"} component={PrinevilleSnowRemoval} />
+      <Route path={"/service-areas/madras-pavers"} component={MadrasPavers} />
+      <Route path={"/service-areas/madras-irrigation"} component={MadrasIrrigation} />
+      <Route path={"/service-areas/madras-xeriscaping"} component={MadrasXeriscaping} />
+      <Route path={"/service-areas/madras-landscape-design"} component={MadrasLandscapeDesign} />
+      <Route path={"/service-areas/madras-lawn-service"} component={MadrasLawnService} />
+      <Route path={"/service-areas/madras-snow-removal"} component={MadrasSnowRemoval} />
+      <Route path={"/service-areas/tumalo-pavers"} component={TumaloPavers} />
+      <Route path={"/service-areas/tumalo-irrigation"} component={TumaloIrrigation} />
+      <Route path={"/service-areas/tumalo-xeriscaping"} component={TumaloXeriscaping} />
+      <Route path={"/service-areas/tumalo-landscape-design"} component={TumaloLandscapeDesign} />
+      <Route path={"/service-areas/tumalo-lawn-service"} component={TumaloLawnService} />
+      <Route path={"/service-areas/tumalo-snow-removal"} component={TumaloSnowRemoval} />
+      <Route path={"/service-areas/terrebonne-pavers"} component={TerrebonnePavers} />
+      <Route path={"/service-areas/terrebonne-irrigation"} component={TerrebonneIrrigation} />
+      <Route path={"/service-areas/terrebonne-xeriscaping"} component={TerrebonneXeriscaping} />
+      <Route path={"/service-areas/terrebonne-landscape-design"} component={TerrebonneLandscapeDesign} />
+      <Route path={"/service-areas/terrebonne-lawn-service"} component={TerrebonneLawnService} />
+      <Route path={"/service-areas/terrebonne-snow-removal"} component={TerrebonneSnowRemoval} />
       <Route path={"/404"} component={NotFound} />
       <Route component={NotFound} />
-</Switch>
+    </Switch>
     </Suspense>
   );
 }

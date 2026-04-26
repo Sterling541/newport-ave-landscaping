@@ -45,7 +45,7 @@ const residentialServices = [
     title: "Patio Pavers & Walkways",
     href: "/services/pavers",
     description: "We are your one-stop shop for all outdoor paving needs — driveways, walkways, patios, pool decks, and more. We work with natural stone, concrete pavers, flagstone, and brick to create surfaces that last decades.",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/GLLPatio10_2ffabcfb.jpg",
+    image: "/manus-storage/GLLPatio10_2ffabcfb_2fda87b6.webp",
   },
   {
     title: "Sprinklers & Irrigation",
@@ -132,7 +132,7 @@ export default function Services() {
         style={{
           height: "clamp(280px, 38vw, 440px)", marginTop: "204px",
           backgroundColor: "oklch(0.12 0.005 0)",
-          backgroundImage: "url(https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NinesProject3_602cdeb8.jpg",
+          backgroundImage: "url(/manus-storage/NinesProject3_602cdeb8_2a243328.webp",
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}

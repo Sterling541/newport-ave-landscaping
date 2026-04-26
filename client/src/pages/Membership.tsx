@@ -129,7 +129,7 @@ export default function Membership() {
         <div className="container relative z-10 flex flex-col md:flex-row items-center gap-8 md:gap-12 py-10 md:py-14">
           <div className="flex-shrink-0 flex items-center justify-center">
             <img
-              src="https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/membership-badge-v2_afdcad1b.png"
+              src="/manus-storage/membership-badge-v2_afdcad1b_f3713384.webp"
               alt="Newport Avenue Priority Irrigation Membership Badge"
               style={{
                 width: "clamp(140px, 16vw, 220px)",

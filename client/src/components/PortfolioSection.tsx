@@ -19,17 +19,17 @@ const portfolioItems = [
   {
     title: "Bend Full Yard Transformation",
     subtitle: "Bend, OR",
-    image: `${CDN_BASE}/proj-bend-after-backyard1_c8556c78.jpg`,
+    image: "/manus-storage/proj-bend-after-backyard1_c8556c78_6a253543.webp",
   },
   {
     title: "Paver Patio & Fire Feature",
     subtitle: "Bend, OR",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/GLLPatio10_2ffabcfb.jpg",
+    image: "/manus-storage/GLLPatio10_2ffabcfb_2fda87b6.webp",
   },
   {
     title: "Outdoor Living Space",
     subtitle: "Bend, OR",
-    image: "/manus-storage/GLLPatio2_4916fcde_95c74f23.webp",
+    image: "/manus-storage/GLLPatio2_600w_127ef46c.webp",
   },
   {
     title: "Commercial Landscape Installation",
@@ -44,12 +44,12 @@ const portfolioItems = [
   {
     title: "Patio & Outdoor Dining",
     subtitle: "Bend, OR",
-    image: "/manus-storage/GLLPatio1_90e2e0c4_166b9312.webp",
+    image: "/manus-storage/GLLPatio1_600w_0ffadc69.webp",
   },
   {
     title: "Paver Patio & Cable Railing",
     subtitle: "Bend, OR",
-    image: "/manus-storage/GLLPatio2_4916fcde_95c74f23.webp",
+    image: "/manus-storage/GLLPatio2_600w_127ef46c.webp",
   },
   {
     title: "Tree Planting & Installation",
@@ -59,7 +59,7 @@ const portfolioItems = [
   {
     title: "Residential Landscaping",
     subtitle: "Bend, OR",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/IMG_1336_4fa29027.JPG",
+    image: "/manus-storage/IMG_1336_4fa29027_3d91d101.webp",
   },
   {
     title: "Our Nursery & Plant Yard",

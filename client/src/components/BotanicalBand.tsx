@@ -10,15 +10,15 @@
 
 // Transparent outdoor watercolor landscape plant illustrations
 const GRASS_URL =
-  "/manus-storage/plant-outdoor-1-nobg_a59ef7c7_ab9a97bb.webp";
+  "/manus-storage/plant-outdoor-1-nobg_700_a025a71d.webp";
 const SPRUCE_BRANCH_URL =
-  "/manus-storage/plant-outdoor-2-nobg_0eb4c196_a581bd01.webp";
+  "/manus-storage/plant-outdoor-2-nobg_700_94071400.webp";
 const FERN_URL =
-  "/manus-storage/plant-outdoor-3-nobg_38f096e3_b49415a0.webp";
+  "/manus-storage/plant-outdoor-3-nobg_700_34a1c68f.webp";
 const SHRUB_URL =
-  "/manus-storage/plant-outdoor-4-nobg_be827cae_776345f6.webp";
+  "/manus-storage/plant-outdoor-4-nobg_700_8f92f668.webp";
 const SPRUCE_TREE_URL =
-  "/manus-storage/plant-outdoor-5-nobg_c86c3b82_20f2de44.webp";
+  "/manus-storage/plant-outdoor-5-nobg_700_b765d974.webp";
 
 interface BotanicalBandProps {
   label?: string;

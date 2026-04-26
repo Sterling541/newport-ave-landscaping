@@ -25,11 +25,11 @@ import {
 
 // ── CDN image constants ──────────────────────────────────────
 // Discovery West Plaza
-const DW_AERIAL_OVERVIEW = "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/DiscoveryWestPlazaHiResPhotos45_7e4380ec.jpg";
-const DW_AERIAL_ANGLED = "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/DiscoveryWestPlazaHiResPhotos58_4ec582a1.jpg";
+const DW_AERIAL_OVERVIEW = "/manus-storage/DiscoveryWestPlazaHiResPhotos45_7e4380ec_5d96cf2f.webp";
+const DW_AERIAL_ANGLED = "/manus-storage/DiscoveryWestPlazaHiResPhotos58_4ec582a1_b18aba65.webp";
 const DW_OVERHEAD_CIRCULAR = "/manus-storage/DiscoveryWestPlazaHiResPhotos55_79ba9dd5_e0d97b76.webp";
-const DW_CREW_PLANTING = "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/DiscoveryWestPlazaHiResPhotos57_fafc711f.jpg";
-const NINES_CREW = "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NinesProject3_602cdeb8.jpg";
+const DW_CREW_PLANTING = "/manus-storage/DiscoveryWestPlazaHiResPhotos57_fafc711f_5cc782eb.webp";
+const NINES_CREW = "/manus-storage/NinesProject3_602cdeb8_2a243328.webp";
 
 const HERO_IMAGE =
   "/manus-storage/NewportLandscapingRVParkPhotos50_5ba97805_22d33efe.webp";
@@ -658,19 +658,19 @@ export default function Commercial() {
             {/* Hero aerial */}
             <FadeIn delay={0.1} className="row-span-2">
               <div className="overflow-hidden" style={{ borderRadius: "4px", height: "100%", minHeight: "400px" }}>
-                <img src={DW_AERIAL_OVERVIEW} alt="Discovery West Plaza — full aerial overview of circular paver plaza" className="w-full h-full object-cover" style={{ transition: "transform 0.6s ease" }} onMouseEnter={e => (e.currentTarget.style.transform = "scale(1.04)")} onMouseLeave={e => (e.currentTarget.style.transform = "scale(1)")} />
+                <img src={DW_AERIAL_OVERVIEW} alt="Discovery West Plaza — full aerial overview of circular paver plaza" width="800" height="600" className="w-full h-full object-cover" style={{ transition: "transform 0.6s ease" }} onMouseEnter={e => (e.currentTarget.style.transform = "scale(1.04)")} onMouseLeave={e => (e.currentTarget.style.transform = "scale(1)")} />
               </div>
             </FadeIn>
             {/* Side top */}
             <FadeIn delay={0.2}>
               <div className="overflow-hidden" style={{ borderRadius: "4px", height: "240px" }}>
-                <img src={DW_AERIAL_ANGLED} alt="Discovery West Plaza — angled aerial with crew working" className="w-full h-full object-cover" style={{ transition: "transform 0.6s ease" }} onMouseEnter={e => (e.currentTarget.style.transform = "scale(1.04)")} onMouseLeave={e => (e.currentTarget.style.transform = "scale(1)")} />
+                <img src={DW_AERIAL_ANGLED} alt="Discovery West Plaza — angled aerial with crew working" width="800" height="600" className="w-full h-full object-cover" style={{ transition: "transform 0.6s ease" }} onMouseEnter={e => (e.currentTarget.style.transform = "scale(1.04)")} onMouseLeave={e => (e.currentTarget.style.transform = "scale(1)")} />
               </div>
             </FadeIn>
             {/* Side bottom */}
             <FadeIn delay={0.3}>
               <div className="overflow-hidden" style={{ borderRadius: "4px", height: "240px" }}>
-                <img src={DW_OVERHEAD_CIRCULAR} alt="Discovery West Plaza — overhead view of circular paver pattern" className="w-full h-full object-cover" style={{ transition: "transform 0.6s ease" }} onMouseEnter={e => (e.currentTarget.style.transform = "scale(1.04)")} onMouseLeave={e => (e.currentTarget.style.transform = "scale(1)")} />
+                <img src={DW_OVERHEAD_CIRCULAR} alt="Discovery West Plaza — overhead view of circular paver pattern" width="800" height="600" className="w-full h-full object-cover" style={{ transition: "transform 0.6s ease" }} onMouseEnter={e => (e.currentTarget.style.transform = "scale(1.04)")} onMouseLeave={e => (e.currentTarget.style.transform = "scale(1)")} />
               </div>
             </FadeIn>
           </div>
@@ -679,12 +679,12 @@ export default function Commercial() {
           <div className="grid gap-3 mt-3" style={{ gridTemplateColumns: "1fr 1fr" }}>
             <FadeIn delay={0.4}>
               <div className="overflow-hidden" style={{ borderRadius: "4px", height: "280px" }}>
-                <img src={DW_CREW_PLANTING} alt="Newport Avenue crew planting at Discovery West Plaza" className="w-full h-full object-cover" style={{ transition: "transform 0.6s ease" }} onMouseEnter={e => (e.currentTarget.style.transform = "scale(1.04)")} onMouseLeave={e => (e.currentTarget.style.transform = "scale(1)")} />
+                <img src={DW_CREW_PLANTING} alt="Newport Avenue crew planting at Discovery West Plaza" width="800" height="600" className="w-full h-full object-cover" style={{ transition: "transform 0.6s ease" }} onMouseEnter={e => (e.currentTarget.style.transform = "scale(1.04)")} onMouseLeave={e => (e.currentTarget.style.transform = "scale(1)")} />
               </div>
             </FadeIn>
             <FadeIn delay={0.5}>
               <div className="overflow-hidden" style={{ borderRadius: "4px", height: "280px" }}>
-                <img src={NINES_CREW} alt="Newport Avenue crew installing plantings at The Nines commercial project" className="w-full h-full object-cover" style={{ transition: "transform 0.6s ease" }} onMouseEnter={e => (e.currentTarget.style.transform = "scale(1.04)")} onMouseLeave={e => (e.currentTarget.style.transform = "scale(1)")} />
+                <img src={NINES_CREW} alt="Newport Avenue crew installing plantings at The Nines commercial project" width="800" height="600" className="w-full h-full object-cover" style={{ transition: "transform 0.6s ease" }} onMouseEnter={e => (e.currentTarget.style.transform = "scale(1.04)")} onMouseLeave={e => (e.currentTarget.style.transform = "scale(1)")} />
               </div>
             </FadeIn>
           </div>
