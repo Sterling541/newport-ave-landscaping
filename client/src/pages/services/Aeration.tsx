@@ -33,7 +33,7 @@ export default function Aeration() {
       intro="Aeration is the process of taking small plugs or cores — usually one to six inches long — out of the lawn. Over time, the soil under your grass compacts, making it difficult for the lawn roots to breathe, feed, and grow. Plug Aeration is used to increase the health of the lawn by decompacting the soil and also helps manage or eradicate fungus and other lawn diseases."
       pricing={[
         { label: "Starting Rate", value: "$195 (first hour)" },
-        { label: "Additional Time", value: "$92 / man hour" },
+        { label: "Additional Time", value: "$95 / man hour" },
         { label: "Recommended Frequency", value: "Twice per season" },
       ]}
       sections={[

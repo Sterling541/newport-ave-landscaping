@@ -104,7 +104,7 @@ export default function CTABanner() {
               fontSize: "0.5rem",
               fontWeight: 600,
               letterSpacing: "0.25em",
-              color: "oklch(0.35 0.008 30)",
+              color: "oklch(0.72 0.008 75)",
             }}
           >
             START YOUR PROJECT
@@ -137,7 +137,7 @@ export default function CTABanner() {
               fontStyle: "italic",
               lineHeight: 0.92,
               letterSpacing: "-0.03em",
-              color: "oklch(0.72 0.008 30)",
+              color: "oklch(0.90 0.008 75)",
               opacity: visible ? 1 : 0,
               transform: visible ? "translateY(0)" : "translateY(60px)",
               transition: "opacity 0.9s ease 0.35s, transform 0.9s ease 0.35s",
@@ -196,7 +196,7 @@ export default function CTABanner() {
               fontSize: "0.58rem",
               fontWeight: 600,
               letterSpacing: "0.12em",
-              color: "oklch(0.55 0.008 30)",
+              color: "oklch(0.82 0.008 75)",
               textDecoration: "none",
             }}
           >
@@ -227,11 +227,11 @@ export default function CTABanner() {
           >
             ⚡ BOOKING SPRING — SCHEDULE FILLS FAST
           </span>
-          <span style={{ width: "1px", height: "12px", backgroundColor: "oklch(0.30 0.005 0)" }} />
-          <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "0.48rem", letterSpacing: "0.12em", color: "oklch(0.40 0.005 0)" }}>LICENSED & BONDED</span>
-          <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "0.48rem", letterSpacing: "0.12em", color: "oklch(0.40 0.005 0)" }}>LCB #9153</span>
-          <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "0.48rem", letterSpacing: "0.12em", color: "oklch(0.40 0.005 0)" }}>21+ YEARS IN CENTRAL OREGON</span>
-          <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "0.48rem", letterSpacing: "0.12em", color: "oklch(0.40 0.005 0)" }}>FREE ESTIMATES</span>
+          <span style={{ width: "1px", height: "12px", backgroundColor: "oklch(0.50 0.005 0)" }} />
+          <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "0.48rem", letterSpacing: "0.12em", color: "oklch(0.72 0.005 75)" }}>LICENSED & BONDED</span>
+          <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "0.48rem", letterSpacing: "0.12em", color: "oklch(0.72 0.005 75)" }}>LCB #9153</span>
+          <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "0.48rem", letterSpacing: "0.12em", color: "oklch(0.72 0.005 75)" }}>21+ YEARS IN CENTRAL OREGON</span>
+          <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "0.48rem", letterSpacing: "0.12em", color: "oklch(0.72 0.005 75)" }}>FREE ESTIMATES</span>
         </div>
       </div>
     </section>

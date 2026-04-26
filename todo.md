@@ -862,3 +862,10 @@
 - [x] Add width/height attributes to all img tags missing them (Commercial.tsx 5 images)
 - [x] Update OG/Twitter meta images to WebP in index.html
 - [x] Inline critical CSS in index.html for above-fold rendering
+
+## Session — April 26, 2026 (Desktop UI Bug Fixes)
+
+- [x] Irrigation membership badge: use transparent WebP, remove white box, increase size to 220px
+- [x] CTABanner text: all low-contrast colors raised to oklch(0.72+) — START YOUR PROJECT, italic headline, phone link, trust strip all now readable on dark background
+- [x] Navbar: mega menu wrapper z-index raised from 48 to 200 — Services/Maintenance dropdown no longer hides behind logo
+- [x] Aeration page: hourly rate corrected from $92 to $95/man hour (consistent with rest of site)
