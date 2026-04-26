@@ -167,6 +167,23 @@ export default defineConfig({
   build: {
     outDir: path.resolve(import.meta.dirname, "dist/public"),
     emptyOutDir: true,
+    cssCodeSplit: true,
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          // Split vendor libraries into a separate chunk
+          if (id.includes('node_modules')) {
+            if (id.includes('@radix-ui') || id.includes('lucide-react') || id.includes('framer-motion')) {
+              return 'vendor-ui';
+            }
+            if (id.includes('@trpc') || id.includes('@tanstack') || id.includes('superjson')) {
+              return 'vendor-trpc';
+            }
+            return 'vendor';
+          }
+        },
+      },
+    },
   },
   server: {
     host: true,

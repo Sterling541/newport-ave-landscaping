@@ -691,7 +691,7 @@ export default function Navbar() {
           >
             <div style={{ pointerEvents: "auto" }}>
             <a
-              href="/"
+              href="/" aria-label="Newport Avenue Landscaping — Home"
               onClick={(e) => { e.preventDefault(); goTo("/"); }}
               style={{ background: "none", border: "none", cursor: "pointer", padding: 0, display: "block", textDecoration: "none" }}
             >

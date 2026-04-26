@@ -878,3 +878,11 @@
 ## Session — April 26, 2026 (Hero Text Clipping)
 
 - [x] Fix hero section: top strip and scene counter top offset increased from 7.5rem to 13rem to clear 204px fixed navbar on desktop
+
+## Session — April 26, 2026 (CSS + SEO Fixes)
+
+- [x] Fix render-blocking CSS: added cssCodeSplit + manualChunks to vite.config.ts to split vendor bundles
+- [x] Re-compress GLLPatio1 WebP at quality 72 (503KB → 398KB, saves 105KB)
+- [x] Audit PageSpeed SEO score gaps: found 2 issues costing points
+- [x] Fix viewport maximum-scale=1 (was blocking accessibility zoom, now removed)
+- [x] Fix non-descriptive logo link: added aria-label="Newport Avenue Landscaping — Home" to Navbar logo <a>
