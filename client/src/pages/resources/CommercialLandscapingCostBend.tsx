@@ -58,7 +58,7 @@ export default function CommercialLandscapingCostBend() {
                   <tr><td className="py-2 px-4 border-b">Large commercial (5+ acres)</td><td className="py-2 px-4 border-b">Custom pricing</td><td className="py-2 px-4 border-b">Full service contract</td></tr></tbody></table></div>
 
             <h2 className="text-3xl font-bold mb-4" style={{ color: 'oklch(0.25 0.005 0)' }}>Why Businesses Choose Newport Avenue</h2>
-            <p className="mb-4">We're the only landscaping company in Central Oregon with 150+ employees, which means we have the capacity to handle large commercial properties and respond quickly to issues.</p>
+            <p className="mb-4">We're the only landscaping company in Central Oregon with 110+ employees, which means we have the capacity to handle large commercial properties and respond quickly to issues.</p>
             <p className="mb-4">We carry full commercial liability insurance ($2M per occurrence), are licensed with the Oregon Landscape Contractors Board, and have a dedicated commercial account manager for every client.</p>
             <div className="bg-gray-100 p-6 rounded-lg mb-8 border-l-4" style={{ borderColor: 'oklch(0.46 0.20 25)' }}>
               <p className="font-bold text-lg mb-2" style={{ color: 'oklch(0.25 0.005 0)' }}>PRO TIP</p>

@@ -103,6 +103,13 @@ export interface CityPageProps {
   canonicalPath?: string; // e.g. "/landscaping/bend"
   faqs?: { question: string; answer: string }[];
   mapEmbedUrl?: string; // Optional Google Maps embed URL for the city
+  neighborhoodSections?: {
+    name: string;
+    slug?: string; // optional internal link e.g. "/landscaping/awbrey-butte"
+    description: string;
+    highlights: string[];
+    projectNote?: string;
+  }[];
 }
 
 // Custom SVG icon wrapper — renders ServiceIcons with consistent sizing
@@ -151,6 +158,7 @@ export default function CityPageLayout(props: CityPageProps) {
     canonicalPath,
     faqs,
     mapEmbedUrl,
+    neighborhoodSections,
   } = props;
 
   const [, navigate] = useLocation();
@@ -659,6 +667,59 @@ export default function CityPageLayout(props: CityPageProps) {
                 Newport Avenue Landscaping serves {city} and surrounding Central Oregon communities.
               </p>
             </FadeIn>
+          </div>
+        </section>
+      )}
+
+      {/* ── NEIGHBORHOOD SECTIONS ─────────────────────────── */}
+      {neighborhoodSections && neighborhoodSections.length > 0 && (
+        <section className="py-20" style={{ backgroundColor: "oklch(0.97 0.012 85)" }}>
+          <div className="container">
+            <FadeIn>
+              <div className="font-label mb-2" style={{ color: "oklch(0.46 0.20 25)", fontSize: "0.62rem", letterSpacing: "0.18em" }}>
+                NEIGHBORHOODS WE SERVE
+              </div>
+              <h2 className="font-display font-light mb-12" style={{ fontSize: "clamp(1.5rem, 2.5vw, 2.2rem)", color: "oklch(0.12 0.005 0)", lineHeight: 1.1 }}>
+                {city} Neighborhoods &amp; Communities
+              </h2>
+            </FadeIn>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {neighborhoodSections.map((nbhd, i) => (
+                <FadeIn key={nbhd.name} delay={i * 0.07}>
+                  <div style={{ backgroundColor: "oklch(1 0 0)", border: "1px solid oklch(0.90 0.008 85)", borderRadius: "0.25rem", padding: "1.75rem", height: "100%" }}>
+                    <div style={{ borderLeft: "3px solid oklch(0.46 0.20 25)", paddingLeft: "1rem", marginBottom: "1rem" }}>
+                      {nbhd.slug ? (
+                        <Link href={nbhd.slug}>
+                          <h3 className="font-display font-light" style={{ fontSize: "1.15rem", color: "oklch(0.38 0.20 25)", textDecoration: "underline", textUnderlineOffset: "3px" }}>
+                            {nbhd.name}
+                          </h3>
+                        </Link>
+                      ) : (
+                        <h3 className="font-display font-light" style={{ fontSize: "1.15rem", color: "oklch(0.18 0.005 0)" }}>
+                          {nbhd.name}
+                        </h3>
+                      )}
+                    </div>
+                    <p className="font-body mb-4" style={{ color: "oklch(0.38 0.005 0)", fontSize: "0.9rem", lineHeight: 1.75 }}>
+                      {nbhd.description}
+                    </p>
+                    <ul className="space-y-1 mb-4">
+                      {nbhd.highlights.map((h, j) => (
+                        <li key={j} className="font-body flex items-start gap-2" style={{ color: "oklch(0.35 0.005 0)", fontSize: "0.85rem" }}>
+                          <span style={{ color: "oklch(0.46 0.20 25)", marginTop: "0.2rem", flexShrink: 0 }}>&#x2713;</span>
+                          {h}
+                        </li>
+                      ))}
+                    </ul>
+                    {nbhd.projectNote && (
+                      <p className="font-body" style={{ color: "oklch(0.46 0.20 25)", fontSize: "0.82rem", fontStyle: "italic", borderTop: "1px solid oklch(0.92 0.008 85)", paddingTop: "0.75rem" }}>
+                        {nbhd.projectNote}
+                      </p>
+                    )}
+                  </div>
+                </FadeIn>
+              ))}
+            </div>
           </div>
         </section>
       )}

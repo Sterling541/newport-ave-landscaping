@@ -59,7 +59,7 @@ export default function LandscapingBendOregonGuide() {
             <p className="mb-4">Beyond licensing, look for a company with a physical presence in Bend, verifiable references from recent local projects, and a written warranty on their work.</p>
             <div className="bg-gray-100 p-6 rounded-lg mb-8 border-l-4" style={{ borderColor: 'oklch(0.46 0.20 25)' }}>
               <p className="font-bold text-lg mb-2" style={{ color: 'oklch(0.25 0.005 0)' }}>PRO TIP</p>
-              <p>Newport Avenue Landscaping is licensed with the Oregon LCB (License #9153), carries $2M in liability insurance, and offers a 90-day plant warranty and 1-year irrigation warranty on all installation projects. We've been serving Central Oregon since 2005.</p>
+              <p>Newport Avenue Landscaping is licensed with the Oregon LCB (License #9153), carries $2M in liability insurance, and offers a industry-standard plant and irrigation warranties on all installation projects. We've been serving Central Oregon since 2005.</p>
             </div>
             <div className="p-8 text-center mt-12" style={{ backgroundColor: 'oklch(0.18 0.008 0)' }}>
               <p className="font-label text-xs mb-3" style={{ color:'oklch(0.46 0.20 25)',letterSpacing:'0.18em' }}>GET STARTED TODAY</p>

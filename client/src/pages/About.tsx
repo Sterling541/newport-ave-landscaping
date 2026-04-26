@@ -34,7 +34,7 @@ const timeline = [
     year: "2022",
     title: "Most Qualified in Central Oregon",
     description:
-      "Growth doubles each year and Newport Ave Landscaping becomes the most qualified full-service landscape firm in Central Oregon with a team of 150+ professionals.",
+      "Growth doubles each year and Newport Ave Landscaping becomes the most qualified full-service landscape firm in Central Oregon with a team of 110+ professionals.",
   },
 ];
 
@@ -102,7 +102,7 @@ export default function About() {
       >
         <img
           src={TEAM_PHOTO}
-          alt="Newport Ave Landscaping team"
+          alt="Newport Avenue Landscaping crew — Bend, Oregon's premier full-service landscape contractor since 2005"
           style={{
             position: "absolute", inset: 0, width: "100%", height: "100%",
             objectFit: "cover", objectPosition: "center top", opacity: 0.75,

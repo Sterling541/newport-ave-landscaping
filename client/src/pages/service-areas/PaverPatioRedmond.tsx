@@ -27,7 +27,7 @@ export default function PaverPatioRedmond() {
         </div>
         <div className="container py-16 max-w-3xl mx-auto">
           <div style={{ color: 'oklch(0.25 0.005 0)' }}>
-            <p className="mb-8" style={{ fontSize:'1.05rem',lineHeight:1.85,color:'oklch(0.35 0.005 0)' }}>Newport Avenue Landscaping has designed and installed paver patios throughout Central Oregon for over 21 years, including dozens of projects in Redmond. We bring the same craftsmanship, licensed crew, and 90-day plant warranty and 1-year irrigation warranty to every project — whether it's a simple backyard patio or a full outdoor living space with fire pit and built-in seating.</p>
+            <p className="mb-8" style={{ fontSize:'1.05rem',lineHeight:1.85,color:'oklch(0.35 0.005 0)' }}>Newport Avenue Landscaping has designed and installed paver patios throughout Central Oregon for over 21 years, including dozens of projects in Redmond. We bring the same craftsmanship, licensed crew, and industry-standard plant and irrigation warranties to every project — whether it's a simple backyard patio or a full outdoor living space with fire pit and built-in seating.</p>
 
             <h2 className="text-3xl font-bold mb-4" style={{ color: 'oklch(0.25 0.005 0)' }}>Why Redmond Homeowners Choose Pavers</h2>
             <p className="mb-4">Pavers outperform poured concrete in Central Oregon's freeze-thaw climate. Individual pavers flex with ground movement and can be re-leveled without replacing the entire surface — a major advantage over concrete, which typically cracks within 10–15 years in our climate.</p>
@@ -43,7 +43,7 @@ export default function PaverPatioRedmond() {
             </ul>
 
             <h2 className="text-3xl font-bold mb-4" style={{ color: 'oklch(0.25 0.005 0)' }}>Our 90-Day Plant Warranty</h2>
-            <p className="mb-4">We're the only landscaping company in Central Oregon to offer a 90-day plant warranty and 1-year irrigation warranty on all installation projects.</p>
+            <p className="mb-4">We're the only landscaping company in Central Oregon to offer a industry-standard plant and irrigation warranties on all installation projects.</p>
             <p className="mb-4">We're licensed with the Oregon Landscape Contractors Board (LCB #9153) and carry full liability insurance.</p>
             <div className="bg-gray-100 p-6 rounded-lg mb-8 border-l-4" style={{ borderColor: 'oklch(0.46 0.20 25)' }}>
               <p className="font-bold text-lg mb-2" style={{ color: 'oklch(0.25 0.005 0)' }}>PRO TIP</p>

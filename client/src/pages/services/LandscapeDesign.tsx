@@ -70,7 +70,7 @@ export default function LandscapeDesign() {
         },
         {
           heading: "Step 6: Final Walk-Through",
-          body: "The day your project is complete, we will schedule a guided tour of your new landscape and teach you about how you should care for it. If you have questions after your installation is complete, just call and we'll happily answer them. Our projects are backed by our 90-day plant warranty and 1-year irrigation warranty.",
+          body: "The day your project is complete, we will schedule a guided tour of your new landscape and teach you about how you should care for it. If you have questions after your installation is complete, just call and we'll happily answer them. Our projects are backed by our industry-standard plant and irrigation warranties.",
         },
       ]}
       relatedLinks={relatedLinks}

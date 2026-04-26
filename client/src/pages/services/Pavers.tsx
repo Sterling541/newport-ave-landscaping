@@ -77,7 +77,7 @@ export default function Pavers() {
           heading: "Quality & Warranty",
           body: [
             "All hardscapes are built to the highest industry and personal standards. Our landscape construction employees train every winter to stay up-to-date on the latest paver patio and driveway installation techniques and technologies.",
-            "We are so confident in the outcome of what we build that we offer a one-year workmanship warranty on all paver patios, retaining walls, and hardscape projects, backed by our 90-day plant warranty and 1-year irrigation warranty.",
+            "We are so confident in the outcome of what we build that we offer a one-year workmanship warranty on all paver patios, retaining walls, and hardscape projects, backed by our industry-standard plant and irrigation warranties.",
           ],
         },
       ]}
@@ -90,7 +90,7 @@ export default function Pavers() {
       ]}
       schemaUrl="/services/pavers"
       schemaName="Paver Patio Installation"
-      schemaDescription="Custom paver patio and walkway installation in Bend, Oregon. Natural stone, concrete pavers, retaining walls. 90-day plant warranty and 1-year irrigation warranty."
+      schemaDescription="Custom paver patio and walkway installation in Bend, Oregon. Natural stone, concrete pavers, retaining walls. industry-standard plant and irrigation warranties."
       faqs={[
           { question: "How much does a paver patio cost in Bend, Oregon?", answer: "Paver patios in Bend, OR typically cost $18–$35 per square foot installed, depending on material, base preparation, and design complexity. A 300 sq ft concrete paver patio runs $5,400–$10,500. Natural stone (flagstone, basalt) costs $25–$45 per sq ft. Retaining walls add $30–$60 per linear foot. Newport Avenue Landscaping provides free on-site estimates with detailed line-item quotes — call (541) 617-8873 or request a quote online." },
           { question: "How long does paver patio installation take in Bend?", answer: "Most residential paver patio projects in Bend take 3–7 days from excavation to final compaction. A 400 sq ft patio with a simple border typically takes 3–4 days. Projects with retaining walls, steps, or integrated lighting run 7–14 days. We schedule start dates 2–4 weeks out during peak season (May–September). We keep you updated throughout and clean up completely each day." },

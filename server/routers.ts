@@ -146,6 +146,36 @@ export const appRouter = router({
           }
         }
 
+        // Send auto-response confirmation email to customer
+        if (ENV.resendApiKey) {
+          try {
+            const resend = new Resend(ENV.resendApiKey);
+            await resend.emails.send({
+              from: "Newport Ave Landscaping <noreply@newportavelandscaping.com>",
+              to: [input.email],
+              replyTo: "info@newportavelandscaping.com",
+              subject: `We received your request, ${input.name.split(' ')[0]} — Newport Avenue Landscaping`,
+              html: `<div style="font-family:sans-serif;max-width:600px;margin:0 auto;color:#222">
+                <div style="background:#1a3a1a;padding:24px 32px;border-radius:8px 8px 0 0">
+                  <h1 style="color:#fff;font-size:22px;margin:0;font-weight:600">Thanks, ${input.name.split(' ')[0]}!</h1>
+                  <p style="color:#a8c5a0;margin:8px 0 0;font-size:14px">We received your request and will be in touch shortly.</p>
+                </div>
+                <div style="background:#f9f9f7;padding:24px 32px;border:1px solid #e5e5e0;border-top:none">
+                  <p style="font-size:15px;line-height:1.6">Hi ${input.name.split(' ')[0]},</p>
+                  <p style="font-size:15px;line-height:1.6">Thank you for reaching out to Newport Avenue Landscaping. We've received your message and one of our team members will contact you within <strong>1 business day</strong> to discuss your project.</p>
+                  ${input.service ? `<p style="font-size:14px;color:#555"><strong>Service requested:</strong> ${input.service}</p>` : ''}
+                  <p style="font-size:15px;line-height:1.6">In the meantime, if you have any urgent questions, feel free to call us directly:</p>
+                  <p style="font-size:18px;font-weight:700;color:#1a3a1a"><a href="tel:+15416178873" style="color:#1a3a1a;text-decoration:none">(541) 617-8873</a></p>
+                  <hr style="border:none;border-top:1px solid #e5e5e0;margin:20px 0"/>
+                  <p style="font-size:12px;color:#888">Newport Avenue Landscaping &mdash; 61535 S HWY 97, Bend, OR 97702<br/>LCB #9153 &bull; Licensed &amp; Bonded in Oregon</p>
+                </div>
+              </div>`,
+            });
+          } catch (autoRespErr) {
+            console.error("[quote.submit] Auto-response email error:", autoRespErr);
+          }
+        }
+
         // Also notify via Manus notification system if available
         await notifyOwner({ title: `New Quote Request from ${input.name}`, content: lines }).catch(() => {});
         return { success: true };
@@ -258,6 +288,37 @@ export const appRouter = router({
             });
           } catch (emailErr) {
             console.error("[submissions.create] Resend email error:", emailErr);
+          }
+        }
+
+        // Send auto-response confirmation email to customer
+        if (ENV.resendApiKey) {
+          try {
+            const resend = new Resend(ENV.resendApiKey);
+            await resend.emails.send({
+              from: "Newport Ave Landscaping <noreply@newportavelandscaping.com>",
+              to: [input.email],
+              replyTo: "info@newportavelandscaping.com",
+              subject: `We received your ${input.serviceType} request, ${input.firstName} — Newport Avenue Landscaping`,
+              html: `<div style="font-family:sans-serif;max-width:600px;margin:0 auto;color:#222">
+                <div style="background:#1a3a1a;padding:24px 32px;border-radius:8px 8px 0 0">
+                  <h1 style="color:#fff;font-size:22px;margin:0;font-weight:600">Thanks, ${input.firstName}!</h1>
+                  <p style="color:#a8c5a0;margin:8px 0 0;font-size:14px">Your ${input.serviceType} request has been received.</p>
+                </div>
+                <div style="background:#f9f9f7;padding:24px 32px;border:1px solid #e5e5e0;border-top:none">
+                  <p style="font-size:15px;line-height:1.6">Hi ${input.firstName},</p>
+                  <p style="font-size:15px;line-height:1.6">Thank you for choosing Newport Avenue Landscaping. We've received your <strong>${input.serviceType}</strong> request for <strong>${input.siteAddress}</strong> and one of our team members will contact you within <strong>1 business day</strong> to confirm details and schedule a site visit.</p>
+                  ${input.budget ? `<p style="font-size:14px;color:#555"><strong>Budget range noted:</strong> ${input.budget}</p>` : ''}
+                  ${input.idealCompletionDate ? `<p style="font-size:14px;color:#555"><strong>Ideal completion:</strong> ${input.idealCompletionDate}</p>` : ''}
+                  <p style="font-size:15px;line-height:1.6">Questions? Call us directly:</p>
+                  <p style="font-size:18px;font-weight:700;color:#1a3a1a"><a href="tel:+15416178873" style="color:#1a3a1a;text-decoration:none">(541) 617-8873</a></p>
+                  <hr style="border:none;border-top:1px solid #e5e5e0;margin:20px 0"/>
+                  <p style="font-size:12px;color:#888">Newport Avenue Landscaping &mdash; 61535 S HWY 97, Bend, OR 97702<br/>LCB #9153 &bull; Licensed &amp; Bonded in Oregon</p>
+                </div>
+              </div>`,
+            });
+          } catch (autoRespErr) {
+            console.error("[submissions.create] Auto-response email error:", autoRespErr);
           }
         }
 

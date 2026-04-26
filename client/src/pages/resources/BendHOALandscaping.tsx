@@ -43,7 +43,7 @@ export default function BendHOALandscaping() {
             </ul>
 
             <h2 className="text-3xl font-bold mb-4" style={{ color: 'oklch(0.25 0.005 0)' }}>Why HOAs Choose Newport Avenue</h2>
-            <p className="mb-4">We're one of the largest landscaping contractors in Central Oregon, with 150+ employees and the equipment to handle large HOA properties. We have dedicated commercial account managers who serve as a single point of contact for HOA boards.</p>
+            <p className="mb-4">We're one of the largest landscaping contractors in Central Oregon, with 110+ employees and the equipment to handle large HOA properties. We have dedicated commercial account managers who serve as a single point of contact for HOA boards.</p>
             <p className="mb-4">We provide detailed monthly reports, proactive communication about issues, and consistent service quality across all visits.</p>
             <div className="overflow-x-auto mb-8"><table className="min-w-full bg-white border border-gray-300"><thead><tr><th className="py-2 px-4 border-b text-left">Property Type</th><th className="py-2 px-4 border-b text-left">Typical Monthly Cost</th><th className="py-2 px-4 border-b text-left">Services</th></tr></thead><tbody><tr><td className="py-2 px-4 border-b">Small HOA (under 5 acres)</td><td className="py-2 px-4 border-b">$1,500–$4,000/mo</td><td className="py-2 px-4 border-b">Full maintenance</td></tr>
                   <tr><td className="py-2 px-4 border-b">Medium HOA (5–15 acres)</td><td className="py-2 px-4 border-b">$4,000–$10,000/mo</td><td className="py-2 px-4 border-b">Full maintenance + seasonal color</td></tr>

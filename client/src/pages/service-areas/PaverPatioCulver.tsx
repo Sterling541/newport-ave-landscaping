@@ -27,14 +27,14 @@ export default function PaverPatioCulver() {
         </div>
         <div className="container py-16 max-w-3xl mx-auto">
           <div style={{ color: 'oklch(0.25 0.005 0)' }}>
-            <p className="mb-8" style={{ fontSize:'1.05rem',lineHeight:1.85,color:'oklch(0.35 0.005 0)' }}>Newport Avenue Landscaping installs custom paver patios throughout Central Oregon, including Culver. Our licensed crew brings 21+ years of experience and a 90-day plant warranty and 1-year irrigation warranty to every project — from a simple backyard patio to a full outdoor living space.</p>
+            <p className="mb-8" style={{ fontSize:'1.05rem',lineHeight:1.85,color:'oklch(0.35 0.005 0)' }}>Newport Avenue Landscaping installs custom paver patios throughout Central Oregon, including Culver. Our licensed crew brings 21+ years of experience and a industry-standard plant and irrigation warranties to every project — from a simple backyard patio to a full outdoor living space.</p>
 
             <h2 className="text-3xl font-bold mb-4" style={{ color: 'oklch(0.25 0.005 0)' }}>Paver Patio Installation in Culver</h2>
             <p className="mb-4">We design and install paver patios throughout Culver and the surrounding area. Every project starts with a free on-site consultation and a detailed, itemized proposal.</p>
             <p className="mb-8">A typical patio in Culver costs $8,000–$35,000 depending on size, materials, and features. We provide free estimates after a site visit.</p>
 
             <h2 className="text-3xl font-bold mb-4" style={{ color: 'oklch(0.25 0.005 0)' }}>Our 90-Day Plant Warranty</h2>
-            <p className="mb-4">We're the only landscaping company in Central Oregon to offer a 90-day plant warranty and 1-year irrigation warranty on all installation projects.</p>
+            <p className="mb-4">We're the only landscaping company in Central Oregon to offer a industry-standard plant and irrigation warranties on all installation projects.</p>
             <div className="bg-gray-100 p-6 rounded-lg mb-8 border-l-4" style={{ borderColor: 'oklch(0.46 0.20 25)' }}>
               <p className="font-bold text-lg mb-2" style={{ color: 'oklch(0.25 0.005 0)' }}>PRO TIP</p>
               <p>Proper base preparation is the key to a long-lasting patio in Culver's climate. We install a minimum 6-inch compacted gravel base to prevent frost heaving.</p>

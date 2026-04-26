@@ -156,7 +156,7 @@ const services = [
 ];
 
 const reasons = [
-  "150+ in-house professionals — no subcontractors",
+  "110+ in-house professionals — no subcontractors",
   "Dedicated commercial account managers",
   "Licensed, Bonded & Insured — LCB #9153",
   "21+ years serving Central Oregon",
@@ -426,7 +426,7 @@ export default function Commercial() {
                 className="font-body leading-relaxed mb-8"
                 style={{ color: "oklch(0.38 0.005 0)" }}
               >
-                With 150+ in-house professionals and a full fleet of
+                With 110+ in-house professionals and a full fleet of
                 commercial-grade equipment, we bring the same standard of
                 craftsmanship and accountability to every commercial project —
                 from a single retail center to a 200-unit HOA community.

@@ -11,7 +11,7 @@ export default function TumaloPage() {
       seoTitle="Tumalo Landscaping Oregon & Tumalo Lawn Care Experts | Newport Avenue Landscaping"
       seoDescription="Newport Avenue Landscaping offers premier landscaping and lawn care services in Tumalo, Oregon. From design to maintenance, get a free estimate today! LCB #9153."
       canonicalPath="/landscaping/tumalo"
-      intro="Newport Avenue Landscaping has proudly served the unique community of Tumalo for many years, deeply understanding its rural charm, agricultural roots, and the distinctive character of its properties. Tumalo sits just northwest of Bend along the Deschutes River corridor, and its combination of larger lots, irrigation district water access, and stunning high-desert scenery creates landscaping opportunities that are unlike anything you will find in a typical suburban neighborhood. Our commitment extends to properties along the Tumalo Creek corridor, expansive rural acreage, and homes near Tumalo State Park -- bringing unparalleled expertise to every project. We specialize in enhancing the natural beauty of Tumalo, ensuring that each landscape design harmonizes with the surrounding juniper and sage environment while creating functional, beautiful outdoor spaces that reflect the way Tumalo residents actually live. Whether you are looking for a comprehensive lawn care program for a large irrigated property, a fire-wise xeriscape design that reduces your risk and maintenance burden, or a complete outdoor living transformation with a patio, fire feature, and water feature, Newport Avenue delivers the same quality and craftsmanship to Tumalo that we bring to every community we serve. All work is performed by our own licensed crew -- we never use subcontractors -- and every installation project is backed by our 90-day plant warranty and 1-year irrigation warranty."
+      intro="Newport Avenue Landscaping has proudly served the unique community of Tumalo for many years, deeply understanding its rural charm, agricultural roots, and the distinctive character of its properties. Tumalo sits just northwest of Bend along the Deschutes River corridor, and its combination of larger lots, irrigation district water access, and stunning high-desert scenery creates landscaping opportunities that are unlike anything you will find in a typical suburban neighborhood. Our commitment extends to properties along the Tumalo Creek corridor, expansive rural acreage, and homes near Tumalo State Park -- bringing unparalleled expertise to every project. We specialize in enhancing the natural beauty of Tumalo, ensuring that each landscape design harmonizes with the surrounding juniper and sage environment while creating functional, beautiful outdoor spaces that reflect the way Tumalo residents actually live. Whether you are looking for a comprehensive lawn care program for a large irrigated property, a fire-wise xeriscape design that reduces your risk and maintenance burden, or a complete outdoor living transformation with a patio, fire feature, and water feature, Newport Avenue delivers the same quality and craftsmanship to Tumalo that we bring to every community we serve. All work is performed by our own licensed crew -- we never use subcontractors -- and every installation project is backed by our industry-standard plant and irrigation warranties."
       communityNote="Tumalo, nestled in Central Oregon just northwest of Bend, shares a similar high-desert climate but often experiences slightly cooler temperatures, falling within USDA Zone 6a. This environment features hot, dry summers and cold winters, with approximately 11 inches of annual precipitation. A defining characteristic of Tumalo is its rural character, larger lots, and significant agricultural heritage -- many Tumalo properties benefit from North Unit or Central Oregon Irrigation District water, which opens up options for traditional irrigated lawns and expansive ornamental gardens that would be impractical on well water alone. The volcanic pumice soil, while well-draining, is low in organic matter and requires careful amendment to support diverse plant life. Tumalo's proximity to the urban-wildland interface also makes fire-wise landscaping a genuine consideration for many properties -- the combination of dry summers, juniper and sage native vegetation, and prevailing westerly winds creates real fire risk that thoughtful landscape design can help mitigate. Our designers are experienced with all of these Tumalo-specific variables, from maximizing irrigation district water efficiency to creating defensible space zones that are both functional and visually appealing. We also understand the unique character of Tumalo's most distinctive areas -- the Tumalo Creek corridor with its riparian vegetation, the Cline Falls area, and the rural acreage properties along Tumalo Road -- and we design landscapes that feel right for each specific location."
       services={[
         { icon: "maintenance", name: "Tumalo Lawn Care & Maintenance", description: "Keep your Tumalo property looking pristine with our comprehensive lawn care services, including mowing, fertilization, weed control, and aeration. We understand the specific needs of Tumalo's larger lots and rural settings, ensuring a healthy, vibrant lawn all season long. Our maintenance crews are on a consistent schedule -- your property is never forgotten or skipped.", href: "/services/lawn-service" },
@@ -24,10 +24,10 @@ export default function TumaloPage() {
       whyUs={[
         "Over 21 years of dedicated landscaping experience in Central Oregon, deeply rooted in the Tumalo community.",
         "Oregon Landscape Contractor Bond #9153 (LCB #9153) -- fully licensed, bonded, and insured for your peace of mind.",
-        "A robust team of 150+ in-house staff, ensuring consistent quality and timely project completion without relying on subcontractors.",
+        "A robust team of 110+ in-house staff, ensuring consistent quality and timely project completion without relying on subcontractors.",
         "Profound local knowledge of Tumalo's unique climate, irrigation district water, and fire-wise landscaping requirements.",
         "We never use subcontractors, guaranteeing Newport Avenue's high standards on every job.",
-        "90-day plant warranty and 1-year irrigation warranty on all installation projects."
+        "Industry-standard plant and irrigation warranties on all installation projects, with extended coverage options available."
       ]}
       nearbyAreas={[
         { label: "Bend", href: "/landscaping/bend" },
@@ -38,6 +38,57 @@ export default function TumaloPage() {
         { label: "Cline Falls", href: "/landscaping/cline-falls" },
         { label: "Terrebonne", href: "/landscaping/terrebonne" },
         { label: "Crooked River Ranch", href: "/landscaping/crooked-river-ranch" }
+      ]}
+      neighborhoodSections={[
+        {
+          name: "Tumalo Creek Corridor",
+          description: "The Tumalo Creek corridor is one of the most scenic areas in all of Central Oregon — a riparian zone of cottonwoods, willows, and native shrubs that runs through the heart of the community. Properties along Tumalo Creek require a sensitive approach to landscaping that respects the riparian environment while creating beautiful outdoor spaces. Newport Avenue has extensive experience with creek-adjacent properties, including understanding of Deschutes County riparian setback requirements and the use of native plant palettes that complement the natural creek environment.",
+          highlights: [
+            "Riparian-sensitive landscape design and installation",
+            "Native plant palettes for creek-adjacent properties",
+            "Erosion control and slope stabilization",
+            "Deschutes County setback compliance",
+            "Irrigation systems designed for high water table conditions",
+          ],
+          projectNote: "Recent project: Creek-adjacent backyard renovation — native riparian plantings, natural basalt boulder retaining wall, and drip irrigation system designed to work with the high water table.",
+        },
+        {
+          name: "Tumalo Road Rural Acreage",
+          description: "Tumalo Road and the surrounding rural acreage properties represent the quintessential Central Oregon rural lifestyle — large lots, mountain views, and the freedom to create landscapes that simply aren't possible on smaller suburban properties. Newport Avenue specializes in large-acreage landscaping, from designing and installing irrigated lawn areas and ornamental gardens to creating fire-wise defensible space zones that protect the home while maintaining the property's natural character.",
+          highlights: [
+            "Large-acreage landscape design and installation",
+            "Irrigation district water system design and installation",
+            "Fire-wise defensible space zone creation",
+            "Juniper and sage removal and replacement",
+            "Gravel and natural material driveways and parking areas",
+          ],
+          projectNote: "Recent project: 3-acre rural property transformation — irrigated lawn area, ornamental garden, fire-wise perimeter plantings, and full irrigation system on Central Oregon Irrigation District water.",
+        },
+        {
+          name: "Cline Falls Area",
+          slug: "/landscaping/cline-falls",
+          description: "The Cline Falls area, centered around Cline Falls State Scenic Viewpoint on the Deschutes River, includes some of Tumalo's most distinctive rural properties. The combination of river access, dramatic basalt canyon views, and larger lot sizes creates unique landscaping opportunities. Newport Avenue has worked on several Cline Falls area properties and understands the specific design considerations for this part of Tumalo — including the dramatic topography, the wind exposure, and the visual context of the basalt canyon.",
+          highlights: [
+            "Canyon-view landscape design that frames the scenery",
+            "Wind-resistant plant selection for exposed properties",
+            "Basalt rock and natural material hardscaping",
+            "Deschutes River-adjacent riparian-sensitive design",
+            "Large-acreage maintenance programs",
+          ],
+          projectNote: "Recent project: Canyon-view property landscape — low-profile native plantings that preserve the Deschutes River canyon view, natural basalt patio, and drip irrigation system.",
+        },
+        {
+          name: "Tumalo State Park Area",
+          description: "Properties near Tumalo State Park benefit from proximity to one of Central Oregon's most popular outdoor recreation areas, but also face unique landscaping considerations — the park's ponderosa pine forest creates a specific visual context, and the area's popularity means properties are highly visible. Newport Avenue designs landscapes for park-adjacent properties that complement the natural forest setting while creating private, functional outdoor spaces.",
+          highlights: [
+            "Forest-compatible landscape design and plant selection",
+            "Privacy screening using native and adapted plants",
+            "Ponderosa pine-compatible understory plantings",
+            "Fire-wise design for forest-adjacent properties",
+            "Year-round maintenance programs",
+          ],
+          projectNote: "Recent project: Park-adjacent property — privacy screen using native shrubs, ponderosa pine-compatible understory plantings, and fire-wise perimeter zone.",
+        },
       ]}
       ctaNote="Ready to transform your Tumalo property into the landscape of your dreams? Contact Newport Avenue Landscaping today for a free, no-obligation estimate. Our team is known for prompt responses and can discuss seasonal programs designed specifically for Tumalo's unique environment, ensuring your outdoor space thrives year-round."
       faqs={[

@@ -45,7 +45,7 @@ export default function PaverPatioCostBend2() {
 
             <h2 className="text-3xl font-bold mb-4" style={{ color: 'oklch(0.25 0.005 0)' }}>What's Included in Our Walkway Installation</h2>
             <p className="mb-4">We handle everything from design through installation: excavation, gravel base, sand setting bed, paver installation, edge restraints, and joint sand. We also handle any grading needed to ensure proper drainage.</p>
-            <p className="mb-4">All our walkways include a 90-day plant warranty and 1-year irrigation warranty. If anything shifts or settles in the first 5 years, we come back and fix it at no cost.</p>
+            <p className="mb-4">All our walkways include a industry-standard plant and irrigation warranties. If anything shifts or settles in the first 5 years, we come back and fix it at no cost.</p>
             <div className="bg-gray-100 p-6 rounded-lg mb-8 border-l-4" style={{ borderColor: 'oklch(0.46 0.20 25)' }}>
               <p className="font-bold text-lg mb-2" style={{ color: 'oklch(0.25 0.005 0)' }}>PRO TIP</p>
               <p>In Bend's climate, walkway base preparation is critical. We install a minimum 4-inch compacted gravel base for walkways (6 inches for driveways) to prevent frost heaving and ensure long-term stability.</p>

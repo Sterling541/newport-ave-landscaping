@@ -50,7 +50,7 @@ export default function FaqPaverPatioBend() {
             <p className="mb-4">Individual pavers can shift or settle over time, but they can be easily lifted and re-leveled without replacing the entire patio. This is a major advantage over poured concrete.</p>
             <div className="bg-gray-100 p-6 rounded-lg mb-8 border-l-4" style={{ borderColor: 'oklch(0.46 0.20 25)' }}>
               <p className="font-bold text-lg mb-2" style={{ color: 'oklch(0.25 0.005 0)' }}>PRO TIP</p>
-              <p>Our 90-day plant warranty and 1-year irrigation warranty covers any settling or shifting that occurs due to workmanship. If a paver shifts in the first 5 years, we come back and fix it — at no cost to you.</p>
+              <p>Our industry-standard plant and irrigation warranties covers any settling or shifting that occurs due to workmanship. If a paver shifts in the first 5 years, we come back and fix it — at no cost to you.</p>
             </div>
 
             <h2 className="text-3xl font-bold mb-4" style={{ color: 'oklch(0.25 0.005 0)' }}>What maintenance do paver patios require?</h2>

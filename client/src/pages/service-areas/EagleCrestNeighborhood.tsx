@@ -131,10 +131,10 @@ export default function EagleCrestNeighborhood() {
           {/* Why Newport */}
           <h2 className="font-display font-light mb-4" style={{ fontSize: "clamp(1.4rem, 2.5vw, 2rem)", color: "oklch(0.15 0.005 0)" }}>Why Eagle Crest Homeowners Choose Newport Avenue</h2>
           <p className="mb-4" style={{ lineHeight: 1.8 }}>
-            We've served Eagle Crest homeowners for over 21 years — long enough to have worked on the same properties through multiple ownership cycles. We know the terrain, the ARC requirements, and the irrigation challenges of the rocky high-desert soil. Our crews are experienced, our communication is consistent, and we back every hardscape installation with a 90-day plant warranty and 1-year irrigation warranty.
+            We've served Eagle Crest homeowners for over 21 years — long enough to have worked on the same properties through multiple ownership cycles. We know the terrain, the ARC requirements, and the irrigation challenges of the rocky high-desert soil. Our crews are experienced, our communication is consistent, and we back every hardscape installation with a industry-standard plant and irrigation warranties.
           </p>
           <p className="mb-8" style={{ lineHeight: 1.8 }}>
-            We're licensed with the Oregon Landscape Contractors Board (LCB #9153), fully insured, and have a team of 150+ employees. Large enough to handle any scope, local enough to care about every detail.
+            We're licensed with the Oregon Landscape Contractors Board (LCB #9153), fully insured, and have a team of 110+ employees. Large enough to handle any scope, local enough to care about every detail.
           </p>
 
           {/* FAQ */}

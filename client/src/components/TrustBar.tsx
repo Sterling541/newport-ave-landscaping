@@ -10,7 +10,7 @@
    - 5-star Google rating with review count (AggregateRating schema)
    - 21+ years in business
    - Licensed & Bonded in Oregon
-   - 90-Day Plant Warranty
+   - Backed Warranty (industry-standard with optional extended coverage via maintenance plan)
    - Free Estimates
    - BBB Accredited / A+ Rating
    
@@ -60,9 +60,9 @@ const TRUST_ITEMS = [
         <path d="M7 11V7a5 5 0 0110 0v4" stroke="oklch(0.46 0.20 25)" strokeWidth="1.5" strokeLinecap="round"/>
       </svg>
     ),
-    value: "90-Day Plants",
+    value: "Backed Work",
     label: "Warranty",
-    sub: "Plants: 90 days · Irrigation: 1 year",
+    sub: "Plants 90 days · Irrigation 1 yr · Extended via plan",
     highlight: false,
   },
   {

@@ -32,7 +32,7 @@ export default function BendLandscapingCompanyGuide() {
             <h2 className="text-3xl font-bold mb-4" style={{ color: 'oklch(0.25 0.005 0)' }}>Types of Landscaping Companies in Bend</h2>
             <p className="mb-4">Solo operators and small crews: Often lower cost, but limited capacity and may not carry adequate insurance. Good for simple maintenance tasks.</p>
             <p className="mb-4">Mid-size companies (5–20 employees): Can handle most residential projects. Verify licensing and insurance carefully.</p>
-            <p className="mb-8">Full-service landscaping firms (20+ employees): Can handle large and complex projects, typically carry full insurance and have more established processes. Newport Avenue Landscaping employs 150+ people.</p>
+            <p className="mb-8">Full-service landscaping firms (20+ employees): Can handle large and complex projects, typically carry full insurance and have more established processes. Newport Avenue Landscaping employs 110+ people.</p>
 
             <h2 className="text-3xl font-bold mb-4" style={{ color: 'oklch(0.25 0.005 0)' }}>What to Look for in a Bend Landscaping Company</h2>
             <ul className="list-disc pl-5 mb-8 space-y-1">

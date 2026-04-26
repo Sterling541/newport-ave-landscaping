@@ -77,6 +77,7 @@ const Xeriscaping = lazy(() => import("./pages/services/Xeriscaping"));
 const RetainingWalls = lazy(() => import("./pages/services/RetainingWalls"));
 const Drainage = lazy(() => import("./pages/services/Drainage"));
 const FirewiseLandscaping = lazy(() => import("./pages/services/FirewiseLandscaping"));
+const FirewiseLandingPage = lazy(() => import("./pages/FirewiseLandingPage"));
 
 // City landing pages
 const BendPage = lazy(() => import("./pages/cities/Bend"));
@@ -274,6 +275,7 @@ function Router() {
       <Route path={"/services/retaining-walls"} component={RetainingWalls} />
       <Route path={"/services/drainage"} component={Drainage} />
       <Route path={"/services/firewise-landscaping"} component={FirewiseLandscaping} />
+      <Route path={"/firewise-landscaping-bend-oregon"} component={FirewiseLandingPage} />
 
       {/* Careers */}
       <Route path={"/careers"} component={Careers} />
@@ -427,6 +429,7 @@ function Router() {
       <Route path={"/service-areas/bend-south-landscaping"} component={lazy(() => import('./pages/service-areas/BendSouthLandscaping'))} />
       <Route path={"/service-areas/bend-westside-landscaping"} component={lazy(() => import('./pages/service-areas/BendWestsideLandscaping'))} />
       <Route path={"/service-areas/brookswood-landscaping"} component={lazy(() => import('./pages/service-areas/BrookswoodLandscaping'))} />
+      <Route path={"/service-areas/nw-crossing-landscaping"} component={lazy(() => import('./pages/service-areas/NWCrossingLandscaping'))} />
       <Route path={"/service-areas/century-drive-corridor-landscaping"} component={lazy(() => import('./pages/service-areas/CenturyDriveCorridorLandscaping'))} />
       <Route path={"/service-areas/crooked-river-ranch"} component={lazy(() => import('./pages/service-areas/CrookedRiverRanchLandscapingHub'))} />
       <Route path={"/service-areas/culver"} component={lazy(() => import('./pages/service-areas/CulverLandscapingHub'))} />

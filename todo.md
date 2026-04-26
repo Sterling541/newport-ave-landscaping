@@ -927,3 +927,52 @@
 - [x] Performance: hero scene images preloaded after 2s delay to avoid competing with LCP
 - [x] Performance: ScheduleServices logo images have width/height to prevent CLS
 - [x] Performance: admin star button touch target raised to 44px min-width/height
+
+## Session — April 26, 2026 (SEO Review Implementation Sprint)
+
+### Phase 1: SSR / Pre-rendering (Crawlability Fix)
+- [ ] Implement server-side pre-rendering for all routes so crawlers get full HTML
+- [ ] Verify /services, /about, /maintenance, /commercial, /our-work, /service-areas return full HTML body content
+- [ ] Test with curl to confirm crawlable content on all key pages
+
+### Phase 2: Content & Messaging Fixes
+- [ ] Fix warranty messaging — reframe 90-day/1-year as industry-standard + premium extended coverage via maintenance plan
+- [ ] Fix stats: "150+ Crew" → accurate number; "400+ Properties Maintained" → verify against Aspire data
+- [ ] Remove/update old address references (1020 SE Paiute Way) anywhere on site
+- [ ] Ensure NAP consistency: 61535 S Hwy 97, Bend, OR 97702 everywhere
+
+### Phase 3: Firewise / R327 Landing Page
+- [ ] Build /firewise dedicated landing page with full content (1,200+ words)
+- [ ] Include: what R327 requires, what Newport Ave offers, process, FAQ schema, conversion CTA
+- [ ] Add Firewise to Navbar (Services mega menu + mobile)
+- [ ] Add Firewise to sitemap.xml
+- [ ] Add Firewise to Footer links
+
+### Phase 4: Image Alt Text SEO
+- [ ] Audit all img alt text in PortfolioSection, PhotoGallery, OurWork page
+- [ ] Update alt text with location-specific descriptions (e.g., "Modern fire pit installation in NW Crossing, Bend, Oregon")
+- [ ] Audit alt text in all city pages, service pages, and blog posts
+- [ ] Audit alt text in HeroSection, TrustBar, AboutSection, ServicesSection
+
+### Phase 5: Contact Form Auto-Response
+- [ ] Add automated immediate-response email on ContactSection form submit
+- [ ] Add automated immediate-response email on QuoteRequest form submit
+- [ ] Email should confirm receipt, set expectations (response within 24h), and include phone number
+
+### Phase 6: Deepen City Pages
+- [ ] Deepen Bend city page: add Awbrey Butte, Tetherow, Broken Top, NW Crossing, Old Bend neighborhood sections
+- [ ] Deepen Redmond city page: add neighborhood-specific content, project examples
+- [ ] Deepen Sisters city page: add neighborhood-specific content, HOA notes
+- [ ] Deepen Sunriver city page: add HOA/resort community content
+- [ ] Deepen Tumalo city page: add rural property content
+- [ ] Add FAQ schema to all deepened city pages
+
+### Phase 7: Neighborhood Pages
+- [ ] Build /service-areas/awbrey-butte page with real local content
+- [ ] Build /service-areas/tetherow page with real local content
+- [ ] Build /service-areas/broken-top page with real local content
+- [ ] Build /service-areas/nw-crossing page with real local content
+- [ ] Build /service-areas/old-bend page with real local content
+- [ ] Register all neighborhood routes in App.tsx
+- [ ] Add neighborhood pages to sitemap.xml
+- [ ] Link from Bend city page and ServiceAreaBand
