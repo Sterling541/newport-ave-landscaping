@@ -66,11 +66,11 @@ export default function ServicesSection() {
           gap: "0.75rem",
         }}
       >
-        <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "0.5rem", fontWeight: 700, letterSpacing: "0.3em", color: "oklch(0.46 0.20 25)" }}>
+        <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "0.5rem", fontWeight: 700, letterSpacing: "0.3em", color: "oklch(0.70 0.18 25)" }}>
           02
         </span>
         <span style={{ width: "2rem", height: "1px", backgroundColor: "oklch(0.22 0.008 30)", display: "block" }} />
-        <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "0.5rem", fontWeight: 600, letterSpacing: "0.25em", color: "oklch(0.35 0.008 30)" }}>
+        <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "0.5rem", fontWeight: 600, letterSpacing: "0.25em", color: "oklch(0.65 0.008 30)" }}>
           WHAT WE DO
         </span>
         <span style={{ flex: 1, height: "1px", backgroundColor: "oklch(0.16 0.008 30)", display: "block" }} />
@@ -226,7 +226,7 @@ export default function ServicesSection() {
               fontSize: "0.5rem",
               fontWeight: 700,
               letterSpacing: "0.2em",
-              color: "oklch(0.22 0.008 30)",
+              color: "oklch(0.65 0.008 30)",
             }}
           >
             {String(i + 1).padStart(2, "0")}
@@ -246,7 +246,7 @@ export default function ServicesSection() {
           gap: "1rem",
         }}
       >
-        <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "0.55rem", fontWeight: 600, letterSpacing: "0.18em", color: "oklch(0.35 0.008 30)" }}>
+        <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "0.55rem", fontWeight: 600, letterSpacing: "0.18em", color: "oklch(0.65 0.008 30)" }}>
           EVERY PROJECT. EVERY DETAIL. EVERY TIME.
         </span>
         <a

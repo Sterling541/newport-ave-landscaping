@@ -810,9 +810,10 @@ export default function Navbar() {
 
           <a
             href="tel:5416178873"
+            aria-label="Call Newport Avenue Landscaping at (541) 617-8873"
             style={{ color: "oklch(0.22 0.008 30)", display: "flex", alignItems: "center" }}
           >
-            <Phone size={18} />
+            <Phone size={18} aria-hidden="true" />
           </a>
         </div>
 

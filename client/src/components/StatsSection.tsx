@@ -96,11 +96,11 @@ export default function StatsSection() {
           gap: "0.75rem",
         }}
       >
-        <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "0.5rem", fontWeight: 700, letterSpacing: "0.3em", color: "oklch(0.46 0.20 25)" }}>
+        <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "0.5rem", fontWeight: 700, letterSpacing: "0.3em", color: "oklch(0.70 0.18 25)" }}>
           01
         </span>
         <span style={{ width: "2rem", height: "1px", backgroundColor: "oklch(0.22 0.008 30)", display: "block" }} />
-        <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "0.5rem", fontWeight: 600, letterSpacing: "0.25em", color: "oklch(0.35 0.008 30)" }}>
+        <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "0.5rem", fontWeight: 600, letterSpacing: "0.25em", color: "oklch(0.65 0.008 30)" }}>
           WHO WE ARE
         </span>
       </div>
@@ -148,7 +148,7 @@ export default function StatsSection() {
               fontSize: "0.70rem",
               fontWeight: 400,
               lineHeight: 1.9,
-              color: "oklch(0.48 0.008 30)",
+              color: "oklch(0.70 0.008 30)",
               maxWidth: "400px",
               marginBottom: "2.5rem",
             }}
@@ -209,7 +209,7 @@ export default function StatsSection() {
               {years}
             </div>
             <div style={{ position: "relative", zIndex: 2 }}>
-              <div style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "0.5rem", fontWeight: 700, letterSpacing: "0.25em", color: "oklch(0.46 0.20 25)", marginBottom: "0.2rem" }}>
+              <div style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "0.5rem", fontWeight: 700, letterSpacing: "0.25em", color: "oklch(0.70 0.18 25)", marginBottom: "0.2rem" }}>
                 YEARS IN BUSINESS
               </div>
               <div
@@ -232,7 +232,7 @@ export default function StatsSection() {
 
           {/* Stat 2 */}
           <div style={{ marginBottom: "2rem" }}>
-            <div style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "0.5rem", fontWeight: 700, letterSpacing: "0.25em", color: "oklch(0.46 0.20 25)", marginBottom: "0.2rem" }}>
+            <div style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "0.5rem", fontWeight: 700, letterSpacing: "0.25em", color: "oklch(0.70 0.18 25)", marginBottom: "0.2rem" }}>
               PROPERTIES MAINTAINED
             </div>
             <div
@@ -254,7 +254,7 @@ export default function StatsSection() {
 
           {/* Stat 3 */}
           <div>
-            <div style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "0.5rem", fontWeight: 700, letterSpacing: "0.25em", color: "oklch(0.46 0.20 25)", marginBottom: "0.2rem" }}>
+            <div style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "0.5rem", fontWeight: 700, letterSpacing: "0.25em", color: "oklch(0.70 0.18 25)", marginBottom: "0.2rem" }}>
               CREW MEMBERS
             </div>
             <div

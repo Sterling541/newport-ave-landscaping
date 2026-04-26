@@ -159,8 +159,9 @@ export default function TrustBar() {
               {/* Star row for rating item */}
               {item.highlight && (
                 <div
-                  style={{ display: "flex", gap: "2px", marginBottom: "0.3rem" }}
+                  role="img"
                   aria-label="5 out of 5 stars"
+                  style={{ display: "flex", gap: "2px", marginBottom: "0.3rem" }}
                 >
                   {[1,2,3,4,5].map((s) => (
                     <svg key={s} width="11" height="11" viewBox="0 0 24 24" aria-hidden="true">
@@ -207,7 +208,7 @@ export default function TrustBar() {
                   fontSize: "0.52rem",
                   fontWeight: 400,
                   letterSpacing: "0.06em",
-                  color: "oklch(0.52 0.008 75)",
+                  color: "oklch(0.72 0.008 75)",
                   textAlign: "center",
                 }}
               >

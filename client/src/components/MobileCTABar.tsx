@@ -38,7 +38,7 @@ export default function MobileCTABar() {
       {/* Phone button */}
       <a
         href="tel:5416178873"
-        aria-label="Call Newport Avenue Landscaping"
+        aria-label="Call Newport Avenue Landscaping at (541) 617-8873"
         style={{
           display: "flex",
           alignItems: "center",

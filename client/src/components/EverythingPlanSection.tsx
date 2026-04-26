@@ -270,7 +270,7 @@ export default function EverythingPlanSection() {
                       strokeWidth={2.5}
                       style={{ color: "oklch(0.46 0.20 25)", flexShrink: 0 }}
                     />
-                    <h4
+                    <h3
                       className="font-display font-semibold"
                       style={{
                         fontSize: "1rem",
@@ -279,7 +279,7 @@ export default function EverythingPlanSection() {
                       }}
                     >
                       {pkg.title}
-                    </h4>
+                    </h3>
                   </div>
                   <p
                     className="font-body text-sm"

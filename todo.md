@@ -906,3 +906,22 @@
 - [x] Fix prohibited aria-disabled on non-interactive span in breadcrumb.tsx
 - [x] Fix touch targets — hero dot navigation buttons now 44×44px clickable area with visual dot inside
 - [x] Fix any other WCAG 2.1 AA violations found
+
+## Session — April 26, 2026 (Lighthouse Perfect Score Push)
+
+- [ ] Fix ReviewsSection dot buttons — add aria-label to all carousel nav dots
+- [ ] Fix TrustBar prohibited ARIA — remove aria-label from non-interactive div, use role="img" instead
+- [ ] Fix Navbar phone link — add aria-label to icon-only tel: anchor
+- [ ] Fix MobileCTABar label/name mismatch — aria-label must match visible text
+- [ ] Fix EverythingPlanSection heading order — h4 used where h3 expected
+- [ ] Fix ContactSection small label contrast — oklch(0.55) labels on white background
+- [ ] Fix StatsSection small label contrast — 0.5rem labels failing contrast
+- [ ] Fix HeroSection firewise CTA button contrast
+- [ ] Fix TrustBar "127 reviews" contrast
+- [ ] Add canonical tag to homepage head
+- [ ] Fix non-descriptive link text (empty anchor in footer/content)
+- [ ] Fix deprecated API usage (best practices)
+- [ ] Performance: lazy load below-fold sections (Reviews, Portfolio, About, etc.)
+- [ ] Performance: reduce JS bundle size / code split routes
+- [ ] Performance: preload LCP hero image
+- [ ] Performance: optimize server response time

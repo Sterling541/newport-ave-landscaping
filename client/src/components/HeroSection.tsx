@@ -646,7 +646,7 @@ export default function HeroSection() {
                 fontSize: "0.48rem",
                 fontWeight: 700,
                 letterSpacing: "0.14em",
-                color: "oklch(0.10 0.008 30)",
+                color: "oklch(0.97 0.01 75)",
                 backgroundColor: "oklch(0.55 0.20 25)",
                 border: "none",
                 borderRadius: "1.8rem 0.2rem 1.8rem 0.2rem",

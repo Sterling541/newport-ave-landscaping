@@ -85,7 +85,7 @@ export default function CTABanner() {
               fontSize: "0.5rem",
               fontWeight: 700,
               letterSpacing: "0.3em",
-              color: "oklch(0.46 0.20 25)",
+              color: "oklch(0.75 0.18 25)",
             }}
           >
             05

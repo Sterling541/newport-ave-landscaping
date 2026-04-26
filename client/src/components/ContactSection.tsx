@@ -131,9 +131,8 @@ export default function ContactSection() {
                     Your Info
                   </div>
                   <ChevronRight className="w-4 h-4" style={{ color: "oklch(0.75 0.003 0)" }} />
-                  <div
-                    className="flex items-center gap-2 text-xs font-label"
-                    style={{ color: step === 2 ? "oklch(0.46 0.20 25)" : "oklch(0.75 0.003 0)" }}
+                  <div className="flex items-center gap-2 text-xs font-label"
+                    style={{ color: step === 2 ? "oklch(0.46 0.20 25)" : "oklch(0.40 0.003 0)" }}
                   >
                     <span
                       className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold"
@@ -349,7 +348,7 @@ export default function ContactSection() {
                     <Phone className="w-4 h-4 text-white" />
                   </div>
                   <div>
-                    <div className="font-label text-xs mb-1" style={{ color: "oklch(0.55 0.005 0)" }}>
+                    <div className="font-label text-xs mb-1" style={{ color: "oklch(0.40 0.005 0)" }}>
                       CALL OR TEXT
                     </div>
                     <div
@@ -372,7 +371,7 @@ export default function ContactSection() {
                     <Mail className="w-4 h-4 text-white" />
                   </div>
                   <div>
-                    <div className="font-label text-xs mb-1" style={{ color: "oklch(0.55 0.005 0)" }}>
+                    <div className="font-label text-xs mb-1" style={{ color: "oklch(0.40 0.005 0)" }}>
                       EMAIL
                     </div>
                     <div
@@ -392,7 +391,7 @@ export default function ContactSection() {
                     <MapPin className="w-4 h-4 text-white" />
                   </div>
                   <div>
-                    <div className="font-label text-xs mb-1" style={{ color: "oklch(0.55 0.005 0)" }}>
+                    <div className="font-label text-xs mb-1" style={{ color: "oklch(0.40 0.005 0)" }}>
                       OFFICE
                     </div>
                     <div className="font-body text-sm" style={{ color: "oklch(0.22 0.005 0)" }}>
@@ -400,7 +399,7 @@ export default function ContactSection() {
                       <br />
                       Bend, OR 97702
                       <br />
-                      <span className="text-xs" style={{ color: "oklch(0.55 0.005 0)" }}>
+                      <span className="text-xs" style={{ color: "oklch(0.40 0.005 0)" }}>
                         Visits by appointment only
                       </span>
                     </div>
@@ -415,13 +414,13 @@ export default function ContactSection() {
                     <Clock className="w-4 h-4 text-white" />
                   </div>
                   <div>
-                    <div className="font-label text-xs mb-1" style={{ color: "oklch(0.55 0.005 0)" }}>
+                    <div className="font-label text-xs mb-1" style={{ color: "oklch(0.40 0.005 0)" }}>
                       HOURS
                     </div>
                     <div className="font-body text-sm" style={{ color: "oklch(0.22 0.005 0)" }}>
                       Mon – Fri: 7:00 AM – 5:00 PM
                       <br />
-                      <span className="text-xs" style={{ color: "oklch(0.55 0.005 0)" }}>
+                      <span className="text-xs" style={{ color: "oklch(0.40 0.005 0)" }}>
                         Emergency irrigation service available
                       </span>
                     </div>

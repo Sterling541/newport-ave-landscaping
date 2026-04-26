@@ -168,17 +168,26 @@ export default defineConfig({
     outDir: path.resolve(import.meta.dirname, "dist/public"),
     emptyOutDir: true,
     cssCodeSplit: true,
+    // Warn when any chunk exceeds 500KB
+    chunkSizeWarningLimit: 500,
     rollupOptions: {
       output: {
+        // Granular code splitting for better caching
         manualChunks(id) {
-          // Split vendor libraries into a separate chunk
           if (id.includes('node_modules')) {
-            if (id.includes('@radix-ui') || id.includes('lucide-react') || id.includes('framer-motion')) {
-              return 'vendor-ui';
-            }
+            // Radix UI components — large but rarely change
+            if (id.includes('@radix-ui')) return 'vendor-radix';
+            // Lucide icons — large icon library
+            if (id.includes('lucide-react')) return 'vendor-icons';
+            // Animation library
+            if (id.includes('framer-motion')) return 'vendor-motion';
+            // tRPC + React Query stack
             if (id.includes('@trpc') || id.includes('@tanstack') || id.includes('superjson')) {
               return 'vendor-trpc';
             }
+            // React core
+            if (id.includes('react-dom') || id.includes('react/')) return 'vendor-react';
+            // Everything else
             return 'vendor';
           }
         },

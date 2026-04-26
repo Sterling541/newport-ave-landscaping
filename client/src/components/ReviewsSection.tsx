@@ -126,11 +126,11 @@ export default function ReviewsSection() {
           transition: "opacity 0.8s ease",
         }}
       >
-        <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "0.5rem", fontWeight: 700, letterSpacing: "0.3em", color: "oklch(0.46 0.20 25)" }}>
+        <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "0.5rem", fontWeight: 700, letterSpacing: "0.3em", color: "oklch(0.70 0.18 25)" }}>
           04
         </span>
         <span style={{ width: "2rem", height: "1px", backgroundColor: "oklch(0.22 0.008 30)", display: "block" }} />
-        <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "0.5rem", fontWeight: 600, letterSpacing: "0.25em", color: "oklch(0.35 0.008 30)" }}>
+        <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "0.5rem", fontWeight: 600, letterSpacing: "0.25em", color: "oklch(0.65 0.008 30)" }}>
           WHAT CLIENTS SAY
         </span>
         <span style={{ flex: 1, height: "1px", backgroundColor: "oklch(0.16 0.008 30)", display: "block" }} />
@@ -199,7 +199,7 @@ export default function ReviewsSection() {
             <div style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "0.62rem", fontWeight: 700, letterSpacing: "0.12em", color: "oklch(0.97 0.012 75)" }}>
               {review.name}
             </div>
-            <div style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "0.52rem", fontWeight: 400, letterSpacing: "0.1em", color: "oklch(0.40 0.008 30)", marginTop: "0.15rem" }}>
+            <div style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "0.52rem", fontWeight: 400, letterSpacing: "0.1em", color: "oklch(0.65 0.008 30)", marginTop: "0.15rem" }}>
               {review.tag}
             </div>
           </div>
@@ -228,19 +228,34 @@ export default function ReviewsSection() {
           <button
             key={i}
             onClick={() => goTo(i)}
+            aria-label={`Go to review ${i + 1} of ${REVIEWS.length}`}
+            aria-pressed={i === active}
             style={{
-              width: i === active ? "2.5rem" : "0.5rem",
-              height: "2px",
-              backgroundColor: i === active ? "oklch(0.46 0.20 25)" : "oklch(0.25 0.008 30)",
+              width: "44px",
+              height: "44px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              background: "none",
               border: "none",
               padding: 0,
               cursor: "pointer",
-              transition: "width 0.4s ease, background-color 0.3s ease",
-              borderRadius: "999px",
+              flexShrink: 0,
             }}
-          />
+          >
+            <span
+              style={{
+                width: i === active ? "2.5rem" : "0.5rem",
+                height: "2px",
+                backgroundColor: i === active ? "oklch(0.46 0.20 25)" : "oklch(0.25 0.008 30)",
+                transition: "width 0.4s ease, background-color 0.3s ease",
+                borderRadius: "999px",
+                display: "block",
+              }}
+            />
+          </button>
         ))}
-        <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "0.5rem", fontWeight: 600, letterSpacing: "0.2em", color: "oklch(0.28 0.008 30)", marginLeft: "0.5rem" }}>
+        <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "0.5rem", fontWeight: 600, letterSpacing: "0.2em", color: "oklch(0.65 0.008 30)", marginLeft: "0.5rem" }}>
           {String(active + 1).padStart(2, "0")} / {String(REVIEWS.length).padStart(2, "0")}
         </span>
       </div>
@@ -259,10 +274,10 @@ export default function ReviewsSection() {
       >
         <div style={{ width: "1px", height: "2.5rem", backgroundColor: "oklch(0.22 0.008 30)" }} />
         <div>
-          <div style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "0.5rem", fontWeight: 600, letterSpacing: "0.2em", color: "oklch(0.35 0.008 30)" }}>
+          <div style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "0.5rem", fontWeight: 600, letterSpacing: "0.2em", color: "oklch(0.65 0.008 30)" }}>
             RATED 5.0 ON GOOGLE
           </div>
-          <div style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "0.5rem", fontWeight: 400, letterSpacing: "0.12em", color: "oklch(0.28 0.008 30)", marginTop: "0.15rem" }}>
+          <div style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "0.5rem", fontWeight: 400, letterSpacing: "0.12em", color: "oklch(0.65 0.008 30)", marginTop: "0.15rem" }}>
             100+ VERIFIED REVIEWS
           </div>
         </div>
