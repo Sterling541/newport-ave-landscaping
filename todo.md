@@ -874,3 +874,7 @@
 
 - [x] Move Services and Maintenance dropdowns to the left side of the centered logo
 - [x] Left cluster: About, Our Work, Services, Maintenance | Right cluster: Commercial, Resources, Service Areas, Get a Quote
+
+## Session — April 26, 2026 (Hero Text Clipping)
+
+- [x] Fix hero section: top strip and scene counter top offset increased from 7.5rem to 13rem to clear 204px fixed navbar on desktop
