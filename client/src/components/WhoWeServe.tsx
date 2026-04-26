@@ -23,7 +23,7 @@ const segments = [
     ],
     cta: { label: "View Residential Services", href: "/services" },
     cta2: { label: "Get a Free Estimate", href: "/contact" },
-    photo: "/manus-storage/GLLPatio1_90e2e0c4_166b9312.webp",
+    photo: "/manus-storage/GLLPatio1_600w_0ffadc69.webp",
     photoAlt: "Luxury outdoor patio and landscaping by Newport Avenue Landscaping — Bend, Oregon",
     accent: "oklch(0.50 0.18 25)",
     accentBg: "oklch(0.97 0.012 25)",

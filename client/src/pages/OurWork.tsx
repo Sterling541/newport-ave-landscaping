@@ -84,7 +84,7 @@ const HOSMER_PHOTOS = [
 ];
 
 const MCGRATH_PHOTOS = [
-  "/manus-storage/GLLPatio1_90e2e0c4_166b9312.webp",
+  "/manus-storage/GLLPatio1_600w_0ffadc69.webp",
   `${CDN}/iLQzysWAIpshLExs_cd686ebc.webp`,
   `${CDN}/GnijvQODFDMrKxrg_bdc4efee.webp`,
   `${CDN}/uTOcvbcZVEyEexUs_42a3a31f.webp`,
@@ -92,7 +92,7 @@ const MCGRATH_PHOTOS = [
   `${CDN}/retHcMWUuJjuarBk_5cb6b5e7.webp`,
   `${CDN}/ambqMQAjmNxaGfTz_ddd94228.webp`,
   `${CDN}/znXAXegIgUZJRcee_2ed965e4.webp`,
-  "/manus-storage/GLLPatio2_4916fcde_95c74f23.webp",
+  "/manus-storage/GLLPatio2_600w_127ef46c.webp",
   `${CDN}/YvOMYOfUTJLIYxhZ_1a5428d7.webp`,
   `${CDN}/PtamSQtLZMVcIwap_033c59df.webp`,
   `${CDN}/fCBGPaTPIXfgNAhf_92fdbfd4.webp`,

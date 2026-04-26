@@ -48,7 +48,7 @@ const ROOMS = [
     tagline: "The Foundation of Outdoor Living",
     description:
       "Belgard, Techo-Bloc, and natural stone paver installations for patios, walkways, driveways, and pool decks. Precision-set for Central Oregon's freeze-thaw cycles.",
-    img: "/manus-storage/GLLPatio2_4916fcde_95c74f23.webp",
+    img: "/manus-storage/GLLPatio2_600w_127ef46c.webp",
     accent: "oklch(0.46 0.20 25)",
   },
   {

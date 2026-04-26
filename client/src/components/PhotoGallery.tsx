@@ -60,13 +60,13 @@ const photos = [
   },
   // Row 3
   {
-    src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/forest-home4_cd8d9af7.jpg",
+    src: "/manus-storage/forest-home4_9324e5db.webp",
     title: "Koi Pond & Waterfall at Dusk",
     category: "Water Features",
     span: "col-span-1 row-span-1",
   },
   {
-    src: "/manus-storage/GLLPatio2_4916fcde_95c74f23.webp",
+    src: "/manus-storage/GLLPatio2_600w_127ef46c.webp",
     title: "Fire Pit at Sunset",
     category: "Hardscape",
     span: "col-span-1 row-span-1",

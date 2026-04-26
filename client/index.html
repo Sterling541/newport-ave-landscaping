@@ -14,14 +14,14 @@
     <meta property="og:url" content="https://newportavelandscaping.com/" />
     <meta property="og:title" content="Newport Avenue Landscaping | Bend, Oregon's Premier Landscaping Company" />
     <meta property="og:description" content="Central Oregon's premier landscaping company since 2005. Lawn care, irrigation, landscape design, pavers, xeriscaping & outdoor living in Bend, OR. Licensed & Bonded LCB #9153." />
-    <meta property="og:image" content="https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportAveLandcaping-9_97b731b0.jpg" />
+    <meta property="og:image" content="https://newportavelandscaping.com/manus-storage/NewportAveLandcaping-9_97b731b0_1204d3ca.webp" />
     <meta property="og:site_name" content="Newport Avenue Landscaping" />
     <meta property="og:locale" content="en_US" />
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Newport Avenue Landscaping | Bend, Oregon's Premier Landscaping Company" />
     <meta name="twitter:description" content="Central Oregon's premier landscaping company since 2005. Lawn care, irrigation, landscape design, pavers, xeriscaping & outdoor living in Bend, OR." />
-    <meta name="twitter:image" content="https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/NewportAveLandcaping-9_97b731b0.jpg" />
+    <meta name="twitter:image" content="https://newportavelandscaping.com/manus-storage/NewportAveLandcaping-9_97b731b0_1204d3ca.webp" />
     <!-- Geo / Local -->
     <meta name="geo.region" content="US-OR" />
     <meta name="geo.placename" content="Bend, Oregon" />
@@ -104,12 +104,13 @@
       ]
     }
     </script>
-    <link rel="icon" href="https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/leaf-icon-favicon_10797885.png" type="image/png" />
-    <link rel="apple-touch-icon" href="https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/leaf-icon-favicon_10797885.png" />
-    <!-- Preconnect to CDN and fonts (must come before any resource fetch) -->
+    <link rel="icon" href="/manus-storage/leaf-icon-favicon_10797885_b2c4a9e3.webp" type="image/webp" />
+    <link rel="apple-touch-icon" href="/manus-storage/leaf-icon-favicon_10797885_b2c4a9e3.webp" />
+    <!-- Preconnect to fonts and 3rd-party origins (must come before any resource fetch) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preconnect" href="https://d2xsxph8kpxj0f.cloudfront.net" crossorigin />
+    <link rel="preconnect" href="https://widgets.leadconnectorhq.com" crossorigin />
+    <link rel="preconnect" href="https://services.leadconnectorhq.com" crossorigin />
     <!-- Preload hero image for LCP — fetchpriority=high tells browser to start immediately -->
     <link rel="preload" as="image" href="/manus-storage/NewportAveLandcaping-9_97b731b0_1204d3ca.webp" fetchpriority="high" />
     <!-- Fonts: both loaded async (non-render-blocking) via print trick.
@@ -141,12 +142,22 @@
       defer
       src="%VITE_ANALYTICS_ENDPOINT%/umami"
       data-website-id="%VITE_ANALYTICS_WEBSITE_ID%"></script>
-    <!-- LeadConnector AI Chat Widget -->
-    <script
-      src="https://widgets.leadconnectorhq.com/loader.js"
-      data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js"
-      data-widget-id="6797d98aae907c18b357f82d"
-      defer>
+    <!-- LeadConnector AI Chat Widget — loaded after page is interactive to avoid TBT penalty -->
+    <script>
+      (function() {
+        function loadChat() {
+          var s = document.createElement('script');
+          s.src = 'https://widgets.leadconnectorhq.com/loader.js';
+          s.setAttribute('data-resources-url', 'https://widgets.leadconnectorhq.com/chat-widget/loader.js');
+          s.setAttribute('data-widget-id', '6797d98aae907c18b357f82d');
+          document.body.appendChild(s);
+        }
+        if (document.readyState === 'complete') {
+          setTimeout(loadChat, 3000);
+        } else {
+          window.addEventListener('load', function() { setTimeout(loadChat, 3000); });
+        }
+      })();
     </script>
   </body>
 

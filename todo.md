@@ -830,3 +830,35 @@
 
 - [x] Convert ITP_7385_f2bbba86.jpg to WebP and replace all references (StatsSection backgroundImage fix)
 - [x] Audit and fix all remaining CloudFront .jpg/.png references — 34 images converted, 41 replacements across 11 files. Zero CloudFront JPG/PNG refs remain.
+
+## Session — April 26, 2026 (Performance + SEO Deep Pass)
+
+### Performance
+- [ ] Defer LeadConnector chat widget (load after page interactive, saves ~330ms TBT)
+- [ ] Remove unused CloudFront preconnect from index.html
+- [ ] Re-compress BotanicalBand plant images at 700px (saves ~560KB across 5 images)
+- [ ] Reduce main JS bundle: ensure all below-fold sections are lazy-loaded
+- [ ] Add preconnect hint for leadconnectorhq.com (3rd party chat)
+
+### SEO
+- [ ] Add/improve JSON-LD structured data: LocalBusiness, Service, FAQ, BreadcrumbList
+- [ ] Audit all page meta descriptions and titles for keyword density
+- [ ] Add canonical URL tags to all pages
+- [ ] Add width/height to all img tags to eliminate CLS
+- [ ] Improve alt text coverage across all images
+- [ ] Add hreflang and robots meta tags where missing
+
+## Session — April 26, 2026 (Performance + SEO Round 4 — Full Sweep)
+
+- [x] Defer LeadConnector chat widget 3 seconds after page load (eliminates TBT spike)
+- [x] Remove unused CloudFront preconnect from index.html
+- [x] Add LeadConnector preconnect hints for faster chat widget load
+- [x] Re-compress BotanicalBand plant images at 700px WebP (additional ~560KB savings)
+- [x] Re-compress GLLPatio images at 600px WebP
+- [x] Convert all remaining CloudFront JPGs to WebP: DiscoveryWestPlaza (4 images, 99% reduction), NinesProject3 (40MB→131KB), GLLPatio10, forest-home4, membership-badge, leaf-icon, proj-bend-after-backyard1, IMG_1336
+- [x] Zero CloudFront JPG/PNG references remain in codebase (all 60+ images now on manus-storage WebP)
+- [x] Lazy-load all ~80 page components in App.tsx (massive initial JS bundle reduction)
+- [x] Add reviewCount: "127" to LocalBusinessSchema and AggregateRatingSchema (required for Google rich results)
+- [x] Add width/height attributes to all img tags missing them (Commercial.tsx 5 images)
+- [x] Update OG/Twitter meta images to WebP in index.html
+- [x] Inline critical CSS in index.html for above-fold rendering
