@@ -269,6 +269,7 @@ function Router() {
       <Route path={"/services/pavers"} component={Pavers} />
       <Route path={"/services/water-features"} component={WaterFeatures} />
       <Route path={"/services/outdoor-living"} component={OutdoorLiving} />
+      <Route path={"/services/decks"} component={lazy(() => import('./pages/services/Decks'))} />
       <Route path={"/services/fire-features"} component={FireFeatures} />
       <Route path={"/services/landscape-lighting"} component={LandscapeLighting} />
       <Route path={"/services/xeriscaping"} component={Xeriscaping} />
@@ -324,6 +325,7 @@ function Router() {
       <Route path={"/portfolio/westside-outdoor-living"} component={WestsideOutdoorLiving} />
 
       {/* SEO Resource pages */}
+      <Route path={"/resources/deck-cost-bend-oregon"} component={lazy(() => import('./pages/resources/DeckCostBend'))} />
       <Route path={"/resources/paver-patio-cost-bend-oregon"} component={PaverPatioCostBend} />
       <Route path={"/resources/sprinkler-system-cost-bend-oregon"} component={SprinklerSystemCostBend} />
       <Route path={"/resources/xeriscape-cost-bend-oregon"} component={XeriscapeCostBend} />
@@ -477,6 +479,10 @@ function Router() {
       <Route path={"/service-areas/redmond-paver-patio"} component={lazy(() => import('./pages/service-areas/PaverPatioRedmond'))} />
       <Route path={"/service-areas/sisters-paver-patio"} component={lazy(() => import('./pages/service-areas/PaverPatioSisters'))} />
       <Route path={"/service-areas/sunriver-paver-patio"} component={lazy(() => import('./pages/service-areas/PaverPatioSunriver'))} />
+      <Route path={"/service-areas/decks-bend-oregon"} component={lazy(() => import('./pages/service-areas/DecksBend'))} />
+      <Route path={"/service-areas/decks-redmond-oregon"} component={lazy(() => import('./pages/service-areas/DecksRedmond'))} />
+      <Route path={"/service-areas/decks-sisters-oregon"} component={lazy(() => import('./pages/service-areas/DecksSisters'))} />
+      <Route path={"/service-areas/decks-sunriver-oregon"} component={lazy(() => import('./pages/service-areas/DecksSunriver'))} />
       <Route path={"/service-areas/terrebonne-paver-patio"} component={lazy(() => import('./pages/service-areas/PaverPatioTerrebonne'))} />
       <Route path={"/service-areas/tumalo-paver-patio"} component={lazy(() => import('./pages/service-areas/PaverPatioTumalo'))} />
       <Route path={"/service-areas/prineville"} component={lazy(() => import('./pages/service-areas/PrinevilleLandscapingHub'))} />

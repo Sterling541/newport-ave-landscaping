@@ -1001,3 +1001,15 @@
 - [x] Fix 150+ crew references → 110+ across all files
 - [x] Fix 400+ properties references → 350+ across all files
 - [x] Update Firewise links in Navbar and Footer to point to /firewise dedicated landing page
+
+## Deck Section Build — April 26, 2026
+- [ ] Create /services/decks main service page (Decks & Pergolas)
+- [ ] Create /services/decks/bend city page
+- [ ] Create /services/decks/redmond city page
+- [ ] Create /services/decks/sisters city page
+- [ ] Create /services/decks/sunriver city page
+- [ ] Create /resources/deck-cost-bend-oregon cost guide
+- [ ] Add Decks to Navbar services dropdown
+- [ ] Add Decks to Footer services links
+- [ ] Register all deck routes in App.tsx and SSR
+- [ ] Add deck to sitemap.xml and prerender.mjs

@@ -35,13 +35,14 @@ const servicesItems = [
   { label: "Paver Patios & Walkways", href: "/services/pavers", num: "04" },
   { label: "Water Features", href: "/services/water-features", num: "05" },
   { label: "Outdoor Kitchens", href: "/services/outdoor-living", num: "06" },
-  { label: "Fire Pits & Fireplaces", href: "/services/fire-features", num: "07" },
-  { label: "Landscape Lighting", href: "/services/landscape-lighting", num: "08" },
-  { label: "Xeriscaping", href: "/services/xeriscaping", num: "09" },
-  { label: "Retaining Walls", href: "/services/retaining-walls", num: "10" },
-  { label: "Drainage Solutions", href: "/services/drainage", num: "11" },
-  { label: "Firewise Landscaping", href: "/firewise-landscaping-bend-oregon", num: "12" },
-  { label: "Water-Wise Landscaping", href: "/services/water-wise-landscaping", num: "13" },
+  { label: "Decks & Pergolas", href: "/services/decks", num: "07" },
+  { label: "Fire Pits & Fireplaces", href: "/services/fire-features", num: "08" },
+  { label: "Landscape Lighting", href: "/services/landscape-lighting", num: "09" },
+  { label: "Xeriscaping", href: "/services/xeriscaping", num: "10" },
+  { label: "Retaining Walls", href: "/services/retaining-walls", num: "11" },
+  { label: "Drainage Solutions", href: "/services/drainage", num: "12" },
+  { label: "Firewise Landscaping", href: "/firewise-landscaping-bend-oregon", num: "13" },
+  { label: "Water-Wise Landscaping", href: "/services/water-wise-landscaping", num: "14" },
 ];
 
 // Resources mega menu — featured fire-wise and water-wise guides

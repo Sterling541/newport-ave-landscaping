@@ -74,6 +74,7 @@ import SprinklerRepair from "./pages/services/SprinklerRepair";
 import Pavers from "./pages/services/Pavers";
 import WaterFeatures from "./pages/services/WaterFeatures";
 import OutdoorLiving from "./pages/services/OutdoorLiving";
+import Decks from "./pages/services/Decks";
 import FireFeatures from "./pages/services/FireFeatures";
 import LandscapeLighting from "./pages/services/LandscapeLighting";
 import Xeriscaping from "./pages/services/Xeriscaping";
@@ -107,6 +108,7 @@ import PaverPatioIdeasBend from "./pages/blog/PaverPatioIdeasBend";
 import LawnCareBendOregon from "./pages/blog/LawnCareBendOregon";
 
 // SEO Resource pages
+import DeckCostBend from "./pages/resources/DeckCostBend";
 import PaverPatioCostBend from "./pages/resources/PaverPatioCostBend";
 import SprinklerSystemCostBend from "./pages/resources/SprinklerSystemCostBend";
 import XeriscapeCostBend from "./pages/resources/XeriscapeCostBend";
@@ -243,6 +245,10 @@ import SSR_HowToSelectPaversBend from "./pages/resources/HowToSelectPaversBend";
 import SSR_PerennialGardenCostBend from "./pages/resources/PerennialGardenCostBend";
 import SSR_LawnCareRedmond from "./pages/service-areas/LawnCareRedmond";
 import SSR_PaverPatioSunriver from "./pages/service-areas/PaverPatioSunriver";
+import DecksBend from "./pages/service-areas/DecksBend";
+import DecksRedmond from "./pages/service-areas/DecksRedmond";
+import DecksSisters from "./pages/service-areas/DecksSisters";
+import DecksSunriver from "./pages/service-areas/DecksSunriver";
 import SSR_HowToXeriscapeBend from "./pages/resources/HowToXeriscapeBend";
 import SSR_MulchInstallationCostBend from "./pages/resources/MulchInstallationCostBend";
 import SSR_HowToMaintainPaverPatioBend from "./pages/resources/HowToMaintainPaverPatioBend";
@@ -426,6 +432,7 @@ function Router() {
       <Route path={"/services/pavers"} component={Pavers} />
       <Route path={"/services/water-features"} component={WaterFeatures} />
       <Route path={"/services/outdoor-living"} component={OutdoorLiving} />
+      <Route path={"/services/decks"} component={Decks} />
       <Route path={"/services/fire-features"} component={FireFeatures} />
       <Route path={"/services/landscape-lighting"} component={LandscapeLighting} />
       <Route path={"/services/xeriscaping"} component={Xeriscaping} />
@@ -481,6 +488,7 @@ function Router() {
       <Route path={"/portfolio/westside-outdoor-living"} component={WestsideOutdoorLiving} />
 
       {/* SEO Resource pages */}
+      <Route path={"/resources/deck-cost-bend-oregon"} component={DeckCostBend} />
       <Route path={"/resources/paver-patio-cost-bend-oregon"} component={PaverPatioCostBend} />
       <Route path={"/resources/sprinkler-system-cost-bend-oregon"} component={SprinklerSystemCostBend} />
       <Route path={"/resources/xeriscape-cost-bend-oregon"} component={XeriscapeCostBend} />
@@ -635,6 +643,10 @@ function Router() {
       <Route path={"/service-areas/redmond-paver-patio"} component={SSR_PaverPatioRedmond} />
       <Route path={"/service-areas/sisters-paver-patio"} component={SSR_PaverPatioSisters} />
       <Route path={"/service-areas/sunriver-paver-patio"} component={SSR_PaverPatioSunriver} />
+      <Route path={"/service-areas/decks-bend-oregon"} component={DecksBend} />
+      <Route path={"/service-areas/decks-redmond-oregon"} component={DecksRedmond} />
+      <Route path={"/service-areas/decks-sisters-oregon"} component={DecksSisters} />
+      <Route path={"/service-areas/decks-sunriver-oregon"} component={DecksSunriver} />
       <Route path={"/service-areas/terrebonne-paver-patio"} component={SSR_PaverPatioTerrebonne} />
       <Route path={"/service-areas/tumalo-paver-patio"} component={SSR_PaverPatioTumalo} />
       <Route path={"/service-areas/prineville"} component={SSR_PrinevilleLandscapingHub} />
