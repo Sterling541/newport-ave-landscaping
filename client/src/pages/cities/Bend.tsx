@@ -24,7 +24,7 @@ export default function BendPage() {
       whyUs={[
         "Over 21 years of dedicated service to the Bend community, building a reputation for excellence and reliability.",
         "Fully licensed, bonded, and insured with Oregon LCB #9153, ensuring peace of mind for every project.",
-        "A robust team of 110+ in-house landscaping professionals — we never use subcontractors.",
+        "A robust team of 150+ in-house landscaping professionals — we never use subcontractors.",
         "Deep local knowledge of Bend's unique climate, volcanic soil, and plant life, enabling us to create thriving landscapes.",
         "Industry-standard plant and irrigation warranties on all installation projects, with extended coverage options available.",
         "Free, no-obligation estimates with a prompt site visit and detailed written proposal within 24–48 hours."

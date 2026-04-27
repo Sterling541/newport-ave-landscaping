@@ -55,7 +55,7 @@ export default function CommercialMaintenance() {
           heading: "HOA Landscape Management",
           body: [
             "We specialize in HOA landscape management throughout Central Oregon. Our teams understand the unique requirements of community associations — consistent appearance standards, responsive communication, and reliable scheduling.",
-            "With a team of 110+ professionals, we have the capacity to maintain large HOA communities without sacrificing quality or attention to detail.",
+            "With a team of 150+ professionals, we have the capacity to maintain large HOA communities without sacrificing quality or attention to detail.",
           ],
           accent: true,
         },
@@ -77,7 +77,7 @@ export default function CommercialMaintenance() {
           heading: "Why Choose Newport Avenue?",
           body: [
             "Since 2005, we've built lasting relationships with property managers, HOA boards, and commercial property owners across Central Oregon. Our reputation is built on reliability, quality, and responsive communication.",
-            "With 110+ team members and a fleet of professional equipment, we have the scale to handle your largest properties while maintaining the attention to detail that smaller companies can't match.",
+            "With 150+ team members and a fleet of professional equipment, we have the scale to handle your largest properties while maintaining the attention to detail that smaller companies can't match.",
           ],
         },
       ]}

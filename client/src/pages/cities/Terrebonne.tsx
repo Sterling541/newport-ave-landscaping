@@ -24,7 +24,7 @@ export default function TerrebonnePage() {
       whyUs={[
         "Over 21 years of dedicated landscaping experience in Central Oregon, serving Terrebonne and Jefferson County.",
         "Oregon Landscape Contractor Bond #9153 (LCB #9153) — fully licensed, bonded, and insured.",
-        "A team of 110+ in-house staff — we never use subcontractors, guaranteeing consistent quality.",
+        "A team of 150+ in-house staff — we never use subcontractors, guaranteeing consistent quality.",
         "Deep expertise in high-desert and fire-wise landscaping suited to Terrebonne's unique conditions.",
         "industry-standard plant and irrigation warranties on all installation projects.",
         "Free, no-obligation estimates with prompt response — typically within 24–48 hours."

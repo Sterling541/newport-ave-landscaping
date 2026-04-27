@@ -452,7 +452,7 @@ export default function ContactSection() {
                   "Licensed Landscape Contractor — LCB #9153",
                   "Fully licensed & bonded in Oregon",
                   "21+ years serving Central Oregon",
-                  "350+ completed residential projects",
+                  "500+ completed residential projects",
                   "Same dedicated crew every visit",
                   "Free estimates on all projects",
                 ].map((item) => (

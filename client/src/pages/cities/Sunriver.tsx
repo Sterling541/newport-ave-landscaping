@@ -24,7 +24,7 @@ export default function SunriverPage() {
       whyUs={[
         "Over 21 years of dedicated landscaping experience in Central Oregon, including extensive work in Sunriver's unique environment.",
         "Proudly licensed, bonded, and insured with Oregon Landscape Contractor Bond #9153 (LCB #9153), ensuring professional and reliable service.",
-        "A robust team of 110+ in-house staff, guaranteeing consistent quality and efficient project completion without relying on subcontractors.",
+        "A robust team of 150+ in-house staff, guaranteeing consistent quality and efficient project completion without relying on subcontractors.",
         "Deep, localized knowledge of Sunriver's specific climate, soil conditions, and architectural styles, enabling tailored and effective solutions.",
         "Commitment to transparent communication and client satisfaction, from initial consultation to project completion.",
         "Offering complimentary, no-obligation estimates for all landscaping projects in Sunriver, providing clear cost breakdowns upfront."

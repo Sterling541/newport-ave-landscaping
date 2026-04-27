@@ -83,7 +83,7 @@ export default function CommercialHOAMaintenance() {
           heading: "Why Property Managers Choose Newport Avenue",
           body: [
             "Since 2005, we've built lasting relationships with the major property management companies throughout Central Oregon. Our reputation is built on three things: we show up when we say we will, we do what we say we'll do, and we communicate proactively when anything changes.",
-            "With 110+ team members and a full fleet of commercial-grade equipment, we have the capacity to handle your largest properties without sacrificing the attention to detail that sets us apart. References from current commercial clients are available upon request.",
+            "With 150+ team members and a full fleet of commercial-grade equipment, we have the capacity to handle your largest properties without sacrificing the attention to detail that sets us apart. References from current commercial clients are available upon request.",
           ],
         },
       ]}

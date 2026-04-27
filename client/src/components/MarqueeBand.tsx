@@ -14,7 +14,7 @@ const ITEMS = [
   "·",
   "SINCE 2005",
   "·",
-  "110+ PROFESSIONALS",
+  "150+ PROFESSIONALS",
   "·",
   "BEND · REDMOND · SISTERS",
   "·",

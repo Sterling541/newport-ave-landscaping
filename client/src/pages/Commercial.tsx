@@ -156,7 +156,7 @@ const services = [
 ];
 
 const reasons = [
-  "110+ in-house professionals — no subcontractors",
+  "150+ in-house professionals — no subcontractors",
   "Dedicated commercial account managers",
   "Licensed, Bonded & Insured — LCB #9153",
   "21+ years serving Central Oregon",
@@ -267,8 +267,8 @@ export default function Commercial() {
         <div className="container">
           <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-3">
             {[
-              "350+ Commercial Properties Served",
-              "110+ In-House Professionals",
+              "500+ Commercial Properties Served",
+              "150+ In-House Professionals",
               "21+ Years in Business",
               "LCB #9153 — Licensed, Bonded & Insured",
               "Government Contract Experience",
@@ -426,7 +426,7 @@ export default function Commercial() {
                 className="font-body leading-relaxed mb-8"
                 style={{ color: "oklch(0.38 0.005 0)" }}
               >
-                With 110+ in-house professionals and a full fleet of
+                With 150+ in-house professionals and a full fleet of
                 commercial-grade equipment, we bring the same standard of
                 craftsmanship and accountability to every commercial project —
                 from a single retail center to a 200-unit HOA community.
@@ -475,7 +475,7 @@ export default function Commercial() {
                   className="font-display font-semibold mb-1"
                   style={{ fontSize: "2.2rem", color: "oklch(1 0 0)", lineHeight: 1 }}
                 >
-                  350+
+                  500+
                 </div>
                 <div
                   className="font-label"
@@ -611,7 +611,7 @@ export default function Commercial() {
               style={{ backgroundColor: "oklch(0.88 0.010 85)" }}
             >
               {[
-                { value: "110+", label: "Crew Members Deployed" },
+                { value: "150+", label: "Crew Members Deployed" },
                 { value: "Large Scale", label: "Commercial Installation" },
                 { value: "On Schedule", label: "Delivered on Time" },
                 { value: "Full Service", label: "Design Through Completion" },
@@ -918,7 +918,7 @@ export default function Commercial() {
                 className="font-body leading-relaxed mb-8"
                 style={{ color: "oklch(0.38 0.005 0)" }}
               >
-                With 110+ professionals and dedicated account managers, we have
+                With 150+ professionals and dedicated account managers, we have
                 the capacity to maintain large HOA communities without
                 sacrificing quality or attention to detail. We provide detailed
                 monthly reports and are always available to address board

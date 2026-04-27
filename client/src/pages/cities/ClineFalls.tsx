@@ -24,7 +24,7 @@ export default function ClineFallsPage() {
       whyUs={[
         "Over 21 years of experience in Central Oregon, including the Deschutes River corridor and Cline Falls area.",
         "Oregon Landscape Contractor Bond #9153 (LCB #9153) — fully licensed, bonded, and insured.",
-        "110+ in-house staff — we never use subcontractors, ensuring consistent quality on every project.",
+        "150+ in-house staff — we never use subcontractors, ensuring consistent quality on every project.",
         "Expertise in both upland high-desert and riparian landscaping conditions.",
         "industry-standard plant and irrigation warranties on all installation projects.",
         "Free, no-obligation estimates with prompt response — typically within 24–48 hours."

@@ -24,7 +24,7 @@ export default function SistersPage() {
       whyUs={[
         "Over 21 years in business since 2005, Newport Avenue Landscaping brings extensive experience to every project in Sisters, ensuring proven results.",
         "We are fully licensed, bonded, and insured, holding Oregon Landscape Contractor Bond #9153 (LCB #9153), providing peace of mind for all Sisters clients.",
-        "Our team comprises 110+ dedicated in-house staff, meaning no subcontractors and consistent, high-quality service for your Sisters property.",
+        "Our team comprises 150+ dedicated in-house staff, meaning no subcontractors and consistent, high-quality service for your Sisters property.",
         "We possess deep, specific knowledge of Sisters' unique climate, soil, and environmental factors, allowing us to create landscapes that truly thrive here.",
         "As a company that never uses subcontractors, we maintain strict quality control and accountability, delivering superior craftsmanship on every Sisters project.",
         "We offer transparent, no-obligation free estimates for all landscaping and lawn care services in Sisters, helping you plan your project with confidence.",

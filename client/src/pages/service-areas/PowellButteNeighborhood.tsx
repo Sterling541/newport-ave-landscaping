@@ -133,7 +133,7 @@ export default function PowellButteNeighborhood() {
             We've been serving rural Central Oregon properties for over 21 years. We understand the difference between designing for a Bend subdivision and designing for a Powell Butte acreage — and we bring that knowledge to every project. Our crews are experienced with large-lot work, well water systems, and the native plant communities of the high desert.
           </p>
           <p className="mb-8" style={{ lineHeight: 1.8 }}>
-            We're licensed with the Oregon Landscape Contractors Board (LCB #9153), fully insured, and have a team of 110+ employees. We show up on schedule, communicate throughout the project, and back every hardscape installation with a industry-standard plant and irrigation warranties.
+            We're licensed with the Oregon Landscape Contractors Board (LCB #9153), fully insured, and have a team of 150+ employees. We show up on schedule, communicate throughout the project, and back every hardscape installation with a industry-standard plant and irrigation warranties.
           </p>
 
           {/* FAQ */}

@@ -70,7 +70,7 @@ export default function LaPinePage() {
       whyUs={[
         "Over 21 years of dedicated landscaping service in Central Oregon, including the La Pine and South Deschutes County area.",
         "Oregon Landscape Contractor Bond #9153 (LCB #9153) -- fully licensed, bonded, and insured for your peace of mind.",
-        "A robust team of 110+ in-house staff, guaranteeing consistent quality and timely project completion.",
+        "A robust team of 150+ in-house staff, guaranteeing consistent quality and timely project completion.",
         "Deep understanding of La Pine's Zone 5b climate, short growing season, and fire-wise landscaping requirements.",
         "We never use subcontractors, ensuring accountability and the highest standards on every La Pine project.",
         "Industry-standard plant and irrigation warranties on all installation projects."

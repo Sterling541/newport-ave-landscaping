@@ -100,7 +100,7 @@ export default function EagleCrestPage() {
       whyUs={[
         "Over 21 years of experience serving Eagle Crest and the greater Redmond/Central Oregon area, with deep knowledge of the resort's HOA standards and landscape character.",
         "Licensed, bonded, and insured with Oregon Landscape Contractor Bond #9153 (LCB #9153) — fully compliant for all residential and commercial work in Eagle Crest.",
-        "110+ in-house crew members — we never use subcontractors, ensuring consistent quality and accountability on every project.",
+        "150+ in-house crew members — we never use subcontractors, ensuring consistent quality and accountability on every project.",
         "Specialized expertise in fire-wise landscaping, xeriscaping, and irrigation design for Eagle Crest's high-desert, WUI-zone environment.",
         "Vacation rental maintenance programs with flexible scheduling and priority response, designed specifically for Eagle Crest property owners who are not always on-site.",
         "Free, no-obligation estimates with detailed written proposals — no surprises, no hidden fees."

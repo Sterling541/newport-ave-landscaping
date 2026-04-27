@@ -24,7 +24,7 @@ export default function RedmondPage() {
       whyUs={[
         "Over 21 years of dedicated landscaping experience in Central Oregon, including extensive work in Redmond's unique high-desert environment.",
         "Fully licensed, bonded, and insured with Oregon Landscape Contractor Bond #9153 (LCB #9153), ensuring professional and compliant service.",
-        "A robust team of 110+ in-house staff, guaranteeing consistent quality and timely project completion without relying on subcontractors.",
+        "A robust team of 150+ in-house staff, guaranteeing consistent quality and timely project completion without relying on subcontractors.",
         "Deep understanding of Redmond's specific climate, soil conditions, and local plant palettes, leading to thriving and sustainable landscapes.",
         "Commitment to transparent communication and client satisfaction, providing detailed proposals and responsive service for every Redmond project.",
         "Offering complimentary, no-obligation estimates for all landscaping and lawn care services in Redmond, making it easy to start your project."

@@ -141,7 +141,7 @@ export default function AboutSection() {
               className="font-body leading-relaxed mb-8"
               style={{ color: "oklch(0.40 0.010 55)", lineHeight: 1.75 }}
             >
-              Our team of 110+ in-house professionals handles everything: design,
+              Our team of 150+ in-house professionals handles everything: design,
               construction, irrigation, maintenance, and more. No subcontractors,
               no handoffs, no excuses. Just beautiful work and people who stand
               behind it.

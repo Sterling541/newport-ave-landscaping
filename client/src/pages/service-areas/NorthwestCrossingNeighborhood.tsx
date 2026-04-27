@@ -98,7 +98,7 @@ export default function NorthwestCrossingNeighborhood() {
             We maintain more properties in NorthWest Crossing than any other landscaping company in Bend. Our crews work in the neighborhood every week — they know the streets, the soil, and the neighbors. We show up on schedule, communicate throughout the project, and back every hardscape installation with a industry-standard plant and irrigation warranties.
           </p>
           <p className="mb-8">
-            We're licensed with the Oregon Landscape Contractors Board (LCB #9153), fully insured, and have a team of 110+ employees. Large enough to handle any scope, local enough to care about every detail.
+            We're licensed with the Oregon Landscape Contractors Board (LCB #9153), fully insured, and have a team of 150+ employees. Large enough to handle any scope, local enough to care about every detail.
           </p>
 
           {/* CTA block */}

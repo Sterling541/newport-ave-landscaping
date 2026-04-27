@@ -70,7 +70,7 @@ export default function MadrasPage() {
       whyUs={[
         "Over 21 years of dedicated landscaping service in Central Oregon, including the Madras and Jefferson County community.",
         "Oregon Landscape Contractor Bond #9153 (LCB #9153) -- fully licensed, bonded, and insured.",
-        "A large team of 110+ in-house staff ensures consistent quality and timely project completion.",
+        "A large team of 150+ in-house staff ensures consistent quality and timely project completion.",
         "Deep understanding of Madras's unique Zone 6b/7a climate, soil, and irrigation district water conditions.",
         "We never use subcontractors, guaranteeing accountability and superior craftsmanship on every Madras project.",
         "Industry-standard plant and irrigation warranties on all installation projects."

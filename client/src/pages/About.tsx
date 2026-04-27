@@ -34,7 +34,7 @@ const timeline = [
     year: "2022",
     title: "Most Qualified in Central Oregon",
     description:
-      "Growth doubles each year and Newport Ave Landscaping becomes the most qualified full-service landscape firm in Central Oregon with a team of 110+ professionals.",
+      "Growth doubles each year and Newport Ave Landscaping becomes the most qualified full-service landscape firm in Central Oregon with a team of 150+ professionals.",
   },
 ];
 
@@ -87,7 +87,7 @@ export default function About() {
     <div style={{ backgroundColor: "oklch(0.97 0.012 85)" }}>
       <SEO
         title="About Newport Avenue Landscaping | Bend, Oregon Since 2005"
-        description="Meet Sterling West and the Newport Avenue team — Central Oregon's most experienced full-service landscape contractor. 110+ professionals, 21+ years serving Bend, OR. LCB #9153."
+        description="Meet Sterling West and the Newport Avenue team — Central Oregon's most experienced full-service landscape contractor. 150+ professionals, 21+ years serving Bend, OR. LCB #9153."
         canonical="/about"
       />
       <Navbar />

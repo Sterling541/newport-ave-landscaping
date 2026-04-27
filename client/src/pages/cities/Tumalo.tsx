@@ -24,7 +24,7 @@ export default function TumaloPage() {
       whyUs={[
         "Over 21 years of dedicated landscaping experience in Central Oregon, deeply rooted in the Tumalo community.",
         "Oregon Landscape Contractor Bond #9153 (LCB #9153) -- fully licensed, bonded, and insured for your peace of mind.",
-        "A robust team of 110+ in-house staff, ensuring consistent quality and timely project completion without relying on subcontractors.",
+        "A robust team of 150+ in-house staff, ensuring consistent quality and timely project completion without relying on subcontractors.",
         "Profound local knowledge of Tumalo's unique climate, irrigation district water, and fire-wise landscaping requirements.",
         "We never use subcontractors, guaranteeing Newport Avenue's high standards on every job.",
         "Industry-standard plant and irrigation warranties on all installation projects, with extended coverage options available."

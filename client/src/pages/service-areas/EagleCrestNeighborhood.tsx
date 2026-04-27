@@ -134,7 +134,7 @@ export default function EagleCrestNeighborhood() {
             We've served Eagle Crest homeowners for over 21 years — long enough to have worked on the same properties through multiple ownership cycles. We know the terrain, the ARC requirements, and the irrigation challenges of the rocky high-desert soil. Our crews are experienced, our communication is consistent, and we back every hardscape installation with a industry-standard plant and irrigation warranties.
           </p>
           <p className="mb-8" style={{ lineHeight: 1.8 }}>
-            We're licensed with the Oregon Landscape Contractors Board (LCB #9153), fully insured, and have a team of 110+ employees. Large enough to handle any scope, local enough to care about every detail.
+            We're licensed with the Oregon Landscape Contractors Board (LCB #9153), fully insured, and have a team of 150+ employees. Large enough to handle any scope, local enough to care about every detail.
           </p>
 
           {/* FAQ */}

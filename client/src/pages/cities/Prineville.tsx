@@ -70,7 +70,7 @@ export default function PrinevillePage() {
       whyUs={[
         "Over 21 years of dedicated service in Central Oregon, including the Prineville community, since 2005.",
         "Oregon Landscape Contractor Bond #9153 (LCB #9153), fully licensed, bonded, and insured for your peace of mind.",
-        "A robust team of 110+ in-house staff, ensuring consistent quality and timely project completion without relying on subcontractors.",
+        "A robust team of 150+ in-house staff, ensuring consistent quality and timely project completion without relying on subcontractors.",
         "Deep understanding of Prineville's unique climate, soil, and local landscaping challenges, guaranteeing tailored solutions.",
         "Commitment to excellence with no subcontractors, meaning every aspect of your project is handled by our experienced team.",
         "Complimentary, no-obligation estimates for all Prineville residents and businesses, making your landscaping journey easy to start."

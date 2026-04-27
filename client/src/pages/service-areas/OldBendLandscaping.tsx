@@ -190,7 +190,7 @@ export default function OldBendLandscaping() {
                 {[
                   "Over 21 years serving Bend's historic neighborhoods",
                   "Licensed, bonded & insured — LCB #9153",
-                  "110+ in-house crew — no subcontractors, ever",
+                  "150+ in-house crew — no subcontractors, ever",
                   "Certified arborist available for mature tree work",
                   "Free, detailed written estimates within 24–48 hours",
                   "Industry-standard plant & irrigation warranties",

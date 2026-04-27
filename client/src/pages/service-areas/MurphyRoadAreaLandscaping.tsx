@@ -44,7 +44,7 @@ export default function MurphyRoadAreaLandscaping() {
 
             <h2 className="text-3xl font-bold mb-4" style={{ color: 'oklch(0.25 0.005 0)' }}>Why Murphy Road Area Homeowners Choose Newport Avenue</h2>
             <p className="mb-4">We've built a reputation in Murphy Road Area for showing up on time, communicating clearly, and delivering work that holds up. Our industry-standard plant and irrigation warranties is unique in Central Oregon.</p>
-            <p className="mb-4">We're licensed with the Oregon Landscape Contractors Board (LCB #9153), fully insured, and have a team of 110+ employees.</p>
+            <p className="mb-4">We're licensed with the Oregon Landscape Contractors Board (LCB #9153), fully insured, and have a team of 150+ employees.</p>
             <div className="bg-gray-100 p-6 rounded-lg mb-8 border-l-4" style={{ borderColor: 'oklch(0.46 0.20 25)' }}>
               <p className="font-bold text-lg mb-2" style={{ color: 'oklch(0.25 0.005 0)' }}>PRO TIP</p>
               <p>We offer free on-site consultations throughout Murphy Road Area. Our design team will walk your property, discuss your goals, and provide a detailed proposal — no pressure, no obligation.</p>

@@ -44,8 +44,8 @@ export default function StatsSection() {
   }, []);
 
   const years = useCountUp(new Date().getFullYear() - 2005, 1600, visible);
-  const properties = useCountUp(350, 2000, visible);
-  const crew = useCountUp(110, 1800, visible);
+  const properties = useCountUp(500, 2000, visible);
+  const crew = useCountUp(150, 1800, visible);
 
   return (
     <section

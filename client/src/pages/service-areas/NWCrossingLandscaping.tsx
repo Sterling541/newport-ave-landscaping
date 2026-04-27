@@ -89,7 +89,7 @@ export default function NWCrossingLandscaping() {
 
         {/* Intro Paragraph */}
         <p className="text-[oklch(0.30_0.008_0)] mb-8">
-          With nearly two decades of experience serving Central Oregon, Newport Avenue Landscaping (LCB #9153) has been a trusted partner for homeowners in NW Crossing since its early development. Our 110+ employees understand the neighborhood's commitment to walkable design, community gardens, and sustainable living, translating into outdoor spaces that are both beautiful and environmentally responsible.
+          With nearly two decades of experience serving Central Oregon, Newport Avenue Landscaping (LCB #9153) has been a trusted partner for homeowners in NW Crossing since its early development. Our 150+ employees understand the neighborhood's commitment to walkable design, community gardens, and sustainable living, translating into outdoor spaces that are both beautiful and environmentally responsible.
         </p>
 
         {/* HOA/Community Standards Section */}

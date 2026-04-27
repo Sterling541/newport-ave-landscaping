@@ -86,7 +86,7 @@ export default function BrookswoodLandscaping() {
 
         {/* Intro Paragraph */}
         <p className="text-lg mb-8 text-[oklch(0.30_0.008_0)]">
-          Newport Avenue Landscaping has proudly served the Brookswood community since 2005, bringing over two decades of expertise to this vibrant South Bend neighborhood. Our team understands the unique characteristics of Brookswood, from its family-friendly atmosphere to its favorable soil conditions, allowing us to create landscapes that truly thrive and enhance your home. Our 110+ employees are dedicated to transforming your outdoor vision into a reality, ensuring every project reflects the quality and care Newport Avenue Landscaping is known for.
+          Newport Avenue Landscaping has proudly served the Brookswood community since 2005, bringing over two decades of expertise to this vibrant South Bend neighborhood. Our team understands the unique characteristics of Brookswood, from its family-friendly atmosphere to its favorable soil conditions, allowing us to create landscapes that truly thrive and enhance your home. Our 150+ employees are dedicated to transforming your outdoor vision into a reality, ensuring every project reflects the quality and care Newport Avenue Landscaping is known for.
         </p>
 
         {/* HOA/Community Standards Section */}
@@ -195,7 +195,7 @@ export default function BrookswoodLandscaping() {
             Brookswood residents trust Newport Avenue Landscaping for our deep understanding of the local environment and community values. We pride ourselves on delivering personalized service, from initial consultation to project completion, ensuring every detail aligns with your vision and the unique character of your Brookswood home. Our experienced team, backed by LCB #9153 and over 19 years of service in Central Oregon, guarantees exceptional craftsmanship and lasting beauty.
           </p>
           <p className="text-lg text-[oklch(0.30_0.008_0)]">
-            With 110+ dedicated employees, we have the resources and expertise to handle projects of any scale, from intricate garden designs to comprehensive landscape transformations. We are committed to enhancing the curb appeal and functionality of your outdoor spaces, creating environments where families can relax, play, and connect with nature, all while contributing to the charm of the Brookswood neighborhood.
+            With 150+ dedicated employees, we have the resources and expertise to handle projects of any scale, from intricate garden designs to comprehensive landscape transformations. We are committed to enhancing the curb appeal and functionality of your outdoor spaces, creating environments where families can relax, play, and connect with nature, all while contributing to the charm of the Brookswood neighborhood.
           </p>
         </section>
 
