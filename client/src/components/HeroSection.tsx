@@ -385,7 +385,17 @@ export default function HeroSection() {
           position: "absolute",
           inset: 0,
           background:
-            "linear-gradient(to bottom, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.05) 35%, rgba(0,0,0,0.82) 100%)",
+            "linear-gradient(to bottom, rgba(0,0,0,0.18) 0%, rgba(0,0,0,0.38) 45%, rgba(0,0,0,0.88) 100%)",
+          pointerEvents: "none",
+        }}
+      />
+      {/* ── Left-side vignette to protect headline text ── */}
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          background:
+            "linear-gradient(to right, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.50) 35%, rgba(0,0,0,0.10) 65%, rgba(0,0,0,0.0) 100%)",
           pointerEvents: "none",
         }}
       />
@@ -481,6 +491,7 @@ export default function HeroSection() {
             color: "oklch(0.97 0.012 75)",
             margin: 0,
             padding: 0,
+            textShadow: "0 2px 16px rgba(0,0,0,0.9), 0 1px 6px rgba(0,0,0,0.95)",
           }}
           className="hero-headline"
         >
@@ -495,6 +506,7 @@ export default function HeroSection() {
             lineHeight: 0.92,
             letterSpacing: "-0.035em",
             color: "oklch(0.97 0.012 75)",
+            textShadow: "0 2px 16px rgba(0,0,0,0.9), 0 1px 6px rgba(0,0,0,0.95)",
           }}
         >
           {s.line2}
@@ -508,8 +520,9 @@ export default function HeroSection() {
             fontStyle: "italic",
             lineHeight: 0.95,
             letterSpacing: "-0.01em",
-            color: "oklch(0.82 0.012 75)",
+            color: "oklch(0.95 0.012 75)",
             marginBottom: "1.4rem",
+            textShadow: "0 2px 14px rgba(0,0,0,0.9), 0 1px 6px rgba(0,0,0,0.95)",
           }}
         >
           {s.accent}
