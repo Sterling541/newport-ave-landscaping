@@ -288,7 +288,7 @@ export const quoteLeads = mysqlTable("quote_leads", {
   /** Where they clicked from: 'hero', 'navbar', 'floating_cta', 'cta_banner', 'services', 'other' */
   source: varchar("source", { length: 64 }).default("other").notNull(),
   /** Admin workflow status */
-  status: mysqlEnum("quoteLeadStatus", ["new", "contacted", "quoted", "converted", "lost"]).default("new").notNull(),
+  status: mysqlEnum("quoteLeadStatus", ["new", "left_voicemail", "contacted", "quoted", "converted", "lost"]).default("new").notNull(),
   adminNotes: text("adminNotes"),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),

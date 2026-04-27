@@ -9,11 +9,12 @@ import { trpc } from "@/lib/trpc";
 import AdminLayout from "@/components/AdminLayout";
 
 const STATUS_COLORS: Record<string, { bg: string; text: string; label: string }> = {
-  new:       { bg: "oklch(0.92 0.10 145)", text: "oklch(0.30 0.14 145)", label: "New" },
-  contacted: { bg: "oklch(0.92 0.08 240)", text: "oklch(0.35 0.12 240)", label: "Contacted" },
-  quoted:    { bg: "oklch(0.95 0.10 75)",  text: "oklch(0.40 0.14 75)",  label: "Quoted" },
-  converted: { bg: "oklch(0.90 0.12 145)", text: "oklch(0.25 0.16 145)", label: "Converted" },
-  lost:      { bg: "oklch(0.93 0.04 0)",   text: "oklch(0.45 0.10 0)",   label: "Lost" },
+  new:            { bg: "oklch(0.92 0.10 145)", text: "oklch(0.30 0.14 145)", label: "New" },
+  left_voicemail: { bg: "oklch(0.94 0.10 75)",  text: "oklch(0.38 0.14 75)",  label: "Left Voicemail" },
+  contacted:      { bg: "oklch(0.92 0.08 240)", text: "oklch(0.35 0.12 240)", label: "Contacted" },
+  quoted:         { bg: "oklch(0.95 0.10 75)",  text: "oklch(0.40 0.14 75)",  label: "Quoted" },
+  converted:      { bg: "oklch(0.90 0.12 145)", text: "oklch(0.25 0.16 145)", label: "Converted" },
+  lost:           { bg: "oklch(0.93 0.04 0)",   text: "oklch(0.45 0.10 0)",   label: "Lost" },
 };
 
 function formatDate(ts: Date | number | null | undefined): string {
@@ -106,7 +107,7 @@ export default function AdminQuoteLeads() {
     if (!editingId) return;
     updateMutation.mutate({
       id: editingId,
-      status: editStatus as "new" | "contacted" | "quoted" | "converted" | "lost",
+      status: editStatus as "new" | "left_voicemail" | "contacted" | "quoted" | "converted" | "lost",
       adminNotes: editNotes || undefined,
     });
   };
@@ -164,7 +165,7 @@ export default function AdminQuoteLeads() {
             marginBottom: "1.5rem",
           }}
         >
-          {(["all", "new", "contacted", "quoted", "converted"] as const).map((s) => {
+          {(["all", "new", "left_voicemail", "contacted", "quoted", "converted"] as const).map((s) => {
             const count = s === "all" ? total : rows.filter((r) => r.status === s).length;
             const cfg = s === "all"
               ? { bg: "oklch(0.22 0.055 240)", text: "white", label: "Total" }
@@ -286,6 +287,7 @@ export default function AdminQuoteLeads() {
           >
             <option value="all">All Statuses</option>
             <option value="new">New</option>
+            <option value="left_voicemail">Left Voicemail</option>
             <option value="contacted">Contacted</option>
             <option value="quoted">Quoted</option>
             <option value="converted">Converted</option>

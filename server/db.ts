@@ -919,7 +919,7 @@ export async function countQuoteLeads() {
 }
 export async function updateQuoteLeadStatus(
   id: number,
-  status: "new" | "contacted" | "quoted" | "converted" | "lost",
+  status: "new" | "left_voicemail" | "contacted" | "quoted" | "converted" | "lost",
   adminNotes?: string
 ) {
   const db = await getDb();

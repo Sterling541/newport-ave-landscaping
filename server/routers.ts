@@ -1264,7 +1264,7 @@ Be specific, data-driven, and actionable. Format as JSON with keys: bestMonths (
     updateStatus: protectedProcedure
       .input(z.object({
         id: z.number(),
-        status: z.enum(["new", "contacted", "quoted", "converted", "lost"]),
+        status: z.enum(["new", "left_voicemail", "contacted", "quoted", "converted", "lost"]),
         adminNotes: z.string().max(2000).optional(),
       }))
       .mutation(async ({ ctx, input }) => {

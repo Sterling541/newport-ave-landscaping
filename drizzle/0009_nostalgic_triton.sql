@@ -1,0 +1,1 @@
+ALTER TABLE `quote_leads` MODIFY COLUMN `quoteLeadStatus` enum('new','left_voicemail','contacted','quoted','converted','lost') NOT NULL DEFAULT 'new';
