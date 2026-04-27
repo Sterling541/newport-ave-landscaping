@@ -820,21 +820,27 @@ export default function Navbar() {
           </a>
         </div>
 
-        {/* Mobile dropdown */}
-        <div
-          className="md:hidden"
-          style={{
-            maxHeight: mobileOpen ? "85vh" : "0",
-            overflowY: mobileOpen ? "auto" : "hidden",
-            overflowX: "hidden",
-            transition: "max-height 0.35s ease",
-            backgroundColor: "oklch(0.98 0.005 90)",
-            borderTop: mobileOpen ? "1px solid oklch(0.90 0.006 75)" : "none",
-            position: "relative",
-            zIndex: 2,
-            WebkitOverflowScrolling: "touch",
-          }}
-        >
+      </nav>
+
+      {/* Mobile dropdown — rendered OUTSIDE the fixed nav so it can scroll freely on iOS */}
+      <div
+        className="md:hidden"
+        style={{
+          position: "fixed",
+          top: mobileOpen ? "112px" : "-100vh",
+          left: 0,
+          right: 0,
+          bottom: 0,
+          zIndex: 48,
+          backgroundColor: "oklch(0.98 0.005 90)",
+          overflowY: "auto",
+          overflowX: "hidden",
+          WebkitOverflowScrolling: "touch",
+          transition: "top 0.35s ease",
+          borderTop: "1px solid oklch(0.90 0.006 75)",
+          display: mobileOpen ? "block" : "none",
+        }}
+      >
           <div style={{ padding: "1rem 1.5rem 2rem" }}>
             {(
               [
@@ -1008,8 +1014,7 @@ export default function Navbar() {
               Call (541) 617-8873
             </a>
           </div>
-        </div>
-      </nav>
+      </div>
 
       {/* ── Mega menus ── */}
       {/* Single stable overlay: pointerEvents none on full screen, auto only on
