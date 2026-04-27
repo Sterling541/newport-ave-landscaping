@@ -407,6 +407,11 @@ export default function AdminSubmissions() {
     { enabled: !!user && insightsEnabled, staleTime: 5 * 60 * 1000 }
   );
 
+  const { data: yoyData, isLoading: yoyLoading } = trpc.submissions.yoyStats.useQuery(
+    { serviceType: serviceFilter === "all" ? undefined : serviceFilter },
+    { enabled: !!user }
+  );
+
   const followUpMutation = trpc.followUp.logAction.useMutation({
     onSuccess: (result, variables) => {
       const statusCfg = FOLLOW_UP_STATUSES.find(s => s.value === variables.status);
@@ -618,6 +623,82 @@ export default function AdminSubmissions() {
             </SelectContent>
           </Select>
         </div>
+
+        {/* ── Year-over-Year Comparison Widget ── */}
+        {yoyData && (
+          <div className="mb-4 bg-white rounded-xl border border-stone-200 shadow-sm p-4">
+            <div className="flex items-center gap-2 mb-3">
+              <TrendingUp className="w-4 h-4 text-green-700" />
+              <span className="text-xs font-semibold text-stone-600 uppercase tracking-wide">
+                {serviceFilter === "all" ? "All Services" : serviceLabel(serviceFilter)} — Year-over-Year
+              </span>
+              <span className="text-xs text-stone-400 ml-auto">as of {new Date(yoyData.asOfDate).toLocaleDateString("en-US", { month: "short", day: "numeric" })}</span>
+            </div>
+            <div className="grid grid-cols-3 gap-3">
+              {/* This Year YTD */}
+              <div className="rounded-lg bg-green-50 border border-green-100 p-3 text-center">
+                <div className="text-2xl font-bold text-green-800">{yoyLoading ? "…" : yoyData.thisYtd}</div>
+                <div className="text-xs font-medium text-green-700 mt-0.5">{yoyData.thisYear} YTD</div>
+                <div className="text-xs text-green-600 mt-1">Jan 1 – today</div>
+              </div>
+              {/* Last Year Same Period */}
+              <div className="rounded-lg bg-stone-50 border border-stone-200 p-3 text-center">
+                <div className="text-2xl font-bold text-stone-700">{yoyLoading ? "…" : yoyData.lastYearSamePeriod}</div>
+                <div className="text-xs font-medium text-stone-600 mt-0.5">{yoyData.lastYear} Same Period</div>
+                <div className="text-xs text-stone-400 mt-1">
+                  {yoyData.lastYearSamePeriod > 0
+                    ? (() => {
+                        const diff = yoyData.thisYtd - yoyData.lastYearSamePeriod;
+                        const pct = Math.round((diff / yoyData.lastYearSamePeriod) * 100);
+                        return (
+                          <span className={diff >= 0 ? "text-green-600 font-semibold" : "text-red-500 font-semibold"}>
+                            {diff >= 0 ? "▲" : "▼"} {Math.abs(pct)}% vs last year
+                          </span>
+                        );
+                      })()
+                    : "No data"}
+                </div>
+              </div>
+              {/* Last Year Full */}
+              <div className="rounded-lg bg-blue-50 border border-blue-100 p-3 text-center">
+                <div className="text-2xl font-bold text-blue-800">{yoyLoading ? "…" : yoyData.lastYearFull}</div>
+                <div className="text-xs font-medium text-blue-700 mt-0.5">{yoyData.lastYear} Full Year</div>
+                <div className="text-xs text-blue-500 mt-1">Jan 1 – Dec 31</div>
+              </div>
+            </div>
+            {/* Monthly sparkline bars */}
+            <div className="mt-4">
+              <div className="text-xs text-stone-400 mb-1.5">Monthly submissions (Jan–Dec)</div>
+              <div className="flex items-end gap-1 h-10">
+                {["01","02","03","04","05","06","07","08","09","10","11","12"].map(mo => {
+                  const thisVal = yoyData.monthlyThisYear[mo] ?? 0;
+                  const lastVal = yoyData.monthlyLastYear[mo] ?? 0;
+                  const maxVal = Math.max(...Object.values(yoyData.monthlyThisYear), ...Object.values(yoyData.monthlyLastYear), 1);
+                  const monthName = new Date(2024, parseInt(mo) - 1, 1).toLocaleString("en-US", { month: "short" });
+                  return (
+                    <div key={mo} className="flex-1 flex flex-col items-center gap-0.5" title={`${monthName}: ${yoyData.thisYear}=${thisVal}, ${yoyData.lastYear}=${lastVal}`}>
+                      <div className="w-full flex items-end gap-px justify-center">
+                        <div
+                          className="flex-1 rounded-t bg-stone-300 transition-all"
+                          style={{ height: `${Math.round((lastVal / maxVal) * 32)}px`, minHeight: lastVal > 0 ? "2px" : "0" }}
+                        />
+                        <div
+                          className="flex-1 rounded-t bg-green-500 transition-all"
+                          style={{ height: `${Math.round((thisVal / maxVal) * 32)}px`, minHeight: thisVal > 0 ? "2px" : "0" }}
+                        />
+                      </div>
+                      <span className="text-[9px] text-stone-400">{monthName.slice(0,1)}</span>
+                    </div>
+                  );
+                })}
+              </div>
+              <div className="flex gap-3 mt-1.5">
+                <span className="flex items-center gap-1 text-[10px] text-stone-500"><span className="w-2 h-2 rounded-sm bg-green-500 inline-block" />{yoyData.thisYear}</span>
+                <span className="flex items-center gap-1 text-[10px] text-stone-500"><span className="w-2 h-2 rounded-sm bg-stone-300 inline-block" />{yoyData.lastYear}</span>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Table */}
         <div className="bg-white rounded-xl border border-stone-200 overflow-hidden shadow-sm">

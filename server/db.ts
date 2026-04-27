@@ -990,3 +990,72 @@ export async function getGameStats() {
 
   return { totalPlays, levelFunnel, totalWins, bossWins, deviceBreakdown, topScores, playsPerDay };
 }
+
+/** Year-over-year comparison stats for a given service type (or all types) */
+export async function getYoyStats(serviceType?: string) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  const now = new Date();
+  const thisYear = now.getFullYear();
+  const lastYear = thisYear - 1;
+
+  // This year: Jan 1 → today
+  const thisYearStart = new Date(`${thisYear}-01-01T00:00:00.000Z`);
+  const thisYearEnd = now;
+
+  // Last year same period: Jan 1 → same day/month last year
+  const lastYearSamePeriodStart = new Date(`${lastYear}-01-01T00:00:00.000Z`);
+  const lastYearSamePeriodEnd = new Date(now);
+  lastYearSamePeriodEnd.setFullYear(lastYear);
+
+  // Last year full year
+  const lastYearStart = new Date(`${lastYear}-01-01T00:00:00.000Z`);
+  const lastYearEnd = new Date(`${thisYear}-01-01T00:00:00.000Z`);
+
+  function buildWhere(start: Date, end: Date) {
+    const conditions = [
+      gte(serviceSubmissions.createdAt, start),
+      lte(serviceSubmissions.createdAt, end),
+    ];
+    if (serviceType) {
+      conditions.push(eq(serviceSubmissions.serviceType, serviceType));
+    }
+    return and(...conditions);
+  }
+
+  const [thisYtd, lastYearSame, lastYearFull] = await Promise.all([
+    db.select({ count: sql<number>`count(*)` }).from(serviceSubmissions).where(buildWhere(thisYearStart, thisYearEnd)),
+    db.select({ count: sql<number>`count(*)` }).from(serviceSubmissions).where(buildWhere(lastYearSamePeriodStart, lastYearSamePeriodEnd)),
+    db.select({ count: sql<number>`count(*)` }).from(serviceSubmissions).where(buildWhere(lastYearStart, lastYearEnd)),
+  ]);
+
+  // Monthly breakdown for this year and last year (for sparkline)
+  const allRows = await db.select({ createdAt: serviceSubmissions.createdAt })
+    .from(serviceSubmissions)
+    .where(buildWhere(lastYearStart, thisYearEnd));
+
+  const monthlyThisYear: Record<string, number> = {};
+  const monthlyLastYear: Record<string, number> = {};
+  for (const row of allRows) {
+    if (!row.createdAt) continue;
+    const d = new Date(row.createdAt);
+    const yr = d.getFullYear();
+    const mo = String(d.getMonth() + 1).padStart(2, "0");
+    if (yr === thisYear) {
+      monthlyThisYear[mo] = (monthlyThisYear[mo] || 0) + 1;
+    } else if (yr === lastYear) {
+      monthlyLastYear[mo] = (monthlyLastYear[mo] || 0) + 1;
+    }
+  }
+
+  return {
+    thisYear,
+    lastYear,
+    thisYtd: Number(thisYtd[0]?.count ?? 0),
+    lastYearSamePeriod: Number(lastYearSame[0]?.count ?? 0),
+    lastYearFull: Number(lastYearFull[0]?.count ?? 0),
+    monthlyThisYear,
+    monthlyLastYear,
+    asOfDate: now.toISOString(),
+  };
+}

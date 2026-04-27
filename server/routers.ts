@@ -34,6 +34,7 @@ import {
   updateCsvImportJob,
   listCsvImportJobs,
   bulkInsertServiceSubmissions,
+  getYoyStats,
 } from "./db";
 import { invokeLLM } from "./_core/llm";
 import { ENV } from "./_core/env";
@@ -372,6 +373,14 @@ export const appRouter = router({
         return { success: true };
       }),
 
+    yoyStats: protectedProcedure
+      .input(z.object({
+        serviceType: z.string().optional(),
+      }))
+      .query(async ({ ctx, input }) => {
+        requireAdmin(ctx);
+        return getYoyStats(input.serviceType);
+      }),
     // Legacy insights endpoint (kept for backward compatibility)
     insights: protectedProcedure
       .query(async ({ ctx }) => {
