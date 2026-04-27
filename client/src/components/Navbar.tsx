@@ -15,7 +15,7 @@ import { useLocation } from "wouter";
 import { Menu, X, Phone, ArrowRight, ChevronDown, Calendar, Leaf } from "lucide-react";
 
 const LOGO_NAV =
-  "/manus-storage/logo-nav-tight_c562b49c_fac99ae0.webp";
+  "/manus-storage/logo-nav-tight_c562b49c_e4c4ae0c.webp";
 
 const maintenanceItems = [
   { label: "Lawn Service", href: "/services/lawn-service", num: "01" },

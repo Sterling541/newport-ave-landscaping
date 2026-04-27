@@ -18,7 +18,7 @@ export function LocalBusinessSchema() {
     telephone: "+15416178873",
     email: "info@newportavelandscaping.com",
     foundingDate: "2005",
-    logo: "/manus-storage/logo-nav-tight_c562b49c_fac99ae0.webp",
+    logo: "/manus-storage/logo-nav-tight_c562b49c_21958b81.webp",
     image: "/manus-storage/water-feature-sunset_f7b219d3_87f250b3.webp",
     address: {
       "@type": "PostalAddress",

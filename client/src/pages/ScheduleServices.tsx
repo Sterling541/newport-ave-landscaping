@@ -24,7 +24,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Helmet } from "react-helmet-async";
 
-const LOGO_URL = "/manus-storage/logo-transparent-stacked_ff350b79_ca4af5b0.webp";
+const LOGO_URL = "/manus-storage/logo-transparent-stacked_ff350b79_44beae36.webp";
 
 type FormData = {
   email: string; usedBefore: string; firstName: string; lastName: string;
@@ -237,7 +237,7 @@ function FormSidebar({ steps, currentStep }: { steps: string[]; currentStep: num
       }}
     >
       <div>
-        <img src={LOGO_URL} alt="Newport Avenue Landscaping" className="h-14 mb-8 drop-shadow-sm" width="200" height="56" />
+        <img src={LOGO_URL} alt="Newport Avenue Landscaping" className="h-14 mb-8 drop-shadow-sm" />
         <div className="space-y-1">
           {steps.map((s, i) => {
             const meta = STEP_META[s] ?? { icon: <Leaf className="w-4 h-4" />, label: s, desc: "" };
@@ -271,7 +271,7 @@ function FormSidebar({ steps, currentStep }: { steps: string[]; currentStep: num
         </div>
       </div>
       <div className="space-y-2 mt-8">
-        {["Licensed & Bonded \u00b7 LCB #9153", "Serving Central Oregon since 2005", "500+ Properties Maintained"].map(b => (
+        {["Licensed & Bonded \u00b7 LCB #9153", "Serving Central Oregon since 2005", "400+ Properties Maintained"].map(b => (
           <div key={b} className="flex items-center gap-2 text-green-300/80 text-xs">
             <CheckCircle2 className="w-3.5 h-3.5 shrink-0 text-emerald-400" />
             <span>{b}</span>
@@ -313,21 +313,7 @@ export default function ScheduleServices() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitted, setSubmitted] = useState(false);
 
-  const submitMutation = trpc.submissions.create.useMutation({
-    onSuccess: () => {
-      setSubmitted(true);
-      // Google Ads conversion tracking
-      try {
-        if (typeof (window as any).gtag === "function") {
-          (window as any).gtag("event", "conversion", {
-            send_to: "AW-CONVERSION_ID/SCHEDULE_LABEL",
-            event_category: "Lead",
-            event_label: "Schedule Services Submission",
-          });
-        }
-      } catch (_) {}
-    },
-  });
+  const submitMutation = trpc.submissions.create.useMutation({ onSuccess: () => setSubmitted(true) });
 
   const set = <K extends keyof FormData>(key: K, value: FormData[K]) => {
     setForm(f => ({ ...f, [key]: value }));
@@ -460,7 +446,7 @@ export default function ScheduleServices() {
       {/* Hero */}
       <div style={{ background: "linear-gradient(135deg, oklch(0.20 0.07 148) 0%, oklch(0.30 0.09 150) 100%)", paddingTop: "204px" }}>
         <div className="max-w-5xl mx-auto px-4 py-8 lg:hidden text-center">
-          <img src={LOGO_URL} alt="Newport Avenue Landscaping" className="h-12 mx-auto mb-3 drop-shadow-sm" width="180" height="48" />
+          <img src={LOGO_URL} alt="Newport Avenue Landscaping" className="h-12 mx-auto mb-3 drop-shadow-sm" />
           <h1 className="text-2xl font-bold text-white mb-1">Schedule Services</h1>
           <p className="text-green-200 text-sm">Quick and easy — completed in just 4 minutes on average.</p>
         </div>
@@ -806,7 +792,7 @@ export default function ScheduleServices() {
         <div className="flex flex-wrap justify-center gap-5 mt-5 text-xs text-stone-400">
           <span>&#10003; Licensed &amp; Bonded &middot; LCB #9153</span>
           <span>&#10003; Serving Central Oregon since 2005</span>
-          <span>&#10003; 500+ Properties Maintained</span>
+          <span>&#10003; 400+ Properties Maintained</span>
         </div>
       </div>
       {/* ── Sprinkler Dodge Game ── */}

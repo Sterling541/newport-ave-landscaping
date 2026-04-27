@@ -132,7 +132,7 @@ export default function Services() {
         style={{
           height: "clamp(280px, 38vw, 440px)", marginTop: "204px",
           backgroundColor: "oklch(0.12 0.005 0)",
-          backgroundImage: "url(/manus-storage/NinesProject3_602cdeb8_2a243328.webp)",
+          backgroundImage: "url(/manus-storage/NinesProject3_602cdeb8_2a243328.webp",
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}

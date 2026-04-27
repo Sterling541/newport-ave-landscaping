@@ -65,16 +65,6 @@ export default function Contact() {
     onSuccess: () => {
       setSubmitted(true);
       setErrorMsg("");
-      // Google Ads conversion tracking
-      try {
-        if (typeof (window as any).gtag === "function") {
-          (window as any).gtag("event", "conversion", {
-            send_to: "AW-CONVERSION_ID/CONTACT_LABEL",
-            event_category: "Lead",
-            event_label: "Contact Page Submission",
-          });
-        }
-      } catch (_) {}
     },
     onError: (err) => {
       setErrorMsg(err.message || "Something went wrong. Please try again or call us directly.");
@@ -119,7 +109,7 @@ export default function Contact() {
         <div
           className="absolute inset-0"
           style={{
-            backgroundImage: "url(/manus-storage/NewportLandscapingRVParkPhotos16_5e801b45_fc8ec8ea.webp)",
+            backgroundImage: "url(/manus-storage/NewportLandscapingRVParkPhotos16_5e801b45_fc8ec8ea.webp",
             backgroundSize: "cover",
             backgroundPosition: "center",
             opacity: 0.3,

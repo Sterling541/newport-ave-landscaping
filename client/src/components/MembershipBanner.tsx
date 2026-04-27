@@ -15,7 +15,7 @@ const BADGE_URL =
   "/manus-storage/priority-badge-original_c531517d_76f7abdb.webp";
 
 const BG_URL =
-  "/manus-storage/GLLPatio1_600w_0ffadc69.webp";
+  "/manus-storage/GLLPatio1_90e2e0c4_166b9312.webp";
 
 export default function MembershipBanner() {
   const [, navigate] = useLocation();

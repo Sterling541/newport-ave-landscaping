@@ -7,7 +7,7 @@ import Footer from "@/components/Footer";
 import { Helmet } from "react-helmet-async";
 import { Link } from "wouter";
 
-const HERO_IMG = "/manus-storage/GLLPatio1_600w_0ffadc69.webp";
+const HERO_IMG = "/manus-storage/GLLPatio1_90e2e0c4_166b9312.webp";
 
 const SERVICES = [
   { title: "Commercial Landscape Maintenance", desc: "Weekly and bi-weekly maintenance programs for office parks, retail centers, and commercial properties.", href: "/services/commercial-maintenance" },
@@ -120,7 +120,7 @@ export default function CommercialLandscapingBend() {
             {[
               { stat: "21+", label: "Years in Business" },
               { stat: "150+", label: "Crew Members" },
-              { stat: "500+", label: "Properties Served" },
+              { stat: "400+", label: "Properties Served" },
               { stat: "LCB#", label: "Licensed & Bonded" },
             ].map(s => (
               <div key={s.label}>
