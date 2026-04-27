@@ -429,8 +429,8 @@ export default function Navbar() {
   };
 
   const handleMegaLeave = () => {
-    // 600ms gives users ample time to move mouse from nav trigger into the dropdown
-    megaTimeoutRef.current = setTimeout(() => setOpenMega(null), 600);
+    // 150ms grace period — enough to cross from nav trigger to menu panel
+    megaTimeoutRef.current = setTimeout(() => setOpenMega(null), 150);
   };
 
   const isActive = (href: string) =>
@@ -1017,36 +1017,21 @@ export default function Navbar() {
       </div>
 
       {/* ── Mega menus ── */}
-      {/* Single stable overlay: pointerEvents none on full screen, auto only on
-          a tall invisible strip from nav bar top through menu bottom. This eliminates
-          the gap that caused glitchy close-on-mouse-move behavior. */}
+      {/* The menu panel itself handles mouse leave — no large invisible zone needed.
+          A 150ms grace delay lets the mouse cross from nav trigger into the panel. */}
       {openMega && (
         <div
+          ref={megaMenuRef}
+          onMouseEnter={() => handleMegaEnter(openMega)}
+          onMouseLeave={handleMegaLeave}
           style={{
             position: "fixed",
-            top: 0,
+            top: "calc(44px + 160px)",
             left: 0,
             right: 0,
-            bottom: 0,
             zIndex: 200,
-            pointerEvents: "none",
           }}
         >
-          {/* Tall interactive zone: from page top through nav bar + full menu height */}
-          <div
-            ref={megaMenuRef}
-            onMouseEnter={() => handleMegaEnter(openMega)}
-            onMouseLeave={handleMegaLeave}
-            style={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              right: 0,
-              height: "calc(44px + 160px + 400px)",
-              pointerEvents: "auto",
-            }}
-          >
-            {/* Menu panel rendered inside the interactive zone — no gap possible */}
             {openMega === "maintenance" && (
               <MegaMenu
                 items={maintenanceItems}
@@ -1074,7 +1059,6 @@ export default function Navbar() {
                 onNavigate={goTo}
               />
             )}
-          </div>
         </div>
       )}
       {/* Admin code modal */}

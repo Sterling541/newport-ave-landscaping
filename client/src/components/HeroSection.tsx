@@ -69,6 +69,13 @@ const heroStyles = `
     }
     .hero-scroll-indicator { display: none !important; }
   }
+
+  /* ── Desktop clutter reduction ── */
+  @media (min-width: 641px) {
+    .hero-service-list { display: none !important; }
+    .hero-scene-counter { display: none !important; }
+    .hero-category-bar { display: none !important; }
+  }
 `;
 
 const CDN = "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx";
