@@ -9,7 +9,7 @@ export default function SodInstallationCostBend() {
       <SEO
         title="Sod Installation Cost in Bend, OR | Newport Ave Landscaping"
         description="What sod installation costs in Bend, Oregon. Pricing per square foot, site preparation, and what to expect from a new lawn installation."
-        canonical="https://newportavelandscaping.com/resources/sod-installation-cost-bend-oregon"
+        canonical="https://www.newportavelandscaping.com/resources/sod-installation-cost-bend-oregon"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

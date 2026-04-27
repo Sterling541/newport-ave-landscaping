@@ -163,7 +163,7 @@ const SCHEMA = {
   '@context': 'https://schema.org',
   '@type': 'LocalBusiness',
   name: 'Newport Avenue Landscaping',
-  url: 'https://newportavelandscaping.com',
+  url: 'https://www.newportavelandscaping.com',
   telephone: '+15416178873',
   address: {
     '@type': 'PostalAddress',
@@ -218,7 +218,7 @@ export default function ServiceAreas() {
       <SEO
         title="Landscaping Service Areas | Bend, Redmond, Sisters, Sunriver & Central Oregon"
         description="Newport Avenue Landscaping serves Bend, Redmond, Sisters, Sunriver, La Pine, Tumalo, Prineville, and Madras. Paver patios, xeriscape, irrigation, lawn care, and landscape design across Central Oregon."
-        canonical="https://newportavelandscaping.com/service-areas"
+        canonical="https://www.newportavelandscaping.com/service-areas"
       />
       <script
         type="application/ld+json"

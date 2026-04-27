@@ -9,7 +9,7 @@ export default function TreeRemovalCostBend() {
       <SEO
         title="Tree Removal Cost in Bend, OR | Newport Ave Landscaping"
         description="What tree removal costs in Bend, Oregon. Pricing by tree size, stump grinding, and what affects the total cost."
-        canonical="https://newportavelandscaping.com/resources/tree-removal-cost-bend-oregon"
+        canonical="https://www.newportavelandscaping.com/resources/tree-removal-cost-bend-oregon"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

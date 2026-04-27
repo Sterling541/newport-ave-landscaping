@@ -9,7 +9,7 @@ export default function SprinklerSystemSunriver() {
       <SEO
         title="Sprinkler System Installation in Sunriver, OR | Newport Ave Landscaping"
         description="Professional sprinkler system installation in Sunriver, Oregon. Newport Avenue Landscaping — licensed, bonded, 21+ years serving Central Oregon. Free consultations."
-        canonical="https://newportavelandscaping.com/service-areas/sunriver-sprinkler-system"
+        canonical="https://www.newportavelandscaping.com/service-areas/sunriver-sprinkler-system"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

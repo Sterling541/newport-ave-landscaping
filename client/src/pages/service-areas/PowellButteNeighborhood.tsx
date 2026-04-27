@@ -39,7 +39,7 @@ export default function PowellButteNeighborhood() {
       <SEO
         title="Powell Butte Landscaping & Irrigation | Newport Avenue Landscaping"
         description="Expert landscaping and irrigation for Powell Butte, Oregon acreage properties. Drought-tolerant design, large-lot irrigation, retaining walls, and seasonal maintenance. LCB #9153. Free consultation."
-        canonical="https://newportavelandscaping.com/service-areas/powell-butte-landscaping"
+        canonical="https://www.newportavelandscaping.com/service-areas/powell-butte-landscaping"
       />
       <BreadcrumbSchema items={[
         { name: "Home", url: "/" },

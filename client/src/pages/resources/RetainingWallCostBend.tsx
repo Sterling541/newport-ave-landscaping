@@ -9,7 +9,7 @@ export default function RetainingWallCostBend() {
       <SEO
         title="Retaining Wall Cost in Bend, OR | Newport Ave Landscaping"
         description="What retaining walls cost in Bend, Oregon. Materials, installation, and what affects pricing for Central Oregon properties."
-        canonical="https://newportavelandscaping.com/resources/retaining-wall-cost-bend-oregon"
+        canonical="https://www.newportavelandscaping.com/resources/retaining-wall-cost-bend-oregon"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

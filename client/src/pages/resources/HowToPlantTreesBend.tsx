@@ -9,7 +9,7 @@ export default function HowToPlantTreesBend() {
       <SEO
         title="How to Plant Trees in Bend, Oregon | Newport Ave Landscaping"
         description="How to plant trees in Bend, Oregon. Timing, hole preparation, watering, and the best trees for Central Oregon's high desert climate."
-        canonical="https://newportavelandscaping.com/resources/how-to-plant-trees-bend-oregon"
+        canonical="https://www.newportavelandscaping.com/resources/how-to-plant-trees-bend-oregon"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

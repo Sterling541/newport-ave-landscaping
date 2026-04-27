@@ -9,7 +9,7 @@ export default function LandscapeLightingBend() {
       <SEO
         title="Landscape Lighting Bend Oregon | Newport Ave Landscaping"
         description="Enhance your Bend home with expert landscape lighting. Discover low-voltage LED, smart controls, and Newport Ave Landscaping's 1-year workmanship warranty on hardscape installations and a 90-day plant warranty on all plantings. Extend your outdoor living!"
-        canonical="https://newportavelandscaping.com/resources/landscape-lighting-bend-oregon"
+        canonical="https://www.newportavelandscaping.com/resources/landscape-lighting-bend-oregon"
       />
       <BreadcrumbSchema items={[
         { name: "Home", url: "/" },

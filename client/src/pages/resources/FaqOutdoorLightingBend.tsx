@@ -9,7 +9,7 @@ export default function FaqOutdoorLightingBend() {
       <SEO
         title="Outdoor Lighting FAQ — Bend, Oregon | Newport Ave Landscaping"
         description="Common questions about landscape lighting installation in Bend, Oregon. Costs, LED vs. halogen, smart systems, and more."
-        canonical="https://newportavelandscaping.com/resources/faq-outdoor-lighting-bend-oregon"
+        canonical="https://www.newportavelandscaping.com/resources/faq-outdoor-lighting-bend-oregon"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

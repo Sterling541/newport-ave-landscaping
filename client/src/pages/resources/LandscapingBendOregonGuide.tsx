@@ -9,7 +9,7 @@ export default function LandscapingBendOregonGuide() {
       <SEO
         title="Landscaping in Bend, Oregon: The Complete Guide | Newport Ave"
         description="Everything you need to know about landscaping in Bend, Oregon. Climate, soil, services, costs, and how to find the right landscaper."
-        canonical="https://newportavelandscaping.com/resources/landscaping-bend-oregon"
+        canonical="https://www.newportavelandscaping.com/resources/landscaping-bend-oregon"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

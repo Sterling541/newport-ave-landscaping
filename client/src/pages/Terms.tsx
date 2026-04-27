@@ -1,8 +1,11 @@
 import Navbar from "@/components/Navbar";
+import { Helmet } from "react-helmet-async";
 
 export default function Terms() {
   return (
-    <div className="min-h-screen" style={{ backgroundColor: "oklch(0.97 0.003 0)" }}>
+    <>
+      <Helmet><link rel="canonical" href="https://www.newportavelandscaping.com/terms" /></Helmet>
+      <div className="min-h-screen" style={{ backgroundColor: "oklch(0.97 0.003 0)" }}>
       <Navbar />
       <div style={{ paddingTop: "204px" }}>
         {/* Hero */}
@@ -93,5 +96,6 @@ export default function Terms() {
         </div>
       </div>
     </div>
+  </>
   );
 }

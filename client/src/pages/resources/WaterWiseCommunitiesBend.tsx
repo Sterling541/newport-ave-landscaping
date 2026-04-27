@@ -51,16 +51,16 @@ export default function WaterWiseCommunitiesBend() {
         />
         <link
           rel="canonical"
-          href="https://newportavelandscaping.com/resources/waterwise-communities-bend-hoa"
+          href="https://www.newportavelandscaping.com/resources/waterwise-communities-bend-hoa"
         />
       </Helmet>
       <BreadcrumbSchema
         items={[
-          { name: "Home", url: "https://newportavelandscaping.com" },
-          { name: "Resources", url: "https://newportavelandscaping.com/resources" },
+          { name: "Home", url: "https://www.newportavelandscaping.com" },
+          { name: "Resources", url: "https://www.newportavelandscaping.com/resources" },
           {
             name: "WaterWise Communities Bend HOA",
-            url: "https://newportavelandscaping.com/resources/waterwise-communities-bend-hoa",
+            url: "https://www.newportavelandscaping.com/resources/waterwise-communities-bend-hoa",
           },
         ]}
       />

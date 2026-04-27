@@ -9,7 +9,7 @@ export default function CommercialLandscapingBend() {
       <SEO
         title="Commercial Landscaping Bend Oregon | Newport Ave Landscaping"
         description="Elevate your commercial property in Bend, Oregon with Newport Avenue Landscaping. Specializing in HOA, retail, and office landscaping, snow removal, and irrigation management."
-        canonical="https://newportavelandscaping.com/resources/commercial-landscaping-bend-oregon"
+        canonical="https://www.newportavelandscaping.com/resources/commercial-landscaping-bend-oregon"
       />
       <BreadcrumbSchema items={[
         { name: "Home", url: "/" },

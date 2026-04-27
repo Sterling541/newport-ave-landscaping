@@ -9,7 +9,7 @@ export default function DiscoveryWestNeighborhood() {
       <SEO
         title="Landscaping Discovery West Bend Oregon | Newport Ave Landscaping"
         description="Discover expert landscaping services in Discovery West, Bend Oregon. Newport Ave Landscaping specializes in modern, xeriscape-friendly designs for homes and HOAs."
-        canonical="https://newportavelandscaping.com/service-areas/discovery-west-landscaping"
+        canonical="https://www.newportavelandscaping.com/service-areas/discovery-west-landscaping"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

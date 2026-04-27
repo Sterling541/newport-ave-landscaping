@@ -33,7 +33,7 @@ const SCHEMA = {
   "@type": "LocalBusiness",
   "name": "Newport Avenue Landscaping",
   "description": "Full-service landscaping company in Bend, Oregon serving residential and commercial clients throughout Central Oregon.",
-  "url": "https://newportavelandscaping.com/landscaping-bend-oregon",
+  "url": "https://www.newportavelandscaping.com/landscaping-bend-oregon",
   "telephone": "(541) 604-1337",
   "address": {
     "@type": "PostalAddress",
@@ -66,7 +66,7 @@ export default function LandscapingBendOregon() {
       <Helmet>
         <title>Landscaping Bend Oregon | Newport Avenue Landscaping | (541) 604-1337</title>
         <meta name="description" content="Newport Avenue Landscaping — Bend Oregon's premier landscaping company. Design, installation, irrigation, pavers, xeriscaping, lawn care & more. Licensed & insured. Free estimates." />
-        <link rel="canonical" href="https://newportavelandscaping.com/landscaping-bend-oregon" />
+        <link rel="canonical" href="https://www.newportavelandscaping.com/landscaping-bend-oregon" />
         <script type="application/ld+json">{JSON.stringify(SCHEMA)}</script>
         <script type="application/ld+json">{JSON.stringify(FAQ_SCHEMA)}</script>
       </Helmet>

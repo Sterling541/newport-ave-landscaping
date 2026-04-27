@@ -9,7 +9,7 @@ export default function MulchInstallationCostBend() {
       <SEO
         title="Mulch Installation Cost in Bend, OR | Newport Ave Landscaping"
         description="What mulch installation costs in Bend, Oregon. Types of mulch, how much you need, and pricing for Central Oregon properties."
-        canonical="https://newportavelandscaping.com/resources/mulch-installation-cost-bend-oregon"
+        canonical="https://www.newportavelandscaping.com/resources/mulch-installation-cost-bend-oregon"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

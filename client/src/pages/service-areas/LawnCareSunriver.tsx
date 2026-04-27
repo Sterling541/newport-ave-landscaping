@@ -9,7 +9,7 @@ export default function LawnCareSunriver() {
       <SEO
         title="Lawn Care & Maintenance in Sunriver, OR | Newport Ave Landscaping"
         description="Professional lawn care & maintenance in Sunriver, Oregon. Newport Avenue Landscaping — licensed, bonded, 21+ years serving Central Oregon. Free consultations."
-        canonical="https://newportavelandscaping.com/service-areas/sunriver-lawn-care"
+        canonical="https://www.newportavelandscaping.com/service-areas/sunriver-lawn-care"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

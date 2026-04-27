@@ -9,7 +9,7 @@ export default function XeriscapeLaPine() {
       <SEO
         title="Xeriscape Landscaping in La Pine, OR | Newport Ave Landscaping"
         description="Professional xeriscape landscaping in La Pine, Oregon. Newport Avenue Landscaping — licensed, bonded, 21+ years serving Central Oregon. Free consultations."
-        canonical="https://newportavelandscaping.com/service-areas/la-pine-xeriscape"
+        canonical="https://www.newportavelandscaping.com/service-areas/la-pine-xeriscape"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

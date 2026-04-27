@@ -12,7 +12,7 @@ export default function NorthwestCrossingNeighborhood() {
       <SEO
         title="NorthWest Crossing Landscaping — Bend, Oregon | Newport Avenue Landscaping"
         description="Expert landscaping for NorthWest Crossing homes in Bend, OR. ARC approval assistance, HOA-compliant designs, drought-tolerant plantings, and irrigation. LCB #9153. Free consultation."
-        canonical="https://newportavelandscaping.com/service-areas/northwest-crossing-landscaping"
+        canonical="https://www.newportavelandscaping.com/service-areas/northwest-crossing-landscaping"
       />
       <BreadcrumbSchema items={[
         { name: "Home", url: "/" },

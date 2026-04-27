@@ -9,7 +9,7 @@ export default function BestPlantsXeriscapeCentralOregon() {
       <SEO
         title="Best Plants for Xeriscaping in Central Oregon | Newport Ave"
         description="The best drought-tolerant plants for xeriscaping in Central Oregon. Native and adapted plants that thrive in Bend's high desert climate."
-        canonical="https://newportavelandscaping.com/resources/best-plants-xeriscape-central-oregon"
+        canonical="https://www.newportavelandscaping.com/resources/best-plants-xeriscape-central-oregon"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

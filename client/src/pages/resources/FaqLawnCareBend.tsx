@@ -9,7 +9,7 @@ export default function FaqLawnCareBend() {
       <SEO
         title="Lawn Care FAQ — Bend, Oregon | Newport Ave Landscaping"
         description="Common questions about lawn care, mowing, aeration, and fertilization in Bend, Oregon."
-        canonical="https://newportavelandscaping.com/resources/faq-lawn-care-bend-oregon"
+        canonical="https://www.newportavelandscaping.com/resources/faq-lawn-care-bend-oregon"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

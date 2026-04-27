@@ -9,7 +9,7 @@ export default function SoutheastBendLandscaping() {
       <SEO
         title="Landscaping in Southeast Bend, Bend, OR | Newport Ave Landscaping"
         description="Professional landscaping, paver patios, irrigation, and lawn care in Southeast Bend, Bend, Oregon. Newport Avenue Landscaping — licensed, bonded, 21+ years. Free consultations."
-        canonical="https://newportavelandscaping.com/service-areas/southeast-bend-landscaping"
+        canonical="https://www.newportavelandscaping.com/service-areas/southeast-bend-landscaping"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

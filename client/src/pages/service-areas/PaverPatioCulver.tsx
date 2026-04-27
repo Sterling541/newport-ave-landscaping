@@ -9,7 +9,7 @@ export default function PaverPatioCulver() {
       <SEO
         title="Paver Patio Installation in Culver, OR | Newport Ave Landscaping"
         description="Professional paver patio installation in Culver, Oregon. Newport Avenue Landscaping — licensed, bonded, 21+ years serving Central Oregon. Free consultations."
-        canonical="https://newportavelandscaping.com/service-areas/culver-paver-patio"
+        canonical="https://www.newportavelandscaping.com/service-areas/culver-paver-patio"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

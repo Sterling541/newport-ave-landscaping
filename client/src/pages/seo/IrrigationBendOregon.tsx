@@ -64,7 +64,7 @@ export default function IrrigationBendOregon() {
       <Helmet>
         <title>Irrigation Bend Oregon | Sprinkler Systems | Newport Avenue Landscaping</title>
         <meta name="description" content="Expert irrigation system installation, spring activation, fall blowout & repair in Bend, Oregon. Smart controllers, drip systems & sprinkler repair. Licensed & insured." />
-        <link rel="canonical" href="https://newportavelandscaping.com/irrigation-bend-oregon" />
+        <link rel="canonical" href="https://www.newportavelandscaping.com/irrigation-bend-oregon" />
         <script type="application/ld+json">{JSON.stringify(SCHEMA)}</script>
         <script type="application/ld+json">{JSON.stringify(FAQ_SCHEMA)}</script>
       </Helmet>

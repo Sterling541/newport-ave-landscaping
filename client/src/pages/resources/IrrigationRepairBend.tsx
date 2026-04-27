@@ -9,7 +9,7 @@ export default function IrrigationRepairBend() {
       <SEO
         title="Irrigation Repair Bend Oregon | Newport Ave Landscaping"
         description="Expert irrigation repair services in Bend, Oregon. We fix freeze damage, broken heads, and controller issues. Licensed & bonded. Call Newport Ave Landscaping."
-        canonical="https://newportavelandscaping.com/resources/irrigation-repair-bend-oregon"
+        canonical="https://www.newportavelandscaping.com/resources/irrigation-repair-bend-oregon"
       />
       <BreadcrumbSchema items={[
         { name: "Home", url: "/" },

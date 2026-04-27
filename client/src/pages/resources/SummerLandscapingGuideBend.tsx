@@ -9,7 +9,7 @@ export default function SummerLandscapingGuideBend() {
       <SEO
         title="Summer Landscaping Guide for Bend, Oregon | Newport Ave"
         description="How to keep your Bend landscape healthy through the hot, dry Central Oregon summer. Watering, mowing, and heat stress tips."
-        canonical="https://newportavelandscaping.com/resources/summer-landscaping-guide-bend-oregon"
+        canonical="https://www.newportavelandscaping.com/resources/summer-landscaping-guide-bend-oregon"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

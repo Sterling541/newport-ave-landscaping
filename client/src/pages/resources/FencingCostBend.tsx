@@ -9,7 +9,7 @@ export default function FencingCostBend() {
       <SEO
         title="Fencing Cost in Bend, OR | Newport Ave Landscaping"
         description="What fencing costs in Bend, Oregon. Wood, vinyl, and metal fence pricing for Central Oregon properties."
-        canonical="https://newportavelandscaping.com/resources/fencing-cost-bend-oregon"
+        canonical="https://www.newportavelandscaping.com/resources/fencing-cost-bend-oregon"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

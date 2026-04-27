@@ -9,7 +9,7 @@ export default function PaverPatioMadras() {
       <SEO
         title="Paver Patio Installation in Madras, OR | Newport Ave Landscaping"
         description="Professional paver patio installation in Madras, Oregon. Newport Avenue Landscaping — licensed, bonded, 21+ years serving Central Oregon. Free consultations."
-        canonical="https://newportavelandscaping.com/service-areas/madras-paver-patio"
+        canonical="https://www.newportavelandscaping.com/service-areas/madras-paver-patio"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

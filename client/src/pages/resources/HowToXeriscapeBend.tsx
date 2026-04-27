@@ -9,7 +9,7 @@ export default function HowToXeriscapeBend() {
       <SEO
         title="How to Xeriscape in Bend, Oregon | Newport Ave Landscaping"
         description="Step-by-step guide to xeriscaping in Bend, Oregon. Planning, plant selection, irrigation, and what to expect from a xeriscape project."
-        canonical="https://newportavelandscaping.com/resources/how-to-xeriscape-bend-oregon"
+        canonical="https://www.newportavelandscaping.com/resources/how-to-xeriscape-bend-oregon"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

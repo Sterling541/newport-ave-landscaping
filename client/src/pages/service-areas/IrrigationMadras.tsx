@@ -9,7 +9,7 @@ export default function IrrigationMadras() {
       <SEO
         title="Irrigation Installation & Repair in Madras, OR | Newport Ave Landscaping"
         description="Professional irrigation installation & repair in Madras, Oregon. Newport Avenue Landscaping — licensed, bonded, 21+ years serving Central Oregon. Free consultations."
-        canonical="https://newportavelandscaping.com/service-areas/madras-irrigation"
+        canonical="https://www.newportavelandscaping.com/service-areas/madras-irrigation"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

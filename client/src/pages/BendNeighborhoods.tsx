@@ -9,7 +9,7 @@ import FloatingCTA from "@/components/FloatingCTA";
 import ContactSection from "@/components/ContactSection";
 import { BreadcrumbSchema } from "@/components/SchemaMarkup";
 
-const DOMAIN = "https://newportavelandscaping.com";
+const DOMAIN = "https://www.newportavelandscaping.com";
 
 type NeighborhoodItem = { label: string; href: string; desc: string };
 type NeighborhoodSection = { section: string; color: string; items: NeighborhoodItem[] };

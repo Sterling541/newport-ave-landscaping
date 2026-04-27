@@ -9,7 +9,7 @@ export default function BendHOALandscaping() {
       <SEO
         title="HOA Landscaping in Bend, Oregon | Newport Ave Landscaping"
         description="HOA landscaping services in Bend, Oregon. Common area maintenance, seasonal color, and snow removal for Bend HOAs."
-        canonical="https://newportavelandscaping.com/resources/hoa-landscaping-bend-oregon"
+        canonical="https://www.newportavelandscaping.com/resources/hoa-landscaping-bend-oregon"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

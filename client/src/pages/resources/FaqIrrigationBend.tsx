@@ -9,7 +9,7 @@ export default function FaqIrrigationBend() {
       <SEO
         title="Sprinkler System FAQ — Bend, Oregon | Newport Ave Landscaping"
         description="Answers to the most common questions about sprinkler system installation, repair, and winterization in Bend, Oregon."
-        canonical="https://newportavelandscaping.com/resources/faq-irrigation-bend-oregon"
+        canonical="https://www.newportavelandscaping.com/resources/faq-irrigation-bend-oregon"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

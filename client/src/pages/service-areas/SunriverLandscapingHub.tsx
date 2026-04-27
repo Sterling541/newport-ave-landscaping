@@ -9,7 +9,7 @@ export default function SunriverLandscapingHub() {
       <SEO
         title="Landscaping in Sunriver, OR | Newport Ave Landscaping"
         description="Professional landscaping, paver patios, irrigation, xeriscape, and lawn care in Sunriver, Oregon. Newport Avenue Landscaping — licensed, bonded, 21+ years. Free consultations."
-        canonical="https://newportavelandscaping.com/service-areas/sunriver"
+        canonical="https://www.newportavelandscaping.com/service-areas/sunriver"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

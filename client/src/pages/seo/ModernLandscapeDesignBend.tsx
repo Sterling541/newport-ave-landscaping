@@ -54,7 +54,7 @@ export default function ModernLandscapeDesignBend() {
       <Helmet>
         <title>Modern Landscape Design Bend Oregon | Newport Avenue Landscaping</title>
         <meta name="description" content="Modern landscape design in Bend, Oregon. Clean lines, native plants, natural stone & architectural lighting for contemporary Bend homes. Free consultation." />
-        <link rel="canonical" href="https://newportavelandscaping.com/landscape-design-bend/modern-design" />
+        <link rel="canonical" href="https://www.newportavelandscaping.com/landscape-design-bend/modern-design" />
         <script type="application/ld+json">{JSON.stringify(SCHEMA)}</script>
         <script type="application/ld+json">{JSON.stringify(FAQ_SCHEMA)}</script>
       </Helmet>

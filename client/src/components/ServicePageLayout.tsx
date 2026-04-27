@@ -99,10 +99,10 @@ export default function ServicePageLayout({
     "@type": "Service",
     name: schemaName || title,
     description: schemaDescription || intro,
-    url: schemaUrl ? `https://newportavelandscaping.com${schemaUrl}` : undefined,
+    url: schemaUrl ? `https://www.newportavelandscaping.com${schemaUrl}` : undefined,
     provider: {
       "@type": "LocalBusiness",
-      "@id": "https://newportavelandscaping.com/#business",
+      "@id": "https://www.newportavelandscaping.com/#business",
       name: "Newport Avenue Landscaping",
       telephone: "+15416178873",
       address: {
@@ -140,12 +140,12 @@ export default function ServicePageLayout({
       <Helmet>
         <title>{seoTitle || `${schemaName || title} in Bend, Oregon | Newport Avenue Landscaping`}</title>
         <meta name="description" content={seoDescription || (schemaDescription || intro).slice(0, 160)} />
-        {schemaUrl && <link rel="canonical" href={`https://newportavelandscaping.com${schemaUrl}`} />}
+        {schemaUrl && <link rel="canonical" href={`https://www.newportavelandscaping.com${schemaUrl}`} />}
         <meta property="og:title" content={seoTitle || `${schemaName || title} in Bend, Oregon | Newport Avenue Landscaping`} />
         <meta property="og:description" content={seoDescription || (schemaDescription || intro).slice(0, 160)} />
         <meta property="og:type" content="website" />
         <meta property="og:image" content={heroImage} />
-        {schemaUrl && <meta property="og:url" content={`https://newportavelandscaping.com${schemaUrl}`} />}
+        {schemaUrl && <meta property="og:url" content={`https://www.newportavelandscaping.com${schemaUrl}`} />}
         <meta property="og:site_name" content="Newport Avenue Landscaping" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={seoTitle || `${schemaName || title} in Bend, Oregon | Newport Avenue Landscaping`} />

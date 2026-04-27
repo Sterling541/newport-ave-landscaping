@@ -9,7 +9,7 @@ export default function CenturyDriveCorridorLandscaping() {
       <SEO
         title="Landscaping in Century Drive Corridor, Bend, OR | Newport Ave Landscaping"
         description="Professional landscaping, paver patios, irrigation, and lawn care in Century Drive Corridor, Bend, Oregon. Newport Avenue Landscaping — licensed, bonded, 21+ years. Free consultations."
-        canonical="https://newportavelandscaping.com/service-areas/century-drive-corridor-landscaping"
+        canonical="https://www.newportavelandscaping.com/service-areas/century-drive-corridor-landscaping"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

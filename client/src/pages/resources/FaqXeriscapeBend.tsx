@@ -9,7 +9,7 @@ export default function FaqXeriscapeBend() {
       <SEO
         title="Xeriscape FAQ — Bend, Oregon | Newport Ave Landscaping"
         description="Common questions about xeriscape landscaping in Bend, Oregon. Costs, plant selection, water savings, and the turf rebate program."
-        canonical="https://newportavelandscaping.com/resources/faq-xeriscape-bend-oregon"
+        canonical="https://www.newportavelandscaping.com/resources/faq-xeriscape-bend-oregon"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

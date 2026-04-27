@@ -9,7 +9,7 @@ export default function IrrigationCrookedRiverRanch() {
       <SEO
         title="Irrigation Installation & Repair in Crooked River Ranch, OR | Newport Ave Landscaping"
         description="Professional irrigation installation & repair in Crooked River Ranch, Oregon. Newport Avenue Landscaping — licensed, bonded, 21+ years serving Central Oregon. Free consultations."
-        canonical="https://newportavelandscaping.com/service-areas/crooked-river-ranch-irrigation"
+        canonical="https://www.newportavelandscaping.com/service-areas/crooked-river-ranch-irrigation"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

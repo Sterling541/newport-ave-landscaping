@@ -9,7 +9,7 @@ export default function BendLandscapingSeasons() {
       <SEO
         title="Landscaping Seasons in Bend, Oregon | Newport Ave Landscaping"
         description="When to do what in your Bend, Oregon landscape. Month-by-month guide to landscaping tasks in Central Oregon."
-        canonical="https://newportavelandscaping.com/resources/landscaping-seasons-bend-oregon"
+        canonical="https://www.newportavelandscaping.com/resources/landscaping-seasons-bend-oregon"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

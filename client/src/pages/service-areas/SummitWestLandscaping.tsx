@@ -9,7 +9,7 @@ export default function SummitWestLandscaping() {
       <SEO
         title="Landscaping in Summit West, Bend, OR | Newport Ave Landscaping"
         description="Professional landscaping, paver patios, irrigation, and lawn care in Summit West, Bend, Oregon. Newport Avenue Landscaping — licensed, bonded, 21+ years. Free consultations."
-        canonical="https://newportavelandscaping.com/service-areas/summit-west-landscaping"
+        canonical="https://www.newportavelandscaping.com/service-areas/summit-west-landscaping"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

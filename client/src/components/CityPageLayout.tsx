@@ -136,7 +136,7 @@ function ServiceIconWrapper({ icon, accentColor }: { icon: CityService["icon"]; 
   }
 }
 
-const BASE_URL = "https://newportavelandscaping.com";
+const BASE_URL = "https://www.newportavelandscaping.com";
 const SITE_NAME = "Newport Avenue Landscaping";
 
 // ── Component ─────────────────────────────────────────────────

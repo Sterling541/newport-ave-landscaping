@@ -9,7 +9,7 @@ export default function BendLandscapingTips() {
       <SEO
         title="Landscaping Tips for Bend, Oregon Homeowners | Newport Ave"
         description="Expert landscaping tips for Bend, Oregon homeowners. Practical advice for Central Oregon's high desert climate from 21+ years of experience."
-        canonical="https://newportavelandscaping.com/resources/landscaping-tips-bend-oregon"
+        canonical="https://www.newportavelandscaping.com/resources/landscaping-tips-bend-oregon"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

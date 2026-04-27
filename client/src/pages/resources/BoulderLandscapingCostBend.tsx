@@ -9,7 +9,7 @@ export default function BoulderLandscapingCostBend() {
       <SEO
         title="Boulder Landscaping Cost in Bend, OR | Newport Ave Landscaping"
         description="What boulder and rock landscaping costs in Bend, Oregon. Delivery, placement, and design costs for Central Oregon properties."
-        canonical="https://newportavelandscaping.com/resources/boulder-landscaping-cost-bend-oregon"
+        canonical="https://www.newportavelandscaping.com/resources/boulder-landscaping-cost-bend-oregon"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

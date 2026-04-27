@@ -9,7 +9,7 @@ export default function DripVsSprayIrrigationBend() {
       <SEO
         title="Drip vs. Spray Irrigation in Bend, OR | Newport Ave Landscaping"
         description="Drip vs. spray irrigation for Bend, Oregon landscapes. Water efficiency, cost, and which system is right for your property."
-        canonical="https://newportavelandscaping.com/resources/drip-vs-spray-irrigation-bend-oregon"
+        canonical="https://www.newportavelandscaping.com/resources/drip-vs-spray-irrigation-bend-oregon"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

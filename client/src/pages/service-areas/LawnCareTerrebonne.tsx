@@ -9,7 +9,7 @@ export default function LawnCareTerrebonne() {
       <SEO
         title="Lawn Care & Maintenance in Terrebonne, OR | Newport Ave Landscaping"
         description="Professional lawn care & maintenance in Terrebonne, Oregon. Newport Avenue Landscaping — licensed, bonded, 21+ years serving Central Oregon. Free consultations."
-        canonical="https://newportavelandscaping.com/service-areas/terrebonne-lawn-care"
+        canonical="https://www.newportavelandscaping.com/service-areas/terrebonne-lawn-care"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

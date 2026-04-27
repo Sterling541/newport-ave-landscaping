@@ -36,7 +36,7 @@ const DefensibleSpaceBendOregon = () => {
       <Helmet>
         <title>Defensible Space Guide Bend Oregon | Wildfire Landscaping</title>
         <meta name="description" content="Comprehensive defensible space guide for Bend, Oregon homeowners. Learn about Zone 1, 2, and 3 requirements, fire-resistant plants, and 2026 fire codes." />
-        <link rel="canonical" href="https://newportavelandscaping.com/resources/defensible-space-bend-oregon" />
+        <link rel="canonical" href="https://www.newportavelandscaping.com/resources/defensible-space-bend-oregon" />
         
       </Helmet>
 

@@ -9,7 +9,7 @@ export default function DrainageSolutionsCostBend() {
       <SEO
         title="Drainage Solutions Cost in Bend, OR | Newport Ave Landscaping"
         description="What drainage solutions cost in Bend, Oregon. French drains, dry creek beds, and grading costs for Central Oregon properties."
-        canonical="https://newportavelandscaping.com/resources/drainage-solutions-cost-bend-oregon"
+        canonical="https://www.newportavelandscaping.com/resources/drainage-solutions-cost-bend-oregon"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

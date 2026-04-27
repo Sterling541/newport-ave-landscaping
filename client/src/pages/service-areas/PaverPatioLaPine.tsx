@@ -9,7 +9,7 @@ export default function PaverPatioLaPine() {
       <SEO
         title="Paver Patio Installation in La Pine, OR | Newport Ave Landscaping"
         description="Professional paver patio installation in La Pine, Oregon. Newport Avenue Landscaping — licensed, bonded, 21+ years serving Central Oregon. Free consultations."
-        canonical="https://newportavelandscaping.com/service-areas/la-pine-paver-patio"
+        canonical="https://www.newportavelandscaping.com/service-areas/la-pine-paver-patio"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

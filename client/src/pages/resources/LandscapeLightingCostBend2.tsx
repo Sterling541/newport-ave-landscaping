@@ -9,7 +9,7 @@ export default function LandscapeLightingCostBend2() {
       <SEO
         title="Landscape Lighting Cost in Bend, OR | Newport Ave Landscaping"
         description="What landscape lighting installation costs in Bend, Oregon. Low-voltage LED systems, pathway lights, and uplighting pricing."
-        canonical="https://newportavelandscaping.com/resources/landscape-lighting-cost-bend-oregon"
+        canonical="https://www.newportavelandscaping.com/resources/landscape-lighting-cost-bend-oregon"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

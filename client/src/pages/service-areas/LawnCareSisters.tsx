@@ -9,7 +9,7 @@ export default function LawnCareSisters() {
       <SEO
         title="Lawn Care & Maintenance in Sisters, OR | Newport Ave Landscaping"
         description="Professional lawn care & maintenance in Sisters, Oregon. Newport Avenue Landscaping — licensed, bonded, 21+ years serving Central Oregon. Free consultations."
-        canonical="https://newportavelandscaping.com/service-areas/sisters-lawn-care"
+        canonical="https://www.newportavelandscaping.com/service-areas/sisters-lawn-care"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

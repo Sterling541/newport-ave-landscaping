@@ -18,12 +18,12 @@ export default function BendTurfReplacementRebate() {
       <Helmet>
         <title>City of Bend Turf Replacement Rebate: Get $3,000 for Lawn Conversion | Newport Avenue Landscaping</title>
         <meta name="description" content="Complete guide to the City of Bend's $3/sq ft turf replacement rebate (up to $3,000). 2026 season is OPEN. How to qualify, apply, and use Newport Ave to handle the entire project. Tie in xeriscape, drip irrigation, and landscape design services." />
-        <link rel="canonical" href="https://newportavelandscaping.com/resources/bend-turf-replacement-rebate" />
+        <link rel="canonical" href="https://www.newportavelandscaping.com/resources/bend-turf-replacement-rebate" />
       </Helmet>
       <BreadcrumbSchema items={[
-        { name: "Home", url: "https://newportavelandscaping.com" },
-        { name: "Resources", url: "https://newportavelandscaping.com/resources" },
-        { name: "City of Bend Turf Replacement Rebate", url: "https://newportavelandscaping.com/resources/bend-turf-replacement-rebate" },
+        { name: "Home", url: "https://www.newportavelandscaping.com" },
+        { name: "Resources", url: "https://www.newportavelandscaping.com/resources" },
+        { name: "City of Bend Turf Replacement Rebate", url: "https://www.newportavelandscaping.com/resources/bend-turf-replacement-rebate" },
       ]} />
       <FAQSchema faqs={faqs} />
 

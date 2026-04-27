@@ -64,7 +64,7 @@ export default function LandscapeDesignBend() {
       <Helmet>
         <title>Landscape Design Bend Oregon | Newport Avenue Landscaping | (541) 604-1337</title>
         <meta name="description" content="Expert landscape design in Bend, Oregon. Residential, HOA, xeriscape & firewise design. Full design-build service. Licensed & insured. Free consultation." />
-        <link rel="canonical" href="https://newportavelandscaping.com/landscape-design-bend" />
+        <link rel="canonical" href="https://www.newportavelandscaping.com/landscape-design-bend" />
         <script type="application/ld+json">{JSON.stringify(SCHEMA)}</script>
         <script type="application/ld+json">{JSON.stringify(FAQ_SCHEMA)}</script>
       </Helmet>

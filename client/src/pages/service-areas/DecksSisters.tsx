@@ -10,7 +10,7 @@ export default function DecksSisters() {
       <Helmet>
         <title>Deck Builder Sisters Oregon | Custom Decks & Pergolas | Newport Avenue Landscaping</title>
         <meta name="description" content="Custom deck building and pergola installation in Sisters, Oregon. Composite, Trex, cedar, and pressure-treated decks for Sisters' mountain homes. Licensed LCB #9153. Free estimates." />
-        <link rel="canonical" href="https://newportavelandscaping.com/service-areas/decks-sisters-oregon" />
+        <link rel="canonical" href="https://www.newportavelandscaping.com/service-areas/decks-sisters-oregon" />
       </Helmet>
       <BreadcrumbSchema items={[
         { name: "Home", url: "/" },

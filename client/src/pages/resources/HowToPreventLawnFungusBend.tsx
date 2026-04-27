@@ -9,7 +9,7 @@ export default function HowToPreventLawnFungusBend() {
       <SEO
         title="How to Prevent Lawn Fungus in Bend, Oregon | Newport Ave"
         description="How to prevent lawn fungus in Bend, Oregon. Watering habits, mowing practices, and treatment options for Central Oregon lawns."
-        canonical="https://newportavelandscaping.com/resources/how-to-prevent-lawn-fungus-bend-oregon"
+        canonical="https://www.newportavelandscaping.com/resources/how-to-prevent-lawn-fungus-bend-oregon"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

@@ -9,7 +9,7 @@ export default function PaverPatioCostBend2() {
       <SEO
         title="Paver Walkway Cost in Bend, OR | Newport Ave Landscaping"
         description="What paver walkways cost in Bend, Oregon. Materials, installation, and what to expect from a professional walkway installation."
-        canonical="https://newportavelandscaping.com/resources/paver-walkway-cost-bend-oregon"
+        canonical="https://www.newportavelandscaping.com/resources/paver-walkway-cost-bend-oregon"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

@@ -9,7 +9,7 @@ export default function PaverPatioTumalo() {
       <SEO
         title="Paver Patio Installation in Tumalo, OR | Newport Ave Landscaping"
         description="Professional paver patio installation in Tumalo, Oregon. Newport Avenue Landscaping — licensed, bonded, 21+ years serving Central Oregon. Free consultations."
-        canonical="https://newportavelandscaping.com/service-areas/tumalo-paver-patio"
+        canonical="https://www.newportavelandscaping.com/service-areas/tumalo-paver-patio"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

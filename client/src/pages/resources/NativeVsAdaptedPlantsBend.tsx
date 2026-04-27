@@ -9,7 +9,7 @@ export default function NativeVsAdaptedPlantsBend() {
       <SEO
         title="Native vs. Adapted Plants for Bend, OR | Newport Ave Landscaping"
         description="Native vs. adapted plants for Bend, Oregon landscapes. Which plants thrive in Central Oregon's high desert climate?"
-        canonical="https://newportavelandscaping.com/resources/native-vs-adapted-plants-bend-oregon"
+        canonical="https://www.newportavelandscaping.com/resources/native-vs-adapted-plants-bend-oregon"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

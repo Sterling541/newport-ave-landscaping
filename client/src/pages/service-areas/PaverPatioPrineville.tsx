@@ -9,7 +9,7 @@ export default function PaverPatioPrineville() {
       <SEO
         title="Paver Patio Installation in Prineville, OR | Newport Ave Landscaping"
         description="Professional paver patio installation in Prineville, Oregon. Newport Avenue Landscaping — licensed, bonded, 21+ years serving Central Oregon. Free consultations."
-        canonical="https://newportavelandscaping.com/service-areas/prineville-paver-patio"
+        canonical="https://www.newportavelandscaping.com/service-areas/prineville-paver-patio"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

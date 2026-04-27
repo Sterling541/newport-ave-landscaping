@@ -9,7 +9,7 @@ export default function RedmondLandscaping() {
       <SEO
         title="Landscaping Redmond Oregon | Newport Ave Landscaping"
         description="Newport Ave Landscaping offers expert landscaping services in Redmond, Oregon. Specializing in new construction, commercial properties, and adapting to Redmond's unique climate and soils. Licensed & Bonded, LCB #9153."
-        canonical="https://newportavelandscaping.com/service-areas/redmond-landscaping"
+        canonical="https://www.newportavelandscaping.com/service-areas/redmond-landscaping"
       />
       <BreadcrumbSchema items={[
         { name: "Home", url: "/" },

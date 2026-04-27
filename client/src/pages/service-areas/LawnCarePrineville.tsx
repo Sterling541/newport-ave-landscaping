@@ -9,7 +9,7 @@ export default function LawnCarePrineville() {
       <SEO
         title="Lawn Care & Maintenance in Prineville, OR | Newport Ave Landscaping"
         description="Professional lawn care & maintenance in Prineville, Oregon. Newport Avenue Landscaping — licensed, bonded, 21+ years serving Central Oregon. Free consultations."
-        canonical="https://newportavelandscaping.com/service-areas/prineville-lawn-care"
+        canonical="https://www.newportavelandscaping.com/service-areas/prineville-lawn-care"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

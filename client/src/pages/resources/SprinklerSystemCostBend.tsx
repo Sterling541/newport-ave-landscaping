@@ -9,7 +9,7 @@ export default function SprinklerSystemCostBend() {
       <SEO
         title="Sprinkler System Cost in Bend, OR | Newport Ave Landscaping"
         description="What a sprinkler system costs in Bend, Oregon. New installation, repair, and winterization pricing for Central Oregon."
-        canonical="https://newportavelandscaping.com/resources/sprinkler-system-cost-bend-oregon"
+        canonical="https://www.newportavelandscaping.com/resources/sprinkler-system-cost-bend-oregon"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

@@ -9,7 +9,7 @@ export default function IrrigationCulver() {
       <SEO
         title="Irrigation Installation & Repair in Culver, OR | Newport Ave Landscaping"
         description="Professional irrigation installation & repair in Culver, Oregon. Newport Avenue Landscaping — licensed, bonded, 21+ years serving Central Oregon. Free consultations."
-        canonical="https://newportavelandscaping.com/service-areas/culver-irrigation"
+        canonical="https://www.newportavelandscaping.com/service-areas/culver-irrigation"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

@@ -9,7 +9,7 @@ export default function PerennialGardenCostBend() {
       <SEO
         title="Perennial Garden Installation Cost in Bend, OR | Newport Ave"
         description="What a perennial garden costs in Bend, Oregon. Plant selection, installation, and maintenance costs for Central Oregon gardens."
-        canonical="https://newportavelandscaping.com/resources/perennial-garden-cost-bend-oregon"
+        canonical="https://www.newportavelandscaping.com/resources/perennial-garden-cost-bend-oregon"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

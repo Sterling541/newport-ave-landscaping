@@ -9,7 +9,7 @@ export default function IrrigationAlfalfa() {
       <SEO
         title="Irrigation Installation & Repair in Alfalfa, OR | Newport Ave Landscaping"
         description="Professional irrigation installation & repair in Alfalfa, Oregon. Newport Avenue Landscaping — licensed, bonded, 21+ years serving Central Oregon. Free consultations."
-        canonical="https://newportavelandscaping.com/service-areas/alfalfa-irrigation"
+        canonical="https://www.newportavelandscaping.com/service-areas/alfalfa-irrigation"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

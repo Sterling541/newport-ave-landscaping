@@ -56,7 +56,7 @@ export default function CommercialLandscapingBend() {
       <Helmet>
         <title>Commercial Landscaping Bend Oregon | Newport Avenue Landscaping | (541) 604-1337</title>
         <meta name="description" content="Commercial landscaping services in Bend, Oregon. Maintenance contracts, HOA management, commercial installation, irrigation & snow removal. Licensed & insured." />
-        <link rel="canonical" href="https://newportavelandscaping.com/commercial-landscaping-bend" />
+        <link rel="canonical" href="https://www.newportavelandscaping.com/commercial-landscaping-bend" />
         <script type="application/ld+json">{JSON.stringify(SCHEMA)}</script>
         <script type="application/ld+json">{JSON.stringify(FAQ_SCHEMA)}</script>
       </Helmet>

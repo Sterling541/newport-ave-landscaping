@@ -9,7 +9,7 @@ export default function XeriscapeCostBend() {
       <SEO
         title="Xeriscape Cost in Bend, OR | Newport Ave Landscaping"
         description="What xeriscape landscaping costs in Bend, Oregon. Full cost breakdown for water-wise landscaping in Central Oregon."
-        canonical="https://newportavelandscaping.com/resources/xeriscape-cost-bend-oregon"
+        canonical="https://www.newportavelandscaping.com/resources/xeriscape-cost-bend-oregon"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

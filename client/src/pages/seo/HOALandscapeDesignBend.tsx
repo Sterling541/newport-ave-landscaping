@@ -55,7 +55,7 @@ export default function HOALandscapeDesignBend() {
       <Helmet>
         <title>HOA Landscape Design Bend Oregon | Newport Avenue Landscaping | (541) 604-1337</title>
         <meta name="description" content="HOA landscape design and management in Bend, Oregon. Common area maintenance, entry features, irrigation management & annual color programs. Licensed & insured." />
-        <link rel="canonical" href="https://newportavelandscaping.com/landscape-design-bend/hoa-design" />
+        <link rel="canonical" href="https://www.newportavelandscaping.com/landscape-design-bend/hoa-design" />
         <script type="application/ld+json">{JSON.stringify(SCHEMA)}</script>
         <script type="application/ld+json">{JSON.stringify(FAQ_SCHEMA)}</script>
       </Helmet>

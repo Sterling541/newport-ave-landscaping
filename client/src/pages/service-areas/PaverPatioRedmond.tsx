@@ -9,7 +9,7 @@ export default function PaverPatioRedmond() {
       <SEO
         title="Paver Patio Installation in Redmond, OR | Newport Ave Landscaping"
         description="Professional paver patio installation in Redmond, Oregon. Newport Avenue Landscaping — licensed, bonded, 21+ years serving Central Oregon. Free consultations."
-        canonical="https://newportavelandscaping.com/service-areas/redmond-paver-patio"
+        canonical="https://www.newportavelandscaping.com/service-areas/redmond-paver-patio"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

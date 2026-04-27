@@ -8,7 +8,7 @@ import Navbar from "./Navbar";
 import Footer from "./Footer";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 
-const BASE_URL = "https://newportavelandscaping.com";
+const BASE_URL = "https://www.newportavelandscaping.com";
 const SITE_NAME = "Newport Avenue Landscaping";
 
 interface ProjectImage {

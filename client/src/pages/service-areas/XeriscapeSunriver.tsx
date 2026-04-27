@@ -9,7 +9,7 @@ export default function XeriscapeSunriver() {
       <SEO
         title="Xeriscape Landscaping in Sunriver, OR | Newport Ave Landscaping"
         description="Professional xeriscape landscaping in Sunriver, Oregon. Newport Avenue Landscaping — licensed, bonded, 21+ years serving Central Oregon. Free consultations."
-        canonical="https://newportavelandscaping.com/service-areas/sunriver-xeriscape"
+        canonical="https://www.newportavelandscaping.com/service-areas/sunriver-xeriscape"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

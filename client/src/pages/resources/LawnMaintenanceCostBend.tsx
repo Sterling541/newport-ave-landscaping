@@ -9,7 +9,7 @@ export default function LawnMaintenanceCostBend() {
       <SEO
         title="Lawn Maintenance Cost in Bend, OR | Newport Ave Landscaping"
         description="What lawn maintenance costs in Bend, Oregon. Mowing, aeration, fertilization, and full-service lawn care pricing for Central Oregon."
-        canonical="https://newportavelandscaping.com/resources/lawn-maintenance-cost-bend-oregon"
+        canonical="https://www.newportavelandscaping.com/resources/lawn-maintenance-cost-bend-oregon"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

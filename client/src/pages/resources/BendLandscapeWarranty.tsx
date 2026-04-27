@@ -9,7 +9,7 @@ export default function BendLandscapeWarranty() {
       <SEO
         title="Landscape Warranty in Bend, Oregon | Newport Ave Landscaping"
         description="What landscape warranties cover in Bend, Oregon. Newport Avenue's 90-day plant warranty and 1-year irrigation warranty explained."
-        canonical="https://newportavelandscaping.com/resources/landscape-warranty-bend-oregon"
+        canonical="https://www.newportavelandscaping.com/resources/landscape-warranty-bend-oregon"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

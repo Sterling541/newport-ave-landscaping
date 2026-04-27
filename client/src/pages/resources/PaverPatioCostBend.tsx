@@ -9,7 +9,7 @@ export default function PaverPatioCostBend() {
       <SEO
         title="Paver Patio Cost in Bend Oregon | Newport Ave Landscaping"
         description="Discover the cost of paver patios in Bend, Oregon. Get detailed insights on material, labor, and design expenses, plus tips for budgeting your project with Newport Ave Landscaping."
-        canonical="https://newportavelandscaping.com/resources/paver-patio-cost-bend-oregon"
+        canonical="https://www.newportavelandscaping.com/resources/paver-patio-cost-bend-oregon"
       />
       <BreadcrumbSchema items={[
         { name: "Home", url: "/" },

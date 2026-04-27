@@ -9,7 +9,7 @@ export default function HowToMaintainPaverPatioBend() {
       <SEO
         title="How to Maintain a Paver Patio in Bend, OR | Newport Ave"
         description="How to maintain a paver patio in Bend, Oregon. Sealing, cleaning, weed prevention, and re-leveling tips for Central Oregon homeowners."
-        canonical="https://newportavelandscaping.com/resources/how-to-maintain-paver-patio-bend-oregon"
+        canonical="https://www.newportavelandscaping.com/resources/how-to-maintain-paver-patio-bend-oregon"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

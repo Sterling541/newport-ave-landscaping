@@ -9,7 +9,7 @@ export default function OutdoorLightingBend() {
       <SEO
         title="Landscape Lighting Ideas for Bend, OR | Newport Ave Landscaping"
         description="Landscape lighting ideas and design tips for Bend, Oregon homes. How to light your outdoor space for beauty and safety."
-        canonical="https://newportavelandscaping.com/resources/landscape-lighting-bend-oregon"
+        canonical="https://www.newportavelandscaping.com/resources/landscape-lighting-bend-oregon"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

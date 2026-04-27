@@ -9,7 +9,7 @@ export default function XeriscapeTumalo() {
       <SEO
         title="Xeriscape Landscaping in Tumalo, OR | Newport Ave Landscaping"
         description="Professional xeriscape landscaping in Tumalo, Oregon. Newport Avenue Landscaping — licensed, bonded, 21+ years serving Central Oregon. Free consultations."
-        canonical="https://newportavelandscaping.com/service-areas/tumalo-xeriscape"
+        canonical="https://www.newportavelandscaping.com/service-areas/tumalo-xeriscape"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

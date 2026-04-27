@@ -39,7 +39,7 @@ const FireResistantPlantsCentralOregon: React.FC = () => {
       <Helmet>
         <title>Fire-Resistant Plants for Central Oregon | Newport Avenue Landscaping</title>
         <meta name="description" content="Discover fire-resistant plants for Central Oregon homes. Learn which plants protect your Bend property from wildfire and how to create a beautiful, fire-wise landscape. Remove juniper, plant smart!" />
-        <link rel="canonical" href="https://newportavelandscaping.com/resources/fire-resistant-plants-central-oregon" />
+        <link rel="canonical" href="https://www.newportavelandscaping.com/resources/fire-resistant-plants-central-oregon" />
         <script type="application/ld+json">{`          {
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
@@ -48,19 +48,19 @@ const FireResistantPlantsCentralOregon: React.FC = () => {
                 "@type": "ListItem",
                 "position": 1,
                 "name": "Home",
-                "item": "https://newportavelandscaping.com"
+                "item": "https://www.newportavelandscaping.com"
               },
               {
                 "@type": "ListItem",
                 "position": 2,
                 "name": "Resources",
-                "item": "https://newportavelandscaping.com/resources"
+                "item": "https://www.newportavelandscaping.com/resources"
               },
               {
                 "@type": "ListItem",
                 "position": 3,
                 "name": "Fire-Resistant Plants for Central Oregon",
-                "item": "https://newportavelandscaping.com/resources/fire-resistant-plants-central-oregon"
+                "item": "https://www.newportavelandscaping.com/resources/fire-resistant-plants-central-oregon"
               }
             ]
           }`}</script>

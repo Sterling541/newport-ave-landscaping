@@ -9,7 +9,7 @@ export default function FaqSnowRemovalBend() {
       <SEO
         title="Snow Removal FAQ — Bend, Oregon | Newport Ave Landscaping"
         description="Common questions about commercial and residential snow removal in Bend, Oregon. Pricing, contracts, and what to expect."
-        canonical="https://newportavelandscaping.com/resources/faq-snow-removal-bend-oregon"
+        canonical="https://www.newportavelandscaping.com/resources/faq-snow-removal-bend-oregon"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

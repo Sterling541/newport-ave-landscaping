@@ -9,7 +9,7 @@ export default function LawnCareTumalo() {
       <SEO
         title="Lawn Care & Maintenance in Tumalo, OR | Newport Ave Landscaping"
         description="Professional lawn care & maintenance in Tumalo, Oregon. Newport Avenue Landscaping — licensed, bonded, 21+ years serving Central Oregon. Free consultations."
-        canonical="https://newportavelandscaping.com/service-areas/tumalo-lawn-care"
+        canonical="https://www.newportavelandscaping.com/service-areas/tumalo-lawn-care"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

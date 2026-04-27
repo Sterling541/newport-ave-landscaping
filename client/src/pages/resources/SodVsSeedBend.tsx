@@ -9,7 +9,7 @@ export default function SodVsSeedBend() {
       <SEO
         title="Sod vs. Seed for Lawns in Bend, OR | Newport Ave Landscaping"
         description="Sod vs. seed for new lawns in Bend, Oregon. Cost, timeline, and which is better for Central Oregon's climate and soil."
-        canonical="https://newportavelandscaping.com/resources/sod-vs-seed-bend-oregon"
+        canonical="https://www.newportavelandscaping.com/resources/sod-vs-seed-bend-oregon"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

@@ -9,7 +9,7 @@ export default function PaverPatioSunriver() {
       <SEO
         title="Paver Patio Installation in Sunriver, OR | Newport Ave Landscaping"
         description="Professional paver patio installation in Sunriver, Oregon. Newport Avenue Landscaping — licensed, bonded, 21+ years serving Central Oregon. Free consultations."
-        canonical="https://newportavelandscaping.com/service-areas/sunriver-paver-patio"
+        canonical="https://www.newportavelandscaping.com/service-areas/sunriver-paver-patio"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

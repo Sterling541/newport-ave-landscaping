@@ -9,7 +9,7 @@ export default function HowToSelectPaversBend() {
       <SEO
         title="How to Select Pavers for Your Bend, OR Patio | Newport Ave"
         description="How to choose the right pavers for your Bend, Oregon patio. Materials, colors, patterns, and what works best in Central Oregon's climate."
-        canonical="https://newportavelandscaping.com/resources/how-to-select-pavers-bend-oregon"
+        canonical="https://www.newportavelandscaping.com/resources/how-to-select-pavers-bend-oregon"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

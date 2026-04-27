@@ -9,7 +9,7 @@ export default function IrrigationRepairCostBend() {
       <SEO
         title="Irrigation Repair Cost in Bend, OR | Newport Ave Landscaping"
         description="What irrigation repair costs in Bend, Oregon. Common problems, diagnostic fees, and repair pricing for Central Oregon sprinkler systems."
-        canonical="https://newportavelandscaping.com/resources/irrigation-repair-bend-oregon"
+        canonical="https://www.newportavelandscaping.com/resources/irrigation-repair-bend-oregon"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

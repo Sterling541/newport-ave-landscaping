@@ -9,7 +9,7 @@ export default function SprinklerWinterizationGuideBend() {
       <SEO
         title="Sprinkler Winterization Guide for Bend, OR | Newport Ave"
         description="How to winterize your sprinkler system in Bend, Oregon. Step-by-step guide to protecting your irrigation system from freeze damage."
-        canonical="https://newportavelandscaping.com/resources/sprinkler-winterization-guide-bend-oregon"
+        canonical="https://www.newportavelandscaping.com/resources/sprinkler-winterization-guide-bend-oregon"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

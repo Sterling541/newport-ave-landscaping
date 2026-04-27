@@ -19,12 +19,12 @@ export default function BendWateringRestrictions() {
       <Helmet>
         <title>Bend Oregon Watering Restrictions: The Complete Guide | Newport Avenue Landscaping</title>
         <meta name="description" content="Complete guide to City of Bend's odd/even watering schedule, irrigation hours (5pm–9am), violation fines, and how to avoid them. Tie in Newport Ave irrigation repair, spring activation, and smart controller services." />
-        <link rel="canonical" href="https://newportavelandscaping.com/resources/bend-oregon-watering-restrictions" />
+        <link rel="canonical" href="https://www.newportavelandscaping.com/resources/bend-oregon-watering-restrictions" />
       </Helmet>
       <BreadcrumbSchema items={[
-        { name: "Home", url: "https://newportavelandscaping.com" },
-        { name: "Resources", url: "https://newportavelandscaping.com/resources" },
-        { name: "Bend Oregon Watering Restrictions", url: "https://newportavelandscaping.com/resources/bend-oregon-watering-restrictions" },
+        { name: "Home", url: "https://www.newportavelandscaping.com" },
+        { name: "Resources", url: "https://www.newportavelandscaping.com/resources" },
+        { name: "Bend Oregon Watering Restrictions", url: "https://www.newportavelandscaping.com/resources/bend-oregon-watering-restrictions" },
       ]} />
       <FAQSchema faqs={faqs} />
 

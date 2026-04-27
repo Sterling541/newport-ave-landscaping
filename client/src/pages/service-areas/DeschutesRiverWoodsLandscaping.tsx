@@ -9,7 +9,7 @@ export default function DeschutesRiverWoodsLandscaping() {
       <SEO
         title="Landscaping in Deschutes River Woods, Bend, OR | Newport Ave Landscaping"
         description="Professional landscaping, paver patios, irrigation, and lawn care in Deschutes River Woods, Bend, Oregon. Newport Avenue Landscaping — licensed, bonded, 21+ years. Free consultations."
-        canonical="https://newportavelandscaping.com/service-areas/deschutes-river-woods-landscaping"
+        canonical="https://www.newportavelandscaping.com/service-areas/deschutes-river-woods-landscaping"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

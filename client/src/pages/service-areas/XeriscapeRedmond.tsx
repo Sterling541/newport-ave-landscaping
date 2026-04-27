@@ -9,7 +9,7 @@ export default function XeriscapeRedmond() {
       <SEO
         title="Xeriscape Landscaping in Redmond, OR | Newport Ave Landscaping"
         description="Professional xeriscape landscaping in Redmond, Oregon. Newport Avenue Landscaping — licensed, bonded, 21+ years serving Central Oregon. Free consultations."
-        canonical="https://newportavelandscaping.com/service-areas/redmond-xeriscape"
+        canonical="https://www.newportavelandscaping.com/service-areas/redmond-xeriscape"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

@@ -9,7 +9,7 @@ export default function SistersLandscapingHub() {
       <SEO
         title="Landscaping in Sisters, OR | Newport Ave Landscaping"
         description="Professional landscaping, paver patios, irrigation, xeriscape, and lawn care in Sisters, Oregon. Newport Avenue Landscaping — licensed, bonded, 21+ years. Free consultations."
-        canonical="https://newportavelandscaping.com/service-areas/sisters"
+        canonical="https://www.newportavelandscaping.com/service-areas/sisters"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

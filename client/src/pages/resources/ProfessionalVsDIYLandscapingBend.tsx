@@ -9,7 +9,7 @@ export default function ProfessionalVsDIYLandscapingBend() {
       <SEO
         title="Professional vs. DIY Landscaping in Bend, OR | Newport Ave"
         description="Professional vs. DIY landscaping in Bend, Oregon. When to hire a pro and when to do it yourself — an honest guide."
-        canonical="https://newportavelandscaping.com/resources/professional-vs-diy-landscaping-bend-oregon"
+        canonical="https://www.newportavelandscaping.com/resources/professional-vs-diy-landscaping-bend-oregon"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

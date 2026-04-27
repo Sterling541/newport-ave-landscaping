@@ -43,12 +43,12 @@ export default function WaterWiseLandscapingBend() {
       <Helmet>
         <title>Water-Wise Landscaping in Bend Oregon: Save Water, Save Money, Save Your Lawn | Newport Avenue Landscaping</title>
         <meta name="description" content="Discover water-wise landscaping in Bend Oregon. Learn what it is, why it matters in Bend's high desert climate (14 inches annual rainfall), and how to design a beautiful low-water landscape. Explore xeriscape, drip irrigation, and smart controller services from Newport Avenue Landscaping." />
-        <link rel="canonical" href="https://newportavelandscaping.com/resources/water-wise-landscaping-bend-oregon" />
+        <link rel="canonical" href="https://www.newportavelandscaping.com/resources/water-wise-landscaping-bend-oregon" />
       </Helmet>
       <BreadcrumbSchema items={[
-        { name: "Home", url: "https://newportavelandscaping.com" },
-        { name: "Resources", url: "https://newportavelandscaping.com/resources" },
-        { name: "Water-Wise Landscaping in Bend Oregon", url: "https://newportavelandscaping.com/resources/water-wise-landscaping-bend-oregon" },
+        { name: "Home", url: "https://www.newportavelandscaping.com" },
+        { name: "Resources", url: "https://www.newportavelandscaping.com/resources" },
+        { name: "Water-Wise Landscaping in Bend Oregon", url: "https://www.newportavelandscaping.com/resources/water-wise-landscaping-bend-oregon" },
       ]} />
       <FAQSchema faqs={faqs} />
 

@@ -9,7 +9,7 @@ export default function BendPropertyValueLandscaping() {
       <SEO
         title="Does Landscaping Increase Home Value in Bend, OR? | Newport Ave"
         description="How landscaping affects home value in Bend, Oregon. ROI on patios, xeriscape, irrigation, and lawn care in Central Oregon."
-        canonical="https://newportavelandscaping.com/resources/landscaping-home-value-bend-oregon"
+        canonical="https://www.newportavelandscaping.com/resources/landscaping-home-value-bend-oregon"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

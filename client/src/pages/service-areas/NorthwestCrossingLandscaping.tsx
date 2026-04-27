@@ -9,7 +9,7 @@ export default function NorthwestCrossingLandscaping() {
       <SEO
         title="Landscaping in NorthWest Crossing, Bend, OR | Newport Ave Landscaping"
         description="Professional landscaping, paver patios, irrigation, and lawn care in NorthWest Crossing, Bend, Oregon. Newport Avenue Landscaping — licensed, bonded, 21+ years. Free consultations."
-        canonical="https://newportavelandscaping.com/service-areas/northwest-crossing-landscaping"
+        canonical="https://www.newportavelandscaping.com/service-areas/northwest-crossing-landscaping"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

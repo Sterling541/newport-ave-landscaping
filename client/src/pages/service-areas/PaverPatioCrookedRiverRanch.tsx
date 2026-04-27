@@ -9,7 +9,7 @@ export default function PaverPatioCrookedRiverRanch() {
       <SEO
         title="Paver Patio Installation in Crooked River Ranch, OR | Newport Ave Landscaping"
         description="Professional paver patio installation in Crooked River Ranch, Oregon. Newport Avenue Landscaping — licensed, bonded, 21+ years serving Central Oregon. Free consultations."
-        canonical="https://newportavelandscaping.com/service-areas/crooked-river-ranch-paver-patio"
+        canonical="https://www.newportavelandscaping.com/service-areas/crooked-river-ranch-paver-patio"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

@@ -9,7 +9,7 @@ export default function MurphyRoadAreaLandscaping() {
       <SEO
         title="Landscaping in Murphy Road Area, Bend, OR | Newport Ave Landscaping"
         description="Professional landscaping, paver patios, irrigation, and lawn care in Murphy Road Area, Bend, Oregon. Newport Avenue Landscaping — licensed, bonded, 21+ years. Free consultations."
-        canonical="https://newportavelandscaping.com/service-areas/murphy-road-area-landscaping"
+        canonical="https://www.newportavelandscaping.com/service-areas/murphy-road-area-landscaping"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

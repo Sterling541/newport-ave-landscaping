@@ -37,7 +37,7 @@ export default function DeckCostBend() {
       <Helmet>
         <title>How Much Does a Deck Cost in Bend, Oregon? (2025 Guide)</title>
         <meta name="description" content="2025 deck cost guide for Bend, Oregon. Composite vs. wood, pergola costs, permit fees, and what affects your total. Real pricing from a licensed Bend deck builder." />
-        <link rel="canonical" href="https://newportavelandscaping.com/resources/deck-cost-bend-oregon" />
+        <link rel="canonical" href="https://www.newportavelandscaping.com/resources/deck-cost-bend-oregon" />
       </Helmet>
       <BreadcrumbSchema items={[
         { name: "Home", url: "/" },

@@ -9,7 +9,7 @@ export default function CulverLandscapingHub() {
       <SEO
         title="Landscaping in Culver, OR | Newport Ave Landscaping"
         description="Professional landscaping, paver patios, irrigation, and lawn care in Culver, Oregon. Newport Avenue Landscaping — licensed, bonded, 21+ years. Free consultations."
-        canonical="https://newportavelandscaping.com/service-areas/culver"
+        canonical="https://www.newportavelandscaping.com/service-areas/culver"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

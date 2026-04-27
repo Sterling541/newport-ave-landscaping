@@ -9,7 +9,7 @@ export default function WaterFeatureCostBend() {
       <SEO
         title="Water Feature Cost in Bend, OR | Newport Ave Landscaping"
         description="What water features cost in Bend, Oregon. Pondless waterfalls, koi ponds, fountains, and installation pricing for Central Oregon."
-        canonical="https://newportavelandscaping.com/resources/water-feature-cost-bend-oregon"
+        canonical="https://www.newportavelandscaping.com/resources/water-feature-cost-bend-oregon"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

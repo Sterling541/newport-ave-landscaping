@@ -9,7 +9,7 @@ export default function SprinklerWinterizationBend() {
       <SEO
         title="Sprinkler Winterization Bend Oregon — When & Why | Newport Ave"
         description="When to winterize your sprinklers in Bend, Oregon, what happens if you don't, and how Newport Avenue Landscaping's certified technicians protect your system every fall."
-        canonical="https://newportavelandscaping.com/blog/sprinkler-winterization-bend-oregon"
+        canonical="https://www.newportavelandscaping.com/blog/sprinkler-winterization-bend-oregon"
       />
       <BreadcrumbSchema items={[
         { name: "Home", url: "/" },

@@ -9,7 +9,7 @@ export default function SunriverLandscaping() {
       <SEO
         title="Landscaping Sunriver Oregon: Expert Services for High Desert Homes | Newport Ave Landscaping"
         description="Discover expert landscaping services in Sunriver, Oregon. Newport Ave Landscaping specializes in SROA compliance, vacation rental maintenance, pine needle cleanup, and high desert plant palettes. Licensed & Bonded, LCB #9153."
-        canonical="https://newportavelandscaping.com/service-areas/sunriver-landscaping"
+        canonical="https://www.newportavelandscaping.com/service-areas/sunriver-landscaping"
       />
       <BreadcrumbSchema items={[
         { name: "Home", url: "/" },

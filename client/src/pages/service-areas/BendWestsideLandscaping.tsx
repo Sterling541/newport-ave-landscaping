@@ -9,7 +9,7 @@ export default function BendWestsideLandscaping() {
       <SEO
         title="Landscaping in Bend's Westside, Bend, OR | Newport Ave Landscaping"
         description="Professional landscaping, paver patios, irrigation, and lawn care in Bend's Westside, Bend, Oregon. Newport Avenue Landscaping — licensed, bonded, 21+ years. Free consultations."
-        canonical="https://newportavelandscaping.com/service-areas/bend-westside-landscaping"
+        canonical="https://www.newportavelandscaping.com/service-areas/bend-westside-landscaping"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

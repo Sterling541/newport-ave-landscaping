@@ -9,7 +9,7 @@ export default function PaverPatioTerrebonne() {
       <SEO
         title="Paver Patio Installation in Terrebonne, OR | Newport Ave Landscaping"
         description="Professional paver patio installation in Terrebonne, Oregon. Newport Avenue Landscaping — licensed, bonded, 21+ years serving Central Oregon. Free consultations."
-        canonical="https://newportavelandscaping.com/service-areas/terrebonne-paver-patio"
+        canonical="https://www.newportavelandscaping.com/service-areas/terrebonne-paver-patio"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

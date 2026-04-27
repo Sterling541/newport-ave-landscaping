@@ -9,7 +9,7 @@ export default function HowToReadSoilBend() {
       <SEO
         title="Understanding Soil in Bend, Oregon | Newport Ave Landscaping"
         description="What you need to know about soil in Bend, Oregon. Volcanic soil, pH, amendments, and how to grow a healthy landscape in Central Oregon."
-        canonical="https://newportavelandscaping.com/resources/understanding-soil-bend-oregon"
+        canonical="https://www.newportavelandscaping.com/resources/understanding-soil-bend-oregon"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

@@ -9,7 +9,7 @@ export default function PaversVsConcreteBend() {
       <SEO
         title="Pavers vs. Concrete Patio in Bend, OR | Newport Ave Landscaping"
         description="Pavers vs. poured concrete for patios in Bend, Oregon. Cost, durability, maintenance, and which is better for Central Oregon's climate."
-        canonical="https://newportavelandscaping.com/resources/pavers-vs-concrete-bend-oregon"
+        canonical="https://www.newportavelandscaping.com/resources/pavers-vs-concrete-bend-oregon"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

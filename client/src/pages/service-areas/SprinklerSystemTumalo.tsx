@@ -9,7 +9,7 @@ export default function SprinklerSystemTumalo() {
       <SEO
         title="Sprinkler System Installation in Tumalo, OR | Newport Ave Landscaping"
         description="Professional sprinkler system installation in Tumalo, Oregon. Newport Avenue Landscaping — licensed, bonded, 21+ years serving Central Oregon. Free consultations."
-        canonical="https://newportavelandscaping.com/service-areas/tumalo-sprinkler-system"
+        canonical="https://www.newportavelandscaping.com/service-areas/tumalo-sprinkler-system"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

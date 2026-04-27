@@ -12,7 +12,7 @@ export default function AwbreyButteNeighborhood() {
       <SEO
         title="Awbrey Butte Landscaping — Bend, Oregon | Newport Avenue Landscaping"
         description="Expert landscaping for Awbrey Butte homes in Bend, OR. Hillside design, fire-wise solutions, HOA compliance, drought-tolerant plantings, and irrigation. LCB #9153. Free consultation."
-        canonical="https://newportavelandscaping.com/service-areas/awbrey-butte-landscaping"
+        canonical="https://www.newportavelandscaping.com/service-areas/awbrey-butte-landscaping"
       />
       <BreadcrumbSchema items={[
         { name: "Home", url: "/" },

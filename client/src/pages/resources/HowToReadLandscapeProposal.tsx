@@ -9,7 +9,7 @@ export default function HowToReadLandscapeProposal() {
       <SEO
         title="How to Read a Landscape Proposal in Bend, OR | Newport Ave"
         description="How to evaluate a landscape proposal in Bend, Oregon. What to look for, red flags, and how to compare bids from Central Oregon landscapers."
-        canonical="https://newportavelandscaping.com/resources/how-to-read-landscape-proposal-bend-oregon"
+        canonical="https://www.newportavelandscaping.com/resources/how-to-read-landscape-proposal-bend-oregon"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

@@ -9,7 +9,7 @@ export default function XeriscapeVsTraditionalLawnBend() {
       <SEO
         title="Xeriscape vs. Traditional Lawn in Bend, OR | Newport Ave"
         description="Xeriscape vs. traditional lawn in Bend, Oregon. Water use, cost, maintenance, and which is right for your Central Oregon property."
-        canonical="https://newportavelandscaping.com/resources/xeriscape-vs-traditional-lawn-bend-oregon"
+        canonical="https://www.newportavelandscaping.com/resources/xeriscape-vs-traditional-lawn-bend-oregon"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

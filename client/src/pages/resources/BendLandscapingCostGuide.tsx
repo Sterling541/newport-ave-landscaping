@@ -9,7 +9,7 @@ export default function BendLandscapingCostGuide() {
       <SEO
         title="Landscaping Cost Guide for Bend, Oregon | Newport Ave"
         description="Complete landscaping cost guide for Bend, Oregon. All services priced — patios, irrigation, xeriscape, lawn care, and more."
-        canonical="https://newportavelandscaping.com/resources/landscaping-cost-guide-bend-oregon"
+        canonical="https://www.newportavelandscaping.com/resources/landscaping-cost-guide-bend-oregon"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

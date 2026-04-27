@@ -9,7 +9,7 @@ export default function WoodriverVillageLandscaping() {
       <SEO
         title="Landscaping in Woodriver Village, Bend, OR | Newport Ave Landscaping"
         description="Professional landscaping, paver patios, irrigation, and lawn care in Woodriver Village, Bend, Oregon. Newport Avenue Landscaping — licensed, bonded, 21+ years. Free consultations."
-        canonical="https://newportavelandscaping.com/service-areas/woodriver-village-landscaping"
+        canonical="https://www.newportavelandscaping.com/service-areas/woodriver-village-landscaping"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

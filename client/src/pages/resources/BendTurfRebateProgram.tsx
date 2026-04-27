@@ -9,7 +9,7 @@ export default function BendTurfRebateProgram() {
       <SEO
         title="Bend Turf Rebate Program | Newport Ave Landscaping"
         description="How to get rebates for converting your Bend lawn to xeriscape. The City of Bend's turf replacement program explained."
-        canonical="https://newportavelandscaping.com/resources/bend-turf-rebate-program"
+        canonical="https://www.newportavelandscaping.com/resources/bend-turf-rebate-program"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

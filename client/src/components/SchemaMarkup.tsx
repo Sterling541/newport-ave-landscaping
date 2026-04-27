@@ -9,12 +9,12 @@ export function LocalBusinessSchema() {
   const schema = {
     "@context": "https://schema.org",
     "@type": ["LocalBusiness", "LandscapeService"],
-    "@id": "https://newportavelandscaping.com/#business",
+    "@id": "https://www.newportavelandscaping.com/#business",
     name: "Newport Avenue Landscaping",
     alternateName: "Newport Ave Landscaping",
     description:
       "Central Oregon's premier landscaping company since 2005. Custom landscape design, installation, maintenance & irrigation in Bend, Redmond, Sisters & beyond.",
-    url: "https://newportavelandscaping.com",
+    url: "https://www.newportavelandscaping.com",
     telephone: "+15416178873",
     email: "info@newportavelandscaping.com",
     foundingDate: "2005",
@@ -104,11 +104,11 @@ export function ServiceSchema({ name, description, url, imageUrl }: ServiceSchem
     "@type": "Service",
     name,
     description,
-    url: `https://newportavelandscaping.com${url}`,
+    url: `https://www.newportavelandscaping.com${url}`,
     ...(imageUrl && { image: imageUrl }),
     provider: {
       "@type": "LocalBusiness",
-      "@id": "https://newportavelandscaping.com/#business",
+      "@id": "https://www.newportavelandscaping.com/#business",
       name: "Newport Avenue Landscaping",
       telephone: "+15416178873",
       address: {
@@ -146,7 +146,7 @@ export function BreadcrumbSchema({ items }: { items: BreadcrumbItem[] }) {
       "@type": "ListItem",
       position: index + 1,
       name: item.name,
-      item: `https://newportavelandscaping.com${item.url}`,
+      item: `https://www.newportavelandscaping.com${item.url}`,
     })),
   };
 
@@ -163,10 +163,10 @@ export function AggregateRatingSchema({ serviceName, serviceUrl }: { serviceName
     "@context": "https://schema.org",
     "@type": "Service",
     name: serviceName,
-    url: `https://newportavelandscaping.com${serviceUrl}`,
+    url: `https://www.newportavelandscaping.com${serviceUrl}`,
     provider: {
       "@type": "LocalBusiness",
-      "@id": "https://newportavelandscaping.com/#business",
+      "@id": "https://www.newportavelandscaping.com/#business",
       name: "Newport Avenue Landscaping",
     },
     aggregateRating: {

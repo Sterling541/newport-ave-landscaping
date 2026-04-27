@@ -27,7 +27,7 @@ export default function BestGrassBendOregon() {
       <Helmet>
         <title>Best Grass for Bend Oregon | What Grass Grows in Central Oregon? | Newport Avenue</title>
         <meta name="description" content="Discover the best grass types for Bend, Oregon's high-desert climate. Kentucky bluegrass, tall fescue, and fine fescue blends — what works, what doesn't, and why." />
-        <link rel="canonical" href="https://newportavelandscaping.com/resources/best-grass-bend-oregon" />
+        <link rel="canonical" href="https://www.newportavelandscaping.com/resources/best-grass-bend-oregon" />
         <script type="application/ld+json">{JSON.stringify({
           "@context": "https://schema.org",
           "@type": "FAQPage",
@@ -58,9 +58,9 @@ export default function BestGrassBendOregon() {
           "@context": "https://schema.org",
           "@type": "BreadcrumbList",
           itemListElement: [
-            { "@type": "ListItem", position: 1, name: "Home", item: "https://newportavelandscaping.com/" },
-            { "@type": "ListItem", position: 2, name: "Resources", item: "https://newportavelandscaping.com/resources" },
-            { "@type": "ListItem", position: 3, name: "Best Grass for Bend Oregon", item: "https://newportavelandscaping.com/resources/best-grass-bend-oregon" }
+            { "@type": "ListItem", position: 1, name: "Home", item: "https://www.newportavelandscaping.com/" },
+            { "@type": "ListItem", position: 2, name: "Resources", item: "https://www.newportavelandscaping.com/resources" },
+            { "@type": "ListItem", position: 3, name: "Best Grass for Bend Oregon", item: "https://www.newportavelandscaping.com/resources/best-grass-bend-oregon" }
           ]
         })}</script>
       </Helmet>

@@ -9,7 +9,7 @@ export default function HowToChooseLandscaperBend() {
       <SEO
         title="How to Choose a Landscaper in Bend, OR | Newport Ave"
         description="How to choose a landscaping company in Bend, Oregon. Questions to ask, red flags to avoid, and what to look for in a Central Oregon landscaper."
-        canonical="https://newportavelandscaping.com/resources/how-to-choose-landscaper-bend-oregon"
+        canonical="https://www.newportavelandscaping.com/resources/how-to-choose-landscaper-bend-oregon"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

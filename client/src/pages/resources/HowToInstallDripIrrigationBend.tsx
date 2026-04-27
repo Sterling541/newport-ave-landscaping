@@ -9,7 +9,7 @@ export default function HowToInstallDripIrrigationBend() {
       <SEO
         title="How to Install Drip Irrigation in Bend, OR | Newport Ave"
         description="Guide to drip irrigation installation in Bend, Oregon. DIY vs. professional installation, components, and tips for Central Oregon gardens."
-        canonical="https://newportavelandscaping.com/resources/how-to-install-drip-irrigation-bend-oregon"
+        canonical="https://www.newportavelandscaping.com/resources/how-to-install-drip-irrigation-bend-oregon"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

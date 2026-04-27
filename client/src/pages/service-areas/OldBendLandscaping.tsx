@@ -113,9 +113,9 @@ export default function OldBendLandscaping() {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: "https://newportavelandscaping.com/" },
-      { "@type": "ListItem", position: 2, name: "Service Areas", item: "https://newportavelandscaping.com/service-areas" },
-      { "@type": "ListItem", position: 3, name: "Old Bend Landscaping", item: "https://newportavelandscaping.com/service-areas/old-bend-landscaping" },
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://www.newportavelandscaping.com/" },
+      { "@type": "ListItem", position: 2, name: "Service Areas", item: "https://www.newportavelandscaping.com/service-areas" },
+      { "@type": "ListItem", position: 3, name: "Old Bend Landscaping", item: "https://www.newportavelandscaping.com/service-areas/old-bend-landscaping" },
     ],
   };
 
@@ -124,7 +124,7 @@ export default function OldBendLandscaping() {
       <Helmet>
         <title>Landscaping in Old Bend, Oregon | Historic Neighborhoods | Newport Avenue Landscaping</title>
         <meta name="description" content="Expert landscaping, irrigation replacement, and xeriscape services for Old Bend's historic neighborhoods — Drake Park, Awbrey Butte, Pill Hill, and NW/SW Bend. Newport Avenue Landscaping. LCB #9153. Free estimates." />
-        <link rel="canonical" href="https://newportavelandscaping.com/service-areas/old-bend-landscaping" />
+        <link rel="canonical" href="https://www.newportavelandscaping.com/service-areas/old-bend-landscaping" />
         <script type="application/ld+json">{JSON.stringify(schemaFAQ)}</script>
         <script type="application/ld+json">{JSON.stringify(schemaBreadcrumb)}</script>
       </Helmet>

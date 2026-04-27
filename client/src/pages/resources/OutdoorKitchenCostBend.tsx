@@ -9,7 +9,7 @@ export default function OutdoorKitchenCostBend() {
       <SEO
         title="Outdoor Kitchen Cost in Bend, OR | Newport Ave Landscaping"
         description="What an outdoor kitchen costs in Bend, Oregon. Materials, appliances, installation, and budgeting tips for Central Oregon homeowners."
-        canonical="https://newportavelandscaping.com/resources/outdoor-kitchen-cost-bend-oregon"
+        canonical="https://www.newportavelandscaping.com/resources/outdoor-kitchen-cost-bend-oregon"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

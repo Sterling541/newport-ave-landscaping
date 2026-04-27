@@ -9,7 +9,7 @@ export default function SkylineRanchLandscaping() {
       <SEO
         title="Landscaping in Skyline Ranch, Bend, OR | Newport Ave Landscaping"
         description="Professional landscaping, paver patios, irrigation, and lawn care in Skyline Ranch, Bend, Oregon. Newport Avenue Landscaping — licensed, bonded, 21+ years. Free consultations."
-        canonical="https://newportavelandscaping.com/service-areas/skyline-ranch-landscaping"
+        canonical="https://www.newportavelandscaping.com/service-areas/skyline-ranch-landscaping"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

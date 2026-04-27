@@ -28,7 +28,7 @@ export default function WhenToPlantBendOregon() {
       <Helmet>
         <title>When to Plant in Bend Oregon | Planting Calendar for Central Oregon | Newport Avenue</title>
         <meta name="description" content="Bend Oregon planting calendar: when to plant trees, shrubs, perennials, grass seed, and vegetables in Central Oregon's Zone 6a high-desert climate. Last frost dates and seasonal timing." />
-        <link rel="canonical" href="https://newportavelandscaping.com/resources/when-to-plant-bend-oregon" />
+        <link rel="canonical" href="https://www.newportavelandscaping.com/resources/when-to-plant-bend-oregon" />
         <script type="application/ld+json">{JSON.stringify({
           "@context": "https://schema.org",
           "@type": "FAQPage",
@@ -59,9 +59,9 @@ export default function WhenToPlantBendOregon() {
           "@context": "https://schema.org",
           "@type": "BreadcrumbList",
           itemListElement: [
-            { "@type": "ListItem", position: 1, name: "Home", item: "https://newportavelandscaping.com/" },
-            { "@type": "ListItem", position: 2, name: "Resources", item: "https://newportavelandscaping.com/resources" },
-            { "@type": "ListItem", position: 3, name: "When to Plant in Bend Oregon", item: "https://newportavelandscaping.com/resources/when-to-plant-bend-oregon" }
+            { "@type": "ListItem", position: 1, name: "Home", item: "https://www.newportavelandscaping.com/" },
+            { "@type": "ListItem", position: 2, name: "Resources", item: "https://www.newportavelandscaping.com/resources" },
+            { "@type": "ListItem", position: 3, name: "When to Plant in Bend Oregon", item: "https://www.newportavelandscaping.com/resources/when-to-plant-bend-oregon" }
           ]
         })}</script>
       </Helmet>

@@ -17,13 +17,13 @@ const JuniperRemovalBendOregon = () => {
         "@type": "ListItem",
         "position": 1,
         "name": "Resources",
-        "item": "https://newportavelandscaping.com/resources"
+        "item": "https://www.newportavelandscaping.com/resources"
       },
       {
         "@type": "ListItem",
         "position": 2,
         "name": "Juniper Removal in Bend Oregon",
-        "item": "https://newportavelandscaping.com/resources/juniper-removal-bend-oregon"
+        "item": "https://www.newportavelandscaping.com/resources/juniper-removal-bend-oregon"
       }
     ]
   };
@@ -88,7 +88,7 @@ const JuniperRemovalBendOregon = () => {
       <Helmet>
         <title>Juniper Removal in Bend Oregon | Firewise Landscaping | Newport Avenue Landscaping</title>
         <meta name="description" content="Protect your Bend, Oregon home from wildfire with professional juniper removal services. Learn about fire risk, costs, and fire-resistant replanting options with Newport Avenue Landscaping." />
-        <link rel="canonical" href="https://newportavelandscaping.com/resources/juniper-removal-bend-oregon" />
+        <link rel="canonical" href="https://www.newportavelandscaping.com/resources/juniper-removal-bend-oregon" />
         <script type="application/ld+json">{`          {JSON.stringify(breadcrumbSchema)}`}</script>
         <script type="application/ld+json">{`          {JSON.stringify(faqSchemaData)}`}</script>
       </Helmet>

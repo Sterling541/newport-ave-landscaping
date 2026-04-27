@@ -9,7 +9,7 @@ export default function SpringLandscapingGuideBend() {
       <SEO
         title="Spring Landscaping Guide for Bend, Oregon | Newport Ave"
         description="Complete spring landscaping checklist for Bend, Oregon homeowners. When to aerate, activate sprinklers, plant, and clean up your yard."
-        canonical="https://newportavelandscaping.com/resources/spring-landscaping-guide-bend-oregon"
+        canonical="https://www.newportavelandscaping.com/resources/spring-landscaping-guide-bend-oregon"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

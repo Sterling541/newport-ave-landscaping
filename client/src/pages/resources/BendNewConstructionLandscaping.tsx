@@ -9,7 +9,7 @@ export default function BendNewConstructionLandscaping() {
       <SEO
         title="New Construction Landscaping in Bend, OR | Newport Ave"
         description="Landscaping for new construction homes in Bend, Oregon. What to expect, timing, and costs for new home landscaping in Central Oregon."
-        canonical="https://newportavelandscaping.com/resources/new-construction-landscaping-bend-oregon"
+        canonical="https://www.newportavelandscaping.com/resources/new-construction-landscaping-bend-oregon"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

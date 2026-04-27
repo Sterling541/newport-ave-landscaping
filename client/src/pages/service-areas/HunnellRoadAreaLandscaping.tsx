@@ -9,7 +9,7 @@ export default function HunnellRoadAreaLandscaping() {
       <SEO
         title="Landscaping in Hunnell Road Area, Bend, OR | Newport Ave Landscaping"
         description="Professional landscaping, paver patios, irrigation, and lawn care in Hunnell Road Area, Bend, Oregon. Newport Avenue Landscaping — licensed, bonded, 21+ years. Free consultations."
-        canonical="https://newportavelandscaping.com/service-areas/hunnell-road-area-landscaping"
+        canonical="https://www.newportavelandscaping.com/service-areas/hunnell-road-area-landscaping"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

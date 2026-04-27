@@ -12,7 +12,7 @@ export default function BrokenTopNeighborhood() {
       <SEO
         title="Broken Top Landscaping — Bend, Oregon | Newport Avenue Landscaping"
         description="Luxury landscaping for Broken Top homes in Bend, OR. Estate design, water features, outdoor living, HOA compliance, and year-round maintenance inside Bend's premier gated community. LCB #9153."
-        canonical="https://newportavelandscaping.com/service-areas/broken-top-landscaping"
+        canonical="https://www.newportavelandscaping.com/service-areas/broken-top-landscaping"
       />
       <BreadcrumbSchema items={[
         { name: "Home", url: "/" },

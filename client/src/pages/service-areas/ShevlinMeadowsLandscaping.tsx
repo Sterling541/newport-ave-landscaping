@@ -9,7 +9,7 @@ export default function ShevlinMeadowsLandscaping() {
       <SEO
         title="Landscaping in Shevlin Meadows, Bend, OR | Newport Ave Landscaping"
         description="Professional landscaping, paver patios, irrigation, and lawn care in Shevlin Meadows, Bend, Oregon. Newport Avenue Landscaping — licensed, bonded, 21+ years. Free consultations."
-        canonical="https://newportavelandscaping.com/service-areas/shevlin-meadows-landscaping"
+        canonical="https://www.newportavelandscaping.com/service-areas/shevlin-meadows-landscaping"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

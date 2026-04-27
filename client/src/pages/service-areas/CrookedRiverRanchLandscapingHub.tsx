@@ -9,7 +9,7 @@ export default function CrookedRiverRanchLandscapingHub() {
       <SEO
         title="Landscaping in Crooked River Ranch, OR | Newport Ave Landscaping"
         description="Professional landscaping, paver patios, irrigation, and lawn care in Crooked River Ranch, Oregon. Newport Avenue Landscaping — licensed, bonded, 21+ years. Free consultations."
-        canonical="https://newportavelandscaping.com/service-areas/crooked-river-ranch"
+        canonical="https://www.newportavelandscaping.com/service-areas/crooked-river-ranch"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

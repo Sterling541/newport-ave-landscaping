@@ -9,7 +9,7 @@ export default function IrrigationTerrebonne() {
       <SEO
         title="Irrigation Installation & Repair in Terrebonne, OR | Newport Ave Landscaping"
         description="Professional irrigation installation & repair in Terrebonne, Oregon. Newport Avenue Landscaping — licensed, bonded, 21+ years serving Central Oregon. Free consultations."
-        canonical="https://newportavelandscaping.com/service-areas/terrebonne-irrigation"
+        canonical="https://www.newportavelandscaping.com/service-areas/terrebonne-irrigation"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

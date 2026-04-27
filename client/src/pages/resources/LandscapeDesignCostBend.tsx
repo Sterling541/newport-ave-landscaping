@@ -9,7 +9,7 @@ export default function LandscapeDesignCostBend() {
       <SEO
         title="Landscape Design Cost in Bend, OR | Newport Ave Landscaping"
         description="What landscape design and installation costs in Bend, Oregon. Full-yard design, partial renovation, and what affects pricing in Central Oregon."
-        canonical="https://newportavelandscaping.com/resources/landscape-design-cost-bend-oregon"
+        canonical="https://www.newportavelandscaping.com/resources/landscape-design-cost-bend-oregon"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

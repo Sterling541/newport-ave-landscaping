@@ -25,7 +25,7 @@ export default function BrownLawnBendOregon() {
       <Helmet>
         <title>Brown Lawn Bend Oregon | Why Is My Lawn Dying? How to Fix It | Newport Avenue</title>
         <meta name="description" content="Is your lawn turning brown in Bend, Oregon? Learn the 6 most common causes — drought stress, irrigation failure, fungus, grubs, and more — and how to fix each one." />
-        <link rel="canonical" href="https://newportavelandscaping.com/resources/brown-lawn-bend-oregon" />
+        <link rel="canonical" href="https://www.newportavelandscaping.com/resources/brown-lawn-bend-oregon" />
         <script type="application/ld+json">{JSON.stringify({
           "@context": "https://schema.org",
           "@type": "FAQPage",
@@ -51,9 +51,9 @@ export default function BrownLawnBendOregon() {
           "@context": "https://schema.org",
           "@type": "BreadcrumbList",
           itemListElement: [
-            { "@type": "ListItem", position: 1, name: "Home", item: "https://newportavelandscaping.com/" },
-            { "@type": "ListItem", position: 2, name: "Resources", item: "https://newportavelandscaping.com/resources" },
-            { "@type": "ListItem", position: 3, name: "Brown Lawn Bend Oregon", item: "https://newportavelandscaping.com/resources/brown-lawn-bend-oregon" }
+            { "@type": "ListItem", position: 1, name: "Home", item: "https://www.newportavelandscaping.com/" },
+            { "@type": "ListItem", position: 2, name: "Resources", item: "https://www.newportavelandscaping.com/resources" },
+            { "@type": "ListItem", position: 3, name: "Brown Lawn Bend Oregon", item: "https://www.newportavelandscaping.com/resources/brown-lawn-bend-oregon" }
           ]
         })}</script>
       </Helmet>

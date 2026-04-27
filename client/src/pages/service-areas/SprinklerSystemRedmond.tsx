@@ -9,7 +9,7 @@ export default function SprinklerSystemRedmond() {
       <SEO
         title="Sprinkler System Installation in Redmond, OR | Newport Ave Landscaping"
         description="Professional sprinkler system installation in Redmond, Oregon. Newport Avenue Landscaping — licensed, bonded, 21+ years serving Central Oregon. Free consultations."
-        canonical="https://newportavelandscaping.com/service-areas/redmond-sprinkler-system"
+        canonical="https://www.newportavelandscaping.com/service-areas/redmond-sprinkler-system"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

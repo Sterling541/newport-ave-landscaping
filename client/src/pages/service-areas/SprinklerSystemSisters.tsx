@@ -9,7 +9,7 @@ export default function SprinklerSystemSisters() {
       <SEO
         title="Sprinkler System Installation in Sisters, OR | Newport Ave Landscaping"
         description="Professional sprinkler system installation in Sisters, Oregon. Newport Avenue Landscaping — licensed, bonded, 21+ years serving Central Oregon. Free consultations."
-        canonical="https://newportavelandscaping.com/service-areas/sisters-sprinkler-system"
+        canonical="https://www.newportavelandscaping.com/service-areas/sisters-sprinkler-system"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

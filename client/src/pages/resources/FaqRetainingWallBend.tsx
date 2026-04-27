@@ -9,7 +9,7 @@ export default function FaqRetainingWallBend() {
       <SEO
         title="Retaining Wall FAQ — Bend, Oregon | Newport Ave Landscaping"
         description="Common questions about retaining wall installation in Bend, Oregon. Costs, materials, permits, and what to expect."
-        canonical="https://newportavelandscaping.com/resources/faq-retaining-wall-bend-oregon"
+        canonical="https://www.newportavelandscaping.com/resources/faq-retaining-wall-bend-oregon"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import Navbar from "@/components/Navbar";
 import { useLocation } from "wouter";
 
@@ -5,7 +6,7 @@ export default function ClimateChange() {
   const [, navigate] = useLocation();
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: "oklch(0.97 0.003 0)" }}>
+    <><Helmet><link rel="canonical" href="https://www.newportavelandscaping.com/blog/climate-change-landscaping" /></Helmet><div className="min-h-screen" style={{ backgroundColor: "oklch(0.97 0.003 0)" }}>
       <Navbar />
       <div style={{ paddingTop: "204px" }}>
         {/* Hero */}
@@ -109,5 +110,6 @@ export default function ClimateChange() {
         </div>
       </div>
     </div>
+  </>
   );
 }

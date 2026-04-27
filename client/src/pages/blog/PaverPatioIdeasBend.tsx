@@ -9,7 +9,7 @@ export default function PaverPatioIdeasBend() {
       <SEO
         title="Paver Patio Ideas Bend Oregon — Design Inspiration | Newport Ave"
         description="Paver patio design ideas for Bend, Oregon homes. Belgard & Unilock paver styles, layout patterns, fire pit integration & outdoor kitchen ideas for Central Oregon's lifestyle."
-        canonical="https://newportavelandscaping.com/blog/paver-patio-ideas-bend-oregon"
+        canonical="https://www.newportavelandscaping.com/blog/paver-patio-ideas-bend-oregon"
       />
       <BreadcrumbSchema items={[
         { name: "Home", url: "/" },

@@ -64,7 +64,7 @@ export default function ConcretePaversBend() {
       <Helmet>
         <title>Concrete Pavers Bend Oregon | Patio, Driveway & Walkway Pavers | Newport Avenue</title>
         <meta name="description" content="Expert concrete paver installation in Bend, Oregon. Freeze-thaw rated pavers for patios, driveways, walkways & pool decks. Licensed & insured. Free estimates." />
-        <link rel="canonical" href="https://newportavelandscaping.com/paver-patios-bend/concrete-pavers" />
+        <link rel="canonical" href="https://www.newportavelandscaping.com/paver-patios-bend/concrete-pavers" />
         <script type="application/ld+json">{JSON.stringify(SCHEMA)}</script>
         <script type="application/ld+json">{JSON.stringify(FAQ_SCHEMA)}</script>
       </Helmet>

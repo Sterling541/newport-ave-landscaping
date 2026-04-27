@@ -64,7 +64,7 @@ export default function PaverPatiosBend() {
       <Helmet>
         <title>Paver Patios Bend Oregon | Newport Avenue Landscaping | (541) 604-1337</title>
         <meta name="description" content="Expert paver patio installation in Bend, Oregon. Concrete pavers, natural stone, outdoor kitchens, fire pits & retaining walls. Licensed & insured. Free estimates." />
-        <link rel="canonical" href="https://newportavelandscaping.com/paver-patios-bend" />
+        <link rel="canonical" href="https://www.newportavelandscaping.com/paver-patios-bend" />
         <script type="application/ld+json">{JSON.stringify(SCHEMA)}</script>
         <script type="application/ld+json">{JSON.stringify(FAQ_SCHEMA)}</script>
       </Helmet>

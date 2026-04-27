@@ -9,7 +9,7 @@ export default function BendLandscapeMaintenancePlan() {
       <SEO
         title="Landscape Maintenance Plans in Bend, OR | Newport Ave"
         description="Landscape maintenance plans for Bend, Oregon homeowners. What's included, pricing, and how to choose the right plan for your property."
-        canonical="https://newportavelandscaping.com/resources/landscape-maintenance-plan-bend-oregon"
+        canonical="https://www.newportavelandscaping.com/resources/landscape-maintenance-plan-bend-oregon"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

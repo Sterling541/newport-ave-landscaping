@@ -9,7 +9,7 @@ export default function SnowRemovalCostBend() {
       <SEO
         title="Snow Removal Cost in Bend, OR | Newport Ave Landscaping"
         description="What snow removal costs in Bend, Oregon. Residential and commercial pricing, seasonal contracts, and what to expect."
-        canonical="https://newportavelandscaping.com/resources/snow-removal-bend-oregon"
+        canonical="https://www.newportavelandscaping.com/resources/snow-removal-bend-oregon"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

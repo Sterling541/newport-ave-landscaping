@@ -9,7 +9,7 @@ export default function IrrigationPowellButte() {
       <SEO
         title="Irrigation Installation & Repair in Powell Butte, OR | Newport Ave Landscaping"
         description="Professional irrigation installation & repair in Powell Butte, Oregon. Newport Avenue Landscaping — licensed, bonded, 21+ years serving Central Oregon. Free consultations."
-        canonical="https://newportavelandscaping.com/service-areas/powell-butte-irrigation"
+        canonical="https://www.newportavelandscaping.com/service-areas/powell-butte-irrigation"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

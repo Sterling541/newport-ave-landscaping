@@ -9,7 +9,7 @@ export default function OldMillDistrictLandscaping() {
       <SEO
         title="Landscaping in Old Mill District, Bend, OR | Newport Ave Landscaping"
         description="Professional landscaping, paver patios, irrigation, and lawn care in Old Mill District, Bend, Oregon. Newport Avenue Landscaping — licensed, bonded, 21+ years. Free consultations."
-        canonical="https://newportavelandscaping.com/service-areas/old-mill-district-landscaping"
+        canonical="https://www.newportavelandscaping.com/service-areas/old-mill-district-landscaping"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

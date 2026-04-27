@@ -9,7 +9,7 @@ export default function BendLandscapeBeforeAfter() {
       <SEO
         title="Landscape Transformations in Bend, Oregon | Newport Ave"
         description="How Newport Avenue Landscaping transforms Bend, Oregon properties. Before and after examples and what's possible in Central Oregon."
-        canonical="https://newportavelandscaping.com/resources/landscape-transformation-bend-oregon"
+        canonical="https://www.newportavelandscaping.com/resources/landscape-transformation-bend-oregon"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

@@ -9,7 +9,7 @@ export default function PaverPatioSisters() {
       <SEO
         title="Paver Patio Installation in Sisters, OR | Newport Ave Landscaping"
         description="Professional paver patio installation in Sisters, Oregon. Newport Avenue Landscaping — licensed, bonded, 21+ years serving Central Oregon. Free consultations."
-        canonical="https://newportavelandscaping.com/service-areas/sisters-paver-patio"
+        canonical="https://www.newportavelandscaping.com/service-areas/sisters-paver-patio"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

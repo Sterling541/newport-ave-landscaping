@@ -9,7 +9,7 @@ export default function FallLandscapingGuideBend() {
       <SEO
         title="Fall Landscaping Guide for Bend, Oregon | Newport Ave"
         description="Complete fall landscaping checklist for Bend, Oregon. When to winterize sprinklers, aerate, overseed, and prepare your landscape for winter."
-        canonical="https://newportavelandscaping.com/resources/fall-landscaping-guide-bend-oregon"
+        canonical="https://www.newportavelandscaping.com/resources/fall-landscaping-guide-bend-oregon"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

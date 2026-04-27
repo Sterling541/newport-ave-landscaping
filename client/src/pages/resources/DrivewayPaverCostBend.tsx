@@ -9,7 +9,7 @@ export default function DrivewayPaverCostBend() {
       <SEO
         title="Paver Driveway Cost in Bend, OR | Newport Ave Landscaping"
         description="What a paver driveway costs in Bend, Oregon. Materials, installation, and how pavers compare to concrete and asphalt."
-        canonical="https://newportavelandscaping.com/resources/driveway-paver-cost-bend-oregon"
+        canonical="https://www.newportavelandscaping.com/resources/driveway-paver-cost-bend-oregon"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

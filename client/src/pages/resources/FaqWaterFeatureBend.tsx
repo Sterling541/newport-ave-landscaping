@@ -9,7 +9,7 @@ export default function FaqWaterFeatureBend() {
       <SEO
         title="Water Feature FAQ — Bend, Oregon | Newport Ave Landscaping"
         description="Common questions about water feature installation in Bend, Oregon. Ponds, fountains, waterfalls, and pondless features."
-        canonical="https://newportavelandscaping.com/resources/faq-water-feature-bend-oregon"
+        canonical="https://www.newportavelandscaping.com/resources/faq-water-feature-bend-oregon"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

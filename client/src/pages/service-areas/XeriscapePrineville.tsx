@@ -9,7 +9,7 @@ export default function XeriscapePrineville() {
       <SEO
         title="Xeriscape Landscaping in Prineville, OR | Newport Ave Landscaping"
         description="Professional xeriscape landscaping in Prineville, Oregon. Newport Avenue Landscaping — licensed, bonded, 21+ years serving Central Oregon. Free consultations."
-        canonical="https://newportavelandscaping.com/service-areas/prineville-xeriscape"
+        canonical="https://www.newportavelandscaping.com/service-areas/prineville-xeriscape"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

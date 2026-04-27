@@ -10,7 +10,7 @@ export default function DecksRedmond() {
       <Helmet>
         <title>Deck Builder Redmond Oregon | Custom Decks & Pergolas | Newport Avenue Landscaping</title>
         <meta name="description" content="Custom deck building and pergola installation in Redmond, Oregon. Composite, Trex, cedar, and pressure-treated decks. Licensed deck contractor LCB #9153. Free estimates. Serving Redmond since 2005." />
-        <link rel="canonical" href="https://newportavelandscaping.com/service-areas/decks-redmond-oregon" />
+        <link rel="canonical" href="https://www.newportavelandscaping.com/service-areas/decks-redmond-oregon" />
       </Helmet>
       <BreadcrumbSchema items={[
         { name: "Home", url: "/" },

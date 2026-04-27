@@ -9,7 +9,7 @@ export default function RiverWestLandscaping() {
       <SEO
         title="Landscaping in River West, Bend, OR | Newport Ave Landscaping"
         description="Professional landscaping, paver patios, irrigation, and lawn care in River West, Bend, Oregon. Newport Avenue Landscaping — licensed, bonded, 21+ years. Free consultations."
-        canonical="https://newportavelandscaping.com/service-areas/river-west-landscaping"
+        canonical="https://www.newportavelandscaping.com/service-areas/river-west-landscaping"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

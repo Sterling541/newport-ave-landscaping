@@ -9,7 +9,7 @@ export default function SnowRemovalBend() {
       <SEO
         title="Snow Removal Services in Bend, Oregon | Newport Ave Landscaping"
         description="Ensure your Bend, Oregon property is clear and safe this winter with professional snow removal services from Newport Ave Landscaping. We handle residential and commercial snow clearing, de-icing, and offer flexible contracts. Licensed & Bonded (LCB #9153)."
-        canonical="https://newportavelandscaping.com/resources/snow-removal-bend-oregon"
+        canonical="https://www.newportavelandscaping.com/resources/snow-removal-bend-oregon"
       />
       <BreadcrumbSchema items={[
         { name: "Home", url: "/" },

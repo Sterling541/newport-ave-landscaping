@@ -9,7 +9,7 @@ export default function FaqPaverPatioBend() {
       <SEO
         title="Paver Patio FAQ — Bend, Oregon | Newport Ave Landscaping"
         description="Answers to the most common questions about paver patio installation in Bend, Oregon. Costs, materials, timeline, warranty, and more."
-        canonical="https://newportavelandscaping.com/resources/faq-paver-patio-bend-oregon"
+        canonical="https://www.newportavelandscaping.com/resources/faq-paver-patio-bend-oregon"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

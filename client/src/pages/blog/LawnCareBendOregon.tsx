@@ -9,7 +9,7 @@ export default function LawnCareBendOregon() {
       <SEO
         title="Lawn Care in Bend Oregon — Complete Seasonal Guide | Newport Ave"
         description="The complete guide to lawn care in Bend, Oregon. Watering schedules, fertilization timing, aeration, overseeding, and weed control for Central Oregon's high desert climate."
-        canonical="https://newportavelandscaping.com/blog/lawn-care-bend-oregon"
+        canonical="https://www.newportavelandscaping.com/blog/lawn-care-bend-oregon"
       />
       <BreadcrumbSchema items={[
         { name: "Home", url: "/" },

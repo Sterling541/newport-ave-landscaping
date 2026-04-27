@@ -9,7 +9,7 @@ export default function LawnCareAlfalfa() {
       <SEO
         title="Lawn Care & Maintenance in Alfalfa, OR | Newport Ave Landscaping"
         description="Professional lawn care & maintenance in Alfalfa, Oregon. Newport Avenue Landscaping — licensed, bonded, 21+ years serving Central Oregon. Free consultations."
-        canonical="https://newportavelandscaping.com/service-areas/alfalfa-lawn-care"
+        canonical="https://www.newportavelandscaping.com/service-areas/alfalfa-lawn-care"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

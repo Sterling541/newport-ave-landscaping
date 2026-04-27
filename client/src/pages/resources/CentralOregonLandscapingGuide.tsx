@@ -9,7 +9,7 @@ export default function CentralOregonLandscapingGuide() {
       <SEO
         title="Central Oregon Landscaping Guide | Newport Ave Landscaping"
         description="Complete guide to landscaping in Central Oregon. Climate, plants, costs, and best practices for Bend, Redmond, Sisters, and surrounding areas."
-        canonical="https://newportavelandscaping.com/resources/central-oregon-landscaping-guide"
+        canonical="https://www.newportavelandscaping.com/resources/central-oregon-landscaping-guide"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

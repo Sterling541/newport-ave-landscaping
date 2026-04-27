@@ -9,7 +9,7 @@ export default function PergolaCostBend() {
       <SEO
         title="Pergola Cost in Bend, OR | Newport Ave Landscaping"
         description="What a pergola costs in Bend, Oregon. Materials, installation, and design options for Central Oregon outdoor spaces."
-        canonical="https://newportavelandscaping.com/resources/pergola-cost-bend-oregon"
+        canonical="https://www.newportavelandscaping.com/resources/pergola-cost-bend-oregon"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

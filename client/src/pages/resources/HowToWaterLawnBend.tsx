@@ -9,7 +9,7 @@ export default function HowToWaterLawnBend() {
       <SEO
         title="How to Water Your Lawn in Bend, Oregon | Newport Ave"
         description="Expert guide to watering your lawn in Bend, Oregon. How much water, when to water, and how to avoid common mistakes in Central Oregon's climate."
-        canonical="https://newportavelandscaping.com/resources/how-to-water-lawn-bend-oregon"
+        canonical="https://www.newportavelandscaping.com/resources/how-to-water-lawn-bend-oregon"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

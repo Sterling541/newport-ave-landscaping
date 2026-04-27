@@ -9,7 +9,7 @@ export default function FirePitPatioCostBend() {
       <SEO
         title="Fire Pit & Patio Cost in Bend, OR | Newport Ave Landscaping"
         description="What a fire pit and patio costs in Bend, Oregon. Built-in vs. portable fire pits, patio combinations, and budgeting tips."
-        canonical="https://newportavelandscaping.com/resources/fire-pit-patio-cost-bend-oregon"
+        canonical="https://www.newportavelandscaping.com/resources/fire-pit-patio-cost-bend-oregon"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

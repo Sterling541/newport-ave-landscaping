@@ -8,16 +8,16 @@ export default function Resources() {
       <Helmet>
         <title>Landscaping Resources &amp; Guides for Bend, Oregon | Newport Avenue Landscaping</title>
         <meta name="description" content="Free landscaping guides, cost estimates, how-tos, and seasonal tips for Bend, Oregon homeowners. 100 articles covering irrigation, pavers, xeriscape, lawn care, and more from Newport Avenue Landscaping — 21 years of Central Oregon expertise." />
-        <link rel="canonical" href="https://newportavelandscaping.com/resources" />
+        <link rel="canonical" href="https://www.newportavelandscaping.com/resources" />
         <script type="application/ld+json">{`{
           "@context": "https://schema.org",
           "@type": "CollectionPage",
           "name": "Landscaping Resources for Bend, Oregon",
           "description": "Free landscaping guides, cost estimates, and how-tos for Central Oregon homeowners.",
-          "url": "https://newportavelandscaping.com/resources",
+          "url": "https://www.newportavelandscaping.com/resources",
           "publisher": {
             "@type": "LocalBusiness",
-            "@id": "https://newportavelandscaping.com/#business",
+            "@id": "https://www.newportavelandscaping.com/#business",
             "name": "Newport Avenue Landscaping"
           }
         }`}</script>

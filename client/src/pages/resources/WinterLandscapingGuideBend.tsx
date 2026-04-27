@@ -9,7 +9,7 @@ export default function WinterLandscapingGuideBend() {
       <SEO
         title="Winter Landscaping Guide for Bend, Oregon | Newport Ave"
         description="What to do with your Bend landscape in winter. Snow removal, protecting plants, and planning for spring."
-        canonical="https://newportavelandscaping.com/resources/winter-landscaping-guide-bend-oregon"
+        canonical="https://www.newportavelandscaping.com/resources/winter-landscaping-guide-bend-oregon"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

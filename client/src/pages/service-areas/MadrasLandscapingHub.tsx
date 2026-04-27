@@ -9,7 +9,7 @@ export default function MadrasLandscapingHub() {
       <SEO
         title="Landscaping in Madras, OR | Newport Ave Landscaping"
         description="Professional landscaping, paver patios, irrigation, and lawn care in Madras, Oregon. Newport Avenue Landscaping — licensed, bonded, 21+ years. Free consultations."
-        canonical="https://newportavelandscaping.com/service-areas/madras"
+        canonical="https://www.newportavelandscaping.com/service-areas/madras"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

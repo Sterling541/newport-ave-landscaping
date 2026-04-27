@@ -9,7 +9,7 @@ export default function RedmondLandscapingHub() {
       <SEO
         title="Landscaping in Redmond, OR | Newport Ave Landscaping"
         description="Professional landscaping, paver patios, irrigation, xeriscape, and lawn care in Redmond, Oregon. Newport Avenue Landscaping — licensed, bonded, 21+ years. Free consultations."
-        canonical="https://newportavelandscaping.com/service-areas/redmond"
+        canonical="https://www.newportavelandscaping.com/service-areas/redmond"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

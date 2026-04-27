@@ -9,7 +9,7 @@ export default function LarkspurLandscaping() {
       <SEO
         title="Landscaping in Larkspur, Bend, OR | Newport Ave Landscaping"
         description="Professional landscaping, paver patios, irrigation, and lawn care in Larkspur, Bend, Oregon. Newport Avenue Landscaping — licensed, bonded, 21+ years. Free consultations."
-        canonical="https://newportavelandscaping.com/service-areas/larkspur-landscaping"
+        canonical="https://www.newportavelandscaping.com/service-areas/larkspur-landscaping"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

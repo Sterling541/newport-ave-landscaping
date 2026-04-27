@@ -9,7 +9,7 @@ export default function LawnCareLaPine() {
       <SEO
         title="Lawn Care & Maintenance in La Pine, OR | Newport Ave Landscaping"
         description="Professional lawn care & maintenance in La Pine, Oregon. Newport Avenue Landscaping — licensed, bonded, 21+ years serving Central Oregon. Free consultations."
-        canonical="https://newportavelandscaping.com/service-areas/la-pine-lawn-care"
+        canonical="https://www.newportavelandscaping.com/service-areas/la-pine-lawn-care"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

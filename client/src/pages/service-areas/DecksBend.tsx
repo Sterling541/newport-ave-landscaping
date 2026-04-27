@@ -10,7 +10,7 @@ export default function DecksBend() {
       <Helmet>
         <title>Deck Builder Bend Oregon | Custom Decks & Pergolas | Newport Avenue Landscaping</title>
         <meta name="description" content="Custom deck building and pergola installation in Bend, Oregon. Composite, Trex, cedar, and pressure-treated decks. Licensed deck contractor LCB #9153. Free estimates. 21+ years serving Bend." />
-        <link rel="canonical" href="https://newportavelandscaping.com/service-areas/decks-bend-oregon" />
+        <link rel="canonical" href="https://www.newportavelandscaping.com/service-areas/decks-bend-oregon" />
       </Helmet>
       <BreadcrumbSchema items={[
         { name: "Home", url: "/" },

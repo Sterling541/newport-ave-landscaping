@@ -9,7 +9,7 @@ export default function LawnCareRedmond() {
       <SEO
         title="Lawn Care & Maintenance in Redmond, OR | Newport Ave Landscaping"
         description="Professional lawn care & maintenance in Redmond, Oregon. Newport Avenue Landscaping — licensed, bonded, 21+ years serving Central Oregon. Free consultations."
-        canonical="https://newportavelandscaping.com/service-areas/redmond-lawn-care"
+        canonical="https://www.newportavelandscaping.com/service-areas/redmond-lawn-care"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

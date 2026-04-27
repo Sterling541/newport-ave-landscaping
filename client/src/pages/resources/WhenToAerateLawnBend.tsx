@@ -9,7 +9,7 @@ export default function WhenToAerateLawnBend() {
       <SEO
         title="When to Aerate Your Lawn in Bend, Oregon | Newport Ave"
         description="Best timing for lawn aeration in Bend, Oregon. Spring vs. fall aeration, how often to aerate, and what to expect in Central Oregon."
-        canonical="https://newportavelandscaping.com/resources/when-to-aerate-lawn-bend-oregon"
+        canonical="https://www.newportavelandscaping.com/resources/when-to-aerate-lawn-bend-oregon"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

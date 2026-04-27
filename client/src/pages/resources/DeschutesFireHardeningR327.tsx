@@ -42,7 +42,7 @@ const DeschutesFireHardeningR327: React.FC = () => {
       <Helmet>
         <title>Deschutes County Fire Hardening Requirements R327 | Newport Avenue Landscaping</title>
         <meta name="description" content="Understand Deschutes County R327 fire hardening requirements, defensible space ordinances, and how Newport Avenue Landscaping helps Bend, Oregon homeowners comply and protect their homes from wildfire." />
-        <link rel="canonical" href="https://newportavelandscaping.com/resources/deschutes-county-fire-hardening-requirements" />
+        <link rel="canonical" href="https://www.newportavelandscaping.com/resources/deschutes-county-fire-hardening-requirements" />
         <script type="application/ld+json">{`          {{
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
@@ -51,19 +51,19 @@ const DeschutesFireHardeningR327: React.FC = () => {
                 "@type": "ListItem",
                 "position": 1,
                 "name": "Home",
-                "item": "https://newportavelandscaping.com"
+                "item": "https://www.newportavelandscaping.com"
               }},
               {{
                 "@type": "ListItem",
                 "position": 2,
                 "name": "Resources",
-                "item": "https://newportavelandscaping.com/resources"
+                "item": "https://www.newportavelandscaping.com/resources"
               }},
               {{
                 "@type": "ListItem",
                 "position": 3,
                 "name": "Deschutes County Fire Hardening Requirements",
-                "item": "https://newportavelandscaping.com/resources/deschutes-county-fire-hardening-requirements"
+                "item": "https://www.newportavelandscaping.com/resources/deschutes-county-fire-hardening-requirements"
               }}
             ]
           }}`}</script>

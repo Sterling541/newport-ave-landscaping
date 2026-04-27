@@ -9,7 +9,7 @@ export default function PaverPatioAlfalfa() {
       <SEO
         title="Paver Patio Installation in Alfalfa, OR | Newport Ave Landscaping"
         description="Professional paver patio installation in Alfalfa, Oregon. Newport Avenue Landscaping — licensed, bonded, 21+ years serving Central Oregon. Free consultations."
-        canonical="https://newportavelandscaping.com/service-areas/alfalfa-paver-patio"
+        canonical="https://www.newportavelandscaping.com/service-areas/alfalfa-paver-patio"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

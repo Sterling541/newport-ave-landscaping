@@ -9,7 +9,7 @@ export default function BendLandscapeDesignIdeas() {
       <SEO
         title="Landscape Design Ideas for Bend, Oregon | Newport Ave"
         description="Landscape design ideas for Bend, Oregon homes. Patio styles, plant combinations, and outdoor living concepts for Central Oregon."
-        canonical="https://newportavelandscaping.com/resources/landscape-design-ideas-bend-oregon"
+        canonical="https://www.newportavelandscaping.com/resources/landscape-design-ideas-bend-oregon"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

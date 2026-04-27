@@ -39,7 +39,7 @@ export default function EagleCrestNeighborhood() {
       <SEO
         title="Eagle Crest Landscaping & Irrigation | Newport Avenue Landscaping"
         description="Expert landscaping and irrigation for Eagle Crest Resort homeowners in Redmond, Oregon. Drought-tolerant design, HOA compliance, fire-wise landscaping, and vacation property maintenance. LCB #9153."
-        canonical="https://newportavelandscaping.com/service-areas/eagle-crest-landscaping"
+        canonical="https://www.newportavelandscaping.com/service-areas/eagle-crest-landscaping"
       />
       <BreadcrumbSchema items={[
         { name: "Home", url: "/" },

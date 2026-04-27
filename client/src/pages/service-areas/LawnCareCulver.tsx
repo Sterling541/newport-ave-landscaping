@@ -9,7 +9,7 @@ export default function LawnCareCulver() {
       <SEO
         title="Lawn Care & Maintenance in Culver, OR | Newport Ave Landscaping"
         description="Professional lawn care & maintenance in Culver, Oregon. Newport Avenue Landscaping — licensed, bonded, 21+ years serving Central Oregon. Free consultations."
-        canonical="https://newportavelandscaping.com/service-areas/culver-lawn-care"
+        canonical="https://www.newportavelandscaping.com/service-areas/culver-lawn-care"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },

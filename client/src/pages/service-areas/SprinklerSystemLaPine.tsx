@@ -9,7 +9,7 @@ export default function SprinklerSystemLaPine() {
       <SEO
         title="Sprinkler System Installation in La Pine, OR | Newport Ave Landscaping"
         description="Professional sprinkler system installation in La Pine, Oregon. Newport Avenue Landscaping — licensed, bonded, 21+ years serving Central Oregon. Free consultations."
-        canonical="https://newportavelandscaping.com/service-areas/la-pine-sprinkler-system"
+        canonical="https://www.newportavelandscaping.com/service-areas/la-pine-sprinkler-system"
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: '/' },
