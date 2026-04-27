@@ -824,13 +824,15 @@ export default function Navbar() {
         <div
           className="md:hidden"
           style={{
-            maxHeight: mobileOpen ? "80vh" : "0",
-            overflow: "hidden",
+            maxHeight: mobileOpen ? "85vh" : "0",
+            overflowY: mobileOpen ? "auto" : "hidden",
+            overflowX: "hidden",
             transition: "max-height 0.35s ease",
             backgroundColor: "oklch(0.98 0.005 90)",
             borderTop: mobileOpen ? "1px solid oklch(0.90 0.006 75)" : "none",
             position: "relative",
             zIndex: 2,
+            WebkitOverflowScrolling: "touch",
           }}
         >
           <div style={{ padding: "1rem 1.5rem 2rem" }}>
