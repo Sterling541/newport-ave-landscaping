@@ -387,6 +387,7 @@ export default function AdminSubmissions() {
   const authLoading = false;
   const [search, setSearch] = useState("");
   const [serviceFilter, setServiceFilter] = useState("all");
+  const [yearFilter, setYearFilter] = useState<number | undefined>(undefined);
   const [sortKey, setSortKey] = useState<SortKey>("createdAt");
   const [sortDir, setSortDir] = useState<SortDir>("desc");
   const [selected, setSelected] = useState<Submission | null>(null);
@@ -395,7 +396,7 @@ export default function AdminSubmissions() {
   const [insightsEnabled, setInsightsEnabled] = useState(false);
 
   const { data, isLoading, refetch } = trpc.submissions.list.useQuery(
-    { limit: 500, offset: 0 },
+    { limit: 2000, offset: 0, year: yearFilter },
     { enabled: !!user }
   );
 
@@ -603,6 +604,20 @@ export default function AdminSubmissions() {
               {serviceTypes.map(s => (
                 <SelectItem key={s} value={s}>{serviceLabel(s)}</SelectItem>
               ))}
+            </SelectContent>
+          </Select>
+          <Select
+            value={yearFilter ? String(yearFilter) : "all"}
+            onValueChange={v => setYearFilter(v === "all" ? undefined : Number(v))}
+          >
+            <SelectTrigger className="w-full sm:w-36 bg-white border-stone-300">
+              <SelectValue placeholder="All years" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All years</SelectItem>
+              <SelectItem value="2024">2024</SelectItem>
+              <SelectItem value="2025">2025</SelectItem>
+              <SelectItem value="2026">2026</SelectItem>
             </SelectContent>
           </Select>
         </div>

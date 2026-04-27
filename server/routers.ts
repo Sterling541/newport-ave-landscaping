@@ -331,11 +331,15 @@ export const appRouter = router({
       }),
 
     list: protectedProcedure
-      .input(z.object({ limit: z.number().min(1).max(500).default(100), offset: z.number().min(0).default(0) }))
+      .input(z.object({
+        limit: z.number().min(1).max(2000).default(100),
+        offset: z.number().min(0).default(0),
+        year: z.number().int().min(2020).max(2100).optional(),
+      }))
       .query(async ({ ctx, input }) => {
         requireAdmin(ctx);
-        const rows = await listServiceSubmissions(input.limit, input.offset);
-        const total = await countServiceSubmissions();
+        const rows = await listServiceSubmissions(input.limit, input.offset, input.year);
+        const total = await countServiceSubmissions(input.year);
         return { rows, total };
       }),
 

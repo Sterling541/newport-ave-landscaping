@@ -81,9 +81,16 @@ export async function bulkInsertServiceSubmissions(rows: InsertServiceSubmission
   }
 }
 
-export async function listServiceSubmissions(limit = 200, offset = 0) {
+export async function listServiceSubmissions(limit = 200, offset = 0, year?: number) {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
+  if (year) {
+    const start = new Date(`${year}-01-01T00:00:00.000Z`);
+    const end = new Date(`${year + 1}-01-01T00:00:00.000Z`);
+    return db.select().from(serviceSubmissions)
+      .where(and(gte(serviceSubmissions.createdAt, start), lte(serviceSubmissions.createdAt, end)))
+      .orderBy(desc(serviceSubmissions.createdAt)).limit(limit).offset(offset);
+  }
   return db.select().from(serviceSubmissions).orderBy(desc(serviceSubmissions.createdAt)).limit(limit).offset(offset);
 }
 
@@ -108,9 +115,16 @@ export async function deleteServiceSubmission(id: number) {
   await db.delete(serviceSubmissions).where(eq(serviceSubmissions.id, id));
 }
 
-export async function countServiceSubmissions() {
+export async function countServiceSubmissions(year?: number) {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
+  if (year) {
+    const start = new Date(`${year}-01-01T00:00:00.000Z`);
+    const end = new Date(`${year + 1}-01-01T00:00:00.000Z`);
+    const rows = await db.select({ count: sql<number>`count(*)` }).from(serviceSubmissions)
+      .where(and(gte(serviceSubmissions.createdAt, start), lte(serviceSubmissions.createdAt, end)));
+    return Number(rows[0]?.count ?? 0);
+  }
   const rows = await db.select({ count: sql<number>`count(*)` }).from(serviceSubmissions);
   return Number(rows[0]?.count ?? 0);
 }
