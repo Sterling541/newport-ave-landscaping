@@ -16,6 +16,12 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { Check } from "lucide-react";
+import {
   Sheet,
   SheetContent,
   SheetHeader,
@@ -383,7 +389,7 @@ export default function AdminSubmissions() {
   const user = pinAuthed ? { role: "admin" } : null;
   const authLoading = false;
   const [search, setSearch] = useState("");
-  const [serviceFilter, setServiceFilter] = useState("all");
+  const [serviceFilters, setServiceFilters] = useState<string[]>([]);
   const [yearFilter, setYearFilter] = useState<number | undefined>(undefined);
   const [sortKey, setSortKey] = useState<SortKey>("createdAt");
   const [sortDir, setSortDir] = useState<SortDir>("desc");
@@ -407,8 +413,8 @@ export default function AdminSubmissions() {
     { enabled: !!user && insightsEnabled, staleTime: 5 * 60 * 1000 }
   );
 
-  const { data: yoyData, isLoading: yoyLoading } = trpc.submissions.yoyStats.useQuery(
-    { serviceType: serviceFilter === "all" ? undefined : serviceFilter },
+    const { data: yoyData, isLoading: yoyLoading } = trpc.submissions.yoyStats.useQuery(
+    { serviceTypes: serviceFilters.length > 0 ? serviceFilters : undefined },
     { enabled: !!user }
   );
 
@@ -453,8 +459,8 @@ export default function AdminSubmissions() {
     if (!data?.rows) return [];
     let rows = [...data.rows] as Submission[];
 
-    if (serviceFilter !== "all") {
-      rows = rows.filter(r => r.serviceType === serviceFilter);
+    if (serviceFilters.length > 0) {
+      rows = rows.filter(r => serviceFilters.includes(r.serviceType || ""));
     }
 
     if (search.trim()) {
@@ -484,7 +490,7 @@ export default function AdminSubmissions() {
     });
 
     return rows;
-  }, [data, search, serviceFilter, sortKey, sortDir]);
+  }, [data, search, serviceFilters, sortKey, sortDir]);
 
   function toggleSort(key: SortKey) {
     if (sortKey === key) setSortDir(d => d === "asc" ? "desc" : "asc");
@@ -597,17 +603,67 @@ export default function AdminSubmissions() {
               className="pl-9 border-stone-300 bg-white"
             />
           </div>
-          <Select value={serviceFilter} onValueChange={setServiceFilter}>
-            <SelectTrigger className="w-full sm:w-64 bg-white border-stone-300">
-              <SelectValue placeholder="All service types" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">All service types</SelectItem>
-              {serviceTypes.map(s => (
-                <SelectItem key={s} value={s}>{serviceLabel(s)}</SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button
+                variant="outline"
+                className="w-full sm:w-64 bg-white border-stone-300 justify-between font-normal"
+              >
+                <span className="truncate">
+                  {serviceFilters.length === 0
+                    ? "All service types"
+                    : serviceFilters.length === 1
+                    ? serviceLabel(serviceFilters[0])
+                    : `${serviceFilters.length} types selected`}
+                </span>
+                <ChevronDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-64 p-2" align="start">
+              <div className="space-y-1">
+                <button
+                  className="flex w-full items-center gap-2 rounded px-2 py-1.5 text-sm hover:bg-stone-100 cursor-pointer"
+                  onClick={() => setServiceFilters([])}
+                >
+                  <div className={`w-4 h-4 rounded border flex items-center justify-center ${serviceFilters.length === 0 ? "bg-green-700 border-green-700" : "border-stone-300"}`}>
+                    {serviceFilters.length === 0 && <Check className="w-3 h-3 text-white" />}
+                  </div>
+                  <span className="font-medium">All service types</span>
+                </button>
+                <div className="border-t border-stone-100 my-1" />
+                {serviceTypes.map(s => {
+                  const checked = serviceFilters.includes(s);
+                  return (
+                    <button
+                      key={s}
+                      className="flex w-full items-center gap-2 rounded px-2 py-1.5 text-sm hover:bg-stone-100 cursor-pointer"
+                      onClick={() => {
+                        setServiceFilters(prev =>
+                          prev.includes(s) ? prev.filter(x => x !== s) : [...prev, s]
+                        );
+                      }}
+                    >
+                      <div className={`w-4 h-4 rounded border flex items-center justify-center ${checked ? "bg-green-700 border-green-700" : "border-stone-300"}`}>
+                        {checked && <Check className="w-3 h-3 text-white" />}
+                      </div>
+                      <span>{serviceLabel(s)}</span>
+                    </button>
+                  );
+                })}
+                {serviceFilters.length > 0 && (
+                  <>
+                    <div className="border-t border-stone-100 my-1" />
+                    <button
+                      className="flex w-full items-center justify-center gap-1 rounded px-2 py-1.5 text-xs text-stone-500 hover:bg-stone-100 cursor-pointer"
+                      onClick={() => setServiceFilters([])}
+                    >
+                      Clear selection
+                    </button>
+                  </>
+                )}
+              </div>
+            </PopoverContent>
+          </Popover>
           <Select
             value={yearFilter ? String(yearFilter) : "all"}
             onValueChange={v => setYearFilter(v === "all" ? undefined : Number(v))}
@@ -630,7 +686,7 @@ export default function AdminSubmissions() {
             <div className="flex items-center gap-2 mb-3">
               <TrendingUp className="w-4 h-4 text-green-700" />
               <span className="text-xs font-semibold text-stone-600 uppercase tracking-wide">
-                {serviceFilter === "all" ? "All Services" : serviceLabel(serviceFilter)} — Year-over-Year
+                {serviceFilters.length === 0 ? "All Services" : serviceFilters.length === 1 ? serviceLabel(serviceFilters[0]) : `${serviceFilters.length} Service Types`} — Year-over-Year
               </span>
               <span className="text-xs text-stone-400 ml-auto">as of {new Date(yoyData.asOfDate).toLocaleDateString("en-US", { month: "short", day: "numeric" })}</span>
             </div>

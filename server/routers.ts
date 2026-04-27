@@ -375,11 +375,11 @@ export const appRouter = router({
 
     yoyStats: protectedProcedure
       .input(z.object({
-        serviceType: z.string().optional(),
+        serviceTypes: z.union([z.string(), z.array(z.string())]).optional(),
       }))
       .query(async ({ ctx, input }) => {
         requireAdmin(ctx);
-        return getYoyStats(input.serviceType);
+        return getYoyStats(input.serviceTypes);
       }),
     // Legacy insights endpoint (kept for backward compatibility)
     insights: protectedProcedure

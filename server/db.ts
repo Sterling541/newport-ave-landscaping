@@ -1,4 +1,4 @@
-import { and, asc, between, desc, eq, gte, isNull, lte, sql } from "drizzle-orm";
+import { and, asc, between, desc, eq, gte, inArray, isNull, lte, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import {
   InsertCsvImportJob, InsertInsight, InsertLeadFollowUp, InsertServiceSubmission, InsertUser, InsertWeatherDaily,
@@ -992,7 +992,7 @@ export async function getGameStats() {
 }
 
 /** Year-over-year comparison stats for a given service type (or all types) */
-export async function getYoyStats(serviceType?: string) {
+export async function getYoyStats(serviceTypes?: string | string[]) {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
   const now = new Date();
@@ -1017,8 +1017,13 @@ export async function getYoyStats(serviceType?: string) {
       gte(serviceSubmissions.createdAt, start),
       lte(serviceSubmissions.createdAt, end),
     ];
-    if (serviceType) {
-      conditions.push(eq(serviceSubmissions.serviceType, serviceType));
+    if (serviceTypes) {
+      const arr = Array.isArray(serviceTypes) ? serviceTypes : [serviceTypes];
+      if (arr.length === 1) {
+        conditions.push(eq(serviceSubmissions.serviceType, arr[0]));
+      } else if (arr.length > 1) {
+        conditions.push(inArray(serviceSubmissions.serviceType, arr));
+      }
     }
     return and(...conditions);
   }
