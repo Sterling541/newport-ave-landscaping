@@ -119,7 +119,7 @@ export default function Contact() {
         <div
           className="absolute inset-0"
           style={{
-            backgroundImage: "url(/manus-storage/NewportLandscapingRVParkPhotos16_5e801b45_fc8ec8ea.webp",
+            backgroundImage: "url(/manus-storage/NewportLandscapingRVParkPhotos16_5e801b45_fc8ec8ea.webp)",
             backgroundSize: "cover",
             backgroundPosition: "center",
             opacity: 0.3,

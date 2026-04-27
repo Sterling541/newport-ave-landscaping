@@ -115,7 +115,7 @@ export default function Membership() {
         <div
           className="absolute inset-0"
           style={{
-            backgroundImage: "url(/manus-storage/hero-general-landscaping_ccf2305a.jpg",
+            backgroundImage: "url(/manus-storage/hero-general-landscaping_ccf2305a.jpg)",
             backgroundSize: "cover",
             backgroundPosition: "center 60%",
           }}

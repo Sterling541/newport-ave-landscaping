@@ -22,7 +22,7 @@ export default function XeriscapeBend() {
           className="relative flex items-center justify-center"
           style={{
             height: "380px",
-            backgroundImage: "url(/manus-storage/brokentop-xeriscape-01_064e5008.jpg",
+            backgroundImage: "url(/manus-storage/brokentop-xeriscape-01_064e5008.jpg)",
             backgroundSize: "cover",
             backgroundPosition: "center 50%",
           }}

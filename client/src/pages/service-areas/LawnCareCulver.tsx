@@ -18,7 +18,7 @@ export default function LawnCareCulver() {
       ]} />
       <Navbar />
       <div style={{ paddingTop: '204px' }}>
-        <div className="relative flex items-center justify-center" style={{ height:'380px',backgroundImage:'url(/manus-storage/safe-hero-lawn-service_fcba45d8.jpg',backgroundSize:'cover',backgroundPosition:'center 50%' }}>
+        <div className="relative flex items-center justify-center" style={{ height:'380px',backgroundImage:'url(/manus-storage/safe-hero-lawn-service_fcba45d8.jpg)',backgroundSize:'cover',backgroundPosition:'center 50%' }}>
           <div className="absolute inset-0" style={{ backgroundColor: 'oklch(0 0 0 / 0.55)' }} />
           <div className="relative text-center container">
             <p className="font-label mb-3" style={{ color:'oklch(0.72 0.12 25)',fontSize:'0.7rem',letterSpacing:'0.18em' }}>CULVER · CENTRAL OREGON &middot; 2024</p>

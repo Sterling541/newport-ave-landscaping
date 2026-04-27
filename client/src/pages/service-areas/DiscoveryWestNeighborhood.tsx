@@ -23,7 +23,7 @@ export default function DiscoveryWestNeighborhood() {
           className="relative flex items-center justify-center"
           style={{
             height: '380px',
-            backgroundImage: 'url(/manus-storage/awbrey-butte-loop-02_77381709.jpg',
+            backgroundImage: 'url(/manus-storage/awbrey-butte-loop-02_77381709.jpg)',
             backgroundSize: 'cover',
             backgroundPosition: 'center 50%',
           }}

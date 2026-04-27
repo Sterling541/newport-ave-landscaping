@@ -23,7 +23,7 @@ export default function RedmondLandscaping() {
           className="relative flex items-center justify-center"
           style={{
             height: "380px",
-            backgroundImage: "url(/manus-storage/east-bend-install-01_5ad4daf3.jpg",
+            backgroundImage: "url(/manus-storage/east-bend-install-01_5ad4daf3.jpg)",
             backgroundSize: "cover",
             backgroundPosition: "center 50%",
           }}

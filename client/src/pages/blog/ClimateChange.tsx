@@ -13,7 +13,7 @@ export default function ClimateChange() {
           className="relative flex items-center justify-center"
           style={{
             height: "380px",
-            backgroundImage: "url(/manus-storage/landscaping-native_fa3d1cfe_e2d50e2c.webp",
+            backgroundImage: "url(/manus-storage/landscaping-native_fa3d1cfe_e2d50e2c.webp)",
             backgroundSize: "cover",
             backgroundPosition: "center 40%",
           }}

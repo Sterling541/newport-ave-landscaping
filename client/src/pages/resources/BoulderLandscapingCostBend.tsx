@@ -26,7 +26,7 @@ export default function BoulderLandscapingCostBend() {
       ]} />
       <Navbar />
       <div style={{ paddingTop: '204px' }}>
-        <div className="relative flex items-center justify-center" style={{ height:'380px',backgroundImage:'url(/manus-storage/awbrey-patio-wall-01_bde91632.jpg',backgroundSize:'cover',backgroundPosition:'center 50%' }}>
+        <div className="relative flex items-center justify-center" style={{ height:'380px',backgroundImage:'url(/manus-storage/awbrey-patio-wall-01_bde91632.jpg)',backgroundSize:'cover',backgroundPosition:'center 50%' }}>
           <div className="absolute inset-0" style={{ backgroundColor: 'oklch(0 0 0 / 0.55)' }} />
           <div className="relative text-center container">
             <p className="font-label mb-3" style={{ color:'oklch(0.72 0.12 25)',fontSize:'0.7rem',letterSpacing:'0.18em' }}>HARDSCAPE GUIDE · BEND, OREGON &middot; 2024</p>

@@ -31,7 +31,7 @@ export default function IrrigationRepairBend() {
           className="relative flex items-center justify-center"
           style={{
             height: "380px",
-            backgroundImage: "url(/manus-storage/safe-hero-irrigation-wide_7d00acf6.jpg",
+            backgroundImage: "url(/manus-storage/safe-hero-irrigation-wide_7d00acf6.jpg)",
             backgroundSize: "cover",
             backgroundPosition: "center 50%",
           }}
