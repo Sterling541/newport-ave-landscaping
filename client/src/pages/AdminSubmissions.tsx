@@ -356,12 +356,9 @@ const PRIORITY_COLORS: Record<string, string> = {
 const FOLLOW_UP_STATUSES = [
   { value: "called_scheduled",  label: "Called & Scheduled",  icon: PhoneCall,     color: "bg-emerald-100 text-emerald-800 border-emerald-200" },
   { value: "left_voicemail",    label: "Left Voicemail",      icon: PhoneOff,      color: "bg-amber-100 text-amber-800 border-amber-200" },
-  { value: "appointment_set",   label: "Appt. Confirmed",     icon: CalendarCheck, color: "bg-blue-100 text-blue-800 border-blue-200" },
   { value: "no_answer",         label: "No Answer",           icon: PhoneMissed,   color: "bg-slate-100 text-slate-600 border-slate-200" },
   { value: "not_interested",    label: "Not Interested",      icon: ThumbsDown,    color: "bg-red-100 text-red-700 border-red-200" },
   { value: "follow_up_needed",  label: "Follow-Up Needed",    icon: Clock,         color: "bg-orange-100 text-orange-800 border-orange-200" },
-  { value: "closed_won",           label: "Closed — Won",            icon: Trophy,        color: "bg-green-100 text-green-800 border-green-200" },
-  { value: "closed_lost",          label: "Closed — Lost",           icon: XCircle,       color: "bg-rose-100 text-rose-700 border-rose-200" },
   { value: "below_minimum_budget", label: "Below Min. Budget",        icon: DollarSign,    color: "bg-slate-100 text-slate-500 border-slate-200" },
   { value: "price_too_high",       label: "Didn't Like Price",        icon: TrendingUp,    color: "bg-purple-100 text-purple-700 border-purple-200" },
 ] as const;
