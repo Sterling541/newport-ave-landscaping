@@ -24,7 +24,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Helmet } from "react-helmet-async";
 
-const LOGO_URL = "/manus-storage/logo-transparent-stacked_ff350b79_44beae36.webp";
+const LOGO_URL = "/manus-storage/logo-transparent-stacked_ff350b79_ca4af5b0.webp";
 
 type FormData = {
   email: string; usedBefore: string; firstName: string; lastName: string;

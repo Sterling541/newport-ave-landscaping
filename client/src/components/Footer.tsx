@@ -6,7 +6,7 @@
 import { Link } from "wouter";
 
 const LOGO_STACKED =
-  "/manus-storage/logo-transparent-stacked_ff350b79_44beae36.webp";
+  "/manus-storage/logo-transparent-stacked_ff350b79_ca4af5b0.webp";
 
 const maintenanceLinks = [
   { label: "Lawn Service", href: "/services/lawn-service" },
