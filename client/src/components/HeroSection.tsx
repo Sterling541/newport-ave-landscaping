@@ -1,44 +1,73 @@
 /* ============================================================
    HERO SECTION — Editorial Cinematic
-   
-   Unique elements replacing the diagonal ticker:
-   
-   1. ANIMATED BOTANICAL DRAWING — a spruce branch SVG that
-      draws itself with stroke-dashoffset animation when the
-      hero loads. Positioned bottom-right, semi-transparent.
-      Feels like a hand-drawn illustration being sketched live.
-   
-   2. VERTICAL SERVICE SIDEBAR — a slim right-edge panel with
-      a vertical list of service names that stagger-fade in.
-      Rotated 90deg, reads bottom-to-top. Very editorial.
-   
-   3. HORIZONTAL RULE + YEAR — a thin line with "EST. 2005"
-      that draws in from left. Architectural detail.
+   Mobile-first redesign: clean, bold, inspiring
    ============================================================ */
 import { useState, useEffect, useRef } from "react";
 
 const heroStyles = `
   .hero-headline {
-    font-size: clamp(2.2rem, 7.5vw, 8rem);
+    font-size: clamp(2.8rem, 8vw, 8rem);
   }
   .hero-accent {
-    font-size: clamp(2rem, 6.5vw, 7.5rem);
+    font-size: clamp(2.5rem, 7.5vw, 7.5rem);
   }
-  @media (max-width: 480px) {
+
+  /* ── Mobile overrides ── */
+  @media (max-width: 640px) {
     .hero-headline {
-      font-size: 1.75rem !important;
+      font-size: clamp(2.4rem, 10vw, 3.2rem) !important;
+      line-height: 0.95 !important;
     }
     .hero-accent {
-      font-size: 1.6rem !important;
+      font-size: clamp(2.2rem, 9vw, 3rem) !important;
+      line-height: 1 !important;
     }
-  }
-  @media (max-width: 390px) {
-    .hero-headline {
-      font-size: 1.55rem !important;
+    .hero-category-bar { display: none !important; }
+    .hero-scene-counter { display: none !important; }
+    .hero-service-list { display: none !important; }
+    .hero-spruce { display: none !important; }
+    .hero-trust-badges { display: none !important; }
+    .hero-cta-row {
+      flex-direction: column !important;
+      align-items: flex-start !important;
+      gap: 0.65rem !important;
     }
-    .hero-accent {
-      font-size: 1.4rem !important;
+    .hero-cta-row a,
+    .hero-cta-row button {
+      width: 100% !important;
+      text-align: center !important;
+      justify-content: center !important;
+      padding: 1rem 1.5rem !important;
+      font-size: 0.62rem !important;
     }
+    .hero-sub-text { display: none !important; }
+    .hero-content-block {
+      bottom: clamp(5.5rem, 12vh, 8rem) !important;
+      left: 1.25rem !important;
+      right: 1.25rem !important;
+    }
+    .hero-firewise-banner {
+      flex-direction: row !important;
+      align-items: center !important;
+      gap: 0.6rem !important;
+      padding: 0.65rem 0.9rem !important;
+      margin-top: 1rem !important;
+    }
+    .hero-firewise-body { display: none !important; }
+    .hero-firewise-title {
+      font-size: 0.5rem !important;
+      margin: 0 !important;
+    }
+    .hero-firewise-cta {
+      font-size: 0.44rem !important;
+      padding: 0.45rem 0.9rem !important;
+      white-space: nowrap !important;
+      flex-shrink: 0 !important;
+    }
+    .hero-dots {
+      right: 0.5rem !important;
+    }
+    .hero-scroll-indicator { display: none !important; }
   }
 `;
 
@@ -100,11 +129,11 @@ function AnimatedSpruceBranch() {
     return () => clearTimeout(t);
   }, []);
 
-  // Total approximate path length — used for stroke-dasharray
   const L = 1200;
 
   return (
     <svg
+      className="hero-spruce"
       viewBox="0 0 420 520"
       xmlns="http://www.w3.org/2000/svg"
       style={{
@@ -126,12 +155,10 @@ function AnimatedSpruceBranch() {
         }
       `}</style>
 
-      {/* Main branch stem */}
       <path className="branch-path"
         d="M210 510 C208 440 205 370 210 300 C215 230 212 160 210 90 C209 60 210 30 210 10"
         stroke="oklch(0.92 0.06 25)" strokeWidth="3.5" fill="none" strokeLinecap="round"/>
 
-      {/* Left pinnae — large fronds */}
       {[
         [480, 52, -55], [430, 64, -58], [378, 74, -60],
         [328, 80, -62], [278, 74, -64], [228, 64, -66],
@@ -155,7 +182,6 @@ function AnimatedSpruceBranch() {
         );
       })}
 
-      {/* Right pinnae */}
       {[
         [480, 50, -125], [430, 62, -122], [378, 72, -120],
         [328, 78, -118], [278, 72, -116], [228, 62, -114],
@@ -179,14 +205,11 @@ function AnimatedSpruceBranch() {
         );
       })}
 
-      {/* Needle clusters on each pinna */}
       {[380, 330, 280, 230, 180, 130].map((y, row) => (
         [-1, 1].map((side) => {
           const baseAngle = side > 0 ? -125 : -55;
           const len = 60 + row * 2;
           const rad = (baseAngle * Math.PI) / 180;
-          const bx = 210 + Math.cos(rad) * len * 0.6;
-          const by = y + Math.sin(rad) * len * 0.6;
           const delay = 1.2 + row * 0.12;
           return [0.3, 0.6, 0.9].map((t, j) => {
             const nx = 210 + Math.cos(rad) * len * t;
@@ -229,6 +252,7 @@ function VerticalServiceList() {
 
   return (
     <div
+      className="hero-service-list"
       style={{
         position: "absolute",
         right: "0",
@@ -298,14 +322,13 @@ export default function HeroSection() {
     }, 450);
   };
 
-  // Preload subsequent scene images after initial paint to avoid jank on first transition
   useEffect(() => {
     const timer = setTimeout(() => {
       SCENES.slice(1).forEach((sc) => {
         const img = new window.Image();
         img.src = sc.img;
       });
-    }, 2000); // wait 2s so preloads don't compete with LCP
+    }, 2000);
     return () => clearTimeout(timer);
   }, []);
 
@@ -334,6 +357,7 @@ export default function HeroSection() {
       }}
     >
       <style>{heroStyles}</style>
+
       {/* ── Full-bleed background photo ── */}
       <div
         style={{
@@ -359,11 +383,12 @@ export default function HeroSection() {
         }}
       />
 
-      {/* ── Animated botanical spruce drawing — bottom right ── */}
+      {/* ── Animated botanical spruce drawing — bottom right (desktop only) ── */}
       <AnimatedSpruceBranch />
 
-      {/* ── Thin horizontal rule + EST year — architectural detail ── */}
+      {/* ── Category bar + EST year — desktop only ── */}
       <div
+        className="hero-category-bar"
         style={{
           position: "absolute",
           top: "clamp(16rem, 22vh, 20rem)",
@@ -375,7 +400,6 @@ export default function HeroSection() {
           gap: "1.2rem",
         }}
       >
-        {/* Category label */}
         <div
           style={{
             display: "flex",
@@ -405,8 +429,6 @@ export default function HeroSection() {
             {s.category}
           </span>
         </div>
-
-        {/* Expanding rule line */}
         <div
           style={{
             flex: 1,
@@ -414,8 +436,6 @@ export default function HeroSection() {
             background: "linear-gradient(to right, oklch(0.45 0.008 30 / 0.4), transparent)",
           }}
         />
-
-        {/* EST year */}
         <span
           style={{
             fontFamily: "'Cormorant Garamond', serif",
@@ -429,8 +449,12 @@ export default function HeroSection() {
         </span>
       </div>
 
-      {/* ── Main headline — bottom left, massive type ── */}
+      {/* ── Vertical service list — desktop only ── */}
+      <VerticalServiceList />
+
+      {/* ── Main headline + CTAs ── */}
       <div
+        className="hero-content-block"
         style={{
           position: "absolute",
           bottom: "clamp(8rem, 16vh, 11rem)",
@@ -444,7 +468,6 @@ export default function HeroSection() {
         <h1
           style={{
             fontFamily: "'Cormorant Garamond', 'Playfair Display', Georgia, serif",
-            fontSize: "clamp(2.2rem, 7.5vw, 8rem)",
             fontWeight: 700,
             lineHeight: 0.92,
             letterSpacing: "-0.035em",
@@ -461,7 +484,6 @@ export default function HeroSection() {
           className="hero-headline"
           style={{
             fontFamily: "'Cormorant Garamond', 'Playfair Display', Georgia, serif",
-            fontSize: "clamp(2.2rem, 7.5vw, 8rem)",
             fontWeight: 700,
             lineHeight: 0.92,
             letterSpacing: "-0.035em",
@@ -475,7 +497,6 @@ export default function HeroSection() {
           className="hero-accent"
           style={{
             fontFamily: "'Cormorant Garamond', 'Playfair Display', Georgia, serif",
-            fontSize: "clamp(2rem, 6.5vw, 7.5rem)",
             fontWeight: 300,
             fontStyle: "italic",
             lineHeight: 0.95,
@@ -497,6 +518,7 @@ export default function HeroSection() {
           }}
         >
           <p
+            className="hero-sub-text"
             style={{
               fontFamily: "'Montserrat', sans-serif",
               fontSize: "0.55rem",
@@ -512,7 +534,7 @@ export default function HeroSection() {
             {s.sub}
           </p>
 
-          <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap" }}>
+          <div className="hero-cta-row" style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap" }}>
             <button
               onClick={() => { window.location.href = "/quote"; }}
               style={{
@@ -570,8 +592,9 @@ export default function HeroSection() {
             </a>
           </div>
 
-          {/* Trust badges + urgency */}
+          {/* Trust badges — desktop only */}
           <div
+            className="hero-trust-badges"
             style={{
               display: "flex",
               flexWrap: "wrap",
@@ -586,11 +609,11 @@ export default function HeroSection() {
                 fontSize: "0.46rem",
                 fontWeight: 700,
                 letterSpacing: "0.18em",
-              color: "oklch(0.85 0.18 85)",
-              textShadow: "0 1px 6px rgba(0,0,0,0.8)",
-            }}
-          >
-            ⚡ BOOKING SPRING — SCHEDULE FILLS FAST
+                color: "oklch(0.85 0.18 85)",
+                textShadow: "0 1px 6px rgba(0,0,0,0.8)",
+              }}
+            >
+              ⚡ BOOKING SPRING — SCHEDULE FILLS FAST
             </span>
             <span style={{ width: "1px", height: "10px", backgroundColor: "oklch(0.65 0.008 30)" }} />
             {["LICENSED & BONDED", "LCB #9153", "21+ YEARS", "FREE ESTIMATES"].map((badge) => (
@@ -611,6 +634,7 @@ export default function HeroSection() {
 
           {/* ── Firewise Assessment CTA ── */}
           <div
+            className="hero-firewise-banner"
             style={{
               marginTop: "1.75rem",
               display: "flex",
@@ -626,31 +650,38 @@ export default function HeroSection() {
               maxWidth: "560px",
             }}
           >
-            <span style={{ fontSize: "1.1rem" }}>🔥</span>
-            <div style={{ flex: 1 }}>
-              <p style={{
-                fontFamily: "'Montserrat', sans-serif",
-                fontSize: "0.52rem",
-                fontWeight: 700,
-                letterSpacing: "0.14em",
-                color: "oklch(0.92 0.06 25)",
-                margin: "0 0 0.2rem",
-                textTransform: "uppercase",
-              }}>
+            <span style={{ fontSize: "1.1rem", flexShrink: 0 }}>🔥</span>
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <p
+                className="hero-firewise-title"
+                style={{
+                  fontFamily: "'Montserrat', sans-serif",
+                  fontSize: "0.52rem",
+                  fontWeight: 700,
+                  letterSpacing: "0.14em",
+                  color: "oklch(0.92 0.06 25)",
+                  margin: "0 0 0.2rem",
+                  textTransform: "uppercase",
+                }}
+              >
                 NEW — Deschutes County R327 Fire Hardening Now Required
               </p>
-              <p style={{
-                fontFamily: "'Montserrat', sans-serif",
-                fontSize: "0.48rem",
-                fontWeight: 400,
-                color: "oklch(0.72 0.012 30)",
-                margin: 0,
-                lineHeight: 1.6,
-              }}>
+              <p
+                className="hero-firewise-body"
+                style={{
+                  fontFamily: "'Montserrat', sans-serif",
+                  fontSize: "0.48rem",
+                  fontWeight: 400,
+                  color: "oklch(0.72 0.012 30)",
+                  margin: 0,
+                  lineHeight: 1.6,
+                }}
+              >
                 Is your property compliant? We assess, remove hazardous vegetation, and replant with fire-resistant species.
               </p>
             </div>
             <a
+              className="hero-firewise-cta"
               href="/services/firewise-landscaping"
               style={{
                 fontFamily: "'Montserrat', sans-serif",
@@ -668,6 +699,7 @@ export default function HeroSection() {
                 display: "inline-flex",
                 alignItems: "center",
                 transition: "transform 0.2s ease",
+                flexShrink: 0,
               }}
               onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.transform = "scale(1.04)"; }}
               onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.transform = "scale(1)"; }}
@@ -680,6 +712,7 @@ export default function HeroSection() {
 
       {/* ── Dot progress — right edge ── */}
       <div
+        className="hero-dots"
         style={{
           position: "absolute",
           right: "clamp(1rem, 2vw, 1.5rem)",
@@ -725,8 +758,9 @@ export default function HeroSection() {
         ))}
       </div>
 
-      {/* ── Scene counter — top right ── */}
+      {/* ── Scene counter — desktop only ── */}
       <div
+        className="hero-scene-counter"
         style={{
           position: "absolute",
           top: "clamp(16rem, 22vh, 20rem)",
@@ -743,8 +777,9 @@ export default function HeroSection() {
         {String(scene + 1).padStart(2, "0")} / {String(SCENES.length).padStart(2, "0")}
       </div>
 
-      {/* ── Scroll indicator — bottom center ── */}
+      {/* ── Scroll indicator — desktop only ── */}
       <div
+        className="hero-scroll-indicator"
         style={{
           position: "absolute",
           bottom: "1.5rem",
