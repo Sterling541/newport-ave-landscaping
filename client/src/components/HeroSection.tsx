@@ -6,10 +6,10 @@ import { useState, useEffect, useRef } from "react";
 
 const heroStyles = `
   .hero-headline {
-    font-size: clamp(2.8rem, 8vw, 8rem);
+    font-size: clamp(2.4rem, 5.5vw, 6rem);
   }
   .hero-accent {
-    font-size: clamp(2.5rem, 7.5vw, 7.5rem);
+    font-size: clamp(2.2rem, 5vw, 5.5rem);
   }
 
   /* ── Mobile overrides ── */
@@ -375,7 +375,7 @@ export default function HeroSection() {
           backgroundPosition: "center 55%",
           opacity: fading ? 0 : 1,
           transition: "opacity 0.55s ease",
-          filter: "brightness(0.58)",
+          filter: "brightness(0.78)",
         }}
       />
 
@@ -385,7 +385,7 @@ export default function HeroSection() {
           position: "absolute",
           inset: 0,
           background:
-            "linear-gradient(to bottom, rgba(0,0,0,0.18) 0%, rgba(0,0,0,0.38) 45%, rgba(0,0,0,0.88) 100%)",
+            "linear-gradient(to bottom, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.15) 40%, rgba(0,0,0,0.72) 100%)",
           pointerEvents: "none",
         }}
       />
@@ -395,7 +395,7 @@ export default function HeroSection() {
           position: "absolute",
           inset: 0,
           background:
-            "linear-gradient(to right, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.50) 35%, rgba(0,0,0,0.10) 65%, rgba(0,0,0,0.0) 100%)",
+            "linear-gradient(to right, rgba(0,0,0,0.62) 0%, rgba(0,0,0,0.38) 38%, rgba(0,0,0,0.05) 62%, rgba(0,0,0,0.0) 100%)",
           pointerEvents: "none",
         }}
       />
@@ -474,9 +474,9 @@ export default function HeroSection() {
         className="hero-content-block"
         style={{
           position: "absolute",
-          bottom: "clamp(8rem, 16vh, 11rem)",
+          top: "220px",
           left: "clamp(1.5rem, 5vw, 5rem)",
-          right: "clamp(1.5rem, 5vw, 5rem)",
+          right: "clamp(1.5rem, 5vw, 55%)",
           zIndex: 10,
           opacity: fading ? 0 : 1,
           transition: "opacity 0.45s ease 0.1s",
