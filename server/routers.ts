@@ -351,7 +351,7 @@ export const appRouter = router({
     updateStatus: protectedProcedure
       .input(z.object({
         id: z.number(),
-        status: z.enum(["new", "contacted", "scheduled", "closed", "lost"]),
+        status: z.enum(["new", "contacted", "scheduled", "cancelled", "closed", "lost"]),
         adminNotes: z.string().max(5000).optional(),
       }))
       .mutation(async ({ ctx, input }) => {

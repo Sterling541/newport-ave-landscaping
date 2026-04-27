@@ -120,7 +120,7 @@ export const serviceSubmissions = mysqlTable("service_submissions", {
   /** Schema version for forward compatibility */
   schemaVersion: varchar("schemaVersion", { length: 8 }).default("1.0").notNull(),
   /** Lead status for admin tracking */
-  leadStatus: mysqlEnum("leadStatus", ["new", "contacted", "scheduled", "closed", "lost"]).default("new").notNull(),
+  leadStatus: mysqlEnum("leadStatus", ["new", "contacted", "scheduled", "cancelled", "closed", "lost"]).default("new").notNull(),
   /** Admin notes */
   adminNotes: text("adminNotes"),
 

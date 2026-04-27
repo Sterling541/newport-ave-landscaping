@@ -1,0 +1,1 @@
+ALTER TABLE `service_submissions` MODIFY COLUMN `leadStatus` enum('new','contacted','scheduled','cancelled','closed','lost') NOT NULL DEFAULT 'new';

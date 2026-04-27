@@ -94,7 +94,7 @@ export async function getServiceSubmissionById(id: number) {
   return rows[0] ?? null;
 }
 
-export async function updateSubmissionStatus(id: number, status: "new" | "contacted" | "scheduled" | "closed" | "lost", adminNotes?: string) {
+export async function updateSubmissionStatus(id: number, status: "new" | "contacted" | "scheduled" | "cancelled" | "closed" | "lost", adminNotes?: string) {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
   const updateData: Record<string, unknown> = { leadStatus: status };
