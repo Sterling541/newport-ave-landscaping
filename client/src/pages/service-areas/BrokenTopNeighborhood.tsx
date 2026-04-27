@@ -91,7 +91,7 @@ export default function BrokenTopNeighborhood() {
             We've worked inside Broken Top long enough to have a relationship with the HOA, the gate staff, and many of the homeowners. Our crews are professional, discreet, and experienced with the access and scheduling requirements of a gated community.
           </p>
           <p className="mb-8">
-            We're licensed with the Oregon Landscape Contractors Board (LCB #9153), fully insured, and back every hardscape installation with a industry-standard plant and irrigation warranties. For estate-scale properties, we assign a dedicated project manager who stays with your project from design through final walkthrough.
+            We're licensed with the Oregon Landscape Contractors Board (LCB #9153), fully insured, and back every hardscape installation with a 1-year workmanship warranty on hardscape installations and a 90-day plant warranty on all plantings. For estate-scale properties, we assign a dedicated project manager who stays with your project from design through final walkthrough.
           </p>
 
           <div className="p-8 text-center mt-12" style={{ backgroundColor: "oklch(0.18 0.008 0)" }}>

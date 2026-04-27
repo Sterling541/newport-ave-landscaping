@@ -8,7 +8,7 @@ export default function LandscapeLightingBend() {
     <div className="min-h-screen" style={{ backgroundColor: "oklch(0.97 0.003 0)" }}>
       <SEO
         title="Landscape Lighting Bend Oregon | Newport Ave Landscaping"
-        description="Enhance your Bend home with expert landscape lighting. Discover low-voltage LED, smart controls, and Newport Ave Landscaping's industry-standard plant and irrigation warranties. Extend your outdoor living!"
+        description="Enhance your Bend home with expert landscape lighting. Discover low-voltage LED, smart controls, and Newport Ave Landscaping's 1-year workmanship warranty on hardscape installations and a 90-day plant warranty on all plantings. Extend your outdoor living!"
         canonical="https://newportavelandscaping.com/resources/landscape-lighting-bend-oregon"
       />
       <BreadcrumbSchema items={[
@@ -88,7 +88,7 @@ export default function LandscapeLightingBend() {
             <div style={{ background: "oklch(0.15 0.005 0)", padding: "2rem 1.5rem", marginBottom: "2rem", textAlign: "center" }}>
               <p style={{ fontFamily: "var(--font-label)", fontSize: "0.65rem", letterSpacing: "0.18em", color: "oklch(0.46 0.20 25)", marginBottom: "0.6rem" }}>FREE CONSULTATION · NO OBLIGATION</p>
               <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 300, color: "#fff", fontSize: "clamp(1.1rem, 2.5vw, 1.5rem)", marginBottom: "0.6rem" }}>Ready to get a free quote for landscape lighting?</h3>
-              <p style={{ color: "oklch(0.72 0.005 0)", marginBottom: "1.25rem", fontSize: "0.9rem", lineHeight: 1.7 }}>LCB #9153 · 21+ years · industry-standard plant and irrigation warranties</p>
+              <p style={{ color: "oklch(0.72 0.005 0)", marginBottom: "1.25rem", fontSize: "0.9rem", lineHeight: 1.7 }}>LCB #9153 · 21+ years · 1-year workmanship warranty on hardscape installations and a 90-day plant warranty on all plantings</p>
               <div style={{ display: "flex", gap: "1rem", justifyContent: "center", flexWrap: "wrap" }}>
                 <a href="/contact" className="btn-red" style={{ display: "inline-block" }}>Get My Free Quote →</a>
                 <a href="tel:+15416178873" style={{ display: "inline-flex", alignItems: "center", color: "#fff", fontFamily: "var(--font-body)", fontSize: "0.9rem", fontWeight: 500, textDecoration: "none", padding: "0.6rem 1.1rem", border: "1px solid oklch(0.40 0.005 0)", borderRadius: "2px" }}>(541) 617-8873</a>
@@ -129,7 +129,7 @@ export default function LandscapeLightingBend() {
               <li className="mb-2"><strong>Custom Design & Proposal:</strong> Our designers create a detailed lighting plan, often with visual renderings, showing how different lighting techniques will enhance your landscape. We provide a comprehensive proposal outlining costs and timelines.</li>
               <li className="mb-2"><strong>Professional Installation:</strong> Our skilled technicians meticulously install your low-voltage LED system, ensuring proper placement, wiring, and functionality, with minimal disruption to your existing landscape.</li>
               <li className="mb-2"><strong>System Demonstration & Adjustment:</strong> Once installed, we walk you through your new system, demonstrating its features and making any final adjustments to achieve the perfect ambiance.</li>
-              <li className="mb-2"><strong>Ongoing Support:</strong> With our industry-standard plant and irrigation warranties and dedicated service, we're here to ensure your landscape lighting continues to perform beautifully.</li>
+              <li className="mb-2"><strong>Ongoing Support:</strong> With our 1-year workmanship warranty on hardscape installations and a 90-day plant warranty on all plantings and dedicated service, we're here to ensure your landscape lighting continues to perform beautifully.</li>
             </ol>
 
             {/* CTA BLOCK at bottom */}

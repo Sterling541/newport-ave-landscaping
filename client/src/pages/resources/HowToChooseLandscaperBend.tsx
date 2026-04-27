@@ -65,7 +65,7 @@ export default function HowToChooseLandscaperBend() {
             <p className="mb-4">A written contract with a detailed scope of work, material specifications, timeline, and warranty terms is non-negotiable. Never hire a landscaper who won't put everything in writing.</p>
             <div className="bg-gray-100 p-6 rounded-lg mb-8 border-l-4" style={{ borderColor: 'oklch(0.46 0.20 25)' }}>
               <p className="font-bold text-lg mb-2" style={{ color: 'oklch(0.25 0.005 0)' }}>PRO TIP</p>
-              <p>Newport Avenue Landscaping is licensed with the Oregon LCB (License #9153), carries $2M in liability insurance, and offers a industry-standard plant and irrigation warranties on all installation projects. We're happy to provide references from projects in your neighborhood.</p>
+              <p>Newport Avenue Landscaping is licensed with the Oregon LCB (License #9153), carries $2M in liability insurance, and offers a 1-year workmanship warranty on hardscape installations and a 90-day plant warranty on all plantings on all installation projects. We're happy to provide references from projects in your neighborhood.</p>
             </div>
             <div className="p-8 text-center mt-12" style={{ backgroundColor: 'oklch(0.18 0.008 0)' }}>
               <p className="font-label text-xs mb-3" style={{ color:'oklch(0.46 0.20 25)',letterSpacing:'0.18em' }}>GET STARTED TODAY</p>

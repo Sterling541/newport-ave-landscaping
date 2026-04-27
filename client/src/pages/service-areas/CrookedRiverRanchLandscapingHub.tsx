@@ -27,7 +27,7 @@ export default function CrookedRiverRanchLandscapingHub() {
         </div>
         <div className="container py-16 max-w-3xl mx-auto">
           <div style={{ color: 'oklch(0.25 0.005 0)' }}>
-            <p className="mb-8" style={{ fontSize:'1.05rem',lineHeight:1.85,color:'oklch(0.35 0.005 0)' }}>Crooked River Ranch is a planned community in Jefferson County, known for its high desert setting and stunning views. Newport Avenue Landscaping serves Crooked River Ranch homeowners and the HOA. We provide the full range of landscaping services with our industry-standard plant and irrigation warranties on all installation projects.</p>
+            <p className="mb-8" style={{ fontSize:'1.05rem',lineHeight:1.85,color:'oklch(0.35 0.005 0)' }}>Crooked River Ranch is a planned community in Jefferson County, known for its high desert setting and stunning views. Newport Avenue Landscaping serves Crooked River Ranch homeowners and the HOA. We provide the full range of landscaping services with our 1-year workmanship warranty on hardscape installations and a 90-day plant warranty on all plantings on all installation projects.</p>
 
             <h2 className="text-3xl font-bold mb-4" style={{ color: 'oklch(0.25 0.005 0)' }}>Services We Provide in Crooked River Ranch</h2>
             <ul className="list-disc pl-5 mb-8 space-y-1">
@@ -45,7 +45,7 @@ export default function CrookedRiverRanchLandscapingHub() {
 
             <h2 className="text-3xl font-bold mb-4" style={{ color: 'oklch(0.25 0.005 0)' }}>Why Crooked River Ranch Homeowners Choose Newport Avenue</h2>
             <p className="mb-4">We've been serving Crooked River Ranch for over 21 years. Our team knows the local soil conditions and climate challenges that affect landscaping in this area.</p>
-            <p className="mb-8">We're licensed with the Oregon Landscape Contractors Board (LCB #9153), fully insured, and offer a industry-standard plant and irrigation warranties.</p>
+            <p className="mb-8">We're licensed with the Oregon Landscape Contractors Board (LCB #9153), fully insured, and offer a 1-year workmanship warranty on hardscape installations and a 90-day plant warranty on all plantings.</p>
             <div className="p-8 text-center mt-12" style={{ backgroundColor: 'oklch(0.18 0.008 0)' }}>
               <p className="font-label text-xs mb-3" style={{ color:'oklch(0.46 0.20 25)',letterSpacing:'0.18em' }}>GET STARTED TODAY</p>
               <h3 className="font-display text-white mb-4" style={{ fontSize:'1.6rem' }}>Get a Free Landscaping Quote in Crooked River Ranch</h3>

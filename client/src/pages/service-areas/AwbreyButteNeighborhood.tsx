@@ -95,7 +95,7 @@ export default function AwbreyButteNeighborhood() {
           {/* Why Newport */}
           <h2 className="text-3xl font-bold mb-4" style={{ color: "oklch(0.25 0.005 0)" }}>Why Awbrey Butte Homeowners Choose Newport Avenue</h2>
           <p className="mb-4">
-            We've completed hundreds of projects on Awbrey Butte — from small irrigation repairs to full hillside landscape transformations. Our crews know the terrain, the soil, and the neighborhood. We show up on schedule, communicate throughout the project, and back every hardscape installation with a industry-standard plant and irrigation warranties.
+            We've completed hundreds of projects on Awbrey Butte — from small irrigation repairs to full hillside landscape transformations. Our crews know the terrain, the soil, and the neighborhood. We show up on schedule, communicate throughout the project, and back every hardscape installation with a 1-year workmanship warranty on hardscape installations and a 90-day plant warranty on all plantings.
           </p>
           <p className="mb-8">
             We're licensed with the Oregon Landscape Contractors Board (LCB #9153), fully insured, and have a team of 150+ employees. Large enough to handle any scope, local enough to care about every detail.
