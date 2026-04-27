@@ -24,7 +24,7 @@ export default function DecksSunriver() {
           className="relative flex items-center justify-center"
           style={{
             height: "380px",
-            backgroundImage: "url(/manus-storage/svc-outdoor-kitchen-2_234bb6f9.jpg)",
+            backgroundImage: "url(https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/deck-fire-pit-bend-oregon-NfZzbGm3vaJF3QeUvUKvhu.webp)",
             backgroundSize: "cover",
             backgroundPosition: "center 40%",
           }}

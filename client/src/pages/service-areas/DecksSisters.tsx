@@ -24,7 +24,7 @@ export default function DecksSisters() {
           className="relative flex items-center justify-center"
           style={{
             height: "380px",
-            backgroundImage: "url(/manus-storage/GLLPatio9_9e7ea695_fc9c47b6.webp)",
+            backgroundImage: "url(https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/pergola-outdoor-living-bend-oQ5DnPzw7n46WR7M2L4nxF.webp)",
             backgroundSize: "cover",
             backgroundPosition: "center 40%",
           }}

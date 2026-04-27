@@ -34,7 +34,7 @@ export default function Decks() {
       subtitle="& Pergolas"
       seoTitle="Deck Builder Bend Oregon | Composite & Wood Decks | Newport Avenue Landscaping"
       seoDescription="Custom deck building and pergola installation in Bend, Oregon. Composite, Trex, cedar, and pressure-treated decks. Licensed deck contractor LCB #9153. Free estimates."
-      heroImage="/manus-storage/GLLPatio2_600w_127ef46c.webp"
+      heroImage="https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/deck-pergola-hero-bend-ituHr4qZk8fSCv3FUdT4CH.webp"
       heroPosition="center 40%"
       intro="A well-built deck is one of the most-used outdoor spaces a Central Oregon home can have. Whether you want a simple pressure-treated platform off your back door, a multi-level composite deck with built-in seating, or a fully covered pergola for year-round enjoyment, Newport Avenue Landscaping designs and builds decks that fit your lifestyle, your home's architecture, and Central Oregon's demanding climate."
       pricing={[
@@ -117,9 +117,12 @@ export default function Decks() {
       relatedLinks={relatedLinks}
       resourceLinks={resourceLinks}
       galleryImages={[
-        { src: "/manus-storage/GLLPatio2_600w_127ef46c.webp", alt: "Custom deck and patio installation in Bend Oregon by Newport Avenue Landscaping" },
-        { src: "/manus-storage/GLLPatio10_2ffabcfb_2fda87b6.webp", alt: "Composite deck with pergola and outdoor living space in Central Oregon" },
-        { src: "/manus-storage/svc-outdoor-kitchen-2_234bb6f9.jpg", alt: "Covered deck with pergola and outdoor kitchen in Bend Oregon" },
+        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/deck-pergola-hero-bend-ituHr4qZk8fSCv3FUdT4CH.webp", alt: "Custom cedar deck with pergola and fire pit in Bend Oregon with Cascade mountain views" },
+        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/deck-mountain-view-bend-bu7EENGPccec6cNSaQroxL.webp", alt: "Composite deck with modern pergola overlooking the Cascade mountains in Central Oregon" },
+        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/deck-fire-pit-bend-oregon-NfZzbGm3vaJF3QeUvUKvhu.webp", alt: "Multi-level cedar deck with hot tub pergola and fire pit at sunset in Bend Oregon" },
+        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/deck-cedar-bend-oregon-MrnxE2kAUV87BoHRiq5byv.webp", alt: "New cedar deck with built-in planters and pergola on craftsman home in Bend Oregon" },
+        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/pergola-outdoor-living-bend-oQ5DnPzw7n46WR7M2L4nxF.webp", alt: "Cedar pergola with climbing roses and outdoor fireplace in Central Oregon backyard" },
+        { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/pergola-patio-central-oregon-4G6FhGkbr4iU6cJ3fYfz36.webp", alt: "Cedar pergola with outdoor kitchen and flagstone patio surrounded by ponderosa pines in Bend" },
       ]}
       schemaUrl="/services/decks"
       schemaName="Deck Building & Pergola Installation"
@@ -128,19 +131,19 @@ export default function Decks() {
         {
           title: "Westside Outdoor Living Space",
           href: "/portfolio/westside-outdoor-living",
-          image: "/manus-storage/westside-living-01_30518074.jpg",
+          image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/deck-pool-pergola-bend-jciazKGhCrA2wFdPsf7AgJ.webp",
           category: "DECK · OUTDOOR LIVING",
         },
         {
           title: "SW Bend Backyard Transformation",
           href: "/portfolio/sw-bend-backyard",
-          image: "/manus-storage/sw-bend-01_45e68c0e.jpg",
+          image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/deck-mountain-view-bend-bu7EENGPccec6cNSaQroxL.webp",
           category: "DECK · PAVERS · DESIGN & BUILD",
         },
         {
           title: "Awbrey Butte Patio & Wall",
           href: "/portfolio/awbrey-butte-patio",
-          image: "/manus-storage/awbrey-patio-wall-01_bde91632.jpg",
+          image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/deck-winter-snow-bend-g3Ft57hJ4aeGYkhnXnyVP6.webp",
           category: "DECK · RETAINING WALLS",
         },
       ]}

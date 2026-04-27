@@ -52,7 +52,7 @@ export default function DeckCostBend() {
           className="relative flex items-center justify-center"
           style={{
             height: "320px",
-            backgroundImage: "url(/manus-storage/GLLPatio2_600w_127ef46c.webp)",
+            backgroundImage: "url(https://d2xsxph8kpxj0f.cloudfront.net/310519663503028182/g3pw3MRUapabcDUbhBEFxx/pergola-shade-structure-bend-TqAHbBrJUWJhu6uKRfv8h3.webp)",
             backgroundSize: "cover",
             backgroundPosition: "center 40%",
           }}
