@@ -139,9 +139,21 @@ if (fs.existsSync(publicSrc)) {
 }
 
 // ─── 5. Copy all static assets to .vercel/output/static/ ─────────────────────
-function copyDir(src, dest) {
+// IMPORTANT: index.html is intentionally excluded from the static output.
+// If index.html were in static/, Vercel's 'handle: filesystem' rule would serve
+// it directly for every SPA route, bypassing the Express SSR function entirely.
+// The SSR function needs to handle all HTML page requests so it can inject
+// per-page canonical tags, titles, and meta descriptions before Google sees them.
+// index.html is already copied to func/public/index.html for the SSR function.
+const STATIC_EXCLUDE = new Set(['index.html']);
+
+function copyDir(src, dest, isRoot = false) {
   if (!fs.existsSync(dest)) fs.mkdirSync(dest, { recursive: true });
   for (const entry of fs.readdirSync(src, { withFileTypes: true })) {
+    if (isRoot && STATIC_EXCLUDE.has(entry.name)) {
+      console.log(`Skipping ${entry.name} from static/ (handled by SSR function)`);
+      continue;
+    }
     const srcPath  = path.join(src, entry.name);
     const destPath = path.join(dest, entry.name);
     if (entry.isDirectory()) {
@@ -153,8 +165,8 @@ function copyDir(src, dest) {
 }
 
 if (fs.existsSync(publicSrc)) {
-  copyDir(publicSrc, staticDir);
-  console.log('Copied dist/public/ → .vercel/output/static/');
+  copyDir(publicSrc, staticDir, true);
+  console.log('Copied dist/public/ → .vercel/output/static/ (excluding index.html)');
 }
 
 // ─── 6. Write .vercel/output/config.json ─────────────────────────────────────

@@ -2,34 +2,29 @@
  * entry-server.tsx
  * Server-side rendering entry point.
  * Used by the Express server to pre-render public routes with renderToString.
- * Admin routes (/admin/*) are NOT rendered here — they stay client-only.
+ *
+ * NOTE: react-helmet-async v3 is broken with React 19 in SSR mode — HelmetProvider
+ * renders as a Fragment and never populates the context. Head tag injection is handled
+ * by server/ssr.ts using the static routeMeta lookup table instead.
  *
  * Uses wouter's ssrPath prop for correct SSR routing.
- * Uses react-helmet-async's HelmetProvider with context to capture meta tags.
  * Wraps with trpc.Provider so pages using useMutation/useQuery don't throw.
  */
 import { renderToString } from "react-dom/server";
 import { Router } from "wouter";
-import { HelmetProvider, HelmetServerState } from "react-helmet-async";
+import { HelmetProvider } from "react-helmet-async";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { httpBatchLink } from "@trpc/client";
 import superjson from "superjson";
 import { trpc } from "./lib/trpc";
 import App from "./AppSSR";
 
-export interface HelmetContext {
-  helmet?: HelmetServerState;
-}
-
 export interface RenderResult {
   html: string;
-  helmetContext: HelmetContext;
   notFound: boolean;
 }
 
 export function render(url: string): RenderResult {
-  const helmetContext: HelmetContext = {};
-
   // Disable all tRPC/react-query fetches during SSR — we only need the static HTML structure
   const queryClient = new QueryClient({
     defaultOptions: {
@@ -55,11 +50,11 @@ export function render(url: string): RenderResult {
   // Extract just the pathname (strip query string) for wouter's ssrPath
   const pathname = url.split("?")[0] || "/";
 
-  // Use wouter's ssrPath prop — this uses useBrowserLocation which provides
-  // getServerSnapshot correctly for React's useSyncExternalStore in SSR
+  // Wrap with HelmetProvider (client-side hydration still needs it),
+  // but we do NOT rely on it for SSR head injection.
   const html = renderToString(
     <trpc.Provider client={trpcClient} queryClient={queryClient}>
-      <HelmetProvider context={helmetContext}>
+      <HelmetProvider>
         <QueryClientProvider client={queryClient}>
           <Router ssrPath={pathname}>
             <App />
@@ -73,5 +68,5 @@ export function render(url: string): RenderResult {
   // The NotFound component renders a unique id="not-found-button-group" element.
   const notFound = html.includes('id="not-found-button-group"');
 
-  return { html, helmetContext, notFound };
+  return { html, notFound };
 }

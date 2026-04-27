@@ -5,13 +5,17 @@
  * For every non-admin GET request, this middleware:
  * 1. Loads the pre-built SSR bundle (dist/server/entry-server.js)
  * 2. Calls render(url) to get the React HTML string
- * 3. Splits the HTML into head tags + body HTML
- *    - react-helmet-async renders <title>, <meta>, <link> tags at the START
- *      of the renderToString output (before the first <div>)
- * 4. Injects head tags into the <head> section of index.html
- *    (replacing the default <title> with the per-page one)
- * 5. Injects the body HTML into <div id="root">
- * 6. Returns the fully-rendered HTML to the client
+ * 3. Looks up the pathname in the static routeMeta map to get per-page
+ *    title, canonical URL, and description
+ * 4. Strips the default homepage meta tags from index.html
+ * 5. Injects the correct per-page <title>, <link rel="canonical">, and
+ *    <meta name="description"> into <head> BEFORE sending the response
+ * 6. Injects the body HTML into <div id="root">
+ * 7. Returns the fully-rendered HTML to the client
+ *
+ * NOTE: react-helmet-async v3 is BROKEN with React 19 in SSR mode.
+ * HelmetProvider renders as a Fragment and never populates the context.
+ * We use a static routeMeta lookup table (server/routeMeta.ts) instead.
  *
  * Admin routes (/admin/*) are excluded — they stay client-rendered.
  * Static assets (/assets/*, /manus-storage/*, etc.) are excluded.
@@ -20,6 +24,7 @@
 import fs from "fs";
 import path from "path";
 import { Express, Request, Response, NextFunction } from "express";
+import { routeMeta, defaultMeta, RouteMeta } from "./routeMeta.js";
 
 // Patterns that should NOT be SSR-rendered (serve as static files or skip)
 const SKIP_SSR_PATTERNS = [
@@ -35,48 +40,73 @@ function shouldSkipSSR(pathname: string): boolean {
 }
 
 /**
- * Extract react-helmet-async tags from the rendered HTML.
- * react-helmet-async in SSR mode renders <title>, <meta>, <link> tags with
- * data-loc attributes directly inside the component tree.
- * We extract them and inject into <head>.
- *
- * Also handles the case where Helmet renders tags before the first <div>
- * (older behavior).
+ * Look up route meta for a given pathname.
+ * Tries exact match first, then strips trailing slash.
+ * Falls back to defaultMeta if no match found.
  */
-function extractHelmetTags(appHtml: string): { headTags: string; bodyHtml: string } {
-  // react-helmet-async in SSR mode renders tags with data-loc attributes.
-  // We use two separate patterns:
-  // 1. <title data-loc="...">content</title>  — title with content
-  // 2. <meta data-loc="..." .../> or <link data-loc="..." .../> — self-closing
-  const extractedTags: string[] = [];
+function getRouteMeta(pathname: string): RouteMeta {
+  // Exact match
+  if (routeMeta[pathname]) return routeMeta[pathname];
 
-  // Pattern 1: title tags with data-loc (capture content + closing tag)
-  const titlePattern = /<title\s+data-loc="[^"]*"[^>]*>[^<]*<\/title>/g;
-  // Pattern 2: meta and link tags with data-loc (self-closing)
-  const metaLinkPattern = /<(?:meta|link)\s+data-loc="[^"]*"[^>]*\/>/g;
+  // Try without trailing slash
+  const withoutSlash = pathname.endsWith("/") && pathname !== "/"
+    ? pathname.slice(0, -1)
+    : pathname;
+  if (routeMeta[withoutSlash]) return routeMeta[withoutSlash];
 
-  let bodyHtml = appHtml
-    .replace(titlePattern, (match) => {
-      extractedTags.push(match);
-      return "";
-    })
-    .replace(metaLinkPattern, (match) => {
-      extractedTags.push(match);
-      return "";
-    });
+  // Try with trailing slash
+  const withSlash = pathname + "/";
+  if (routeMeta[withSlash]) return routeMeta[withSlash];
 
-  // Also check for tags before the first <div> (legacy behavior)
-  const firstDivIdx = bodyHtml.indexOf("<div");
-  let preBodyTags = "";
-  let finalBodyHtml = bodyHtml;
-  if (firstDivIdx > 0) {
-    preBodyTags = bodyHtml.slice(0, firstDivIdx).trim();
-    finalBodyHtml = bodyHtml.slice(firstDivIdx);
-  }
+  return defaultMeta;
+}
 
-  const headTags = [...(preBodyTags ? [preBodyTags] : []), ...extractedTags].join("\n  ");
+/**
+ * Inject per-page meta tags into the HTML template.
+ * Strips existing homepage defaults and injects correct per-page values.
+ */
+function injectMetaTags(template: string, meta: RouteMeta): string {
+  let page = template;
 
-  return { headTags, bodyHtml: finalBodyHtml };
+  // 1. Strip existing homepage defaults from the template
+  page = page
+    // Remove <title> tag
+    .replace(/<title[^>]*>[^<]*<\/title>/g, "")
+    // Remove canonical link
+    .replace(/<link[^>]+rel="canonical"[^>]*\/?>/g, "")
+    // Remove meta description
+    .replace(/<meta[^>]+name="description"[^>]*\/?>/g, "")
+    // Remove og:title
+    .replace(/<meta[^>]+property="og:title"[^>]*\/?>/g, "")
+    // Remove og:description
+    .replace(/<meta[^>]+property="og:description"[^>]*\/?>/g, "")
+    // Remove og:url
+    .replace(/<meta[^>]+property="og:url"[^>]*\/?>/g, "")
+    // Remove twitter:title
+    .replace(/<meta[^>]+name="twitter:title"[^>]*\/?>/g, "")
+    // Remove twitter:description
+    .replace(/<meta[^>]+name="twitter:description"[^>]*\/?>/g, "");
+
+  // 2. Build the per-page head tags to inject
+  const escapedTitle = meta.title.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  const escapedDesc = meta.description.replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  const escapedCanonical = meta.canonical.replace(/"/g, "&quot;");
+
+  const headTags = [
+    `<title>${escapedTitle}</title>`,
+    `<link rel="canonical" href="${escapedCanonical}" />`,
+    meta.description ? `<meta name="description" content="${escapedDesc}" />` : "",
+    `<meta property="og:title" content="${escapedTitle}" />`,
+    meta.description ? `<meta property="og:description" content="${escapedDesc}" />` : "",
+    `<meta property="og:url" content="${escapedCanonical}" />`,
+    `<meta name="twitter:title" content="${escapedTitle}" />`,
+    meta.description ? `<meta name="twitter:description" content="${escapedDesc}" />` : "",
+  ].filter(Boolean).join("\n    ");
+
+  // 3. Inject before </head>
+  page = page.replace("</head>", `    ${headTags}\n  </head>`);
+
+  return page;
 }
 
 export async function registerSSR(app: Express): Promise<void> {
@@ -139,9 +169,8 @@ export async function registerSSR(app: Express): Promise<void> {
 
   // Dynamically import the SSR bundle (built by vite build --ssr)
   // IMPORTANT: We await this before registering the middleware so the render function
-  // is always available when the first request arrives. Without await, renderFn would
-  // be null for all requests that arrive before the async import resolves.
-  type RenderFn = (url: string) => { html: string; helmetContext: unknown; notFound: boolean };
+  // is always available when the first request arrives.
+  type RenderFn = (url: string) => { html: string; notFound: boolean };
   let renderFn: RenderFn;
 
   try {
@@ -166,39 +195,17 @@ export async function registerSSR(app: Express): Promise<void> {
       const url = req.originalUrl;
       const { html: appHtml, notFound } = renderFn(url);
 
-      // Split rendered HTML: head tags (title, meta, etc.) + body HTML
-      const { headTags, bodyHtml } = extractHelmetTags(appHtml);
+      // Look up per-page meta from the static route map
+      const meta = getRouteMeta(pathname);
 
+      // Start with the index.html template
       let page = indexHtmlTemplate;
 
-      if (headTags) {
-        // Remove overridable homepage meta tags from the template.
-        // The SSR render provides per-page versions of all these.
-        // We strip: <title>, canonical, og:title, og:description, og:url, og:image,
-        //           twitter:title, twitter:description, twitter:image
-        page = page
-          // Remove <title> tag (with or without attributes)
-          .replace(/<title[^>]*>[^<]*<\/title>/, "")
-          // Remove canonical link
-          .replace(/<link[^>]+rel="canonical"[^>]*\/>/g, "")
-          // Remove og: meta tags that are page-specific
-          .replace(/<meta[^>]+property="og:title"[^>]*\/>/g, "")
-          .replace(/<meta[^>]+property="og:description"[^>]*\/>/g, "")
-          .replace(/<meta[^>]+property="og:url"[^>]*\/>/g, "")
-          .replace(/<meta[^>]+property="og:image"[^>]*\/>/g, "")
-          // Remove twitter: meta tags that are page-specific
-          .replace(/<meta[^>]+name="twitter:title"[^>]*\/>/g, "")
-          .replace(/<meta[^>]+name="twitter:description"[^>]*\/>/g, "")
-          .replace(/<meta[^>]+name="twitter:image"[^>]*\/>/g, "")
-          // Remove meta description (SSR provides per-page one)
-          .replace(/<meta[^>]+name="description"[^>]*\/>/g, "");
-
-        // Inject per-page head tags before </head>
-        page = page.replace("</head>", `  ${headTags}\n  </head>`);
-      }
+      // Inject per-page title, canonical, and description
+      page = injectMetaTags(page, meta);
 
       // Inject the rendered React body HTML into the root div
-      page = page.replace('<div id="root"></div>', `<div id="root">${bodyHtml}</div>`);
+      page = page.replace('<div id="root"></div>', `<div id="root">${appHtml}</div>`);
 
       const statusCode = notFound ? 404 : 200;
       res.status(statusCode).set({ "Content-Type": "text/html" }).end(page);
