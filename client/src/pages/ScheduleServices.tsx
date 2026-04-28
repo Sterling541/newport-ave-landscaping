@@ -150,7 +150,7 @@ function StyledInput({ value, onChange, placeholder, type = "text", maxLength, e
     <div>
       <Input type={type} value={value} onChange={e => onChange(e.target.value)}
         placeholder={placeholder} maxLength={maxLength}
-        className={`border-amber-200 focus:border-green-600 focus:ring-green-600/20 bg-amber-50/30 placeholder:text-stone-400 ${error ? "border-red-400" : ""} ${className}`}
+        className={`border-stone-200 focus:border-stone-500 bg-white placeholder:text-stone-400 ${error ? "border-red-400" : ""} ${className}`}
       />
       {error && <p className="text-xs text-red-500 mt-1">{error}</p>}
     </div>
@@ -164,7 +164,7 @@ function StyledTextarea({ value, onChange, placeholder, rows = 4, error }: {
     <div>
       <Textarea value={value} onChange={e => onChange(e.target.value)} rows={rows}
         placeholder={placeholder}
-        className={`border-amber-200 focus:border-green-600 focus:ring-green-600/20 bg-amber-50/30 placeholder:text-stone-400 resize-none ${error ? "border-red-400" : ""}`}
+        className={`border-stone-200 focus:border-stone-500 bg-white placeholder:text-stone-400 resize-none ${error ? "border-red-400" : ""}`}
       />
       {error && <p className="text-xs text-red-500 mt-1">{error}</p>}
     </div>
@@ -179,7 +179,7 @@ function SelectField({ label, value, onChange, options, placeholder, required, e
     <div className="space-y-1.5">
       <FieldLabel required={required}>{label}</FieldLabel>
       <Select value={value} onValueChange={onChange}>
-        <SelectTrigger className={`border-amber-200 focus:border-green-600 bg-amber-50/30 ${error ? "border-red-400" : ""}`}>
+        <SelectTrigger className={`border-stone-200 focus:border-stone-500 bg-white ${error ? "border-red-400" : ""}`}>
           <SelectValue placeholder={placeholder ?? "Choose\u2026"} />
         </SelectTrigger>
         <SelectContent>
@@ -198,10 +198,10 @@ function CheckboxGroup({ options, value, onChange, columns = 2 }: {
     <div className={`grid gap-2 ${columns === 1 ? "grid-cols-1" : "grid-cols-1 sm:grid-cols-2"}`}>
       {options.map(opt => (
         <label key={opt} className={`flex items-start gap-3 cursor-pointer p-2.5 rounded-xl border-2 transition-all ${
-          value.includes(opt) ? "border-green-500 bg-green-50" : "border-stone-200 bg-white hover:border-amber-300 hover:bg-amber-50/50"
+          value.includes(opt) ? "border-stone-800 bg-stone-50" : "border-stone-200 bg-white hover:border-stone-400 hover:bg-stone-50"
         }`}>
           <Checkbox checked={value.includes(opt)} onCheckedChange={() => onChange(toggleItem(value, opt))}
-            className="mt-0.5 border-stone-400 data-[state=checked]:bg-green-700 data-[state=checked]:border-green-700 shrink-0" />
+            className="mt-0.5 border-stone-400 data-[state=checked]:bg-stone-800 data-[state=checked]:border-stone-800 shrink-0" />
           <span className="text-sm text-stone-700 leading-snug">{opt}</span>
         </label>
       ))}
@@ -213,7 +213,7 @@ function SectionHeader({ title, description }: { title: string; description?: st
   return (
     <div className="mb-6">
       <div className="flex items-center gap-3 mb-2">
-        <div className="h-7 w-1 rounded-full bg-green-600 shrink-0" />
+        <div className="h-7 w-1 rounded-full bg-red-700 shrink-0" />
         <h3 className="text-xl font-bold text-stone-900">{title}</h3>
       </div>
       {description && <p className="text-sm text-stone-500 ml-4 leading-relaxed">{description}</p>}
@@ -222,7 +222,7 @@ function SectionHeader({ title, description }: { title: string; description?: st
 }
 
 function InfoBox({ children, variant = "green" }: { children: React.ReactNode; variant?: "green" | "amber" | "blue" }) {
-  const s = { green: "bg-green-50 border-green-200", amber: "bg-amber-50 border-amber-200", blue: "bg-sky-50 border-sky-200" };
+  const s = { green: "bg-stone-50 border-stone-200", amber: "bg-amber-50 border-amber-200", blue: "bg-sky-50 border-sky-200" };
   return <div className={`border rounded-xl p-4 text-sm ${s[variant]}`}>{children}</div>;
 }
 
@@ -232,7 +232,7 @@ function FormSidebar({ steps, currentStep }: { steps: string[]; currentStep: num
     <div
       className="hidden lg:flex flex-col justify-between p-7 rounded-l-2xl shrink-0"
       style={{
-        background: "linear-gradient(160deg, oklch(0.20 0.07 148) 0%, oklch(0.27 0.09 155) 100%)",
+        background: "linear-gradient(160deg, oklch(0.13 0.005 30) 0%, oklch(0.19 0.008 30) 100%)",
         width: "260px",
       }}
     >
@@ -246,25 +246,25 @@ function FormSidebar({ steps, currentStep }: { steps: string[]; currentStep: num
             return (
               <div key={s} className={`flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all ${active ? "bg-white/15" : done ? "opacity-60" : "opacity-35"}`}>
                 <div className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 text-xs font-bold ${
-                  done ? "bg-emerald-400 text-white" : active ? "bg-white text-green-900" : "bg-white/20 text-white"
+                  done ? "bg-red-600 text-white" : active ? "bg-white text-stone-900" : "bg-white/20 text-white"
                 }`}>
                   {done ? <CheckCircle2 className="w-4 h-4" /> : meta.icon}
                 </div>
                 <div>
-                  <p className={`text-xs font-semibold leading-none ${active ? "text-white" : "text-green-200"}`}>{meta.label}</p>
-                  {active && <p className="text-green-300/80 text-xs mt-0.5">{meta.desc}</p>}
+                  <p className={`text-xs font-semibold leading-none ${active ? "text-white" : "text-stone-400"}`}>{meta.label}</p>
+                  {active && <p className="text-stone-400/80 text-xs mt-0.5">{meta.desc}</p>}
                 </div>
               </div>
             );
           })}
         </div>
         <div className="mt-6">
-          <div className="flex justify-between text-xs text-green-400 mb-1.5">
+          <div className="flex justify-between text-xs text-stone-400 mb-1.5">
             <span>Progress</span><span>{pct}%</span>
           </div>
           <div className="h-1.5 bg-white/10 rounded-full overflow-hidden">
             <div
-              className="h-full bg-gradient-to-r from-emerald-400 to-green-300 rounded-full transition-all duration-500"
+              className="h-full bg-gradient-to-r from-red-700 to-red-500 rounded-full transition-all duration-500"
               style={{ width: `${pct}%` }}
             />
           </div>
@@ -272,8 +272,8 @@ function FormSidebar({ steps, currentStep }: { steps: string[]; currentStep: num
       </div>
       <div className="space-y-2 mt-8">
         {["Licensed & Bonded \u00b7 LCB #9153", "Serving Central Oregon since 2005", "400+ Properties Maintained"].map(b => (
-          <div key={b} className="flex items-center gap-2 text-green-300/80 text-xs">
-            <CheckCircle2 className="w-3.5 h-3.5 shrink-0 text-emerald-400" />
+          <div key={b} className="flex items-center gap-2 text-stone-400/80 text-xs">
+            <CheckCircle2 className="w-3.5 h-3.5 shrink-0 text-red-500" />
             <span>{b}</span>
           </div>
         ))}
@@ -285,17 +285,17 @@ function FormSidebar({ steps, currentStep }: { steps: string[]; currentStep: num
 function MobileProgress({ step, total, stepName }: { step: number; total: number; stepName: string }) {
   const meta = STEP_META[stepName] ?? { icon: <Leaf className="w-4 h-4" />, label: stepName, desc: "" };
   return (
-    <div className="mb-6 pb-5 border-b border-amber-200">
+    <div className="mb-6 pb-5 border-b border-stone-200">
       <div className="flex gap-1 mb-3">
         {Array.from({ length: total }).map((_, i) => (
           <div key={i} className={`h-1.5 flex-1 rounded-full transition-all duration-300 ${
-            i < step ? "bg-green-600" : i === step ? "bg-amber-400" : "bg-stone-200"
+            i < step ? "bg-red-700" : i === step ? "bg-stone-800" : "bg-stone-200"
           }`} />
         ))}
       </div>
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-full bg-green-700 text-white flex items-center justify-center shrink-0">{meta.icon}</div>
+          <div className="w-8 h-8 rounded-full bg-stone-800 text-white flex items-center justify-center shrink-0">{meta.icon}</div>
           <div>
             <p className="text-sm font-bold text-stone-900 leading-none">{meta.label}</p>
             <p className="text-xs text-stone-500 mt-0.5">{meta.desc}</p>
@@ -414,7 +414,7 @@ export default function ScheduleServices() {
         <Navbar />
         <div className="pt-[204px] pb-24 px-4">
           <div className="max-w-lg mx-auto text-center">
-            <div className="w-24 h-24 rounded-full bg-green-700 flex items-center justify-center mx-auto mb-6 shadow-xl shadow-green-900/20">
+            <div className="w-24 h-24 rounded-full bg-red-700 flex items-center justify-center mx-auto mb-6 shadow-xl shadow-red-900/20">
               <CheckCircle2 className="w-12 h-12 text-white" />
             </div>
             <h1 className="text-3xl font-bold text-stone-900 mb-3">Request Received!</h1>
@@ -422,7 +422,7 @@ export default function ScheduleServices() {
             <p className="text-stone-500 mb-2">We've received your service request and will be in touch shortly.</p>
             <p className="text-stone-400 text-sm mb-10">A confirmation has been sent to <strong>{form.email}</strong>.</p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <Button onClick={() => window.location.href = "/"} className="bg-green-700 hover:bg-green-800 text-white px-8">Back to Home</Button>
+              <Button onClick={() => window.location.href = "/"} className="bg-red-700 hover:bg-red-800 text-white px-8">Back to Home</Button>
               <Button variant="outline" onClick={() => window.location.href = "tel:5416178873"} className="border-stone-300 text-stone-700">
                 <Phone className="w-4 h-4 mr-2" />(541) 617-8873
               </Button>
@@ -440,27 +440,27 @@ export default function ScheduleServices() {
         <meta name="robots" content="noindex, nofollow" />
         <title>Schedule Services | Newport Avenue Landscaping</title>
       </Helmet>
-      <div className="min-h-screen" style={{ backgroundColor: "oklch(0.97 0.012 75)" }}>
+      <div className="min-h-screen" style={{ backgroundColor: "oklch(0.97 0.003 30)" }}>
       <Navbar />
 
       {/* Hero */}
-      <div style={{ background: "linear-gradient(135deg, oklch(0.20 0.07 148) 0%, oklch(0.30 0.09 150) 100%)", paddingTop: "204px" }}>
+      <div style={{ background: "linear-gradient(135deg, oklch(0.13 0.005 30) 0%, oklch(0.19 0.008 30) 100%)", paddingTop: "204px" }}>
         <div className="max-w-5xl mx-auto px-4 py-8 lg:hidden text-center">
           <img src={LOGO_URL} alt="Newport Avenue Landscaping" className="h-12 mx-auto mb-3 drop-shadow-sm" />
           <h1 className="text-2xl font-bold text-white mb-1">Schedule Services</h1>
-          <p className="text-green-200 text-sm">Quick and easy — completed in just 4 minutes on average.</p>
+          <p className="text-stone-400 text-sm">Quick and easy — completed in just 4 minutes on average.</p>
         </div>
         <div className="hidden lg:block max-w-5xl mx-auto px-4 py-6">
           <h1 className="text-2xl font-bold text-white">Schedule Services</h1>
-          <p className="text-green-200 text-sm mt-1">Quick and easy — completed in just 4 minutes on average.</p>
+          <p className="text-stone-400 text-sm mt-1">Quick and easy — completed in just 4 minutes on average.</p>
         </div>
       </div>
 
       {/* Disclaimer */}
-      <div className="bg-amber-50 border-b border-amber-200 px-4 py-3">
+      <div className="bg-stone-100 border-b border-stone-200 px-4 py-3">
         <div className="max-w-5xl mx-auto flex gap-3 items-start">
-          <AlertCircle className="w-4 h-4 text-amber-600 mt-0.5 shrink-0" />
-          <p className="text-xs text-amber-800 leading-relaxed">
+          <AlertCircle className="w-4 h-4 text-stone-500 mt-0.5 shrink-0" />
+          <p className="text-xs text-stone-600 leading-relaxed">
             <strong>Licensing Disclaimer (LCB #9153):</strong> Newport Ave Landscaping is not licensed to perform electrical or plumbing work. This includes outlets for pumps, irrigation timers, water features, or any connections to potable water systems. Services requiring a licensed plumber or electrician must be coordinated separately.
           </p>
         </div>
@@ -471,7 +471,7 @@ export default function ScheduleServices() {
         <div className="flex rounded-2xl shadow-2xl overflow-hidden border border-stone-200/60">
           <FormSidebar steps={steps} currentStep={step} />
 
-          <div className="flex-1 p-6 sm:p-8" style={{ backgroundColor: "oklch(0.975 0.010 75)" }}>
+          <div className="flex-1 p-6 sm:p-8 bg-white">
             <div className="lg:hidden">
               <MobileProgress step={step} total={totalSteps} stepName={currentStepName} />
             </div>
@@ -521,7 +521,7 @@ export default function ScheduleServices() {
                 <div className="space-y-1.5">
                   <FieldLabel required>Service Type</FieldLabel>
                   <Select value={form.serviceType} onValueChange={v => set("serviceType", v)}>
-                    <SelectTrigger className={`border-amber-200 focus:border-green-600 bg-amber-50/30 ${errors.serviceType ? "border-red-400" : ""}`}>
+                    <SelectTrigger className={`border-stone-200 focus:border-stone-500 bg-white ${errors.serviceType ? "border-red-400" : ""}`}>
                       <SelectValue placeholder="Choose a service\u2026" />
                     </SelectTrigger>
                     <SelectContent>
@@ -532,8 +532,8 @@ export default function ScheduleServices() {
                 </div>
                 {form.serviceType === "> Aeration, fertilization and top dressing" && (
                   <InfoBox variant="green">
-                    <p className="font-semibold mb-1 text-green-900">Aeration, Fertilization &amp; Top Dressing</p>
-                    <p className="text-xs text-green-800 leading-relaxed">Our aeration and fertilization services are priced per square foot. After submitting this form, we'll reach out to schedule a site visit and provide a quote.</p>
+                    <p className="font-semibold mb-1 text-stone-900">Aeration, Fertilization &amp; Top Dressing</p>
+                    <p className="text-xs text-stone-700 leading-relaxed">Our aeration and fertilization services are priced per square foot. After submitting this form, we'll reach out to schedule a site visit and provide a quote.</p>
                   </InfoBox>
                 )}
                 {form.serviceType === "Sprinkler Winterization" && (
@@ -593,7 +593,7 @@ export default function ScheduleServices() {
                   <div className="relative">
                     <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400" />
                     <Input type="date" value={form.winterizationDate} onChange={e => set("winterizationDate", e.target.value)}
-                      className="pl-9 border-amber-200 focus:border-green-600 bg-amber-50/30" />
+                      className="pl-9 border-stone-200 focus:border-stone-500 bg-white" />
                   </div>
                 </div>
                 <div className="space-y-1.5">
@@ -684,7 +684,7 @@ export default function ScheduleServices() {
                   <FieldLabel required>Preliminary Budget</FieldLabel>
                   <p className="text-xs text-stone-500 mb-1 leading-relaxed">All projects require an established budget by the end of the initial consultation. Most of our construction projects range from $25,000 to $150,000, with a minimum project investment of $10,000.</p>
                   <Select value={form.budget} onValueChange={v => set("budget", v)}>
-                    <SelectTrigger className={`border-amber-200 focus:border-green-600 bg-amber-50/30 ${errors.budget ? "border-red-400" : ""}`}>
+                    <SelectTrigger className={`border-stone-200 focus:border-stone-500 bg-white ${errors.budget ? "border-red-400" : ""}`}>
                       <SelectValue placeholder="Choose a budget range\u2026" />
                     </SelectTrigger>
                     <SelectContent>
@@ -703,11 +703,11 @@ export default function ScheduleServices() {
                     <p className="text-xs text-sky-800 leading-relaxed">Newport Ave Landscaping charges a <strong>$250 design consultation fee</strong> for new landscape design projects. This fee is applied toward the project cost if you choose to proceed. The consultation includes a site visit, design concepts, and a detailed estimate.</p>
                   </InfoBox>
                   <RadioGroup value={form.designConsultationAccepted} onValueChange={v => set("designConsultationAccepted", v)} className="space-y-2 mt-2">
-                    <div className={`flex items-start gap-3 p-3 rounded-xl border-2 transition-all cursor-pointer ${form.designConsultationAccepted === "accepted" ? "border-green-500 bg-green-50" : "border-stone-200 hover:border-green-300"}`}>
+                    <div className={`flex items-start gap-3 p-3 rounded-xl border-2 transition-all cursor-pointer ${form.designConsultationAccepted === "accepted" ? "border-stone-800 bg-stone-50" : "border-stone-200 hover:border-stone-400"}`}>
                       <RadioGroupItem value="accepted" id="dc-accept" className="mt-0.5" />
                       <Label htmlFor="dc-accept" className="text-sm cursor-pointer">I understand and accept these terms</Label>
                     </div>
-                    <div className={`flex items-start gap-3 p-3 rounded-xl border-2 transition-all cursor-pointer ${form.designConsultationAccepted === "declined" ? "border-amber-400 bg-amber-50" : "border-stone-200 hover:border-amber-300"}`}>
+                    <div className={`flex items-start gap-3 p-3 rounded-xl border-2 transition-all cursor-pointer ${form.designConsultationAccepted === "declined" ? "border-stone-400 bg-stone-50" : "border-stone-200 hover:border-stone-400"}`}>
                       <RadioGroupItem value="declined" id="dc-decline" className="mt-0.5" />
                       <Label htmlFor="dc-decline" className="text-sm cursor-pointer">I do not want any landscape design or consultation services at this point</Label>
                     </div>
@@ -718,7 +718,7 @@ export default function ScheduleServices() {
                   <div className="relative">
                     <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400" />
                     <Input type="date" value={form.idealCompletionDate} onChange={e => set("idealCompletionDate", e.target.value)}
-                      className="pl-9 border-amber-200 focus:border-green-600 bg-amber-50/30" />
+                      className="pl-9 border-stone-200 focus:border-stone-500 bg-white" />
                   </div>
                 </div>
               </div>
@@ -728,10 +728,10 @@ export default function ScheduleServices() {
             {currentStepName === "scheduling" && (
               <div className="space-y-5">
                 <SectionHeader title="Scheduling & Property Details" description="Help us prepare for your service." />
-                <label className={`flex items-start gap-3 cursor-pointer p-3 rounded-xl border-2 transition-all ${form.flexibleScheduling ? "border-green-500 bg-green-50" : "border-stone-200 hover:border-amber-300"}`}>
+                <label className={`flex items-start gap-3 cursor-pointer p-3 rounded-xl border-2 transition-all ${form.flexibleScheduling ? "border-stone-800 bg-stone-50" : "border-stone-200 hover:border-stone-400"}`}>
                   <Checkbox checked={form.flexibleScheduling} onCheckedChange={v => set("flexibleScheduling", !!v)}
-                    className="mt-0.5 border-stone-400 data-[state=checked]:bg-green-700 data-[state=checked]:border-green-700 shrink-0" />
-                  <span className="text-sm text-stone-700 leading-snug">NAL can schedule my service and come anytime without notice <span className="text-green-700 font-medium">(This is the quickest way to complete service)</span></span>
+                    className="mt-0.5 border-stone-400 data-[state=checked]:bg-stone-800 data-[state=checked]:border-stone-800 shrink-0" />
+                  <span className="text-sm text-stone-700 leading-snug">NAL can schedule my service and come anytime without notice <span className="text-stone-600 font-medium">(This is the quickest way to complete service)</span></span>
                 </label>
                 <SelectField label="Is this a rental property?" value={form.isRentalProperty} onChange={v => set("isRentalProperty", v)} options={["Yes", "No"]} />
                 <SelectField label="Are you the property owner?" value={form.isPropertyOwner} onChange={v => set("isPropertyOwner", v)} options={["Yes", "No"]} />
@@ -747,9 +747,9 @@ export default function ScheduleServices() {
                   <FieldLabel>Comments or Questions</FieldLabel>
                   <StyledTextarea value={form.comments} onChange={v => set("comments", v)} rows={5} placeholder="Any additional information you'd like us to know\u2026" />
                 </div>
-                <div className="rounded-xl border-2 border-amber-200 p-4 text-sm bg-amber-50/40">
+                <div className="rounded-xl border-2 border-stone-200 p-4 text-sm bg-stone-50">
                   <p className="font-semibold text-stone-700 mb-3 flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-green-600" /> Your Request Summary
+                    <CheckCircle2 className="w-4 h-4 text-red-700" /> Your Request Summary
                   </p>
                   <div className="space-y-1.5 text-stone-600">
                     <div className="flex gap-2"><span className="text-stone-400 w-20 shrink-0">Name:</span><span className="font-medium">{form.firstName} {form.lastName}</span></div>
@@ -767,19 +767,19 @@ export default function ScheduleServices() {
             )}
 
             {/* Navigation */}
-            <div className="flex justify-between mt-8 pt-5 border-t border-amber-200">
+            <div className="flex justify-between mt-8 pt-5 border-t border-stone-200">
               {step > 0 ? (
                 <Button variant="outline" onClick={back} className="gap-2 border-stone-300 text-stone-700 hover:bg-stone-50">
                   <ChevronLeft className="w-4 h-4" /> Back
                 </Button>
               ) : <div />}
               {step < totalSteps - 1 ? (
-                <Button onClick={next} className="bg-green-700 hover:bg-green-800 text-white gap-2 px-7 shadow-md shadow-green-900/20">
+                <Button onClick={next} className="bg-red-700 hover:bg-red-800 text-white gap-2 px-7 shadow-md shadow-red-900/20">
                   Continue <ChevronRight className="w-4 h-4" />
                 </Button>
               ) : (
                 <Button onClick={handleSubmit} disabled={submitMutation.isPending}
-                  className="bg-green-700 hover:bg-green-800 text-white gap-2 min-w-[160px] px-7 shadow-md shadow-green-900/20">
+                  className="bg-red-700 hover:bg-red-800 text-white gap-2 min-w-[160px] px-7 shadow-md shadow-red-900/20">
                   {submitMutation.isPending
                     ? <><Loader2 className="w-4 h-4 animate-spin" /> Submitting&hellip;</>
                     : <>Submit Request <CheckCircle2 className="w-4 h-4" /></>}
@@ -796,7 +796,7 @@ export default function ScheduleServices() {
         </div>
       </div>
       {/* ── Sprinkler Dodge Game ── */}
-      <div className="w-full bg-gradient-to-b from-green-50 to-white border-t border-green-100">
+      <div className="w-full">
         <div className="max-w-3xl mx-auto">
         </div>
       </div>
