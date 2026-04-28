@@ -381,6 +381,65 @@ export const appRouter = router({
         requireAdmin(ctx);
         return getYoyStats(input.serviceTypes);
       }),
+    // Free-form AI deep dive — answer any analytics question about submission data
+    deepDive: protectedProcedure
+      .input(z.object({ question: z.string().min(1).max(500) }))
+      .mutation(async ({ ctx, input }) => {
+        requireAdmin(ctx);
+        const rows = await listServiceSubmissions(2000, 0);
+        const total = await countServiceSubmissions();
+        if (rows.length === 0) return { answer: "No submission data available yet." };
+
+        // Build compact analytics payload (no PII)
+        const serviceTypeCounts: Record<string, number> = {};
+        const howHeardCounts: Record<string, number> = {};
+        const budgetCounts: Record<string, number> = {};
+        const monthCounts: Record<string, number> = {};
+        const yearCounts: Record<string, number> = {};
+
+        for (const row of rows) {
+          const svc = (row.serviceType || "Unknown").replace(/^> /, "");
+          serviceTypeCounts[svc] = (serviceTypeCounts[svc] || 0) + 1;
+          if (row.howHeard) {
+            row.howHeard.split(",").map((s: string) => s.trim()).filter(Boolean).forEach((src: string) => {
+              howHeardCounts[src] = (howHeardCounts[src] || 0) + 1;
+            });
+          }
+          if (row.budget) budgetCounts[row.budget] = (budgetCounts[row.budget] || 0) + 1;
+          if (row.createdAt) {
+            const d = new Date(row.createdAt);
+            const monthKey = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`;
+            monthCounts[monthKey] = (monthCounts[monthKey] || 0) + 1;
+            const yearKey = String(d.getFullYear());
+            yearCounts[yearKey] = (yearCounts[yearKey] || 0) + 1;
+          }
+        }
+
+        const today = new Date();
+        const currentYear = today.getFullYear();
+        const currentMonth = today.getMonth() + 1;
+        const dataPayload = JSON.stringify({
+          totalSubmissions: total,
+          asOfDate: today.toISOString().slice(0, 10),
+          currentYear,
+          currentMonth,
+          serviceTypeBreakdown: serviceTypeCounts,
+          leadSourceBreakdown: howHeardCounts,
+          budgetBreakdown: budgetCounts,
+          submissionsByYearMonth: monthCounts,
+          submissionsByYear: yearCounts,
+        }, null, 2);
+
+        const llmResponse = await invokeLLM({
+          messages: [
+            { role: "system", content: `You are a business analyst for Newport Avenue Landscaping in Bend, Oregon. You have access to their lead submission data. Answer the owner's question concisely and specifically using the data provided. Be direct, use numbers, percentages, and comparisons where relevant. If you can't answer from the data, say so clearly.` },
+            { role: "user", content: `Data:\n${dataPayload}\n\nQuestion: ${input.question}` },
+          ],
+        });
+        const answer = llmResponse.choices[0].message.content as string;
+        return { answer };
+      }),
+
     // Legacy insights endpoint (kept for backward compatibility)
     insights: protectedProcedure
       .query(async ({ ctx }) => {

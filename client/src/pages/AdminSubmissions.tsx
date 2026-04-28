@@ -3,7 +3,7 @@
    Google-Sheets-style view of all Schedule Services form
    submissions. Owner / admin access only.
    ============================================================ */
-import { useState, useMemo } from "react";
+import { useState, useMemo, useRef } from "react";
 import { trpc } from "@/lib/trpc";
 import { isAdminAuthenticated, adminLogin } from "@/hooks/useAdminAuth";
 import { Button } from "@/components/ui/button";
@@ -51,6 +51,7 @@ import {
   ChevronUp,
   ChevronDown,
   ChevronsUpDown,
+  Shield,
   ShieldAlert,
   Sparkles,
   TrendingUp,
@@ -61,7 +62,10 @@ import {
   Megaphone,
   Wrench,
   BarChart3,
+  MessageSquare,
+  Send,
 } from "lucide-react";
+import { AIChatBox, type Message as ChatMessage } from "@/components/AIChatBox";
 import AdminLayout from "@/components/AdminLayout";
 // getLoginUrl removed — using PIN auth instead
 import { toast } from "sonner";
@@ -433,6 +437,117 @@ function FollowUpBadge({ status }: { status: string | null | undefined }) {
   );
 }
 
+// ── Deep Dive AI Chat Component ────────────────────────────────────────────
+function DeepDiveTab() {
+  const [question, setQuestion] = useState("");
+  const [conversation, setConversation] = useState<Array<{ role: "user" | "assistant"; content: string }>>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const endRef = useRef<HTMLDivElement>(null);
+
+  const deepDiveMutation = trpc.submissions.deepDive.useMutation({
+    onSuccess: (data) => {
+      setConversation(prev => [...prev, { role: "assistant", content: data.answer }]);
+      setIsLoading(false);
+    },
+    onError: () => {
+      setConversation(prev => [...prev, { role: "assistant", content: "Sorry, I couldn't process that question. Please try again." }]);
+      setIsLoading(false);
+    },
+  });
+
+  const handleSend = () => {
+    if (!question.trim() || isLoading) return;
+    const q = question.trim();
+    setConversation(prev => [...prev, { role: "user", content: q }]);
+    setQuestion("");
+    setIsLoading(true);
+    deepDiveMutation.mutate({ question: q });
+    setTimeout(() => endRef.current?.scrollIntoView({ behavior: "smooth" }), 100);
+  };
+
+  const SUGGESTIONS = [
+    "Are things trending up this year vs last year?",
+    "How did April this year compare to April last year?",
+    "What's our most popular service type?",
+    "Which lead source brings in the most inquiries?",
+    "What months are our busiest?",
+    "How is irrigation trending year over year?",
+  ];
+
+  return (
+    <div className="flex flex-col h-[600px] bg-white rounded-xl border border-stone-200 overflow-hidden">
+      {/* Header */}
+      <div className="px-5 py-4 border-b border-stone-100 bg-stone-50">
+        <div className="flex items-center gap-2">
+          <MessageSquare className="w-5 h-5 text-stone-700" />
+          <h3 className="font-semibold text-stone-900">AI Deep Dive</h3>
+        </div>
+        <p className="text-xs text-stone-500 mt-0.5">Ask any question about your submission data — trends, comparisons, breakdowns.</p>
+      </div>
+
+      {/* Conversation */}
+      <div className="flex-1 overflow-y-auto p-4 space-y-4">
+        {conversation.length === 0 && (
+          <div className="space-y-3">
+            <p className="text-sm text-stone-500 text-center py-4">Try asking a question, or pick one below:</p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              {SUGGESTIONS.map((s, i) => (
+                <button
+                  key={i}
+                  onClick={() => { setQuestion(s); }}
+                  className="text-left text-sm px-3 py-2 rounded-lg border border-stone-200 hover:border-stone-400 hover:bg-stone-50 transition-colors text-stone-700"
+                >
+                  {s}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+        {conversation.map((msg, i) => (
+          <div key={i} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
+            <div className={`max-w-[80%] rounded-xl px-4 py-3 text-sm leading-relaxed whitespace-pre-wrap ${
+              msg.role === "user"
+                ? "bg-stone-800 text-white rounded-br-sm"
+                : "bg-stone-100 text-stone-800 rounded-bl-sm"
+            }`}>
+              {msg.content}
+            </div>
+          </div>
+        ))}
+        {isLoading && (
+          <div className="flex justify-start">
+            <div className="bg-stone-100 rounded-xl rounded-bl-sm px-4 py-3">
+              <Loader2 className="w-4 h-4 animate-spin text-stone-500" />
+            </div>
+          </div>
+        )}
+        <div ref={endRef} />
+      </div>
+
+      {/* Input */}
+      <div className="px-4 py-3 border-t border-stone-100 bg-stone-50">
+        <div className="flex gap-2">
+          <Input
+            value={question}
+            onChange={e => setQuestion(e.target.value)}
+            onKeyDown={e => e.key === "Enter" && !e.shiftKey && handleSend()}
+            placeholder="Ask about your data..."
+            className="flex-1 bg-white border-stone-200"
+            disabled={isLoading}
+          />
+          <Button
+            onClick={handleSend}
+            disabled={!question.trim() || isLoading}
+            className="bg-stone-800 hover:bg-stone-700 text-white px-3"
+          >
+            <Send className="w-4 h-4" />
+          </Button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function AdminSubmissions() {
   const [pinAuthed, setPinAuthed] = useState(() => isAdminAuthenticated());
   // Alias user to pinAuthed for downstream code that checks !!user
@@ -447,6 +562,11 @@ export default function AdminSubmissions() {
   const [deleteId, setDeleteId] = useState<number | null>(null);
   const [activeTab, setActiveTab] = useState("submissions");
   const [insightsEnabled, setInsightsEnabled] = useState(false);
+  const [monthFilter, setMonthFilter] = useState<number | undefined>(undefined);
+  // Deep Dive chat state
+  const [deepDiveMessages, setDeepDiveMessages] = useState<ChatMessage[]>([
+    { role: "system", content: "You are a business analyst for Newport Avenue Landscaping. Answer questions about their lead data." },
+  ]);
 
   const { data, isLoading, refetch } = trpc.submissions.list.useQuery(
     { limit: 2000, offset: 0, year: yearFilter },
@@ -493,15 +613,16 @@ export default function AdminSubmissions() {
     },
   });
 
-  // Unique service types for filter dropdown
+  // Unique service types for filter dropdown — normalize by stripping "> " prefix to deduplicate
   const serviceTypes = useMemo(() => {
     if (!data?.rows) return [];
-    const set = new Set(
-      data.rows
-        .map(r => r.serviceType)
-        .filter((s): s is string => !!s)  // exclude null/empty
-    );
-    return Array.from(set).sort();
+    const map = new Map<string, string>(); // normalized label -> first raw value
+    for (const r of data.rows) {
+      if (!r.serviceType) continue;
+      const normalized = r.serviceType.replace(/^> /, "").replace(/^Maintenance: /, "").trim();
+      if (!map.has(normalized)) map.set(normalized, r.serviceType);
+    }
+    return Array.from(map.entries()).sort((a, b) => a[0].localeCompare(b[0]));
   }, [data]);
 
   // Filter + search + sort
@@ -510,7 +631,23 @@ export default function AdminSubmissions() {
     let rows = [...data.rows] as Submission[];
 
     if (serviceFilters.length > 0) {
-      rows = rows.filter(r => serviceFilters.includes(r.serviceType || ""));
+      // Match against normalized service type label to handle "> " prefix variants
+      rows = rows.filter(r => {
+        const normalized = (r.serviceType || "").replace(/^> /, "").replace(/^Maintenance: /, "").trim();
+        return serviceFilters.some(f => f.replace(/^> /, "").replace(/^Maintenance: /, "").trim() === normalized);
+      });
+    }
+
+    if (monthFilter !== undefined && yearFilter !== undefined) {
+      rows = rows.filter(r => {
+        const d = new Date(r.createdAt);
+        return d.getMonth() + 1 === monthFilter;
+      });
+    } else if (monthFilter !== undefined) {
+      rows = rows.filter(r => {
+        const d = new Date(r.createdAt);
+        return d.getMonth() + 1 === monthFilter;
+      });
     }
 
     if (search.trim()) {
@@ -638,6 +775,9 @@ export default function AdminSubmissions() {
             >
               <Sparkles className="w-3.5 h-3.5 mr-1.5" /> AI Insights
             </TabsTrigger>
+            <TabsTrigger value="deepdive">
+              <MessageSquare className="w-3.5 h-3.5 mr-1.5" /> Deep Dive
+            </TabsTrigger>
           </TabsList>
 
           {/* ── Submissions Tab ── */}
@@ -653,6 +793,21 @@ export default function AdminSubmissions() {
               className="pl-9 border-stone-300 bg-white"
             />
           </div>
+          {/* Month filter */}
+          <Select
+            value={monthFilter !== undefined ? String(monthFilter) : "all"}
+            onValueChange={v => setMonthFilter(v === "all" ? undefined : Number(v))}
+          >
+            <SelectTrigger className="w-full sm:w-36 bg-white border-stone-300">
+              <SelectValue placeholder="All months" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All months</SelectItem>
+              {["January","February","March","April","May","June","July","August","September","October","November","December"].map((m, i) => (
+                <SelectItem key={i+1} value={String(i+1)}>{m}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
           <Popover>
             <PopoverTrigger asChild>
               <Button
@@ -681,22 +836,22 @@ export default function AdminSubmissions() {
                   <span className="font-medium">All service types</span>
                 </button>
                 <div className="border-t border-stone-100 my-1" />
-                {serviceTypes.map(s => {
-                  const checked = serviceFilters.includes(s);
+                {serviceTypes.map(([label, rawValue]) => {
+                  const checked = serviceFilters.includes(rawValue);
                   return (
                     <button
-                      key={s}
+                      key={label}
                       className="flex w-full items-center gap-2 rounded px-2 py-1.5 text-sm hover:bg-stone-100 cursor-pointer"
                       onClick={() => {
                         setServiceFilters(prev =>
-                          prev.includes(s) ? prev.filter(x => x !== s) : [...prev, s]
+                          prev.includes(rawValue) ? prev.filter(x => x !== rawValue) : [...prev, rawValue]
                         );
                       }}
                     >
-                      <div className={`w-4 h-4 rounded border flex items-center justify-center ${checked ? "bg-green-700 border-green-700" : "border-stone-300"}`}>
+                      <div className={`w-4 h-4 rounded border flex items-center justify-center ${checked ? "bg-stone-800 border-stone-800" : "border-stone-300"}`}>
                         {checked && <Check className="w-3 h-3 text-white" />}
                       </div>
-                      <span>{serviceLabel(s)}</span>
+                      <span>{label}</span>
                     </button>
                   );
                 })}
@@ -1034,6 +1189,11 @@ export default function AdminSubmissions() {
                 </div>
               </div>
             )}
+          </TabsContent>
+
+          {/* ── Deep Dive Tab ── */}
+          <TabsContent value="deepdive">
+            <DeepDiveTab />
           </TabsContent>
         </Tabs>
       </div>
