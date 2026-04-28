@@ -27,7 +27,7 @@ import {
 // Discovery West Plaza
 const DW_AERIAL_OVERVIEW = "/manus-storage/DiscoveryWestPlazaHiResPhotos45_7e4380ec_5d96cf2f.webp";
 const DW_AERIAL_ANGLED = "/manus-storage/DiscoveryWestPlazaHiResPhotos58_4ec582a1_b18aba65.webp";
-const DW_OVERHEAD_CIRCULAR = "/manus-storage/DiscoveryWestPlazaHiResPhotos55_79ba9dd5_e0d97b76.webp";
+const DW_OVERHEAD_CIRCULAR = "/manus-storage/DiscoveryWestPlazaHiResPhotos55_79ba9dd5_92553ba0.webp";
 const DW_CREW_PLANTING = "/manus-storage/DiscoveryWestPlazaHiResPhotos57_fafc711f_5cc782eb.webp";
 const NINES_CREW = "/manus-storage/NinesProject3_602cdeb8_2a243328.webp";
 

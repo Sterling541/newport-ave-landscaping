@@ -68,7 +68,7 @@ const MEGA_PHOTO_MAINTENANCE =
   "/manus-storage/NewportAveLandcaping-9_97b731b0_1204d3ca.webp";
 // Services mega menu — Discovery West Plaza commercial installation (polished hardscape)
 const MEGA_PHOTO_SERVICES =
-  "/manus-storage/DiscoveryWestPlazaHiResPhotos55_79ba9dd5_e0d97b76.webp";
+  "/manus-storage/DiscoveryWestPlazaHiResPhotos55_79ba9dd5_92553ba0.webp";
 
 function MegaMenuItem({
   item,
