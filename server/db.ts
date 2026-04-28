@@ -963,6 +963,16 @@ export async function updateQuoteLeadStatus(
   if (!db) throw new Error("Database not available");
   return db.update(quoteLeads).set({ status, ...(adminNotes !== undefined ? { adminNotes } : {}) }).where(eq(quoteLeads.id, id));
 }
+export async function updateQuoteLeadServiceInterest(id: number, serviceInterest: string) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  return db.update(quoteLeads).set({ serviceInterest }).where(eq(quoteLeads.id, id));
+}
+export async function updateSubmissionServiceType(id: number, serviceType: string) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  return db.update(serviceSubmissions).set({ serviceType }).where(eq(serviceSubmissions.id, id));
+}
 
 // ── Game Analytics ─────────────────────────────────────────────────────────────
 export async function insertGamePlay(data: Omit<InsertGamePlay, 'id' | 'createdAt'>) {

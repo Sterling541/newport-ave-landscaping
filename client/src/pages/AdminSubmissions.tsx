@@ -625,6 +625,10 @@ export default function AdminSubmissions() {
     },
     onError: (err) => toast.error(`Failed: ${err.message}`),
   });
+  const updateServiceTypeMutation = trpc.submissions.updateServiceType.useMutation({
+    onSuccess: () => { toast.success("Service type updated."); refetch(); },
+    onError: (err) => toast.error(`Failed: ${err.message}`),
+  });
 
   const serviceTypes = useMemo(() => {
     if (!data?.rows) return [];
@@ -1037,10 +1041,44 @@ export default function AdminSubmissions() {
                       <td className="px-4 py-3 whitespace-nowrap">
                         <a href={`tel:${row.phone}`} className="text-stone-700 hover:text-green-700">{row.phone}</a>
                       </td>
-                      <td className="px-4 py-3">
-                        <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 whitespace-nowrap max-w-[200px] truncate">
-                          {serviceLabel(row.serviceType)}
-                        </span>
+                      <td className="px-4 py-3 max-w-[200px]">
+                        <select
+                          value={row.serviceType ?? ""}
+                          onChange={(e) => updateServiceTypeMutation.mutate({ id: row.id, serviceType: e.target.value })}
+                          className="w-full text-xs border border-stone-200 rounded px-1.5 py-1 text-green-800 bg-green-50 cursor-pointer hover:border-green-400 focus:outline-none focus:border-green-600"
+                          title="Click to change service type"
+                        >
+                          {[
+                            "Landscape Design & Installation",
+                            "Landscape Enhancement",
+                            "Lawn & Maintenance",
+                            "Irrigation / Sprinklers",
+                            "Paver Patios & Walkways",
+                            "Water Features",
+                            "Outdoor Kitchens & Living",
+                            "Fire Pits & Fireplaces",
+                            "Landscape Lighting",
+                            "Xeriscaping / Water-Wise",
+                            "Retaining Walls",
+                            "Drainage Solutions",
+                            "Snow Removal",
+                            "Firewise Landscaping",
+                            "Concrete",
+                            "Other / Not Sure",
+                          ].map((s) => (
+                            <option key={s} value={s}>{s}</option>
+                          ))}
+                          {/* Keep raw value if not in list */}
+                          {row.serviceType && ![
+                            "Landscape Design & Installation","Landscape Enhancement","Lawn & Maintenance",
+                            "Irrigation / Sprinklers","Paver Patios & Walkways","Water Features",
+                            "Outdoor Kitchens & Living","Fire Pits & Fireplaces","Landscape Lighting",
+                            "Xeriscaping / Water-Wise","Retaining Walls","Drainage Solutions",
+                            "Snow Removal","Firewise Landscaping","Concrete","Other / Not Sure",
+                          ].includes(row.serviceType) && (
+                            <option value={row.serviceType}>{serviceLabel(row.serviceType)}</option>
+                          )}
+                        </select>
                       </td>
                       <td className="px-4 py-3 text-stone-600 max-w-[200px] truncate">{row.siteAddress}</td>
                       <td className="px-4 py-3">

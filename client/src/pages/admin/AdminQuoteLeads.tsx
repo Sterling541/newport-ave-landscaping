@@ -129,6 +129,10 @@ export default function AdminQuoteLeads() {
       setConvertLeadId(null);
       showToast("Lead converted to Scheduled Service successfully!");
     },
+    onError: (err) => showToast(`Error converting: ${err.message}`),
+  });
+  const updateServiceInterestMutation = trpc.quoteLeads.updateServiceInterest.useMutation({
+    onSuccess: () => { refetch(); showToast("Service type updated."); },
     onError: (err) => showToast(`Error: ${err.message}`),
   });
 
@@ -703,9 +707,27 @@ export default function AdminQuoteLeads() {
                       <td style={{ padding: "0.75rem 1rem", fontSize: "0.8rem", color: NAVY, maxWidth: "180px" }}>
                         {row.address || <span style={{ color: "oklch(0.7 0.01 240)" }}>—</span>}
                       </td>
-                      {/* Service Interest */}
-                      <td style={{ padding: "0.75rem 1rem", fontSize: "0.8rem", color: NAVY, maxWidth: "160px" }}>
-                        {row.serviceInterest || <span style={{ color: "oklch(0.7 0.01 240)" }}>—</span>}
+                      {/* Service Interest — inline editable */}
+                      <td style={{ padding: "0.75rem 1rem", fontSize: "0.8rem", color: NAVY, maxWidth: "180px" }}>
+                        <select
+                          value={row.serviceInterest ?? ""}
+                          onChange={(e) => updateServiceInterestMutation.mutate({ id: row.id, serviceInterest: e.target.value })}
+                          style={{
+                            padding: "0.25rem 0.5rem",
+                            border: "1.5px solid oklch(0.88 0.01 240)",
+                            borderRadius: "0.35rem",
+                            fontSize: "0.78rem",
+                            color: NAVY,
+                            background: "white",
+                            cursor: "pointer",
+                            width: "100%",
+                          }}
+                        >
+                          <option value="">— Not set —</option>
+                          {SERVICE_OPTIONS.map((s) => (
+                            <option key={s} value={s}>{s}</option>
+                          ))}
+                        </select>
                       </td>
                       {/* Message */}
                       <td style={{ padding: "0.75rem 1rem", fontSize: "0.78rem", color: "oklch(0.5 0.02 240)", maxWidth: "200px" }}>

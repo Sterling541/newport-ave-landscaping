@@ -68,7 +68,7 @@ import {
   createQuoteLead,
   listQuoteLeads,
   countQuoteLeads,
-  updateQuoteLeadStatus, markQuoteLeadSpam,
+  updateQuoteLeadStatus, markQuoteLeadSpam, updateQuoteLeadServiceInterest, updateSubmissionServiceType,
   insertGamePlay,
   getGameStats,
 } from "./db";
@@ -378,6 +378,13 @@ export const appRouter = router({
       .mutation(async ({ ctx, input }) => {
         requireAdmin(ctx);
         await markSubmissionSpam(input.id, input.isSpam);
+        return { success: true };
+      }),
+    updateServiceType: protectedProcedure
+      .input(z.object({ id: z.number(), serviceType: z.string().min(1).max(128) }))
+      .mutation(async ({ ctx, input }) => {
+        requireAdmin(ctx);
+        await updateSubmissionServiceType(input.id, input.serviceType);
         return { success: true };
       }),
 
@@ -1350,6 +1357,13 @@ Be specific, data-driven, and actionable. Format as JSON with keys: bestMonths (
       .mutation(async ({ ctx, input }) => {
         requireAdmin(ctx);
         await markQuoteLeadSpam(input.id, input.isSpam);
+        return { success: true };
+      }),
+    updateServiceInterest: protectedProcedure
+      .input(z.object({ id: z.number(), serviceInterest: z.string().min(1).max(128) }))
+      .mutation(async ({ ctx, input }) => {
+        requireAdmin(ctx);
+        await updateQuoteLeadServiceInterest(input.id, input.serviceInterest);
         return { success: true };
       }),
 
