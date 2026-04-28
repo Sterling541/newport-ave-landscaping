@@ -592,6 +592,11 @@ export default function AdminSubmissions() {
     { enabled: !!user }
   );
 
+  // Next Up consultant banner
+  const { data: nextUpData } = trpc.quoteLeads.getSuggestedConsultant.useQuery(
+    { serviceType: "install" },
+    { enabled: !!user, refetchOnWindowFocus: false }
+  );
   const followUpMutation = trpc.followUp.logAction.useMutation({
     onSuccess: (result, variables) => {
       const statusCfg = FOLLOW_UP_STATUSES.find(s => s.value === variables.status);
@@ -798,6 +803,31 @@ export default function AdminSubmissions() {
 
           {/* ── Submissions Tab ── */}
           <TabsContent value="submissions">
+        {/* Next Up Consultant Banner */}
+        {nextUpData && (
+          <div
+            style={{
+              background: "oklch(0.97 0.04 240)",
+              border: "1.5px solid oklch(0.80 0.10 240)",
+              borderRadius: "0.75rem",
+              padding: "0.75rem 1.25rem",
+              marginBottom: "1rem",
+              display: "flex",
+              alignItems: "center",
+              gap: "0.75rem",
+            }}
+          >
+            <span style={{ fontSize: "1.1rem" }}>★</span>
+            <div>
+              <span style={{ fontWeight: 700, color: "oklch(0.22 0.055 240)", fontSize: "0.875rem" }}>
+                Next install lead: {nextUpData.consultant}
+              </span>
+              <span style={{ color: "oklch(0.5 0.03 240)", fontSize: "0.8rem", marginLeft: "0.5rem" }}>
+                (based on rotation — Nathan Kooy &amp; William Miller alternate for installs/design)
+              </span>
+            </div>
+          </div>
+        )}
         {/* Filters */}
         <div className="flex flex-col sm:flex-row gap-3 mb-4">
           <div className="relative flex-1 max-w-sm">

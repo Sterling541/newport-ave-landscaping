@@ -107,11 +107,7 @@ export default function AdminQuoteLeads() {
     { limit: 200, offset: 0, includeSpam: showSpam, showConverted },
     { refetchOnWindowFocus: false }
   );
-  // "Next up" consultant banner query
-  const { data: nextUpData } = trpc.quoteLeads.getSuggestedConsultant.useQuery(
-    { serviceType: "install" },
-    { refetchOnWindowFocus: false }
-  );
+
   const markSpamMutation = trpc.quoteLeads.markSpam.useMutation({
     onSuccess: (_, variables) => {
       showToast(variables.isSpam ? "Marked as spam" : "Unmarked as spam");
@@ -450,32 +446,6 @@ export default function AdminQuoteLeads() {
             Submissions from the Get a Quote / Quick Quote form on the website.
           </p>
         </div>
-
-        {/* Next Up Consultant Banner */}
-        {nextUpData && (
-          <div
-            style={{
-              background: "oklch(0.97 0.04 240)",
-              border: "1.5px solid oklch(0.80 0.10 240)",
-              borderRadius: "0.75rem",
-              padding: "0.75rem 1.25rem",
-              marginBottom: "1.25rem",
-              display: "flex",
-              alignItems: "center",
-              gap: "0.75rem",
-            }}
-          >
-            <span style={{ fontSize: "1.1rem" }}>★</span>
-            <div>
-              <span style={{ fontWeight: 700, color: NAVY, fontSize: "0.875rem" }}>
-                Next install lead: {nextUpData.consultant}
-              </span>
-              <span style={{ color: "oklch(0.5 0.03 240)", fontSize: "0.8rem", marginLeft: "0.5rem" }}>
-                (based on rotation — Nathan Kooy &amp; William Miller alternate for installs/design)
-              </span>
-            </div>
-          </div>
-        )}
 
         {/* Stats bar */}
         <div

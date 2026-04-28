@@ -1,4 +1,4 @@
-import { and, asc, between, desc, eq, gte, inArray, isNull, lte, sql } from "drizzle-orm";
+import { and, asc, between, desc, eq, gte, inArray, isNull, lte, ne, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import {
   InsertCsvImportJob, InsertInsight, InsertLeadFollowUp, InsertServiceSubmission, InsertUser, InsertWeatherDaily,
@@ -941,7 +941,7 @@ export async function listQuoteLeads(limit = 100, offset = 0, includeSpam = fals
   if (!db) throw new Error("Database not available");
   const conditions: ReturnType<typeof eq>[] = [];
   if (!includeSpam) conditions.push(eq(quoteLeads.isSpam, false));
-  if (!showConverted) conditions.push(sql`${quoteLeads.status} != 'converted'` as ReturnType<typeof eq>);
+  if (!showConverted) conditions.push(ne(quoteLeads.status, 'converted') as unknown as ReturnType<typeof eq>);
   if (conditions.length > 0) {
     return db.select().from(quoteLeads).where(and(...conditions)).orderBy(desc(quoteLeads.createdAt)).limit(limit).offset(offset);
   }
