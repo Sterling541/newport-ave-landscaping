@@ -782,7 +782,6 @@ export default function Navbar() {
         <div
           className="md:hidden"
           style={{
-            display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
             minHeight: "68px",
