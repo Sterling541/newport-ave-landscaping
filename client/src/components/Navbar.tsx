@@ -61,7 +61,7 @@ const resourcesItems = [
   { label: "All 100 Guides →", href: "/resources", num: "→" },
 ];
 const MEGA_PHOTO_RESOURCES =
-  "/manus-storage/NewportAveLandcaping-9_97b731b0_1204d3ca.webp";
+  "/manus-storage/resources-nav-photo-v4_17df5adc.png";
 
 // Maintenance mega menu — Newport Ave residential lawn & maintenance photo
 const MEGA_PHOTO_MAINTENANCE =
@@ -144,12 +144,14 @@ function MegaMenu({
   headline,
   subline,
   onNavigate,
+  photoPosition,
 }: {
   items: { label: string; href: string; num: string }[];
   photo: string;
   headline: string;
   subline: string;
   onNavigate: (href: string) => void;
+  photoPosition?: string;
 }) {
   return (
     <div
@@ -179,7 +181,7 @@ function MegaMenu({
             width: "100%",
             height: "100%",
             objectFit: "cover",
-            objectPosition: "75% 15%",
+            objectPosition: photoPosition ?? "75% 15%",
             filter: "brightness(0.65) saturate(0.85)",
           }}
         />
@@ -1056,6 +1058,7 @@ export default function Navbar() {
               <MegaMenu
                 items={resourcesItems}
                 photo={MEGA_PHOTO_RESOURCES}
+                photoPosition="center 25%"
                 headline={"Know Before\nYou Grow"}
                 subline="Free Guides & Cost Estimates"
                 onNavigate={goTo}
