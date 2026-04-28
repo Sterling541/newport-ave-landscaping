@@ -378,13 +378,22 @@ function extractHelmetTags(appHtml) {
   // react-helmet-async renders tags with data-loc attributes inline in the body
   // We extract them and move them to the <head> section
   const helmetTagRegex = /<(?:title|meta|link)[^>]*data-loc="[^"]*"[^>]*(?:\/>|>(?:[^<]*)<\/(?:title|meta|link)>)/g;
+  // Also extract JSON-LD script tags with data-loc attributes (for structured data / schema.org)
+  const scriptLdRegex = /<script[^>]*data-loc="[^"]*"[^>]*type="application\/ld\+json"[^>]*>.*?<\/script>/gs;
   const headTags = [];
   let match;
   while ((match = helmetTagRegex.exec(appHtml)) !== null) {
     headTags.push(match[0]);
   }
-  // Remove helmet tags from body HTML
-  const bodyHtml = appHtml.replace(helmetTagRegex, "");
+  while ((match = scriptLdRegex.exec(appHtml)) !== null) {
+    // Strip data-loc attribute from the tag before injecting into head
+    const cleaned = match[0].replace(/\s*data-loc="[^"]*"/, "");
+    headTags.push(cleaned);
+  }
+  // Remove helmet tags and JSON-LD script tags from body HTML
+  const bodyHtml = appHtml
+    .replace(helmetTagRegex, "")
+    .replace(scriptLdRegex, "");
   return { headTags: headTags.join("\n    "), bodyHtml };
 }
 
