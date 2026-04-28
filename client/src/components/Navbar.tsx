@@ -65,7 +65,7 @@ const MEGA_PHOTO_RESOURCES =
 
 // Maintenance mega menu — Newport Ave residential lawn & maintenance photo
 const MEGA_PHOTO_MAINTENANCE =
-  "/manus-storage/NewportAveLandcaping-9_97b731b0_1204d3ca.webp";
+  "/manus-storage/maintenance-nav-edited-v2_89870df6.png";
 // Services mega menu — Discovery West Plaza commercial installation (polished hardscape)
 const MEGA_PHOTO_SERVICES =
   "/manus-storage/DiscoveryWestPlazaHiResPhotos55_79ba9dd5_92553ba0.webp";
