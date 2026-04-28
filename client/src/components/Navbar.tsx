@@ -780,8 +780,9 @@ export default function Navbar() {
 
         {/* Mobile nav bar */}
         <div
-          className="flex md:hidden"
+          className="md:hidden"
           style={{
+            display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
             minHeight: "68px",
