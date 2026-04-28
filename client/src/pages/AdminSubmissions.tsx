@@ -592,7 +592,7 @@ export default function AdminSubmissions() {
     { enabled: !!user }
   );
   const { data: bookedYoyData, isLoading: bookedYoyLoading } = trpc.submissions.yoyStats.useQuery(
-    { serviceTypes: serviceFilters.length > 0 ? serviceFilters : undefined, scheduledOnly: true },
+    { scheduledOnly: true },
     { enabled: !!user }
   );
 
