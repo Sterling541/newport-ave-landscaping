@@ -45,6 +45,7 @@ import {
   Search,
   Trash2,
   Eye,
+  EyeOff,
   Loader2,
   RefreshCw,
   ChevronUp,
@@ -214,7 +215,57 @@ function DetailRow({ label, value }: { label: string; value: React.ReactNode }) 
   );
 }
 
-function SubmissionDrawer({
+function CreditCardSection({
+  cardNumber, expiration, cvv, authSignature,
+}: {
+  cardNumber: string | null | undefined;
+  expiration: string | null | undefined;
+  cvv: string | null | undefined;
+  authSignature: string | null | undefined;
+}) {
+  const [revealed, setRevealed] = useState(false);
+  return (
+    <>
+      <div className="pt-3 pb-1 flex items-center justify-between">
+        <p className="text-xs font-bold text-stone-700 uppercase tracking-widest bg-stone-100 px-2 py-1 rounded">Credit Card</p>
+        <button
+          onClick={() => setRevealed(r => !r)}
+          className="flex items-center gap-1 text-xs text-stone-500 hover:text-stone-800 transition-colors px-2 py-1 rounded hover:bg-stone-100"
+          title={revealed ? "Hide card details" : "Reveal card details"}
+        >
+          {revealed ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
+          {revealed ? "Hide" : "Reveal"}
+        </button>
+      </div>
+      <div className="py-2 border-b border-stone-100">
+        <dt className="text-xs font-semibold text-stone-600 uppercase tracking-wide mb-0.5">Card Number</dt>
+        <dd className="text-sm text-stone-950 font-medium font-mono">
+          {revealed ? (cardNumber || "—") : maskCC(cardNumber)}
+        </dd>
+      </div>
+      <div className="py-2 border-b border-stone-100">
+        <dt className="text-xs font-semibold text-stone-600 uppercase tracking-wide mb-0.5">Expiration</dt>
+        <dd className="text-sm text-stone-950 font-medium">{expiration || "—"}</dd>
+      </div>
+      {cvv && (
+        <div className="py-2 border-b border-stone-100">
+          <dt className="text-xs font-semibold text-stone-600 uppercase tracking-wide mb-0.5">CVV</dt>
+          <dd className="text-sm text-stone-950 font-medium font-mono">
+            {revealed ? cvv : "•••"}
+          </dd>
+        </div>
+      )}
+      {authSignature && (
+        <div className="py-2 border-b border-stone-100">
+          <dt className="text-xs font-semibold text-stone-600 uppercase tracking-wide mb-0.5">Auth Signature</dt>
+          <dd className="text-sm text-stone-950 font-medium">{authSignature}</dd>
+        </div>
+      )}
+    </>
+  );
+}
+
+function SubmissionDetail({
   submission,
   onClose,
 }: {
@@ -287,13 +338,12 @@ function SubmissionDrawer({
           )}
 
           {s.creditCardNumber && (
-            <>
-              <div className="pt-3 pb-1"><p className="text-xs font-bold text-stone-700 uppercase tracking-widest bg-stone-100 px-2 py-1 rounded">Credit Card</p></div>
-              <DetailRow label="Card Number" value={maskCC(s.creditCardNumber)} />
-              <DetailRow label="Expiration" value={s.creditCardExpiration} />
-              <DetailRow label="CVV" value={s.creditCardCvv ? "***" : undefined} />
-              <DetailRow label="Auth Signature" value={s.creditCardAuthSignature} />
-            </>
+            <CreditCardSection
+              cardNumber={s.creditCardNumber}
+              expiration={s.creditCardExpiration}
+              cvv={s.creditCardCvv}
+              authSignature={s.creditCardAuthSignature}
+            />
           )}
 
           {s.landscapeElements && (
@@ -989,7 +1039,7 @@ export default function AdminSubmissions() {
       </div>
 
       {/* Detail drawer */}
-      <SubmissionDrawer submission={selected} onClose={() => setSelected(null)} />
+      <SubmissionDetail submission={selected} onClose={() => setSelected(null)} />
 
       {/* Delete confirmation */}
       <AlertDialog open={deleteId !== null} onOpenChange={open => !open && setDeleteId(null)}>
