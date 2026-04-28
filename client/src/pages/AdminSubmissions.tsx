@@ -208,8 +208,8 @@ function DetailRow({ label, value }: { label: string; value: React.ReactNode }) 
   if (!value || value === "—") return null;
   return (
     <div className="py-2 border-b border-stone-100 last:border-0">
-      <dt className="text-xs font-semibold text-stone-500 uppercase tracking-wide mb-0.5">{label}</dt>
-      <dd className="text-sm text-stone-900 break-words">{value}</dd>
+      <dt className="text-xs font-semibold text-stone-600 uppercase tracking-wide mb-0.5">{label}</dt>
+      <dd className="text-sm text-stone-950 font-medium break-words">{value}</dd>
     </div>
   );
 }
@@ -235,8 +235,8 @@ function SubmissionDrawer({
 
         <dl className="space-y-0">
           <DetailRow label="Submitted" value={fmt(s.createdAt)} />
-          <DetailRow label="Email" value={<a href={`mailto:${s.email}`} className="text-green-700 underline">{s.email}</a>} />
-          <DetailRow label="Phone" value={<a href={`tel:${s.phone}`} className="text-green-700 underline">{s.phone}</a>} />
+          <DetailRow label="Email" value={<a href={`mailto:${s.email}`} className="text-red-700 underline font-medium">{s.email}</a>} />
+          <DetailRow label="Phone" value={<a href={`tel:${s.phone}`} className="text-red-700 underline font-medium">{s.phone}</a>} />
           <DetailRow label="Site Address" value={s.siteAddress} />
           <DetailRow label="Billing Address" value={s.billingAddress} />
           <DetailRow label="Used Before" value={s.usedBefore} />
@@ -245,7 +245,7 @@ function SubmissionDrawer({
 
           {s.warrantyDetails && (
             <>
-              <div className="pt-3 pb-1"><p className="text-xs font-bold text-stone-400 uppercase tracking-widest">Warranty</p></div>
+              <div className="pt-3 pb-1"><p className="text-xs font-bold text-stone-600 uppercase tracking-widest">Warranty</p></div>
               <DetailRow label="Details" value={s.warrantyDetails} />
               <DetailRow label="Sales Consultant" value={s.salesConsultant} />
               <DetailRow label="Project Manager" value={s.projectManager} />
@@ -254,7 +254,7 @@ function SubmissionDrawer({
 
           {s.maintenanceTypes && (
             <>
-              <div className="pt-3 pb-1"><p className="text-xs font-bold text-stone-400 uppercase tracking-widest">Maintenance</p></div>
+              <div className="pt-3 pb-1"><p className="text-xs font-bold text-stone-600 uppercase tracking-widest">Maintenance</p></div>
               <DetailRow label="Service Types" value={s.maintenanceTypes} />
               <DetailRow label="Notes" value={s.maintenanceNotes} />
             </>
@@ -262,7 +262,7 @@ function SubmissionDrawer({
 
           {s.irrigationTypes && (
             <>
-              <div className="pt-3 pb-1"><p className="text-xs font-bold text-stone-400 uppercase tracking-widest">Irrigation</p></div>
+              <div className="pt-3 pb-1"><p className="text-xs font-bold text-stone-600 uppercase tracking-widest">Irrigation</p></div>
               <DetailRow label="Service Types" value={s.irrigationTypes} />
               <DetailRow label="Notes" value={s.irrigationNotes} />
               <DetailRow label="Winterization Date" value={s.winterizationDate} />
@@ -271,7 +271,7 @@ function SubmissionDrawer({
 
           {s.lightingTypes && (
             <>
-              <div className="pt-3 pb-1"><p className="text-xs font-bold text-stone-400 uppercase tracking-widest">Lighting</p></div>
+              <div className="pt-3 pb-1"><p className="text-xs font-bold text-stone-600 uppercase tracking-widest">Lighting</p></div>
               <DetailRow label="Service Types" value={s.lightingTypes} />
               <DetailRow label="Notes" value={s.lightingNotes} />
             </>
@@ -279,7 +279,7 @@ function SubmissionDrawer({
 
           {s.waterFeatureTypes && (
             <>
-              <div className="pt-3 pb-1"><p className="text-xs font-bold text-stone-400 uppercase tracking-widest">Water Feature</p></div>
+              <div className="pt-3 pb-1"><p className="text-xs font-bold text-stone-600 uppercase tracking-widest">Water Feature</p></div>
               <DetailRow label="Service Types" value={s.waterFeatureTypes} />
               <DetailRow label="Notes" value={s.waterFeatureNotes} />
               <DetailRow label="Repair Description" value={s.waterFeatureRepairDesc} />
@@ -288,7 +288,7 @@ function SubmissionDrawer({
 
           {s.creditCardNumber && (
             <>
-              <div className="pt-3 pb-1"><p className="text-xs font-bold text-stone-400 uppercase tracking-widest">Credit Card</p></div>
+              <div className="pt-3 pb-1"><p className="text-xs font-bold text-stone-700 uppercase tracking-widest bg-stone-100 px-2 py-1 rounded">Credit Card</p></div>
               <DetailRow label="Card Number" value={maskCC(s.creditCardNumber)} />
               <DetailRow label="Expiration" value={s.creditCardExpiration} />
               <DetailRow label="CVV" value={s.creditCardCvv ? "***" : undefined} />
@@ -298,7 +298,7 @@ function SubmissionDrawer({
 
           {s.landscapeElements && (
             <>
-              <div className="pt-3 pb-1"><p className="text-xs font-bold text-stone-400 uppercase tracking-widest">Landscape Design</p></div>
+              <div className="pt-3 pb-1"><p className="text-xs font-bold text-stone-600 uppercase tracking-widest">Landscape Design</p></div>
               <DetailRow label="Has Existing Design" value={s.hasExistingDesign} />
               <DetailRow label="Needs HOA Approval" value={s.needsHoaApproval} />
               <DetailRow label="Elements" value={s.landscapeElements} />
@@ -309,7 +309,7 @@ function SubmissionDrawer({
             </>
           )}
 
-          <div className="pt-3 pb-1"><p className="text-xs font-bold text-stone-400 uppercase tracking-widest">Scheduling</p></div>
+          <div className="pt-3 pb-1"><p className="text-xs font-bold text-stone-600 uppercase tracking-widest">Scheduling</p></div>
           <DetailRow label="Flexible Scheduling" value={s.flexibleScheduling ? "Yes" : "No"} />
           <DetailRow label="Rental Property" value={s.isRentalProperty} />
           <DetailRow label="Property Owner" value={s.isPropertyOwner} />
@@ -317,7 +317,7 @@ function SubmissionDrawer({
 
           {s.comments && (
             <>
-              <div className="pt-3 pb-1"><p className="text-xs font-bold text-stone-400 uppercase tracking-widest">Comments</p></div>
+              <div className="pt-3 pb-1"><p className="text-xs font-bold text-stone-600 uppercase tracking-widest">Comments</p></div>
               <DetailRow label="Comments" value={s.comments} />
             </>
           )}
