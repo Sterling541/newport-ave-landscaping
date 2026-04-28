@@ -1038,3 +1038,10 @@
 - [x] Add showConverted state and toggle button to AdminQuoteLeads.tsx
 - [x] Add "Next Up" consultant banner to AdminQuoteLeads.tsx (shows who gets next install lead)
 - [x] Show assignedConsultant and convertedAt on converted rows in Quick Forms table
+
+## Session — April 28, 2026 (Booking Status Migration)
+- [x] Run dry-run match of spreadsheet rows to DB records (598 matched, 3 unmatched)
+- [x] Execute UPDATE-only migration: 27 records updated (5 scheduled→cancelled, 22 new→scheduled), 579 untouched
+- [x] Add scheduledOnly filter to getYoyStats in db.ts
+- [x] Add scheduledOnly input to yoyStats procedure in routers.ts
+- [x] Add Booked Appointments YoY card to AdminSubmissions dashboard

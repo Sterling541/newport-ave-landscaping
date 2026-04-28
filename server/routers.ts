@@ -393,10 +393,11 @@ export const appRouter = router({
     yoyStats: protectedProcedure
       .input(z.object({
         serviceTypes: z.union([z.string(), z.array(z.string())]).optional(),
+        scheduledOnly: z.boolean().optional(),
       }))
       .query(async ({ ctx, input }) => {
         requireAdmin(ctx);
-        return getYoyStats(input.serviceTypes);
+        return getYoyStats(input.serviceTypes, input.scheduledOnly);
       }),
     // Free-form AI deep dive — answer any analytics question about submission data
     deepDive: protectedProcedure

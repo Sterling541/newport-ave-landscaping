@@ -1036,7 +1036,7 @@ export async function getGameStats() {
 }
 
 /** Year-over-year comparison stats for a given service type (or all types) */
-export async function getYoyStats(serviceTypes?: string | string[]) {
+export async function getYoyStats(serviceTypes?: string | string[], scheduledOnly?: boolean) {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
   const now = new Date();
@@ -1068,6 +1068,9 @@ export async function getYoyStats(serviceTypes?: string | string[]) {
       } else if (arr.length > 1) {
         conditions.push(inArray(serviceSubmissions.serviceType, arr));
       }
+    }
+    if (scheduledOnly) {
+      conditions.push(eq(serviceSubmissions.leadStatus, 'scheduled'));
     }
     return and(...conditions);
   }

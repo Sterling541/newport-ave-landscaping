@@ -591,6 +591,10 @@ export default function AdminSubmissions() {
     { serviceTypes: serviceFilters.length > 0 ? serviceFilters : undefined },
     { enabled: !!user }
   );
+  const { data: bookedYoyData, isLoading: bookedYoyLoading } = trpc.submissions.yoyStats.useQuery(
+    { serviceTypes: serviceFilters.length > 0 ? serviceFilters : undefined, scheduledOnly: true },
+    { enabled: !!user }
+  );
 
   // Next Up consultant banner
   const { data: nextUpData } = trpc.quoteLeads.getSuggestedConsultant.useQuery(
@@ -1004,6 +1008,43 @@ export default function AdminSubmissions() {
                 <span className="flex items-center gap-1 text-[10px] text-stone-500"><span className="w-2 h-2 rounded-sm bg-stone-300 inline-block" />{yoyData.lastYear}</span>
               </div>
             </div>
+          </div>
+        )}
+
+        {/* Booked Appointments YoY Card */}
+        {bookedYoyData && (
+          <div className="mb-4 bg-white rounded-xl border border-emerald-200 shadow-sm p-4">
+            <div className="flex items-center gap-2 mb-3">
+              <span className="text-emerald-600 text-sm">&#128197;</span>
+              <span className="text-xs font-semibold text-stone-600 uppercase tracking-wide">
+                Booked Appointments &#8212; Year-over-Year
+              </span>
+              <span className="text-xs text-stone-400 ml-auto">as of {new Date(bookedYoyData.asOfDate).toLocaleDateString("en-US", { month: "short", day: "numeric" })}</span>
+            </div>
+            <div className="grid grid-cols-3 gap-3">
+              <div className="rounded-lg bg-emerald-50 border border-emerald-100 p-3 text-center">
+                <div className="text-2xl font-bold text-emerald-800">{bookedYoyLoading ? "..." : bookedYoyData.thisYtd}</div>
+                <div className="text-xs font-medium text-emerald-700 mt-0.5">{bookedYoyData.thisYear} YTD</div>
+                <div className="text-xs text-emerald-600 mt-1">Jan 1 - today</div>
+              </div>
+              <div className="rounded-lg bg-stone-50 border border-stone-200 p-3 text-center">
+                <div className="text-2xl font-bold text-stone-700">{bookedYoyLoading ? "..." : bookedYoyData.lastYearSamePeriod}</div>
+                <div className="text-xs font-medium text-stone-600 mt-0.5">{bookedYoyData.lastYear} Same Period</div>
+                <div className="text-xs text-stone-400 mt-1">
+                  {bookedYoyData.lastYearSamePeriod > 0 ? (() => {
+                    const diff = bookedYoyData.thisYtd - bookedYoyData.lastYearSamePeriod;
+                    const pct = Math.round((diff / bookedYoyData.lastYearSamePeriod) * 100);
+                    return <span className={diff >= 0 ? "text-emerald-600 font-semibold" : "text-red-500 font-semibold"}>{diff >= 0 ? "up" : "down"} {Math.abs(pct)}% vs last year</span>;
+                  })() : "No data"}
+                </div>
+              </div>
+              <div className="rounded-lg bg-blue-50 border border-blue-100 p-3 text-center">
+                <div className="text-2xl font-bold text-blue-800">{bookedYoyLoading ? "..." : bookedYoyData.lastYearFull}</div>
+                <div className="text-xs font-medium text-blue-700 mt-0.5">{bookedYoyData.lastYear} Full Year</div>
+                <div className="text-xs text-blue-500 mt-1">Jan 1 - Dec 31</div>
+              </div>
+            </div>
+            <div className="mt-3 text-xs text-stone-400">Confirmed booked appointments only (green rows from your spreadsheet)</div>
           </div>
         )}
 
