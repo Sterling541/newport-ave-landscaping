@@ -34,7 +34,7 @@ const NAV_ITEMS = [
     description: "Scheduled service submissions",
   },
   {
-    label: "Quick Quote Leads",
+    label: "Quick Forms",
     href: "/admin/quote-leads",
     icon: MessageSquare,
     description: "Get a Quote inquiries",

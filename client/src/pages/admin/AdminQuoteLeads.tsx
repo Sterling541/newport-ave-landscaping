@@ -438,7 +438,7 @@ export default function AdminQuoteLeads() {
               margin: 0,
             }}
           >
-            Quick Quote Leads
+            Quick Forms
           </h1>
           <p style={{ color: "oklch(0.5 0.02 240)", fontSize: "0.875rem", marginTop: "0.25rem" }}>
             Submissions from the Get a Quote / Quick Quote form on the website.
@@ -664,10 +664,10 @@ export default function AdminQuoteLeads() {
               overflow: "hidden",
             }}
           >
-            <table style={{ width: "100%", borderCollapse: "collapse" }}>
+            <table style={{ width: "100%", minWidth: "1100px", borderCollapse: "collapse", tableLayout: "fixed" }}>
               <thead>
                 <tr style={{ background: "oklch(0.97 0.005 240)", borderBottom: "1.5px solid oklch(0.92 0.01 240)" }}>
-                  {["Date", "Name", "Contact", "Address", "Service Interest", "Message", "Status", "Actions"].map((h) => (
+                  {[["Date","90px"], ["Name","130px"], ["Contact","200px"], ["Address","200px"], ["Service Interest","160px"], ["Message","220px"], ["Status","110px"], ["Actions","130px"]].map(([h, w]) => (
                     <th
                       key={h}
                       style={{
@@ -679,6 +679,7 @@ export default function AdminQuoteLeads() {
                         textTransform: "uppercase",
                         color: "oklch(0.5 0.03 240)",
                         whiteSpace: "nowrap",
+                        width: w,
                       }}
                     >
                       {h}
@@ -711,7 +712,7 @@ export default function AdminQuoteLeads() {
                       {/* Contact */}
                       <td style={{ padding: "0.75rem 1rem", fontSize: "0.8rem" }}>
                         <div>
-                          <a href={`mailto:${row.email}`} style={{ color: "oklch(0.4 0.12 240)", textDecoration: "none" }}>
+                          <a href={`mailto:${row.email}`} style={{ color: "oklch(0.4 0.12 240)", textDecoration: "none", wordBreak: "break-all" }}>
                             {row.email}
                           </a>
                         </div>
@@ -722,11 +723,11 @@ export default function AdminQuoteLeads() {
                         </div>
                       </td>
                       {/* Address */}
-                      <td style={{ padding: "0.75rem 1rem", fontSize: "0.8rem", color: NAVY, maxWidth: "180px" }}>
+                      <td style={{ padding: "0.75rem 1rem", fontSize: "0.8rem", color: NAVY }}>
                         {row.address || <span style={{ color: "oklch(0.7 0.01 240)" }}>—</span>}
                       </td>
                       {/* Service Interest — inline editable */}
-                      <td style={{ padding: "0.75rem 1rem", fontSize: "0.8rem", color: NAVY, maxWidth: "180px" }}>
+                      <td style={{ padding: "0.75rem 1rem", fontSize: "0.8rem", color: NAVY }}>
                         <select
                           value={row.serviceInterest ?? ""}
                           onChange={(e) => updateServiceInterestMutation.mutate({ id: row.id, serviceInterest: e.target.value })}
@@ -748,10 +749,10 @@ export default function AdminQuoteLeads() {
                         </select>
                       </td>
                       {/* Message */}
-                      <td style={{ padding: "0.75rem 1rem", fontSize: "0.78rem", color: "oklch(0.5 0.02 240)", maxWidth: "200px" }}>
+                      <td style={{ padding: "0.75rem 1rem", fontSize: "0.78rem", color: "oklch(0.5 0.02 240)" }}>
                         {row.message ? (
                           <span title={row.message}>
-                            {row.message.length > 80 ? row.message.slice(0, 80) + "…" : row.message}
+                            {row.message.length > 100 ? row.message.slice(0, 100) + "…" : row.message}
                           </span>
                         ) : (
                           <span style={{ color: "oklch(0.7 0.01 240)" }}>—</span>
