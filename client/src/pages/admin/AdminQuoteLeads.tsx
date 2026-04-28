@@ -353,7 +353,7 @@ export default function AdminQuoteLeads() {
                   <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.75rem" }}>
                     <div>
                       <label style={{ fontSize: "0.72rem", fontWeight: 600, color: "oklch(0.45 0.04 240)", textTransform: "uppercase", letterSpacing: "0.04em", display: "block", marginBottom: "0.3rem" }}>
-                        Sales Consultant
+                        Scheduled With
                         {consultantSuggestion && (
                           <span style={{ marginLeft: "0.4rem", fontSize: "0.65rem", background: consultantSuggestion.isRotating ? "oklch(0.92 0.08 145)" : "oklch(0.92 0.08 220)", color: consultantSuggestion.isRotating ? "oklch(0.3 0.12 145)" : "oklch(0.3 0.12 220)", borderRadius: "0.25rem", padding: "0.1rem 0.35rem", fontWeight: 700 }}>
                             ★ Suggested: {consultantSuggestion.consultant}

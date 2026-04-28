@@ -1049,6 +1049,7 @@ export default function AdminSubmissions() {
                         Service <SortIcon col="serviceType" sortKey={sortKey} sortDir={sortDir} />
                       </span>
                     </th>
+                    <th className="px-4 py-3 text-left text-xs font-semibold text-stone-600 uppercase tracking-wide whitespace-nowrap">Scheduled With</th>
                     <th className="px-4 py-3 text-left text-xs font-semibold text-stone-600 uppercase tracking-wide whitespace-nowrap">Address</th>
                     <th className="px-4 py-3 text-left text-xs font-semibold text-stone-600 uppercase tracking-wide whitespace-nowrap">Follow-Up</th>
                     <th className="px-4 py-3 text-right text-xs font-semibold text-stone-600 uppercase tracking-wide">Actions</th>
@@ -1109,6 +1110,15 @@ export default function AdminSubmissions() {
                             <option value={row.serviceType}>{serviceLabel(row.serviceType)}</option>
                           )}
                         </select>
+                      </td>
+                      <td className="px-4 py-3 whitespace-nowrap">
+                        {row.salesConsultant ? (
+                          <span className="inline-flex items-center gap-1 text-xs font-medium px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">
+                            {row.salesConsultant}
+                          </span>
+                        ) : (
+                          <span className="text-stone-300 text-xs">—</span>
+                        )}
                       </td>
                       <td className="px-4 py-3 text-stone-600 max-w-[200px] truncate">{row.siteAddress}</td>
                       <td className="px-4 py-3">

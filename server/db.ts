@@ -1142,9 +1142,9 @@ function isInstallServiceType(serviceType: string): boolean {
 
 /**
  * Returns the suggested consultant for a given service type.
- * For install/design: rotates between Nathan Kooy and William Miller.
+ * For install/design: rotates between Nathan Kooy and William Miller based on
+ * whoever was last assigned in service_submissions.salesConsultant.
  * For enhancements and other services: always returns Danny Sheffield.
- * Also records the assignment so the next call rotates correctly.
  */
 export async function getSuggestedConsultant(serviceType: string): Promise<{
   consultant: string;
@@ -1155,23 +1155,26 @@ export async function getSuggestedConsultant(serviceType: string): Promise<{
   if (!db) {
     return { consultant: INSTALL_CONSULTANTS[0], isRotating: true, allConsultants: [...INSTALL_CONSULTANTS, ENHANCEMENT_CONSULTANT] };
   }
-
   if (!isInstallServiceType(serviceType)) {
     return { consultant: ENHANCEMENT_CONSULTANT, isRotating: false, allConsultants: [...INSTALL_CONSULTANTS, ENHANCEMENT_CONSULTANT] };
   }
-
-  // Get the last assigned consultant for install rotation
-  const rows = await db.select().from(consultantRotation).where(eq(consultantRotation.rotationGroup, "install")).limit(1);
-  const lastAssigned = rows[0]?.lastAssigned ?? null;
-
-  // Pick the next one in rotation
+  // Derive rotation from the most recent service_submission that has one of the install consultants
+  const rows = await db
+    .select({ salesConsultant: serviceSubmissions.salesConsultant })
+    .from(serviceSubmissions)
+    .where(
+      sql`${serviceSubmissions.salesConsultant} IN (${sql.join(INSTALL_CONSULTANTS.map(c => sql`${c}`), sql`, `)})`
+    )
+    .orderBy(desc(serviceSubmissions.createdAt))
+    .limit(1);
+  const lastAssigned = rows[0]?.salesConsultant ?? null;
+  // Pick the next one in rotation (every-other)
   let nextConsultant: string;
   if (!lastAssigned || lastAssigned === INSTALL_CONSULTANTS[1]) {
     nextConsultant = INSTALL_CONSULTANTS[0]; // Nathan goes first, or after William
   } else {
     nextConsultant = INSTALL_CONSULTANTS[1]; // William after Nathan
   }
-
   return { consultant: nextConsultant, isRotating: true, allConsultants: [...INSTALL_CONSULTANTS, ENHANCEMENT_CONSULTANT] };
 }
 

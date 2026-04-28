@@ -30,7 +30,7 @@ type FormData = {
   email: string; usedBefore: string; firstName: string; lastName: string;
   phone: string; siteAddress: string; billingAddress: string; howHeard: string[];
   serviceType: string;
-  warrantyDetails: string; salesConsultant: string; projectManager: string;
+  warrantyDetails: string; salesConsultant: string; projectManager: string; scheduledWith: string;
   maintenanceTypes: string[]; maintenanceNotes: string;
   irrigationTypes: string[]; irrigationNotes: string; winterizationDate: string;
   lightingTypes: string[]; lightingNotes: string;
@@ -47,7 +47,7 @@ type FormData = {
 const INITIAL_FORM: FormData = {
   email: "", usedBefore: "", firstName: "", lastName: "", phone: "",
   siteAddress: "", billingAddress: "", howHeard: [], serviceType: "",
-  warrantyDetails: "", salesConsultant: "", projectManager: "",
+  warrantyDetails: "", salesConsultant: "", projectManager: "", scheduledWith: "",
   maintenanceTypes: [], maintenanceNotes: "",
   irrigationTypes: [], irrigationNotes: "", winterizationDate: "",
   lightingTypes: [], lightingNotes: "",
@@ -407,7 +407,9 @@ export default function ScheduleServices() {
       firstName: form.firstName, lastName: form.lastName, phone: form.phone,
       siteAddress: form.siteAddress, billingAddress: form.billingAddress || undefined,
       howHeard: form.howHeard.join(", ") || undefined, serviceType: form.serviceType,
-      warrantyDetails: form.warrantyDetails || undefined, salesConsultant: form.salesConsultant || undefined,
+      warrantyDetails: form.warrantyDetails || undefined,
+      // salesConsultant: use scheduledWith if set, otherwise fall back to warranty form's salesConsultant
+      salesConsultant: form.scheduledWith || form.salesConsultant || undefined,
       projectManager: form.projectManager || undefined,
       maintenanceTypes: form.maintenanceTypes.join(", ") || undefined, maintenanceNotes: form.maintenanceNotes || undefined,
       irrigationTypes: form.irrigationTypes.join(", ") || undefined, irrigationNotes: form.irrigationNotes || undefined,
@@ -758,6 +760,7 @@ export default function ScheduleServices() {
                 <SelectField label="Is this a rental property?" value={form.isRentalProperty} onChange={v => set("isRentalProperty", v)} options={["Yes", "No"]} />
                 <SelectField label="Are you the property owner?" value={form.isPropertyOwner} onChange={v => set("isPropertyOwner", v)} options={["Yes", "No"]} />
                 <SelectField label="Are there dogs & other pets at the property we should know about?" value={form.hasPets} onChange={v => set("hasPets", v)} options={["Yes", "No"]} />
+                <SelectField label="Scheduled With" value={form.scheduledWith} onChange={v => set("scheduledWith", v)} options={["", "Nathan Kooy", "William Miller", "Danny Sheffield", "Other"]} />
               </div>
             )}
 
