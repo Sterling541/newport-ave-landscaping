@@ -1343,13 +1343,15 @@ Be specific, data-driven, and actionable. Format as JSON with keys: bestMonths (
         limit: z.number().min(1).max(200).default(100),
         offset: z.number().min(0).default(0),
         includeSpam: z.boolean().default(false),
+        showConverted: z.boolean().default(false),
       }).optional())
       .query(async ({ ctx, input }) => {
         requireAdmin(ctx);
         const limit = input?.limit ?? 100;
         const offset = input?.offset ?? 0;
         const includeSpam = input?.includeSpam ?? false;
-        const rows = await listQuoteLeads(limit, offset, includeSpam);
+        const showConverted = input?.showConverted ?? false;
+        const rows = await listQuoteLeads(limit, offset, includeSpam, showConverted);
         const total = await countQuoteLeads();
         return { rows, total };
       }),
@@ -1421,7 +1423,7 @@ Be specific, data-driven, and actionable. Format as JSON with keys: bestMonths (
           await recordConsultantAssignment(submissionData.salesConsultant);
         }
         // Mark the quote lead as converted
-        await updateQuoteLeadStatus(quoteLeadId, "converted", `Converted to scheduled service form.`);
+        await updateQuoteLeadStatus(quoteLeadId, "converted", `Converted to scheduled service form.`, submissionData.salesConsultant, new Date());
         return { success: true, submissionId: (submission as { insertId?: number }).insertId };
       }),
     /** Admin: get suggested consultant based on service type with rotation logic */

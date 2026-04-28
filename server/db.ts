@@ -936,13 +936,16 @@ export async function createQuoteLead(data: Omit<InsertQuoteLead, "id" | "create
   if (!db) throw new Error("Database not available");
   return db.insert(quoteLeads).values(data);
 }
-export async function listQuoteLeads(limit = 100, offset = 0, includeSpam = false) {
+export async function listQuoteLeads(limit = 100, offset = 0, includeSpam = false, showConverted = false) {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
-  if (includeSpam) {
-    return db.select().from(quoteLeads).orderBy(desc(quoteLeads.createdAt)).limit(limit).offset(offset);
+  const conditions: ReturnType<typeof eq>[] = [];
+  if (!includeSpam) conditions.push(eq(quoteLeads.isSpam, false));
+  if (!showConverted) conditions.push(sql`${quoteLeads.status} != 'converted'` as ReturnType<typeof eq>);
+  if (conditions.length > 0) {
+    return db.select().from(quoteLeads).where(and(...conditions)).orderBy(desc(quoteLeads.createdAt)).limit(limit).offset(offset);
   }
-  return db.select().from(quoteLeads).where(eq(quoteLeads.isSpam, false)).orderBy(desc(quoteLeads.createdAt)).limit(limit).offset(offset);
+  return db.select().from(quoteLeads).orderBy(desc(quoteLeads.createdAt)).limit(limit).offset(offset);
 }
 export async function markQuoteLeadSpam(id: number, isSpam: boolean) {
   const db = await getDb();
@@ -958,11 +961,18 @@ export async function countQuoteLeads() {
 export async function updateQuoteLeadStatus(
   id: number,
   status: "new" | "left_voicemail" | "contacted" | "quoted" | "converted" | "lost",
-  adminNotes?: string
+  adminNotes?: string,
+  assignedConsultant?: string,
+  convertedAt?: Date
 ) {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
-  return db.update(quoteLeads).set({ status, ...(adminNotes !== undefined ? { adminNotes } : {}) }).where(eq(quoteLeads.id, id));
+  return db.update(quoteLeads).set({
+    status,
+    ...(adminNotes !== undefined ? { adminNotes } : {}),
+    ...(assignedConsultant !== undefined ? { assignedConsultant } : {}),
+    ...(convertedAt !== undefined ? { convertedAt } : {}),
+  }).where(eq(quoteLeads.id, id));
 }
 export async function updateQuoteLeadServiceInterest(id: number, serviceInterest: string) {
   const db = await getDb();

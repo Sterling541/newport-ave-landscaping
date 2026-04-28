@@ -78,6 +78,7 @@ type ConvertForm = {
 export default function AdminQuoteLeads() {
   const [statusFilter, setStatusFilter] = useState<string>("all");
   const [showSpam, setShowSpam] = useState(false);
+  const [showConverted, setShowConverted] = useState(false);
   const [search, setSearch] = useState("");
   const [serviceFilter, setServiceFilter] = useState<string>("all");
   const [editingId, setEditingId] = useState<number | null>(null);
@@ -103,7 +104,12 @@ export default function AdminQuoteLeads() {
   };
 
   const { data, isLoading, refetch } = trpc.quoteLeads.list.useQuery(
-    { limit: 200, offset: 0, includeSpam: showSpam },
+    { limit: 200, offset: 0, includeSpam: showSpam, showConverted },
+    { refetchOnWindowFocus: false }
+  );
+  // "Next up" consultant banner query
+  const { data: nextUpData } = trpc.quoteLeads.getSuggestedConsultant.useQuery(
+    { serviceType: "install" },
     { refetchOnWindowFocus: false }
   );
   const markSpamMutation = trpc.quoteLeads.markSpam.useMutation({
@@ -445,6 +451,32 @@ export default function AdminQuoteLeads() {
           </p>
         </div>
 
+        {/* Next Up Consultant Banner */}
+        {nextUpData && (
+          <div
+            style={{
+              background: "oklch(0.97 0.04 240)",
+              border: "1.5px solid oklch(0.80 0.10 240)",
+              borderRadius: "0.75rem",
+              padding: "0.75rem 1.25rem",
+              marginBottom: "1.25rem",
+              display: "flex",
+              alignItems: "center",
+              gap: "0.75rem",
+            }}
+          >
+            <span style={{ fontSize: "1.1rem" }}>★</span>
+            <div>
+              <span style={{ fontWeight: 700, color: NAVY, fontSize: "0.875rem" }}>
+                Next install lead: {nextUpData.consultant}
+              </span>
+              <span style={{ color: "oklch(0.5 0.03 240)", fontSize: "0.8rem", marginLeft: "0.5rem" }}>
+                (based on rotation — Nathan Kooy &amp; William Miller alternate for installs/design)
+              </span>
+            </div>
+          </div>
+        )}
+
         {/* Stats bar */}
         <div
           style={{
@@ -602,6 +634,23 @@ export default function AdminQuoteLeads() {
               Clear Filters
             </button>
           )}
+          {/* Show Converted toggle */}
+          <button
+            onClick={() => setShowConverted(s => !s)}
+            style={{
+              padding: "0.5rem 0.875rem",
+              border: showConverted ? "1.5px solid oklch(0.75 0.12 145)" : "1.5px solid oklch(0.88 0.01 240)",
+              borderRadius: "0.5rem",
+              fontSize: "0.8rem",
+              fontWeight: 600,
+              color: showConverted ? "oklch(0.30 0.14 145)" : "oklch(0.55 0.02 240)",
+              background: showConverted ? "oklch(0.95 0.05 145)" : "white",
+              cursor: "pointer",
+              whiteSpace: "nowrap",
+            }}
+          >
+            {showConverted ? "✓ Hide Converted" : "✓ Show Converted"}
+          </button>
           {/* Spam toggle */}
           <button
             onClick={() => setShowSpam(s => !s)}
@@ -898,9 +947,21 @@ export default function AdminQuoteLeads() {
                               </button>
                             )}
                             {!row.isSpam && row.status === "converted" && (
-                              <span style={{ fontSize: "0.75rem", color: "oklch(0.35 0.14 145)", fontWeight: 600 }}>
-                                ✓ Converted
-                              </span>
+                              <div style={{ display: "flex", flexDirection: "column", gap: "0.15rem" }}>
+                                <span style={{ fontSize: "0.75rem", color: "oklch(0.35 0.14 145)", fontWeight: 600 }}>
+                                  ✓ Converted
+                                </span>
+                                {(row as any).assignedConsultant && (
+                                  <span style={{ fontSize: "0.7rem", color: "oklch(0.5 0.02 240)" }}>
+                                    {(row as any).assignedConsultant}
+                                  </span>
+                                )}
+                                {(row as any).convertedAt && (
+                                  <span style={{ fontSize: "0.68rem", color: "oklch(0.6 0.01 240)" }}>
+                                    {formatDate((row as any).convertedAt)}
+                                  </span>
+                                )}
+                              </div>
                             )}
                           </div>
                         )}

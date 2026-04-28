@@ -294,6 +294,10 @@ export const quoteLeads = mysqlTable("quote_leads", {
   adminNotes: text("adminNotes"),
   /** Spam flag — set by admin to hide junk submissions */
   isSpam: boolean("isSpam").default(false).notNull(),
+  /** Sales consultant assigned when lead is converted to a scheduled service */
+  assignedConsultant: varchar("assignedConsultant", { length: 128 }),
+  /** Timestamp when lead was converted */
+  convertedAt: timestamp("convertedAt"),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
 });

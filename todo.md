@@ -1029,3 +1029,12 @@
 - [ ] Add getSuggestedConsultant tRPC procedure (install/design → rotate Nathan/William, enhancement → Danny Sheffield)
 - [ ] Wire consultant suggestion into convert modal with auto-fill + manual override
 - [ ] Wire consultant suggestion into Scheduled Services form
+
+## Session — April 28, 2026 (Convert Flow Fixes)
+- [x] Update updateQuoteLeadStatus in db.ts to accept assignedConsultant and convertedAt params
+- [x] Update convertToScheduled in routers.ts to pass salesConsultant and new Date() to updateQuoteLeadStatus
+- [x] Update listQuoteLeads in db.ts to support showConverted filter (default: hide converted leads)
+- [x] Update quoteLeads.list tRPC procedure to accept and pass showConverted flag
+- [x] Add showConverted state and toggle button to AdminQuoteLeads.tsx
+- [x] Add "Next Up" consultant banner to AdminQuoteLeads.tsx (shows who gets next install lead)
+- [x] Show assignedConsultant and convertedAt on converted rows in Quick Forms table
