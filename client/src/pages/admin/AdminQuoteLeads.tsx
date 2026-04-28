@@ -43,6 +43,38 @@ const SERVICE_OPTIONS = [
   "Other / Not Sure",
 ];
 
+const BUDGET_OPTIONS = [
+  "Under $5,000",
+  "$5,000 – $10,000",
+  "$10,000 – $25,000",
+  "$25,000 – $50,000",
+  "$50,000 – $100,000",
+  "$100,000+",
+  "Not sure / flexible",
+  "Other",
+];
+
+const HOW_HEARD_OPTIONS = [
+  "Google Search",
+  "Google Local Services Ad",
+  "Referral from friend/neighbor",
+  "Drove by a job site",
+  "Social media",
+  "Nextdoor",
+  "Yelp",
+  "Other",
+];
+
+type ConvertForm = {
+  firstName: string; lastName: string; email: string; phone: string;
+  siteAddress: string; serviceType: string;
+  salesConsultant: string; projectManager: string;
+  budget: string; budgetOther: string;
+  idealCompletionDate: string; howHeard: string;
+  comments: string; usedBefore: string;
+  flexibleScheduling: boolean; isPropertyOwner: string; hasPets: string;
+};
+
 export default function AdminQuoteLeads() {
   const [statusFilter, setStatusFilter] = useState<string>("all");
   const [search, setSearch] = useState("");
@@ -51,6 +83,18 @@ export default function AdminQuoteLeads() {
   const [editStatus, setEditStatus] = useState<string>("new");
   const [editNotes, setEditNotes] = useState("");
   const [toast, setToast] = useState<string | null>(null);
+
+  // Convert modal state
+  const [convertLeadId, setConvertLeadId] = useState<number | null>(null);
+  const [convertForm, setConvertForm] = useState<ConvertForm>({
+    firstName: "", lastName: "", email: "", phone: "",
+    siteAddress: "", serviceType: "",
+    salesConsultant: "", projectManager: "",
+    budget: "", budgetOther: "",
+    idealCompletionDate: "", howHeard: "",
+    comments: "", usedBefore: "",
+    flexibleScheduling: false, isPropertyOwner: "", hasPets: "",
+  });
 
   const showToast = (msg: string) => {
     setToast(msg);
@@ -70,6 +114,56 @@ export default function AdminQuoteLeads() {
     },
     onError: (err) => showToast(`Error: ${err.message}`),
   });
+
+  const convertMutation = trpc.quoteLeads.convertToScheduled.useMutation({
+    onSuccess: () => {
+      refetch();
+      setConvertLeadId(null);
+      showToast("Lead converted to Scheduled Service successfully!");
+    },
+    onError: (err) => showToast(`Error: ${err.message}`),
+  });
+
+  const openConvert = (row: typeof rows[0]) => {
+    setConvertForm({
+      firstName: row.firstName, lastName: row.lastName,
+      email: row.email, phone: row.phone,
+      siteAddress: row.address ?? "",
+      serviceType: row.serviceInterest ?? "",
+      salesConsultant: "", projectManager: "",
+      budget: "", budgetOther: "",
+      idealCompletionDate: "", howHeard: "",
+      comments: row.message ?? "", usedBefore: "",
+      flexibleScheduling: false, isPropertyOwner: "", hasPets: "",
+    });
+    setConvertLeadId(row.id);
+  };
+
+  const submitConvert = () => {
+    if (!convertLeadId) return;
+    if (!convertForm.siteAddress.trim()) { showToast("Site address is required."); return; }
+    if (!convertForm.serviceType.trim()) { showToast("Service type is required."); return; }
+    convertMutation.mutate({
+      quoteLeadId: convertLeadId,
+      firstName: convertForm.firstName, lastName: convertForm.lastName,
+      email: convertForm.email, phone: convertForm.phone,
+      siteAddress: convertForm.siteAddress, serviceType: convertForm.serviceType,
+      salesConsultant: convertForm.salesConsultant || undefined,
+      projectManager: convertForm.projectManager || undefined,
+      budget: convertForm.budget || undefined,
+      budgetOther: convertForm.budgetOther || undefined,
+      idealCompletionDate: convertForm.idealCompletionDate || undefined,
+      howHeard: convertForm.howHeard || undefined,
+      comments: convertForm.comments || undefined,
+      usedBefore: convertForm.usedBefore || undefined,
+      flexibleScheduling: convertForm.flexibleScheduling,
+      isPropertyOwner: convertForm.isPropertyOwner || undefined,
+      hasPets: convertForm.hasPets || undefined,
+    });
+  };
+
+  const setField = (key: keyof ConvertForm, value: string | boolean) =>
+    setConvertForm(f => ({ ...f, [key]: value }));
 
   const rows = data?.rows ?? [];
   const total = data?.total ?? 0;
@@ -135,6 +229,169 @@ export default function AdminQuoteLeads() {
             }}
           >
             {toast}
+          </div>
+        )}
+
+        {/* Convert to Scheduled Service Modal */}
+        {convertLeadId !== null && (
+          <div
+            style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.55)", zIndex: 1000,
+              display: "flex", alignItems: "flex-start", justifyContent: "center",
+              padding: "2rem 1rem", overflowY: "auto" }}
+            onClick={(e) => { if (e.target === e.currentTarget) setConvertLeadId(null); }}
+          >
+            <div style={{ background: "white", borderRadius: "1rem", width: "100%", maxWidth: "680px",
+              boxShadow: "0 8px 40px rgba(0,0,0,0.22)", overflow: "hidden" }}>
+              {/* Modal header */}
+              <div style={{ background: NAVY, padding: "1.25rem 1.5rem", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                <div>
+                  <h2 style={{ color: "white", margin: 0, fontSize: "1.1rem", fontWeight: 700 }}>Convert to Scheduled Service</h2>
+                  <p style={{ color: "oklch(0.75 0.04 240)", margin: "0.25rem 0 0", fontSize: "0.8rem" }}>
+                    Pre-filled from the quote lead. Complete the missing details below.
+                  </p>
+                </div>
+                <button onClick={() => setConvertLeadId(null)}
+                  style={{ background: "none", border: "none", color: "white", fontSize: "1.4rem", cursor: "pointer", lineHeight: 1 }}>×</button>
+              </div>
+              {/* Modal body */}
+              <div style={{ padding: "1.5rem", display: "flex", flexDirection: "column", gap: "1rem" }}>
+                {/* Customer Info */}
+                <div style={{ background: "oklch(0.97 0.005 240)", borderRadius: "0.6rem", padding: "1rem" }}>
+                  <p style={{ fontSize: "0.72rem", fontWeight: 700, color: NAVY, textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "0.75rem" }}>Customer Information</p>
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.75rem" }}>
+                    {[["First Name *", "firstName"], ["Last Name *", "lastName"], ["Email *", "email"], ["Phone *", "phone"]].map(([lbl, key]) => (
+                      <div key={key}>
+                        <label style={{ fontSize: "0.72rem", fontWeight: 600, color: "oklch(0.45 0.04 240)", textTransform: "uppercase", letterSpacing: "0.04em", display: "block", marginBottom: "0.3rem" }}>{lbl}</label>
+                        <input type={key === "email" ? "email" : "text"}
+                          style={{ width: "100%", padding: "0.45rem 0.65rem", border: "1.5px solid oklch(0.82 0.01 240)", borderRadius: "0.4rem", fontSize: "0.85rem", color: NAVY, background: "white", boxSizing: "border-box" }}
+                          value={convertForm[key as keyof ConvertForm] as string}
+                          onChange={e => setField(key as keyof ConvertForm, e.target.value)} />
+                      </div>
+                    ))}
+                    <div style={{ gridColumn: "1 / -1" }}>
+                      <label style={{ fontSize: "0.72rem", fontWeight: 600, color: "oklch(0.45 0.04 240)", textTransform: "uppercase", letterSpacing: "0.04em", display: "block", marginBottom: "0.3rem" }}>Site Address *</label>
+                      <input style={{ width: "100%", padding: "0.45rem 0.65rem", border: "1.5px solid oklch(0.82 0.01 240)", borderRadius: "0.4rem", fontSize: "0.85rem", color: NAVY, background: "white", boxSizing: "border-box" }}
+                        value={convertForm.siteAddress} onChange={e => setField("siteAddress", e.target.value)} />
+                    </div>
+                  </div>
+                </div>
+                {/* Service Details */}
+                <div style={{ background: "oklch(0.97 0.005 240)", borderRadius: "0.6rem", padding: "1rem" }}>
+                  <p style={{ fontSize: "0.72rem", fontWeight: 700, color: NAVY, textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "0.75rem" }}>Service Details</p>
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.75rem" }}>
+                    <div style={{ gridColumn: "1 / -1" }}>
+                      <label style={{ fontSize: "0.72rem", fontWeight: 600, color: "oklch(0.45 0.04 240)", textTransform: "uppercase", letterSpacing: "0.04em", display: "block", marginBottom: "0.3rem" }}>Service Type *</label>
+                      <select style={{ width: "100%", padding: "0.45rem 0.65rem", border: "1.5px solid oklch(0.82 0.01 240)", borderRadius: "0.4rem", fontSize: "0.85rem", color: NAVY, background: "white", boxSizing: "border-box" }}
+                        value={convertForm.serviceType} onChange={e => setField("serviceType", e.target.value)}>
+                        <option value="">— Select service —</option>
+                        {SERVICE_OPTIONS.map(s => <option key={s} value={s}>{s}</option>)}
+                      </select>
+                    </div>
+                    <div>
+                      <label style={{ fontSize: "0.72rem", fontWeight: 600, color: "oklch(0.45 0.04 240)", textTransform: "uppercase", letterSpacing: "0.04em", display: "block", marginBottom: "0.3rem" }}>Budget</label>
+                      <select style={{ width: "100%", padding: "0.45rem 0.65rem", border: "1.5px solid oklch(0.82 0.01 240)", borderRadius: "0.4rem", fontSize: "0.85rem", color: NAVY, background: "white", boxSizing: "border-box" }}
+                        value={convertForm.budget} onChange={e => setField("budget", e.target.value)}>
+                        <option value="">— Select —</option>
+                        {BUDGET_OPTIONS.map(b => <option key={b} value={b}>{b}</option>)}
+                      </select>
+                    </div>
+                    {convertForm.budget === "Other" && (
+                      <div>
+                        <label style={{ fontSize: "0.72rem", fontWeight: 600, color: "oklch(0.45 0.04 240)", textTransform: "uppercase", letterSpacing: "0.04em", display: "block", marginBottom: "0.3rem" }}>Budget (specify)</label>
+                        <input style={{ width: "100%", padding: "0.45rem 0.65rem", border: "1.5px solid oklch(0.82 0.01 240)", borderRadius: "0.4rem", fontSize: "0.85rem", color: NAVY, background: "white", boxSizing: "border-box" }}
+                          value={convertForm.budgetOther} onChange={e => setField("budgetOther", e.target.value)} placeholder="e.g. $15,000" />
+                      </div>
+                    )}
+                    <div>
+                      <label style={{ fontSize: "0.72rem", fontWeight: 600, color: "oklch(0.45 0.04 240)", textTransform: "uppercase", letterSpacing: "0.04em", display: "block", marginBottom: "0.3rem" }}>Ideal Completion Date</label>
+                      <input type="date" style={{ width: "100%", padding: "0.45rem 0.65rem", border: "1.5px solid oklch(0.82 0.01 240)", borderRadius: "0.4rem", fontSize: "0.85rem", color: NAVY, background: "white", boxSizing: "border-box" }}
+                        value={convertForm.idealCompletionDate} onChange={e => setField("idealCompletionDate", e.target.value)} />
+                    </div>
+                    <div>
+                      <label style={{ fontSize: "0.72rem", fontWeight: 600, color: "oklch(0.45 0.04 240)", textTransform: "uppercase", letterSpacing: "0.04em", display: "block", marginBottom: "0.3rem" }}>How Did They Hear About Us?</label>
+                      <select style={{ width: "100%", padding: "0.45rem 0.65rem", border: "1.5px solid oklch(0.82 0.01 240)", borderRadius: "0.4rem", fontSize: "0.85rem", color: NAVY, background: "white", boxSizing: "border-box" }}
+                        value={convertForm.howHeard} onChange={e => setField("howHeard", e.target.value)}>
+                        <option value="">— Select —</option>
+                        {HOW_HEARD_OPTIONS.map(h => <option key={h} value={h}>{h}</option>)}
+                      </select>
+                    </div>
+                    <div>
+                      <label style={{ fontSize: "0.72rem", fontWeight: 600, color: "oklch(0.45 0.04 240)", textTransform: "uppercase", letterSpacing: "0.04em", display: "block", marginBottom: "0.3rem" }}>Used Newport Before?</label>
+                      <select style={{ width: "100%", padding: "0.45rem 0.65rem", border: "1.5px solid oklch(0.82 0.01 240)", borderRadius: "0.4rem", fontSize: "0.85rem", color: NAVY, background: "white", boxSizing: "border-box" }}
+                        value={convertForm.usedBefore} onChange={e => setField("usedBefore", e.target.value)}>
+                        <option value="">— Select —</option>
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                {/* Staff Assignment */}
+                <div style={{ background: "oklch(0.97 0.005 240)", borderRadius: "0.6rem", padding: "1rem" }}>
+                  <p style={{ fontSize: "0.72rem", fontWeight: 700, color: NAVY, textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "0.75rem" }}>Staff Assignment</p>
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.75rem" }}>
+                    <div>
+                      <label style={{ fontSize: "0.72rem", fontWeight: 600, color: "oklch(0.45 0.04 240)", textTransform: "uppercase", letterSpacing: "0.04em", display: "block", marginBottom: "0.3rem" }}>Sales Consultant</label>
+                      <input style={{ width: "100%", padding: "0.45rem 0.65rem", border: "1.5px solid oklch(0.82 0.01 240)", borderRadius: "0.4rem", fontSize: "0.85rem", color: NAVY, background: "white", boxSizing: "border-box" }}
+                        value={convertForm.salesConsultant} onChange={e => setField("salesConsultant", e.target.value)} placeholder="e.g. Jake" />
+                    </div>
+                    <div>
+                      <label style={{ fontSize: "0.72rem", fontWeight: 600, color: "oklch(0.45 0.04 240)", textTransform: "uppercase", letterSpacing: "0.04em", display: "block", marginBottom: "0.3rem" }}>Project Manager</label>
+                      <input style={{ width: "100%", padding: "0.45rem 0.65rem", border: "1.5px solid oklch(0.82 0.01 240)", borderRadius: "0.4rem", fontSize: "0.85rem", color: NAVY, background: "white", boxSizing: "border-box" }}
+                        value={convertForm.projectManager} onChange={e => setField("projectManager", e.target.value)} placeholder="e.g. Maria" />
+                    </div>
+                  </div>
+                </div>
+                {/* Additional Info */}
+                <div style={{ background: "oklch(0.97 0.005 240)", borderRadius: "0.6rem", padding: "1rem" }}>
+                  <p style={{ fontSize: "0.72rem", fontWeight: 700, color: NAVY, textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "0.75rem" }}>Additional Info</p>
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.75rem" }}>
+                    <div>
+                      <label style={{ fontSize: "0.72rem", fontWeight: 600, color: "oklch(0.45 0.04 240)", textTransform: "uppercase", letterSpacing: "0.04em", display: "block", marginBottom: "0.3rem" }}>Property Owner?</label>
+                      <select style={{ width: "100%", padding: "0.45rem 0.65rem", border: "1.5px solid oklch(0.82 0.01 240)", borderRadius: "0.4rem", fontSize: "0.85rem", color: NAVY, background: "white", boxSizing: "border-box" }}
+                        value={convertForm.isPropertyOwner} onChange={e => setField("isPropertyOwner", e.target.value)}>
+                        <option value="">— Select —</option>
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label style={{ fontSize: "0.72rem", fontWeight: 600, color: "oklch(0.45 0.04 240)", textTransform: "uppercase", letterSpacing: "0.04em", display: "block", marginBottom: "0.3rem" }}>Has Pets?</label>
+                      <select style={{ width: "100%", padding: "0.45rem 0.65rem", border: "1.5px solid oklch(0.82 0.01 240)", borderRadius: "0.4rem", fontSize: "0.85rem", color: NAVY, background: "white", boxSizing: "border-box" }}
+                        value={convertForm.hasPets} onChange={e => setField("hasPets", e.target.value)}>
+                        <option value="">— Select —</option>
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                      </select>
+                    </div>
+                    <div style={{ gridColumn: "1 / -1" }}>
+                      <label style={{ fontSize: "0.85rem", color: NAVY, display: "flex", alignItems: "center", gap: "0.4rem", cursor: "pointer" }}>
+                        <input type="checkbox" checked={convertForm.flexibleScheduling}
+                          onChange={e => setField("flexibleScheduling", e.target.checked)} />
+                        Flexible with scheduling
+                      </label>
+                    </div>
+                    <div style={{ gridColumn: "1 / -1" }}>
+                      <label style={{ fontSize: "0.72rem", fontWeight: 600, color: "oklch(0.45 0.04 240)", textTransform: "uppercase", letterSpacing: "0.04em", display: "block", marginBottom: "0.3rem" }}>Notes / Comments</label>
+                      <textarea style={{ width: "100%", padding: "0.45rem 0.65rem", border: "1.5px solid oklch(0.82 0.01 240)", borderRadius: "0.4rem", fontSize: "0.85rem", color: NAVY, background: "white", boxSizing: "border-box", minHeight: "80px", resize: "vertical" }}
+                        value={convertForm.comments} onChange={e => setField("comments", e.target.value)}
+                        placeholder="Any additional notes from the call…" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {/* Modal footer */}
+              <div style={{ padding: "1rem 1.5rem", borderTop: "1px solid oklch(0.92 0.005 240)", display: "flex", gap: "0.75rem", justifyContent: "flex-end" }}>
+                <button onClick={() => setConvertLeadId(null)}
+                  style={{ background: "white", color: "oklch(0.5 0.02 240)", border: "1.5px solid oklch(0.88 0.01 240)", borderRadius: "0.5rem", padding: "0.5rem 1.25rem", fontSize: "0.875rem", cursor: "pointer", fontWeight: 500 }}>
+                  Cancel
+                </button>
+                <button onClick={submitConvert} disabled={convertMutation.isPending}
+                  style={{ background: "oklch(0.35 0.14 145)", color: "white", border: "none", borderRadius: "0.5rem", padding: "0.5rem 1.5rem", fontSize: "0.875rem", fontWeight: 700, cursor: convertMutation.isPending ? "not-allowed" : "pointer", opacity: convertMutation.isPending ? 0.7 : 1 }}>
+                  {convertMutation.isPending ? "Converting…" : "✓ Convert to Scheduled Service"}
+                </button>
+              </div>
+            </div>
           </div>
         )}
 
@@ -519,23 +776,49 @@ export default function AdminQuoteLeads() {
                         )}
                       </td>
                       {/* Actions */}
-                      <td style={{ padding: "0.75rem 1rem" }}>
+                      <td style={{ padding: "0.75rem 1rem", whiteSpace: "nowrap" }}>
                         {!isEditing && (
-                          <button
-                            onClick={() => openEdit(row)}
-                            style={{
-                              background: "white",
-                              color: NAVY,
-                              border: "1.5px solid oklch(0.88 0.01 240)",
-                              borderRadius: "0.4rem",
-                              padding: "0.3rem 0.7rem",
-                              fontSize: "0.78rem",
-                              fontWeight: 600,
-                              cursor: "pointer",
-                            }}
-                          >
-                            Edit
-                          </button>
+                          <div style={{ display: "flex", gap: "0.4rem", alignItems: "center" }}>
+                            <button
+                              onClick={() => openEdit(row)}
+                              style={{
+                                background: "white",
+                                color: NAVY,
+                                border: "1.5px solid oklch(0.88 0.01 240)",
+                                borderRadius: "0.4rem",
+                                padding: "0.3rem 0.7rem",
+                                fontSize: "0.78rem",
+                                fontWeight: 600,
+                                cursor: "pointer",
+                              }}
+                            >
+                              Edit
+                            </button>
+                            {row.status !== "converted" && (
+                              <button
+                                onClick={() => openConvert(row)}
+                                style={{
+                                  background: "oklch(0.35 0.14 145)",
+                                  color: "white",
+                                  border: "none",
+                                  borderRadius: "0.4rem",
+                                  padding: "0.3rem 0.75rem",
+                                  fontSize: "0.78rem",
+                                  fontWeight: 700,
+                                  cursor: "pointer",
+                                  whiteSpace: "nowrap",
+                                }}
+                                title="Convert this lead to a Scheduled Service form"
+                              >
+                                → Schedule
+                              </button>
+                            )}
+                            {row.status === "converted" && (
+                              <span style={{ fontSize: "0.75rem", color: "oklch(0.35 0.14 145)", fontWeight: 600 }}>
+                                ✓ Converted
+                              </span>
+                            )}
+                          </div>
                         )}
                       </td>
                     </tr>

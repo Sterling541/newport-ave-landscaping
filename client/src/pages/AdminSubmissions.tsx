@@ -125,6 +125,9 @@ type Submission = {
   isPropertyOwner?: string | null;
   hasPets?: string | null;
   comments?: string | null;
+  adminNotes?: string | null;
+  leadStatus?: string | null;
+  isSpam?: boolean | null;
 };
 
 type SortKey = "id" | "createdAt" | "lastName" | "serviceType";
