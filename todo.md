@@ -1023,3 +1023,9 @@
 - [x] Add markSpam tRPC procedure
 - [x] Add spam flag button in AdminSubmissions.tsx
 - [x] Add honeypot to Get a Quote form
+
+## Session — April 28, 2026 (Sales Consultant Rotation)
+- [ ] Add consultant rotation tracking table to DB (track last assigned Nathan/William for installs)
+- [ ] Add getSuggestedConsultant tRPC procedure (install/design → rotate Nathan/William, enhancement → Danny Sheffield)
+- [ ] Wire consultant suggestion into convert modal with auto-fill + manual override
+- [ ] Wire consultant suggestion into Scheduled Services form

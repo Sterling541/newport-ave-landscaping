@@ -6,6 +6,7 @@ import {
   optOutRequests, type InsertOptOutRequest,
   quoteLeads, type InsertQuoteLead,
   gamePlays, type InsertGamePlay,
+  consultantRotation,
 } from "../drizzle/schema";
 import { ENV } from './_core/env';
 
@@ -1096,4 +1097,88 @@ export async function getYoyStats(serviceTypes?: string | string[]) {
     monthlyLastYear,
     asOfDate: now.toISOString(),
   };
+}
+
+// ── Consultant Rotation Helpers ───────────────────────────────────────────────
+
+const INSTALL_CONSULTANTS = ["Nathan Kooy", "William Miller"];
+const ENHANCEMENT_CONSULTANT = "Danny Sheffield";
+
+/**
+ * Service types that go to the install rotation (Nathan/William).
+ * Everything else (enhancements, maintenance, etc.) goes to Danny Sheffield.
+ */
+const INSTALL_SERVICE_TYPES = [
+  "landscape design & installation",
+  "landscape installation",
+  "landscape design",
+  "hardscape",
+  "paver patio",
+  "retaining wall",
+  "water feature",
+  "outdoor living",
+  "turf installation",
+  "artificial turf",
+  "concrete",
+  "new install",
+  "install",
+  "design",
+];
+
+function isInstallServiceType(serviceType: string): boolean {
+  const lower = serviceType.toLowerCase();
+  return INSTALL_SERVICE_TYPES.some(t => lower.includes(t));
+}
+
+/**
+ * Returns the suggested consultant for a given service type.
+ * For install/design: rotates between Nathan Kooy and William Miller.
+ * For enhancements and other services: always returns Danny Sheffield.
+ * Also records the assignment so the next call rotates correctly.
+ */
+export async function getSuggestedConsultant(serviceType: string): Promise<{
+  consultant: string;
+  isRotating: boolean;
+  allConsultants: string[];
+}> {
+  const db = await getDb();
+  if (!db) {
+    return { consultant: INSTALL_CONSULTANTS[0], isRotating: true, allConsultants: [...INSTALL_CONSULTANTS, ENHANCEMENT_CONSULTANT] };
+  }
+
+  if (!isInstallServiceType(serviceType)) {
+    return { consultant: ENHANCEMENT_CONSULTANT, isRotating: false, allConsultants: [...INSTALL_CONSULTANTS, ENHANCEMENT_CONSULTANT] };
+  }
+
+  // Get the last assigned consultant for install rotation
+  const rows = await db.select().from(consultantRotation).where(eq(consultantRotation.rotationGroup, "install")).limit(1);
+  const lastAssigned = rows[0]?.lastAssigned ?? null;
+
+  // Pick the next one in rotation
+  let nextConsultant: string;
+  if (!lastAssigned || lastAssigned === INSTALL_CONSULTANTS[1]) {
+    nextConsultant = INSTALL_CONSULTANTS[0]; // Nathan goes first, or after William
+  } else {
+    nextConsultant = INSTALL_CONSULTANTS[1]; // William after Nathan
+  }
+
+  return { consultant: nextConsultant, isRotating: true, allConsultants: [...INSTALL_CONSULTANTS, ENHANCEMENT_CONSULTANT] };
+}
+
+/**
+ * Records that a consultant was assigned so the next rotation picks the other one.
+ * Call this when a conversion is confirmed (not just suggested).
+ */
+export async function recordConsultantAssignment(consultant: string): Promise<void> {
+  const db = await getDb();
+  if (!db) return;
+  // Upsert the rotation record
+  const existing = await db.select().from(consultantRotation).where(eq(consultantRotation.rotationGroup, "install")).limit(1);
+  if (existing.length > 0) {
+    await db.update(consultantRotation)
+      .set({ lastAssigned: consultant })
+      .where(eq(consultantRotation.rotationGroup, "install"));
+  } else {
+    await db.insert(consultantRotation).values({ rotationGroup: "install", lastAssigned: consultant });
+  }
 }

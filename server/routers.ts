@@ -69,6 +69,8 @@ import {
   listQuoteLeads,
   countQuoteLeads,
   updateQuoteLeadStatus, markQuoteLeadSpam, updateQuoteLeadServiceInterest, updateSubmissionServiceType,
+  getSuggestedConsultant,
+  recordConsultantAssignment,
   insertGamePlay,
   getGameStats,
 } from "./db";
@@ -1414,9 +1416,20 @@ Be specific, data-driven, and actionable. Format as JSON with keys: bestMonths (
           schemaVersion: "1.0",
           leadStatus: "new",
         });
+        // Record the consultant assignment for rotation tracking
+        if (submissionData.salesConsultant) {
+          await recordConsultantAssignment(submissionData.salesConsultant);
+        }
         // Mark the quote lead as converted
         await updateQuoteLeadStatus(quoteLeadId, "converted", `Converted to scheduled service form.`);
         return { success: true, submissionId: (submission as { insertId?: number }).insertId };
+      }),
+    /** Admin: get suggested consultant based on service type with rotation logic */
+    getSuggestedConsultant: protectedProcedure
+      .input(z.object({ serviceType: z.string() }))
+      .query(async ({ ctx, input }) => {
+        requireAdmin(ctx);
+        return getSuggestedConsultant(input.serviceType);
       }),
   }),
 

@@ -326,3 +326,19 @@ export const gamePlays = mysqlTable("game_plays", {
 
 export type GamePlay = typeof gamePlays.$inferSelect;
 export type InsertGamePlay = typeof gamePlays.$inferInsert;
+
+/**
+ * Tracks which install sales consultant was last assigned so we can rotate
+ * Nathan Kooy and William Miller evenly on install/design leads.
+ * Danny Sheffield always handles enhancement work (no rotation needed).
+ * One row per rotationGroup — upserted on each assignment.
+ */
+export const consultantRotation = mysqlTable("consultant_rotation", {
+  id: int("id").autoincrement().primaryKey(),
+  /** The rotation group: 'install' (Nathan/William) */
+  rotationGroup: varchar("rotationGroup", { length: 32 }).notNull().unique(),
+  /** The consultant who was last assigned */
+  lastAssigned: varchar("lastAssigned", { length: 128 }).notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().notNull().onUpdateNow(),
+});
+export type ConsultantRotation = typeof consultantRotation.$inferSelect;

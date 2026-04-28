@@ -131,6 +131,11 @@ export default function AdminQuoteLeads() {
     },
     onError: (err) => showToast(`Error converting: ${err.message}`),
   });
+  // Smart consultant suggestion based on service type
+  const { data: consultantSuggestion, refetch: refetchSuggestion } = trpc.quoteLeads.getSuggestedConsultant.useQuery(
+    { serviceType: convertForm.serviceType },
+    { enabled: convertLeadId !== null && convertForm.serviceType.trim().length > 0 }
+  );
   const updateServiceInterestMutation = trpc.quoteLeads.updateServiceInterest.useMutation({
     onSuccess: () => { refetch(); showToast("Service type updated."); },
     onError: (err) => showToast(`Error: ${err.message}`),
@@ -142,7 +147,7 @@ export default function AdminQuoteLeads() {
       email: row.email, phone: row.phone,
       siteAddress: row.address ?? "",
       serviceType: row.serviceInterest ?? "",
-      salesConsultant: "", projectManager: "",
+      salesConsultant: "", projectManager: "", // will be auto-filled by suggestion query
       budget: "", budgetOther: "",
       idealCompletionDate: "", howHeard: "",
       comments: row.message ?? "", usedBefore: "",
@@ -345,9 +350,22 @@ export default function AdminQuoteLeads() {
                   <p style={{ fontSize: "0.72rem", fontWeight: 700, color: NAVY, textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "0.75rem" }}>Staff Assignment</p>
                   <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.75rem" }}>
                     <div>
-                      <label style={{ fontSize: "0.72rem", fontWeight: 600, color: "oklch(0.45 0.04 240)", textTransform: "uppercase", letterSpacing: "0.04em", display: "block", marginBottom: "0.3rem" }}>Sales Consultant</label>
-                      <input style={{ width: "100%", padding: "0.45rem 0.65rem", border: "1.5px solid oklch(0.82 0.01 240)", borderRadius: "0.4rem", fontSize: "0.85rem", color: NAVY, background: "white", boxSizing: "border-box" }}
-                        value={convertForm.salesConsultant} onChange={e => setField("salesConsultant", e.target.value)} placeholder="e.g. Jake" />
+                      <label style={{ fontSize: "0.72rem", fontWeight: 600, color: "oklch(0.45 0.04 240)", textTransform: "uppercase", letterSpacing: "0.04em", display: "block", marginBottom: "0.3rem" }}>
+                        Sales Consultant
+                        {consultantSuggestion && (
+                          <span style={{ marginLeft: "0.4rem", fontSize: "0.65rem", background: consultantSuggestion.isRotating ? "oklch(0.92 0.08 145)" : "oklch(0.92 0.08 220)", color: consultantSuggestion.isRotating ? "oklch(0.3 0.12 145)" : "oklch(0.3 0.12 220)", borderRadius: "0.25rem", padding: "0.1rem 0.35rem", fontWeight: 700 }}>
+                            ★ Suggested: {consultantSuggestion.consultant}
+                          </span>
+                        )}
+                      </label>
+                      <select style={{ width: "100%", padding: "0.45rem 0.65rem", border: "1.5px solid oklch(0.82 0.01 240)", borderRadius: "0.4rem", fontSize: "0.85rem", color: NAVY, background: "white", boxSizing: "border-box" }}
+                        value={convertForm.salesConsultant || (consultantSuggestion?.consultant ?? "")}
+                        onChange={e => setField("salesConsultant", e.target.value)}>
+                        <option value="">— Select consultant —</option>
+                        <option value="Nathan Kooy">Nathan Kooy (Install/Design)</option>
+                        <option value="William Miller">William Miller (Install/Design)</option>
+                        <option value="Danny Sheffield">Danny Sheffield (Enhancements)</option>
+                      </select>
                     </div>
                     <div>
                       <label style={{ fontSize: "0.72rem", fontWeight: 600, color: "oklch(0.45 0.04 240)", textTransform: "uppercase", letterSpacing: "0.04em", display: "block", marginBottom: "0.3rem" }}>Project Manager</label>
