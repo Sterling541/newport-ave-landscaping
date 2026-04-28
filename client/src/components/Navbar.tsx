@@ -179,6 +179,7 @@ function MegaMenu({
             width: "100%",
             height: "100%",
             objectFit: "cover",
+            objectPosition: "75% 15%",
             filter: "brightness(0.65) saturate(0.85)",
           }}
         />
