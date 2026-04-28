@@ -13,6 +13,7 @@ import {
   deleteServiceSubmission,
   countServiceSubmissions,
   updateSubmissionStatus,
+  markSubmissionSpam,
   getSubmissionCountsByDay,
   getSubmissionsByServiceType,
   getSubmissionsBySource,
@@ -370,6 +371,13 @@ export const appRouter = router({
       .mutation(async ({ ctx, input }) => {
         requireAdmin(ctx);
         await deleteServiceSubmission(input.id);
+        return { success: true };
+      }),
+    markSpam: protectedProcedure
+      .input(z.object({ id: z.number(), isSpam: z.boolean() }))
+      .mutation(async ({ ctx, input }) => {
+        requireAdmin(ctx);
+        await markSubmissionSpam(input.id, input.isSpam);
         return { success: true };
       }),
 

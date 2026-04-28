@@ -81,14 +81,24 @@ export async function bulkInsertServiceSubmissions(rows: InsertServiceSubmission
   }
 }
 
-export async function listServiceSubmissions(limit = 200, offset = 0, year?: number) {
+export async function listServiceSubmissions(limit = 200, offset = 0, year?: number, includeSpam = false) {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
   if (year) {
     const start = new Date(`${year}-01-01T00:00:00.000Z`);
     const end = new Date(`${year + 1}-01-01T00:00:00.000Z`);
+    const conditions: ReturnType<typeof eq>[] = [
+      gte(serviceSubmissions.createdAt, start) as ReturnType<typeof eq>,
+      lte(serviceSubmissions.createdAt, end) as ReturnType<typeof eq>,
+    ];
+    if (!includeSpam) conditions.push(eq(serviceSubmissions.isSpam, false));
     return db.select().from(serviceSubmissions)
-      .where(and(gte(serviceSubmissions.createdAt, start), lte(serviceSubmissions.createdAt, end)))
+      .where(and(...conditions))
+      .orderBy(desc(serviceSubmissions.createdAt)).limit(limit).offset(offset);
+  }
+  if (!includeSpam) {
+    return db.select().from(serviceSubmissions)
+      .where(eq(serviceSubmissions.isSpam, false))
       .orderBy(desc(serviceSubmissions.createdAt)).limit(limit).offset(offset);
   }
   return db.select().from(serviceSubmissions).orderBy(desc(serviceSubmissions.createdAt)).limit(limit).offset(offset);
@@ -107,6 +117,11 @@ export async function updateSubmissionStatus(id: number, status: "new" | "contac
   const updateData: Record<string, unknown> = { leadStatus: status };
   if (adminNotes !== undefined) updateData.adminNotes = adminNotes;
   await db.update(serviceSubmissions).set(updateData).where(eq(serviceSubmissions.id, id));
+}
+export async function markSubmissionSpam(id: number, isSpam: boolean) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  await db.update(serviceSubmissions).set({ isSpam }).where(eq(serviceSubmissions.id, id));
 }
 
 export async function deleteServiceSubmission(id: number) {

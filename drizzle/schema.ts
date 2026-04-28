@@ -123,6 +123,8 @@ export const serviceSubmissions = mysqlTable("service_submissions", {
   leadStatus: mysqlEnum("leadStatus", ["new", "contacted", "scheduled", "cancelled", "closed", "lost"]).default("new").notNull(),
   /** Admin notes */
   adminNotes: text("adminNotes"),
+  /** Spam flag — set by admin to hide junk submissions */
+  isSpam: boolean("isSpam").default(false).notNull(),
 
   // ── Metadata ─────────────────────────────────────────────────────────────
   createdAt: timestamp("createdAt").defaultNow().notNull(),

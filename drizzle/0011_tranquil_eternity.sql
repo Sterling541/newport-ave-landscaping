@@ -1,0 +1,1 @@
+ALTER TABLE `service_submissions` ADD `isSpam` boolean DEFAULT false NOT NULL;

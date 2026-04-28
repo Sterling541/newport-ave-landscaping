@@ -64,6 +64,7 @@ import {
   BarChart3,
   MessageSquare,
   Send,
+  Flag,
 } from "lucide-react";
 import { AIChatBox, type Message as ChatMessage } from "@/components/AIChatBox";
 import AdminLayout from "@/components/AdminLayout";
@@ -614,6 +615,14 @@ export default function AdminSubmissions() {
   });
 
   // Unique service types for filter dropdown — normalize by stripping "> " prefix to deduplicate
+  const markSpamMutation = trpc.submissions.markSpam.useMutation({
+    onSuccess: (_, variables) => {
+      toast.success(variables.isSpam ? 'Marked as spam' : 'Unmarked as spam');
+      refetch();
+    },
+    onError: (err) => toast.error(`Failed: ${err.message}`),
+  });
+
   const serviceTypes = useMemo(() => {
     if (!data?.rows) return [];
     const map = new Map<string, string>(); // normalized label -> first raw value
@@ -677,7 +686,7 @@ export default function AdminSubmissions() {
     });
 
     return rows;
-  }, [data, search, serviceFilters, sortKey, sortDir]);
+  }, [data, search, serviceFilters, monthFilter, yearFilter, sortKey, sortDir]);
 
   function toggleSort(key: SortKey) {
     if (sortKey === key) setSortDir(d => d === "asc" ? "desc" : "asc");
@@ -1068,6 +1077,15 @@ export default function AdminSubmissions() {
                             title="View details"
                           >
                             <Eye className="w-4 h-4" />
+                          </Button>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => markSpamMutation.mutate({ id: row.id, isSpam: !row.isSpam })}
+                            className={`h-7 w-7 p-0 ${row.isSpam ? 'text-orange-500 hover:text-orange-700' : 'text-stone-400 hover:text-orange-500'}`}
+                            title={row.isSpam ? 'Unmark spam' : 'Mark as spam'}
+                          >
+                            <Flag className="w-4 h-4" />
                           </Button>
                           <Button
                             variant="ghost"

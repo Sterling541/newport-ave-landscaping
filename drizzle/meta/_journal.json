@@ -78,6 +78,13 @@
       "when": 1777311408060,
       "tag": "0010_simple_dragon_lord",
       "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "5",
+      "when": 1777405370577,
+      "tag": "0011_tranquil_eternity",
+      "breakpoints": true
     }
   ]
 }

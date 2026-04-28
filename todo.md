@@ -1014,3 +1014,12 @@
 - [ ] Register all deck routes in App.tsx and SSR
 - [ ] Add deck to sitemap.xml and prerender.mjs
 # Last updated: 2026-04-27T02:41:51Z
+- [x] Add isSpam field to DB schema and migrate
+- [x] Add markSpam tRPC procedure (server/db.ts + server/routers.ts)
+- [x] Add spam flag button in AdminSubmissions.tsx row actions
+- [x] Filter spam from listServiceSubmissions by default
+- [x] Add honeypot field to Get a Quote form (QuoteRequest.tsx)
+- [x] Add isSpam field to DB schema and migrate
+- [x] Add markSpam tRPC procedure
+- [x] Add spam flag button in AdminSubmissions.tsx
+- [x] Add honeypot to Get a Quote form

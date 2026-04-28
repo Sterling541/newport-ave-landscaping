@@ -64,6 +64,7 @@ export default function QuoteRequest({ source = "other" }: QuoteRequestProps) {
   });
   const [submitted, setSubmitted] = useState(false);
   const [errors, setErrors] = useState<Partial<FormState>>({});
+  const [honeypot, setHoneypot] = useState(""); // anti-spam trap
 
   const submitMutation = trpc.quoteLeads.submit.useMutation({
     onSuccess: () => {
@@ -94,6 +95,7 @@ export default function QuoteRequest({ source = "other" }: QuoteRequestProps) {
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    if (honeypot) return; // bot filled the hidden field — silently drop
     if (!validate()) return;
     submitMutation.mutate({
       firstName: form.firstName.trim(),
@@ -166,6 +168,19 @@ export default function QuoteRequest({ source = "other" }: QuoteRequestProps) {
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-6">
+              {/* Honeypot — hidden from real users, bots fill it in */}
+              <div style={{ position: "absolute", left: "-9999px", top: "-9999px" }} aria-hidden="true">
+                <label htmlFor="website_url">Website</label>
+                <input
+                  type="text"
+                  id="website_url"
+                  name="website_url"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  value={honeypot}
+                  onChange={e => setHoneypot(e.target.value)}
+                />
+              </div>
               <div className="grid sm:grid-cols-2 gap-4">
                 <div>
                   <Label htmlFor="firstName" className="mb-1.5 block text-sm font-medium text-gray-700">
