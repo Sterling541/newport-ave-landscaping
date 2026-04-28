@@ -232,12 +232,12 @@ function FormSidebar({ steps, currentStep }: { steps: string[]; currentStep: num
     <div
       className="hidden lg:flex flex-col justify-between p-7 rounded-l-2xl shrink-0"
       style={{
-        background: "linear-gradient(160deg, oklch(0.13 0.005 30) 0%, oklch(0.19 0.008 30) 100%)",
+        background: "linear-gradient(160deg, oklch(0.25 0.008 30) 0%, oklch(0.32 0.010 30) 100%)",
         width: "260px",
       }}
     >
       <div>
-        <img src={LOGO_URL} alt="Newport Avenue Landscaping" className="h-14 mb-8 drop-shadow-sm" />
+        <img src={LOGO_URL} alt="Newport Avenue Landscaping" className="h-14 mb-8 brightness-0 invert" />
         <div className="space-y-1">
           {steps.map((s, i) => {
             const meta = STEP_META[s] ?? { icon: <Leaf className="w-4 h-4" />, label: s, desc: "" };
