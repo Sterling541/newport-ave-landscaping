@@ -145,6 +145,7 @@ function MegaMenu({
   subline,
   onNavigate,
   photoPosition,
+  photoScale,
 }: {
   items: { label: string; href: string; num: string }[];
   photo: string;
@@ -152,6 +153,7 @@ function MegaMenu({
   subline: string;
   onNavigate: (href: string) => void;
   photoPosition?: string;
+  photoScale?: number;
 }) {
   return (
     <div
@@ -182,6 +184,8 @@ function MegaMenu({
             height: "100%",
             objectFit: "cover",
             objectPosition: photoPosition ?? "75% 15%",
+            transform: photoScale ? `scale(${photoScale})` : undefined,
+            transformOrigin: photoPosition ?? "75% 15%",
             filter: "brightness(0.65) saturate(0.85)",
           }}
         />
@@ -1058,7 +1062,8 @@ export default function Navbar() {
               <MegaMenu
                 items={resourcesItems}
                 photo={MEGA_PHOTO_RESOURCES}
-                photoPosition="center 25%"
+                photoPosition="center 30%"
+                photoScale={0.72}
                 headline={"Know Before\nYou Grow"}
                 subline="Free Guides & Cost Estimates"
                 onNavigate={goTo}
