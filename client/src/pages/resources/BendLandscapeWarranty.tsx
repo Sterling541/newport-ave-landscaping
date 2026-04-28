@@ -39,7 +39,7 @@ export default function BendLandscapeWarranty() {
 
             <h2 className="text-3xl font-bold mb-4" style={{ color: 'oklch(0.25 0.005 0)' }}>What Our 90-Day Plant Warranty Covers</h2>
             <p className="mb-4">Our warranty covers any settling, shifting, or failure of hardscape work (patios, walkways, driveways, retaining walls) that results from workmanship defects — including base preparation, edge restraint installation, and paver placement.</p>
-            <p className="mb-8">If any pavers shift, a wall leans, or a walkway settles due to our workmanship in the first 5 years, we come back and fix it at no cost to you. No questions asked.</p>
+            <p className="mb-8">If any pavers shift, a wall leans, or a walkway settles due to our workmanship, we come back and fix it at no cost to you. No questions asked.</p>
 
             <h2 className="text-3xl font-bold mb-4" style={{ color: 'oklch(0.25 0.005 0)' }}>What Our Warranty Doesn't Cover</h2>
             <ul className="list-disc pl-5 mb-8 space-y-1">
