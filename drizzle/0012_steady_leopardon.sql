@@ -1,0 +1,1 @@
+ALTER TABLE `quote_leads` ADD `isSpam` boolean DEFAULT false NOT NULL;

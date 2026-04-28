@@ -68,7 +68,7 @@ import {
   createQuoteLead,
   listQuoteLeads,
   countQuoteLeads,
-  updateQuoteLeadStatus,
+  updateQuoteLeadStatus, markQuoteLeadSpam,
   insertGamePlay,
   getGameStats,
 } from "./db";
@@ -1330,14 +1330,27 @@ Be specific, data-driven, and actionable. Format as JSON with keys: bestMonths (
 
     /** Admin: list all quote leads */
     list: protectedProcedure
-      .input(z.object({ limit: z.number().min(1).max(200).default(100), offset: z.number().min(0).default(0) }).optional())
+      .input(z.object({
+        limit: z.number().min(1).max(200).default(100),
+        offset: z.number().min(0).default(0),
+        includeSpam: z.boolean().default(false),
+      }).optional())
       .query(async ({ ctx, input }) => {
         requireAdmin(ctx);
         const limit = input?.limit ?? 100;
         const offset = input?.offset ?? 0;
-        const rows = await listQuoteLeads(limit, offset);
+        const includeSpam = input?.includeSpam ?? false;
+        const rows = await listQuoteLeads(limit, offset, includeSpam);
         const total = await countQuoteLeads();
         return { rows, total };
+      }),
+    /** Admin: mark/unmark a quote lead as spam */
+    markSpam: protectedProcedure
+      .input(z.object({ id: z.number(), isSpam: z.boolean() }))
+      .mutation(async ({ ctx, input }) => {
+        requireAdmin(ctx);
+        await markQuoteLeadSpam(input.id, input.isSpam);
+        return { success: true };
       }),
 
     /** Admin: update status / notes on a quote lead */

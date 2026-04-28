@@ -935,10 +935,18 @@ export async function createQuoteLead(data: Omit<InsertQuoteLead, "id" | "create
   if (!db) throw new Error("Database not available");
   return db.insert(quoteLeads).values(data);
 }
-export async function listQuoteLeads(limit = 100, offset = 0) {
+export async function listQuoteLeads(limit = 100, offset = 0, includeSpam = false) {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
-  return db.select().from(quoteLeads).orderBy(desc(quoteLeads.createdAt)).limit(limit).offset(offset);
+  if (includeSpam) {
+    return db.select().from(quoteLeads).orderBy(desc(quoteLeads.createdAt)).limit(limit).offset(offset);
+  }
+  return db.select().from(quoteLeads).where(eq(quoteLeads.isSpam, false)).orderBy(desc(quoteLeads.createdAt)).limit(limit).offset(offset);
+}
+export async function markQuoteLeadSpam(id: number, isSpam: boolean) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  return db.update(quoteLeads).set({ isSpam }).where(eq(quoteLeads.id, id));
 }
 export async function countQuoteLeads() {
   const db = await getDb();

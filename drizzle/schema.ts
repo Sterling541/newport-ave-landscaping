@@ -292,6 +292,8 @@ export const quoteLeads = mysqlTable("quote_leads", {
   /** Admin workflow status */
   status: mysqlEnum("quoteLeadStatus", ["new", "left_voicemail", "contacted", "quoted", "converted", "lost"]).default("new").notNull(),
   adminNotes: text("adminNotes"),
+  /** Spam flag — set by admin to hide junk submissions */
+  isSpam: boolean("isSpam").default(false).notNull(),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
 });

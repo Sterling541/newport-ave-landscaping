@@ -77,6 +77,7 @@ type ConvertForm = {
 
 export default function AdminQuoteLeads() {
   const [statusFilter, setStatusFilter] = useState<string>("all");
+  const [showSpam, setShowSpam] = useState(false);
   const [search, setSearch] = useState("");
   const [serviceFilter, setServiceFilter] = useState<string>("all");
   const [editingId, setEditingId] = useState<number | null>(null);
@@ -102,9 +103,16 @@ export default function AdminQuoteLeads() {
   };
 
   const { data, isLoading, refetch } = trpc.quoteLeads.list.useQuery(
-    { limit: 200, offset: 0 },
+    { limit: 200, offset: 0, includeSpam: showSpam },
     { refetchOnWindowFocus: false }
   );
+  const markSpamMutation = trpc.quoteLeads.markSpam.useMutation({
+    onSuccess: (_, variables) => {
+      showToast(variables.isSpam ? "Marked as spam" : "Unmarked as spam");
+      refetch();
+    },
+    onError: (err) => showToast(`Error: ${err.message}`),
+  });
 
   const updateMutation = trpc.quoteLeads.updateStatus.useMutation({
     onSuccess: () => {
@@ -169,6 +177,7 @@ export default function AdminQuoteLeads() {
   const total = data?.total ?? 0;
 
   const filtered = rows.filter((r) => {
+    if (!showSpam && r.isSpam) return false;
     const matchStatus = statusFilter === "all" || r.status === statusFilter;
     const matchService = serviceFilter === "all" || (r.serviceInterest ?? "") === serviceFilter;
     const q = search.toLowerCase();
@@ -190,6 +199,7 @@ export default function AdminQuoteLeads() {
     setStatusFilter("all");
     setServiceFilter("all");
   };
+  const spamCount = rows.filter(r => r.isSpam).length;
 
   const openEdit = (row: typeof rows[0]) => {
     setEditingId(row.id);
@@ -570,6 +580,23 @@ export default function AdminQuoteLeads() {
               Clear Filters
             </button>
           )}
+          {/* Spam toggle */}
+          <button
+            onClick={() => setShowSpam(s => !s)}
+            style={{
+              padding: "0.5rem 0.875rem",
+              border: showSpam ? "1.5px solid oklch(0.75 0.12 30)" : "1.5px solid oklch(0.88 0.01 240)",
+              borderRadius: "0.5rem",
+              fontSize: "0.8rem",
+              fontWeight: 600,
+              color: showSpam ? "oklch(0.45 0.18 30)" : "oklch(0.55 0.02 240)",
+              background: showSpam ? "oklch(0.95 0.05 30)" : "white",
+              cursor: "pointer",
+              whiteSpace: "nowrap",
+            }}
+          >
+            {showSpam ? "🚫 Hide Spam" : `🚫 Show Spam${spamCount > 0 ? ` (${spamCount})` : ""}`}
+          </button>
         </div>
 
         {/* Active filter result count */}
@@ -794,7 +821,23 @@ export default function AdminQuoteLeads() {
                             >
                               Edit
                             </button>
-                            {row.status !== "converted" && (
+                            <button
+                              onClick={() => markSpamMutation.mutate({ id: row.id, isSpam: !row.isSpam })}
+                              title={row.isSpam ? "Unmark spam" : "Mark as spam"}
+                              style={{
+                                background: row.isSpam ? "oklch(0.92 0.10 30)" : "white",
+                                color: row.isSpam ? "oklch(0.45 0.18 30)" : "oklch(0.60 0.02 240)",
+                                border: row.isSpam ? "1.5px solid oklch(0.80 0.12 30)" : "1.5px solid oklch(0.88 0.01 240)",
+                                borderRadius: "0.4rem",
+                                padding: "0.3rem 0.5rem",
+                                fontSize: "0.78rem",
+                                fontWeight: 600,
+                                cursor: "pointer",
+                              }}
+                            >
+                              {row.isSpam ? "🚫 Spam" : "⚑"}
+                            </button>
+                            {!row.isSpam && row.status !== "converted" && (
                               <button
                                 onClick={() => openConvert(row)}
                                 style={{
@@ -813,7 +856,7 @@ export default function AdminQuoteLeads() {
                                 → Schedule
                               </button>
                             )}
-                            {row.status === "converted" && (
+                            {!row.isSpam && row.status === "converted" && (
                               <span style={{ fontSize: "0.75rem", color: "oklch(0.35 0.14 145)", fontWeight: 600 }}>
                                 ✓ Converted
                               </span>
