@@ -367,6 +367,13 @@ button,
 
 /* ── Container ── */
 @layer components {
+  /* Mobile nav bar: visible on mobile, hidden at 768px+.
+     Uses !important to override inline style display:flex. */
+  .navbar-mobile-bar { display: flex !important; }
+  @media (min-width: 768px) {
+    .navbar-mobile-bar { display: none !important; }
+  }
+
   .container {
     width: 100%;
     margin-left: auto;

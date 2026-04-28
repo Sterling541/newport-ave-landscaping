@@ -474,7 +474,7 @@ export default function HeroSection() {
         className="hero-content-block"
         style={{
           position: "absolute",
-          top: "220px",
+          top: "260px",
           left: "clamp(1.5rem, 5vw, 5rem)",
           right: "clamp(1.5rem, 5vw, 55%)",
           zIndex: 10,
