@@ -230,50 +230,72 @@ function FormSidebar({ steps, currentStep }: { steps: string[]; currentStep: num
   const pct = Math.round((currentStep / Math.max(steps.length - 1, 1)) * 100);
   return (
     <div
-      className="hidden lg:flex flex-col justify-between p-7 rounded-l-2xl shrink-0"
+      className="hidden lg:flex flex-col justify-between rounded-l-2xl shrink-0 overflow-hidden"
       style={{
-        background: "linear-gradient(160deg, oklch(0.25 0.008 30) 0%, oklch(0.32 0.010 30) 100%)",
-        width: "260px",
+        background: "linear-gradient(180deg, oklch(0.22 0.008 30) 0%, oklch(0.28 0.010 30) 100%)",
+        width: "270px",
       }}
     >
-      <div>
-        <img src={LOGO_URL} alt="Newport Avenue Landscaping" className="h-14 mb-8 brightness-0 invert" />
-        <div className="space-y-1">
+      {/* Logo area with subtle bottom border */}
+      <div className="px-7 pt-8 pb-6" style={{ borderBottom: "1px solid rgba(255,255,255,0.07)" }}>
+        <img src={LOGO_URL} alt="Newport Avenue Landscaping" className="h-12 brightness-0 invert opacity-90" />
+      </div>
+
+      {/* Steps */}
+      <div className="flex-1 px-5 py-6">
+        <p className="text-[10px] font-semibold tracking-widest text-stone-500 uppercase mb-4 px-2">Your Progress</p>
+        <div className="space-y-1.5">
           {steps.map((s, i) => {
             const meta = STEP_META[s] ?? { icon: <Leaf className="w-4 h-4" />, label: s, desc: "" };
             const done = i < currentStep;
             const active = i === currentStep;
             return (
-              <div key={s} className={`flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all ${active ? "bg-white/15" : done ? "opacity-60" : "opacity-35"}`}>
-                <div className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 text-xs font-bold ${
-                  done ? "bg-red-600 text-white" : active ? "bg-white text-stone-900" : "bg-white/20 text-white"
+              <div key={s} className={`flex items-center gap-3 px-3 py-3 rounded-xl transition-all ${
+                active
+                  ? "bg-white/12 border border-white/10"
+                  : done
+                  ? "opacity-70"
+                  : "opacity-30"
+              }`}>
+                <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 text-xs font-bold transition-all ${
+                  done
+                    ? "bg-red-600/90 text-white shadow-md shadow-red-900/40"
+                    : active
+                    ? "bg-white text-stone-900 shadow-md shadow-black/30"
+                    : "bg-white/10 text-white/50"
                 }`}>
                   {done ? <CheckCircle2 className="w-4 h-4" /> : meta.icon}
                 </div>
-                <div>
-                  <p className={`text-xs font-semibold leading-none ${active ? "text-white" : "text-stone-400"}`}>{meta.label}</p>
-                  {active && <p className="text-stone-400/80 text-xs mt-0.5">{meta.desc}</p>}
+                <div className="min-w-0">
+                  <p className={`text-sm font-semibold leading-none truncate ${
+                    active ? "text-white" : done ? "text-stone-300" : "text-stone-500"
+                  }`}>{meta.label}</p>
+                  {active && <p className="text-stone-400 text-xs mt-1 leading-snug">{meta.desc}</p>}
                 </div>
               </div>
             );
           })}
         </div>
-        <div className="mt-6">
-          <div className="flex justify-between text-xs text-stone-400 mb-1.5">
-            <span>Progress</span><span>{pct}%</span>
+
+        {/* Progress bar */}
+        <div className="mt-6 px-2">
+          <div className="flex justify-between text-[11px] text-stone-500 mb-2">
+            <span className="font-medium">Progress</span><span className="font-semibold text-stone-400">{pct}%</span>
           </div>
-          <div className="h-1.5 bg-white/10 rounded-full overflow-hidden">
+          <div className="h-1.5 bg-white/8 rounded-full overflow-hidden">
             <div
-              className="h-full bg-gradient-to-r from-red-700 to-red-500 rounded-full transition-all duration-500"
+              className="h-full bg-gradient-to-r from-red-600 to-red-400 rounded-full transition-all duration-700 ease-out"
               style={{ width: `${pct}%` }}
             />
           </div>
         </div>
       </div>
-      <div className="space-y-2 mt-8">
+
+      {/* Trust badges */}
+      <div className="px-6 py-5" style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}>
         {["Licensed & Bonded \u00b7 LCB #9153", "Serving Central Oregon since 2005", "400+ Properties Maintained"].map(b => (
-          <div key={b} className="flex items-center gap-2 text-stone-400/80 text-xs">
-            <CheckCircle2 className="w-3.5 h-3.5 shrink-0 text-red-500" />
+          <div key={b} className="flex items-center gap-2.5 text-stone-500 text-[11px] py-1">
+            <CheckCircle2 className="w-3 h-3 shrink-0 text-red-500/70" />
             <span>{b}</span>
           </div>
         ))}
@@ -530,7 +552,7 @@ export default function ScheduleServices() {
                   </Select>
                   {errors.serviceType && <p className="text-xs text-red-500">{errors.serviceType}</p>}
                 </div>
-                {form.serviceType === "> Aeration, fertilization and top dressing" && (
+                {form.serviceType === SERVICE_OPTIONS[SERVICE_OPTIONS.findIndex(o => o.includes("Aeration, fertilization"))] && (
                   <InfoBox variant="green">
                     <p className="font-semibold mb-1 text-stone-900">Aeration, Fertilization &amp; Top Dressing</p>
                     <p className="text-xs text-stone-700 leading-relaxed">Our aeration and fertilization services are priced per square foot. After submitting this form, we'll reach out to schedule a site visit and provide a quote.</p>
