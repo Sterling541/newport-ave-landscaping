@@ -199,10 +199,10 @@ export default function FirewiseLandingPage() {
             style={{
               position: "absolute",
               inset: 0,
-              backgroundImage: "url(/manus-storage/forest-home4_9324e5db_31f1b27d.webp)",
+              backgroundImage: "url(/manus-storage/firewise-hero-v2_30783087.png)",
               backgroundSize: "cover",
-              backgroundPosition: "center 40%",
-              filter: "brightness(0.35)",
+              backgroundPosition: "center 35%",
+              filter: "brightness(0.45)",
             }}
           />
           {/* Red urgency bar */}
