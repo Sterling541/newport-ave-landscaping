@@ -429,7 +429,7 @@ export default function Commercial() {
                 With 150+ in-house professionals and a full fleet of
                 commercial-grade equipment, we bring the same standard of
                 craftsmanship and accountability to every commercial project —
-                from a single retail center to a 200-unit HOA community.
+                from a single retail center to a 1,000-unit HOA community.
                 References provided upon request.
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
