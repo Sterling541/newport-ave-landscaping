@@ -1091,7 +1091,7 @@ export default function AdminSubmissions() {
         )}
 
         {/* Table */}
-        <div className="bg-white rounded-xl border border-stone-200 overflow-hidden shadow-sm">
+        <div className="bg-white rounded-xl border border-stone-200 overflow-x-auto shadow-sm">
           {isLoading ? (
             <div className="flex items-center justify-center py-20">
               <Loader2 className="w-8 h-8 animate-spin text-green-700" />

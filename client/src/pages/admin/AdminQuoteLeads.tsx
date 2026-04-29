@@ -680,13 +680,13 @@ export default function AdminQuoteLeads() {
               background: "white",
               borderRadius: "1rem",
               border: "1.5px solid oklch(0.92 0.01 240)",
-              overflow: "hidden",
+              overflowX: "auto",
             }}
           >
             <table style={{ width: "100%", minWidth: "1100px", borderCollapse: "collapse", tableLayout: "fixed" }}>
               <thead>
                 <tr style={{ background: "oklch(0.97 0.005 240)", borderBottom: "1.5px solid oklch(0.92 0.01 240)" }}>
-                  {[["Date","90px"], ["Name","130px"], ["Contact","200px"], ["Address","200px"], ["Service Interest","160px"], ["Message","220px"], ["Status","110px"], ["Actions","130px"]].map(([h, w]) => (
+                  {[["Date","90px"], ["Name","130px"], ["Contact","200px"], ["Address","180px"], ["Service Interest","160px"], ["Message","200px"], ["Status","110px"], ["Actions","180px"]].map(([h, w]) => (
                     <th
                       key={h}
                       style={{
