@@ -76,7 +76,7 @@ export default function Blog() {
         {/* Hero */}
         <div
           className="relative flex items-center justify-center"
-          style={{ height: "260px", background: `linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url(/manus-storage/hero-blog-resources_f6cb1354.jpg) center/cover no-repeat` }}
+          style={{ height: "260px", background: `linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url(/manus-storage/hero-blog-resources_d1dee639.jpg) center/cover no-repeat` }}
         >
           <div className="text-center">
             <p className="font-label mb-2" style={{ color: "oklch(0.72 0.12 25)", fontSize: "0.7rem", letterSpacing: "0.18em" }}>
