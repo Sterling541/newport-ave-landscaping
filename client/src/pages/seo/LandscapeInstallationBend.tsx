@@ -43,7 +43,7 @@ const INSTALL_TYPES = [
     title: "Irrigation System Installation",
     desc: "Smart sprinkler systems, drip irrigation, and rain sensors designed for Bend's water restrictions and volcanic pumice soil.",
     href: "/services/irrigation",
-    img: "/manus-storage/ITP_7558_e52a40c9_7af26cea.webp",
+    img: "/manus-storage/safe-hero-irrigation-wide_7d00acf6.jpg",
   },
   {
     title: "Xeriscape & Water-Wise Install",
@@ -55,7 +55,7 @@ const INSTALL_TYPES = [
     title: "Outdoor Living Spaces",
     desc: "Fire pits, pergolas, outdoor kitchens, and living areas installed to extend your usable outdoor space through Bend's long summer season.",
     href: "/services/outdoor-living",
-    img: "/manus-storage/westside-living-06_f7789a0f.jpg",
+    img: "/manus-storage/bend-oregon-westside-outdoor-living-space-finished-fireplace_7547dcca.jpg",
   },
   {
     title: "Firewise Landscape Installation",
@@ -229,8 +229,8 @@ export default function LandscapeInstallationBend() {
       <section
         style={{
           background: `linear-gradient(rgba(0,0,0,0.60), rgba(0,0,0,0.55)), url(${HERO_IMG}) center/cover no-repeat`,
-          padding: "6rem 0 4.5rem",
-          marginTop: "0",
+          paddingTop: "calc(204px + 3rem)",
+          paddingBottom: "4.5rem",
         }}
       >
         <div
@@ -275,8 +275,9 @@ export default function LandscapeInstallationBend() {
             }}
           >
             Newport Avenue Landscaping installs complete landscapes for Bend homeowners and
-            commercial properties — from bare lots to full backyard renovations. Design, installation,
-            irrigation, and hardscape, all under one roof.
+            commercial properties — from bare lots to full backyard renovations. Licensed landscape
+            architects on staff. Design, installation, irrigation, hardscape, and ongoing care, all
+            under one roof.
           </p>
           <div
             style={{
@@ -393,10 +394,10 @@ export default function LandscapeInstallationBend() {
             }}
           >
             Newport Avenue Landscaping has been installing landscapes in Bend and throughout Central
-            Oregon for over 21 years. We are a full-service design-build contractor — meaning we
-            handle your project from the initial site consultation and design through complete
-            installation and ongoing maintenance. You work with one team, one contract, and one
-            point of contact from start to finish.
+            Oregon for over 21 years. We are a full-service design-build contractor with licensed
+            landscape architects on staff — meaning we handle your project from the initial site
+            consultation and design through complete installation and ongoing maintenance. You work
+            with one team, one contract, and one point of contact from start to finish.
           </p>
           <p
             style={{
@@ -426,7 +427,10 @@ export default function LandscapeInstallationBend() {
             Whether you are building a new home in NorthWest Crossing and need a complete landscape
             installation, renovating an established property in Awbrey Butte, or transforming a
             bare East Bend lot into a functional outdoor living space, Newport Avenue Landscaping
-            has the experience, licensing, and crew capacity to deliver.
+            has the experience, licensing, and crew capacity to deliver. Our licensed landscape
+            architects can take your project all the way from initial design concepts through
+            construction and into long-term ongoing care — so your investment looks great and
+            performs well for years to come.
           </p>
         </div>
       </section>
