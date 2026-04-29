@@ -31,6 +31,54 @@ async function findAvailablePort(startPort: number = 3000): Promise<number> {
   throw new Error(`No available port found starting from ${startPort}`);
 }
 
+// ---------------------------------------------------------------------------
+// In-memory rate limiter — no external dependency required
+// ---------------------------------------------------------------------------
+type RateBucket = { count: number; resetAt: number };
+const rateBuckets = new Map<string, RateBucket>();
+
+function makeRateLimiter(opts: { windowMs: number; max: number; message: string }) {
+  return (req: express.Request, res: express.Response, next: express.NextFunction) => {
+    const ip =
+      (req.headers["x-forwarded-for"] as string | undefined)?.split(",")[0].trim() ||
+      req.socket.remoteAddress ||
+      "unknown";
+    const key = `${opts.windowMs}:${ip}`;
+    const now = Date.now();
+    let bucket = rateBuckets.get(key);
+    if (!bucket || now > bucket.resetAt) {
+      bucket = { count: 0, resetAt: now + opts.windowMs };
+    }
+    bucket.count++;
+    rateBuckets.set(key, bucket);
+    // Prune stale entries every ~1000 requests to prevent memory growth
+    if (rateBuckets.size > 5000) {
+      Array.from(rateBuckets.entries()).forEach(([k, v]) => {
+        if (now > v.resetAt) rateBuckets.delete(k);
+      });
+    }
+    if (bucket.count > opts.max) {
+      res.status(429).json({ error: opts.message });
+      return;
+    }
+    next();
+  };
+}
+
+// 10 form submissions per IP per 15 minutes
+const formSubmitLimiter = makeRateLimiter({
+  windowMs: 15 * 60 * 1000,
+  max: 10,
+  message: "Too many submissions from this IP, please try again later.",
+});
+
+// 5 admin PIN attempts per IP per 5 minutes (brute-force guard)
+const adminPinLimiter = makeRateLimiter({
+  windowMs: 5 * 60 * 1000,
+  max: 5,
+  message: "Too many admin attempts, please wait before trying again.",
+});
+
 async function startServer() {
   const app = express();
   const server = createServer(app);
@@ -40,11 +88,23 @@ async function startServer() {
     res.setHeader("X-Content-Type-Options", "nosniff");
     res.setHeader("Referrer-Policy", "strict-origin-when-cross-origin");
     res.setHeader("Permissions-Policy", "camera=(), microphone=(), geolocation=()");
+    res.setHeader(
+      "Content-Security-Policy",
+      "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://maps.googleapis.com https://maps.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self' https:; frame-src 'none';"
+    );
     next();
   });
-  // Configure body parser with larger size limit for file uploads
-  app.use(express.json({ limit: "50mb" }));
-  app.use(express.urlencoded({ limit: "50mb", extended: true }));
+  // Rate limiting on public form submissions
+  app.use("/api/trpc/serviceSubmissions.create", formSubmitLimiter);
+  app.use("/api/trpc/quoteLeads.create", formSubmitLimiter);
+  // Rate limiting on admin PIN auth attempts
+  app.use((req, res, next) => {
+    if (req.headers["x-admin-pin"]) return adminPinLimiter(req, res, next);
+    next();
+  });
+  // Configure body parser — 10mb is sufficient; 50mb was unnecessarily large
+  app.use(express.json({ limit: "10mb" }));
+  app.use(express.urlencoded({ limit: "10mb", extended: true }));
   // 301 redirects from old WordPress site URLs — must be before OAuth and tRPC
   registerRedirects(app);
 
