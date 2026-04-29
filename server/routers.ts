@@ -1553,6 +1553,7 @@ Be specific, data-driven, and actionable. Format as JSON with keys: bestMonths (
         googleCalendarId: z.string().max(256).optional(),
         email: z.string().email().max(320).optional(),
         phone: z.string().max(32).optional(),
+        calendarColor: z.string().max(64).optional(),
       }))
       .mutation(async ({ ctx, input }) => {
         requireAdmin(ctx);
@@ -1570,6 +1571,7 @@ Be specific, data-driven, and actionable. Format as JSON with keys: bestMonths (
         email: z.string().email().max(320).nullable().optional(),
         phone: z.string().max(32).nullable().optional(),
         isActive: z.boolean().optional(),
+        calendarColor: z.string().max(64).nullable().optional(),
       }))
       .mutation(async ({ ctx, input }) => {
         requireAdmin(ctx);

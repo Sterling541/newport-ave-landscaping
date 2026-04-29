@@ -50,6 +50,7 @@ interface RepFormData {
   googleCalendarId: string;
   email: string;
   phone: string;
+  calendarColor: string;
 }
 
 const EMPTY_FORM: RepFormData = {
@@ -58,7 +59,19 @@ const EMPTY_FORM: RepFormData = {
   googleCalendarId: "",
   email: "",
   phone: "",
+  calendarColor: "",
 };
+
+const COLOR_SWATCHES = [
+  { value: "#3b82f6", label: "Blue" },
+  { value: "#22c55e", label: "Green" },
+  { value: "#f59e0b", label: "Amber" },
+  { value: "#a855f7", label: "Purple" },
+  { value: "#ef4444", label: "Red" },
+  { value: "#14b8a6", label: "Teal" },
+  { value: "#f97316", label: "Orange" },
+  { value: "#ec4899", label: "Pink" },
+];
 
 export default function SalesReps() {
   const [toast, setToast] = useState<string | null>(null);
@@ -113,6 +126,7 @@ export default function SalesReps() {
       googleCalendarId: rep.googleCalendarId ?? "",
       email: rep.email ?? "",
       phone: rep.phone ?? "",
+      calendarColor: rep.calendarColor ?? "",
     });
   }
 
@@ -124,6 +138,7 @@ export default function SalesReps() {
       googleCalendarId: form.googleCalendarId.trim() || undefined,
       email: form.email.trim() || undefined,
       phone: form.phone.trim() || undefined,
+      calendarColor: form.calendarColor || undefined,
     });
   }
 
@@ -135,6 +150,7 @@ export default function SalesReps() {
       googleCalendarId: editForm.googleCalendarId.trim() || null,
       email: editForm.email.trim() || null,
       phone: editForm.phone.trim() || null,
+      calendarColor: editForm.calendarColor || null,
     });
   }
 
@@ -279,6 +295,43 @@ export default function SalesReps() {
                   style={{ borderColor: "oklch(0.82 0.03 155)" }}
                 />
               </div>
+              {/* Calendar Color Picker */}
+              <div className="sm:col-span-2">
+                <label className="block text-xs font-medium mb-2" style={{ color: "oklch(0.45 0.05 155)" }}>
+                  Calendar Color
+                  <span className="ml-1 font-normal opacity-60">(shown on the scheduler calendar)</span>
+                </label>
+                <div className="flex flex-wrap gap-2">
+                  {COLOR_SWATCHES.map((swatch) => (
+                    <button
+                      key={swatch.value}
+                      type="button"
+                      onClick={() => setForm({ ...form, calendarColor: swatch.value })}
+                      title={swatch.label}
+                      className="w-7 h-7 rounded-full border-2 transition-transform hover:scale-110"
+                      style={{
+                        background: swatch.value,
+                        borderColor: form.calendarColor === swatch.value ? "oklch(0.18 0.04 155)" : "transparent",
+                        boxShadow: form.calendarColor === swatch.value ? "0 0 0 2px white, 0 0 0 4px oklch(0.18 0.04 155)" : undefined,
+                      }}
+                    />
+                  ))}
+                  {form.calendarColor && (
+                    <button
+                      type="button"
+                      onClick={() => setForm({ ...form, calendarColor: "" })}
+                      className="w-7 h-7 rounded-full border-2 text-xs flex items-center justify-center"
+                      style={{ borderColor: "oklch(0.82 0.03 155)", color: "oklch(0.60 0.04 155)" }}
+                      title="Clear color (use auto)"
+                    >✕</button>
+                  )}
+                </div>
+                {!form.calendarColor && (
+                  <p className="text-xs mt-1 opacity-50" style={{ color: "oklch(0.50 0.05 155)" }}>
+                    No color selected — auto-assigned by position
+                  </p>
+                )}
+              </div>
             </div>
             <div className="flex gap-2 mt-4">
               <button
@@ -403,6 +456,37 @@ export default function SalesReps() {
                           className="w-full px-3 py-2 rounded-lg border text-sm outline-none font-mono"
                           style={{ borderColor: "oklch(0.82 0.03 155)" }}
                         />
+                      </div>
+                      {/* Calendar Color Picker */}
+                      <div className="sm:col-span-2">
+                        <label className="block text-xs font-medium mb-2" style={{ color: "oklch(0.45 0.05 155)" }}>
+                          Calendar Color
+                        </label>
+                        <div className="flex flex-wrap gap-2">
+                          {COLOR_SWATCHES.map((swatch) => (
+                            <button
+                              key={swatch.value}
+                              type="button"
+                              onClick={() => setEditForm({ ...editForm, calendarColor: swatch.value })}
+                              title={swatch.label}
+                              className="w-7 h-7 rounded-full border-2 transition-transform hover:scale-110"
+                              style={{
+                                background: swatch.value,
+                                borderColor: editForm.calendarColor === swatch.value ? "oklch(0.18 0.04 155)" : "transparent",
+                                boxShadow: editForm.calendarColor === swatch.value ? "0 0 0 2px white, 0 0 0 4px oklch(0.18 0.04 155)" : undefined,
+                              }}
+                            />
+                          ))}
+                          {editForm.calendarColor && (
+                            <button
+                              type="button"
+                              onClick={() => setEditForm({ ...editForm, calendarColor: "" })}
+                              className="w-7 h-7 rounded-full border-2 text-xs flex items-center justify-center"
+                              style={{ borderColor: "oklch(0.82 0.03 155)", color: "oklch(0.60 0.04 155)" }}
+                              title="Clear (use auto)"
+                            >✕</button>
+                          )}
+                        </div>
                       </div>
                     </div>
                     <div className="flex gap-2">

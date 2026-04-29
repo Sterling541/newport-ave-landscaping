@@ -376,6 +376,8 @@ export const salesReps = mysqlTable("sales_reps", {
   phone: varchar("phone", { length: 32 }),
   /** Whether this rep is currently active */
   isActive: boolean("isActive").default(true).notNull(),
+  /** Hex or OKLCH color string for this rep's calendar blocks — e.g. "#3b82f6" */
+  calendarColor: varchar("calendarColor", { length: 64 }),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
 });

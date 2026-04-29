@@ -369,7 +369,8 @@ function CreateModal({ reps, onClose, onCreated, prefillDate }: CreateModalProps
 // ─── Main Page ────────────────────────────────────────────────────────────────
 
 export default function SmartScheduler() {
-  const [view, setView] = useState<"list" | "week">("list");
+  const [view, setView] = useState<"list" | "week" | "day">("list");
+  const [dayDate, setDayDate] = useState<Date>(() => new Date());
   const [weekStart, setWeekStart] = useState(() => getWeekStart(new Date()));
   const [showCreate, setShowCreate] = useState(false);
   const [toast, setToast] = useState<string | null>(null);
@@ -420,8 +421,8 @@ export default function SmartScheduler() {
 
   const { data: appointments = [], isLoading, refetch } = trpc.scheduler.listAppointments.useQuery(
     {
-      dateFrom: toYMD(view === "week" ? weekStart : addDays(new Date(), -30)),
-      dateTo: toYMD(view === "week" ? weekEnd : addDays(new Date(), 60)),
+      dateFrom: toYMD(view === "week" ? weekStart : view === "day" ? dayDate : addDays(new Date(), -30)),
+      dateTo: toYMD(view === "week" ? weekEnd : view === "day" ? dayDate : addDays(new Date(), 60)),
       limit: 300,
     },
     { refetchOnWindowFocus: false }
@@ -512,11 +513,15 @@ export default function SmartScheduler() {
     return m;
   }, [reps]);
 
-  // Map repId -> color palette entry (stable by insertion order)
+  // Map repId -> color palette entry — uses rep's custom calendarColor if set, else auto-palette
   const repColorMap = useMemo(() => {
     const m: Record<number, { bg: string; light: string; label: string }> = {};
-    reps.forEach((r: { id: number }, i: number) => {
-      m[r.id] = getRepColor(i);
+    reps.forEach((r: { id: number; calendarColor?: string | null }, i: number) => {
+      if (r.calendarColor) {
+        m[r.id] = { bg: r.calendarColor, light: r.calendarColor + "33", label: r.calendarColor };
+      } else {
+        m[r.id] = getRepColor(i);
+      }
     });
     return m;
   }, [reps]);
@@ -585,6 +590,17 @@ export default function SmartScheduler() {
                 <LayoutGrid className="w-3.5 h-3.5" />
                 Week
               </button>
+              <button
+                onClick={() => setView("day")}
+                className="flex items-center gap-1.5 px-3 py-1.5 text-sm transition-colors"
+                style={{
+                  background: view === "day" ? "oklch(0.18 0.04 155)" : "white",
+                  color: view === "day" ? "white" : "oklch(0.50 0.05 155)",
+                }}
+              >
+                <Calendar className="w-3.5 h-3.5" />
+                Day
+              </button>
             </div>
 
             {/* Week navigation (only in week view) */}
@@ -606,6 +622,35 @@ export default function SmartScheduler() {
                   style={{ borderColor: "oklch(0.85 0.02 155)" }}
                 >
                   <ChevronRight className="w-4 h-4" style={{ color: "oklch(0.50 0.05 155)" }} />
+                </button>
+              </div>
+            )}
+            {/* Day navigation */}
+            {view === "day" && (
+              <div className="flex items-center gap-1">
+                <button
+                  onClick={() => setDayDate(addDays(dayDate, -1))}
+                  className="p-1.5 rounded-lg border hover:bg-gray-50 transition-colors"
+                  style={{ borderColor: "oklch(0.85 0.02 155)" }}
+                >
+                  <ChevronLeft className="w-4 h-4" style={{ color: "oklch(0.50 0.05 155)" }} />
+                </button>
+                <span className="text-sm px-2" style={{ color: "oklch(0.40 0.05 155)" }}>
+                  {dayDate.toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" })}
+                </span>
+                <button
+                  onClick={() => setDayDate(addDays(dayDate, 1))}
+                  className="p-1.5 rounded-lg border hover:bg-gray-50 transition-colors"
+                  style={{ borderColor: "oklch(0.85 0.02 155)" }}
+                >
+                  <ChevronRight className="w-4 h-4" style={{ color: "oklch(0.50 0.05 155)" }} />
+                </button>
+                <button
+                  onClick={() => setDayDate(new Date())}
+                  className="px-2.5 py-1.5 rounded-lg border text-xs hover:bg-gray-50 transition-colors"
+                  style={{ borderColor: "oklch(0.85 0.02 155)", color: "oklch(0.50 0.05 155)" }}
+                >
+                  Today
                 </button>
               </div>
             )}
@@ -649,9 +694,11 @@ export default function SmartScheduler() {
             >
               All
             </button>
-            {reps.map((rep: { id: number; name: string }, i: number) => {
-              const color = getRepColor(i);
+            {reps.map((rep: { id: number; name: string; calendarColor?: string | null }, i: number) => {
+              const color = repColorMap[rep.id] ?? getRepColor(i);
               const active = isRepSelected(rep.id);
+              // Count appointments for this rep in the current view window
+              const repCount = appointments.filter((a: { repId: number }) => a.repId === rep.id).length;
               return (
                 <button
                   key={rep.id}
@@ -670,6 +717,17 @@ export default function SmartScheduler() {
                     style={{ background: active ? "rgba(255,255,255,0.7)" : color.bg }}
                   />
                   {rep.name.split(" ")[0]}
+                  {repCount > 0 && (
+                    <span
+                      className="ml-0.5 px-1.5 py-0.5 rounded-full text-[10px] font-bold leading-none"
+                      style={{
+                        background: active ? "rgba(255,255,255,0.25)" : color.bg + "22",
+                        color: active ? "white" : color.bg,
+                      }}
+                    >
+                      {repCount}
+                    </span>
+                  )}
                 </button>
               );
             })}
@@ -971,6 +1029,101 @@ export default function SmartScheduler() {
         )}
       </div>
 
+        {/* ── DAY VIEW ── */}
+        {view === "day" && (() => {
+          const dayStr = toYMD(dayDate);
+          const dayAppts = (filteredApptsByDate[dayStr] ?? []).sort((a, b) => a.startTime.localeCompare(b.startTime));
+          const isToday = toYMD(new Date()) === dayStr;
+          return (
+            <div className="rounded-2xl border overflow-hidden" style={{ borderColor: "oklch(0.88 0.03 155)" }}>
+              {/* Day header */}
+              <div
+                className="px-6 py-4 flex items-center justify-between"
+                style={{ background: isToday ? "oklch(0.92 0.08 145)" : "oklch(0.96 0.02 155)" }}
+              >
+                <div>
+                  <div className="text-lg font-bold" style={{ color: "oklch(0.18 0.04 155)" }}>
+                    {dayDate.toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric", year: "numeric" })}
+                    {isToday && <span className="ml-2 text-sm font-medium px-2 py-0.5 rounded-full" style={{ background: "oklch(0.45 0.15 145)", color: "white" }}>Today</span>}
+                  </div>
+                  <div className="text-sm mt-0.5" style={{ color: "oklch(0.50 0.05 155)" }}>
+                    {dayAppts.length} appointment{dayAppts.length !== 1 ? "s" : ""}
+                  </div>
+                </div>
+              </div>
+              {/* Hour grid */}
+              <div className="divide-y" style={{ borderColor: "oklch(0.92 0.02 155)" }}>
+                {HOURS.map((hour) => {
+                  const hourStr = `${hour.toString().padStart(2, "0")}:00`;
+                  const halfStr = `${hour.toString().padStart(2, "0")}:30`;
+                  const hourAppts = dayAppts.filter((a) => {
+                    const h = parseInt(a.startTime.split(":")[0], 10);
+                    return h === hour;
+                  });
+                  return (
+                    <div key={hour} className="flex min-h-[72px]">
+                      {/* Time label */}
+                      <div
+                        className="w-20 shrink-0 px-4 py-3 text-xs font-medium border-r"
+                        style={{ color: "oklch(0.60 0.04 155)", borderColor: "oklch(0.92 0.02 155)", background: "oklch(0.98 0.01 155)" }}
+                      >
+                        {hour === 12 ? "12pm" : hour > 12 ? `${hour - 12}pm` : `${hour}am`}
+                      </div>
+                      {/* Appointment slots */}
+                      <div className="flex-1 p-2 flex flex-col gap-1.5">
+                        {hourAppts.length === 0 ? (
+                          <div className="h-full min-h-[56px] rounded-lg border border-dashed flex items-center justify-center text-xs"
+                            style={{ borderColor: "oklch(0.90 0.02 155)", color: "oklch(0.75 0.03 155)" }}>
+                            Available
+                          </div>
+                        ) : (
+                          hourAppts.map((a) => {
+                            const repColor = repColorMap[a.repId];
+                            const bg = repColor?.bg ?? TYPE_COLORS[a.appointmentType] ?? "oklch(0.55 0.08 155)";
+                            const statusStyle = STATUS_STYLES[a.status] ?? STATUS_STYLES.scheduled;
+                            return (
+                              <div
+                                key={a.id}
+                                className="rounded-xl p-3 cursor-pointer hover:opacity-90 transition-opacity"
+                                style={{ background: bg + "22", borderLeft: `4px solid ${bg}` }}
+                                onClick={() => startEdit(a)}
+                              >
+                                <div className="flex items-start justify-between gap-2">
+                                  <div>
+                                    <div className="font-semibold text-sm" style={{ color: "oklch(0.18 0.04 155)" }}>
+                                      {a.customerName ?? "Customer"}
+                                    </div>
+                                    <div className="text-xs mt-0.5 flex items-center gap-2" style={{ color: "oklch(0.50 0.05 155)" }}>
+                                      <span>{a.startTime} – {a.endTime}</span>
+                                      <span>·</span>
+                                      <span style={{ color: bg }}>{repMap[a.repId] ?? "Rep"}</span>
+                                      {a.customerAddress && <><span>·</span><span className="truncate max-w-[200px]">{a.customerAddress}</span></>}
+                                    </div>
+                                  </div>
+                                  <span
+                                    className="shrink-0 px-2 py-0.5 rounded-full text-[10px] font-medium"
+                                    style={{ background: statusStyle.bg, color: statusStyle.text }}
+                                  >
+                                    {statusStyle.label}
+                                  </span>
+                                </div>
+                                {a.notes && (
+                                  <div className="text-xs mt-1.5 opacity-70 italic" style={{ color: "oklch(0.40 0.05 155)" }}>
+                                    {a.notes}
+                                  </div>
+                                )}
+                              </div>
+                            );
+                          })
+                        )}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          );
+        })()}
       {/* Create Modal */}
       {showCreate && (
         <CreateModal

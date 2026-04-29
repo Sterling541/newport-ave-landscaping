@@ -1063,3 +1063,9 @@
 - [x] Write 14 unit tests for scheduler logic (scheduler.test.ts) — all passing
 - [x] Add drag-and-drop appointment rescheduling to Smart Scheduler calendar (native HTML5 drag API)
 - [x] Add per-rep calendar toggle buttons to Smart Scheduler week view
+- [ ] Add calendarColor column to salesReps schema and color picker in SalesReps UI
+- [ ] Add Day view to Smart Scheduler (alongside List/Week)
+- [ ] Add appointment count badges on rep toggle pills in Smart Scheduler
+- [x] Rep color picker in Sales Reps form (custom calendarColor per rep)
+- [x] Day view in Smart Scheduler calendar (hour-by-hour grid for single day)
+- [x] Appointment count badges on rep toggle pills

@@ -346,6 +346,7 @@ export async function createSalesRep(data: {
   googleCalendarId?: string;
   email?: string;
   phone?: string;
+  calendarColor?: string;
 }) {
   const dbConn = await getDb();
   if (!dbConn) throw new Error("Database not available");
@@ -355,6 +356,7 @@ export async function createSalesRep(data: {
     googleCalendarId: data.googleCalendarId ?? null,
     email: data.email ?? null,
     phone: data.phone ?? null,
+    calendarColor: data.calendarColor ?? null,
     isActive: true,
   });
   return result;
@@ -369,6 +371,7 @@ export async function updateSalesRep(
     email: string | null;
     phone: string | null;
     isActive: boolean;
+    calendarColor: string | null;
   }>
 ) {
   const dbConn = await getDb();
