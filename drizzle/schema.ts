@@ -1,5 +1,5 @@
 import {
-  boolean, decimal, float, int, mysqlEnum, mysqlTable,
+  boolean, decimal, float, int, index, mysqlEnum, mysqlTable,
   text, timestamp, varchar, date as mysqlDate,
 } from "drizzle-orm/mysql-core";
 
@@ -129,7 +129,14 @@ export const serviceSubmissions = mysqlTable("service_submissions", {
   // ── Metadata ─────────────────────────────────────────────────────────────
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
-});
+}, (t) => ({
+  // Fast list query: ORDER BY createdAt DESC WHERE isSpam = false
+  idxCreatedAt: index("idx_ss_created_at").on(t.createdAt),
+  idxIsSpam: index("idx_ss_is_spam").on(t.isSpam),
+  idxCreatedAtIsSpam: index("idx_ss_created_spam").on(t.isSpam, t.createdAt),
+  idxServiceType: index("idx_ss_service_type").on(t.serviceType),
+  idxLeadStatus: index("idx_ss_lead_status").on(t.leadStatus),
+}));
 
 export type ServiceSubmission = typeof serviceSubmissions.$inferSelect;
 export type InsertServiceSubmission = typeof serviceSubmissions.$inferInsert;

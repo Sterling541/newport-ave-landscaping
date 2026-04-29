@@ -592,24 +592,27 @@ export default function AdminSubmissions() {
     { enabled: !!user && insightsEnabled, staleTime: 5 * 60 * 1000 }
   );
 
-    const { data: yoyData, isLoading: yoyLoading } = trpc.submissions.yoyStats.useQuery(
+  // YOY stats are deferred — only load after the submissions list has loaded (avoids blocking the main table)
+  const yoyEnabled = !!user && !isLoading;
+  const YOY_STALE = 10 * 60 * 1000; // 10 min — these don't change often
+  const { data: yoyData, isLoading: yoyLoading } = trpc.submissions.yoyStats.useQuery(
     { serviceTypes: serviceFilters.length > 0 ? serviceFilters : undefined },
-    { enabled: !!user }
+    { enabled: yoyEnabled, staleTime: YOY_STALE, refetchOnWindowFocus: false }
   );
   const { data: bookedYoyData, isLoading: bookedYoyLoading } = trpc.submissions.yoyStats.useQuery(
     { scheduledOnly: true },
-    { enabled: !!user }
+    { enabled: yoyEnabled, staleTime: YOY_STALE, refetchOnWindowFocus: false }
   );
   // Install-only YOY — the highest-value service type
   const { data: installYoyData, isLoading: installYoyLoading } = trpc.submissions.yoyStats.useQuery(
     { serviceTypes: ["New Landscape Installation", "> New Landscape Installation", "Landscape Design & Installation"] },
-    { enabled: !!user }
+    { enabled: yoyEnabled, staleTime: YOY_STALE, refetchOnWindowFocus: false }
   );
 
-  // Next Up consultant banner
+  // Next Up consultant banner — deferred until after main list loads
   const { data: nextUpData } = trpc.quoteLeads.getSuggestedConsultant.useQuery(
     { serviceType: "install" },
-    { enabled: !!user, refetchOnWindowFocus: false }
+    { enabled: !!user && !isLoading, refetchOnWindowFocus: false, staleTime: 10 * 60 * 1000 }
   );
   const followUpMutation = trpc.followUp.logAction.useMutation({
     onSuccess: (result, variables) => {
@@ -639,14 +642,14 @@ export default function AdminSubmissions() {
     },
     onError: (err) => toast.error(`Failed to log status: ${err.message}`),
   });
-  const statusSummaryQuery = trpc.followUp.statusSummary.useQuery(undefined, { enabled: !!user });
+  const statusSummaryQuery = trpc.followUp.statusSummary.useQuery(undefined, { enabled: !!user && !isLoading, staleTime: 5 * 60 * 1000, refetchOnWindowFocus: false });
   // Build a map of submissionId -> latest follow-up status
   const followUpMap = new Map<number, string>(
     (statusSummaryQuery.data ?? []).map(r => [r.submissionId, r.status])
   );
   const { data: repsData } = trpc.scheduler.listReps.useQuery(
     { includeInactive: false },
-    { enabled: !!user, refetchOnWindowFocus: false }
+    { enabled: !!user && !isLoading, refetchOnWindowFocus: false, staleTime: 10 * 60 * 1000 }
   );
   const reps = repsData ?? [];
 
