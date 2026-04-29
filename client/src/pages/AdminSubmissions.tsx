@@ -595,6 +595,11 @@ export default function AdminSubmissions() {
     { scheduledOnly: true },
     { enabled: !!user }
   );
+  // Install-only YOY — the highest-value service type
+  const { data: installYoyData, isLoading: installYoyLoading } = trpc.submissions.yoyStats.useQuery(
+    { serviceTypes: ["New Landscape Installation", "> New Landscape Installation", "Landscape Design & Installation"] },
+    { enabled: !!user }
+  );
 
   // Next Up consultant banner
   const { data: nextUpData } = trpc.quoteLeads.getSuggestedConsultant.useQuery(
@@ -1011,6 +1016,43 @@ export default function AdminSubmissions() {
           </div>
         )}
 
+        {/* Install Appointments YoY Card — highest-value service type */}
+        {installYoyData && (
+          <div className="mb-4 bg-white rounded-xl border border-amber-200 shadow-sm p-4">
+            <div className="flex items-center gap-2 mb-3">
+              <span className="text-amber-600 text-sm">🏗️</span>
+              <span className="text-xs font-semibold text-stone-600 uppercase tracking-wide">
+                Install Appointments &#8212; Year-over-Year
+              </span>
+              <span className="text-xs text-stone-400 ml-auto">as of {new Date(installYoyData.asOfDate).toLocaleDateString("en-US", { month: "short", day: "numeric" })}</span>
+            </div>
+            <div className="grid grid-cols-3 gap-3">
+              <div className="rounded-lg bg-amber-50 border border-amber-100 p-3 text-center">
+                <div className="text-2xl font-bold text-amber-800">{installYoyLoading ? "…" : installYoyData.thisYtd}</div>
+                <div className="text-xs font-medium text-amber-700 mt-0.5">{installYoyData.thisYear} YTD</div>
+                <div className="text-xs text-amber-600 mt-1">Jan 1 – today</div>
+              </div>
+              <div className="rounded-lg bg-stone-50 border border-stone-200 p-3 text-center">
+                <div className="text-2xl font-bold text-stone-700">{installYoyLoading ? "…" : installYoyData.lastYearSamePeriod}</div>
+                <div className="text-xs font-medium text-stone-600 mt-0.5">{installYoyData.lastYear} Same Period</div>
+                <div className="text-xs text-stone-400 mt-1">
+                  {installYoyData.lastYearSamePeriod > 0 ? (() => {
+                    const diff = installYoyData.thisYtd - installYoyData.lastYearSamePeriod;
+                    const pct = Math.round((diff / installYoyData.lastYearSamePeriod) * 100);
+                    return <span className={diff >= 0 ? "text-amber-600 font-semibold" : "text-red-500 font-semibold"}>{diff >= 0 ? "▲" : "▼"} {Math.abs(pct)}% vs last year</span>;
+                  })() : "No data"}
+                </div>
+              </div>
+              <div className="rounded-lg bg-blue-50 border border-blue-100 p-3 text-center">
+                <div className="text-2xl font-bold text-blue-800">{installYoyLoading ? "…" : installYoyData.lastYearFull}</div>
+                <div className="text-xs font-medium text-blue-700 mt-0.5">{installYoyData.lastYear} Full Year</div>
+                <div className="text-xs text-blue-500 mt-1">Jan 1 – Dec 31</div>
+              </div>
+            </div>
+            <div className="mt-3 text-xs text-stone-400">New Landscape Installation submissions only — the highest-value service type</div>
+          </div>
+        )}
+
         {/* Booked Appointments YoY Card */}
         {bookedYoyData && (
           <div className="mb-4 bg-white rounded-xl border border-emerald-200 shadow-sm p-4">
@@ -1044,7 +1086,7 @@ export default function AdminSubmissions() {
                 <div className="text-xs text-blue-500 mt-1">Jan 1 - Dec 31</div>
               </div>
             </div>
-            <div className="mt-3 text-xs text-stone-400">Confirmed booked appointments only (green rows from your spreadsheet)</div>
+            <div className="mt-3 text-xs text-stone-400">All submissions marked as scheduled/booked across all service types</div>
           </div>
         )}
 

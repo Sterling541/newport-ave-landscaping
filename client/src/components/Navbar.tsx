@@ -61,7 +61,7 @@ const resourcesItems = [
   { label: "All 100 Guides →", href: "/resources", num: "→" },
 ];
 const MEGA_PHOTO_RESOURCES =
-  "/manus-storage/resources-nav-photo-v4_17df5adc.png";
+  "/manus-storage/resources-nav-photo-v4_2d290f98.png";
 
 // Maintenance mega menu — Newport Ave residential lawn & maintenance photo
 const MEGA_PHOTO_MAINTENANCE =
