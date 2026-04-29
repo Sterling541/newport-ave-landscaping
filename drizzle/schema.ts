@@ -346,3 +346,85 @@ export const consultantRotation = mysqlTable("consultant_rotation", {
   updatedAt: timestamp("updatedAt").defaultNow().notNull().onUpdateNow(),
 });
 export type ConsultantRotation = typeof consultantRotation.$inferSelect;
+
+// ═══════════════════════════════════════════════════════════════════════════
+// NEWPORT SMART SCHEDULER
+// ═══════════════════════════════════════════════════════════════════════════
+
+/**
+ * Sales representatives for the Newport Smart Scheduler.
+ * Nathan Kooy and William Miller handle install/design (rotating).
+ * Danny Sheffield handles enhancement only.
+ */
+export const salesReps = mysqlTable("sales_reps", {
+  id: int("id").autoincrement().primaryKey(),
+  name: varchar("name", { length: 128 }).notNull(),
+  /** Role determines which appointment types this rep handles */
+  role: mysqlEnum("repRole", ["install_design", "enhancement"]).notNull(),
+  /** Google Calendar ID for this rep — set after Google Cloud setup */
+  googleCalendarId: varchar("googleCalendarId", { length: 256 }),
+  /** Email for display / notifications */
+  email: varchar("email", { length: 320 }),
+  /** Phone for display */
+  phone: varchar("phone", { length: 32 }),
+  /** Whether this rep is currently active */
+  isActive: boolean("isActive").default(true).notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type SalesRep = typeof salesReps.$inferSelect;
+export type InsertSalesRep = typeof salesReps.$inferInsert;
+
+/**
+ * Appointments scheduled through the Newport Smart Scheduler.
+ * Each appointment links a service submission (or standalone lead) to a sales rep
+ * on a specific date/time slot.
+ */
+export const appointments = mysqlTable("appointments", {
+  id: int("id").autoincrement().primaryKey(),
+  /** Optional FK to service_submissions — null for standalone appointments */
+  submissionId: int("submissionId"),
+  /** FK to sales_reps */
+  repId: int("repId").notNull(),
+  /** Date of the appointment (YYYY-MM-DD) */
+  appointmentDate: mysqlDate("appointmentDate").notNull(),
+  /** Start time as HH:MM (24h) */
+  startTime: varchar("startTime", { length: 8 }).notNull(),
+  /** End time as HH:MM (24h) */
+  endTime: varchar("endTime", { length: 8 }).notNull(),
+  /** Type of appointment */
+  appointmentType: mysqlEnum("appointmentType", [
+    "install_design",
+    "enhancement",
+    "follow_up",
+    "other",
+  ]).notNull(),
+  /** Workflow status */
+  status: mysqlEnum("appointmentStatus", [
+    "scheduled",
+    "confirmed",
+    "completed",
+    "cancelled",
+    "no_show",
+  ])
+    .default("scheduled")
+    .notNull(),
+  /** Google Calendar event ID — populated after real API integration */
+  googleEventId: varchar("googleEventId", { length: 256 }),
+  /** Estimated drive time in minutes from Newport HQ to job site */
+  driveTimeMinutes: int("driveTimeMinutes"),
+  /** Customer name (denormalized for quick display) */
+  customerName: varchar("customerName", { length: 256 }),
+  /** Customer address (denormalized for quick display) */
+  customerAddress: text("customerAddress"),
+  /** Customer phone */
+  customerPhone: varchar("customerPhone", { length: 32 }),
+  /** Admin / scheduler notes */
+  notes: text("notes"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type Appointment = typeof appointments.$inferSelect;
+export type InsertAppointment = typeof appointments.$inferInsert;

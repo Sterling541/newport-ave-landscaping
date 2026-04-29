@@ -1044,7 +1044,7 @@ export default function Navbar() {
               <MegaMenu
                 items={maintenanceItems}
                 photo={MEGA_PHOTO_MAINTENANCE}
-                photoPosition="55% 20%"
+                photoPosition="72% 18%"
                 headline={"Year-Round\nCare"}
                 subline="Maintenance Programs"
                 onNavigate={goTo}
@@ -1063,7 +1063,8 @@ export default function Navbar() {
               <MegaMenu
                 items={resourcesItems}
                 photo={MEGA_PHOTO_RESOURCES}
-                photoPosition="center 25%"
+                photoPosition="center 30%"
+                photoScale={0.72}
                 headline={"Know Before\nYou Grow"}
                 subline="Free Guides & Cost Estimates"
                 onNavigate={goTo}

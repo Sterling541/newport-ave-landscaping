@@ -35,6 +35,8 @@ const QuoteRequest = lazy(() => import("./pages/QuoteRequest"));
 const AdminQuoteLeads = lazy(() => import("./pages/admin/AdminQuoteLeads"));
 const GameAnalytics = lazy(() => import("./pages/admin/GameAnalytics"));
 const ImageTracker = lazy(() => import("./pages/admin/ImageTracker"));
+const SmartScheduler = lazy(() => import("./pages/admin/SmartScheduler"));
+const SalesReps = lazy(() => import("./pages/admin/SalesReps"));
 const OptOut = lazy(() => import("./pages/OptOut"));
 const LawnMowerDash = lazy(() => import("./pages/LawnMowerDash"));
 
@@ -544,6 +546,8 @@ function Router() {
 
       {/* Fallback */}
       <Route path={"/admin/image-tracker"} component={ImageTracker} />
+      <Route path={"/admin/scheduler"} component={SmartScheduler} />
+      <Route path={"/admin/sales-reps"} component={SalesReps} />
       <Route path={"/service-areas/old-bend-landscaping"} component={OldBendLandscaping} />
       <Route path={"/service-areas/redmond-pavers"} component={RedmondPavers} />
       <Route path={"/service-areas/redmond-irrigation"} component={RedmondIrrigation} />

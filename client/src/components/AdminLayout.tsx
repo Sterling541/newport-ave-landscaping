@@ -23,6 +23,8 @@ import {
   ClipboardList,
   MessageSquare,
   Gamepad2,
+  Calendar,
+  UserCheck,
 } from "lucide-react";
 import { useAuth } from "@/_core/hooks/useAuth";
 
@@ -75,6 +77,18 @@ const NAV_ITEMS = [
     href: "/admin/opt-out-requests",
     icon: ClipboardList,
     description: "Spray & prune opt-outs",
+  },
+  {
+    label: "Smart Scheduler",
+    href: "/admin/scheduler",
+    icon: Calendar,
+    description: "Appointments & calendar",
+  },
+  {
+    label: "Sales Reps",
+    href: "/admin/sales-reps",
+    icon: UserCheck,
+    description: "Manage sales consultants",
   },
 ];
 

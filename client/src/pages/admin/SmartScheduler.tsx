@@ -1,0 +1,813 @@
+/* ============================================================
+   ADMIN SMART SCHEDULER PAGE
+   Newport Avenue Landscaping
+   View and manage all appointments. Shows a weekly calendar
+   grid and a list view with status management.
+   ============================================================ */
+import { useState, useMemo } from "react";
+import { trpc } from "@/lib/trpc";
+import AdminLayout from "@/components/AdminLayout";
+import {
+  Calendar,
+  ChevronLeft,
+  ChevronRight,
+  Plus,
+  Clock,
+  MapPin,
+  User,
+  Phone,
+  Check,
+  X,
+  Edit2,
+  AlertCircle,
+  List,
+  LayoutGrid,
+} from "lucide-react";
+
+// ─── Helpers ──────────────────────────────────────────────────────────────────
+
+function formatDate(d: Date) {
+  return d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+}
+
+function toYMD(d: Date) {
+  return d.toISOString().split("T")[0];
+}
+
+function addDays(d: Date, n: number) {
+  const copy = new Date(d);
+  copy.setDate(copy.getDate() + n);
+  return copy;
+}
+
+function getWeekStart(d: Date) {
+  const copy = new Date(d);
+  const dow = copy.getDay(); // 0=Sun
+  copy.setDate(copy.getDate() - dow);
+  return copy;
+}
+
+const HOURS = Array.from({ length: 9 }, (_, i) => i + 8); // 8am–4pm
+
+const STATUS_STYLES: Record<string, { bg: string; text: string; label: string }> = {
+  scheduled:  { bg: "oklch(0.92 0.08 240)", text: "oklch(0.28 0.12 240)", label: "Scheduled" },
+  confirmed:  { bg: "oklch(0.92 0.10 145)", text: "oklch(0.28 0.14 145)", label: "Confirmed" },
+  completed:  { bg: "oklch(0.93 0.05 155)", text: "oklch(0.35 0.08 155)", label: "Completed" },
+  cancelled:  { bg: "oklch(0.93 0.04 0)",   text: "oklch(0.45 0.10 0)",   label: "Cancelled" },
+  no_show:    { bg: "oklch(0.93 0.06 75)",  text: "oklch(0.40 0.12 75)",  label: "No Show" },
+};
+
+const TYPE_COLORS: Record<string, string> = {
+  install_design: "oklch(0.55 0.15 240)",
+  enhancement:    "oklch(0.50 0.15 145)",
+  follow_up:      "oklch(0.55 0.15 75)",
+  other:          "oklch(0.55 0.08 155)",
+};
+
+function Toast({ message, onClose }: { message: string; onClose: () => void }) {
+  return (
+    <div
+      className="fixed bottom-6 right-6 z-50 flex items-center gap-3 px-4 py-3 rounded-xl shadow-lg text-sm font-medium"
+      style={{ background: "oklch(0.18 0.04 155)", color: "white", maxWidth: 360 }}
+    >
+      <Check className="w-4 h-4 text-green-400 shrink-0" />
+      <span>{message}</span>
+      <button onClick={onClose} className="ml-2 opacity-60 hover:opacity-100">
+        <X className="w-4 h-4" />
+      </button>
+    </div>
+  );
+}
+
+// ─── Create Appointment Modal ─────────────────────────────────────────────────
+
+interface CreateModalProps {
+  reps: { id: number; name: string; role: string }[];
+  onClose: () => void;
+  onCreated: () => void;
+  prefillDate?: string;
+}
+
+function CreateModal({ reps, onClose, onCreated, prefillDate }: CreateModalProps) {
+  const [form, setForm] = useState({
+    repId: reps[0]?.id ?? 0,
+    appointmentDate: prefillDate ?? toYMD(new Date()),
+    startTime: "09:00",
+    endTime: "10:00",
+    appointmentType: "install_design" as "install_design" | "enhancement" | "follow_up" | "other",
+    customerName: "",
+    customerAddress: "",
+    customerPhone: "",
+    notes: "",
+  });
+  const [toast, setToast] = useState<string | null>(null);
+
+  const createMutation = trpc.scheduler.createAppointment.useMutation({
+    onSuccess: () => {
+      onCreated();
+      onClose();
+    },
+    onError: (err) => setToast(`Error: ${err.message}`),
+  });
+
+  const suggestionsQuery = trpc.scheduler.getSuggestions.useQuery(
+    {
+      appointmentType: form.appointmentType,
+      customerAddress: form.customerAddress || undefined,
+      daysAhead: 7,
+    },
+    { enabled: true, refetchOnWindowFocus: false }
+  );
+
+  const suggestions = suggestionsQuery.data ?? [];
+
+  function applySuggestion(s: typeof suggestions[0]) {
+    setForm((f) => ({
+      ...f,
+      repId: s.repId,
+      appointmentDate: s.date,
+      startTime: s.startTime,
+      endTime: s.endTime,
+    }));
+  }
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
+      <div
+        className="w-full max-w-2xl rounded-2xl shadow-2xl overflow-hidden"
+        style={{ background: "white" }}
+      >
+        {/* Header */}
+        <div
+          className="flex items-center justify-between px-6 py-4 border-b"
+
+        >
+          <div className="flex items-center gap-2">
+            <Calendar className="w-5 h-5" style={{ color: "oklch(0.45 0.15 145)" }} />
+            <h2 className="font-semibold text-base" style={{ color: "oklch(0.20 0.05 155)" }}>
+              Schedule Appointment
+            </h2>
+          </div>
+          <button onClick={onClose} className="p-1.5 rounded-lg hover:bg-gray-100 transition-colors">
+            <X className="w-4 h-4" style={{ color: "oklch(0.50 0.05 155)" }} />
+          </button>
+        </div>
+
+        <div className="flex divide-x divide-[oklch(0.90_0.02_155)]">
+          {/* Form */}
+          <div className="flex-1 p-5 space-y-4 overflow-y-auto max-h-[70vh]">
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <label className="block text-xs font-medium mb-1" style={{ color: "oklch(0.45 0.05 155)" }}>
+                  Appointment Type
+                </label>
+                <select
+                  value={form.appointmentType}
+                  onChange={(e) => setForm({ ...form, appointmentType: e.target.value as any })}
+                  className="w-full px-3 py-2 rounded-lg border text-sm outline-none"
+                  style={{ borderColor: "oklch(0.82 0.03 155)" }}
+                >
+                  <option value="install_design">Install / Design</option>
+                  <option value="enhancement">Enhancement</option>
+                  <option value="follow_up">Follow-Up</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+              <div>
+                <label className="block text-xs font-medium mb-1" style={{ color: "oklch(0.45 0.05 155)" }}>
+                  Sales Rep
+                </label>
+                <select
+                  value={form.repId}
+                  onChange={(e) => setForm({ ...form, repId: Number(e.target.value) })}
+                  className="w-full px-3 py-2 rounded-lg border text-sm outline-none"
+                  style={{ borderColor: "oklch(0.82 0.03 155)" }}
+                >
+                  {reps.map((r) => (
+                    <option key={r.id} value={r.id}>{r.name}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-3 gap-3">
+              <div>
+                <label className="block text-xs font-medium mb-1" style={{ color: "oklch(0.45 0.05 155)" }}>
+                  Date
+                </label>
+                <input
+                  type="date"
+                  value={form.appointmentDate}
+                  onChange={(e) => setForm({ ...form, appointmentDate: e.target.value })}
+                  className="w-full px-3 py-2 rounded-lg border text-sm outline-none"
+                  style={{ borderColor: "oklch(0.82 0.03 155)" }}
+                />
+              </div>
+              <div>
+                <label className="block text-xs font-medium mb-1" style={{ color: "oklch(0.45 0.05 155)" }}>
+                  Start
+                </label>
+                <input
+                  type="time"
+                  value={form.startTime}
+                  onChange={(e) => setForm({ ...form, startTime: e.target.value })}
+                  className="w-full px-3 py-2 rounded-lg border text-sm outline-none"
+                  style={{ borderColor: "oklch(0.82 0.03 155)" }}
+                />
+              </div>
+              <div>
+                <label className="block text-xs font-medium mb-1" style={{ color: "oklch(0.45 0.05 155)" }}>
+                  End
+                </label>
+                <input
+                  type="time"
+                  value={form.endTime}
+                  onChange={(e) => setForm({ ...form, endTime: e.target.value })}
+                  className="w-full px-3 py-2 rounded-lg border text-sm outline-none"
+                  style={{ borderColor: "oklch(0.82 0.03 155)" }}
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-xs font-medium mb-1" style={{ color: "oklch(0.45 0.05 155)" }}>
+                Customer Name
+              </label>
+              <input
+                type="text"
+                value={form.customerName}
+                onChange={(e) => setForm({ ...form, customerName: e.target.value })}
+                placeholder="Full name"
+                className="w-full px-3 py-2 rounded-lg border text-sm outline-none"
+                style={{ borderColor: "oklch(0.82 0.03 155)" }}
+              />
+            </div>
+
+            <div>
+              <label className="block text-xs font-medium mb-1" style={{ color: "oklch(0.45 0.05 155)" }}>
+                Customer Address
+              </label>
+              <input
+                type="text"
+                value={form.customerAddress}
+                onChange={(e) => setForm({ ...form, customerAddress: e.target.value })}
+                placeholder="Site address (used for drive time estimate)"
+                className="w-full px-3 py-2 rounded-lg border text-sm outline-none"
+                style={{ borderColor: "oklch(0.82 0.03 155)" }}
+              />
+            </div>
+
+            <div>
+              <label className="block text-xs font-medium mb-1" style={{ color: "oklch(0.45 0.05 155)" }}>
+                Customer Phone
+              </label>
+              <input
+                type="tel"
+                value={form.customerPhone}
+                onChange={(e) => setForm({ ...form, customerPhone: e.target.value })}
+                placeholder="(541) 555-0100"
+                className="w-full px-3 py-2 rounded-lg border text-sm outline-none"
+                style={{ borderColor: "oklch(0.82 0.03 155)" }}
+              />
+            </div>
+
+            <div>
+              <label className="block text-xs font-medium mb-1" style={{ color: "oklch(0.45 0.05 155)" }}>
+                Notes
+              </label>
+              <textarea
+                value={form.notes}
+                onChange={(e) => setForm({ ...form, notes: e.target.value })}
+                rows={2}
+                placeholder="Internal notes…"
+                className="w-full px-3 py-2 rounded-lg border text-sm outline-none resize-none"
+                style={{ borderColor: "oklch(0.82 0.03 155)" }}
+              />
+            </div>
+
+            {toast && (
+              <div className="text-sm text-red-600 bg-red-50 px-3 py-2 rounded-lg">{toast}</div>
+            )}
+
+            <div className="flex gap-2 pt-1">
+              <button
+                onClick={() => createMutation.mutate(form)}
+                disabled={createMutation.isPending || !form.repId}
+                className="flex-1 py-2 rounded-lg text-sm font-medium text-white disabled:opacity-50"
+                style={{ background: "oklch(0.45 0.15 145)" }}
+              >
+                {createMutation.isPending ? "Scheduling…" : "Schedule Appointment"}
+              </button>
+              <button
+                onClick={onClose}
+                className="px-4 py-2 rounded-lg text-sm border"
+                style={{ borderColor: "oklch(0.82 0.03 155)", color: "oklch(0.50 0.05 155)" }}
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+
+          {/* Suggestions Panel */}
+          <div className="w-56 p-4 overflow-y-auto max-h-[70vh]" style={{ background: "oklch(0.97 0.01 145)" }}>
+            <p className="text-xs font-semibold mb-3" style={{ color: "oklch(0.35 0.08 145)" }}>
+              Suggested Slots
+            </p>
+            {suggestionsQuery.isLoading ? (
+              <p className="text-xs" style={{ color: "oklch(0.60 0.04 155)" }}>Loading…</p>
+            ) : suggestions.length === 0 ? (
+              <p className="text-xs" style={{ color: "oklch(0.60 0.04 155)" }}>No suggestions available.</p>
+            ) : (
+              <div className="space-y-2">
+                {suggestions.slice(0, 8).map((s, i) => (
+                  <button
+                    key={i}
+                    onClick={() => applySuggestion(s)}
+                    className="w-full text-left p-2.5 rounded-xl border transition-colors hover:border-green-400"
+                    style={{
+                      background: "white",
+                      borderColor: "oklch(0.88 0.04 145)",
+                    }}
+                  >
+                    <div className="text-xs font-semibold" style={{ color: "oklch(0.25 0.08 155)" }}>
+                      {new Date(s.date + "T12:00:00").toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" })}
+                    </div>
+                    <div className="text-xs mt-0.5" style={{ color: "oklch(0.50 0.05 155)" }}>
+                      {s.startTime} – {s.endTime}
+                    </div>
+                    <div className="text-xs mt-0.5 font-medium" style={{ color: "oklch(0.40 0.12 145)" }}>
+                      {s.repName}
+                    </div>
+                    <div className="text-[10px] mt-0.5" style={{ color: "oklch(0.60 0.04 155)" }}>
+                      Score {s.score} · {s.scoreReason}
+                    </div>
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ─── Main Page ────────────────────────────────────────────────────────────────
+
+export default function SmartScheduler() {
+  const [view, setView] = useState<"list" | "week">("list");
+  const [weekStart, setWeekStart] = useState(() => getWeekStart(new Date()));
+  const [showCreate, setShowCreate] = useState(false);
+  const [toast, setToast] = useState<string | null>(null);
+  const [editingId, setEditingId] = useState<number | null>(null);
+  const [editStatus, setEditStatus] = useState<string>("scheduled");
+  const [editNotes, setEditNotes] = useState("");
+
+  const showToast = (msg: string) => {
+    setToast(msg);
+    setTimeout(() => setToast(null), 3500);
+  };
+
+  const weekEnd = addDays(weekStart, 6);
+
+  const { data: reps = [] } = trpc.scheduler.listReps.useQuery(
+    { includeInactive: false },
+    { refetchOnWindowFocus: false }
+  );
+
+  const { data: appointments = [], isLoading, refetch } = trpc.scheduler.listAppointments.useQuery(
+    {
+      dateFrom: toYMD(view === "week" ? weekStart : addDays(new Date(), -30)),
+      dateTo: toYMD(view === "week" ? weekEnd : addDays(new Date(), 60)),
+      limit: 300,
+    },
+    { refetchOnWindowFocus: false }
+  );
+
+  const updateMutation = trpc.scheduler.updateAppointment.useMutation({
+    onSuccess: () => {
+      showToast("Appointment updated.");
+      setEditingId(null);
+      refetch();
+    },
+    onError: (err) => showToast(`Error: ${err.message}`),
+  });
+
+  const cancelMutation = trpc.scheduler.cancelAppointment.useMutation({
+    onSuccess: () => {
+      showToast("Appointment cancelled.");
+      refetch();
+    },
+    onError: (err) => showToast(`Error: ${err.message}`),
+  });
+
+  // Build week days (Mon–Fri)
+  const weekDays = useMemo(() => {
+    return Array.from({ length: 7 }, (_, i) => addDays(weekStart, i));
+  }, [weekStart]);
+
+  // Group appointments by date for week view
+  const apptsByDate = useMemo(() => {
+    const map: Record<string, typeof appointments> = {};
+    for (const a of appointments) {
+      const d = typeof a.appointmentDate === "string"
+        ? a.appointmentDate
+        : toYMD(new Date(a.appointmentDate as any));
+      if (!map[d]) map[d] = [];
+      map[d].push(a);
+    }
+    return map;
+  }, [appointments]);
+
+  function startEdit(appt: (typeof appointments)[0]) {
+    setEditingId(appt.id);
+    setEditStatus(appt.status);
+    setEditNotes(appt.notes ?? "");
+  }
+
+  function submitEdit(id: number) {
+    updateMutation.mutate({
+      id,
+      status: editStatus as any,
+      notes: editNotes || null,
+    });
+  }
+
+  const repMap = useMemo(() => {
+    const m: Record<number, string> = {};
+    for (const r of reps) m[r.id] = r.name;
+    return m;
+  }, [reps]);
+
+  return (
+    <AdminLayout>
+      <div className="p-6 max-w-6xl mx-auto">
+        {/* Header */}
+        <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center gap-3">
+            <div
+              className="w-10 h-10 rounded-xl flex items-center justify-center"
+              style={{ background: "oklch(0.92 0.08 240)" }}
+            >
+              <Calendar className="w-5 h-5" style={{ color: "oklch(0.28 0.12 240)" }} />
+            </div>
+            <div>
+              <h1 className="text-xl font-bold" style={{ color: "oklch(0.18 0.04 155)" }}>
+                Smart Scheduler
+              </h1>
+              <p className="text-sm" style={{ color: "oklch(0.50 0.05 155)" }}>
+                {appointments.length} appointment{appointments.length !== 1 ? "s" : ""} in view
+              </p>
+            </div>
+          </div>
+          <div className="flex items-center gap-2">
+            {/* View toggle */}
+            <div
+              className="flex rounded-lg border overflow-hidden"
+              style={{ borderColor: "oklch(0.85 0.02 155)" }}
+            >
+              <button
+                onClick={() => setView("list")}
+                className="flex items-center gap-1.5 px-3 py-1.5 text-sm transition-colors"
+                style={{
+                  background: view === "list" ? "oklch(0.18 0.04 155)" : "white",
+                  color: view === "list" ? "white" : "oklch(0.50 0.05 155)",
+                }}
+              >
+                <List className="w-3.5 h-3.5" />
+                List
+              </button>
+              <button
+                onClick={() => setView("week")}
+                className="flex items-center gap-1.5 px-3 py-1.5 text-sm transition-colors"
+                style={{
+                  background: view === "week" ? "oklch(0.18 0.04 155)" : "white",
+                  color: view === "week" ? "white" : "oklch(0.50 0.05 155)",
+                }}
+              >
+                <LayoutGrid className="w-3.5 h-3.5" />
+                Week
+              </button>
+            </div>
+
+            {/* Week navigation (only in week view) */}
+            {view === "week" && (
+              <div className="flex items-center gap-1">
+                <button
+                  onClick={() => setWeekStart(addDays(weekStart, -7))}
+                  className="p-1.5 rounded-lg border hover:bg-gray-50 transition-colors"
+                  style={{ borderColor: "oklch(0.85 0.02 155)" }}
+                >
+                  <ChevronLeft className="w-4 h-4" style={{ color: "oklch(0.50 0.05 155)" }} />
+                </button>
+                <span className="text-sm px-2" style={{ color: "oklch(0.40 0.05 155)" }}>
+                  {formatDate(weekStart)} – {formatDate(weekEnd)}
+                </span>
+                <button
+                  onClick={() => setWeekStart(addDays(weekStart, 7))}
+                  className="p-1.5 rounded-lg border hover:bg-gray-50 transition-colors"
+                  style={{ borderColor: "oklch(0.85 0.02 155)" }}
+                >
+                  <ChevronRight className="w-4 h-4" style={{ color: "oklch(0.50 0.05 155)" }} />
+                </button>
+              </div>
+            )}
+
+            <button
+              onClick={() => setShowCreate(true)}
+              className="flex items-center gap-2 px-4 py-1.5 rounded-lg text-sm font-medium text-white"
+              style={{ background: "oklch(0.45 0.15 145)" }}
+            >
+              <Plus className="w-4 h-4" />
+              New Appointment
+            </button>
+          </div>
+        </div>
+
+        {/* Google Calendar Notice */}
+        <div
+          className="mb-5 flex items-start gap-3 p-4 rounded-xl border"
+          style={{ background: "oklch(0.97 0.04 75)", borderColor: "oklch(0.88 0.08 75)" }}
+        >
+          <AlertCircle className="w-4 h-4 mt-0.5 shrink-0" style={{ color: "oklch(0.55 0.15 75)" }} />
+          <div className="text-sm" style={{ color: "oklch(0.40 0.10 75)" }}>
+            <strong>Google Calendar sync is pending setup.</strong> Appointments are stored in the database now.
+            Once you complete Google Cloud setup and add Calendar IDs in Sales Reps, appointments will sync automatically.
+          </div>
+        </div>
+
+        {/* ── LIST VIEW ── */}
+        {view === "list" && (
+          <div>
+            {isLoading ? (
+              <div className="text-center py-12 text-sm" style={{ color: "oklch(0.60 0.04 155)" }}>
+                Loading appointments…
+              </div>
+            ) : appointments.length === 0 ? (
+              <div
+                className="text-center py-16 rounded-2xl border border-dashed"
+                style={{ borderColor: "oklch(0.82 0.03 155)" }}
+              >
+                <Calendar className="w-10 h-10 mx-auto mb-3 opacity-20" />
+                <p className="font-medium mb-1" style={{ color: "oklch(0.40 0.05 155)" }}>
+                  No appointments yet
+                </p>
+                <p className="text-sm mb-4" style={{ color: "oklch(0.60 0.04 155)" }}>
+                  Click "New Appointment" to schedule one.
+                </p>
+              </div>
+            ) : (
+              <div className="space-y-3">
+                {appointments.map((appt: (typeof appointments)[0]) => {
+                  const dateStr = typeof appt.appointmentDate === "string"
+                    ? appt.appointmentDate
+                    : toYMD(new Date(appt.appointmentDate as any));
+                  const displayDate = new Date(dateStr + "T12:00:00").toLocaleDateString("en-US", {
+                    weekday: "short", month: "short", day: "numeric", year: "numeric",
+                  });
+                  const ss = STATUS_STYLES[appt.status] ?? STATUS_STYLES.scheduled;
+
+                  return (
+                    <div
+                      key={appt.id}
+                      className="rounded-2xl border p-5 transition-shadow hover:shadow-sm"
+                      style={{
+                        background: appt.status === "cancelled" ? "oklch(0.97 0.005 155)" : "white",
+                        borderColor: "oklch(0.88 0.02 155)",
+                        opacity: appt.status === "cancelled" ? 0.65 : 1,
+                      }}
+                    >
+                      {editingId === appt.id ? (
+                        <div className="space-y-3">
+                          <div className="grid grid-cols-2 gap-3">
+                            <div>
+                              <label className="block text-xs font-medium mb-1" style={{ color: "oklch(0.45 0.05 155)" }}>
+                                Status
+                              </label>
+                              <select
+                                value={editStatus}
+                                onChange={(e) => setEditStatus(e.target.value)}
+                                className="w-full px-3 py-2 rounded-lg border text-sm outline-none"
+                                style={{ borderColor: "oklch(0.82 0.03 155)" }}
+                              >
+                                <option value="scheduled">Scheduled</option>
+                                <option value="confirmed">Confirmed</option>
+                                <option value="completed">Completed</option>
+                                <option value="cancelled">Cancelled</option>
+                                <option value="no_show">No Show</option>
+                              </select>
+                            </div>
+                            <div>
+                              <label className="block text-xs font-medium mb-1" style={{ color: "oklch(0.45 0.05 155)" }}>
+                                Notes
+                              </label>
+                              <input
+                                type="text"
+                                value={editNotes}
+                                onChange={(e) => setEditNotes(e.target.value)}
+                                className="w-full px-3 py-2 rounded-lg border text-sm outline-none"
+                                style={{ borderColor: "oklch(0.82 0.03 155)" }}
+                              />
+                            </div>
+                          </div>
+                          <div className="flex gap-2">
+                            <button
+                              onClick={() => submitEdit(appt.id)}
+                              disabled={updateMutation.isPending}
+                              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium text-white"
+                              style={{ background: "oklch(0.45 0.15 145)" }}
+                            >
+                              <Check className="w-3.5 h-3.5" />
+                              {updateMutation.isPending ? "Saving…" : "Save"}
+                            </button>
+                            <button
+                              onClick={() => setEditingId(null)}
+                              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm border"
+                              style={{ borderColor: "oklch(0.82 0.03 155)", color: "oklch(0.50 0.05 155)" }}
+                            >
+                              <X className="w-3.5 h-3.5" />
+                              Cancel
+                            </button>
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="flex items-start justify-between gap-4">
+                          <div className="flex items-start gap-4">
+                            <div
+                              className="w-2 self-stretch rounded-full shrink-0"
+                              style={{ background: TYPE_COLORS[appt.appointmentType] ?? "oklch(0.55 0.08 155)" }}
+                            />
+                            <div>
+                              <div className="flex items-center gap-2 flex-wrap mb-1">
+                                <span className="font-semibold text-sm" style={{ color: "oklch(0.20 0.05 155)" }}>
+                                  {appt.customerName ?? "Customer"}
+                                </span>
+                                <span
+                                  className="px-2 py-0.5 rounded-full text-xs font-medium"
+                                  style={{ background: ss.bg, color: ss.text }}
+                                >
+                                  {ss.label}
+                                </span>
+                              </div>
+                              <div className="space-y-0.5">
+                                <div className="flex items-center gap-1.5 text-xs" style={{ color: "oklch(0.45 0.05 155)" }}>
+                                  <Clock className="w-3 h-3" />
+                                  {displayDate} · {appt.startTime} – {appt.endTime}
+                                </div>
+                                <div className="flex items-center gap-1.5 text-xs" style={{ color: "oklch(0.45 0.05 155)" }}>
+                                  <User className="w-3 h-3" />
+                                  {repMap[appt.repId] ?? `Rep #${appt.repId}`}
+                                  {appt.driveTimeMinutes && (
+                                    <span className="opacity-60">· ~{appt.driveTimeMinutes}min drive</span>
+                                  )}
+                                </div>
+                                {appt.customerAddress && (
+                                  <div className="flex items-center gap-1.5 text-xs" style={{ color: "oklch(0.45 0.05 155)" }}>
+                                    <MapPin className="w-3 h-3" />
+                                    {appt.customerAddress}
+                                  </div>
+                                )}
+                                {appt.customerPhone && (
+                                  <div className="flex items-center gap-1.5 text-xs" style={{ color: "oklch(0.45 0.05 155)" }}>
+                                    <Phone className="w-3 h-3" />
+                                    {appt.customerPhone}
+                                  </div>
+                                )}
+                                {appt.notes && (
+                                  <div className="text-xs mt-1 italic" style={{ color: "oklch(0.55 0.04 155)" }}>
+                                    {appt.notes}
+                                  </div>
+                                )}
+                              </div>
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-2 shrink-0">
+                            <button
+                              onClick={() => startEdit(appt)}
+                              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs border hover:bg-gray-50 transition-colors"
+                              style={{ borderColor: "oklch(0.85 0.02 155)", color: "oklch(0.50 0.05 155)" }}
+                            >
+                              <Edit2 className="w-3 h-3" />
+                              Edit
+                            </button>
+                            {appt.status !== "cancelled" && (
+                              <button
+                                onClick={() => cancelMutation.mutate({ id: appt.id })}
+                                disabled={cancelMutation.isPending}
+                                className="px-3 py-1.5 rounded-lg text-xs border transition-colors"
+                                style={{
+                                  borderColor: "oklch(0.88 0.06 0)",
+                                  color: "oklch(0.45 0.12 0)",
+                                  background: "oklch(0.97 0.03 0)",
+                                }}
+                              >
+                                Cancel
+                              </button>
+                            )}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* ── WEEK VIEW ── */}
+        {view === "week" && (
+          <div
+            className="rounded-2xl border overflow-hidden"
+            style={{ borderColor: "oklch(0.88 0.02 155)" }}
+          >
+            {/* Day headers */}
+            <div className="grid grid-cols-8 border-b" style={{ borderColor: "oklch(0.88 0.02 155)" }}>
+              <div className="p-2 text-xs" style={{ color: "oklch(0.60 0.04 155)" }} />
+              {weekDays.map((day) => {
+                const isToday = toYMD(day) === toYMD(new Date());
+                return (
+                  <div
+                    key={toYMD(day)}
+                    className="p-2 text-center border-l"
+                    style={{
+                      borderColor: "oklch(0.88 0.02 155)",
+                      background: isToday ? "oklch(0.95 0.05 145)" : "white",
+                    }}
+                  >
+                    <div className="text-xs font-medium" style={{ color: isToday ? "oklch(0.35 0.12 145)" : "oklch(0.50 0.05 155)" }}>
+                      {day.toLocaleDateString("en-US", { weekday: "short" })}
+                    </div>
+                    <div
+                      className="text-sm font-bold"
+                      style={{ color: isToday ? "oklch(0.30 0.14 145)" : "oklch(0.25 0.05 155)" }}
+                    >
+                      {day.getDate()}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Hour rows */}
+            {HOURS.map((hour) => (
+              <div
+                key={hour}
+                className="grid grid-cols-8 border-b"
+                style={{ borderColor: "oklch(0.92 0.01 155)", minHeight: 56 }}
+              >
+                <div
+                  className="p-2 text-xs text-right pr-3 pt-1 shrink-0"
+                  style={{ color: "oklch(0.65 0.04 155)" }}
+                >
+                  {hour === 12 ? "12pm" : hour < 12 ? `${hour}am` : `${hour - 12}pm`}
+                </div>
+                {weekDays.map((day) => {
+                  const dateStr = toYMD(day);
+                  const dayAppts = (apptsByDate[dateStr] ?? []).filter(
+                    (a: (typeof appointments)[0]) => a.startTime.startsWith(`${hour.toString().padStart(2, "0")}:`)
+                  );
+                  return (
+                    <div
+                      key={dateStr}
+                      className="border-l p-1 space-y-1"
+                      style={{ borderColor: "oklch(0.92 0.01 155)" }}
+                    >
+                      {dayAppts.map((a: (typeof appointments)[0]) => (
+                        <div
+                          key={a.id}
+                          className="rounded px-1.5 py-1 text-[10px] leading-tight cursor-pointer"
+                          style={{
+                            background: TYPE_COLORS[a.appointmentType] ?? "oklch(0.55 0.08 155)",
+                            color: "white",
+                            opacity: a.status === "cancelled" ? 0.5 : 1,
+                          }}
+                          onClick={() => startEdit(a)}
+                          title={`${a.customerName ?? "Customer"} · ${a.startTime}–${a.endTime}`}
+                        >
+                          <div className="font-medium truncate">{a.customerName ?? "Customer"}</div>
+                          <div className="opacity-80">{repMap[a.repId] ?? "Rep"}</div>
+                        </div>
+                      ))}
+                    </div>
+                  );
+                })}
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* Create Modal */}
+      {showCreate && (
+        <CreateModal
+          reps={reps}
+          onClose={() => setShowCreate(false)}
+          onCreated={() => { refetch(); showToast("Appointment scheduled."); }}
+        />
+      )}
+
+      {toast && <Toast message={toast} onClose={() => setToast(null)} />}
+    </AdminLayout>
+  );
+}

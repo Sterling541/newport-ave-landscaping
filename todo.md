@@ -1045,3 +1045,19 @@
 - [x] Add scheduledOnly filter to getYoyStats in db.ts
 - [x] Add scheduledOnly input to yoyStats procedure in routers.ts
 - [x] Add Booked Appointments YoY card to AdminSubmissions dashboard
+
+## Session — Apr 29, 2026 (Smart Scheduler Build)
+
+- [x] Fix Navbar dropdown photo positions for Maintenance and Resources
+- [x] Add salesReps and appointments tables to drizzle/schema.ts
+- [x] Run pnpm db:push to create sales_reps and appointments tables in DB
+- [x] Build server/scheduler.ts with load balancing, slot suggestions, Google Calendar stub
+- [x] Add tRPC scheduler router to server/routers.ts (listReps, createRep, updateRep, createAppointment, listAppointments, updateAppointment, cancelAppointment, getSlotSuggestions)
+- [x] Build admin/SalesReps.tsx page (add/edit/deactivate reps, Google Calendar ID field)
+- [x] Build admin/SmartScheduler.tsx page (week calendar view + list view, status editing)
+- [x] Add Smart Scheduler nav items to AdminLayout sidebar (Calendar, UserCheck icons)
+- [x] Register /admin/scheduler and /admin/sales-reps routes in App.tsx
+- [x] Add CalendarPlus Schedule button to AdminSubmissions row actions
+- [x] Add Schedule Appointment modal to AdminSubmissions (pre-fills customer data)
+- [x] Seed Nathan Kooy, William Miller, Danny Sheffield as default sales reps
+- [x] Write 14 unit tests for scheduler logic (scheduler.test.ts) — all passing

@@ -71,7 +71,7 @@ import AdminLayout from "@/components/AdminLayout";
 // getLoginUrl removed — using PIN auth instead
 import { toast } from "sonner";
 import {
-  PhoneCall, PhoneOff, PhoneMissed, CalendarCheck, ThumbsDown, Clock, Trophy, XCircle,
+  PhoneCall, PhoneOff, PhoneMissed, CalendarCheck, ThumbsDown, Clock, Trophy, XCircle, CalendarPlus,
 } from "lucide-react";
 import {
   DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger,
@@ -564,6 +564,8 @@ export default function AdminSubmissions() {
   const [sortDir, setSortDir] = useState<SortDir>("desc");
   const [selected, setSelected] = useState<Submission | null>(null);
   const [deleteId, setDeleteId] = useState<number | null>(null);
+  const [scheduleSubmission, setScheduleSubmission] = useState<Submission | null>(null);
+  const [scheduleForm, setScheduleForm] = useState({ repId: 0, appointmentDate: "", startTime: "09:00", endTime: "10:00", appointmentType: "install_design" as "install_design" | "enhancement" | "follow_up" | "other", notes: "" });
   const [activeTab, setActiveTab] = useState("submissions");
   const [insightsEnabled, setInsightsEnabled] = useState(false);
   const [monthFilter, setMonthFilter] = useState<number | undefined>(undefined);
@@ -624,6 +626,20 @@ export default function AdminSubmissions() {
   const followUpMap = new Map<number, string>(
     (statusSummaryQuery.data ?? []).map(r => [r.submissionId, r.status])
   );
+  const { data: repsData } = trpc.scheduler.listReps.useQuery(
+    { includeInactive: false },
+    { enabled: !!user, refetchOnWindowFocus: false }
+  );
+  const reps = repsData ?? [];
+
+  const createApptMutation = trpc.scheduler.createAppointment.useMutation({
+    onSuccess: () => {
+      toast.success("Appointment scheduled!");
+      setScheduleSubmission(null);
+    },
+    onError: (err) => toast.error(`Schedule error: ${err.message}`),
+  });
+
   const deleteMutation = trpc.submissions.delete.useMutation({
     onSuccess: () => {
       setDeleteId(null);
@@ -1245,6 +1261,22 @@ export default function AdminSubmissions() {
                           <Button
                             variant="ghost"
                             size="sm"
+                            onClick={() => {
+                              const today = new Date();
+                              const yyyy = today.getFullYear();
+                              const mm = String(today.getMonth() + 1).padStart(2, "0");
+                              const dd = String(today.getDate()).padStart(2, "0");
+                              setScheduleForm({ repId: reps[0]?.id ?? 0, appointmentDate: `${yyyy}-${mm}-${dd}`, startTime: "09:00", endTime: "10:00", appointmentType: "install_design", notes: "" });
+                              setScheduleSubmission(row);
+                            }}
+                            className="h-7 w-7 p-0 text-stone-400 hover:text-blue-600"
+                            title="Schedule appointment"
+                          >
+                            <CalendarPlus className="w-4 h-4" />
+                          </Button>
+                          <Button
+                            variant="ghost"
+                            size="sm"
                             onClick={() => markSpamMutation.mutate({ id: row.id, isSpam: !row.isSpam })}
                             className={`h-7 w-7 p-0 ${row.isSpam ? 'text-orange-500 hover:text-orange-700' : 'text-stone-400 hover:text-orange-500'}`}
                             title={row.isSpam ? 'Unmark spam' : 'Mark as spam'}
@@ -1403,6 +1435,103 @@ export default function AdminSubmissions() {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
+
+      {/* Schedule Appointment Modal */}
+      {scheduleSubmission && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
+          <div className="w-full max-w-lg rounded-2xl shadow-2xl bg-white overflow-hidden">
+            <div className="flex items-center justify-between px-6 py-4 border-b border-stone-100">
+              <div className="flex items-center gap-2">
+                <CalendarPlus className="w-5 h-5 text-blue-600" />
+                <h2 className="font-semibold text-base text-stone-800">Schedule Appointment</h2>
+              </div>
+              <button onClick={() => setScheduleSubmission(null)} className="p-1.5 rounded-lg hover:bg-stone-100 transition-colors">
+                <XCircle className="w-4 h-4 text-stone-400" />
+              </button>
+            </div>
+            <div className="p-5 space-y-4">
+              {/* Customer info (read-only) */}
+              <div className="p-3 rounded-xl bg-stone-50 border border-stone-100 text-sm">
+                <div className="font-medium text-stone-700">{scheduleSubmission.firstName} {scheduleSubmission.lastName}</div>
+                <div className="text-stone-500 text-xs mt-0.5">{scheduleSubmission.siteAddress}</div>
+                {scheduleSubmission.phone && <div className="text-stone-500 text-xs">{scheduleSubmission.phone}</div>}
+              </div>
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-xs font-medium mb-1 text-stone-500">Appointment Type</label>
+                  <select
+                    value={scheduleForm.appointmentType}
+                    onChange={(e) => setScheduleForm({ ...scheduleForm, appointmentType: e.target.value as any })}
+                    className="w-full px-3 py-2 rounded-lg border border-stone-200 text-sm outline-none"
+                  >
+                    <option value="install_design">Install / Design</option>
+                    <option value="enhancement">Enhancement</option>
+                    <option value="follow_up">Follow-Up</option>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-xs font-medium mb-1 text-stone-500">Sales Rep</label>
+                  <select
+                    value={scheduleForm.repId}
+                    onChange={(e) => setScheduleForm({ ...scheduleForm, repId: Number(e.target.value) })}
+                    className="w-full px-3 py-2 rounded-lg border border-stone-200 text-sm outline-none"
+                  >
+                    {reps.length === 0 && <option value={0}>No reps — seed first</option>}
+                    {reps.map((r) => (
+                      <option key={r.id} value={r.id}>{r.name}</option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+              <div className="grid grid-cols-3 gap-3">
+                <div>
+                  <label className="block text-xs font-medium mb-1 text-stone-500">Date</label>
+                  <input type="date" value={scheduleForm.appointmentDate} onChange={(e) => setScheduleForm({ ...scheduleForm, appointmentDate: e.target.value })} className="w-full px-3 py-2 rounded-lg border border-stone-200 text-sm outline-none" />
+                </div>
+                <div>
+                  <label className="block text-xs font-medium mb-1 text-stone-500">Start</label>
+                  <input type="time" value={scheduleForm.startTime} onChange={(e) => setScheduleForm({ ...scheduleForm, startTime: e.target.value })} className="w-full px-3 py-2 rounded-lg border border-stone-200 text-sm outline-none" />
+                </div>
+                <div>
+                  <label className="block text-xs font-medium mb-1 text-stone-500">End</label>
+                  <input type="time" value={scheduleForm.endTime} onChange={(e) => setScheduleForm({ ...scheduleForm, endTime: e.target.value })} className="w-full px-3 py-2 rounded-lg border border-stone-200 text-sm outline-none" />
+                </div>
+              </div>
+              <div>
+                <label className="block text-xs font-medium mb-1 text-stone-500">Notes</label>
+                <input type="text" value={scheduleForm.notes} onChange={(e) => setScheduleForm({ ...scheduleForm, notes: e.target.value })} placeholder="Internal notes…" className="w-full px-3 py-2 rounded-lg border border-stone-200 text-sm outline-none" />
+              </div>
+              <div className="flex gap-2 pt-1">
+                <button
+                  onClick={() => createApptMutation.mutate({
+                    submissionId: scheduleSubmission.id,
+                    repId: scheduleForm.repId,
+                    appointmentDate: scheduleForm.appointmentDate,
+                    startTime: scheduleForm.startTime,
+                    endTime: scheduleForm.endTime,
+                    appointmentType: scheduleForm.appointmentType,
+                    customerName: `${scheduleSubmission.firstName} ${scheduleSubmission.lastName}`,
+                    customerAddress: scheduleSubmission.siteAddress,
+                    customerPhone: scheduleSubmission.phone,
+                    notes: scheduleForm.notes || undefined,
+                  })}
+                  disabled={createApptMutation.isPending || !scheduleForm.repId || !scheduleForm.appointmentDate}
+                  className="flex-1 py-2 rounded-lg text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 disabled:opacity-50 transition-colors"
+                >
+                  {createApptMutation.isPending ? "Scheduling…" : "Confirm Appointment"}
+                </button>
+                <button
+                  onClick={() => setScheduleSubmission(null)}
+                  className="px-4 py-2 rounded-lg text-sm border border-stone-200 text-stone-500 hover:bg-stone-50 transition-colors"
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
     </AdminLayout>
   );

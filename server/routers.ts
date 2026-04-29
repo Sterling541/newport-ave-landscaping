@@ -39,6 +39,20 @@ import {
 } from "./db";
 import { invokeLLM } from "./_core/llm";
 import { ENV } from "./_core/env";
+import {
+  listSalesReps,
+  getSalesRepById,
+  createSalesRep,
+  updateSalesRep,
+  listAppointments,
+  getAppointmentById,
+  createAppointment,
+  updateAppointment,
+  cancelAppointment,
+  getSlotSuggestions,
+  getSuggestedRep,
+  seedDefaultReps,
+} from "./scheduler";
 import { fetchHistoricalWeather, fetchWeatherForecast, describeWeatherCode } from "./weather";
 import { processCsvImport } from "./csvImport";
 import { generateInsights, generateDailyPulseSummary } from "./insightsGenerator";
@@ -1511,6 +1525,155 @@ Be specific, data-driven, and actionable. Format as JSON with keys: bestMonths (
       .query(async ({ ctx }) => {
         requireAdmin(ctx);
         return await getGameStats();
+      }),
+  }),
+  // ── Smart Scheduler ──────────────────────────────────────────────────────
+  scheduler: router({
+    /** Admin: seed default reps (Nathan, William, Danny) if not already present */
+    seedReps: protectedProcedure
+      .mutation(async ({ ctx }) => {
+        requireAdmin(ctx);
+        await seedDefaultReps();
+        return { success: true };
+      }),
+
+    /** Admin: list all sales reps */
+    listReps: protectedProcedure
+      .input(z.object({ includeInactive: z.boolean().default(false) }))
+      .query(async ({ ctx, input }) => {
+        requireAdmin(ctx);
+        return listSalesReps(input.includeInactive);
+      }),
+
+    /** Admin: create a new sales rep */
+    createRep: protectedProcedure
+      .input(z.object({
+        name: z.string().min(1).max(128),
+        role: z.enum(["install_design", "enhancement"]),
+        googleCalendarId: z.string().max(256).optional(),
+        email: z.string().email().max(320).optional(),
+        phone: z.string().max(32).optional(),
+      }))
+      .mutation(async ({ ctx, input }) => {
+        requireAdmin(ctx);
+        await createSalesRep(input);
+        return { success: true };
+      }),
+
+    /** Admin: update a sales rep */
+    updateRep: protectedProcedure
+      .input(z.object({
+        id: z.number(),
+        name: z.string().min(1).max(128).optional(),
+        role: z.enum(["install_design", "enhancement"]).optional(),
+        googleCalendarId: z.string().max(256).nullable().optional(),
+        email: z.string().email().max(320).nullable().optional(),
+        phone: z.string().max(32).nullable().optional(),
+        isActive: z.boolean().optional(),
+      }))
+      .mutation(async ({ ctx, input }) => {
+        requireAdmin(ctx);
+        const { id, ...data } = input;
+        await updateSalesRep(id, data);
+        return { success: true };
+      }),
+
+    /** Admin: get slot suggestions for a new appointment */
+    getSuggestions: protectedProcedure
+      .input(z.object({
+        appointmentType: z.enum(["install_design", "enhancement", "follow_up", "other"]),
+        customerAddress: z.string().max(500).optional(),
+        daysAhead: z.number().min(1).max(30).default(7),
+        repId: z.number().optional(),
+      }))
+      .query(async ({ ctx, input }) => {
+        requireAdmin(ctx);
+        return getSlotSuggestions(input);
+      }),
+
+    /** Admin: get the suggested (next-in-rotation) rep for an appointment type */
+    getSuggestedRep: protectedProcedure
+      .input(z.object({
+        appointmentType: z.enum(["install_design", "enhancement", "follow_up", "other"]),
+      }))
+      .query(async ({ ctx, input }) => {
+        requireAdmin(ctx);
+        return getSuggestedRep(input.appointmentType);
+      }),
+
+    /** Admin: list appointments */
+    listAppointments: protectedProcedure
+      .input(z.object({
+        repId: z.number().optional(),
+        dateFrom: z.string().optional(), // YYYY-MM-DD
+        dateTo: z.string().optional(),   // YYYY-MM-DD
+        status: z.enum(["scheduled", "confirmed", "completed", "cancelled", "no_show"]).optional(),
+        limit: z.number().min(1).max(500).default(100),
+      }))
+      .query(async ({ ctx, input }) => {
+        requireAdmin(ctx);
+        return listAppointments(input);
+      }),
+
+    /** Admin: get a single appointment by ID */
+    getAppointment: protectedProcedure
+      .input(z.object({ id: z.number() }))
+      .query(async ({ ctx, input }) => {
+        requireAdmin(ctx);
+        const appt = await getAppointmentById(input.id);
+        if (!appt) throw new TRPCError({ code: "NOT_FOUND" });
+        return appt;
+      }),
+
+    /** Admin: create a new appointment */
+    createAppointment: protectedProcedure
+      .input(z.object({
+        submissionId: z.number().optional(),
+        repId: z.number(),
+        appointmentDate: z.string(), // YYYY-MM-DD
+        startTime: z.string(),       // HH:MM
+        endTime: z.string(),         // HH:MM
+        appointmentType: z.enum(["install_design", "enhancement", "follow_up", "other"]),
+        customerName: z.string().max(256).optional(),
+        customerAddress: z.string().max(500).optional(),
+        customerPhone: z.string().max(32).optional(),
+        notes: z.string().max(2000).optional(),
+      }))
+      .mutation(async ({ ctx, input }) => {
+        requireAdmin(ctx);
+        await createAppointment(input);
+        return { success: true };
+      }),
+
+    /** Admin: update an appointment */
+    updateAppointment: protectedProcedure
+      .input(z.object({
+        id: z.number(),
+        repId: z.number().optional(),
+        appointmentDate: z.string().optional(),
+        startTime: z.string().optional(),
+        endTime: z.string().optional(),
+        appointmentType: z.enum(["install_design", "enhancement", "follow_up", "other"]).optional(),
+        status: z.enum(["scheduled", "confirmed", "completed", "cancelled", "no_show"]).optional(),
+        customerName: z.string().max(256).nullable().optional(),
+        customerAddress: z.string().max(500).nullable().optional(),
+        customerPhone: z.string().max(32).nullable().optional(),
+        notes: z.string().max(2000).nullable().optional(),
+      }))
+      .mutation(async ({ ctx, input }) => {
+        requireAdmin(ctx);
+        const { id, ...data } = input;
+        await updateAppointment(id, data);
+        return { success: true };
+      }),
+
+    /** Admin: cancel an appointment */
+    cancelAppointment: protectedProcedure
+      .input(z.object({ id: z.number() }))
+      .mutation(async ({ ctx, input }) => {
+        requireAdmin(ctx);
+        await cancelAppointment(input.id);
+        return { success: true };
       }),
   }),
 });
