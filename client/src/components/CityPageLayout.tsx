@@ -170,30 +170,7 @@ export default function CityPageLayout(props: CityPageProps) {
   const canonical = canonicalPath ? `${BASE_URL}${canonicalPath}` : undefined;
 
   // Structured data
-  const localBusinessSchema = {
-    "@context": "https://schema.org",
-    "@type": ["LocalBusiness", "LandscapeService"],
-    "@id": `${BASE_URL}/#business`,
-    name: SITE_NAME,
-    url: BASE_URL,
-    telephone: "+15416178873",
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: "61535 S Hwy 97",
-      addressLocality: "Bend",
-      addressRegion: "OR",
-      postalCode: "97702",
-      addressCountry: "US",
-    },
-    areaServed: { "@type": "City", name: city },
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: "4.9",
-      reviewCount: "127",
-      bestRating: "5",
-      worstRating: "1",
-    },
-  };
+  // Note: LocalBusiness schema is already in index.html @graph — do NOT duplicate it here
 
   const serviceSchema = {
     "@context": "https://schema.org",
@@ -274,7 +251,6 @@ export default function CityPageLayout(props: CityPageProps) {
         <meta name="twitter:title" content={pageTitle} />
         <meta name="twitter:description" content={pageDesc} />
         <meta name="twitter:image" content={heroImage} />
-        <script type="application/ld+json">{JSON.stringify(localBusinessSchema)}</script>
         <script type="application/ld+json">{JSON.stringify(serviceSchema)}</script>
         <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
         {faqSchema && <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>}
