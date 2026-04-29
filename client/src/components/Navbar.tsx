@@ -61,11 +61,11 @@ const resourcesItems = [
   { label: "All 100 Guides →", href: "/resources", num: "→" },
 ];
 const MEGA_PHOTO_RESOURCES =
-  "/manus-storage/resources-nav-photo-v4_2d290f98.png";
+  "/manus-storage/resources-nav-landscape_993f7254.jpg";
 
 // Maintenance mega menu — Newport Ave residential lawn & maintenance photo
 const MEGA_PHOTO_MAINTENANCE =
-  "/manus-storage/maintenance-nav-edited-v2_89870df6.png";
+  "/manus-storage/maintenance-nav-landscape_ace821f4.jpg";
 // Services mega menu — Discovery West Plaza commercial installation (polished hardscape)
 const MEGA_PHOTO_SERVICES =
   "/manus-storage/DiscoveryWestPlazaHiResPhotos55_79ba9dd5_92553ba0.webp";
@@ -1044,6 +1044,7 @@ export default function Navbar() {
               <MegaMenu
                 items={maintenanceItems}
                 photo={MEGA_PHOTO_MAINTENANCE}
+                photoPosition="60% 30%"
                 headline={"Year-Round\nCare"}
                 subline="Maintenance Programs"
                 onNavigate={goTo}
@@ -1062,8 +1063,7 @@ export default function Navbar() {
               <MegaMenu
                 items={resourcesItems}
                 photo={MEGA_PHOTO_RESOURCES}
-                photoPosition="center 30%"
-                photoScale={0.72}
+                photoPosition="center 35%"
                 headline={"Know Before\nYou Grow"}
                 subline="Free Guides & Cost Estimates"
                 onNavigate={goTo}
