@@ -566,6 +566,9 @@ export default function AdminSubmissions() {
   const [deleteId, setDeleteId] = useState<number | null>(null);
   const [scheduleSubmission, setScheduleSubmission] = useState<Submission | null>(null);
   const [scheduleForm, setScheduleForm] = useState({ repId: 0, appointmentDate: "", startTime: "09:00", endTime: "10:00", appointmentType: "install_design" as "install_design" | "enhancement" | "follow_up" | "other", notes: "" });
+  // Smart Scheduler suggestions modal (opens after "Called & Scheduled" is clicked)
+  const [suggestionsRow, setSuggestionsRow] = useState<Submission | null>(null);
+  const [suggestionsApptType, setSuggestionsApptType] = useState<"install_design" | "enhancement" | "follow_up" | "other">("install_design");
   const [activeTab, setActiveTab] = useState("submissions");
   const [insightsEnabled, setInsightsEnabled] = useState(false);
   const [monthFilter, setMonthFilter] = useState<number | undefined>(undefined);
@@ -614,6 +617,21 @@ export default function AdminSubmissions() {
       if (variables.status === "left_voicemail" && result.remindAt) {
         const remindDate = new Date(result.remindAt).toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" });
         toast.success(`Voicemail logged — reminder set for ${remindDate} at 9am`);
+      } else if (variables.status === "called_scheduled") {
+        toast.success("Status updated: Called & Scheduled");
+        // Open the Smart Scheduler suggestions modal for this submission
+        const row = (data?.rows ?? []).find(r => r.id === variables.submissionId) as Submission | undefined;
+        if (row) {
+          const svcLower = (row.serviceType ?? "").toLowerCase();
+          const apptType: "install_design" | "enhancement" | "follow_up" | "other" =
+            svcLower.includes("install") || svcLower.includes("design") || svcLower.includes("landscape")
+              ? "install_design"
+              : svcLower.includes("enhancement") || svcLower.includes("paver") || svcLower.includes("lighting")
+              ? "enhancement"
+              : "install_design";
+          setSuggestionsApptType(apptType);
+          setSuggestionsRow(row);
+        }
       } else {
         toast.success(`Status updated: ${statusCfg?.label ?? variables.status}`);
       }
@@ -1533,6 +1551,242 @@ export default function AdminSubmissions() {
         </div>
       )}
 
+      {/* ── Smart Scheduler Suggestions Modal ─────────────────────────────── */}
+      {suggestionsRow && (
+        <SuggestionsModal
+          row={suggestionsRow}
+          apptType={suggestionsApptType}
+          reps={reps}
+          onClose={() => setSuggestionsRow(null)}
+          onBooked={() => { setSuggestionsRow(null); toast.success("Appointment booked!"); }}
+        />
+      )}
+
     </AdminLayout>
+  );
+}
+
+// ── Smart Scheduler Suggestions Modal ────────────────────────────────────────
+type SuggestionSlot = {
+  repId: number;
+  repName: string;
+  date: string;
+  startTime: string;
+  endTime: string;
+  score: number;
+  scoreReason: string;
+  driveTimeMinutes: number;
+};
+
+function SuggestionsModal({
+  row,
+  apptType,
+  reps,
+  onClose,
+  onBooked,
+}: {
+  row: { id: number; firstName: string; lastName: string; siteAddress: string; phone: string; serviceType: string };
+  apptType: "install_design" | "enhancement" | "follow_up" | "other";
+  reps: { id: number; name: string }[];
+  onClose: () => void;
+  onBooked: () => void;
+}) {
+  const [selectedApptType, setSelectedApptType] = useState(apptType);
+  const [notes, setNotes] = useState("");
+  const [bookingSlot, setBookingSlot] = useState<SuggestionSlot | null>(null);
+
+  const { data: suggestions, isLoading, refetch } = trpc.scheduler.getSuggestions.useQuery(
+    { appointmentType: selectedApptType, customerAddress: row.siteAddress, daysAhead: 10 },
+    { refetchOnWindowFocus: false }
+  );
+
+  const createAppt = trpc.scheduler.createAppointment.useMutation({
+    onSuccess: () => onBooked(),
+    onError: (err) => toast.error(`Booking failed: ${err.message}`),
+  });
+
+  function bookSlot(slot: SuggestionSlot) {
+    createAppt.mutate({
+      submissionId: row.id,
+      repId: slot.repId,
+      appointmentDate: slot.date,
+      startTime: slot.startTime,
+      endTime: slot.endTime,
+      appointmentType: selectedApptType,
+      customerName: `${row.firstName} ${row.lastName}`,
+      customerAddress: row.siteAddress,
+      customerPhone: row.phone,
+      notes: notes || undefined,
+    });
+  }
+
+  // Format YYYY-MM-DD -> "Mon, May 5"
+  function fmtDate(d: string) {
+    return new Date(d + "T12:00:00").toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" });
+  }
+  function fmtTime(t: string) {
+    const [h, m] = t.split(":").map(Number);
+    const ampm = h >= 12 ? "pm" : "am";
+    const h12 = h === 0 ? 12 : h > 12 ? h - 12 : h;
+    return m === 0 ? `${h12}${ampm}` : `${h12}:${String(m).padStart(2, "0")}${ampm}`;
+  }
+
+  const top5 = (suggestions ?? []).slice(0, 5);
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+      <div className="w-full max-w-xl rounded-2xl shadow-2xl bg-white overflow-hidden">
+        {/* Header */}
+        <div className="flex items-center justify-between px-6 py-4 border-b border-stone-100">
+          <div className="flex items-center gap-2">
+            <CalendarPlus className="w-5 h-5 text-emerald-600" />
+            <div>
+              <h2 className="font-semibold text-base text-stone-800">Smart Scheduler</h2>
+              <p className="text-xs text-stone-400">{row.firstName} {row.lastName} · {row.siteAddress}</p>
+            </div>
+          </div>
+          <button onClick={onClose} className="p-1.5 rounded-lg hover:bg-stone-100 transition-colors">
+            <XCircle className="w-4 h-4 text-stone-400" />
+          </button>
+        </div>
+
+        <div className="p-5 space-y-4">
+          {/* Appointment type selector */}
+          <div className="flex items-center gap-3">
+            <label className="text-xs font-medium text-stone-500 whitespace-nowrap">Appointment type:</label>
+            <select
+              value={selectedApptType}
+              onChange={(e) => { setSelectedApptType(e.target.value as typeof selectedApptType); }}
+              className="flex-1 px-3 py-1.5 rounded-lg border border-stone-200 text-sm outline-none"
+            >
+              <option value="install_design">Install / Design</option>
+              <option value="enhancement">Enhancement</option>
+              <option value="follow_up">Follow-Up</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+
+          {/* Suggestions list */}
+          <div>
+            <div className="flex items-center justify-between mb-2">
+              <p className="text-xs font-semibold text-stone-500 uppercase tracking-wide">Top available slots</p>
+              <button onClick={() => refetch()} className="text-xs text-emerald-600 hover:underline">Refresh</button>
+            </div>
+
+            {isLoading ? (
+              <div className="flex items-center justify-center py-8 gap-2 text-stone-400">
+                <Loader2 className="w-4 h-4 animate-spin" />
+                <span className="text-sm">Finding best slots…</span>
+              </div>
+            ) : top5.length === 0 ? (
+              <div className="py-6 text-center text-sm text-stone-400">
+                No available slots in the next 10 days. Try adjusting the appointment type.
+              </div>
+            ) : (
+              <div className="space-y-2">
+                {top5.map((slot, i) => (
+                  <div
+                    key={`${slot.repId}-${slot.date}-${slot.startTime}`}
+                    className="flex items-center gap-3 p-3 rounded-xl border border-stone-100 hover:border-emerald-200 hover:bg-emerald-50/40 transition-colors group"
+                  >
+                    {/* Rank badge */}
+                    <div className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0"
+                      style={{ background: i === 0 ? "oklch(0.88 0.12 145)" : "oklch(0.94 0.01 155)", color: i === 0 ? "oklch(0.30 0.10 145)" : "oklch(0.45 0.05 155)" }}
+                    >
+                      {i + 1}
+                    </div>
+                    {/* Slot info */}
+                    <div className="flex-1 min-w-0">
+                      <div className="font-medium text-sm text-stone-800">{slot.repName}</div>
+                      <div className="text-xs text-stone-500">
+                        {fmtDate(slot.date)} · {fmtTime(slot.startTime)}–{fmtTime(slot.endTime)}
+                        {slot.driveTimeMinutes > 0 && (
+                          <span className="ml-1.5 text-stone-400">• ~{slot.driveTimeMinutes}min drive</span>
+                        )}
+                      </div>
+                      <div className="text-[10px] text-stone-400 mt-0.5">{slot.scoreReason}</div>
+                    </div>
+                    {/* Score bar */}
+                    <div className="w-10 text-right shrink-0">
+                      <div className="text-xs font-semibold" style={{ color: slot.score >= 70 ? "oklch(0.45 0.15 145)" : "oklch(0.55 0.10 60)" }}>
+                        {slot.score}
+                      </div>
+                      <div className="h-1 rounded-full bg-stone-100 mt-0.5 overflow-hidden">
+                        <div className="h-full rounded-full" style={{ width: `${slot.score}%`, background: slot.score >= 70 ? "oklch(0.55 0.15 145)" : "oklch(0.65 0.12 60)" }} />
+                      </div>
+                    </div>
+                    {/* Book button */}
+                    <button
+                      onClick={() => setBookingSlot(slot)}
+                      disabled={createAppt.isPending}
+                      className="shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold text-white transition-colors disabled:opacity-50"
+                      style={{ background: "oklch(0.45 0.15 145)" }}
+                    >
+                      Book
+                    </button>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Notes */}
+          <div>
+            <label className="block text-xs font-medium mb-1 text-stone-500">Internal notes (optional)</label>
+            <input
+              type="text"
+              value={notes}
+              onChange={(e) => setNotes(e.target.value)}
+              placeholder="e.g. customer prefers mornings…"
+              className="w-full px-3 py-2 rounded-lg border border-stone-200 text-sm outline-none"
+            />
+          </div>
+
+          {/* Footer */}
+          <div className="flex gap-2 pt-1">
+            <button
+              onClick={onClose}
+              className="flex-1 py-2 rounded-lg text-sm border border-stone-200 text-stone-500 hover:bg-stone-50 transition-colors"
+            >
+              Schedule Later
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Confirm booking dialog */}
+      {bookingSlot && (
+        <div className="fixed inset-0 z-60 flex items-center justify-center bg-black/50 p-4">
+          <div className="w-full max-w-sm rounded-2xl shadow-2xl bg-white p-6 space-y-4">
+            <h3 className="font-semibold text-stone-800">Confirm Appointment</h3>
+            <div className="p-3 rounded-xl bg-stone-50 border border-stone-100 text-sm space-y-1">
+              <div className="font-medium text-stone-700">{row.firstName} {row.lastName}</div>
+              <div className="text-stone-500 text-xs">{row.siteAddress}</div>
+              <div className="text-stone-600 mt-1">
+                <span className="font-medium">{bookingSlot.repName}</span>
+                {" · "}{fmtDate(bookingSlot.date)}
+                {" · "}{fmtTime(bookingSlot.startTime)}–{fmtTime(bookingSlot.endTime)}
+              </div>
+            </div>
+            <div className="flex gap-2">
+              <button
+                onClick={() => bookSlot(bookingSlot)}
+                disabled={createAppt.isPending}
+                className="flex-1 py-2 rounded-lg text-sm font-semibold text-white disabled:opacity-50 transition-colors"
+                style={{ background: "oklch(0.45 0.15 145)" }}
+              >
+                {createAppt.isPending ? "Booking…" : "Confirm"}
+              </button>
+              <button
+                onClick={() => setBookingSlot(null)}
+                className="px-4 py-2 rounded-lg text-sm border border-stone-200 text-stone-500 hover:bg-stone-50 transition-colors"
+              >
+                Back
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
   );
 }
