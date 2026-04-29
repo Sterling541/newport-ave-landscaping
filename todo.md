@@ -1061,3 +1061,4 @@
 - [x] Add Schedule Appointment modal to AdminSubmissions (pre-fills customer data)
 - [x] Seed Nathan Kooy, William Miller, Danny Sheffield as default sales reps
 - [x] Write 14 unit tests for scheduler logic (scheduler.test.ts) — all passing
+- [x] Add drag-and-drop appointment rescheduling to Smart Scheduler calendar (native HTML5 drag API)

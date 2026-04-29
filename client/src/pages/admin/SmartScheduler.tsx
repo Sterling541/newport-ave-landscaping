@@ -363,6 +363,10 @@ export default function SmartScheduler() {
   const [editStatus, setEditStatus] = useState<string>("scheduled");
   const [editNotes, setEditNotes] = useState("");
 
+  // Drag-and-drop state
+  const [dragApptId, setDragApptId] = useState<number | null>(null);
+  const [dragOver, setDragOver] = useState<{ date: string; hour: number } | null>(null);
+
   const showToast = (msg: string) => {
     setToast(msg);
     setTimeout(() => setToast(null), 3500);
@@ -400,6 +404,36 @@ export default function SmartScheduler() {
     },
     onError: (err) => showToast(`Error: ${err.message}`),
   });
+
+  const rescheduleMutation = trpc.scheduler.updateAppointment.useMutation({
+    onSuccess: () => {
+      showToast("Appointment rescheduled.");
+      refetch();
+    },
+    onError: (err) => showToast(`Error rescheduling: ${err.message}`),
+  });
+
+  function handleDrop(targetDate: string, targetHour: number) {
+    if (dragApptId === null) return;
+    const appt = appointments.find((a: (typeof appointments)[0]) => a.id === dragApptId);
+    if (!appt) return;
+    // Calculate duration from original start/end
+    const [sh, sm] = appt.startTime.split(":").map(Number);
+    const [eh, em] = appt.endTime.split(":").map(Number);
+    const durationMins = (eh * 60 + em) - (sh * 60 + sm);
+    const newStartH = targetHour.toString().padStart(2, "0");
+    const newEndTotalMins = targetHour * 60 + durationMins;
+    const newEndH = Math.floor(newEndTotalMins / 60).toString().padStart(2, "0");
+    const newEndM = (newEndTotalMins % 60).toString().padStart(2, "0");
+    rescheduleMutation.mutate({
+      id: dragApptId,
+      appointmentDate: targetDate,
+      startTime: `${newStartH}:00`,
+      endTime: `${newEndH}:${newEndM}`,
+    });
+    setDragApptId(null);
+    setDragOver(null);
+  }
 
   // Build week days (Mon–Fri)
   const weekDays = useMemo(() => {
@@ -767,26 +801,58 @@ export default function SmartScheduler() {
                   const dayAppts = (apptsByDate[dateStr] ?? []).filter(
                     (a: (typeof appointments)[0]) => a.startTime.startsWith(`${hour.toString().padStart(2, "0")}:`)
                   );
+                  const isDropTarget =
+                    dragApptId !== null &&
+                    dragOver?.date === dateStr &&
+                    dragOver?.hour === hour;
                   return (
                     <div
                       key={dateStr}
-                      className="border-l p-1 space-y-1"
-                      style={{ borderColor: "oklch(0.92 0.01 155)" }}
+                      className="border-l p-1 space-y-1 transition-colors"
+                      style={{
+                        borderColor: "oklch(0.92 0.01 155)",
+                        background: isDropTarget
+                          ? "oklch(0.92 0.10 145)"
+                          : undefined,
+                        outline: isDropTarget ? "2px dashed oklch(0.45 0.15 145)" : undefined,
+                        outlineOffset: "-2px",
+                      }}
+                      onDragOver={(e) => {
+                        e.preventDefault();
+                        setDragOver({ date: dateStr, hour });
+                      }}
+                      onDragLeave={() => setDragOver(null)}
+                      onDrop={(e) => {
+                        e.preventDefault();
+                        handleDrop(dateStr, hour);
+                      }}
                     >
                       {dayAppts.map((a: (typeof appointments)[0]) => (
                         <div
                           key={a.id}
-                          className="rounded px-1.5 py-1 text-[10px] leading-tight cursor-pointer"
+                          draggable={a.status !== "cancelled"}
+                          className="rounded px-1.5 py-1 text-[10px] leading-tight cursor-grab active:cursor-grabbing select-none"
                           style={{
                             background: TYPE_COLORS[a.appointmentType] ?? "oklch(0.55 0.08 155)",
                             color: "white",
-                            opacity: a.status === "cancelled" ? 0.5 : 1,
+                            opacity: dragApptId === a.id ? 0.4 : a.status === "cancelled" ? 0.5 : 1,
+                            transition: "opacity 0.15s",
+                          }}
+                          onDragStart={(e) => {
+                            setDragApptId(a.id);
+                            e.dataTransfer.effectAllowed = "move";
+                            // Ghost image: use the element itself
+                            e.dataTransfer.setDragImage(e.currentTarget, 0, 0);
+                          }}
+                          onDragEnd={() => {
+                            setDragApptId(null);
+                            setDragOver(null);
                           }}
                           onClick={() => startEdit(a)}
-                          title={`${a.customerName ?? "Customer"} · ${a.startTime}–${a.endTime}`}
+                          title={`${a.customerName ?? "Customer"} · ${a.startTime}–${a.endTime} — drag to reschedule`}
                         >
                           <div className="font-medium truncate">{a.customerName ?? "Customer"}</div>
-                          <div className="opacity-80">{repMap[a.repId] ?? "Rep"}</div>
+                          <div className="opacity-80">{repMap[a.repId] ?? "Rep"} · {a.startTime}</div>
                         </div>
                       ))}
                     </div>
