@@ -64,6 +64,20 @@ const TYPE_COLORS: Record<string, string> = {
   other:          "oklch(0.55 0.08 155)",
 };
 
+// Cycling palette for rep calendar colors — new reps auto-pick the next color
+const REP_PALETTE = [
+  { bg: "oklch(0.55 0.18 240)", light: "oklch(0.92 0.08 240)", label: "Blue" },
+  { bg: "oklch(0.50 0.16 145)", light: "oklch(0.92 0.10 145)", label: "Green" },
+  { bg: "oklch(0.58 0.18 55)",  light: "oklch(0.93 0.10 55)",  label: "Amber" },
+  { bg: "oklch(0.52 0.18 310)", light: "oklch(0.93 0.08 310)", label: "Purple" },
+  { bg: "oklch(0.55 0.18 20)",  light: "oklch(0.93 0.08 20)",  label: "Red" },
+  { bg: "oklch(0.52 0.16 195)", light: "oklch(0.92 0.08 195)", label: "Teal" },
+];
+
+function getRepColor(index: number) {
+  return REP_PALETTE[index % REP_PALETTE.length];
+}
+
 function Toast({ message, onClose }: { message: string; onClose: () => void }) {
   return (
     <div
@@ -367,6 +381,31 @@ export default function SmartScheduler() {
   const [dragApptId, setDragApptId] = useState<number | null>(null);
   const [dragOver, setDragOver] = useState<{ date: string; hour: number } | null>(null);
 
+  // Rep calendar toggles — null means "all selected" (default), Set means explicit selection
+  const [selectedRepIds, setSelectedRepIds] = useState<Set<number> | null>(null);
+
+  function toggleRep(repId: number) {
+    setSelectedRepIds((prev) => {
+      // If null (all selected), clicking one rep isolates it
+      const base = prev ?? new Set(reps.map((r: { id: number }) => r.id));
+      const next = new Set(base);
+      if (next.has(repId)) {
+        next.delete(repId);
+        // If all deselected, reset to all
+        if (next.size === 0) return null;
+      } else {
+        next.add(repId);
+        // If all selected again, reset to null
+        if (next.size === reps.length) return null;
+      }
+      return next;
+    });
+  }
+
+  function isRepSelected(repId: number) {
+    return selectedRepIds === null || selectedRepIds.has(repId);
+  }
+
   const showToast = (msg: string) => {
     setToast(msg);
     setTimeout(() => setToast(null), 3500);
@@ -473,6 +512,30 @@ export default function SmartScheduler() {
     return m;
   }, [reps]);
 
+  // Map repId -> color palette entry (stable by insertion order)
+  const repColorMap = useMemo(() => {
+    const m: Record<number, { bg: string; light: string; label: string }> = {};
+    reps.forEach((r: { id: number }, i: number) => {
+      m[r.id] = getRepColor(i);
+    });
+    return m;
+  }, [reps]);
+
+  // Filtered appointments for the week view (respects rep toggles)
+  const filteredApptsByDate = useMemo(() => {
+    const map: Record<string, typeof appointments> = {};
+    for (const a of appointments) {
+      if (!isRepSelected(a.repId)) continue;
+      const d = typeof a.appointmentDate === "string"
+        ? a.appointmentDate
+        : toYMD(new Date(a.appointmentDate as any));
+      if (!map[d]) map[d] = [];
+      map[d].push(a);
+    }
+    return map;
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [appointments, selectedRepIds]);
+
   return (
     <AdminLayout>
       <div className="p-6 max-w-6xl mx-auto">
@@ -569,6 +632,49 @@ export default function SmartScheduler() {
             Once you complete Google Cloud setup and add Calendar IDs in Sales Reps, appointments will sync automatically.
           </div>
         </div>
+
+        {/* ── Rep Calendar Toggles ── */}
+        {reps.length > 0 && (
+          <div className="mb-5 flex flex-wrap items-center gap-2">
+            <span className="text-xs font-medium mr-1" style={{ color: "oklch(0.55 0.05 155)" }}>Show:</span>
+            {/* "All" shortcut */}
+            <button
+              onClick={() => setSelectedRepIds(null)}
+              className="flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium border transition-all"
+              style={{
+                background: selectedRepIds === null ? "oklch(0.18 0.04 155)" : "white",
+                color: selectedRepIds === null ? "white" : "oklch(0.45 0.05 155)",
+                borderColor: selectedRepIds === null ? "oklch(0.18 0.04 155)" : "oklch(0.85 0.02 155)",
+              }}
+            >
+              All
+            </button>
+            {reps.map((rep: { id: number; name: string }, i: number) => {
+              const color = getRepColor(i);
+              const active = isRepSelected(rep.id);
+              return (
+                <button
+                  key={rep.id}
+                  onClick={() => toggleRep(rep.id)}
+                  className="flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium border transition-all"
+                  style={{
+                    background: active ? color.bg : "white",
+                    color: active ? "white" : "oklch(0.45 0.05 155)",
+                    borderColor: active ? color.bg : "oklch(0.85 0.02 155)",
+                    opacity: active ? 1 : 0.65,
+                  }}
+                  title={active ? `Hide ${rep.name}'s appointments` : `Show ${rep.name}'s appointments`}
+                >
+                  <span
+                    className="w-2 h-2 rounded-full"
+                    style={{ background: active ? "rgba(255,255,255,0.7)" : color.bg }}
+                  />
+                  {rep.name.split(" ")[0]}
+                </button>
+              );
+            })}
+          </div>
+        )}
 
         {/* ── LIST VIEW ── */}
         {view === "list" && (
@@ -798,7 +904,7 @@ export default function SmartScheduler() {
                 </div>
                 {weekDays.map((day) => {
                   const dateStr = toYMD(day);
-                  const dayAppts = (apptsByDate[dateStr] ?? []).filter(
+                  const dayAppts = (filteredApptsByDate[dateStr] ?? []).filter(
                     (a: (typeof appointments)[0]) => a.startTime.startsWith(`${hour.toString().padStart(2, "0")}:`)
                   );
                   const isDropTarget =
@@ -833,10 +939,11 @@ export default function SmartScheduler() {
                           draggable={a.status !== "cancelled"}
                           className="rounded px-1.5 py-1 text-[10px] leading-tight cursor-grab active:cursor-grabbing select-none"
                           style={{
-                            background: TYPE_COLORS[a.appointmentType] ?? "oklch(0.55 0.08 155)",
+                            background: repColorMap[a.repId]?.bg ?? TYPE_COLORS[a.appointmentType] ?? "oklch(0.55 0.08 155)",
                             color: "white",
                             opacity: dragApptId === a.id ? 0.4 : a.status === "cancelled" ? 0.5 : 1,
                             transition: "opacity 0.15s",
+                            borderLeft: `3px solid ${TYPE_COLORS[a.appointmentType] ?? "rgba(255,255,255,0.4)"}`,
                           }}
                           onDragStart={(e) => {
                             setDragApptId(a.id);
