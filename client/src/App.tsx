@@ -135,6 +135,7 @@ const PaverPatiosBend = lazy(() => import("./pages/seo/PaverPatiosBend"));
 const IrrigationBendOregon = lazy(() => import("./pages/seo/IrrigationBendOregon"));
 const LandscapeDesignBend = lazy(() => import("./pages/seo/LandscapeDesignBend"));
 const CommercialLandscapingBendSeo = lazy(() => import("./pages/seo/CommercialLandscapingBend"));
+const LandscapeInstallationBend = lazy(() => import("./pages/seo/LandscapeInstallationBend"));
 
 // SEO Neighborhood / Service Area pages
 const AwbreyButteNeighborhood = lazy(() => import("./pages/service-areas/AwbreyButteNeighborhood"));
@@ -234,6 +235,7 @@ function Router() {
       <Route path={"/irrigation-bend-oregon"} component={IrrigationBendOregon} />
       <Route path={"/landscape-design-bend"} component={LandscapeDesignBend} />
       <Route path={"/commercial-landscaping-bend"} component={CommercialLandscapingBendSeo} />
+      <Route path={"/landscape-installation-bend-oregon"} component={LandscapeInstallationBend} />
 
       {/* Main pages */}
       <Route path={"/"} component={Home} />
