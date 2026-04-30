@@ -11,6 +11,8 @@ import { createContext } from "./context";
 import { serveStatic, setupVite } from "./vite";
 import { registerSSR } from "../ssr";
 import { batchGeocodeSubmissions } from "../geocoder";
+import { listAppointments, getSalesRepById } from "../scheduler";
+import { sendAppointmentReminderEmail } from "../emailNotifications";
 
 function isPortAvailable(port: number): Promise<boolean> {
   return new Promise(resolve => {
@@ -112,6 +114,62 @@ async function startServer() {
   registerStorageProxy(app);
   // OAuth callback under /api/oauth/callback
   registerOAuthRoutes(app);
+
+  // ── Scheduled task endpoint ─────────────────────────────────────────────────
+  // POST /api/scheduled/reminders
+  // Protected by CRON_SECRET (Bearer token). No cookie auth needed.
+  // The Manus scheduled task calls: curl -X POST ... -H "Authorization: Bearer $CRON_SECRET"
+  app.post("/api/scheduled/reminders", async (req, res) => {
+    const secret = process.env.CRON_SECRET;
+    const authHeader = req.headers.authorization ?? "";
+    const provided = authHeader.startsWith("Bearer ") ? authHeader.slice(7) : "";
+    if (!secret || provided !== secret) {
+      res.status(401).json({ error: "Unauthorized" });
+      return;
+    }
+    try {
+      const now = new Date();
+      const windowStart = new Date(now.getTime() + 28 * 60 * 1000);
+      const windowEnd   = new Date(now.getTime() + 32 * 60 * 1000);
+      const toHHMM = (d: Date) =>
+        `${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}`;
+      const todayStr = now.toISOString().slice(0, 10);
+      const windowStartTime = toHHMM(windowStart);
+      const windowEndTime   = toHHMM(windowEnd);
+      const allToday = await listAppointments({ dateFrom: todayStr, dateTo: todayStr });
+      const upcoming = allToday.filter((appt: any) =>
+        appt.status !== "cancelled" &&
+        appt.status !== "completed" &&
+        appt.startTime >= windowStartTime &&
+        appt.startTime <= windowEndTime
+      );
+      let sent = 0;
+      for (const appt of upcoming) {
+        const rep = await getSalesRepById((appt as any).repId);
+        const email = (rep as any)?.effectiveEmail ?? rep?.email;
+        if (email) {
+          await sendAppointmentReminderEmail({
+            repName: rep.name,
+            repEmail: email,
+            customerName: (appt as any).customerName,
+            customerAddress: (appt as any).customerAddress,
+            customerPhone: (appt as any).customerPhone,
+            appointmentDate: (appt as any).appointmentDate,
+            startTime: (appt as any).startTime,
+            endTime: (appt as any).endTime,
+            appointmentType: (appt as any).appointmentType,
+            notes: (appt as any).notes,
+          });
+          sent++;
+        }
+      }
+      res.json({ ok: true, sent, checked: upcoming.length });
+    } catch (err: any) {
+      console.error("[reminders] Error:", err);
+      res.status(500).json({ error: err?.message ?? "Unknown error" });
+    }
+  });
+
   // tRPC API
   app.use(
     "/api/trpc",
