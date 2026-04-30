@@ -1118,3 +1118,9 @@
 - [x] Add width/height to Brookswood and Tetherow service area project images
 - [x] Confirmed HeroSection uses CSS backgroundImage (not img tag) — preload link in index.html covers LCP
 - [x] Confirmed all SEO fixes from previous session are intact (robots.txt, sitemap, canonical tags, schema)
+
+## Session — Apr 30, 2026 (PageSpeed Fixes)
+- [x] Remove GHL LeadConnector chat widget entirely from index.html (script + preconnect hints)
+- [ ] Recompress oversized images (GLLPatio1, NewportAveLandscaping-9, forest-home4, BotanicalBand plants x4)
+- [ ] Add font-display=swap to Google Fonts URLs
+- [ ] Fix LightingSection.tsx forced reflow
