@@ -1182,3 +1182,6 @@
 - [x] Fix: Remove all legacy admin login paths (Navbar modal with code 4132, StagingGate admin link, any hardcoded entry) — single staff login at /admin/login only
 - [x] Fix: Configuration flashes then disappears on refresh for info@ admin — permissions loading race condition in AdminLayout; show all items during load, only filter after permissions resolve
 - [x] Fix: Remove legacy "Admin Access / Enter your admin PIN" screen that appears after staff login — confirmed Navbar.tsx source is clean; issue is deployed site serving old cached build; requires publish to resolve
+- [x] PERSISTENT BUG: "Admin Access / Enter your admin PIN" screen — root cause found: staff_session_id cookie missing secure:true flag; browser on HTTPS drops cookie after login, causing staff.me to return null and AdminLayout to redirect back to /admin/login (which shows the old cached page)
+- [x] PERSISTENT BUG: Configuration not showing — same root cause: cookie dropped on HTTPS, myPermissions returns null, permissions never resolve correctly
+- [x] Fix: Add secure:true (production only) to staff_session_id cookie set and clearCookie in staffRouter.ts

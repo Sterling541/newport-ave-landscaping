@@ -77,6 +77,7 @@ export const staffRouter = router({
       res.cookie(STAFF_COOKIE, token, {
         httpOnly: true,
         sameSite: "lax",
+        secure: process.env.NODE_ENV === "production",
         maxAge: 8 * 60 * 60 * 1000,
         path: "/",
       });
@@ -108,7 +109,7 @@ export const staffRouter = router({
   /** Logout — clear cookie */
   logout: publicProcedure.mutation(async ({ ctx }) => {
     const res = (ctx as any).res;
-    res.clearCookie(STAFF_COOKIE, { path: "/" });
+    res.clearCookie(STAFF_COOKIE, { path: "/", secure: process.env.NODE_ENV === "production" });
     return { ok: true };
   }),
 
