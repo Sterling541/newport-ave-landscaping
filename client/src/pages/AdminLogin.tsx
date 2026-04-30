@@ -143,12 +143,9 @@ export default function AdminLogin() {
         {/* ── LOGIN VIEW ── */}
         {view === "login" && (
           <>
-            <h1 style={{ fontSize: "1.5rem", fontWeight: 700, color: "oklch(0.14 0.005 0)", marginBottom: "0.25rem", fontFamily: "'Cormorant Garamond', Georgia, serif" }}>
-              Staff Login
+            <h1 style={{ fontSize: "1.5rem", fontWeight: 700, color: "oklch(0.14 0.005 0)", marginBottom: "1.75rem", fontFamily: "'Cormorant Garamond', Georgia, serif" }}>
+              Team Portal
             </h1>
-            <p style={{ fontSize: "0.82rem", color: "oklch(0.50 0.005 0)", marginBottom: "1.75rem" }}>
-              Sign in with your work email and PIN.
-            </p>
 
             <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
               <div>
@@ -156,11 +153,11 @@ export default function AdminLogin() {
                 <input
                   id="email"
                   type="email"
-                  autoComplete="email"
+                  autoComplete="off"
                   autoFocus
                   value={email}
                   onChange={(e) => { setEmail(e.target.value); setError(""); }}
-                  placeholder="you@newportavelandscaping.com"
+                  placeholder=""
                   style={inputStyle}
                   onFocus={(e) => (e.target.style.borderColor = "oklch(0.50 0.18 25)")}
                   onBlur={(e) => (e.target.style.borderColor = "oklch(0.88 0.005 75)")}
@@ -184,10 +181,10 @@ export default function AdminLogin() {
                     ref={pinRef}
                     type="password"
                     inputMode="numeric"
-                    autoComplete="current-password"
+                    autoComplete="off"
                     value={pin}
                     onChange={(e) => { setPin(e.target.value); setError(""); }}
-                    placeholder="••••"
+                    placeholder=""
                     maxLength={8}
                     style={{
                       ...inputStyle,
@@ -263,11 +260,11 @@ export default function AdminLogin() {
                     <input
                       id="forgot-email"
                       type="email"
-                      autoComplete="email"
+                      autoComplete="off"
                       autoFocus
                       value={forgotEmail}
                       onChange={(e) => setForgotEmail(e.target.value)}
-                      placeholder="you@newportavelandscaping.com"
+                      placeholder=""
                       style={inputStyle}
                       onFocus={(e) => (e.target.style.borderColor = "oklch(0.50 0.18 25)")}
                       onBlur={(e) => (e.target.style.borderColor = "oklch(0.88 0.005 75)")}
