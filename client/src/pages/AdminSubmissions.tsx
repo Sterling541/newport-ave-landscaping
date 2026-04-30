@@ -1562,6 +1562,7 @@ export default function AdminSubmissions() {
           reps={reps}
           onClose={() => setSuggestionsRow(null)}
           onBooked={() => { setSuggestionsRow(null); toast.success("Appointment booked!"); }}
+          onOpenCalendar={() => { setSuggestionsRow(null); window.location.href = "/admin/scheduler"; }}
         />
       )}
 
@@ -1587,12 +1588,14 @@ function SuggestionsModal({
   reps,
   onClose,
   onBooked,
+  onOpenCalendar,
 }: {
   row: { id: number; firstName: string; lastName: string; siteAddress: string; phone: string; serviceType: string };
   apptType: "install_design" | "enhancement" | "follow_up" | "other";
   reps: { id: number; name: string }[];
   onClose: () => void;
   onBooked: () => void;
+  onOpenCalendar: () => void;
 }) {
   const [selectedApptType, setSelectedApptType] = useState(apptType);
   const [notes, setNotes] = useState("");
@@ -1709,14 +1712,15 @@ function SuggestionsModal({
                       </div>
                       <div className="text-[10px] text-stone-400 mt-0.5">{slot.scoreReason}</div>
                     </div>
-                    {/* Score bar */}
-                    <div className="w-10 text-right shrink-0">
-                      <div className="text-xs font-semibold" style={{ color: slot.score >= 70 ? "oklch(0.45 0.15 145)" : "oklch(0.55 0.10 60)" }}>
-                        {slot.score}
-                      </div>
-                      <div className="h-1 rounded-full bg-stone-100 mt-0.5 overflow-hidden">
-                        <div className="h-full rounded-full" style={{ width: `${slot.score}%`, background: slot.score >= 70 ? "oklch(0.55 0.15 145)" : "oklch(0.65 0.12 60)" }} />
-                      </div>
+                    {/* Score badge */}
+                    <div className="shrink-0">
+                      {slot.score >= 90 ? (
+                        <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold" style={{ background: "oklch(0.90 0.10 145)", color: "oklch(0.30 0.14 145)" }}>Best match</span>
+                      ) : slot.score >= 70 ? (
+                        <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold" style={{ background: "oklch(0.93 0.06 155)", color: "oklch(0.40 0.10 155)" }}>Good</span>
+                      ) : (
+                        <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold" style={{ background: "oklch(0.95 0.02 155)", color: "oklch(0.55 0.04 155)" }}>Available</span>
+                      )}
                     </div>
                     {/* Book button */}
                     <button
@@ -1748,8 +1752,15 @@ function SuggestionsModal({
           {/* Footer */}
           <div className="flex gap-2 pt-1">
             <button
+              onClick={onOpenCalendar}
+              className="flex-1 py-2 rounded-lg text-sm font-medium border-2 transition-colors flex items-center justify-center gap-1.5"
+              style={{ borderColor: "oklch(0.45 0.15 145)", color: "oklch(0.45 0.15 145)" }}
+            >
+              Pick another time →
+            </button>
+            <button
               onClick={onClose}
-              className="flex-1 py-2 rounded-lg text-sm border border-stone-200 text-stone-500 hover:bg-stone-50 transition-colors"
+              className="flex-1 py-2 rounded-lg text-sm border border-stone-200 text-stone-400 hover:bg-stone-50 transition-colors"
             >
               Schedule Later
             </button>

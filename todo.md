@@ -1070,3 +1070,5 @@
 - [x] Day view in Smart Scheduler calendar (hour-by-hour grid for single day)
 - [x] Appointment count badges on rep toggle pills
 - [x] Click week column header to navigate to Day view
+- [x] Replace score number+bar with readable label (Best match / Good / Available) in suggestions modal
+- [x] Add "Pick another time" button to suggestions modal that navigates to Smart Scheduler calendar
