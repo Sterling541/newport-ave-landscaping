@@ -697,6 +697,12 @@ export default function AdminSubmissions() {
     onError: (err) => toast.error(`Failed: ${err.message}`),
   });
 
+  // Inline "Scheduled With" dropdown mutation — updates salesConsultant directly from the table row
+  const updateConsultantInline = trpc.submissions.updateSalesConsultant.useMutation({
+    onSuccess: () => { refetch(); },
+    onError: (err) => toast.error(`Failed to update: ${err.message}`),
+  });
+
   const serviceTypes = useMemo(() => {
     if (!data?.rows) return [];
     const map = new Map<string, string>(); // normalized label -> first raw value
@@ -1216,13 +1222,24 @@ export default function AdminSubmissions() {
                         </select>
                       </td>
                       <td className="px-4 py-3 whitespace-nowrap">
-                        {row.salesConsultant ? (
-                          <span className="inline-flex items-center gap-1 text-xs font-medium px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">
-                            {row.salesConsultant}
-                          </span>
-                        ) : (
-                          <span className="text-stone-300 text-xs">—</span>
-                        )}
+                        {/* Inline Scheduled With dropdown — click to reassign without opening detail panel */}
+                        <select
+                          className="text-xs border border-transparent hover:border-stone-300 focus:border-blue-400 rounded px-1.5 py-0.5 bg-transparent cursor-pointer focus:outline-none focus:bg-white transition-colors min-w-[90px] max-w-[130px]"
+                          value={row.salesConsultant ?? ""}
+                          title="Click to change assigned rep"
+                          onChange={(e) => {
+                            const val = e.target.value;
+                            updateConsultantInline.mutate({ id: row.id, salesConsultant: val });
+                          }}
+                        >
+                          <option value="">— Unassigned —</option>
+                          {reps.map((r) => {
+                            const firstName = r.name.split(" ")[0];
+                            return (
+                              <option key={r.id} value={firstName}>{firstName}</option>
+                            );
+                          })}
+                        </select>
                       </td>
                       <td className="px-4 py-3 text-stone-600 min-w-[200px]">{row.siteAddress}</td>
                       <td className="px-4 py-3">

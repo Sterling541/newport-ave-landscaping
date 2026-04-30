@@ -1765,9 +1765,9 @@ Be specific, data-driven, and actionable. Format as JSON with keys: bestMonths (
      * Protected by a shared secret in the Authorization header.
      */
     sendReminders: publicProcedure.mutation(async ({ ctx }) => {
-      // Simple shared-secret auth for cron calls
+      // Simple shared-secret auth for cron calls — uses CRON_SECRET env var
       const authHeader = (ctx as any).req.headers.authorization ?? "";
-      const expectedSecret = ENV.cookieSecret;
+      const expectedSecret = process.env.CRON_SECRET ?? ENV.cookieSecret;
       if (!authHeader.startsWith("Bearer ") || authHeader.slice(7) !== expectedSecret) {
         throw new TRPCError({ code: "UNAUTHORIZED" });
       }

@@ -1191,3 +1191,8 @@
 - [ ] Sales rep email notifications: new assignment email, reschedule email, 30-min reminder cron
 - [ ] Forgot PIN flow: staff can reset PIN via email without manual DB intervention
 - [ ] Inline Scheduled With dropdown on submissions table row (click-to-edit, no detail panel needed)
+
+## Session — Apr 30, 2026 (Round 3)
+- [x] Add /admin/reset-pin route to App.tsx (AdminResetPin.tsx already written)
+- [x] Inline Scheduled With dropdown on AdminSubmissions table row
+- [x] Wire 30-min appointment reminder cron scheduled task (runs every 5 min, uses CRON_SECRET)

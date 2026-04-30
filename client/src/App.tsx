@@ -231,6 +231,7 @@ const AdminEmployeePayouts = lazy(() => import('./pages/admin/AdminEmployeePayou
 const Configuration = lazy(() => import('./pages/admin/Configuration'));
 const AdminUsers = lazy(() => import('./pages/admin/AdminUsers'));
 const AdminLogin = lazy(() => import('./pages/AdminLogin'));
+const AdminResetPin = lazy(() => import('./pages/AdminResetPin'));
 const AdminDebug = lazy(() => import('./pages/admin/AdminDebug'));
 
 function Router() {
@@ -567,6 +568,7 @@ function Router() {
       <Route path={"/admin/badge-scans"} component={AdminBadgeScans} />
       <Route path={"/admin/employee-payouts"} component={AdminEmployeePayouts} />
       <Route path={"/admin/login"} component={AdminLogin} />
+      <Route path={"/admin/reset-pin"} component={AdminResetPin} />
       <Route path={"/admin/configuration"} component={Configuration} />
       <Route path={"/admin/users"} component={AdminUsers} />
       <Route path={"/admin/debug"} component={AdminDebug} />
