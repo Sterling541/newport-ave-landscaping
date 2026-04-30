@@ -107,18 +107,12 @@ const NAV_ITEMS = [
     permissionKey: "employees",
   },
   {
-    label: "Users & Roles",
-    href: "/admin/users",
-    icon: UserCog,
-    description: "Staff accounts & permissions",
-    permissionKey: "users",
-  },
-  {
     label: "Configuration",
     href: "/admin/configuration",
     icon: Settings,
-    description: "CSV import, sales reps",
+    description: "CSV import, sales reps, users",
     permissionKey: "configuration",
+    adminOnly: true,
   },
 ];
 
@@ -141,7 +135,10 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
   // Filter nav items based on permissions
   // If permissions is null/undefined (owner via Manus OAuth), show everything
   // If permissions is an object, only show items where the permission key is true
-  const visibleNavItems = NAV_ITEMS.filter(item => {
+  // adminOnly items are hidden from staff users (only Manus OAuth owner sees them)
+  const isOwner = !permissions; // null means Manus OAuth owner
+  const visibleNavItems = NAV_ITEMS.filter((item: any) => {
+    if (item.adminOnly && !isOwner) return false; // hide admin-only from staff
     if (!permissions) return true; // owner sees all
     const perms = permissions as Record<string, boolean>;
     return perms[item.permissionKey] !== false;

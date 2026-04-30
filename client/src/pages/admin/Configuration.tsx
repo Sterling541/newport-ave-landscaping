@@ -1,13 +1,15 @@
 /* ============================================================
    CONFIGURATION PAGE
-   Houses CSV Import and Sales Reps management under one roof.
+   Houses CSV Import, Sales Reps, and Users & Roles under one roof.
+   Admin-only page.
    ============================================================ */
 import { useState } from "react";
 import AdminLayout from "@/components/AdminLayout";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Upload, UserCheck, Settings } from "lucide-react";
+import { Upload, UserCheck, Settings, UserCog } from "lucide-react";
 import CsvImportContent from "./CsvImportContent";
 import SalesRepsContent from "./SalesRepsContent";
+import AdminUsersContent from "./AdminUsersContent";
 
 export default function Configuration() {
   const [tab, setTab] = useState("csv-import");
@@ -22,7 +24,7 @@ export default function Configuration() {
           </div>
           <div>
             <h1 className="text-2xl font-bold text-gray-900">Configuration</h1>
-            <p className="text-sm text-gray-500">Manage data imports and sales team settings</p>
+            <p className="text-sm text-gray-500">Manage data imports, sales team, and staff accounts</p>
           </div>
         </div>
 
@@ -37,6 +39,10 @@ export default function Configuration() {
               <UserCheck className="w-4 h-4" />
               Sales Reps
             </TabsTrigger>
+            <TabsTrigger value="users-roles" className="flex items-center gap-2">
+              <UserCog className="w-4 h-4" />
+              Users &amp; Roles
+            </TabsTrigger>
           </TabsList>
 
           <TabsContent value="csv-import" className="mt-4">
@@ -45,6 +51,10 @@ export default function Configuration() {
 
           <TabsContent value="sales-reps" className="mt-4">
             <SalesRepsContent />
+          </TabsContent>
+
+          <TabsContent value="users-roles" className="mt-4">
+            <AdminUsersContent />
           </TabsContent>
         </Tabs>
       </div>
