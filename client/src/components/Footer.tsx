@@ -150,6 +150,9 @@ export default function Footer() {
                 src={LOGO_STACKED}
                 alt="Newport Avenue Landscaping — Bend, Oregon"
                 className="h-40 w-auto"
+                loading="lazy"
+                width="320"
+                height="160"
                 style={{ filter: "brightness(0) invert(1)" }}
               />
             </Link>

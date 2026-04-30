@@ -131,6 +131,9 @@ export default function Membership() {
             <img
               src="/manus-storage/membership-badge-transparent_c7b6f8c6.webp"
               alt="Newport Avenue Priority Irrigation Membership Badge"
+              loading="lazy"
+              width="320"
+              height="320"
               style={{
                 width: "clamp(180px, 22vw, 320px)",
                 height: "auto",

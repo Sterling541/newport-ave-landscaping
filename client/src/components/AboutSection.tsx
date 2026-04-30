@@ -71,6 +71,9 @@ export default function AboutSection() {
                 src={FACILITY_IMAGE}
                 alt="Newport Avenue Landscaping facility in Bend, Oregon"
                 className="w-full h-full object-cover"
+                loading="lazy"
+                width="800"
+                height="1000"
               />
             </div>
 

@@ -188,6 +188,8 @@ export default function WhoWeServe() {
               src={seg.photo}
               alt={seg.photoAlt}
               loading="lazy"
+              width="800"
+              height="360"
               style={{
                 position: "absolute",
                 inset: 0,

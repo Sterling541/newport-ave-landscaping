@@ -150,28 +150,36 @@ export default function TetherowLandscaping() {
           <h2 className="text-3xl font-bold text-[oklch(0.97_0.003_0)] mb-8 text-center">Recent Projects in Tetherow</h2>
           <div className="grid md:grid-cols-2 gap-8">
             <div className="bg-[oklch(0.12_0.008_0)] rounded-lg overflow-hidden shadow-lg">
-              <img src="/images/tetherow-project-1.jpg" alt="Tetherow Project 1" className="w-full h-48 object-cover" />
+              <img src="/images/tetherow-project-1.jpg" alt="Tetherow Project 1" className="w-full h-48 object-cover" loading="lazy"
+                width="800" height="192"
+                />
               <div className="p-4">
                 <h3 className="font-semibold text-xl text-[oklch(0.97_0.003_0)] mb-2">Golf Course View Enhancement</h3>
                 <p className="text-[oklch(0.72_0.005_0)]">A stunning landscape designed to maximize views of the Tom Doak golf course while integrating native plants.</p>
               </div>
             </div>
             <div className="bg-[oklch(0.12_0.008_0)] rounded-lg overflow-hidden shadow-lg">
-              <img src="/images/tetherow-project-2.jpg" alt="Tetherow Project 2" className="w-full h-48 object-cover" />
+              <img src="/images/tetherow-project-2.jpg" alt="Tetherow Project 2" className="w-full h-48 object-cover" loading="lazy"
+                width="800" height="192"
+                />
               <div className="p-4">
                 <h3 className="font-semibold text-xl text-[oklch(0.97_0.003_0)] mb-2">Fire-Wise Luxury Retreat</h3>
                 <p className="text-[oklch(0.72_0.005_0)]">Creating a defensible space with elegant, fire-resistant landscaping around a luxury Tetherow home.</p>
               </div>
             </div>
             <div className="bg-[oklch(0.12_0.008_0)] rounded-lg overflow-hidden shadow-lg">
-              <img src="/images/tetherow-project-3.jpg" alt="Tetherow Project 3" className="w-full h-48 object-cover" />
+              <img src="/images/tetherow-project-3.jpg" alt="Tetherow Project 3" className="w-full h-48 object-cover" loading="lazy"
+                width="800" height="192"
+                />
               <div className="p-4">
                 <h3 className="font-semibold text-xl text-[oklch(0.97_0.003_0)] mb-2">Resort-Style Outdoor Oasis</h3>
                 <p className="text-[oklch(0.72_0.005_0)]">Installation of an expansive outdoor kitchen and entertainment area, perfect for Tetherow living.</p>
               </div>
             </div>
             <div className="bg-[oklch(0.12_0.008_0)] rounded-lg overflow-hidden shadow-lg">
-              <img src="/images/tetherow-project-4.jpg" alt="Tetherow Project 4" className="w-full h-48 object-cover" />
+              <img src="/images/tetherow-project-4.jpg" alt="Tetherow Project 4" className="w-full h-48 object-cover" loading="lazy"
+                width="800" height="192"
+                />
               <div className="p-4">
                 <h3 className="font-semibold text-xl text-[oklch(0.97_0.003_0)] mb-2">Native High Desert Garden</h3>
                 <p className="text-[oklch(0.72_0.005_0)]">A beautiful, low-maintenance garden designed with native juniper and sage, fully HOA compliant.</p>

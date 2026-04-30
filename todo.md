@@ -1109,3 +1109,12 @@
 - [x] Confirmed all 6 GSC-flagged pages already have correct self-referencing canonicals in their own page files
 - [x] Confirmed all 21 service pages correctly pass schemaUrl to ServicePageLayout which renders canonical
 - [x] ScheduleServices.tsx already had noindex — confirmed correct
+## Session — Apr 30, 2026 (Image Lazy Loading & CLS Fixes)
+- [x] Add loading="lazy" to all below-fold img tags across all components and pages
+- [x] Add loading="eager" + fetchPriority="high" to above-fold LCP images (Navbar logo, About hero, Careers hero)
+- [x] Add explicit width/height attributes to all img tags to prevent Cumulative Layout Shift (CLS)
+- [x] Fix malformed loading attribute insertions in About.tsx, Blog.tsx, Careers.tsx, OptOut.tsx
+- [x] Add loading="lazy" to Commercial.tsx DW photo grid (single-line img tags with JSX event handlers)
+- [x] Add width/height to Brookswood and Tetherow service area project images
+- [x] Confirmed HeroSection uses CSS backgroundImage (not img tag) — preload link in index.html covers LCP
+- [x] Confirmed all SEO fixes from previous session are intact (robots.txt, sitemap, canonical tags, schema)

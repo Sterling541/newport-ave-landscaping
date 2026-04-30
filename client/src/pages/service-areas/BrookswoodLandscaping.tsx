@@ -154,7 +154,9 @@ export default function BrookswoodLandscaping() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               {/* Project Card 1 */}
               <div className="bg-[oklch(0.12_0.008_0)] rounded-lg shadow-lg overflow-hidden">
-                <img src="/images/brookswood-project-1.jpg" alt="Brookswood Project 1" className="w-full h-48 object-cover" />
+                <img src="/images/brookswood-project-1.jpg" alt="Brookswood Project 1" className="w-full h-48 object-cover" loading="lazy"
+                width="800" height="192"
+                />
                 <div className="p-4">
                   <h3 className="font-semibold text-xl mb-2 text-[oklch(0.97_0.003_0)]">Family-Friendly Backyard Oasis</h3>
                   <p className="text-[oklch(0.72_0.005_0)]">Designed a multi-functional backyard with a play area, custom patio, and vibrant garden beds for a growing Brookswood family.</p>
@@ -162,7 +164,9 @@ export default function BrookswoodLandscaping() {
               </div>
               {/* Project Card 2 */}
               <div className="bg-[oklch(0.12_0.008_0)] rounded-lg shadow-lg overflow-hidden">
-                <img src="/images/brookswood-project-2.jpg" alt="Brookswood Project 2" className="w-full h-48 object-cover" />
+                <img src="/images/brookswood-project-2.jpg" alt="Brookswood Project 2" className="w-full h-48 object-cover" loading="lazy"
+                width="800" height="192"
+                />
                 <div className="p-4">
                   <h3 className="font-semibold text-xl mb-2 text-[oklch(0.97_0.003_0)]">Traditional Front Yard Refresh</h3>
                   <p className="text-[oklch(0.72_0.005_0)]">Revitalized an established Brookswood home's front yard with new plantings, a manicured lawn, and inviting pathways.</p>
@@ -170,7 +174,9 @@ export default function BrookswoodLandscaping() {
               </div>
               {/* Project Card 3 */}
               <div className="bg-[oklch(0.12_0.008_0)] rounded-lg shadow-lg overflow-hidden">
-                <img src="/images/brookswood-project-3.jpg" alt="Brookswood Project 3" className="w-full h-48 object-cover" />
+                <img src="/images/brookswood-project-3.jpg" alt="Brookswood Project 3" className="w-full h-48 object-cover" loading="lazy"
+                width="800" height="192"
+                />
                 <div className="p-4">
                   <h3 className="font-semibold text-xl mb-2 text-[oklch(0.97_0.003_0)]">Outdoor Living Expansion</h3>
                   <p className="text-[oklch(0.72_0.005_0)]">Created an expansive outdoor living area with a fire pit, seating, and integrated garden elements for entertaining.</p>
@@ -178,7 +184,9 @@ export default function BrookswoodLandscaping() {
               </div>
               {/* Project Card 4 */}
               <div className="bg-[oklch(0.12_0.008_0)] rounded-lg shadow-lg overflow-hidden">
-                <img src="/images/brookswood-project-4.jpg" alt="Brookswood Project 4" className="w-full h-48 object-cover" />
+                <img src="/images/brookswood-project-4.jpg" alt="Brookswood Project 4" className="w-full h-48 object-cover" loading="lazy"
+                width="800" height="192"
+                />
                 <div className="p-4">
                   <h3 className="font-semibold text-xl mb-2 text-[oklch(0.97_0.003_0)]">Sustainable Garden for New Build</h3>
                   <p className="text-[oklch(0.72_0.005_0)]">Designed and installed a water-wise, low-maintenance garden for a newly constructed home, blending beauty with sustainability.</p>

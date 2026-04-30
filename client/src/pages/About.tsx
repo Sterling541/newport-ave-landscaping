@@ -103,6 +103,11 @@ export default function About() {
         <img
           src={TEAM_PHOTO}
           alt="Newport Avenue Landscaping crew — Bend, Oregon's premier full-service landscape contractor since 2005"
+          loading="eager"
+          fetchPriority="high"
+          decoding="async"
+          width="1600"
+          height="520"
           style={{
             position: "absolute", inset: 0, width: "100%", height: "100%",
             objectFit: "cover", objectPosition: "center top", opacity: 0.75,
@@ -174,6 +179,9 @@ export default function About() {
                 <img
                   src={FOUNDER_PHOTO}
                   alt="Sterling West — Founder of Newport Ave Landscaping"
+                  loading="lazy"
+                  width="800"
+                  height="480"
                   style={{ width: "100%", height: "480px", objectFit: "cover", objectPosition: "center top", display: "block" }}
                 />
                 <div
@@ -280,6 +288,9 @@ export default function About() {
                     <img
                       src={member.photo}
                       alt={`${member.name} — ${member.role}`}
+                      loading="lazy"
+                      width="240"
+                      height="180"
                       style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top" }}
                     />
                   </div>

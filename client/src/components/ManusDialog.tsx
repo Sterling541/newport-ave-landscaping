@@ -59,6 +59,9 @@ export function ManusDialog({
                 src={logo}
                 alt={title ? `${title} logo` : "Newport Avenue Landscaping logo"}
                 className="w-10 h-10 rounded-md"
+                loading="lazy"
+                width="40"
+                height="40"
               />
             </div>
           ) : null}

@@ -90,6 +90,9 @@ export default function LightingSection() {
         <img
           src={FOREST_HOME_4}
           alt="Landscape lighting at dusk — pond, boulders, warm uplights"
+          loading="lazy"
+          width="1600"
+          height="900"
           style={{
             position: "absolute",
             inset: 0,

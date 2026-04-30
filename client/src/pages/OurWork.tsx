@@ -1073,6 +1073,9 @@ export default function OurWork() {
               : `${PROJECTS.find((p) => p.id === lightbox.projectId)?.name ?? "Newport Avenue Landscaping project"} — photo ${lightbox.index + 1}`
             }
             className="max-h-[88vh] max-w-[90vw] object-contain"
+            loading="lazy"
+            width="1200"
+            height="800"
             onClick={(e) => e.stopPropagation()}
             style={{ borderRadius: "1.2rem 0.15rem 1.2rem 0.15rem" }}
           />

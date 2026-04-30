@@ -61,6 +61,9 @@ export default function StagingGate({ children }: { children: React.ReactNode })
         <img
           src="/manus-storage/logo-transparent-stacked_ff350b79_44beae36.webp"
           alt="Newport Avenue Landscaping"
+          loading="lazy"
+          width="160"
+          height="90"
           style={{ height: 90, objectFit: "contain" }}
           onError={(e) => {
             (e.target as HTMLImageElement).style.display = "none";

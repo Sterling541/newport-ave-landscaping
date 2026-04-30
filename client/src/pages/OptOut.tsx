@@ -272,6 +272,9 @@ export default function OptOut() {
                   src={SIGN_IMG}
                   alt="Newport Avenue Landscaping opt-out sign installed on green stake in front of home"
                   className="sign-img"
+                  loading="lazy"
+                  width="400"
+                  height="560"
                   style={{
                     position: "absolute",
                     width: "145%",
@@ -379,6 +382,7 @@ export default function OptOut() {
                   src={NO_SPRAY_IMG}
                   alt="No Spray / No Rociar circular sticker"
                   style={{ width: "200px", height: "200px", objectFit: "contain", marginBottom: "1rem" }}
+                loading="lazy"
                 />
                 <h3 style={{ fontWeight: 700, color: NAVY, fontSize: "1.1rem", marginBottom: "0.5rem" }}>
                   No Spray / No Rociar
@@ -394,6 +398,7 @@ export default function OptOut() {
                   src={NO_PRUNE_IMG}
                   alt="No Prune / No Podar circular sticker"
                   style={{ width: "200px", height: "200px", objectFit: "contain", marginBottom: "1rem" }}
+                loading="lazy"
                 />
                 <h3 style={{ fontWeight: 700, color: NAVY, fontSize: "1.1rem", marginBottom: "0.5rem" }}>
                   No Prune / No Podar
@@ -568,7 +573,8 @@ export default function OptOut() {
                         onChange={set("noSpray")}
                         style={{ marginRight: "0.6rem", accentColor: RED }}
                       />
-                      <img src={NO_SPRAY_IMG} alt="No Spray / No Rociar circular sticker" style={{ width: "32px", height: "32px", objectFit: "contain", marginRight: "0.6rem" }} />
+                      <img src={NO_SPRAY_IMG} alt="No Spray / No Rociar circular sticker" style={{ width: "32px", height: "32px", objectFit: "contain", marginRight: "0.6rem" }} loading="lazy"
+                />
                       <span style={{ fontWeight: 600, color: NAVY }}>No Spray</span>
                       <span style={{ color: "oklch(0.5 0.02 240)", marginLeft: "0.4rem", fontSize: "0.88rem" }}>— opt out of all weed &amp; turf spraying</span>
                     </label>
@@ -579,7 +585,8 @@ export default function OptOut() {
                         onChange={set("noPrune")}
                         style={{ marginRight: "0.6rem", accentColor: RED }}
                       />
-                      <img src={NO_PRUNE_IMG} alt="No Prune / No Podar circular sticker" style={{ width: "32px", height: "32px", objectFit: "contain", marginRight: "0.6rem" }} />
+                      <img src={NO_PRUNE_IMG} alt="No Prune / No Podar circular sticker" style={{ width: "32px", height: "32px", objectFit: "contain", marginRight: "0.6rem" }} loading="lazy"
+                />
                       <span style={{ fontWeight: 600, color: NAVY }}>No Prune</span>
                       <span style={{ color: "oklch(0.5 0.02 240)", marginLeft: "0.4rem", fontSize: "0.88rem" }}>— opt out of all pruning &amp; shaping</span>
                     </label>

@@ -92,6 +92,9 @@ export default function BeforeAfterSlider({
         <img
           src={afterSrc}
           alt={afterAlt}
+          loading="lazy"
+          width="1200"
+          height="800"
           style={{
             position: "absolute",
             inset: 0,
@@ -116,6 +119,9 @@ export default function BeforeAfterSlider({
           <img
             src={beforeSrc}
             alt={beforeAlt}
+            loading="lazy"
+            width="1200"
+            height="800"
             style={{
               position: "absolute",
               top: 0,

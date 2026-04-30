@@ -177,6 +177,9 @@ function MegaMenu({
         <img
           src={photo}
           alt={`Newport Avenue Landscaping — ${subline}`}
+          loading="lazy"
+          width="600"
+          height="380"
           style={{
             position: "absolute",
             inset: 0,
@@ -706,6 +709,10 @@ export default function Navbar() {
               <img
                 src={LOGO_NAV}
                 alt="Newport Avenue Landscaping — Bend, Oregon Landscaping Company"
+                loading="eager"
+                fetchPriority="high"
+                width="300"
+                height="150"
                 style={{
                   height: "150px",
                   width: "auto",
@@ -815,6 +822,9 @@ export default function Navbar() {
               src={LOGO_NAV}
               alt=""
               aria-hidden="true"
+              loading="eager"
+              width="120"
+              height="44"
               style={{ height: "44px", width: "auto", objectFit: "contain" }}
             />
           </button>

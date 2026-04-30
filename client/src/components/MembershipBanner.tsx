@@ -81,6 +81,9 @@ export default function MembershipBanner() {
           <img
             src={BADGE_URL}
             alt="Newport Avenue Priority Irrigation Membership Badge"
+            loading="lazy"
+            width="480"
+            height="480"
             style={{
               width: "clamp(260px, 34vw, 480px)",
               height: "auto",

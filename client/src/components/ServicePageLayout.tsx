@@ -244,6 +244,8 @@ export default function ServicePageLayout({
                       className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
                       loading={i === 0 ? "eager" : "lazy"}
                       decoding="async"
+                      width={i === 0 ? 1200 : 800}
+                      height={i === 0 ? 675 : 600}
                     />
                   </div>
                 </FadeIn>
@@ -384,6 +386,8 @@ export default function ServicePageLayout({
                         alt={project.title}
                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                         loading="lazy"
+                        width="800"
+                        height="600"
                         onError={(e) => { (e.target as HTMLImageElement).style.opacity = "0.3"; }}
                       />
                       <div

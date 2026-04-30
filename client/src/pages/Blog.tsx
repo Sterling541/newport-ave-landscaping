@@ -105,6 +105,9 @@ export default function Blog() {
                     src={post.image}
                     alt={post.title}
                     className="w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    loading="lazy"
+                    width="800"
+                    height="220"
                     style={{ height: "220px" }}
                   />
                 </div>

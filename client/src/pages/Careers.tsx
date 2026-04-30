@@ -121,6 +121,11 @@ export default function Careers() {
         <img
           src="/manus-storage/safe-hero-about-team_4082936f.jpg"
           alt="Newport Avenue Landscaping crew in Bend, Oregon"
+          loading="eager"
+          fetchPriority="high"
+          decoding="async"
+          width="1600"
+          height="520"
           style={{
             position: "absolute", inset: 0, width: "100%", height: "100%",
             objectFit: "cover", objectPosition: "center 30%", opacity: 0.55,

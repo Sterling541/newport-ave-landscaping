@@ -461,6 +461,7 @@ export default function Commercial() {
                   src={CREW_PLANTING}
                   alt="Newport Avenue crew planting trees at commercial RV park project"
                   className="w-full h-full object-cover"
+                loading="lazy"
                 />
               </div>
               {/* Floating stat */}
@@ -547,6 +548,7 @@ export default function Commercial() {
                   src={HERO_IMAGE}
                   alt="Aerial view of large commercial RV park landscape installation — Newport Avenue Landscaping"
                   className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                loading="lazy"
                 />
               </div>
             </FadeIn>
@@ -558,7 +560,8 @@ export default function Commercial() {
                     src={CREW_ACTION}
                     alt="Newport Avenue crew at commercial landscape installation"
                     className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-                  />
+                  loading="lazy"
+                />
                 </div>
               </FadeIn>
               <FadeIn delay={0.2} className="flex-1">
@@ -567,7 +570,8 @@ export default function Commercial() {
                     src={CREW_IRRIGATION}
                     alt="Newport Avenue crew watering newly planted trees at commercial site"
                     className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-                  />
+                  loading="lazy"
+                />
                 </div>
               </FadeIn>
             </div>
@@ -581,6 +585,7 @@ export default function Commercial() {
                   src={CREW_SOIL}
                   alt="Newport Avenue crew moving soil at commercial project"
                   className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                loading="lazy"
                 />
               </div>
             </FadeIn>
@@ -590,6 +595,7 @@ export default function Commercial() {
                   src={CREW_DAY2_11}
                   alt="Newport Avenue commercial landscape installation crew"
                   className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                loading="lazy"
                 />
               </div>
             </FadeIn>
@@ -599,6 +605,7 @@ export default function Commercial() {
                   src={CREW_DAY2_25}
                   alt="Newport Avenue commercial landscape installation detail"
                   className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                loading="lazy"
                 />
               </div>
             </FadeIn>
@@ -658,19 +665,19 @@ export default function Commercial() {
             {/* Hero aerial */}
             <FadeIn delay={0.1} className="row-span-2">
               <div className="overflow-hidden" style={{ borderRadius: "4px", height: "100%", minHeight: "400px" }}>
-                <img src={DW_AERIAL_OVERVIEW} alt="Discovery West Plaza — full aerial overview of circular paver plaza" width="800" height="600" className="w-full h-full object-cover" style={{ transition: "transform 0.6s ease" }} onMouseEnter={e => (e.currentTarget.style.transform = "scale(1.04)")} onMouseLeave={e => (e.currentTarget.style.transform = "scale(1)")} />
+                <img src={DW_AERIAL_OVERVIEW} alt="Discovery West Plaza — full aerial overview of circular paver plaza" width="800" height="600" className="w-full h-full object-cover" style={{ transition: "transform 0.6s ease" }} onMouseEnter={e => (e.currentTarget.style.transform = "scale(1.04)")} onMouseLeave={e => (e.currentTarget.style.transform = "scale(1)")} loading="lazy" />
               </div>
             </FadeIn>
             {/* Side top */}
             <FadeIn delay={0.2}>
               <div className="overflow-hidden" style={{ borderRadius: "4px", height: "240px" }}>
-                <img src={DW_AERIAL_ANGLED} alt="Discovery West Plaza — angled aerial with crew working" width="800" height="600" className="w-full h-full object-cover" style={{ transition: "transform 0.6s ease" }} onMouseEnter={e => (e.currentTarget.style.transform = "scale(1.04)")} onMouseLeave={e => (e.currentTarget.style.transform = "scale(1)")} />
+                <img src={DW_AERIAL_ANGLED} alt="Discovery West Plaza — angled aerial with crew working" width="800" height="600" className="w-full h-full object-cover" style={{ transition: "transform 0.6s ease" }} onMouseEnter={e => (e.currentTarget.style.transform = "scale(1.04)")} onMouseLeave={e => (e.currentTarget.style.transform = "scale(1)")} loading="lazy" />
               </div>
             </FadeIn>
             {/* Side bottom */}
             <FadeIn delay={0.3}>
               <div className="overflow-hidden" style={{ borderRadius: "4px", height: "240px" }}>
-                <img src={DW_OVERHEAD_CIRCULAR} alt="Discovery West Plaza — overhead view of circular paver pattern" width="800" height="600" className="w-full h-full object-cover" style={{ transition: "transform 0.6s ease" }} onMouseEnter={e => (e.currentTarget.style.transform = "scale(1.04)")} onMouseLeave={e => (e.currentTarget.style.transform = "scale(1)")} />
+                <img src={DW_OVERHEAD_CIRCULAR} alt="Discovery West Plaza — overhead view of circular paver pattern" width="800" height="600" className="w-full h-full object-cover" style={{ transition: "transform 0.6s ease" }} onMouseEnter={e => (e.currentTarget.style.transform = "scale(1.04)")} onMouseLeave={e => (e.currentTarget.style.transform = "scale(1)")} loading="lazy" />
               </div>
             </FadeIn>
           </div>
@@ -679,12 +686,12 @@ export default function Commercial() {
           <div className="grid gap-3 mt-3" style={{ gridTemplateColumns: "1fr 1fr" }}>
             <FadeIn delay={0.4}>
               <div className="overflow-hidden" style={{ borderRadius: "4px", height: "280px" }}>
-                <img src={DW_CREW_PLANTING} alt="Newport Avenue crew planting at Discovery West Plaza" width="800" height="600" className="w-full h-full object-cover" style={{ transition: "transform 0.6s ease" }} onMouseEnter={e => (e.currentTarget.style.transform = "scale(1.04)")} onMouseLeave={e => (e.currentTarget.style.transform = "scale(1)")} />
+                <img src={DW_CREW_PLANTING} alt="Newport Avenue crew planting at Discovery West Plaza" width="800" height="600" className="w-full h-full object-cover" style={{ transition: "transform 0.6s ease" }} onMouseEnter={e => (e.currentTarget.style.transform = "scale(1.04)")} onMouseLeave={e => (e.currentTarget.style.transform = "scale(1)")} loading="lazy" />
               </div>
             </FadeIn>
             <FadeIn delay={0.5}>
               <div className="overflow-hidden" style={{ borderRadius: "4px", height: "280px" }}>
-                <img src={NINES_CREW} alt="Newport Avenue crew installing plantings at The Nines commercial project" width="800" height="600" className="w-full h-full object-cover" style={{ transition: "transform 0.6s ease" }} onMouseEnter={e => (e.currentTarget.style.transform = "scale(1.04)")} onMouseLeave={e => (e.currentTarget.style.transform = "scale(1)")} />
+                <img src={NINES_CREW} alt="Newport Avenue crew installing plantings at The Nines commercial project" width="800" height="600" className="w-full h-full object-cover" style={{ transition: "transform 0.6s ease" }} onMouseEnter={e => (e.currentTarget.style.transform = "scale(1.04)")} onMouseLeave={e => (e.currentTarget.style.transform = "scale(1)")} loading="lazy" />
               </div>
             </FadeIn>
           </div>
@@ -878,6 +885,7 @@ export default function Commercial() {
                   src={HOA_COMMUNITY}
                   alt="HOA community landscape maintenance — Newport Avenue Landscaping"
                   className="w-full h-full object-cover"
+                loading="lazy"
                 />
               </div>
             </FadeIn>

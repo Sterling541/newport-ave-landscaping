@@ -103,6 +103,7 @@ export default function BotanicalBand({
             src={GRASS_URL}
             alt=""
             aria-hidden="true"
+            loading="lazy"
             style={{
               position: "absolute",
               left: "clamp(-20px, 2vw, 40px)",
@@ -122,6 +123,7 @@ export default function BotanicalBand({
             src={SHRUB_URL}
             alt=""
             aria-hidden="true"
+            loading="lazy"
             style={{
               position: "absolute",
               left: "clamp(200px, 18vw, 340px)",
@@ -141,6 +143,7 @@ export default function BotanicalBand({
             src={SPRUCE_TREE_URL}
             alt=""
             aria-hidden="true"
+            loading="lazy"
             style={{
               position: "absolute",
               right: "clamp(240px, 22vw, 400px)",
@@ -160,6 +163,7 @@ export default function BotanicalBand({
             src={FERN_URL}
             alt=""
             aria-hidden="true"
+            loading="lazy"
             style={{
               position: "absolute",
               right: "clamp(-20px, 2vw, 40px)",
@@ -185,6 +189,7 @@ export default function BotanicalBand({
             src={SPRUCE_BRANCH_URL}
             alt=""
             aria-hidden="true"
+            loading="lazy"
             style={{
               position: "absolute",
               left: "clamp(-30px, 1vw, 20px)",
@@ -204,6 +209,7 @@ export default function BotanicalBand({
             src={FERN_URL}
             alt=""
             aria-hidden="true"
+            loading="lazy"
             style={{
               position: "absolute",
               left: "clamp(180px, 16vw, 320px)",
@@ -223,6 +229,7 @@ export default function BotanicalBand({
             src={GRASS_URL}
             alt=""
             aria-hidden="true"
+            loading="lazy"
             style={{
               position: "absolute",
               right: "clamp(200px, 19vw, 360px)",
@@ -242,6 +249,7 @@ export default function BotanicalBand({
             src={SHRUB_URL}
             alt=""
             aria-hidden="true"
+            loading="lazy"
             style={{
               position: "absolute",
               right: "clamp(-30px, 1vw, 20px)",

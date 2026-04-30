@@ -285,6 +285,9 @@ export default function PhotoGallery() {
               src={photos[lightbox].src}
               alt={photos[lightbox].title}
               className="w-full max-h-[80vh] object-contain"
+              loading="lazy"
+              width="1200"
+              height="800"
               style={{ boxShadow: "0 32px 80px oklch(0 0 0 / 0.6)" }}
             />
             <div className="mt-4 text-center">

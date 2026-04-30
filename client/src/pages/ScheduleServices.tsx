@@ -238,7 +238,8 @@ function FormSidebar({ steps, currentStep }: { steps: string[]; currentStep: num
     >
       {/* Logo area with subtle bottom border */}
       <div className="px-7 pt-8 pb-6" style={{ borderBottom: "1px solid rgba(255,255,255,0.07)" }}>
-        <img src={LOGO_URL} alt="Newport Avenue Landscaping" className="h-12 brightness-0 invert opacity-90" />
+        <img src={LOGO_URL} alt="Newport Avenue Landscaping" className="h-12 brightness-0 invert opacity-90" loading="lazy"
+                />
       </div>
 
       {/* Steps */}
@@ -470,7 +471,8 @@ export default function ScheduleServices() {
       {/* Hero */}
       <div style={{ background: "linear-gradient(135deg, oklch(0.13 0.005 30) 0%, oklch(0.19 0.008 30) 100%)", paddingTop: "204px" }}>
         <div className="max-w-5xl mx-auto px-4 py-8 lg:hidden text-center">
-          <img src={LOGO_URL} alt="Newport Avenue Landscaping" className="h-12 mx-auto mb-3 drop-shadow-sm" />
+          <img src={LOGO_URL} alt="Newport Avenue Landscaping" className="h-12 mx-auto mb-3 drop-shadow-sm" loading="lazy"
+                />
           <h1 className="text-2xl font-bold text-white mb-1">Schedule Services</h1>
           <p className="text-stone-400 text-sm">Quick and easy — completed in just 4 minutes on average.</p>
         </div>
