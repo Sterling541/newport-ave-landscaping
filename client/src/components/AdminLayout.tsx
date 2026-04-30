@@ -164,9 +164,12 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
   });
 
   // Fetch staff permissions — null means owner (sees all)
-  const { data: permissions } = trpc.staff.myPermissions.useQuery(undefined, {
+  // staleTime:0 + gcTime:0 forces a fresh fetch every mount, preventing stale cache from causing flash-then-disappear
+  const { data: permissions, isLoading: permissionsLoading, isFetched: permissionsFetched } = trpc.staff.myPermissions.useQuery(undefined, {
     retry: false,
-    staleTime: 5 * 60 * 1000,
+    staleTime: 0,
+    gcTime: 0,
+    refetchOnWindowFocus: false,
   });
 
   // Redirect to /admin/login only if NEITHER staff session NOR Manus OAuth owner session exists
@@ -182,7 +185,10 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
   const isOwner = !!oauthUser && !staffUser;
   const isItemVisible = (permissionKey: string, adminOnly?: boolean) => {
     if (isOwner) return true; // owner sees all
-    if (!permissions) return true; // no permissions loaded yet — show all
+    // Don't filter until permissions have fully loaded — prevents flash-then-disappear
+    if (permissionsLoading || !permissionsFetched) return true;
+    // permissions === null means no staff session or no role — show all (owner fallback)
+    if (!permissions) return true;
     const perms = permissions as Record<string, boolean>;
     // adminOnly items: show only if the permission key is explicitly true
     if (adminOnly) return perms[permissionKey] === true;

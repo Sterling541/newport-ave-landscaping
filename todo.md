@@ -1180,3 +1180,4 @@
 - [x] Fix: Configuration still hidden for info@ admin staff — adminOnly flag blocks all staff even when configuration:true in their permissions; replace with permission key check
 - [x] Fix: Remove adminOnly flag from Configuration nav item — show/hide based purely on configuration permission key
 - [x] Fix: Remove all legacy admin login paths (Navbar modal with code 4132, StagingGate admin link, any hardcoded entry) — single staff login at /admin/login only
+- [x] Fix: Configuration flashes then disappears on refresh for info@ admin — permissions loading race condition in AdminLayout; show all items during load, only filter after permissions resolve
