@@ -1590,7 +1590,7 @@ function SuggestionsModal({
   onBooked,
   onOpenCalendar,
 }: {
-  row: { id: number; firstName: string; lastName: string; siteAddress: string; phone: string; serviceType: string };
+  row: Submission;
   apptType: "install_design" | "enhancement" | "follow_up" | "other";
   reps: { id: number; name: string }[];
   onClose: () => void;
@@ -1598,7 +1598,39 @@ function SuggestionsModal({
   onOpenCalendar: () => void;
 }) {
   const [selectedApptType, setSelectedApptType] = useState(apptType);
-  const [notes, setNotes] = useState("");
+
+  // Build auto-filled notes summary from submission data
+  function buildNotesSummary(r: Submission): string {
+    const parts: string[] = [];
+    const svcLabel: Record<string, string> = {
+      landscape_design: "Landscape Design",
+      new_lawn: "New Lawn",
+      irrigation: "Irrigation",
+      maintenance: "Maintenance",
+      lighting: "Lighting",
+      water_feature: "Water Feature",
+      concrete: "Concrete",
+      warranty: "Warranty",
+      enhancement: "Enhancement",
+    };
+    parts.push(`Service requested: ${svcLabel[r.serviceType] ?? r.serviceType}`);
+    if (r.budget) parts.push(`Budget: ${r.budget}${r.budgetOther ? ` (${r.budgetOther})` : ""}`);
+    if (r.idealCompletionDate) parts.push(`Ideal completion: ${r.idealCompletionDate}`);
+    if (r.flexibleScheduling) parts.push("Flexible scheduling: yes");
+    if (r.isRentalProperty === "yes") parts.push("Rental property");
+    if (r.hasPets === "yes") parts.push("Has pets");
+    if (r.needsHoaApproval === "yes") parts.push("Needs HOA approval");
+    if (r.maintenanceTypes) parts.push(`Maintenance types: ${r.maintenanceTypes}`);
+    if (r.irrigationTypes) parts.push(`Irrigation types: ${r.irrigationTypes}`);
+    if (r.lightingTypes) parts.push(`Lighting types: ${r.lightingTypes}`);
+    if (r.landscapeElements) parts.push(`Landscape elements: ${r.landscapeElements}`);
+    if (r.concreteServiceType) parts.push(`Concrete service: ${r.concreteServiceType}`);
+    if (r.comments) parts.push(`Customer comments: "${r.comments}"`);
+    if (r.adminNotes) parts.push(`Admin notes: ${r.adminNotes}`);
+    return parts.join(". ");
+  }
+
+  const [notes, setNotes] = useState(() => buildNotesSummary(row));
   const [bookingSlot, setBookingSlot] = useState<SuggestionSlot | null>(null);
 
   const { data: suggestions, isLoading, refetch } = trpc.scheduler.getSuggestions.useQuery(
@@ -1646,10 +1678,7 @@ function SuggestionsModal({
         <div className="flex items-center justify-between px-6 py-4 border-b border-stone-100">
           <div className="flex items-center gap-2">
             <CalendarPlus className="w-5 h-5 text-emerald-600" />
-            <div>
-              <h2 className="font-semibold text-base text-stone-800">Smart Scheduler</h2>
-              <p className="text-xs text-stone-400">{row.firstName} {row.lastName} · {row.siteAddress}</p>
-            </div>
+            <h2 className="font-semibold text-base text-stone-800">Smart Scheduler</h2>
           </div>
           <button onClick={onClose} className="p-1.5 rounded-lg hover:bg-stone-100 transition-colors">
             <XCircle className="w-4 h-4 text-stone-400" />
@@ -1657,6 +1686,31 @@ function SuggestionsModal({
         </div>
 
         <div className="p-5 space-y-4">
+          {/* Customer info card */}
+          <div className="rounded-xl border border-stone-200 bg-stone-50 px-4 py-3">
+            <p className="text-[10px] font-semibold text-stone-400 uppercase tracking-wide mb-2">Customer</p>
+            <div className="grid grid-cols-2 gap-x-4 gap-y-1.5 text-sm">
+              <div>
+                <span className="text-[10px] text-stone-400 uppercase tracking-wide block">Name</span>
+                <span className="font-medium text-stone-800">{row.firstName} {row.lastName}</span>
+              </div>
+              <div>
+                <span className="text-[10px] text-stone-400 uppercase tracking-wide block">Phone</span>
+                <span className="text-stone-700">{row.phone || <span className="text-stone-400 italic">—</span>}</span>
+              </div>
+              <div className="col-span-2">
+                <span className="text-[10px] text-stone-400 uppercase tracking-wide block">Address</span>
+                <span className="text-stone-700">{row.siteAddress}</span>
+              </div>
+              {row.email && (
+                <div className="col-span-2">
+                  <span className="text-[10px] text-stone-400 uppercase tracking-wide block">Email</span>
+                  <span className="text-stone-700">{row.email}</span>
+                </div>
+              )}
+            </div>
+          </div>
+
           {/* Appointment type selector */}
           <div className="flex items-center gap-3">
             <label className="text-xs font-medium text-stone-500 whitespace-nowrap">Appointment type:</label>
