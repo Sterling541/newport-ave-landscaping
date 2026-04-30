@@ -762,7 +762,7 @@ export default function ScheduleServices() {
                 <SelectField label="Is this a rental property?" value={form.isRentalProperty} onChange={v => set("isRentalProperty", v)} options={["Yes", "No"]} />
                 <SelectField label="Are you the property owner?" value={form.isPropertyOwner} onChange={v => set("isPropertyOwner", v)} options={["Yes", "No"]} />
                 <SelectField label="Are there dogs & other pets at the property we should know about?" value={form.hasPets} onChange={v => set("hasPets", v)} options={["Yes", "No"]} />
-                <SelectField label="Scheduled With" value={form.scheduledWith} onChange={v => set("scheduledWith", v)} options={["Nathan Kooy", "William Miller", "Danny Sheffield", "Other"]} placeholder="Not assigned" />
+
               </div>
             )}
 
