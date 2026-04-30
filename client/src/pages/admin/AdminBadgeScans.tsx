@@ -310,7 +310,13 @@ export default function AdminBadgeScans() {
                 {selectedScan.employeeName && (
                   <div className="flex items-center gap-3 text-sm">
                     <User className="w-4 h-4 text-gray-400 flex-shrink-0" />
-                    <span className="text-gray-700">Scanned badge of <strong>{selectedScan.employeeName}</strong></span>
+                    <span className="text-gray-700">Badge employee: <strong>{selectedScan.employeeName}</strong></span>
+                  </div>
+                )}
+                {((selectedScan as any).employeeNameFirst || (selectedScan as any).employeeNameLast) && (
+                  <div className="flex items-center gap-3 text-sm">
+                    <User className="w-4 h-4 text-amber-500 flex-shrink-0" />
+                    <span className="text-gray-700">Customer said: <strong>{[(selectedScan as any).employeeNameFirst, (selectedScan as any).employeeNameLast].filter(Boolean).join(" ")}</strong></span>
                   </div>
                 )}
               </div>

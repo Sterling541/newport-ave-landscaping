@@ -481,6 +481,9 @@ export const badgeScans = mysqlTable("badge_scans", {
   firstName: varchar("firstName", { length: 128 }).notNull(),
   lastName: varchar("lastName", { length: 128 }).notNull(),
   phone: varchar("phone", { length: 32 }).notNull(),
+  /** Employee name as typed by the customer (first + last) — required on form */
+  employeeNameFirst: varchar("employeeNameFirst", { length: 128 }),
+  employeeNameLast: varchar("employeeNameLast", { length: 128 }),
   /** Service type selected */
   serviceType: mysqlEnum("badgeScanServiceType", [
     "maintenance",

@@ -94,6 +94,9 @@ export const badgeScanRouter = router({
       firstName: z.string().min(1).max(128),
       lastName: z.string().min(1).max(128),
       phone: z.string().min(7).max(32),
+      /** Employee name as typed by the customer */
+      employeeFirstName: z.string().min(1).max(128).optional(),
+      employeeLastName: z.string().min(1).max(128).optional(),
       serviceType: z.enum(["maintenance", "landscape_construction", "irrigation_sprinkler", "other"]),
       serviceTypeOther: z.string().max(200).optional(),
       message: z.string().max(500).optional(),
@@ -149,6 +152,8 @@ export const badgeScanRouter = router({
         phone: normalizePhone(input.phone),
         serviceType: input.serviceType,
         serviceTypeOther: input.serviceTypeOther ?? null,
+        employeeNameFirst: input.employeeFirstName ?? null,
+        employeeNameLast: input.employeeLastName ?? null,
         message: input.message ?? null,
         submittedUserAgent: input.userAgent ?? null,
         submittedIpHash: ipHash,
