@@ -4,5 +4,6 @@
 User-agent: *
 Allow: /
 Disallow: /admin/
+Disallow: /badge-scan
 
 Sitemap: https://www.newportavelandscaping.com/sitemap.xml

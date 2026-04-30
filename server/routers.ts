@@ -1,4 +1,5 @@
 import { COOKIE_NAME } from "@shared/const";
+import { badgeScanRouter } from "./badgeScanRouter";
 import { getSessionCookieOptions } from "./_core/cookies";
 import { notifyOwner } from "./_core/notification";
 import { systemRouter } from "./_core/systemRouter";
@@ -102,6 +103,7 @@ function requireAdmin(ctx: { user: { openId: string; role: string } | null }) {
 
 export const appRouter = router({
   system: systemRouter,
+  badgeScan: badgeScanRouter,
 
   auth: router({
     me: publicProcedure.query(opts => opts.ctx.user),

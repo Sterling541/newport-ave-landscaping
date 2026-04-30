@@ -437,3 +437,115 @@ export const appointments = mysqlTable("appointments", {
 
 export type Appointment = typeof appointments.$inferSelect;
 export type InsertAppointment = typeof appointments.$inferInsert;
+
+// ═══════════════════════════════════════════════════════════════════════════
+// BADGE SCAN SYSTEM
+// ═══════════════════════════════════════════════════════════════════════════
+
+/**
+ * Newport employees who carry badges with QR codes.
+ * Separate from salesReps — covers field crew, designers, office staff too.
+ */
+export const employees = mysqlTable("employees", {
+  id: int("id").autoincrement().primaryKey(),
+  firstName: varchar("firstName", { length: 128 }).notNull(),
+  lastName: varchar("lastName", { length: 128 }).notNull(),
+  /** Short unique code on badge QR: e.g. "NK", "WM", "DS" */
+  employeeCode: varchar("employeeCode", { length: 8 }).notNull().unique(),
+  /** Role label: Sales, Designer, Field Crew, Office, Other */
+  role: varchar("role", { length: 64 }).notNull().default("Field Crew"),
+  isActive: boolean("isActive").default(true).notNull(),
+  email: varchar("email", { length: 320 }),
+  phone: varchar("phone", { length: 32 }),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+}, (t) => ({
+  idxCode: index("idx_emp_code").on(t.employeeCode),
+  idxActive: index("idx_emp_active").on(t.isActive),
+}));
+
+export type Employee = typeof employees.$inferSelect;
+export type InsertEmployee = typeof employees.$inferInsert;
+
+/**
+ * Badge scan leads — submitted when a customer scans an employee's badge QR code.
+ */
+export const badgeScans = mysqlTable("badge_scans", {
+  id: int("id").autoincrement().primaryKey(),
+  /** FK to employees — null if employee_code_raw didn't match any employee */
+  employeeId: int("employeeId"),
+  /** Raw URL param value, kept for audit */
+  employeeCodeRaw: varchar("employeeCodeRaw", { length: 16 }),
+  /** Customer contact info */
+  email: varchar("email", { length: 320 }).notNull(),
+  firstName: varchar("firstName", { length: 128 }).notNull(),
+  lastName: varchar("lastName", { length: 128 }).notNull(),
+  phone: varchar("phone", { length: 32 }).notNull(),
+  /** Service type selected */
+  serviceType: mysqlEnum("badgeScanServiceType", [
+    "maintenance",
+    "landscape_construction",
+    "irrigation_sprinkler",
+    "other",
+  ]).notNull(),
+  /** Populated when serviceType = 'other' */
+  serviceTypeOther: text("serviceTypeOther"),
+  /** Optional message from customer */
+  message: text("message"),
+  /** Admin workflow status */
+  status: mysqlEnum("badgeScanStatus", [
+    "new",
+    "contacted",
+    "scheduled",
+    "converted",
+    "lost_price",
+    "lost_other",
+    "no_response",
+  ]).default("new").notNull(),
+  /** Internal admin notes */
+  notes: text("notes"),
+  /** FK to appointments — set when scan converts to a scheduled appointment */
+  convertedAppointmentId: int("convertedAppointmentId"),
+  convertedAt: timestamp("convertedAt"),
+  convertedByUserId: int("convertedByUserId"),
+  submittedAt: timestamp("submittedAt").defaultNow().notNull(),
+  /** User agent string for audit */
+  submittedUserAgent: text("submittedUserAgent"),
+  /** Hashed IP for rate limiting — never raw IP */
+  submittedIpHash: varchar("submittedIpHash", { length: 64 }),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+}, (t) => ({
+  idxEmployeeId: index("idx_bs_employee_id").on(t.employeeId),
+  idxStatus: index("idx_bs_status").on(t.status),
+  idxSubmittedAt: index("idx_bs_submitted_at").on(t.submittedAt),
+  idxServiceType: index("idx_bs_service_type").on(t.serviceType),
+}));
+
+export type BadgeScan = typeof badgeScans.$inferSelect;
+export type InsertBadgeScan = typeof badgeScans.$inferInsert;
+
+/**
+ * Monthly payout records for employee badge scan conversions.
+ * $75 per conversion. Aggregated per employee per month.
+ */
+export const payoutRecords = mysqlTable("payout_records", {
+  id: int("id").autoincrement().primaryKey(),
+  employeeId: int("employeeId").notNull(),
+  periodYear: int("periodYear").notNull(),
+  periodMonth: int("periodMonth").notNull(),
+  conversionCount: int("conversionCount").notNull().default(0),
+  /** conversionCount × 75 */
+  amountUsd: decimal("amountUsd", { precision: 10, scale: 2 }).notNull().default("0.00"),
+  paidAt: timestamp("paidAt"),
+  paidByUserId: int("paidByUserId"),
+  notes: text("notes"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+}, (t) => ({
+  idxEmployeePeriod: index("idx_pr_employee_period").on(t.employeeId, t.periodYear, t.periodMonth),
+  idxPaidAt: index("idx_pr_paid_at").on(t.paidAt),
+}));
+
+export type PayoutRecord = typeof payoutRecords.$inferSelect;
+export type InsertPayoutRecord = typeof payoutRecords.$inferInsert;

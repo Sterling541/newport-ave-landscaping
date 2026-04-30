@@ -1124,3 +1124,37 @@
 - [ ] Recompress oversized images (GLLPatio1, NewportAveLandscaping-9, forest-home4, BotanicalBand plants x4)
 - [ ] Add font-display=swap to Google Fonts URLs
 - [ ] Fix LightingSection.tsx forced reflow
+
+## Badge Scan System (Newport_Badge_Scan spec)
+
+- [ ] DB schema: employees table
+- [ ] DB schema: badge_scans table
+- [ ] DB schema: payout_records table
+- [ ] DB migration: pnpm db:push
+- [ ] Seed initial employees: NK (Nathan Kooy), WM (William Miller), DS (Danny Sherfield)
+- [ ] Install qrcode npm package for QR generation
+- [ ] tRPC: employee lookup by code (public)
+- [ ] tRPC: public badge scan submission
+- [ ] tRPC: admin employee CRUD (list, add, edit, deactivate)
+- [ ] tRPC: admin QR code PNG generation
+- [ ] tRPC: admin badge scans list + filters
+- [ ] tRPC: admin badge scan detail update (status, notes)
+- [ ] tRPC: admin payout report + mark paid + CSV export
+- [ ] Public page: /badge-scan (mobile-first, employee greeting, form, thank-you state)
+- [ ] Admin page: /admin/employees
+- [ ] Admin page: /admin/badge-scans
+- [ ] Admin page: /admin/employee-payouts
+- [ ] Notifications: email admin on new badge scan
+- [ ] SEO: noindex meta on /badge-scan, add Disallow to robots.txt, exclude from sitemap
+
+## Session — Apr 30, 2026 (Badge Scan System)
+- [x] DB tables: employees, badge_scans, payout_records created and migrated
+- [x] tRPC badgeScanRouter with all procedures (submit, employee lookup, admin CRUD, payout report)
+- [x] /badge-scan public mobile-first page with employee greeting, lead form, thank-you state
+- [x] /admin/employees page with list, add/edit/deactivate, QR code generation
+- [x] /admin/badge-scans page with filters, detail panel, status/notes management
+- [x] /admin/employee-payouts page with monthly report, mark paid, CSV export
+- [x] Seed initial employees: Nathan Kooy (NK), William Miller (WM), Danny Sherfield (DS)
+- [x] robots.txt: /badge-scan excluded from crawling
+- [x] App.tsx routes wired for all 4 new pages
+- [x] MobileCTABar hidden on /badge-scan

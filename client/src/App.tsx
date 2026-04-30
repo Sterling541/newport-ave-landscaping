@@ -219,7 +219,13 @@ const GasVsPropaneFirePitBend = lazy(() => import("@/pages/resources/GasVsPropan
 const OldBendLandscaping = lazy(() => import("@/pages/service-areas/OldBendLandscaping"));
 const IrrigationFAQBend = lazy(() => import("@/pages/resources/IrrigationFAQBend"));
 const PaverFAQBend = lazy(() => import("@/pages/resources/PaverFAQBend"));
-const XeriscapeFAQBend = lazy(() => import("@/pages/resources/XeriscapeFAQBend"));
+const XeriscapeFAQBend = lazy(() => import('@/pages/resources/XeriscapeFAQBend'));
+
+// Badge Scan System
+const BadgeScan = lazy(() => import('./pages/BadgeScan'));
+const AdminEmployees = lazy(() => import('./pages/admin/AdminEmployees'));
+const AdminBadgeScans = lazy(() => import('./pages/admin/AdminBadgeScans'));
+const AdminEmployeePayouts = lazy(() => import('./pages/admin/AdminEmployeePayouts'));
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -548,6 +554,12 @@ function Router() {
       <Route path={"/admin/image-tracker"} component={ImageTracker} />
       <Route path={"/admin/scheduler"} component={SmartScheduler} />
       <Route path={"/admin/sales-reps"} component={SalesReps} />
+
+      {/* Badge Scan System */}
+      <Route path={"/badge-scan"} component={BadgeScan} />
+      <Route path={"/admin/employees"} component={AdminEmployees} />
+      <Route path={"/admin/badge-scans"} component={AdminBadgeScans} />
+      <Route path={"/admin/employee-payouts"} component={AdminEmployeePayouts} />
       <Route path={"/service-areas/old-bend-landscaping"} component={OldBendLandscaping} />
       <Route path={"/service-areas/redmond-pavers"} component={RedmondPavers} />
       <Route path={"/service-areas/redmond-irrigation"} component={RedmondIrrigation} />
@@ -606,7 +618,7 @@ function Router() {
 function AppShell() {
   const [location] = useLocation();
   // Hide the floating CTA bar on pages that have their own CTAs or forms
-  const hideCTABar = location.startsWith("/schedule-services") || location.startsWith("/admin") || location.startsWith("/quote") || location.startsWith("/get-a-quote");
+  const hideCTABar = location.startsWith("/schedule-services") || location.startsWith("/admin") || location.startsWith("/quote") || location.startsWith("/get-a-quote") || location.startsWith("/badge-scan");
   return (
     <>
       <ScrollToTop />
