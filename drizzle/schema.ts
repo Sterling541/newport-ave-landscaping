@@ -598,3 +598,25 @@ export const roleDefinitions = mysqlTable("role_definitions", {
 }));
 export type RoleDefinition = typeof roleDefinitions.$inferSelect;
 export type InsertRoleDefinition = typeof roleDefinitions.$inferInsert;
+
+/**
+ * PIN reset tokens — one-time tokens sent via email to allow staff to reset their PIN.
+ * Tokens expire after 30 minutes and are single-use.
+ */
+export const pinResetTokens = mysqlTable("pin_reset_tokens", {
+  id: int("id").autoincrement().primaryKey(),
+  /** FK to staff_users */
+  staffUserId: int("staffUserId").notNull(),
+  /** Secure random token (hex string) */
+  token: varchar("token", { length: 128 }).notNull().unique(),
+  /** When the token expires */
+  expiresAt: timestamp("expiresAt").notNull(),
+  /** Whether the token has been used */
+  usedAt: timestamp("usedAt"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+}, (t) => ({
+  idxToken: index("idx_prt_token").on(t.token),
+  idxStaffUser: index("idx_prt_staff_user").on(t.staffUserId),
+}));
+export type PinResetToken = typeof pinResetTokens.$inferSelect;
+export type InsertPinResetToken = typeof pinResetTokens.$inferInsert;

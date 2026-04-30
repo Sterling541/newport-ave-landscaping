@@ -1186,3 +1186,8 @@
 - [x] PERSISTENT BUG: Configuration not showing — same root cause: cookie dropped on HTTPS, myPermissions returns null, permissions never resolve correctly
 - [x] Fix: Add secure:true (production only) to staff_session_id cookie set and clearCookie in staffRouter.ts
 - [x] URGENT: Configuration still not showing for info@ admin staff after all fixes — bulletproof fix: (1) window.location.href full reload after login so cookie is present before queries run, (2) isStaffAdmin shortcut in isItemVisible bypasses permissions query entirely for admin role, (3) debugPermissions endpoint at /admin/debug for live diagnosis
+
+## Session — Apr 30, 2026 (Three Queued Features)
+- [ ] Sales rep email notifications: new assignment email, reschedule email, 30-min reminder cron
+- [ ] Forgot PIN flow: staff can reset PIN via email without manual DB intervention
+- [ ] Inline Scheduled With dropdown on submissions table row (click-to-edit, no detail panel needed)

@@ -163,12 +163,14 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
     staleTime: 5 * 60 * 1000,
   });
 
-  // Fetch staff permissions — null means owner (sees all)
-  // staleTime:0 + gcTime:0 forces a fresh fetch every mount, preventing stale cache from causing flash-then-disappear
-  const { data: permissions, isLoading: permissionsLoading, isFetched: permissionsFetched } = trpc.staff.myPermissions.useQuery(undefined, {
+  // Fetch staff permissions — ONLY after staffUser is known to exist.
+  // This prevents the race condition where permissions refetch before staffUser resolves,
+  // causing Configuration to flash-then-disappear.
+  const { data: permissions, isLoading: permissionsLoading } = trpc.staff.myPermissions.useQuery(undefined, {
     retry: false,
-    staleTime: 0,
-    gcTime: 0,
+    // Only fetch after we know there is a staff session — prevents premature fetches
+    enabled: !staffLoading && !!staffUser,
+    staleTime: 5 * 60 * 1000,
     refetchOnWindowFocus: false,
   });
 
@@ -185,16 +187,20 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
   const isOwner = !!oauthUser && !staffUser;
   // Staff admin role: always show all items regardless of permissions query result
   const isStaffAdmin = staffUser?.role === "admin";
+
   const isItemVisible = (permissionKey: string, adminOnly?: boolean) => {
-    if (isOwner) return true; // Manus OAuth owner sees all
-    if (isStaffAdmin) return true; // admin role staff sees all (bypasses permissions query)
-    // Don't filter until permissions have fully loaded — prevents flash-then-disappear
-    if (permissionsLoading || !permissionsFetched) return true;
-    // permissions === null means no staff session or no role — show all (owner fallback)
+    // Manus OAuth owner sees everything
+    if (isOwner) return true;
+    // Admin role staff sees everything — no permissions query needed
+    if (isStaffAdmin) return true;
+    // While staffUser or permissions are still loading, show everything (no flash-hide)
+    if (staffLoading || permissionsLoading || !staffUser) return true;
+    // permissions === null means the role had no permissions row — show all as fallback
     if (!permissions) return true;
     const perms = permissions as Record<string, boolean>;
-    // adminOnly items: show only if the permission key is explicitly true
+    // adminOnly items require explicit true
     if (adminOnly) return perms[permissionKey] === true;
+    // Regular items: hidden only if explicitly set to false
     return perms[permissionKey] !== false;
   };
 

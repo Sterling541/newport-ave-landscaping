@@ -5,13 +5,15 @@
  */
 import { z } from "zod";
 import bcrypt from "bcryptjs";
+import crypto from "crypto";
 import { TRPCError } from "@trpc/server";
 import { router, publicProcedure, pinProcedure as protectedProcedure } from "./_core/trpc";
 import { getDb } from "./db";
-import { staffUsers, roleDefinitions } from "../drizzle/schema";
-import { eq, desc, and, asc } from "drizzle-orm";
+import { staffUsers, roleDefinitions, pinResetTokens } from "../drizzle/schema";
+import { eq, desc, and, asc, lt } from "drizzle-orm";
 import { SignJWT, jwtVerify } from "jose";
 import { ENV } from "./_core/env";
+import { sendPinResetEmail } from "./emailNotifications";
 
 const STAFF_COOKIE = "staff_session_id";
 const JWT_ALG = "HS256";
@@ -310,4 +312,76 @@ export const staffRouter = router({
       return null;
     }
   }),
+
+  /**
+   * Forgot PIN — send a reset link to the staff user's email.
+   * Rate-limited: silently succeeds even if email not found (prevent enumeration).
+   */
+  forgotPin: publicProcedure
+    .input(z.object({ email: z.string().email() }))
+    .mutation(async ({ input, ctx }) => {
+      const db = await getDb();
+      const [user] = await db.select().from(staffUsers).where(
+        and(eq(staffUsers.email, input.email.toLowerCase()), eq(staffUsers.isActive, true))
+      );
+      // Always return success to prevent email enumeration
+      if (!user) return { ok: true };
+
+      // Clean up expired tokens for this user
+      await db.delete(pinResetTokens).where(
+        and(
+          eq(pinResetTokens.staffUserId, user.id),
+          lt(pinResetTokens.expiresAt, new Date())
+        )
+      );
+
+      // Generate a secure random token
+      const token = crypto.randomBytes(32).toString("hex");
+      const expiresAt = new Date(Date.now() + 30 * 60 * 1000); // 30 minutes
+
+      await db.insert(pinResetTokens).values({
+        staffUserId: user.id,
+        token,
+        expiresAt,
+      });
+
+      // Build reset URL from request origin
+      const req = (ctx as any).req;
+      const origin = req.headers.origin ?? req.headers.referer?.replace(/\/[^/]*$/, "") ?? "https://newportland-g3pw3mru.manus.space";
+      const resetUrl = `${origin}/admin/reset-pin?token=${token}`;
+
+      await sendPinResetEmail(user.email, user.firstName, resetUrl);
+      return { ok: true };
+    }),
+
+  /**
+   * Reset PIN — validate token and set a new PIN.
+   */
+  resetPin: publicProcedure
+    .input(z.object({
+      token: z.string().min(1),
+      newPin: z.string().min(4).max(8).regex(/^\d+$/, "PIN must be digits only"),
+    }))
+    .mutation(async ({ input }) => {
+      const db = await getDb();
+      const [resetToken] = await db.select().from(pinResetTokens)
+        .where(eq(pinResetTokens.token, input.token));
+
+      if (!resetToken) throw new TRPCError({ code: "NOT_FOUND", message: "Invalid or expired reset link" });
+      if (resetToken.usedAt) throw new TRPCError({ code: "BAD_REQUEST", message: "This reset link has already been used" });
+      if (resetToken.expiresAt < new Date()) throw new TRPCError({ code: "BAD_REQUEST", message: "This reset link has expired. Please request a new one." });
+
+      // Hash and set the new PIN
+      const pinHash = await bcrypt.hash(input.newPin, 12);
+      await db.update(staffUsers)
+        .set({ pinHash })
+        .where(eq(staffUsers.id, resetToken.staffUserId));
+
+      // Mark token as used
+      await db.update(pinResetTokens)
+        .set({ usedAt: new Date() })
+        .where(eq(pinResetTokens.id, resetToken.id));
+
+      return { ok: true };
+    }),
 });

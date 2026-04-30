@@ -57,6 +57,7 @@ import {
   seedDefaultReps,
 } from "./scheduler";
 import { fetchHistoricalWeather, fetchWeatherForecast, describeWeatherCode } from "./weather";
+import { sendNewAppointmentEmail, sendRescheduledAppointmentEmail, sendAppointmentReminderEmail } from "./emailNotifications";
 import { processCsvImport } from "./csvImport";
 import { generateInsights, generateDailyPulseSummary } from "./insightsGenerator";
 import { batchGeocodeSubmissions } from "./geocoder";
@@ -1672,6 +1673,26 @@ Be specific, data-driven, and actionable. Format as JSON with keys: bestMonths (
             console.error("[createAppointment] Failed to auto-update submission status:", e);
           }
         }
+        // Send email notification to the assigned sales rep (non-fatal)
+        try {
+          const rep = await getSalesRepById(input.repId);
+          if (rep?.email) {
+            await sendNewAppointmentEmail({
+              repName: rep.name,
+              repEmail: rep.email,
+              customerName: input.customerName,
+              customerAddress: input.customerAddress,
+              customerPhone: input.customerPhone,
+              appointmentDate: input.appointmentDate,
+              startTime: input.startTime,
+              endTime: input.endTime,
+              appointmentType: input.appointmentType,
+              notes: input.notes,
+            });
+          }
+        } catch (e) {
+          console.error("[createAppointment] Failed to send rep notification email:", e);
+        }
         return { success: true };
       }),
 
@@ -1693,7 +1714,38 @@ Be specific, data-driven, and actionable. Format as JSON with keys: bestMonths (
       .mutation(async ({ ctx, input }) => {
         requireAdmin(ctx);
         const { id, ...data } = input;
+        // Fetch old appointment before updating (for reschedule email)
+        const oldAppt = await getAppointmentById(id);
         await updateAppointment(id, data);
+        // Send reschedule email if date or time changed (non-fatal)
+        try {
+          const dateChanged = data.appointmentDate && oldAppt && data.appointmentDate !== oldAppt.appointmentDate;
+          const timeChanged = data.startTime && oldAppt && data.startTime !== oldAppt.startTime;
+          if ((dateChanged || timeChanged) && oldAppt) {
+            const repId = data.repId ?? oldAppt.repId;
+            const rep = await getSalesRepById(repId);
+            if (rep?.email) {
+              await sendRescheduledAppointmentEmail(
+                {
+                  repName: rep.name,
+                  repEmail: rep.email,
+                  customerName: data.customerName !== undefined ? data.customerName : oldAppt.customerName,
+                  customerAddress: data.customerAddress !== undefined ? data.customerAddress : oldAppt.customerAddress,
+                  customerPhone: data.customerPhone !== undefined ? data.customerPhone : oldAppt.customerPhone,
+                  appointmentDate: data.appointmentDate ?? oldAppt.appointmentDate,
+                  startTime: data.startTime ?? oldAppt.startTime,
+                  endTime: data.endTime ?? oldAppt.endTime,
+                  appointmentType: (data.appointmentType ?? oldAppt.appointmentType) as string,
+                  notes: data.notes !== undefined ? data.notes : oldAppt.notes,
+                },
+                oldAppt.appointmentDate,
+                oldAppt.startTime
+              );
+            }
+          }
+        } catch (e) {
+          console.error("[updateAppointment] Failed to send reschedule notification email:", e);
+        }
         return { success: true };
       }),
 
@@ -1705,6 +1757,58 @@ Be specific, data-driven, and actionable. Format as JSON with keys: bestMonths (
         await cancelAppointment(input.id);
         return { success: true };
       }),
+
+    /**
+     * Cron: send 30-minute reminder emails for upcoming appointments.
+     * Called by a scheduled task every 5 minutes. Finds appointments
+     * starting between 28-32 minutes from now and sends reminder emails.
+     * Protected by a shared secret in the Authorization header.
+     */
+    sendReminders: publicProcedure.mutation(async ({ ctx }) => {
+      // Simple shared-secret auth for cron calls
+      const authHeader = (ctx as any).req.headers.authorization ?? "";
+      const expectedSecret = ENV.cookieSecret;
+      if (!authHeader.startsWith("Bearer ") || authHeader.slice(7) !== expectedSecret) {
+        throw new TRPCError({ code: "UNAUTHORIZED" });
+      }
+      const now = new Date();
+      const windowStart = new Date(now.getTime() + 28 * 60 * 1000); // 28 min from now
+      const windowEnd = new Date(now.getTime() + 32 * 60 * 1000);   // 32 min from now
+      // Build HH:MM strings for the window
+      const toHHMM = (d: Date) =>
+        `${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}`;
+      const todayStr = now.toISOString().slice(0, 10);
+      const windowStartTime = toHHMM(windowStart);
+      const windowEndTime = toHHMM(windowEnd);
+      // Fetch all active appointments for today
+      const allToday = await listAppointments({ dateFrom: todayStr, dateTo: todayStr });
+      const upcoming = allToday.filter(appt =>
+        appt.status !== "cancelled" &&
+        appt.status !== "completed" &&
+        appt.startTime >= windowStartTime &&
+        appt.startTime <= windowEndTime
+      );
+      let sent = 0;
+      for (const appt of upcoming) {
+        const rep = await getSalesRepById(appt.repId);
+        if (rep?.email) {
+          await sendAppointmentReminderEmail({
+            repName: rep.name,
+            repEmail: rep.email,
+            customerName: appt.customerName,
+            customerAddress: appt.customerAddress,
+            customerPhone: appt.customerPhone,
+            appointmentDate: appt.appointmentDate,
+            startTime: appt.startTime,
+            endTime: appt.endTime,
+            appointmentType: appt.appointmentType,
+            notes: appt.notes,
+          });
+          sent++;
+        }
+      }
+      return { sent, checked: upcoming.length };
+    }),
   }),
 });
 export type AppRouter = typeof appRouter;
