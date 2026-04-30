@@ -33,6 +33,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { QrCode, Search, Phone, Mail, Calendar, User, ChevronRight, SlidersHorizontal } from "lucide-react";
+import AdminLayout from "@/components/AdminLayout";
 
 
 const STATUS_OPTIONS = [
@@ -139,6 +140,7 @@ export default function AdminBadgeScans() {
   const scans: Scan[] = data?.scans ?? [];
 
   return (
+    <AdminLayout>
     <div className="p-6 max-w-7xl mx-auto">
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
@@ -378,5 +380,6 @@ export default function AdminBadgeScans() {
         </SheetContent>
       </Sheet>
     </div>
+    </AdminLayout>
   );
 }

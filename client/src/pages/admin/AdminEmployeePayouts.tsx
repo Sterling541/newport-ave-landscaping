@@ -22,6 +22,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { DollarSign, Download, CheckCircle, Clock, ChevronDown, ChevronUp } from "lucide-react";
+import AdminLayout from "@/components/AdminLayout";
 
 const PAYOUT_PER_CONVERSION = 75; // $75 per converted lead (matches router)
 
@@ -87,6 +88,7 @@ export default function AdminEmployeePayouts() {
     .reduce((sum, r) => sum + r.amountOwed, 0);
 
   return (
+    <AdminLayout>
     <div className="p-6 max-w-5xl mx-auto">
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
@@ -248,5 +250,6 @@ export default function AdminEmployeePayouts() {
         )}
       </div>
     </div>
+    </AdminLayout>
   );
 }
