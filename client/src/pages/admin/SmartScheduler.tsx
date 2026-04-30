@@ -52,7 +52,7 @@ function getWeekStart(d: Date) {
   return copy;
 }
 
-const HOURS = Array.from({ length: 9 }, (_, i) => i + 8); // 8am–4pm
+const HOURS = Array.from({ length: 12 }, (_, i) => i + 7); // 7am–6pm
 
 const STATUS_STYLES: Record<string, { bg: string; text: string; label: string }> = {
   scheduled:  { bg: "oklch(0.92 0.08 240)", text: "oklch(0.28 0.12 240)", label: "Scheduled" },
