@@ -927,17 +927,22 @@ export default function SmartScheduler() {
                 return (
                   <div
                     key={toYMD(day)}
-                    className="p-2 text-center border-l"
+                    className="p-2 text-center border-l cursor-pointer select-none group"
                     style={{
                       borderColor: "oklch(0.88 0.02 155)",
                       background: isToday ? "oklch(0.95 0.05 145)" : "white",
+                      transition: "background 0.15s",
                     }}
+                    onClick={() => { setDayDate(day); setView("day"); }}
+                    title={`View ${day.toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" })}`}
+                    onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.background = isToday ? "oklch(0.90 0.08 145)" : "oklch(0.96 0.03 155)"; }}
+                    onMouseLeave={(e) => { (e.currentTarget as HTMLDivElement).style.background = isToday ? "oklch(0.95 0.05 145)" : "white"; }}
                   >
                     <div className="text-xs font-medium" style={{ color: isToday ? "oklch(0.35 0.12 145)" : "oklch(0.50 0.05 155)" }}>
                       {day.toLocaleDateString("en-US", { weekday: "short" })}
                     </div>
                     <div
-                      className="text-sm font-bold"
+                      className="text-sm font-bold group-hover:underline"
                       style={{ color: isToday ? "oklch(0.30 0.14 145)" : "oklch(0.25 0.05 155)" }}
                     >
                       {day.getDate()}

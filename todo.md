@@ -1069,3 +1069,4 @@
 - [x] Rep color picker in Sales Reps form (custom calendarColor per rep)
 - [x] Day view in Smart Scheduler calendar (hour-by-hour grid for single day)
 - [x] Appointment count badges on rep toggle pills
+- [x] Click week column header to navigate to Day view
