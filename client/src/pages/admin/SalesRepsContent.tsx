@@ -32,13 +32,14 @@ function ToastMsg({ message, onClose }: { message: string; onClose: () => void }
 interface RepFormData {
   name: string;
   role: "install_design" | "enhancement";
+  staffUserId: number | null;
   googleCalendarId: string;
   email: string;
   phone: string;
   calendarColor: string;
 }
 
-const EMPTY_FORM: RepFormData = { name: "", role: "install_design", googleCalendarId: "", email: "", phone: "", calendarColor: "" };
+const EMPTY_FORM: RepFormData = { name: "", role: "install_design", staffUserId: null, googleCalendarId: "", email: "", phone: "", calendarColor: "" };
 
 const COLOR_SWATCHES = [
   { value: "#3b82f6", label: "Blue" }, { value: "#22c55e", label: "Green" },
@@ -61,6 +62,9 @@ export default function SalesRepsContent() {
     { includeInactive: showInactive }, { refetchOnWindowFocus: false }
   );
 
+  // Load all sales_rep role staff users for the "Link to User" dropdown
+  const { data: salesRepUsers = [] } = trpc.staff.listActiveSalesReps.useQuery(undefined, { refetchOnWindowFocus: false });
+
   const seedMutation = trpc.scheduler.seedReps.useMutation({
     onSuccess: () => { showToast("Default reps seeded."); refetch(); },
     onError: (err) => showToast(`Error: ${err.message}`),
@@ -79,6 +83,7 @@ export default function SalesRepsContent() {
   function startEdit(rep: typeof reps[0]) {
     setEditingId(rep.id);
     setEditForm({ name: rep.name, role: rep.role as "install_design" | "enhancement",
+      staffUserId: (rep as any).staffUserId ?? null,
       googleCalendarId: rep.googleCalendarId ?? "", email: rep.email ?? "",
       phone: rep.phone ?? "", calendarColor: rep.calendarColor ?? "" });
   }
@@ -93,6 +98,7 @@ export default function SalesRepsContent() {
 
   function submitEdit(id: number) {
     updateMutation.mutate({ id, name: editForm.name.trim(), role: editForm.role,
+      staffUserId: editForm.staffUserId ?? null,
       googleCalendarId: editForm.googleCalendarId.trim() || null,
       email: editForm.email.trim() || null, phone: editForm.phone.trim() || null,
       calendarColor: editForm.calendarColor || null });
@@ -242,8 +248,24 @@ export default function SalesRepsContent() {
                         <option value="enhancement">Enhancement</option>
                       </select>
                     </div>
+                    <div className="sm:col-span-2">
+                      <label className="block text-xs font-medium mb-1" style={{ color: "oklch(0.45 0.05 155)" }}>
+                        Link to User Account
+                        <span className="ml-1 font-normal opacity-60">(reminder emails go to this user's email)</span>
+                      </label>
+                      <select
+                        value={editForm.staffUserId ?? ""}
+                        onChange={(e) => setEditForm({ ...editForm, staffUserId: e.target.value ? Number(e.target.value) : null })}
+                        className="w-full px-3 py-2 rounded-lg border text-sm outline-none"
+                        style={{ borderColor: "oklch(0.82 0.03 155)" }}>
+                        <option value="">— No user linked (use Email field below) —</option>
+                        {salesRepUsers.map((u) => (
+                          <option key={u.id} value={u.id}>{u.firstName} {u.lastName}</option>
+                        ))}
+                      </select>
+                    </div>
                     <div>
-                      <label className="block text-xs font-medium mb-1" style={{ color: "oklch(0.45 0.05 155)" }}>Email</label>
+                      <label className="block text-xs font-medium mb-1" style={{ color: "oklch(0.45 0.05 155)" }}>Email <span className="font-normal opacity-60">(fallback if no user linked)</span></label>
                       <input type="email" value={editForm.email} onChange={(e) => setEditForm({ ...editForm, email: e.target.value })}
                         className="w-full px-3 py-2 rounded-lg border text-sm outline-none" style={{ borderColor: "oklch(0.82 0.03 155)" }} />
                     </div>
@@ -309,7 +331,18 @@ export default function SalesRepsContent() {
                         )}
                       </div>
                       <div className="mt-1.5 space-y-0.5">
-                        {rep.email && <div className="flex items-center gap-1.5 text-xs" style={{ color: "oklch(0.55 0.04 155)" }}><Mail className="w-3 h-3" />{rep.email}</div>}
+                        {/* Show linked user email with badge, or fallback email */}
+                        {(rep as any).staffUserId ? (
+                          <div className="flex items-center gap-1.5 text-xs" style={{ color: "oklch(0.35 0.12 145)" }}>
+                            <Mail className="w-3 h-3" />
+                            <span>{(rep as any).effectiveEmail ?? rep.email}</span>
+                            <span className="px-1.5 py-0.5 rounded-full text-xs font-medium" style={{ background: "oklch(0.92 0.08 145)", color: "oklch(0.30 0.14 145)" }}>linked user</span>
+                          </div>
+                        ) : rep.email ? (
+                          <div className="flex items-center gap-1.5 text-xs" style={{ color: "oklch(0.55 0.04 155)" }}><Mail className="w-3 h-3" />{rep.email}</div>
+                        ) : (
+                          <div className="flex items-center gap-1.5 text-xs" style={{ color: "oklch(0.65 0.08 30)" }}><Mail className="w-3 h-3" /><span className="italic">No email — link a user to enable reminders</span></div>
+                        )}
                         {rep.phone && <div className="flex items-center gap-1.5 text-xs" style={{ color: "oklch(0.55 0.04 155)" }}><Phone className="w-3 h-3" />{rep.phone}</div>}
                         {rep.googleCalendarId ? (
                           <div className="flex items-center gap-1.5 text-xs" style={{ color: "oklch(0.40 0.12 145)" }}><Calendar className="w-3 h-3" /><span className="font-mono">{rep.googleCalendarId}</span></div>

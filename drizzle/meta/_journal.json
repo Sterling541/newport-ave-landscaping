@@ -162,6 +162,13 @@
       "when": 1777583001132,
       "tag": "0022_warm_lady_mastermind",
       "breakpoints": true
+    },
+    {
+      "idx": 23,
+      "version": "5",
+      "when": 1777585692881,
+      "tag": "0023_lyrical_scarlet_witch",
+      "breakpoints": true
     }
   ]
 }

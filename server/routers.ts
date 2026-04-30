@@ -1584,6 +1584,7 @@ Be specific, data-driven, and actionable. Format as JSON with keys: bestMonths (
         id: z.number(),
         name: z.string().min(1).max(128).optional(),
         role: z.enum(["install_design", "enhancement"]).optional(),
+        staffUserId: z.number().nullable().optional(),
         googleCalendarId: z.string().max(256).nullable().optional(),
         email: z.string().email().max(320).nullable().optional(),
         phone: z.string().max(32).nullable().optional(),
@@ -1676,10 +1677,10 @@ Be specific, data-driven, and actionable. Format as JSON with keys: bestMonths (
         // Send email notification to the assigned sales rep (non-fatal)
         try {
           const rep = await getSalesRepById(input.repId);
-          if (rep?.email) {
+          if ((rep as any)?.effectiveEmail ?? rep?.email) {
             await sendNewAppointmentEmail({
               repName: rep.name,
-              repEmail: rep.email,
+              repEmail: (rep as any).effectiveEmail ?? rep.email,
               customerName: input.customerName,
               customerAddress: input.customerAddress,
               customerPhone: input.customerPhone,
@@ -1724,11 +1725,11 @@ Be specific, data-driven, and actionable. Format as JSON with keys: bestMonths (
           if ((dateChanged || timeChanged) && oldAppt) {
             const repId = data.repId ?? oldAppt.repId;
             const rep = await getSalesRepById(repId);
-            if (rep?.email) {
+            if ((rep as any)?.effectiveEmail ?? rep?.email) {
               await sendRescheduledAppointmentEmail(
                 {
                   repName: rep.name,
-                  repEmail: rep.email,
+                  repEmail: (rep as any).effectiveEmail ?? rep.email,
                   customerName: data.customerName !== undefined ? data.customerName : oldAppt.customerName,
                   customerAddress: data.customerAddress !== undefined ? data.customerAddress : oldAppt.customerAddress,
                   customerPhone: data.customerPhone !== undefined ? data.customerPhone : oldAppt.customerPhone,
@@ -1761,10 +1762,10 @@ Be specific, data-driven, and actionable. Format as JSON with keys: bestMonths (
         try {
           if (apptToCancel && apptToCancel.status !== "cancelled") {
             const rep = await getSalesRepById(apptToCancel.repId);
-            if (rep?.email) {
+            if ((rep as any)?.effectiveEmail ?? rep?.email) {
               await sendCancelledAppointmentEmail({
                 repName: rep.name,
-                repEmail: rep.email,
+                repEmail: (rep as any).effectiveEmail ?? rep.email,
                 customerName: apptToCancel.customerName,
                 customerAddress: apptToCancel.customerAddress,
                 customerPhone: apptToCancel.customerPhone,
@@ -1810,10 +1811,10 @@ Be specific, data-driven, and actionable. Format as JSON with keys: bestMonths (
       let sent = 0;
       for (const appt of upcoming) {
         const rep = await getSalesRepById(appt.repId);
-        if (rep?.email) {
+        if ((rep as any)?.effectiveEmail ?? rep?.email) {
           await sendAppointmentReminderEmail({
             repName: rep.name,
-            repEmail: rep.email,
+            repEmail: (rep as any).effectiveEmail ?? rep.email,
             customerName: appt.customerName,
             customerAddress: appt.customerAddress,
             customerPhone: appt.customerPhone,

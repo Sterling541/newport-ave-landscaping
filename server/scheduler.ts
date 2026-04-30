@@ -9,7 +9,7 @@
  */
 
 import { getDb } from "./db";
-import { salesReps, appointments } from "../drizzle/schema";
+import { salesReps, appointments, staffUsers } from "../drizzle/schema";
 import { eq, and, ne, asc, sql } from "drizzle-orm";
 import { makeRequest } from "./_core/map";
 
@@ -335,20 +335,34 @@ export async function deleteCalendarEvent(params: {
 
 // ─── DB Helpers ───────────────────────────────────────────────────────────────
 
+/**
+ * Enrich a raw salesRep row with the linked staffUser's email.
+ * Returns the rep with an `effectiveEmail` field: staffUser.email if linked, else rep.email.
+ */
+async function enrichRepWithUserEmail(rep: typeof salesReps.$inferSelect & { staffUserEmail?: string | null }) {
+  if (!rep.staffUserId) return { ...rep, effectiveEmail: rep.email ?? null };
+  const dbConn = await getDb();
+  if (!dbConn) return { ...rep, effectiveEmail: rep.email ?? null };
+  const [su] = await dbConn.select({ email: staffUsers.email, firstName: staffUsers.firstName, lastName: staffUsers.lastName })
+    .from(staffUsers).where(eq(staffUsers.id, rep.staffUserId));
+  return { ...rep, effectiveEmail: su?.email ?? rep.email ?? null, staffUserEmail: su?.email ?? null };
+}
+
 export async function listSalesReps(includeInactive = false) {
   const dbConn = await getDb();
   if (!dbConn) return [];
-  if (includeInactive) {
-    return dbConn.select().from(salesReps);
-  }
-  return dbConn.select().from(salesReps).where(eq(salesReps.isActive, true));
+  const rows = includeInactive
+    ? await dbConn.select().from(salesReps)
+    : await dbConn.select().from(salesReps).where(eq(salesReps.isActive, true));
+  return Promise.all(rows.map(enrichRepWithUserEmail));
 }
 
 export async function getSalesRepById(id: number) {
   const dbConn = await getDb();
   if (!dbConn) return null;
   const rows = await dbConn.select().from(salesReps).where(eq(salesReps.id, id));
-  return rows[0] ?? null;
+  if (!rows[0]) return null;
+  return enrichRepWithUserEmail(rows[0]);
 }
 
 export async function createSalesRep(data: {
@@ -378,6 +392,7 @@ export async function updateSalesRep(
   data: Partial<{
     name: string;
     role: "install_design" | "enhancement";
+    staffUserId: number | null;
     googleCalendarId: string | null;
     email: string | null;
     phone: string | null;

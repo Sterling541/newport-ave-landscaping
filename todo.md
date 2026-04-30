@@ -1216,3 +1216,11 @@
 - [x] Add cancellation email to sales rep when appointment is cancelled
 - [x] Fix cron sendReminders auth — changed from Bearer token to session cookie (protectedProcedure) so scheduled task can call it without error
 - [x] Confirm all appointment emails go to sales rep only (never to clients): new, rescheduled, cancelled, 30-min reminder
+
+## Session — April 30, 2026 (Sales Rep / User Linking)
+
+- [ ] Add staffUserId FK to salesReps table (links rep to their staffUsers account)
+- [ ] Update listReps and getSalesRepById to join staffUsers and return linked user email
+- [ ] Update email logic to prefer staffUser.email over salesReps.email
+- [ ] Update Configuration UI: show "Link to User" dropdown (staffUsers with sales_rep role) on each rep row
+- [ ] Update SmartScheduler: rep list auto-populates from staffUsers with sales_rep role

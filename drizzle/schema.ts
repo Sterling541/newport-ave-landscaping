@@ -368,9 +368,12 @@ export const salesReps = mysqlTable("sales_reps", {
   name: varchar("name", { length: 128 }).notNull(),
   /** Role determines which appointment types this rep handles */
   role: mysqlEnum("repRole", ["install_design", "enhancement"]).notNull(),
+  /** FK to staffUsers — links this rep to their staff login account.
+   * When set, appointment reminder emails are sent to the linked staffUser's email. */
+  staffUserId: int("staffUserId"),
   /** Google Calendar ID for this rep — set after Google Cloud setup */
   googleCalendarId: varchar("googleCalendarId", { length: 256 }),
-  /** Email for display / notifications */
+  /** Email for display / notifications (fallback if no staffUserId linked) */
   email: varchar("email", { length: 320 }),
   /** Phone for display */
   phone: varchar("phone", { length: 32 }),
