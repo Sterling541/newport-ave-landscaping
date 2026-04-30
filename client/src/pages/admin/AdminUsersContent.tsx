@@ -16,7 +16,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import {
   Users, Plus, Edit2, Trash2, Shield, Eye, EyeOff, Key,
-  CheckSquare, Square, ChevronDown, ChevronRight,
+  CheckSquare, Square, ChevronDown, ChevronRight, PowerOff, Power,
 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -59,6 +59,23 @@ interface RoleDef {
 
 function parsePermissions(raw: string): Record<string, boolean> {
   try { return JSON.parse(raw) || {}; } catch { return {}; }
+}
+
+/** Format a Date as relative time or a short date string */
+function formatLastLogin(date: Date | null | undefined): string {
+  if (!date) return "Never";
+  const d = new Date(date);
+  const now = new Date();
+  const diffMs = now.getTime() - d.getTime();
+  const diffMins = Math.floor(diffMs / 60_000);
+  const diffHours = Math.floor(diffMs / 3_600_000);
+  const diffDays = Math.floor(diffMs / 86_400_000);
+  if (diffMins < 2) return "Just now";
+  if (diffMins < 60) return `${diffMins}m ago`;
+  if (diffHours < 24) return `${diffHours}h ago`;
+  if (diffDays === 1) return "Yesterday";
+  if (diffDays < 30) return `${diffDays}d ago`;
+  return d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
 }
 
 function RolePermissionsEditor({
@@ -141,6 +158,14 @@ export default function AdminUsersContent() {
     onError: (e) => toast.error(e.message),
   });
 
+  const toggleActive = trpc.staff.toggleUserActive.useMutation({
+    onSuccess: (_, vars) => {
+      toast.success(vars.isActive ? "User reactivated." : "User deactivated.");
+      usersQuery.refetch();
+    },
+    onError: (e) => toast.error(e.message),
+  });
+
   const createRole = trpc.staff.createRole.useMutation({
     onSuccess: () => { toast.success("Role created."); setShowAddRole(false); setNewRoleForm({ slug: "", label: "" }); rolesQuery.refetch(); },
     onError: (e) => toast.error(e.message),
@@ -174,7 +199,7 @@ export default function AdminUsersContent() {
     if (!editUser) return;
     updateUser.mutate({ id: editUser.id, email: userForm.email, firstName: userForm.firstName,
       lastName: userForm.lastName, role: userForm.role, phone: userForm.phone || null,
-      title: userForm.title || null, pin: userForm.pin || undefined });
+      title: userForm.title || null, newPin: userForm.pin || undefined });
   }
 
   function handleSavePermissions(slug: string, label: string, perms: Record<string, boolean>) {
@@ -247,8 +272,10 @@ export default function AdminUsersContent() {
                       No staff users yet. Add your first user to get started.
                     </TableCell></TableRow>
                   ) : users.map(u => (
-                    <TableRow key={u.id} className="hover:bg-slate-50">
-                      <TableCell className="font-medium text-slate-800">{u.firstName} {u.lastName}</TableCell>
+                    <TableRow key={u.id} className={`hover:bg-slate-50 transition-colors ${!u.isActive ? "opacity-50" : ""}`}>
+                      <TableCell className={`font-medium ${u.isActive ? "text-slate-800" : "text-slate-400"}`}>
+                        {u.firstName} {u.lastName}
+                      </TableCell>
                       <TableCell className="text-slate-600 text-sm">{u.email}</TableCell>
                       <TableCell>
                         <Badge variant="outline" className="text-xs capitalize bg-emerald-50 text-emerald-700 border-emerald-200">
@@ -257,15 +284,26 @@ export default function AdminUsersContent() {
                       </TableCell>
                       <TableCell className="text-slate-500 text-sm">{u.title ?? "—"}</TableCell>
                       <TableCell>
-                        <Badge variant="outline" className={`text-xs ${u.isActive ? "bg-green-50 text-green-700 border-green-200" : "bg-slate-100 text-slate-500 border-slate-200"}`}>
+                        <Badge variant="outline" className={`text-xs ${u.isActive ? "bg-green-50 text-green-700 border-green-200" : "bg-slate-100 text-slate-400 border-slate-200"}`}>
                           {u.isActive ? "Active" : "Inactive"}
                         </Badge>
                       </TableCell>
-                      <TableCell className="text-slate-400 text-xs">
-                        {u.lastLoginAt ? new Date(u.lastLoginAt).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }) : "Never"}
+                      <TableCell className="text-slate-400 text-xs whitespace-nowrap">
+                        {formatLastLogin(u.lastLoginAt)}
                       </TableCell>
                       <TableCell className="text-right">
                         <div className="flex items-center justify-end gap-1">
+                          {/* Deactivate / Reactivate toggle */}
+                          <Button
+                            size="sm"
+                            variant="ghost"
+                            title={u.isActive ? "Deactivate user" : "Reactivate user"}
+                            onClick={() => toggleActive.mutate({ id: u.id, isActive: !u.isActive })}
+                            disabled={toggleActive.isPending}
+                            className={`h-7 w-7 p-0 ${u.isActive ? "text-amber-500 hover:text-amber-700" : "text-emerald-500 hover:text-emerald-700"}`}
+                          >
+                            {u.isActive ? <PowerOff className="w-3.5 h-3.5" /> : <Power className="w-3.5 h-3.5" />}
+                          </Button>
                           <Button size="sm" variant="ghost" onClick={() => openEditUser(u)} className="h-7 w-7 p-0 text-slate-500 hover:text-slate-800">
                             <Edit2 className="w-3.5 h-3.5" />
                           </Button>
@@ -284,6 +322,7 @@ export default function AdminUsersContent() {
               <Key className="w-4 h-4 mt-0.5 shrink-0" />
               <div>
                 <strong>PIN Login:</strong> Staff members log in at <code className="bg-blue-100 px-1 rounded">/admin/login</code> using their email and PIN. Each PIN must be at least 4 characters. Admins can reset PINs by editing the user.
+                {" "}<strong>Deactivated users</strong> cannot log in until reactivated.
               </div>
             </div>
           </div>
@@ -367,8 +406,20 @@ export default function AdminUsersContent() {
                 <Label className="text-xs">Role *</Label>
                 <select value={userForm.role} onChange={e => setUserForm({ ...userForm, role: e.target.value })}
                   className="mt-1 w-full px-3 py-2 rounded-md border border-slate-200 text-sm outline-none focus:ring-2 focus:ring-emerald-500">
-                  {roles.map(r => <option key={r.slug} value={r.slug}>{r.label}</option>)}
+                  {/* Always show Sales Rep and Admin as options even if roles haven't loaded yet */}
+                  {roles.length > 0
+                    ? roles.map(r => <option key={r.slug} value={r.slug}>{r.label}</option>)
+                    : <>
+                        <option value="sales_rep">Sales Rep</option>
+                        <option value="admin">Admin</option>
+                      </>
+                  }
                 </select>
+                {userForm.role === "sales_rep" && (
+                  <p className="text-xs text-emerald-700 mt-1">
+                    ★ Sales Reps appear in the "Scheduled With" dropdown on submissions.
+                  </p>
+                )}
               </div>
               <div className="grid grid-cols-2 gap-3">
                 <div>
@@ -381,7 +432,7 @@ export default function AdminUsersContent() {
                 </div>
               </div>
               <div>
-                <Label className="text-xs">PIN * (min 4 characters)</Label>
+                <Label className="text-xs">PIN * (min 4 digits)</Label>
                 <div className="relative mt-1">
                   <Input type={showPin ? "text" : "password"} value={userForm.pin} onChange={e => setUserForm({ ...userForm, pin: e.target.value })} placeholder="••••" className="pr-10" />
                   <button type="button" onClick={() => setShowPin(!showPin)} className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600">
@@ -425,8 +476,19 @@ export default function AdminUsersContent() {
                 <Label className="text-xs">Role *</Label>
                 <select value={userForm.role} onChange={e => setUserForm({ ...userForm, role: e.target.value })}
                   className="mt-1 w-full px-3 py-2 rounded-md border border-slate-200 text-sm outline-none focus:ring-2 focus:ring-emerald-500">
-                  {roles.map(r => <option key={r.slug} value={r.slug}>{r.label}</option>)}
+                  {roles.length > 0
+                    ? roles.map(r => <option key={r.slug} value={r.slug}>{r.label}</option>)
+                    : <>
+                        <option value="sales_rep">Sales Rep</option>
+                        <option value="admin">Admin</option>
+                      </>
+                  }
                 </select>
+                {userForm.role === "sales_rep" && (
+                  <p className="text-xs text-emerald-700 mt-1">
+                    ★ Sales Reps appear in the "Scheduled With" dropdown on submissions.
+                  </p>
+                )}
               </div>
               <div className="grid grid-cols-2 gap-3">
                 <div>

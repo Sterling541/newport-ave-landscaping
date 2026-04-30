@@ -1163,3 +1163,13 @@
 
 - [x] Fix ScheduleServices form crash: empty string in SelectItem for "Scheduled With" field (removed empty string from options array, added placeholder="Not assigned")
 - [x] Badge Scan Leads: show customer-typed employee name in table Employee column and detail panel (labeled "Employee's Name")
+## Session — Apr 30, 2026 (Users & Roles Enhancements)
+- [x] Add listActiveSalesReps procedure to staffRouter (public, returns active staff with role=sales_rep)
+- [x] Replace hardcoded Nathan/William/Danny options in AdminBadgeScans convert modal with dynamic list from staff_users
+- [x] Replace hardcoded Nathan/William/Danny options in AdminQuoteLeads convert modal with dynamic list from staff_users
+- [x] Add Last Login column to Users table in AdminUsersContent (already has lastLoginAt in query, needs column header fix)
+- [x] Add Deactivate/Reactivate toggle button to each user row in AdminUsersContent
+- [x] Add toggleUserActive mutation to staffRouter (updates isActive field)
+- [x] Show deactivated users with grayed-out row styling and Inactive badge
+- [x] Login procedure already rejects inactive users — verify it shows clear error message
+- [x] Reorder admin sidebar: move Geo Map and Daily Pulse to appear after Lead Trends

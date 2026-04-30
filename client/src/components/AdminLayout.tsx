@@ -49,18 +49,18 @@ const NAV_ITEMS = [
     permissionKey: "quote_leads",
   },
   {
-    label: "Daily Pulse",
-    href: "/admin/daily-pulse",
-    icon: BarChart2,
-    description: "Today's insights",
-    permissionKey: "daily_pulse",
-  },
-  {
     label: "Lead Trends",
     href: "/admin/lead-trends",
     icon: TrendingUp,
     description: "Volume over time",
     permissionKey: "lead_trends",
+  },
+  {
+    label: "Daily Pulse",
+    href: "/admin/daily-pulse",
+    icon: BarChart2,
+    description: "Today's insights",
+    permissionKey: "daily_pulse",
   },
   {
     label: "Geo Map",

@@ -138,6 +138,11 @@ export default function AdminQuoteLeads() {
     { serviceType: convertForm.serviceType },
     { enabled: convertLeadId !== null && convertForm.serviceType.trim().length > 0 }
   );
+  const { data: activeSalesReps } = trpc.staff.listActiveSalesReps.useQuery(
+    undefined,
+    { staleTime: 5 * 60 * 1000 }
+  );
+
   const updateServiceInterestMutation = trpc.quoteLeads.updateServiceInterest.useMutation({
     onSuccess: () => { refetch(); showToast("Service type updated."); },
     onError: (err) => showToast(`Error: ${err.message}`),
@@ -364,9 +369,18 @@ export default function AdminQuoteLeads() {
                         value={convertForm.salesConsultant || (consultantSuggestion?.consultant ?? "")}
                         onChange={e => setField("salesConsultant", e.target.value)}>
                         <option value="">— Select consultant —</option>
-                        <option value="Nathan Kooy">Nathan Kooy (Install/Design)</option>
-                        <option value="William Miller">William Miller (Install/Design)</option>
-                        <option value="Danny Sheffield">Danny Sheffield (Enhancements)</option>
+                        {(activeSalesReps && activeSalesReps.length > 0
+                          ? activeSalesReps
+                          : [
+                              { id: -1, firstName: "Nathan", lastName: "Kooy", title: "Install/Design" },
+                              { id: -2, firstName: "William", lastName: "Miller", title: "Install/Design" },
+                              { id: -3, firstName: "Danny", lastName: "Sheffield", title: "Enhancements" },
+                            ]
+                        ).map(rep => (
+                          <option key={rep.id} value={`${rep.firstName} ${rep.lastName}`}>
+                            {rep.firstName} {rep.lastName}{rep.title ? ` (${rep.title})` : ""}
+                          </option>
+                        ))}
                       </select>
                     </div>
                     <div>

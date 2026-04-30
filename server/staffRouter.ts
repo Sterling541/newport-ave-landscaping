@@ -9,7 +9,7 @@ import { TRPCError } from "@trpc/server";
 import { router, publicProcedure, pinProcedure as protectedProcedure } from "./_core/trpc";
 import { getDb } from "./db";
 import { staffUsers, roleDefinitions } from "../drizzle/schema";
-import { eq, desc, and } from "drizzle-orm";
+import { eq, desc, and, asc } from "drizzle-orm";
 import { SignJWT, jwtVerify } from "jose";
 import { ENV } from "./_core/env";
 
@@ -252,6 +252,28 @@ export const staffRouter = router({
       if (!role) throw new TRPCError({ code: "NOT_FOUND" });
       if (role.isSystem) throw new TRPCError({ code: "FORBIDDEN", message: "Cannot delete system roles" });
       await db.delete(roleDefinitions).where(eq(roleDefinitions.id, input.id));
+      return { ok: true };
+    }),
+
+  /** List active sales reps — used to populate Scheduled With dropdowns */
+  listActiveSalesReps: publicProcedure.query(async () => {
+    const db = await getDb();
+    return db.select({
+      id: staffUsers.id,
+      firstName: staffUsers.firstName,
+      lastName: staffUsers.lastName,
+      title: staffUsers.title,
+    }).from(staffUsers).where(
+      and(eq(staffUsers.role, "sales_rep"), eq(staffUsers.isActive, true))
+    ).orderBy(asc(staffUsers.firstName));
+  }),
+
+  /** Toggle a user's active status */
+  toggleUserActive: protectedProcedure
+    .input(z.object({ id: z.number(), isActive: z.boolean() }))
+    .mutation(async ({ input }) => {
+      const db = await getDb();
+      await db.update(staffUsers).set({ isActive: input.isActive }).where(eq(staffUsers.id, input.id));
       return { ok: true };
     }),
 
