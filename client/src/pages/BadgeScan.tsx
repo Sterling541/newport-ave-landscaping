@@ -24,7 +24,7 @@ import {
   Clock,
 } from "lucide-react";
 
-const LOGO_URL = "/manus-storage/logo-transparent-stacked_ff350b79_44beae36.webp";
+const LOGO_URL = "/manus-storage/logo-transparent-stacked_ff350b79_624f848b.webp";
 const HERO_BG = "/manus-storage/compressed_NewportAveLandcaping-9_97b731b0_1204d3ca_c439672c.webp";
 
 type ServiceType = "maintenance" | "landscape_construction" | "irrigation_sprinkler" | "other";

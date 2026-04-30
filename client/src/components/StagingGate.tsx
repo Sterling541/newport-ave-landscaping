@@ -59,7 +59,7 @@ export default function StagingGate({ children }: { children: React.ReactNode })
       {/* Logo */}
       <div style={{ marginBottom: "2.5rem", textAlign: "center" }}>
         <img
-          src="/manus-storage/logo-transparent-stacked_ff350b79_44beae36.webp"
+          src="/manus-storage/logo-transparent-stacked_ff350b79_624f848b.webp"
           alt="Newport Avenue Landscaping"
           loading="lazy"
           width="160"

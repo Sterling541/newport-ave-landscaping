@@ -195,10 +195,8 @@ export default function AdminUsers() {
       <div className="p-6">
         {/* Header */}
         <div className="flex items-center gap-3 mb-6">
-          <Link href="/admin/submissions">
-            <a className="flex items-center gap-1.5 text-sm text-slate-500 hover:text-slate-800 transition-colors">
-              <ArrowLeft className="w-4 h-4" /> Back to Admin
-            </a>
+          <Link href="/admin/submissions" className="flex items-center gap-1.5 text-sm text-slate-500 hover:text-slate-800 transition-colors">
+            <ArrowLeft className="w-4 h-4" /> Back to Admin
           </Link>
         </div>
 
