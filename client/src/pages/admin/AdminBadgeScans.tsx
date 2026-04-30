@@ -4,7 +4,7 @@ import { toast } from "sonner";
  * List all scans grouped by month, filter by date range / status / service.
  * Convert any scan to a Scheduled Service submission (same flow as Quick Forms).
  */
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect, useRef } from "react";
 import { trpc } from "@/lib/trpc";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -222,6 +222,57 @@ export default function AdminBadgeScans() {
 
   // Convert modal
   const [convertScanId, setConvertScanId] = useState<number | null>(null);
+  const addressInputRef = useRef<HTMLInputElement>(null);
+
+  // Google Maps Places autocomplete on the address field
+  useEffect(() => {
+    if (convertScanId === null) return;
+    let destroyed = false;
+
+    const initAutocomplete = () => {
+      if (destroyed || !addressInputRef.current) return;
+      const autocomplete = new window.google!.maps.places.Autocomplete(addressInputRef.current, {
+        types: ["address"],
+        componentRestrictions: { country: "us" },
+        fields: ["formatted_address"],
+      });
+      autocomplete.addListener("place_changed", () => {
+        const place = autocomplete.getPlace();
+        if (place.formatted_address) {
+          setConvertForm(f => ({ ...f, siteAddress: place.formatted_address! }));
+        }
+      });
+    };
+
+    const waitAndInit = () => {
+      if (window.google?.maps?.places) {
+        initAutocomplete();
+        return;
+      }
+      // Load the script if not already loading
+      const existing = document.querySelector('script[data-maps-autocomplete]');
+      if (!existing) {
+        const apiKey = import.meta.env.VITE_FRONTEND_FORGE_API_KEY;
+        const forgeBase = import.meta.env.VITE_FRONTEND_FORGE_API_URL || "https://forge.butterfly-effect.dev";
+        const script = document.createElement("script");
+        script.src = `${forgeBase}/v1/maps/proxy/maps/api/js?key=${apiKey}&v=weekly&libraries=places`;
+        script.async = true;
+        script.setAttribute("data-maps-autocomplete", "1");
+        script.onload = () => { if (!destroyed) initAutocomplete(); };
+        document.head.appendChild(script);
+      } else {
+        // Script already loading — poll
+        const interval = setInterval(() => {
+          if (window.google?.maps?.places) { clearInterval(interval); if (!destroyed) initAutocomplete(); }
+        }, 200);
+        return () => clearInterval(interval);
+      }
+    };
+
+    // Small delay to let the modal DOM render before attaching
+    const timer = setTimeout(waitAndInit, 50);
+    return () => { destroyed = true; clearTimeout(timer); };
+  }, [convertScanId]);
   const [convertForm, setConvertForm] = useState<ConvertForm>({
     firstName: "", lastName: "", email: "", phone: "",
     siteAddress: "", serviceType: "",
@@ -389,7 +440,7 @@ export default function AdminBadgeScans() {
                   style={{ background: "none", border: "none", color: "white", fontSize: "1.4rem", cursor: "pointer", lineHeight: 1 }}>×</button>
               </div>
               {/* Modal body */}
-              <div style={{ padding: "1.5rem", display: "flex", flexDirection: "column", gap: "1rem" }}>
+              <div style={{ padding: "1.5rem", display: "flex", flexDirection: "column", gap: "1rem", maxHeight: "70vh", overflowY: "auto" }}>
                 {/* Customer Info */}
                 <div style={{ background: "oklch(0.97 0.005 240)", borderRadius: "0.6rem", padding: "1rem" }}>
                   <p style={{ fontSize: "0.72rem", fontWeight: 700, color: NAVY, textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "0.75rem" }}>Customer Information</p>
@@ -405,8 +456,12 @@ export default function AdminBadgeScans() {
                     ))}
                     <div style={{ gridColumn: "1 / -1" }}>
                       <label style={{ fontSize: "0.72rem", fontWeight: 600, color: "oklch(0.45 0.04 240)", textTransform: "uppercase", letterSpacing: "0.04em", display: "block", marginBottom: "0.3rem" }}>Site Address *</label>
-                      <input style={{ width: "100%", padding: "0.45rem 0.65rem", border: "1.5px solid oklch(0.82 0.01 240)", borderRadius: "0.4rem", fontSize: "0.85rem", color: NAVY, background: "white", boxSizing: "border-box" }}
-                        value={convertForm.siteAddress} onChange={e => setField("siteAddress", e.target.value)} placeholder="e.g. 1234 Oak St, Bend OR 97701" />
+                      <input
+                        ref={addressInputRef}
+                        style={{ width: "100%", padding: "0.45rem 0.65rem", border: "1.5px solid oklch(0.82 0.01 240)", borderRadius: "0.4rem", fontSize: "0.85rem", color: NAVY, background: "white", boxSizing: "border-box" }}
+                        value={convertForm.siteAddress}
+                        onChange={e => setField("siteAddress", e.target.value)}
+                        placeholder="Start typing address…" />
                     </div>
                   </div>
                 </div>
