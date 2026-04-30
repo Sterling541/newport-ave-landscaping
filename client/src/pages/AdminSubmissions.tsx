@@ -5,7 +5,7 @@
    ============================================================ */
 import { useState, useMemo, useRef, useEffect } from "react";
 import { trpc } from "@/lib/trpc";
-import { isAdminAuthenticated, adminLogin } from "@/hooks/useAdminAuth";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -52,7 +52,6 @@ import {
   ChevronDown,
   ChevronsUpDown,
   Shield,
-  ShieldAlert,
   Sparkles,
   TrendingUp,
   MapPin,
@@ -553,9 +552,8 @@ function DeepDiveTab() {
 }
 
 export default function AdminSubmissions() {
-  const [pinAuthed, setPinAuthed] = useState(() => isAdminAuthenticated());
-  // Alias user to pinAuthed for downstream code that checks !!user
-  const user = pinAuthed ? { role: "admin" } : null;
+  // Auth is handled by AdminLayout (redirects to /admin/login if no staff session)
+  const user = { role: "admin" };
   const authLoading = false;
   const [search, setSearch] = useState("");
   // ?highlight=<id> from Smart Scheduler detail panel "Open Submission" link
@@ -767,40 +765,6 @@ export default function AdminSubmissions() {
   function toggleSort(key: SortKey) {
     if (sortKey === key) setSortDir(d => d === "asc" ? "desc" : "asc");
     else { setSortKey(key); setSortDir("desc"); }
-  }
-
-  // ── Auth gate (PIN-based) ─────────────────────────────────────────────────
-  if (!pinAuthed) {
-    return (
-      <div className="min-h-screen bg-stone-50 flex items-center justify-center">
-        <div className="max-w-sm w-full text-center px-6 py-10 bg-white rounded-2xl shadow-xl border border-stone-100">
-          <ShieldAlert className="w-12 h-12 text-green-700 mx-auto mb-4" />
-          <h1 className="text-2xl font-bold text-stone-900 mb-2">Admin Access</h1>
-          <p className="text-stone-500 mb-6 text-sm">Enter your admin PIN to continue.</p>
-          <form onSubmit={(e) => {
-            e.preventDefault();
-            const pin = (e.currentTarget.elements.namedItem("pin") as HTMLInputElement).value;
-            if (adminLogin(pin)) {
-              setPinAuthed(true);
-            } else {
-              alert("Incorrect PIN. Please try again.");
-            }
-          }} className="flex flex-col gap-3">
-            <input
-              name="pin"
-              type="password"
-              maxLength={6}
-              placeholder="Enter PIN"
-              autoFocus
-              className="w-full border border-stone-300 rounded-lg px-4 py-3 text-center text-xl tracking-widest focus:outline-none focus:ring-2 focus:ring-green-600"
-            />
-            <Button type="submit" className="bg-green-700 hover:bg-green-800 text-white w-full">
-              Unlock
-            </Button>
-          </form>
-        </div>
-      </div>
-    );
   }
 
   // ── Render ──────────────────────────────────────────────────────────────────

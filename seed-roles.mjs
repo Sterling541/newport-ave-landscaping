@@ -24,37 +24,37 @@ await conn.query(`
 await conn.query(`CREATE INDEX IF NOT EXISTS \`idx_rd_slug\` ON \`role_definitions\` (\`slug\`)`)
   .catch(() => {});
 
-// All nav items — admin sees all, sales_rep sees all for now
+// Keys MUST match the permissionKey values in AdminLayout NAV_ITEMS
+// submissions, quote_leads, lead_trends, daily_pulse, geo_map, reminders,
+// opt_out, smart_scheduler, badge_scans, configuration
 const ALL_PERMS = JSON.stringify({
-  "/admin/submissions": true,
-  "/admin/quote-leads": true,
-  "/admin/daily-pulse": true,
-  "/admin/lead-trends": true,
-  "/admin/geo-intelligence": true,
-  "/admin/csv-import": true,
-  "/admin/reminders": true,
-  "/admin/opt-out-requests": true,
-  "/admin/scheduler": true,
-  "/admin/sales-reps": true,
-  "/admin/badge-scans": true,
-  "/admin/configuration": true,
-  "/admin/users": true,
+  submissions: true,
+  quote_leads: true,
+  lead_trends: true,
+  daily_pulse: true,
+  geo_map: true,
+  reminders: true,
+  opt_out: true,
+  smart_scheduler: true,
+  sales_reps: true,
+  badge_scans: true,
+  configuration: true,
+  users: true,
 });
 
 const SALES_REP_PERMS = JSON.stringify({
-  "/admin/submissions": true,
-  "/admin/quote-leads": true,
-  "/admin/daily-pulse": true,
-  "/admin/lead-trends": true,
-  "/admin/geo-intelligence": true,
-  "/admin/csv-import": false,
-  "/admin/reminders": true,
-  "/admin/opt-out-requests": true,
-  "/admin/scheduler": true,
-  "/admin/sales-reps": false,
-  "/admin/badge-scans": true,
-  "/admin/configuration": false,
-  "/admin/users": false,
+  submissions: true,
+  quote_leads: true,
+  lead_trends: true,
+  daily_pulse: true,
+  geo_map: true,
+  reminders: true,
+  opt_out: true,
+  smart_scheduler: true,
+  sales_reps: false,
+  badge_scans: true,
+  configuration: false,
+  users: false,
 });
 
 const roles = [

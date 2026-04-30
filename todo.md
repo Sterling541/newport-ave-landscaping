@@ -1173,3 +1173,7 @@
 - [x] Show deactivated users with grayed-out row styling and Inactive badge
 - [x] Login procedure already rejects inactive users — verify it shows clear error message
 - [x] Reorder admin sidebar: move Geo Map and Daily Pulse to appear after Lead Trends
+## Session — Apr 30, 2026 (Bug Fixes)
+- [x] Fix: Configuration sidebar item missing — re-seed role_definitions with short permission keys matching AdminLayout permissionKey values
+- [x] Fix: Three login screens — remove legacy PIN gate from AdminSubmissions (pinAuthed / useAdminAuth); add staff session redirect in AdminLayout
+- [x] Fix: Geo Map and Daily Pulse shown as flat tabs instead of nested under Lead Trends — add collapsible sub-item support to AdminLayout NAV_ITEMS
