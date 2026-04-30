@@ -8,7 +8,7 @@ import { z } from "zod";
 import { router, publicProcedure, pinProcedure as protectedProcedure } from "./_core/trpc";
 import { ENV } from "./_core/env";
 import { notifyOwner } from "./_core/notification";
-import { getDb } from "./db";
+import { getDb, createServiceSubmission, recordConsultantAssignment, getSuggestedConsultant } from "./db";
 import {
   employees,
   badgeScans,
@@ -616,6 +616,61 @@ export const badgeScanRouter = router({
       }
 
       return { success: true };
+    }),
+
+  // ── ADMIN: convert badge scan to scheduled service ───────────────────────
+  adminConvertToScheduled: protectedProcedure
+    .input(z.object({
+      scanId: z.number(),
+      firstName: z.string().min(1).max(128),
+      lastName: z.string().min(1).max(128),
+      email: z.string().email().max(320),
+      phone: z.string().min(1).max(32),
+      siteAddress: z.string().min(1).max(500),
+      serviceType: z.string().min(1).max(128),
+      salesConsultant: z.string().max(128).optional(),
+      projectManager: z.string().max(128).optional(),
+      budget: z.string().max(32).optional(),
+      budgetOther: z.string().max(64).optional(),
+      idealCompletionDate: z.string().max(32).optional(),
+      howHeard: z.string().max(500).optional(),
+      comments: z.string().max(5000).optional(),
+      usedBefore: z.string().max(8).optional(),
+      flexibleScheduling: z.boolean().optional(),
+      isPropertyOwner: z.string().max(8).optional(),
+      hasPets: z.string().max(8).optional(),
+    }))
+    .mutation(async ({ ctx, input }) => {
+      requireAdmin(ctx);
+      const { scanId, ...submissionData } = input;
+      const zipMatch = submissionData.siteAddress.match(/\b(\d{5})(?:-\d{4})?\b/);
+      const zipCode = zipMatch ? zipMatch[1] : undefined;
+      const submission = await createServiceSubmission({
+        ...submissionData,
+        flexibleScheduling: submissionData.flexibleScheduling ?? false,
+        zipCode,
+        dataSource: "badge_scan_converted",
+        schemaVersion: "1.0",
+        leadStatus: "new",
+      });
+      if (submissionData.salesConsultant) {
+        await recordConsultantAssignment(submissionData.salesConsultant);
+      }
+      // Mark the badge scan as converted
+      await (await getDb()).update(badgeScans).set({
+        status: "converted",
+        convertedAt: new Date(),
+        notes: `Converted to scheduled service form.${submissionData.salesConsultant ? ` Assigned to ${submissionData.salesConsultant}.` : ""}`,
+      }).where(eq(badgeScans.id, scanId));
+      return { success: true, submissionId: (submission as { insertId?: number }).insertId };
+    }),
+
+  // ── ADMIN: get suggested consultant for badge scan ────────────────────────
+  adminGetSuggestedConsultant: protectedProcedure
+    .input(z.object({ serviceType: z.string() }))
+    .query(async ({ ctx, input }) => {
+      requireAdmin(ctx);
+      return getSuggestedConsultant(input.serviceType);
     }),
 
   // ── ADMIN: export payout CSV ──────────────────────────────────────────────
