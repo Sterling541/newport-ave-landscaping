@@ -182,7 +182,7 @@ export default function AdminUsers() {
   function handleSavePermissions(slug: string, label: string, perms: Record<string, boolean>) {
     const role = (rolesQuery.data ?? []).find(r => r.slug === slug);
     if (!role) return;
-    updateRole.mutate({ id: role.id, label, permissions: JSON.stringify(perms) });
+    updateRole.mutate({ id: role.id, label, permissions: perms });
   }
 
   const users: StaffUser[] = (usersQuery.data ?? []) as StaffUser[];
@@ -503,7 +503,7 @@ export default function AdminUsers() {
               <Button variant="outline" onClick={() => setShowAddRole(false)}>Cancel</Button>
               <Button onClick={() => {
                 if (!newRoleForm.slug || !newRoleForm.label) { toast.error("Both fields are required."); return; }
-                createRole.mutate({ slug: newRoleForm.slug, label: newRoleForm.label, permissions: JSON.stringify({}) });
+                createRole.mutate({ slug: newRoleForm.slug, label: newRoleForm.label, permissions: {} });
               }} disabled={createRole.isPending} className="bg-emerald-700 hover:bg-emerald-800 text-white">
                 {createRole.isPending ? "Creating…" : "Create Role"}
               </Button>
