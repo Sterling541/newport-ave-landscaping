@@ -25,7 +25,6 @@ import {
   Gamepad2,
   Calendar,
   UserCheck,
-  QrCode,
   ScanLine,
   DollarSign,
 } from "lucide-react";
@@ -92,12 +91,6 @@ const NAV_ITEMS = [
     href: "/admin/sales-reps",
     icon: UserCheck,
     description: "Manage sales consultants",
-  },
-  {
-    label: "Badge Employees",
-    href: "/admin/employees",
-    icon: QrCode,
-    description: "Manage badge reps",
   },
   {
     label: "Badge Scans",

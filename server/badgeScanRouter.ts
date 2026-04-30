@@ -349,7 +349,7 @@ export const badgeScanRouter = router({
 
       const whereClause = conditions.length > 0 ? and(...conditions) : undefined;
 
-      const [scans, [{ total }]] = await Promise.all([
+      const [rawScans, [{ total }]] = await Promise.all([
         (await getDb())
           .select({
             scan: badgeScans,
@@ -372,6 +372,28 @@ export const badgeScanRouter = router({
           .from(badgeScans)
           .where(whereClause),
       ]);
+
+      const scans = rawScans.map(({ scan, employee }) => ({
+        id: scan.id,
+        employeeId: scan.employeeId,
+        employeeCodeRaw: scan.employeeCodeRaw,
+        firstName: scan.firstName,
+        lastName: scan.lastName,
+        email: scan.email,
+        phone: scan.phone,
+        serviceType: (scan as any).badgeScanServiceType ?? scan.serviceType,
+        serviceTypeOther: scan.serviceTypeOther,
+        message: scan.message,
+        status: (scan as any).badgeScanStatus ?? scan.status,
+        notes: scan.notes,
+        convertedAppointmentId: scan.convertedAppointmentId,
+        convertedAt: scan.convertedAt,
+        submittedAt: scan.submittedAt,
+        employeeNameFirst: scan.employeeNameFirst,
+        employeeNameLast: scan.employeeNameLast,
+        employeeName: employee ? `${employee.firstName} ${employee.lastName}` : null,
+        employeeCode: employee?.employeeCode ?? null,
+      }));
 
       return { scans, total };
     }),
@@ -397,7 +419,30 @@ export const badgeScanRouter = router({
         .where(eq(badgeScans.id, input.id))
         .limit(1);
       if (!row) throw new TRPCError({ code: "NOT_FOUND" });
-      return row;
+      const { scan, employee } = row;
+      return {
+        id: scan.id,
+        employeeId: scan.employeeId,
+        employeeCodeRaw: scan.employeeCodeRaw,
+        firstName: scan.firstName,
+        lastName: scan.lastName,
+        email: scan.email,
+        phone: scan.phone,
+        serviceType: (scan as any).badgeScanServiceType ?? scan.serviceType,
+        serviceTypeOther: scan.serviceTypeOther,
+        message: scan.message,
+        status: (scan as any).badgeScanStatus ?? scan.status,
+        notes: scan.notes,
+        convertedAppointmentId: scan.convertedAppointmentId,
+        convertedAt: scan.convertedAt,
+        submittedAt: scan.submittedAt,
+        submittedUserAgent: scan.submittedUserAgent,
+        submittedIpHash: scan.submittedIpHash,
+        employeeNameFirst: scan.employeeNameFirst,
+        employeeNameLast: scan.employeeNameLast,
+        employeeName: employee ? `${employee.firstName} ${employee.lastName}` : null,
+        employeeCode: employee?.employeeCode ?? null,
+      };
     }),
 
   // ── ADMIN: update scan status/notes ──────────────────────────────────────
@@ -499,7 +544,7 @@ export const badgeScanRouter = router({
               id: s.scan.id,
               customerName: `${s.scan.firstName} ${s.scan.lastName}`,
               convertedAt: s.scan.convertedAt,
-              serviceType: s.scan.serviceType,
+              serviceType: (s.scan as any).badgeScanServiceType ?? s.scan.serviceType,
             })),
           };
         });
@@ -612,7 +657,7 @@ export const badgeScanRouter = router({
           r.employee?.employeeCode ?? "",
           r.employee?.role ?? "",
           `"${r.scan.firstName} ${r.scan.lastName}"`,
-          r.scan.serviceType,
+          (r.scan as any).badgeScanServiceType ?? r.scan.serviceType,
           r.scan.convertedAt?.toISOString().split("T")[0] ?? "",
           "$75.00",
         ].join(",")),
