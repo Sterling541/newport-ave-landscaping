@@ -1088,3 +1088,12 @@
 - [x] Add updateSubmissionSalesConsultant DB helper in server/db.ts
 - [x] Add submissions.updateSalesConsultant tRPC procedure in server/routers.ts
 - [x] Auto-fill "Scheduled With" column on booking: write rep's first name to salesConsultant field on the linked submission
+
+## Session — Apr 29, 2026 (Booking Status Auto-update + Appointment Detail Panel)
+
+- [x] Auto-flip submission leadStatus to "scheduled" on Smart Scheduler booking (server-side in createAppointment procedure)
+- [x] Build appointment detail side panel in SmartScheduler (click appointment block → slide-in panel)
+- [x] Side panel shows: customer name, phone, address, email, service type, notes, rep name, date/time, status
+- [x] Side panel includes link to full submission detail drawer in AdminSubmissions
+- [x] Side panel includes quick status edit (reschedule, cancel, complete)
+- [x] AdminSubmissions handles ?highlight=<id> URL param — scrolls to and highlights the matching row (4s pulse)

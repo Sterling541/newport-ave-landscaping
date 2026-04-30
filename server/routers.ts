@@ -1656,6 +1656,18 @@ Be specific, data-driven, and actionable. Format as JSON with keys: bestMonths (
       .mutation(async ({ ctx, input }) => {
         requireAdmin(ctx);
         await createAppointment(input);
+        // Auto-flip linked submission status to "scheduled" (only from new/contacted)
+        if (input.submissionId) {
+          try {
+            const sub = await getServiceSubmissionById(input.submissionId);
+            if (sub && (sub.leadStatus === "new" || sub.leadStatus === "contacted")) {
+              await updateSubmissionStatus(input.submissionId, "scheduled");
+            }
+          } catch (e) {
+            // Non-fatal: log but don't block booking
+            console.error("[createAppointment] Failed to auto-update submission status:", e);
+          }
+        }
         return { success: true };
       }),
 

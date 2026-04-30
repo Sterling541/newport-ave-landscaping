@@ -22,6 +22,11 @@ import {
   AlertCircle,
   List,
   LayoutGrid,
+  ExternalLink,
+  FileText,
+  Mail,
+  Tag,
+  StickyNote,
 } from "lucide-react";
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
@@ -90,6 +95,240 @@ function Toast({ message, onClose }: { message: string; onClose: () => void }) {
         <X className="w-4 h-4" />
       </button>
     </div>
+  );
+}
+
+// ─── Appointment Detail Side Panel ──────────────────────────────────────────────
+
+type ApptDetailAppt = {
+  id: number;
+  submissionId?: number | null;
+  repId: number;
+  appointmentDate: string | Date;
+  startTime: string;
+  endTime: string;
+  appointmentType: string;
+  status: string;
+  customerName?: string | null;
+  customerAddress?: string | null;
+  customerPhone?: string | null;
+  notes?: string | null;
+};
+
+const TYPE_LABELS: Record<string, string> = {
+  install_design: "Install / Design",
+  enhancement: "Enhancement",
+  follow_up: "Follow-Up",
+  other: "Other",
+};
+
+function AppointmentDetailPanel({
+  appt,
+  repName,
+  repBg,
+  onClose,
+  onEdit,
+  onCancel,
+  onStatusChange,
+  isCancelling,
+}: {
+  appt: ApptDetailAppt;
+  repName: string;
+  repBg: string;
+  onClose: () => void;
+  onEdit: () => void;
+  onCancel: () => void;
+  onStatusChange: (status: string) => void;
+  isCancelling: boolean;
+}) {
+  const displayDate = (() => {
+    const d = typeof appt.appointmentDate === "string"
+      ? new Date(appt.appointmentDate + "T12:00:00")
+      : new Date(appt.appointmentDate as any);
+    return d.toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric", year: "numeric" });
+  })();
+
+  const ss = STATUS_STYLES[appt.status] ?? STATUS_STYLES.scheduled;
+
+  return (
+    <>
+      {/* Backdrop */}
+      <div
+        className="fixed inset-0 z-40 bg-black/20"
+        onClick={onClose}
+      />
+      {/* Panel */}
+      <div
+        className="fixed right-0 top-0 h-full z-50 flex flex-col shadow-2xl overflow-y-auto"
+        style={{
+          width: "min(420px, 100vw)",
+          background: "oklch(0.99 0.005 155)",
+          borderLeft: "1px solid oklch(0.88 0.03 155)",
+        }}
+      >
+        {/* Header */}
+        <div
+          className="flex items-center justify-between px-5 py-4 border-b"
+          style={{ borderColor: "oklch(0.90 0.02 155)", background: "oklch(0.97 0.01 155)" }}
+        >
+          <div className="flex items-center gap-2">
+            <Calendar className="w-4 h-4" style={{ color: repBg }} />
+            <span className="font-semibold text-sm" style={{ color: "oklch(0.20 0.05 155)" }}>
+              Appointment Details
+            </span>
+          </div>
+          <button
+            onClick={onClose}
+            className="p-1.5 rounded-lg hover:bg-gray-100 transition-colors"
+            style={{ color: "oklch(0.50 0.04 155)" }}
+          >
+            <X className="w-4 h-4" />
+          </button>
+        </div>
+
+        <div className="flex-1 p-5 space-y-5">
+          {/* Status badge + type */}
+          <div className="flex items-center gap-2 flex-wrap">
+            <span
+              className="px-2.5 py-1 rounded-full text-xs font-semibold"
+              style={{ background: ss.bg, color: ss.text }}
+            >
+              {ss.label}
+            </span>
+            <span
+              className="px-2.5 py-1 rounded-full text-xs font-medium"
+              style={{ background: repBg + "22", color: repBg, border: `1px solid ${repBg}44` }}
+            >
+              {TYPE_LABELS[appt.appointmentType] ?? appt.appointmentType}
+            </span>
+          </div>
+
+          {/* Customer name */}
+          <div>
+            <div className="text-xs font-semibold uppercase tracking-wide mb-1" style={{ color: "oklch(0.60 0.04 155)" }}>Customer</div>
+            <div className="text-lg font-bold" style={{ color: "oklch(0.18 0.05 155)" }}>
+              {appt.customerName ?? <span className="italic font-normal text-base" style={{ color: "oklch(0.65 0.03 155)" }}>No name</span>}
+            </div>
+          </div>
+
+          {/* Info rows */}
+          <div className="space-y-2.5">
+            <div className="flex items-start gap-3">
+              <Clock className="w-4 h-4 mt-0.5 shrink-0" style={{ color: "oklch(0.55 0.05 155)" }} />
+              <div>
+                <div className="text-sm font-medium" style={{ color: "oklch(0.25 0.05 155)" }}>{displayDate}</div>
+                <div className="text-xs" style={{ color: "oklch(0.55 0.04 155)" }}>{appt.startTime} – {appt.endTime}</div>
+              </div>
+            </div>
+            <div className="flex items-center gap-3">
+              <User className="w-4 h-4 shrink-0" style={{ color: repBg }} />
+              <span className="text-sm font-medium" style={{ color: repBg }}>{repName}</span>
+            </div>
+            {appt.customerPhone && (
+              <div className="flex items-center gap-3">
+                <Phone className="w-4 h-4 shrink-0" style={{ color: "oklch(0.55 0.05 155)" }} />
+                <a
+                  href={`tel:${appt.customerPhone}`}
+                  className="text-sm hover:underline"
+                  style={{ color: "oklch(0.35 0.12 240)" }}
+                >
+                  {appt.customerPhone}
+                </a>
+              </div>
+            )}
+            {appt.customerAddress && (
+              <div className="flex items-start gap-3">
+                <MapPin className="w-4 h-4 mt-0.5 shrink-0" style={{ color: "oklch(0.55 0.05 155)" }} />
+                <span className="text-sm" style={{ color: "oklch(0.35 0.05 155)" }}>{appt.customerAddress}</span>
+              </div>
+            )}
+            {appt.notes && (
+              <div className="flex items-start gap-3">
+                <StickyNote className="w-4 h-4 mt-0.5 shrink-0" style={{ color: "oklch(0.55 0.05 155)" }} />
+                <p className="text-sm leading-relaxed" style={{ color: "oklch(0.40 0.04 155)" }}>{appt.notes}</p>
+              </div>
+            )}
+          </div>
+
+          {/* Quick status change */}
+          <div>
+            <div className="text-xs font-semibold uppercase tracking-wide mb-2" style={{ color: "oklch(0.60 0.04 155)" }}>Change Status</div>
+            <div className="flex flex-wrap gap-2">
+              {Object.entries(STATUS_STYLES).map(([key, style]) => (
+                <button
+                  key={key}
+                  onClick={() => onStatusChange(key)}
+                  className="px-3 py-1.5 rounded-full text-xs font-medium border transition-all"
+                  style={{
+                    background: appt.status === key ? style.bg : "transparent",
+                    color: appt.status === key ? style.text : "oklch(0.55 0.04 155)",
+                    borderColor: appt.status === key ? style.text + "44" : "oklch(0.88 0.02 155)",
+                    fontWeight: appt.status === key ? 700 : 400,
+                  }}
+                >
+                  {style.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Link to submission */}
+          {appt.submissionId && (
+            <div
+              className="rounded-xl p-4 border"
+              style={{ background: "oklch(0.95 0.03 145)", borderColor: "oklch(0.88 0.06 145)" }}
+            >
+              <div className="flex items-center gap-2 mb-2">
+                <FileText className="w-4 h-4" style={{ color: "oklch(0.40 0.12 145)" }} />
+                <span className="text-xs font-semibold uppercase tracking-wide" style={{ color: "oklch(0.40 0.12 145)" }}>Linked Form Submission</span>
+              </div>
+              <p className="text-xs mb-3" style={{ color: "oklch(0.45 0.08 145)" }}>
+                This appointment was booked from a form submission. View the full submission details, contact history, and notes.
+              </p>
+              <a
+                href={`/admin/submissions?highlight=${appt.submissionId}`}
+                className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-medium transition-colors hover:opacity-80"
+                style={{ background: "oklch(0.40 0.12 145)", color: "white" }}
+              >
+                <ExternalLink className="w-3.5 h-3.5" />
+                Open Submission #{appt.submissionId}
+              </a>
+            </div>
+          )}
+        </div>
+
+        {/* Footer actions */}
+        <div
+          className="px-5 py-4 border-t flex gap-2"
+          style={{ borderColor: "oklch(0.90 0.02 155)", background: "oklch(0.97 0.01 155)" }}
+        >
+          <button
+            onClick={onEdit}
+            className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium border transition-colors hover:bg-gray-50"
+            style={{ borderColor: "oklch(0.85 0.03 155)", color: "oklch(0.30 0.06 155)" }}
+          >
+            <Edit2 className="w-4 h-4" />
+            Edit
+          </button>
+          {appt.status !== "cancelled" && (
+            <button
+              onClick={onCancel}
+              disabled={isCancelling}
+              className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-colors"
+              style={{
+                background: "oklch(0.97 0.03 0)",
+                color: "oklch(0.45 0.12 0)",
+                border: "1px solid oklch(0.88 0.06 0)",
+                opacity: isCancelling ? 0.6 : 1,
+              }}
+            >
+              <X className="w-4 h-4" />
+              {isCancelling ? "Cancelling…" : "Cancel Appt"}
+            </button>
+          )}
+        </div>
+      </div>
+    </>
   );
 }
 
@@ -404,6 +643,9 @@ export default function SmartScheduler() {
   const [editStatus, setEditStatus] = useState<string>("scheduled");
   const [editNotes, setEditNotes] = useState("");
 
+  // Detail side panel state
+  const [detailAppt, setDetailAppt] = useState<ApptDetailAppt | null>(null);
+
   // Drag-and-drop state
   const [dragApptId, setDragApptId] = useState<number | null>(null);
   const [dragOver, setDragOver] = useState<{ date: string; hour: number } | null>(null);
@@ -542,6 +784,8 @@ export default function SmartScheduler() {
   }, [appointments]);
 
   function startEdit(appt: (typeof appointments)[0]) {
+    // Open detail panel (week/day view) — inline edit still used in list view
+    setDetailAppt(appt as ApptDetailAppt);
     setEditingId(appt.id);
     setEditStatus(appt.status);
     setEditNotes(appt.notes ?? "");
@@ -1294,6 +1538,34 @@ export default function SmartScheduler() {
           }}
         />
       )}
+
+      {/* Appointment Detail Side Panel */}
+      {detailAppt && (() => {
+        const repBg = repColorMap[detailAppt.repId]?.bg ?? TYPE_COLORS[detailAppt.appointmentType] ?? "oklch(0.55 0.08 155)";
+        const repName = repMap[detailAppt.repId] ?? `Rep #${detailAppt.repId}`;
+        return (
+          <AppointmentDetailPanel
+            appt={detailAppt}
+            repName={repName}
+            repBg={repBg}
+            onClose={() => { setDetailAppt(null); setEditingId(null); }}
+            onEdit={() => {
+              // Keep inline edit open in list view; for week/day view just close panel
+              setDetailAppt(null);
+            }}
+            onCancel={() => {
+              cancelMutation.mutate({ id: detailAppt.id });
+              setDetailAppt(null);
+              setEditingId(null);
+            }}
+            onStatusChange={(status) => {
+              updateMutation.mutate({ id: detailAppt.id, status: status as any });
+              setDetailAppt((prev) => prev ? { ...prev, status } : null);
+            }}
+            isCancelling={cancelMutation.isPending}
+          />
+        );
+      })()}
 
       {toast && <Toast message={toast} onClose={() => setToast(null)} />}
     </AdminLayout>

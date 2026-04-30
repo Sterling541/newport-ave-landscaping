@@ -3,7 +3,7 @@
    Google-Sheets-style view of all Schedule Services form
    submissions. Owner / admin access only.
    ============================================================ */
-import { useState, useMemo, useRef } from "react";
+import { useState, useMemo, useRef, useEffect } from "react";
 import { trpc } from "@/lib/trpc";
 import { isAdminAuthenticated, adminLogin } from "@/hooks/useAdminAuth";
 import { Button } from "@/components/ui/button";
@@ -558,6 +558,23 @@ export default function AdminSubmissions() {
   const user = pinAuthed ? { role: "admin" } : null;
   const authLoading = false;
   const [search, setSearch] = useState("");
+  // ?highlight=<id> from Smart Scheduler detail panel "Open Submission" link
+  const [highlightId, setHighlightId] = useState<number | null>(() => {
+    const params = new URLSearchParams(window.location.search);
+    const h = params.get("highlight");
+    return h ? parseInt(h, 10) : null;
+  });
+  const highlightRowRef = useRef<HTMLTableRowElement | null>(null);
+  // Scroll to highlighted row once data loads
+  useEffect(() => {
+    if (!highlightId || !data?.rows.length) return;
+    setTimeout(() => {
+      highlightRowRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+    }, 300);
+    // Clear highlight after 4s
+    const t = setTimeout(() => setHighlightId(null), 4000);
+    return () => clearTimeout(t);
+  }, [highlightId, data?.rows.length]);
   const [serviceFilters, setServiceFilters] = useState<string[]>([]);
   const [yearFilter, setYearFilter] = useState<number | undefined>(undefined);
   const [sortKey, setSortKey] = useState<SortKey>("createdAt");
@@ -1179,7 +1196,9 @@ export default function AdminSubmissions() {
                   {filtered.map((row, i) => (
                     <tr
                       key={row.id}
-                      className={`border-b border-stone-100 hover:bg-stone-50 transition-colors ${i % 2 === 0 ? "" : "bg-stone-50/40"}`}
+                      ref={highlightId === row.id ? highlightRowRef : undefined}
+                      className={`border-b border-stone-100 hover:bg-stone-50 transition-colors ${i % 2 === 0 ? "" : "bg-stone-50/40"} ${highlightId === row.id ? "ring-2 ring-inset ring-green-400" : ""}`}
+                      style={highlightId === row.id ? { background: "oklch(0.94 0.08 145)" } : undefined}
                     >
                       <td className="px-4 py-3 text-stone-400 font-mono text-xs">{row.id}</td>
                       <td className="px-4 py-3 text-stone-600 whitespace-nowrap">{fmtDate(row.createdAt)}</td>
