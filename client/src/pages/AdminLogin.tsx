@@ -149,7 +149,7 @@ export default function AdminLogin() {
 
             <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
               <div>
-                <label htmlFor="email" style={labelStyle}>Work Email</label>
+                <label htmlFor="email" style={labelStyle}>Username / Email</label>
                 <input
                   id="email"
                   type="email"
@@ -252,11 +252,11 @@ export default function AdminLogin() {
             ) : (
               <>
                 <p style={{ fontSize: "0.82rem", color: "oklch(0.50 0.005 0)", marginBottom: "1.75rem" }}>
-                  Enter your work email and we'll send you a link to reset your PIN.
+                  Enter your email address and we'll send you a link to reset your PIN.
                 </p>
                 <form onSubmit={handleForgotSubmit} style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
                   <div>
-                    <label htmlFor="forgot-email" style={labelStyle}>Work Email</label>
+                    <label htmlFor="forgot-email" style={labelStyle}>Username / Email</label>
                     <input
                       id="forgot-email"
                       type="email"
