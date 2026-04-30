@@ -1072,3 +1072,7 @@
 - [x] Click week column header to navigate to Day view
 - [x] Replace score number+bar with readable label (Best match / Good / Available) in suggestions modal
 - [x] Add "Pick another time" button to suggestions modal that navigates to Smart Scheduler calendar
+- [ ] Right-click context menu on calendar cells to add/reschedule appointments
+- [ ] CalendarContextMenu component with "Add Appointment" and "Reschedule here" options
+- [ ] Create/Reschedule modal pre-filled with clicked date, time, and rep
+- [x] Right-click calendar cells to add/reschedule appointments (Week + Day view context menu)

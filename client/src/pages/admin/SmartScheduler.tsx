@@ -4,7 +4,7 @@
    View and manage all appointments. Shows a weekly calendar
    grid and a list view with status management.
    ============================================================ */
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect, useRef } from "react";
 import { trpc } from "@/lib/trpc";
 import AdminLayout from "@/components/AdminLayout";
 import {
@@ -100,21 +100,29 @@ interface CreateModalProps {
   onClose: () => void;
   onCreated: () => void;
   prefillDate?: string;
+  prefillHour?: number;
+  prefillRepId?: number;
+  rescheduleAppt?: { id: number; customerName: string; customerAddress: string; customerPhone: string; appointmentType: string; notes: string } | null;
 }
 
-function CreateModal({ reps, onClose, onCreated, prefillDate }: CreateModalProps) {
+function CreateModal({ reps, onClose, onCreated, prefillDate, prefillHour, prefillRepId, rescheduleAppt }: CreateModalProps) {
+  const startHour = prefillHour ?? 9;
+  const startStr = `${startHour.toString().padStart(2, "0")}:00`;
+  const endStr   = `${(startHour + 1).toString().padStart(2, "0")}:00`;
   const [form, setForm] = useState({
-    repId: reps[0]?.id ?? 0,
+    repId: prefillRepId ?? reps[0]?.id ?? 0,
     appointmentDate: prefillDate ?? toYMD(new Date()),
-    startTime: "09:00",
-    endTime: "10:00",
-    appointmentType: "install_design" as "install_design" | "enhancement" | "follow_up" | "other",
-    customerName: "",
-    customerAddress: "",
-    customerPhone: "",
-    notes: "",
+    startTime: startStr,
+    endTime: endStr,
+    appointmentType: (rescheduleAppt?.appointmentType ?? "install_design") as "install_design" | "enhancement" | "follow_up" | "other",
+    customerName: rescheduleAppt?.customerName ?? "",
+    customerAddress: rescheduleAppt?.customerAddress ?? "",
+    customerPhone: rescheduleAppt?.customerPhone ?? "",
+    notes: rescheduleAppt?.notes ?? "",
   });
   const [toast, setToast] = useState<string | null>(null);
+
+  const cancelOldMutation = trpc.scheduler.cancelAppointment.useMutation();
 
   const createMutation = trpc.scheduler.createAppointment.useMutation({
     onSuccess: () => {
@@ -123,6 +131,14 @@ function CreateModal({ reps, onClose, onCreated, prefillDate }: CreateModalProps
     },
     onError: (err) => setToast(`Error: ${err.message}`),
   });
+
+  async function handleSubmit() {
+    // If rescheduling: cancel the old appointment first, then create new one
+    if (rescheduleAppt) {
+      await cancelOldMutation.mutateAsync({ id: rescheduleAppt.id });
+    }
+    createMutation.mutate(form);
+  }
 
   const suggestionsQuery = trpc.scheduler.getSuggestions.useQuery(
     {
@@ -159,7 +175,7 @@ function CreateModal({ reps, onClose, onCreated, prefillDate }: CreateModalProps
           <div className="flex items-center gap-2">
             <Calendar className="w-5 h-5" style={{ color: "oklch(0.45 0.15 145)" }} />
             <h2 className="font-semibold text-base" style={{ color: "oklch(0.20 0.05 155)" }}>
-              Schedule Appointment
+              {rescheduleAppt ? `Reschedule: ${rescheduleAppt.customerName}` : "Schedule Appointment"}
             </h2>
           </div>
           <button onClick={onClose} className="p-1.5 rounded-lg hover:bg-gray-100 transition-colors">
@@ -305,12 +321,14 @@ function CreateModal({ reps, onClose, onCreated, prefillDate }: CreateModalProps
 
             <div className="flex gap-2 pt-1">
               <button
-                onClick={() => createMutation.mutate(form)}
-                disabled={createMutation.isPending || !form.repId}
+                onClick={handleSubmit}
+                disabled={createMutation.isPending || cancelOldMutation.isPending || !form.repId}
                 className="flex-1 py-2 rounded-lg text-sm font-medium text-white disabled:opacity-50"
                 style={{ background: "oklch(0.45 0.15 145)" }}
               >
-                {createMutation.isPending ? "Scheduling…" : "Schedule Appointment"}
+                {createMutation.isPending || cancelOldMutation.isPending
+                  ? (rescheduleAppt ? "Rescheduling…" : "Scheduling…")
+                  : (rescheduleAppt ? "Move to This Slot" : "Schedule Appointment")}
               </button>
               <button
                 onClick={onClose}
@@ -381,6 +399,28 @@ export default function SmartScheduler() {
   // Drag-and-drop state
   const [dragApptId, setDragApptId] = useState<number | null>(null);
   const [dragOver, setDragOver] = useState<{ date: string; hour: number } | null>(null);
+
+  // Right-click context menu state
+  const [ctxMenu, setCtxMenu] = useState<{
+    x: number; y: number;
+    date: string; hour: number;
+    existingAppt: null | { id: number; customerName: string; customerAddress: string; customerPhone: string; appointmentType: string; notes: string };
+  } | null>(null);
+  type RescheduleAppt = { id: number; customerName: string; customerAddress: string; customerPhone: string; appointmentType: string; notes: string } | null;
+  const [createPrefill, setCreatePrefill] = useState<{ date: string; hour: number; rescheduleAppt: RescheduleAppt } | null>(null);
+  const ctxRef = useRef<HTMLDivElement>(null);
+
+  // Dismiss context menu on outside click
+  useEffect(() => {
+    if (!ctxMenu) return;
+    function dismiss(e: MouseEvent) {
+      if (ctxRef.current && !ctxRef.current.contains(e.target as Node)) {
+        setCtxMenu(null);
+      }
+    }
+    document.addEventListener("mousedown", dismiss);
+    return () => document.removeEventListener("mousedown", dismiss);
+  }, [ctxMenu]);
 
   // Rep calendar toggles — null means "all selected" (default), Set means explicit selection
   const [selectedRepIds, setSelectedRepIds] = useState<Set<number> | null>(null);
@@ -995,6 +1035,25 @@ export default function SmartScheduler() {
                         e.preventDefault();
                         handleDrop(dateStr, hour);
                       }}
+                      onContextMenu={(e) => {
+                        e.preventDefault();
+                        // Find if there's an existing appointment in this cell to reschedule
+                        const existing = dayAppts[0] ?? null;
+                        setCtxMenu({
+                          x: e.clientX,
+                          y: e.clientY,
+                          date: dateStr,
+                          hour,
+                          existingAppt: existing ? {
+                            id: existing.id,
+                            customerName: existing.customerName ?? "",
+                            customerAddress: existing.customerAddress ?? "",
+                            customerPhone: existing.customerPhone ?? "",
+                            appointmentType: existing.appointmentType,
+                            notes: existing.notes ?? "",
+                          } : null,
+                        });
+                      }}
                     >
                       {dayAppts.map((a: (typeof appointments)[0]) => (
                         <div
@@ -1077,8 +1136,14 @@ export default function SmartScheduler() {
                       {/* Appointment slots */}
                       <div className="flex-1 p-2 flex flex-col gap-1.5">
                         {hourAppts.length === 0 ? (
-                          <div className="h-full min-h-[56px] rounded-lg border border-dashed flex items-center justify-center text-xs"
-                            style={{ borderColor: "oklch(0.90 0.02 155)", color: "oklch(0.75 0.03 155)" }}>
+                          <div
+                            className="h-full min-h-[56px] rounded-lg border border-dashed flex items-center justify-center text-xs cursor-context-menu"
+                            style={{ borderColor: "oklch(0.90 0.02 155)", color: "oklch(0.75 0.03 155)" }}
+                            onContextMenu={(e) => {
+                              e.preventDefault();
+                              setCtxMenu({ x: e.clientX, y: e.clientY, date: dayStr, hour, existingAppt: null });
+                            }}
+                          >
                             Available
                           </div>
                         ) : (
@@ -1092,6 +1157,22 @@ export default function SmartScheduler() {
                                 className="rounded-xl p-3 cursor-pointer hover:opacity-90 transition-opacity"
                                 style={{ background: bg + "22", borderLeft: `4px solid ${bg}` }}
                                 onClick={() => startEdit(a)}
+                                onContextMenu={(e) => {
+                                  e.preventDefault();
+                                  e.stopPropagation();
+                                  setCtxMenu({
+                                    x: e.clientX, y: e.clientY,
+                                    date: dayStr, hour,
+                                    existingAppt: {
+                                      id: a.id,
+                                      customerName: a.customerName ?? "",
+                                      customerAddress: a.customerAddress ?? "",
+                                      customerPhone: a.customerPhone ?? "",
+                                      appointmentType: a.appointmentType,
+                                      notes: a.notes ?? "",
+                                    },
+                                  });
+                                }}
                               >
                                 <div className="flex items-start justify-between gap-2">
                                   <div>
@@ -1129,12 +1210,80 @@ export default function SmartScheduler() {
             </div>
           );
         })()}
-      {/* Create Modal */}
+      {/* Create Modal (from + New Appointment button) */}
       {showCreate && (
         <CreateModal
           reps={reps}
           onClose={() => setShowCreate(false)}
           onCreated={() => { refetch(); showToast("Appointment scheduled."); }}
+        />
+      )}
+
+      {/* Context menu right-click popup */}
+      {ctxMenu && (
+        <div
+          ref={ctxRef}
+          className="fixed z-50 rounded-xl shadow-2xl border overflow-hidden"
+          style={{
+            left: Math.min(ctxMenu.x, window.innerWidth - 220),
+            top: Math.min(ctxMenu.y, window.innerHeight - 120),
+            background: "white",
+            borderColor: "oklch(0.88 0.03 155)",
+            minWidth: 200,
+          }}
+        >
+          <div
+            className="px-3 py-2 text-[10px] font-semibold uppercase tracking-wide"
+            style={{ background: "oklch(0.96 0.02 155)", color: "oklch(0.50 0.05 155)" }}
+          >
+            {new Date(ctxMenu.date + "T12:00:00").toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" })}
+            {" "}{ctxMenu.hour === 12 ? "12pm" : ctxMenu.hour > 12 ? `${ctxMenu.hour - 12}pm` : `${ctxMenu.hour}am`}
+          </div>
+          <button
+            className="w-full text-left px-4 py-2.5 text-sm hover:bg-gray-50 flex items-center gap-2"
+            style={{ color: "oklch(0.25 0.08 145)" }}
+            onClick={() => {
+              setCreatePrefill({ date: ctxMenu.date, hour: ctxMenu.hour, rescheduleAppt: null });
+              setCtxMenu(null);
+            }}
+          >
+            <span>+</span> Add Appointment
+          </button>
+          {ctxMenu.existingAppt && (
+            <button
+              className="w-full text-left px-4 py-2.5 text-sm hover:bg-gray-50 flex items-center gap-2 border-t"
+              style={{ color: "oklch(0.45 0.12 240)", borderColor: "oklch(0.92 0.02 155)" }}
+              onClick={() => {
+                setCreatePrefill({ date: ctxMenu!.date, hour: ctxMenu!.hour, rescheduleAppt: ctxMenu!.existingAppt });
+                setCtxMenu(null);
+              }}
+            >
+              <span>↕</span> Move {ctxMenu.existingAppt.customerName} Here
+            </button>
+          )}
+          <button
+            className="w-full text-left px-4 py-2.5 text-sm hover:bg-gray-50 border-t"
+            style={{ color: "oklch(0.55 0.05 155)", borderColor: "oklch(0.92 0.02 155)" }}
+            onClick={() => setCtxMenu(null)}
+          >
+            Cancel
+          </button>
+        </div>
+      )}
+
+      {/* Prefill Create/Reschedule Modal (from right-click) */}
+      {createPrefill && (
+        <CreateModal
+          reps={reps}
+          prefillDate={createPrefill.date}
+          prefillHour={createPrefill.hour}
+          rescheduleAppt={createPrefill.rescheduleAppt}
+          onClose={() => setCreatePrefill(null)}
+          onCreated={() => {
+            refetch();
+            showToast(createPrefill.rescheduleAppt ? "Appointment rescheduled." : "Appointment scheduled.");
+            setCreatePrefill(null);
+          }}
         />
       )}
 
