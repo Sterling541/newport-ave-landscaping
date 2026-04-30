@@ -1209,3 +1209,7 @@
 - [ ] Rate-limit login: 5-attempt lockout per email with DB tracking table
 - [ ] Session timeout: auto-expire staff cookie after 8h inactivity
 - [ ] Remove "Back to site" link from /admin/login
+
+## Session — April 30, 2026 (Bug Fixes)
+
+- [x] Hide cancelled appointments from Smart Scheduler calendar grid (only show in list view)

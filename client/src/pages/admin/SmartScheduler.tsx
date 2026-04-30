@@ -822,6 +822,7 @@ export default function SmartScheduler() {
   const filteredApptsByDate = useMemo(() => {
     const map: Record<string, typeof appointments> = {};
     for (const a of appointments) {
+      if (a.status === "cancelled") continue; // hide cancelled from calendar
       if (!isRepSelected(a.repId)) continue;
       const d = typeof a.appointmentDate === "string"
         ? a.appointmentDate
