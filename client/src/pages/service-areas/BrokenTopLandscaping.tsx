@@ -56,7 +56,7 @@ export default function BrokenTopLandscaping() {
       <SEO
         title="Broken Top Landscaping Services - Newport Avenue Landscaping"
         description="Expert landscaping services in Broken Top, Bend, Oregon. Specializing in HOA compliance, fire-wise design, and natural volcanic aesthetics for luxury homes."
-        
+        canonical="/service-areas/broken-top-landscaping"
       />
       <BreadcrumbSchema
         items={[

@@ -117,6 +117,7 @@ export default function QuoteRequest({ source = "other" }: QuoteRequestProps) {
           name="description"
           content="Request a free landscaping quote from Newport Avenue Landscaping. Serving Bend, OR and Central Oregon. Licensed, bonded, 21+ years experience."
         />
+        <meta name="robots" content="noindex, nofollow" />
       </Helmet>
 
       <Navbar />

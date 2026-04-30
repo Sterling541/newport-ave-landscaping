@@ -52,7 +52,7 @@ export default function BrookswoodLandscaping() {
       <SEO
         title="Brookswood Landscaping Services - Newport Avenue Landscaping"
         description="Expert landscaping services in Brookswood, Bend, OR. Specializing in traditional lawn-and-garden designs, family-friendly outdoor spaces, and enhancing homes near Brookswood Meadow Park."
-        
+        canonical="/service-areas/brookswood-landscaping"
       />
       <BreadcrumbSchema
         items={[

@@ -56,7 +56,7 @@ export default function NWCrossingLandscaping() {
       <SEO
         title="NW Crossing Landscaping | Sustainable & Eco-Friendly Designs | Newport Avenue Landscaping"
         description="Newport Avenue Landscaping specializes in sustainable and eco-friendly landscaping solutions for NW Crossing, Bend. Enhance your urban village home with designs that complement its unique aesthetic and community standards."
-        
+        canonical="/service-areas/nw-crossing-landscaping"
       />
       <BreadcrumbSchema
         items={[

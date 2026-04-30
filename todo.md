@@ -1097,3 +1097,15 @@
 - [x] Side panel includes link to full submission detail drawer in AdminSubmissions
 - [x] Side panel includes quick status edit (reschedule, cancel, complete)
 - [x] AdminSubmissions handles ?highlight=<id> URL param — scrolls to and highlights the matching row (4s pulse)
+
+## Session — Apr 30, 2026 (Google Search Console SEO Canonical Fixes)
+
+- [x] Remove hardcoded `<link rel="canonical" href="https://www.newportavelandscaping.com/" />` from index.html — this was the root cause, overriding every page's canonical with the homepage URL before JS loaded
+- [x] Add canonical prop to BrokenTopLandscaping.tsx (/service-areas/broken-top-landscaping)
+- [x] Add canonical prop to BrookswoodLandscaping.tsx (/service-areas/brookswood-landscaping)
+- [x] Add canonical prop to NWCrossingLandscaping.tsx (/service-areas/nw-crossing-landscaping)
+- [x] Add canonical prop to TetherowLandscaping.tsx (/service-areas/tetherow-landscaping)
+- [x] Add noindex meta to QuoteRequest.tsx (form/utility page — should not be indexed)
+- [x] Confirmed all 6 GSC-flagged pages already have correct self-referencing canonicals in their own page files
+- [x] Confirmed all 21 service pages correctly pass schemaUrl to ServicePageLayout which renders canonical
+- [x] ScheduleServices.tsx already had noindex — confirmed correct

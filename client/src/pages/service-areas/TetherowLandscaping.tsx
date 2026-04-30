@@ -45,7 +45,7 @@ export default function TetherowLandscaping() {
       <SEO
         title="Tetherow Landscaping Services | Newport Avenue Landscaping"
         description="Newport Avenue Landscaping offers bespoke landscaping services for Tetherow, Bend. Specializing in HOA compliance, fire-wise design, and luxury outdoor living spaces that complement the high desert aesthetic."
-        
+        canonical="/service-areas/tetherow-landscaping"
       />
       <BreadcrumbSchema
         items={[
