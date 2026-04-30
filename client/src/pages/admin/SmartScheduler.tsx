@@ -1049,7 +1049,7 @@ export default function SmartScheduler() {
               </div>
             ) : (
               <div className="space-y-3">
-                {appointments.map((appt: (typeof appointments)[0]) => {
+                {appointments.filter((appt: (typeof appointments)[0]) => appt.status !== "cancelled").map((appt: (typeof appointments)[0]) => {
                   const dateStr = typeof appt.appointmentDate === "string"
                     ? appt.appointmentDate
                     : toYMD(new Date(appt.appointmentDate as any));
