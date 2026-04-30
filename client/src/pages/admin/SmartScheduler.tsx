@@ -1348,7 +1348,7 @@ export default function SmartScheduler() {
         {/* ── DAY VIEW ── */}
         {view === "day" && (() => {
           const dayStr = toYMD(dayDate);
-          const dayAppts = (filteredApptsByDate[dayStr] ?? []).sort((a, b) => a.startTime.localeCompare(b.startTime));
+          const dayAppts = (filteredApptsByDate[dayStr] ?? []).sort((a: (typeof appointments)[0], b: (typeof appointments)[0]) => a.startTime.localeCompare(b.startTime));
           const isToday = toYMD(new Date()) === dayStr;
           return (
             <div className="rounded-2xl border overflow-hidden" style={{ borderColor: "oklch(0.88 0.03 155)" }}>
@@ -1372,7 +1372,7 @@ export default function SmartScheduler() {
                 {HOURS.map((hour) => {
                   const hourStr = `${hour.toString().padStart(2, "0")}:00`;
                   const halfStr = `${hour.toString().padStart(2, "0")}:30`;
-                  const hourAppts = dayAppts.filter((a) => {
+                  const hourAppts = dayAppts.filter((a: (typeof appointments)[0]) => {
                     const h = parseInt(a.startTime.split(":")[0], 10);
                     return h === hour;
                   });
@@ -1399,7 +1399,7 @@ export default function SmartScheduler() {
                             Available
                           </div>
                         ) : (
-                          hourAppts.map((a) => {
+                          hourAppts.map((a: (typeof appointments)[0]) => {
                             const repColor = repColorMap[a.repId];
                             const bg = repColor?.bg ?? TYPE_COLORS[a.appointmentType] ?? "oklch(0.55 0.08 155)";
                             const statusStyle = STATUS_STYLES[a.status] ?? STATUS_STYLES.scheduled;

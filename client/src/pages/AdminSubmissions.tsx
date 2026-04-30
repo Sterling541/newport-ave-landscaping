@@ -565,16 +565,6 @@ export default function AdminSubmissions() {
     return h ? parseInt(h, 10) : null;
   });
   const highlightRowRef = useRef<HTMLTableRowElement | null>(null);
-  // Scroll to highlighted row once data loads
-  useEffect(() => {
-    if (!highlightId || !data?.rows.length) return;
-    setTimeout(() => {
-      highlightRowRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
-    }, 300);
-    // Clear highlight after 4s
-    const t = setTimeout(() => setHighlightId(null), 4000);
-    return () => clearTimeout(t);
-  }, [highlightId, data?.rows.length]);
   const [serviceFilters, setServiceFilters] = useState<string[]>([]);
   const [yearFilter, setYearFilter] = useState<number | undefined>(undefined);
   const [sortKey, setSortKey] = useState<SortKey>("createdAt");
@@ -598,6 +588,17 @@ export default function AdminSubmissions() {
     { limit: 2000, offset: 0, year: yearFilter },
     { enabled: !!user }
   );
+
+  // Scroll to highlighted row once data loads (from ?highlight= URL param)
+  useEffect(() => {
+    if (!highlightId || !data?.rows.length) return;
+    setTimeout(() => {
+      highlightRowRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+    }, 300);
+    // Clear highlight after 4s
+    const t = setTimeout(() => setHighlightId(null), 4000);
+    return () => clearTimeout(t);
+  }, [highlightId, data?.rows.length]);
 
   const {
     data: insightsData,
