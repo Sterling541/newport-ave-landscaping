@@ -100,13 +100,6 @@ const NAV_ITEMS = [
     permissionKey: "badge_scans",
   },
   {
-    label: "Employees",
-    href: "/admin/employees",
-    icon: Users,
-    description: "Employee management",
-    permissionKey: "employees",
-  },
-  {
     label: "Configuration",
     href: "/admin/configuration",
     icon: Settings,

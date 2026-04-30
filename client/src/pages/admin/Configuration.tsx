@@ -1,14 +1,13 @@
 /* ============================================================
    CONFIGURATION PAGE
-   Houses CSV Import, Sales Reps, and Users & Roles under one roof.
+   Houses CSV Import and Users & Roles under one roof.
    Admin-only page.
    ============================================================ */
 import { useState } from "react";
 import AdminLayout from "@/components/AdminLayout";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Upload, UserCheck, Settings, UserCog } from "lucide-react";
+import { Upload, Settings, UserCog } from "lucide-react";
 import CsvImportContent from "./CsvImportContent";
-import SalesRepsContent from "./SalesRepsContent";
 import AdminUsersContent from "./AdminUsersContent";
 
 export default function Configuration() {
@@ -24,7 +23,7 @@ export default function Configuration() {
           </div>
           <div>
             <h1 className="text-2xl font-bold text-gray-900">Configuration</h1>
-            <p className="text-sm text-gray-500">Manage data imports, sales team, and staff accounts</p>
+            <p className="text-sm text-gray-500">Manage data imports and staff accounts</p>
           </div>
         </div>
 
@@ -35,10 +34,6 @@ export default function Configuration() {
               <Upload className="w-4 h-4" />
               CSV Import
             </TabsTrigger>
-            <TabsTrigger value="sales-reps" className="flex items-center gap-2">
-              <UserCheck className="w-4 h-4" />
-              Sales Reps
-            </TabsTrigger>
             <TabsTrigger value="users-roles" className="flex items-center gap-2">
               <UserCog className="w-4 h-4" />
               Users &amp; Roles
@@ -47,10 +42,6 @@ export default function Configuration() {
 
           <TabsContent value="csv-import" className="mt-4">
             <CsvImportContent />
-          </TabsContent>
-
-          <TabsContent value="sales-reps" className="mt-4">
-            <SalesRepsContent />
           </TabsContent>
 
           <TabsContent value="users-roles" className="mt-4">
