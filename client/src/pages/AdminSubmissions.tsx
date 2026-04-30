@@ -807,7 +807,7 @@ export default function AdminSubmissions() {
 
   return (
     <AdminLayout>
-      <div className="max-w-screen-xl mx-auto px-4 py-8">
+      <div className="w-full px-4 py-8">
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
           <div>
@@ -1212,7 +1212,7 @@ export default function AdminSubmissions() {
                       <td className="px-4 py-3 whitespace-nowrap">
                         <a href={`tel:${row.phone}`} className="text-stone-700 hover:text-green-700">{row.phone}</a>
                       </td>
-                      <td className="px-4 py-3 max-w-[200px]">
+                      <td className="px-4 py-3 min-w-[180px]">
                         <select
                           value={row.serviceType ?? ""}
                           onChange={(e) => updateServiceTypeMutation.mutate({ id: row.id, serviceType: e.target.value })}
@@ -1260,7 +1260,7 @@ export default function AdminSubmissions() {
                           <span className="text-stone-300 text-xs">—</span>
                         )}
                       </td>
-                      <td className="px-4 py-3 text-stone-600 max-w-[200px] truncate">{row.siteAddress}</td>
+                      <td className="px-4 py-3 text-stone-600 min-w-[200px]">{row.siteAddress}</td>
                       <td className="px-4 py-3">
                         <DropdownMenu>
                           <DropdownMenuTrigger asChild>
