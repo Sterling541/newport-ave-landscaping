@@ -3,6 +3,7 @@
    Standalone dark-sidebar layout for all /admin/* pages.
    Completely isolated from the public site navbar.
    Mobile-responsive: hamburger menu on small screens.
+   Role-based sidebar visibility via staff permissions.
    ============================================================ */
 import { useState } from "react";
 import { Link, useLocation } from "wouter";
@@ -22,13 +23,15 @@ import {
   Bell,
   ClipboardList,
   MessageSquare,
-  Gamepad2,
   Calendar,
   UserCheck,
   ScanLine,
+  Settings,
+  UserCog,
   DollarSign,
 } from "lucide-react";
 import { useAuth } from "@/_core/hooks/useAuth";
+import { trpc } from "@/lib/trpc";
 
 const NAV_ITEMS = [
   {
@@ -36,74 +39,99 @@ const NAV_ITEMS = [
     href: "/admin/submissions",
     icon: Users,
     description: "Scheduled service submissions",
+    permissionKey: "submissions",
   },
   {
     label: "Quick Forms",
     href: "/admin/quote-leads",
     icon: MessageSquare,
     description: "Get a Quote inquiries",
+    permissionKey: "quote_leads",
   },
-  // { label: "Game Analytics", href: "/admin/game-analytics", icon: Gamepad2, description: "Lawn Mower Dash stats" }, // hidden
   {
     label: "Daily Pulse",
     href: "/admin/daily-pulse",
     icon: BarChart2,
     description: "Today's insights",
+    permissionKey: "daily_pulse",
   },
   {
     label: "Lead Trends",
     href: "/admin/lead-trends",
     icon: TrendingUp,
     description: "Volume over time",
+    permissionKey: "lead_trends",
   },
   {
     label: "Geo Map",
     href: "/admin/geo-intelligence",
     icon: Map,
     description: "Inquiry map",
+    permissionKey: "geo_map",
   },
   {
     label: "CSV Import",
     href: "/admin/csv-import",
     icon: Upload,
     description: "Import data",
+    permissionKey: "configuration",
   },
   {
     label: "Reminders",
     href: "/admin/reminders",
     icon: Bell,
     description: "Callback tickler",
+    permissionKey: "reminders",
   },
   {
     label: "Opt-Out Requests",
     href: "/admin/opt-out-requests",
     icon: ClipboardList,
     description: "Spray & prune opt-outs",
+    permissionKey: "opt_out",
   },
   {
     label: "Smart Scheduler",
     href: "/admin/scheduler",
     icon: Calendar,
     description: "Appointments & calendar",
+    permissionKey: "smart_scheduler",
   },
   {
     label: "Sales Reps",
     href: "/admin/sales-reps",
     icon: UserCheck,
     description: "Manage sales consultants",
+    permissionKey: "sales_reps",
   },
   {
     label: "Badge Scans",
     href: "/admin/badge-scans",
     icon: ScanLine,
     description: "Scan leads & CRM",
+    permissionKey: "badge_scans",
   },
-  // {
-  //   label: "Badge Payouts",
-  //   href: "/admin/employee-payouts",
-  //   icon: DollarSign,
-  //   description: "Monthly rep payouts",
-  // },
+  {
+    label: "Employees",
+    href: "/admin/employees",
+    icon: Users,
+    description: "Employee management",
+    permissionKey: "employees",
+  },
+  {
+    label: "Users & Roles",
+    href: "/admin/users",
+    icon: UserCog,
+    description: "Staff accounts & permissions",
+    permissionKey: "users",
+  },
+  {
+    label: "Configuration",
+    href: "/admin/configuration",
+    icon: Settings,
+    description: "CSV import, sales reps",
+    permissionKey: "configuration",
+  },
 ];
 
 interface AdminLayoutProps {
@@ -116,9 +144,24 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
   const [location] = useLocation();
   const { user, logout } = useAuth();
 
+  // Fetch staff permissions — if not a staff user, returns null (owner sees all)
+  const { data: permissions } = trpc.staff.myPermissions.useQuery(undefined, {
+    retry: false,
+    staleTime: 5 * 60 * 1000,
+  });
+
+  // Filter nav items based on permissions
+  // If permissions is null/undefined (owner via Manus OAuth), show everything
+  // If permissions is an object, only show items where the permission key is true
+  const visibleNavItems = NAV_ITEMS.filter(item => {
+    if (!permissions) return true; // owner sees all
+    const perms = permissions as Record<string, boolean>;
+    return perms[item.permissionKey] !== false;
+  });
+
   const NavLinks = ({ mobile = false }: { mobile?: boolean }) => (
     <nav className="flex-1 py-4 space-y-0.5 px-2 overflow-y-auto">
-      {NAV_ITEMS.map(({ label, href, icon: Icon, description }) => {
+      {visibleNavItems.map(({ label, href, icon: Icon, description }) => {
         const active = location === href || location.startsWith(href + "/");
         return (
           <Link key={href} href={href}>

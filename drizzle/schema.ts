@@ -552,3 +552,49 @@ export const payoutRecords = mysqlTable("payout_records", {
 
 export type PayoutRecord = typeof payoutRecords.$inferSelect;
 export type InsertPayoutRecord = typeof payoutRecords.$inferInsert;
+
+/**
+ * Staff users — employees/users who can log into the admin backend
+ * using their work email + a 4–8 digit PIN (stored as bcrypt hash).
+ * Separate from the Manus OAuth `users` table.
+ */
+export const staffUsers = mysqlTable("staff_users", {
+  id: int("id").autoincrement().primaryKey(),
+  email: varchar("email", { length: 320 }).notNull().unique(),
+  firstName: varchar("firstName", { length: 128 }).notNull(),
+  lastName: varchar("lastName", { length: 128 }).notNull(),
+  /** bcrypt hash of their 4–8 digit PIN */
+  pinHash: varchar("pinHash", { length: 256 }).notNull(),
+  /** Role slug — matches a row in role_definitions */
+  role: varchar("role", { length: 64 }).notNull().default("sales_rep"),
+  isActive: boolean("isActive").notNull().default(true),
+  phone: varchar("phone", { length: 32 }),
+  title: varchar("title", { length: 128 }),
+  lastLoginAt: timestamp("lastLoginAt"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+}, (t) => ({
+  idxEmail: index("idx_su_email").on(t.email),
+  idxRole: index("idx_su_role").on(t.role),
+}));
+export type StaffUser = typeof staffUsers.$inferSelect;
+export type InsertStaffUser = typeof staffUsers.$inferInsert;
+
+/**
+ * Role definitions — each role has a name and a JSON blob of
+ * nav-item visibility flags (keyed by href).
+ */
+export const roleDefinitions = mysqlTable("role_definitions", {
+  id: int("id").autoincrement().primaryKey(),
+  slug: varchar("slug", { length: 64 }).notNull().unique(),
+  label: varchar("label", { length: 128 }).notNull(),
+  /** JSON: { "/admin/submissions": true, "/admin/csv-import": false, ... } */
+  permissions: text("permissions").notNull().default("{}"),
+  isSystem: boolean("isSystem").notNull().default(false),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+}, (t) => ({
+  idxSlug: index("idx_rd_slug").on(t.slug),
+}));
+export type RoleDefinition = typeof roleDefinitions.$inferSelect;
+export type InsertRoleDefinition = typeof roleDefinitions.$inferInsert;
