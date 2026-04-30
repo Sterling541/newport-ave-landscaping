@@ -245,7 +245,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
       </aside>
 
       {/* Main content */}
-      <main className="flex-1 overflow-x-auto overflow-y-auto flex flex-col">
+      <main className="admin-main-content flex-1 overflow-x-auto overflow-y-auto flex flex-col">
         {/* Mobile top bar */}
         <div className="md:hidden flex items-center gap-3 px-4 py-3 bg-[oklch(0.18_0.04_155)] text-white sticky top-0 z-30 shrink-0">
           <button

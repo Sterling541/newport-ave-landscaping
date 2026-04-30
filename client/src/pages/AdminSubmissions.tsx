@@ -1157,8 +1157,8 @@ export default function AdminSubmissions() {
               <p className="text-sm mt-1">Try adjusting your search or filter.</p>
             </div>
           ) : (
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm">
+            <div>
+              <table className="w-full min-w-[900px] text-sm">
                 <thead>
                   <tr className="bg-stone-50 border-b border-stone-200">
                     {([
