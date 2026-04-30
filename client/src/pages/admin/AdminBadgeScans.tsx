@@ -32,7 +32,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { QrCode, Search, Phone, Mail, Calendar, User, ChevronRight, SlidersHorizontal } from "lucide-react";
+import { QrCode, Search, Phone, Mail, Calendar, User, ChevronRight, SlidersHorizontal, ArrowLeft } from "lucide-react";
 import AdminLayout from "@/components/AdminLayout";
 
 
@@ -142,6 +142,11 @@ export default function AdminBadgeScans() {
   return (
     <AdminLayout>
     <div className="p-6 max-w-7xl mx-auto">
+      {/* Back button */}
+      <a href="/admin/submissions" className="inline-flex items-center gap-1.5 text-sm text-gray-500 hover:text-gray-800 mb-4 transition-colors">
+        <ArrowLeft className="w-4 h-4" />
+        Back to Admin
+      </a>
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div>
