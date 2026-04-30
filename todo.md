@@ -1076,3 +1076,15 @@
 - [ ] CalendarContextMenu component with "Add Appointment" and "Reschedule here" options
 - [ ] Create/Reschedule modal pre-filled with clicked date, time, and rep
 - [x] Right-click calendar cells to add/reschedule appointments (Week + Day view context menu)
+
+## Session — Apr 29, 2026 (Smart Scheduler Auto-populate)
+
+- [x] Expand SuggestionsModal row prop type from narrow to full Submission type
+- [x] Add buildNotesSummary() to auto-fill notes textarea from submission fields (service, budget, completion date, pets, HOA, comments, etc.)
+- [x] Add customer info card to SuggestionsModal (Name, Phone, Address, Email) between appointment type selector and suggestions list
+- [x] Remove redundant name/address subtitle from modal header (replaced by info card)
+- [x] Pass first suggested slot date as ?date= URL param when "Pick another time" is clicked
+- [x] SmartScheduler reads ?date= URL param and pre-navigates to that week in Week view
+- [x] Add updateSubmissionSalesConsultant DB helper in server/db.ts
+- [x] Add submissions.updateSalesConsultant tRPC procedure in server/routers.ts
+- [x] Auto-fill "Scheduled With" column on booking: write rep's first name to salesConsultant field on the linked submission

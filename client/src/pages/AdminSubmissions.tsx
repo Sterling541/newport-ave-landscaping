@@ -1562,7 +1562,7 @@ export default function AdminSubmissions() {
           reps={reps}
           onClose={() => setSuggestionsRow(null)}
           onBooked={() => { setSuggestionsRow(null); toast.success("Appointment booked!"); }}
-          onOpenCalendar={() => { setSuggestionsRow(null); window.location.href = "/admin/scheduler"; }}
+          onOpenCalendar={(date) => { setSuggestionsRow(null); window.location.href = date ? `/admin/scheduler?date=${date}` : "/admin/scheduler"; }}
         />
       )}
 
@@ -1595,7 +1595,7 @@ function SuggestionsModal({
   reps: { id: number; name: string }[];
   onClose: () => void;
   onBooked: () => void;
-  onOpenCalendar: () => void;
+  onOpenCalendar: (date?: string) => void;
 }) {
   const [selectedApptType, setSelectedApptType] = useState(apptType);
 
@@ -1638,8 +1638,18 @@ function SuggestionsModal({
     { refetchOnWindowFocus: false }
   );
 
+  const updateConsultant = trpc.submissions.updateSalesConsultant.useMutation();
+
   const createAppt = trpc.scheduler.createAppointment.useMutation({
-    onSuccess: () => onBooked(),
+    onSuccess: (_, vars) => {
+      // Auto-fill "Scheduled With" on the submission with the rep's first name
+      const rep = reps.find(r => r.id === vars.repId);
+      if (rep) {
+        const firstName = rep.name.split(" ")[0];
+        updateConsultant.mutate({ id: row.id, salesConsultant: firstName });
+      }
+      onBooked();
+    },
     onError: (err) => toast.error(`Booking failed: ${err.message}`),
   });
 
@@ -1806,7 +1816,7 @@ function SuggestionsModal({
           {/* Footer */}
           <div className="flex gap-2 pt-1">
             <button
-              onClick={onOpenCalendar}
+              onClick={() => onOpenCalendar(top5[0]?.date)}
               className="flex-1 py-2 rounded-lg text-sm font-medium border-2 transition-colors flex items-center justify-center gap-1.5"
               style={{ borderColor: "oklch(0.45 0.15 145)", color: "oklch(0.45 0.15 145)" }}
             >

@@ -36,6 +36,7 @@ import {
   listCsvImportJobs,
   bulkInsertServiceSubmissions,
   getYoyStats,
+  updateSubmissionSalesConsultant,
 } from "./db";
 import { invokeLLM } from "./_core/llm";
 import { ENV } from "./_core/env";
@@ -511,6 +512,17 @@ export const appRouter = router({
         });
         const parsed = JSON.parse(llmResponse.choices[0].message.content as string);
         return { insights: parsed.insights, summary: parsed.summary, generatedAt: new Date().toISOString(), dataPoints: total };
+      }),
+
+    updateSalesConsultant: protectedProcedure
+      .input(z.object({
+        id: z.number(),
+        salesConsultant: z.string().max(128),
+      }))
+      .mutation(async ({ ctx, input }) => {
+        requireAdmin(ctx);
+        await updateSubmissionSalesConsultant(input.id, input.salesConsultant);
+        return { success: true };
       }),
   }),
 

@@ -387,9 +387,17 @@ function CreateModal({ reps, onClose, onCreated, prefillDate, prefillHour, prefi
 // ─── Main Page ────────────────────────────────────────────────────────────────
 
 export default function SmartScheduler() {
-  const [view, setView] = useState<"list" | "week" | "day">("list");
-  const [dayDate, setDayDate] = useState<Date>(() => new Date());
-  const [weekStart, setWeekStart] = useState(() => getWeekStart(new Date()));
+  // Read optional ?date=YYYY-MM-DD param from URL (set by Suggestions modal "Pick another time")
+  const urlDate = useMemo(() => {
+    const params = new URLSearchParams(window.location.search);
+    const d = params.get("date");
+    if (d && /^\d{4}-\d{2}-\d{2}$/.test(d)) return new Date(d + "T12:00:00");
+    return null;
+  }, []);
+
+  const [view, setView] = useState<"list" | "week" | "day">(urlDate ? "week" : "list");
+  const [dayDate, setDayDate] = useState<Date>(() => urlDate ?? new Date());
+  const [weekStart, setWeekStart] = useState(() => getWeekStart(urlDate ?? new Date()));
   const [showCreate, setShowCreate] = useState(false);
   const [toast, setToast] = useState<string | null>(null);
   const [editingId, setEditingId] = useState<number | null>(null);

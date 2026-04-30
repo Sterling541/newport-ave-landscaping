@@ -984,6 +984,11 @@ export async function updateSubmissionServiceType(id: number, serviceType: strin
   if (!db) throw new Error("Database not available");
   return db.update(serviceSubmissions).set({ serviceType }).where(eq(serviceSubmissions.id, id));
 }
+export async function updateSubmissionSalesConsultant(id: number, salesConsultant: string) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  return db.update(serviceSubmissions).set({ salesConsultant }).where(eq(serviceSubmissions.id, id));
+}
 
 // ── Game Analytics ─────────────────────────────────────────────────────────────
 export async function insertGamePlay(data: Omit<InsertGamePlay, 'id' | 'createdAt'>) {
