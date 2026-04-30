@@ -41,23 +41,11 @@ queryClient.getMutationCache().subscribe(event => {
   }
 });
 
-// Read the stored admin PIN from sessionStorage so API calls are authenticated
-function getAdminPinHeader(): Record<string, string> {
-  try {
-    const pin = sessionStorage.getItem('adminPin');
-    if (pin) return { 'x-admin-pin': pin };
-  } catch { /* SSR or storage blocked */ }
-  return {};
-}
-
 const trpcClient = trpc.createClient({
   links: [
     httpBatchLink({
       url: "/api/trpc",
       transformer: superjson,
-      headers() {
-        return getAdminPinHeader();
-      },
       fetch(input, init) {
         return globalThis.fetch(input, {
           ...(init ?? {}),

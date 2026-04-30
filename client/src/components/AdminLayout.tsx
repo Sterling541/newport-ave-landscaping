@@ -144,7 +144,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
   const [collapsed, setCollapsed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [location, navigate] = useLocation();
-  const { user, logout } = useAuth();
+  const { user: oauthUser, loading: oauthLoading, logout } = useAuth();
   const staffLogout = trpc.staff.logout.useMutation({
     onSettled: () => { window.location.href = "/admin/login"; },
   });
@@ -157,31 +157,35 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
     return { lead_trends: isLeadTrendsSubPage };
   });
 
-  // Fetch staff session — redirect to login if not authenticated
+  // Fetch staff session
   const { data: staffUser, isLoading: staffLoading } = trpc.staff.me.useQuery(undefined, {
     retry: false,
     staleTime: 5 * 60 * 1000,
   });
 
-  // Fetch staff permissions — if not a staff user, returns null (owner sees all)
+  // Fetch staff permissions — null means owner (sees all)
   const { data: permissions } = trpc.staff.myPermissions.useQuery(undefined, {
     retry: false,
     staleTime: 5 * 60 * 1000,
   });
 
-  // Redirect to login if no staff session (and not still loading)
+  // Redirect to /admin/login only if NEITHER staff session NOR Manus OAuth owner session exists
+  const authLoading = staffLoading || oauthLoading;
+  const isAuthenticated = !!staffUser || !!oauthUser;
   useEffect(() => {
-    if (!staffLoading && staffUser === null) {
+    if (!authLoading && !isAuthenticated) {
       navigate("/admin/login");
     }
-  }, [staffLoading, staffUser, navigate]);
+  }, [authLoading, isAuthenticated, navigate]);
 
-  // Filter nav items based on permissions
-  const isOwner = !permissions; // null means Manus OAuth owner (sees all)
+  // Owner = Manus OAuth user with no staff session (sees everything)
+  const isOwner = !!oauthUser && !staffUser;
   const isItemVisible = (permissionKey: string, adminOnly?: boolean) => {
-    if (adminOnly && !isOwner) return false;
-    if (!permissions) return true; // owner sees all
+    if (isOwner) return true; // owner sees all
+    if (!permissions) return true; // no permissions loaded yet — show all
     const perms = permissions as Record<string, boolean>;
+    // adminOnly items: show only if the permission key is explicitly true
+    if (adminOnly) return perms[permissionKey] === true;
     return perms[permissionKey] !== false;
   };
 
@@ -334,7 +338,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
         <ExternalLink className="w-3.5 h-3.5 shrink-0" />
         {(!collapsed || mobile) && <span>Back to site</span>}
       </a>
-      {staffUser && (
+      {staffUser ? (
         <button
           onClick={() => staffLogout.mutate()}
           className="w-full flex items-center gap-2 px-2 py-2 rounded-lg text-xs text-white/40 hover:text-white/70 hover:bg-white/10 transition-colors text-left"
@@ -345,8 +349,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
             <span className="truncate">Sign out {staffUser.firstName}</span>
           )}
         </button>
-      )}
-      {user && !staffUser && (
+      ) : oauthUser ? (
         <button
           onClick={() => logout()}
           className="w-full flex items-center gap-2 px-2 py-2 rounded-lg text-xs text-white/40 hover:text-white/70 hover:bg-white/10 transition-colors text-left"
@@ -354,10 +357,10 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
         >
           <LogOut className="w-3.5 h-3.5 shrink-0" />
           {(!collapsed || mobile) && (
-            <span className="truncate">Sign out {user.name?.split(" ")[0]}</span>
+            <span className="truncate">Sign out {oauthUser.name?.split(" ")[0]}</span>
           )}
         </button>
-      )}
+      ) : null}
       {!mobile && (
         <button
           onClick={() => setCollapsed(!collapsed)}
@@ -378,7 +381,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
   );
 
   // Show nothing while checking auth (avoids flash)
-  if (staffLoading) {
+  if (authLoading) {
     return (
       <div className="flex h-screen items-center justify-center bg-[oklch(0.18_0.04_155)]">
         <div className="w-6 h-6 border-2 border-white/20 border-t-white rounded-full animate-spin" />

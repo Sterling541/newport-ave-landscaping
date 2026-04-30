@@ -1177,3 +1177,6 @@
 - [x] Fix: Configuration sidebar item missing — re-seed role_definitions with short permission keys matching AdminLayout permissionKey values
 - [x] Fix: Three login screens — remove legacy PIN gate from AdminSubmissions (pinAuthed / useAdminAuth); add staff session redirect in AdminLayout
 - [x] Fix: Geo Map and Daily Pulse shown as flat tabs instead of nested under Lead Trends — add collapsible sub-item support to AdminLayout NAV_ITEMS
+- [x] Fix: Configuration still hidden for info@ admin staff — adminOnly flag blocks all staff even when configuration:true in their permissions; replace with permission key check
+- [x] Fix: Remove adminOnly flag from Configuration nav item — show/hide based purely on configuration permission key
+- [x] Fix: Remove all legacy admin login paths (Navbar modal with code 4132, StagingGate admin link, any hardcoded entry) — single staff login at /admin/login only
