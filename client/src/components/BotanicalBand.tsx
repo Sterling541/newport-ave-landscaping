@@ -10,13 +10,13 @@
 
 // Transparent outdoor watercolor landscape plant illustrations
 const GRASS_URL =
-  "/manus-storage/plant-outdoor-1-nobg_700_a025a71d.webp";
+  "/manus-storage/compressed_plant-outdoor-1-nobg_700_a025a71d_1e9ac9da.webp";
 const SPRUCE_BRANCH_URL =
-  "/manus-storage/plant-outdoor-2-nobg_700_94071400.webp";
+  "/manus-storage/compressed_plant-outdoor-2-nobg_700_94071400_15aa6a60.webp";
 const FERN_URL =
-  "/manus-storage/plant-outdoor-3-nobg_700_34a1c68f.webp";
+  "/manus-storage/compressed_plant-outdoor-3-nobg_700_34a1c68f_4a0b7b54.webp";
 const SHRUB_URL =
-  "/manus-storage/plant-outdoor-4-nobg_700_8f92f668.webp";
+  "/manus-storage/compressed_plant-outdoor-4-nobg_700_8f92f668_2dda2017.webp";
 const SPRUCE_TREE_URL =
   "/manus-storage/plant-outdoor-5-nobg_700_b765d974.webp";
 

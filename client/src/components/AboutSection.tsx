@@ -8,7 +8,7 @@ import { Award, Shield, Clock, Star } from "lucide-react";
 
 // Real Newport Ave facility photo
 const FACILITY_IMAGE =
-  "/manus-storage/NewportLandscapingRVParkDay2Photos2_8e8d0bb1_cd405dc0.webp";
+  "/manus-storage/compressed_NewportLandscapingRVParkDay2Photos2_8e8d0bb1_cd405dc0_35d8eb74.webp";
 
 const highlights = [
   {

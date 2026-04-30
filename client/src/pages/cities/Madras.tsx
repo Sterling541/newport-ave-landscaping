@@ -5,7 +5,7 @@ export default function MadrasPage() {
     <CityPageLayout
       city="Madras"
       region="Central Oregon"
-      heroImage="/manus-storage/NewportLandscapingRVParkDay2Photos2_8e8d0bb1_cd405dc0.webp"
+      heroImage="/manus-storage/compressed_NewportLandscapingRVParkDay2Photos2_8e8d0bb1_cd405dc0_35d8eb74.webp"
       heroPosition="center 60%"
       tagline="Expert Landscaping & Lawn Care Services in Madras, Oregon"
       seoTitle="Madras Landscaping Oregon | Professional Lawn Care & Design | Newport Avenue"

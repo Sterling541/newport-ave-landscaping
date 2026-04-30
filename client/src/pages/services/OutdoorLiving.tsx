@@ -33,7 +33,7 @@ export default function OutdoorLiving() {
       subtitle="& Living Spaces"
       seoTitle="Outdoor Kitchen Bend Oregon | Outdoor Living Spaces & Covered Patios | Newport Avenue"
       seoDescription="Custom outdoor kitchens, living spaces, and covered patios in Bend, Oregon. Design and installation by Newport Avenue Landscaping. Free consultations. LCB #9153."
-      heroImage="/manus-storage/GLLPatio1_90e2e0c4_166b9312.webp"
+      heroImage="/manus-storage/compressed_GLLPatio1_90e2e0c4_166b9312_76dc891f.webp"
       heroPosition="center 50%"
       intro="Outdoor kitchens and fireplaces have become the focal point of the outdoor living area. If you want to improve the value and sale-ability of your home, or create a more usable and functional backyard, an outdoor living area can do wonders. Your dreams are the limit."
       pricing={[

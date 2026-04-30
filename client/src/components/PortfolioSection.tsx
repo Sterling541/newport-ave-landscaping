@@ -34,7 +34,7 @@ const portfolioItems = [
   {
     title: "Commercial Landscape Installation — Central Oregon",
     subtitle: "Central Oregon",
-    image: "/manus-storage/NewportLandscapingRVParkDay2Photos2_8e8d0bb1_cd405dc0.webp",
+    image: "/manus-storage/compressed_NewportLandscapingRVParkDay2Photos2_8e8d0bb1_cd405dc0_35d8eb74.webp",
   },
   {
     title: "Elevated Concrete Paver Patio & Stone Retaining Wall — Bend",

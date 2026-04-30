@@ -5,7 +5,7 @@ export default function TerrebonnePage() {
     <CityPageLayout
       city="Terrebonne"
       region="Central Oregon"
-      heroImage="/manus-storage/NewportAveLandcaping-9_97b731b0_1204d3ca.webp"
+      heroImage="/manus-storage/compressed_NewportAveLandcaping-9_97b731b0_1204d3ca_c439672c.webp"
       heroPosition="center 40%"
       tagline="Expert Landscaping & Lawn Care for Terrebonne, Oregon Properties"
       seoTitle="Terrebonne Landscaping Oregon & Terrebonne Lawn Care | Newport Avenue Landscaping"

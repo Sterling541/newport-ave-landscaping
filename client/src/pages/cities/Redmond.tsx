@@ -5,7 +5,7 @@ export default function RedmondPage() {
     <CityPageLayout
       city="Redmond"
       region="Central Oregon"
-      heroImage="/manus-storage/NewportAveLandcaping-9_97b731b0_1204d3ca.webp"
+      heroImage="/manus-storage/compressed_NewportAveLandcaping-9_97b731b0_1204d3ca_c439672c.webp"
       heroPosition="center 40%"
       tagline="Expert Landscaping & Lawn Care in Redmond, Oregon: Enhancing High-Desert Beauty"
       seoTitle="Redmond Landscaping Oregon | Redmond Lawn Care | Newport Avenue Landscaping"

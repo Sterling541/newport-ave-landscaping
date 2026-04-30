@@ -24,7 +24,7 @@ const posts = [
     title: "Paver Patio Ideas for Bend, Oregon Homes",
     excerpt: "Belgard & Unilock paver styles, layout patterns, fire pit integration, and outdoor kitchen ideas for Central Oregon's outdoor lifestyle.",
     date: "April 2024",
-    image: "/manus-storage/NewportAveLandcaping-9_97b731b0_1204d3ca.webp",
+    image: "/manus-storage/compressed_NewportAveLandcaping-9_97b731b0_1204d3ca_c439672c.webp",
     category: "Hardscape & Outdoor Living",
   },
   {

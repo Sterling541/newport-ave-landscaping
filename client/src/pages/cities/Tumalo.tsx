@@ -5,7 +5,7 @@ export default function TumaloPage() {
     <CityPageLayout
       city="Tumalo"
       region="Central Oregon"
-      heroImage="/manus-storage/NewportAveLandcaping-9_97b731b0_1204d3ca.webp"
+      heroImage="/manus-storage/compressed_NewportAveLandcaping-9_97b731b0_1204d3ca_c439672c.webp"
       heroPosition="center 40%"
       tagline="Transforming Tumalo's Rural Beauty into Exquisite Outdoor Living Spaces"
       seoTitle="Tumalo Landscaping Oregon & Tumalo Lawn Care Experts | Newport Avenue Landscaping"

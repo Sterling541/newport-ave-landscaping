@@ -154,7 +154,7 @@ export default function Maintenance() {
         style={{
           height: "clamp(280px, 38vw, 440px)", marginTop: "204px",
           backgroundColor: "oklch(0.12 0.005 0)",
-          backgroundImage: "url(/manus-storage/NewportLandscapingRVParkDay2Photos2_8e8d0bb1_cd405dc0.webp",
+          backgroundImage: "url(/manus-storage/compressed_NewportLandscapingRVParkDay2Photos2_8e8d0bb1_cd405dc0_35d8eb74.webp",
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}

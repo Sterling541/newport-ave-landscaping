@@ -18,7 +18,7 @@ const ROOMS = [
     tagline: "The Sound of Serenity",
     description:
       "Custom ponds, pondless waterfalls, bubbling boulders, and stream beds that bring the sound and movement of water to your backyard. Designed for Central Oregon's climate.",
-    img: "/manus-storage/NewportAveLandcaping-9_97b731b0_1204d3ca.webp",
+    img: "/manus-storage/compressed_NewportAveLandcaping-9_97b731b0_1204d3ca_c439672c.webp",
     accent: "oklch(0.46 0.20 25)",
   },
   {
@@ -28,7 +28,7 @@ const ROOMS = [
     tagline: "Gather Around Something Beautiful",
     description:
       "Gas fire pits, wood-burning fireplaces, and fire tables that extend your outdoor season well into Oregon's cool evenings. Custom stone and paver surrounds included.",
-    img: "/manus-storage/fire7_f0b582ff_56d05738.webp",
+    img: "/manus-storage/compressed_fire7_f0b582ff_56d05738_050989df.webp",
     accent: "oklch(0.62 0.18 38)",
   },
   {
@@ -48,7 +48,7 @@ const ROOMS = [
     tagline: "The Foundation of Outdoor Living",
     description:
       "Belgard, Techo-Bloc, and natural stone paver installations for patios, walkways, driveways, and pool decks. Precision-set for Central Oregon's freeze-thaw cycles.",
-    img: "/manus-storage/GLLPatio2_4916fcde_95c74f23.webp",
+    img: "/manus-storage/compressed_GLLPatio2_4916fcde_95c74f23_0a4c0f52.webp",
     accent: "oklch(0.46 0.20 25)",
   },
   {

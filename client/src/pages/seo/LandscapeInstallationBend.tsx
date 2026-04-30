@@ -31,7 +31,7 @@ const INSTALL_TYPES = [
     title: "Paver Patios & Walkways",
     desc: "Concrete and natural stone paver installation for patios, walkways, driveways, and pool decks — built to last in Central Oregon's freeze-thaw cycles.",
     href: "/services/pavers",
-    img: "/manus-storage/GLLPatio1_90e2e0c4_166b9312.webp",
+    img: "/manus-storage/compressed_GLLPatio1_90e2e0c4_166b9312_76dc891f.webp",
   },
   {
     title: "Retaining Walls",
@@ -61,7 +61,7 @@ const INSTALL_TYPES = [
     title: "Firewise Landscape Installation",
     desc: "Defensible space installation for WUI properties — juniper removal, fire-resistant replanting, and ember-resistant ground cover.",
     href: "/services/firewise-landscaping",
-    img: "/manus-storage/forest-home4_9324e5db_31f1b27d.webp",
+    img: "/manus-storage/compressed_forest-home4_9324e5db_31f1b27d_a2d60b76.webp",
   },
 ];
 

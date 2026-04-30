@@ -10,13 +10,13 @@ import { X, ChevronLeft, ChevronRight } from "lucide-react";
 const photos = [
   // Row 1 — hero shots
   {
-    src: "/manus-storage/NewportAveLandcaping-9_97b731b0_1204d3ca.webp",
+    src: "/manus-storage/compressed_NewportAveLandcaping-9_97b731b0_1204d3ca_c439672c.webp",
     title: "Flagstone Patio & Stream at Sunset",
     category: "Water Features",
     span: "col-span-2 row-span-2",
   },
   {
-    src: "/manus-storage/fire7_f0b582ff_56d05738.webp",
+    src: "/manus-storage/compressed_fire7_f0b582ff_56d05738_050989df.webp",
     title: "Fire Pit at Dusk",
     category: "Fire Features",
     span: "col-span-1 row-span-1",

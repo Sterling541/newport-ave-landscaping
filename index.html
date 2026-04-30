@@ -14,14 +14,14 @@
     <meta property="og:url" content="https://newportavelandscaping.com/" />
     <meta property="og:title" content="Newport Avenue Landscaping | Bend, Oregon's Premier Landscaping Company" />
     <meta property="og:description" content="Central Oregon's premier landscaping company since 2005. Lawn care, irrigation, landscape design, pavers, xeriscaping & outdoor living in Bend, OR. Licensed & Bonded LCB #9153." />
-    <meta property="og:image" content="https://newportavelandscaping.com/manus-storage/NewportAveLandcaping-9_97b731b0_1204d3ca.webp" />
+    <meta property="og:image" content="https://newportavelandscaping.com/manus-storage/compressed_NewportAveLandcaping-9_97b731b0_1204d3ca_c439672c.webp" />
     <meta property="og:site_name" content="Newport Avenue Landscaping" />
     <meta property="og:locale" content="en_US" />
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Newport Avenue Landscaping | Bend, Oregon's Premier Landscaping Company" />
     <meta name="twitter:description" content="Central Oregon's premier landscaping company since 2005. Lawn care, irrigation, landscape design, pavers, xeriscaping & outdoor living in Bend, OR." />
-    <meta name="twitter:image" content="https://newportavelandscaping.com/manus-storage/NewportAveLandcaping-9_97b731b0_1204d3ca.webp" />
+    <meta name="twitter:image" content="https://newportavelandscaping.com/manus-storage/compressed_NewportAveLandcaping-9_97b731b0_1204d3ca_c439672c.webp" />
     <!-- Geo / Local -->
     <meta name="geo.region" content="US-OR" />
     <meta name="geo.placename" content="Bend, Oregon" />
@@ -110,7 +110,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <!-- Preload hero image for LCP — fetchpriority=high tells browser to start immediately -->
-    <link rel="preload" as="image" href="/manus-storage/NewportAveLandcaping-9_97b731b0_1204d3ca.webp" fetchpriority="high" />
+    <link rel="preload" as="image" href="/manus-storage/compressed_NewportAveLandcaping-9_97b731b0_1204d3ca_c439672c.webp" fetchpriority="high" />
     <!-- Fonts: both loaded async (non-render-blocking) via print trick.
          display=swap prevents invisible text; fallback fonts render immediately. -->
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
@@ -118,7 +118,7 @@
     <!-- Non-critical font weights -->
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,500;1,300;1,500&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,500;1,8..60,300;1,8..60,400&family=Montserrat:wght@400;500&display=optional" rel="stylesheet" media="print" onload="this.media='all'" />
     <!-- Critical inline CSS: prevents blank white flash before main CSS bundle loads.
-         Only includes above-the-fold styles: body bg, color, font stack. -->
+         Covers above-the-fold: body, navbar shell, hero bg, image CLS prevention. -->
     <style>
       *, *::before, *::after { box-sizing: border-box; }
       html { scroll-behavior: smooth; }
@@ -130,6 +130,10 @@
         overflow-x: hidden;
       }
       #root { min-height: 100vh; }
+      /* Image CLS prevention: reserve space before CSS bundle loads */
+      img { max-width: 100%; height: auto; display: block; }
+      /* Hero dark bg placeholder — matches the hero image tone so there's no white flash */
+      #root > div { background-color: oklch(0.12 0.01 30); }
     </style>
   </head>
 

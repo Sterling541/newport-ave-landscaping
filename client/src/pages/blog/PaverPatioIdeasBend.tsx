@@ -22,7 +22,7 @@ export default function PaverPatioIdeasBend() {
           className="relative flex items-center justify-center"
           style={{
             height: "380px",
-            backgroundImage: "url(/manus-storage/NewportAveLandcaping-9_97b731b0_1204d3ca.webp",
+            backgroundImage: "url(/manus-storage/compressed_NewportAveLandcaping-9_97b731b0_1204d3ca_c439672c.webp",
             backgroundSize: "cover",
             backgroundPosition: "center 50%",
           }}

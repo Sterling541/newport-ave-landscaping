@@ -34,9 +34,9 @@ const NINES_CREW = "/manus-storage/NinesProject3_602cdeb8_2a243328.webp";
 const HERO_IMAGE =
   "/manus-storage/NewportLandscapingRVParkPhotos50_5ba97805_22d33efe.webp";
 const CREW_PLANTING =
-  "/manus-storage/NewportLandscapingRVParkDay2Photos2_8e8d0bb1_cd405dc0.webp";
+  "/manus-storage/compressed_NewportLandscapingRVParkDay2Photos2_8e8d0bb1_cd405dc0_35d8eb74.webp";
 const CREW_ACTION =
-  "/manus-storage/NewportLandscapingRVParkDay2Photos2_8e8d0bb1_cd405dc0.webp";
+  "/manus-storage/compressed_NewportLandscapingRVParkDay2Photos2_8e8d0bb1_cd405dc0_35d8eb74.webp";
 const CREW_IRRIGATION =
   "/manus-storage/NewportLandscapingRVParkPhotos16_5e801b45_fc8ec8ea.webp";
 const CREW_SOIL =

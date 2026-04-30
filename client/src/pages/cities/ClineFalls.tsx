@@ -5,7 +5,7 @@ export default function ClineFallsPage() {
     <CityPageLayout
       city="Cline Falls"
       region="Central Oregon"
-      heroImage="/manus-storage/NewportAveLandcaping-9_97b731b0_1204d3ca.webp"
+      heroImage="/manus-storage/compressed_NewportAveLandcaping-9_97b731b0_1204d3ca_c439672c.webp"
       heroPosition="center 40%"
       tagline="Landscaping & Lawn Care for Cline Falls & the Deschutes River Corridor"
       seoTitle="Cline Falls Oregon Landscaping & Lawn Care | Newport Avenue Landscaping"

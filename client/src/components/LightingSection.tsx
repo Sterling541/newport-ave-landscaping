@@ -16,30 +16,51 @@
 import { useEffect, useRef, useState } from "react";
 
 const FOREST_HOME_4 =
-  "/manus-storage/forest-home4_9324e5db_31f1b27d.webp";
+  "/manus-storage/compressed_forest-home4_9324e5db_31f1b27d_a2d60b76.webp";
 
 export default function LightingSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    const handleScroll = () => {
-      const section = sectionRef.current;
-      if (!section) return;
-      const rect = section.getBoundingClientRect();
-      const vh = window.innerHeight;
-      const sectionH = section.offsetHeight;
-      // Animate over first 60% of scroll range, starting when top enters viewport
-      const scrollRange = sectionH * 0.60;
-      if (!scrollRange || scrollRange <= 0) return; // guard against division by zero
-      const scrolled = vh - rect.top;
-      const raw = scrolled / scrollRange;
-      const clamped = Math.max(0, Math.min(1, raw));
-      if (!isNaN(clamped)) setProgress(clamped);
+    // Cache offsetHeight to avoid forced reflow on every scroll event
+    let cachedHeight = 0;
+    let rafId: number | null = null;
+
+    const updateCachedHeight = () => {
+      if (sectionRef.current) cachedHeight = sectionRef.current.offsetHeight;
     };
+    updateCachedHeight();
+
+    const resizeObserver = new ResizeObserver(updateCachedHeight);
+    if (sectionRef.current) resizeObserver.observe(sectionRef.current);
+
+    const handleScroll = () => {
+      if (rafId !== null) return; // already scheduled — skip duplicate
+      rafId = requestAnimationFrame(() => {
+        rafId = null;
+        const section = sectionRef.current;
+        if (!section) return;
+        const rect = section.getBoundingClientRect();
+        const vh = window.innerHeight;
+        const sectionH = cachedHeight || section.offsetHeight;
+        // Animate over first 60% of scroll range, starting when top enters viewport
+        const scrollRange = sectionH * 0.60;
+        if (!scrollRange || scrollRange <= 0) return;
+        const scrolled = vh - rect.top;
+        const raw = scrolled / scrollRange;
+        const clamped = Math.max(0, Math.min(1, raw));
+        if (!isNaN(clamped)) setProgress(clamped);
+      });
+    };
+
     window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      resizeObserver.disconnect();
+      if (rafId !== null) cancelAnimationFrame(rafId);
+    };
   }, []);
 
   // Smooth ease-in-out

@@ -22,7 +22,7 @@ export default function SprinklerWinterizationBend() {
           className="relative flex items-center justify-center"
           style={{
             height: "380px",
-            backgroundImage: "url(/manus-storage/GLLPatio2_4916fcde_95c74f23.webp",
+            backgroundImage: "url(/manus-storage/compressed_GLLPatio2_4916fcde_95c74f23_0a4c0f52.webp",
             backgroundSize: "cover",
             backgroundPosition: "center 50%",
           }}

@@ -12,12 +12,12 @@ const HERO_IMG = "/manus-storage/brokentop-xeriscape-01_064e5008.jpg";
 const SERVICES = [
   { title: "Landscape Design", desc: "Full-service design from concept to installation — custom plans for Bend's high-desert climate.", href: "/services/landscape-design", img: "/manus-storage/landscaping-native_fa3d1cfe_e2d50e2c.webp" },
   { title: "Irrigation Systems", desc: "Smart sprinkler installation, drip systems, and seasonal activation/blowout services.", href: "/services/irrigation", img: "/manus-storage/landscaping-native_fa3d1cfe_e2d50e2c.webp" },
-  { title: "Paver Patios", desc: "Concrete and natural stone pavers for patios, walkways, driveways, and pool decks.", href: "/services/pavers", img: "/manus-storage/GLLPatio1_90e2e0c4_166b9312.webp" },
+  { title: "Paver Patios", desc: "Concrete and natural stone pavers for patios, walkways, driveways, and pool decks.", href: "/services/pavers", img: "/manus-storage/compressed_GLLPatio1_90e2e0c4_166b9312_76dc891f.webp" },
   { title: "Xeriscaping", desc: "Water-wise landscape transformations using drought-tolerant plants and efficient irrigation.", href: "/services/xeriscaping", img: "/manus-storage/brokentop-xeriscape-01_064e5008.jpg" },
   { title: "Retaining Walls", desc: "Boulder, block, and natural stone retaining walls for slope stabilization and terracing.", href: "/services/retaining-walls", img: "/manus-storage/awbrey-patio-wall-01_bde91632.jpg" },
-  { title: "Outdoor Living", desc: "Fire pits, pergolas, outdoor kitchens, and living spaces built for Central Oregon living.", href: "/services/outdoor-living", img: "/manus-storage/GLLPatio1_90e2e0c4_166b9312.webp" },
+  { title: "Outdoor Living", desc: "Fire pits, pergolas, outdoor kitchens, and living spaces built for Central Oregon living.", href: "/services/outdoor-living", img: "/manus-storage/compressed_GLLPatio1_90e2e0c4_166b9312_76dc891f.webp" },
   { title: "Lawn Care & Maintenance", desc: "Weekly mowing, aeration, fertilization, and seasonal cleanup for residential and commercial properties.", href: "/maintenance", img: "/manus-storage/maintenance-hero-bg_3219f29e_7ba0517e.webp" },
-  { title: "Firewise Landscaping", desc: "Defensible space creation, juniper removal, and fire-resistant replanting for WUI properties.", href: "/services/firewise-landscaping", img: "/manus-storage/forest-home4_9324e5db_31f1b27d.webp" },
+  { title: "Firewise Landscaping", desc: "Defensible space creation, juniper removal, and fire-resistant replanting for WUI properties.", href: "/services/firewise-landscaping", img: "/manus-storage/compressed_forest-home4_9324e5db_31f1b27d_a2d60b76.webp" },
 ];
 
 const FAQS = [

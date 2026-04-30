@@ -5,7 +5,7 @@ export default function SistersPage() {
     <CityPageLayout
       city="Sisters"
       region="Central Oregon"
-      heroImage="/manus-storage/NewportAveLandcaping-9_97b731b0_1204d3ca.webp"
+      heroImage="/manus-storage/compressed_NewportAveLandcaping-9_97b731b0_1204d3ca_c439672c.webp"
       heroPosition="center 40%"
       tagline="Expert Landscaping and Lawn Care Services in Sisters, Oregon"
       seoTitle="Sisters Landscaping Oregon | Sisters Lawn Care & Design - Newport Avenue Landscaping"

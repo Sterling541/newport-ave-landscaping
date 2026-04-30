@@ -5,7 +5,7 @@ export default function BendPage() {
     <CityPageLayout
       city="Bend"
       region="Central Oregon"
-      heroImage="/manus-storage/NewportAveLandcaping-9_97b731b0_1204d3ca.webp"
+      heroImage="/manus-storage/compressed_NewportAveLandcaping-9_97b731b0_1204d3ca_c439672c.webp"
       heroPosition="center 40%"
       tagline="Transforming Bend's High-Desert Landscapes into Stunning Outdoor Sanctuaries"
       seoTitle="Bend Landscaping Oregon & Bend Lawn Care | Newport Avenue Landscaping"
