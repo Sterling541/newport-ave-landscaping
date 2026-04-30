@@ -620,3 +620,19 @@ export const pinResetTokens = mysqlTable("pin_reset_tokens", {
 }));
 export type PinResetToken = typeof pinResetTokens.$inferSelect;
 export type InsertPinResetToken = typeof pinResetTokens.$inferInsert;
+/**
+ * Login attempt tracking — enforces 5-attempt lockout per email.
+ * Attempts reset on successful login. Lockout lasts 15 minutes.
+ */
+export const loginAttempts = mysqlTable("login_attempts", {
+  id: int("id").autoincrement().primaryKey(),
+  email: varchar("email", { length: 255 }).notNull().unique(),
+  attempts: int("attempts").notNull().default(0),
+  lockedUntil: timestamp("lockedUntil"),
+  lastAttemptAt: timestamp("lastAttemptAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+}, (t) => ({
+  idxEmail: index("idx_la_email").on(t.email),
+}));
+export type LoginAttempt = typeof loginAttempts.$inferSelect;
+export type InsertLoginAttempt = typeof loginAttempts.$inferInsert;

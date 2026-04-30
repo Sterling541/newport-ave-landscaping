@@ -9,8 +9,8 @@ import crypto from "crypto";
 import { TRPCError } from "@trpc/server";
 import { router, publicProcedure, pinProcedure } from "./_core/trpc";
 import { getDb } from "./db";
-import { staffUsers, roleDefinitions, pinResetTokens } from "../drizzle/schema";
-import { eq, desc, and, asc, lt } from "drizzle-orm";
+import { staffUsers, roleDefinitions, pinResetTokens, loginAttempts } from "../drizzle/schema";
+import { eq, desc, and, asc, lt, sql } from "drizzle-orm";
 import { SignJWT, jwtVerify } from "jose";
 import { ENV } from "./_core/env";
 import { sendPinResetEmail } from "./emailNotifications";
@@ -22,8 +22,10 @@ function getJwtSecret() {
   return new TextEncoder().encode(ENV.cookieSecret);
 }
 
+const INACTIVITY_TIMEOUT_MS = 4 * 60 * 60 * 1000; // 4 hours of inactivity
+
 async function signStaffToken(staffUserId: number, role: string) {
-  return new SignJWT({ sub: String(staffUserId), role, type: "staff" })
+  return new SignJWT({ sub: String(staffUserId), role, type: "staff", lastActivity: Date.now() })
     .setProtectedHeader({ alg: JWT_ALG })
     .setIssuedAt()
     .setExpirationTime("8h")
@@ -34,14 +36,17 @@ async function verifyStaffToken(token: string) {
   try {
     const { payload } = await jwtVerify(token, getJwtSecret());
     if (payload.type !== "staff") return null;
+    // Inactivity timeout check
+    const lastActivity = payload.lastActivity as number | undefined;
+    if (lastActivity && Date.now() - lastActivity > INACTIVITY_TIMEOUT_MS) return null;
     return { id: Number(payload.sub), role: payload.role as string };
   } catch {
     return null;
   }
 }
 
-/** Get the current staff user from the request cookie */
-async function getStaffUserFromCtx(ctx: { req: { headers: { cookie?: string } } }) {
+/** Get the current staff user from the request cookie, refreshing activity timestamp */
+async function getStaffUserFromCtx(ctx: { req: { headers: { cookie?: string } }; res?: any }) {
   const cookieHeader = ctx.req.headers.cookie ?? "";
   const match = cookieHeader.match(new RegExp(`(?:^|;\\s*)${STAFF_COOKIE}=([^;]+)`));
   if (!match) return null;
@@ -51,7 +56,20 @@ async function getStaffUserFromCtx(ctx: { req: { headers: { cookie?: string } } 
   const [user] = await db.select().from(staffUsers).where(
     and(eq(staffUsers.id, payload.id), eq(staffUsers.isActive, true))
   );
-  return user ?? null;
+  if (!user) return null;
+  // Refresh the cookie with updated lastActivity so inactivity timer resets
+  const res = (ctx as any).res;
+  if (res?.cookie) {
+    const freshToken = await signStaffToken(user.id, user.role);
+    res.cookie(STAFF_COOKIE, freshToken, {
+      httpOnly: true,
+      sameSite: "lax",
+      secure: process.env.NODE_ENV === "production",
+      maxAge: 8 * 60 * 60 * 1000,
+      path: "/",
+    });
+  }
+  return user;
 }
 
 export const staffRouter = router({
@@ -63,13 +81,55 @@ export const staffRouter = router({
     }))
     .mutation(async ({ input, ctx }) => {
       const db = await getDb();
-      const [user] = await db.select().from(staffUsers).where(
-        and(eq(staffUsers.email, input.email.toLowerCase()), eq(staffUsers.isActive, true))
-      );
-      if (!user) throw new TRPCError({ code: "UNAUTHORIZED", message: "Invalid email or PIN" });
+      const emailKey = input.email.toLowerCase();
 
-      const valid = await bcrypt.compare(input.pin, user.pinHash);
-      if (!valid) throw new TRPCError({ code: "UNAUTHORIZED", message: "Invalid email or PIN" });
+      // ── Rate-limit check ──────────────────────────────────────────────────
+      const MAX_ATTEMPTS = 5;
+      const LOCKOUT_MINUTES = 15;
+      const [attempt] = await db.select().from(loginAttempts).where(eq(loginAttempts.email, emailKey));
+      if (attempt?.lockedUntil && attempt.lockedUntil > new Date()) {
+        const minutesLeft = Math.ceil((attempt.lockedUntil.getTime() - Date.now()) / 60000);
+        throw new TRPCError({
+          code: "TOO_MANY_REQUESTS",
+          message: `Too many failed attempts. Try again in ${minutesLeft} minute${minutesLeft !== 1 ? "s" : ""}.`,
+        });
+      }
+      // ─────────────────────────────────────────────────────────────────────
+
+      const [user] = await db.select().from(staffUsers).where(
+        and(eq(staffUsers.email, emailKey), eq(staffUsers.isActive, true))
+      );
+
+      const valid = user ? await bcrypt.compare(input.pin, user.pinHash) : false;
+
+      if (!user || !valid) {
+        // Record failed attempt
+        const newAttempts = (attempt?.attempts ?? 0) + 1;
+        const lockUntil = newAttempts >= MAX_ATTEMPTS
+          ? new Date(Date.now() + LOCKOUT_MINUTES * 60 * 1000)
+          : null;
+        if (attempt) {
+          await db.update(loginAttempts)
+            .set({ attempts: newAttempts, lockedUntil: lockUntil, lastAttemptAt: new Date() })
+            .where(eq(loginAttempts.email, emailKey));
+        } else {
+          await db.insert(loginAttempts).values({ email: emailKey, attempts: newAttempts, lockedUntil: lockUntil, lastAttemptAt: new Date() });
+        }
+        const remaining = MAX_ATTEMPTS - newAttempts;
+        const msg = lockUntil
+          ? `Too many failed attempts. Account locked for ${LOCKOUT_MINUTES} minutes.`
+          : remaining > 0
+            ? `Invalid email or PIN. ${remaining} attempt${remaining !== 1 ? "s" : ""} remaining.`
+            : "Invalid email or PIN.";
+        throw new TRPCError({ code: "UNAUTHORIZED", message: msg });
+      }
+
+      // ── Success: reset attempt counter ───────────────────────────────────
+      if (attempt) {
+        await db.update(loginAttempts)
+          .set({ attempts: 0, lockedUntil: null, lastAttemptAt: new Date() })
+          .where(eq(loginAttempts.email, emailKey));
+      }
 
       // Update last login
       await db.update(staffUsers).set({ lastLoginAt: new Date() }).where(eq(staffUsers.id, user.id));

@@ -1204,3 +1204,8 @@
 - [x] FIX: Updated pinProcedure in _core/trpc.ts to accept staff cookie sessions (staff_session_id JWT) as a valid third auth path alongside x-admin-pin header and Manus OAuth
 - [x] VERIFIED: staff.myPermissions returns {configuration: true, ...} with staff cookie
 - [x] VERIFIED: staff.listUsers returns users (no UNAUTHORIZED error) with staff cookie
+
+## Session — Apr 30, 2026 (Security Hardening)
+- [ ] Rate-limit login: 5-attempt lockout per email with DB tracking table
+- [ ] Session timeout: auto-expire staff cookie after 8h inactivity
+- [ ] Remove "Back to site" link from /admin/login

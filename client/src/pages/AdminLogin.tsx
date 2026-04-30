@@ -284,15 +284,6 @@ export default function AdminLogin() {
         )}
       </div>
 
-      {/* Back to site */}
-      <a
-        href="/"
-        style={{ marginTop: "1.5rem", fontSize: "0.75rem", color: "oklch(0.55 0.005 0)", textDecoration: "none", letterSpacing: "0.05em" }}
-        onMouseEnter={(e) => ((e.target as HTMLAnchorElement).style.color = "oklch(0.30 0.005 0)")}
-        onMouseLeave={(e) => ((e.target as HTMLAnchorElement).style.color = "oklch(0.55 0.005 0)")}
-      >
-        ← Back to site
-      </a>
 
       <style>{`
         @keyframes adminShake {
