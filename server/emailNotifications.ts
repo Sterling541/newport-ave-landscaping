@@ -149,6 +149,36 @@ export async function sendAppointmentReminderEmail(data: AppointmentEmailData) {
   }
 }
 
+/** Send email to sales rep when their appointment is cancelled */
+export async function sendCancelledAppointmentEmail(data: AppointmentEmailData) {
+  const resend = getResend();
+  if (!resend || !data.repEmail) return;
+  try {
+    const dateTimeStr = formatDateTime(data.appointmentDate, data.startTime);
+    const typeLabel = appointmentTypeLabel(data.appointmentType);
+    await resend.emails.send({
+      from: FROM,
+      to: [data.repEmail],
+      subject: `Appointment Cancelled: ${typeLabel} — ${data.customerName ?? "Customer"}`,
+      html: [
+        `<p>Hi ${data.repName.split(" ")[0]},</p>`,
+        `<p>The following appointment has been <strong style="color:#cc3333;">cancelled</strong>:</p>`,
+        `<table style="border-collapse:collapse;font-family:sans-serif;font-size:14px;margin:16px 0;">`,
+        `<tr><td style="padding:6px 16px 6px 0;color:#666;font-weight:600;">Type</td><td style="padding:6px 0;">${typeLabel}</td></tr>`,
+        `<tr><td style="padding:6px 16px 6px 0;color:#666;font-weight:600;">Was Scheduled</td><td style="padding:6px 0;text-decoration:line-through;color:#999;">${dateTimeStr}</td></tr>`,
+        data.customerName ? `<tr><td style="padding:6px 16px 6px 0;color:#666;font-weight:600;">Customer</td><td style="padding:6px 0;">${data.customerName}</td></tr>` : "",
+        data.customerPhone ? `<tr><td style="padding:6px 16px 6px 0;color:#666;font-weight:600;">Phone</td><td style="padding:6px 0;"><a href="tel:${data.customerPhone}">${data.customerPhone}</a></td></tr>` : "",
+        data.customerAddress ? `<tr><td style="padding:6px 16px 6px 0;color:#666;font-weight:600;">Address</td><td style="padding:6px 0;">${data.customerAddress}</td></tr>` : "",
+        `</table>`,
+        `<p style="color:#666;font-size:12px;">— Newport Avenue Landscaping Team Portal</p>`,
+      ].filter(Boolean).join("\n"),
+    });
+    console.log(`[emailNotifications] Cancelled appointment email sent to ${data.repEmail}`);
+  } catch (err) {
+    console.error("[emailNotifications] Failed to send cancelled appointment email:", err);
+  }
+}
+
 /** Send PIN reset email to staff user */
 export async function sendPinResetEmail(staffEmail: string, firstName: string, resetUrl: string) {
   const resend = getResend();

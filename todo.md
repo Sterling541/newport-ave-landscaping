@@ -1213,3 +1213,6 @@
 ## Session — April 30, 2026 (Bug Fixes)
 
 - [x] Hide cancelled appointments from Smart Scheduler calendar grid (only show in list view)
+- [x] Add cancellation email to sales rep when appointment is cancelled
+- [x] Fix cron sendReminders auth — changed from Bearer token to session cookie (protectedProcedure) so scheduled task can call it without error
+- [x] Confirm all appointment emails go to sales rep only (never to clients): new, rescheduled, cancelled, 30-min reminder

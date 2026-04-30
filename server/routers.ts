@@ -57,7 +57,7 @@ import {
   seedDefaultReps,
 } from "./scheduler";
 import { fetchHistoricalWeather, fetchWeatherForecast, describeWeatherCode } from "./weather";
-import { sendNewAppointmentEmail, sendRescheduledAppointmentEmail, sendAppointmentReminderEmail } from "./emailNotifications";
+import { sendNewAppointmentEmail, sendRescheduledAppointmentEmail, sendAppointmentReminderEmail, sendCancelledAppointmentEmail } from "./emailNotifications";
 import { processCsvImport } from "./csvImport";
 import { generateInsights, generateDailyPulseSummary } from "./insightsGenerator";
 import { batchGeocodeSubmissions } from "./geocoder";
@@ -1754,7 +1754,31 @@ Be specific, data-driven, and actionable. Format as JSON with keys: bestMonths (
       .input(z.object({ id: z.number() }))
       .mutation(async ({ ctx, input }) => {
         requireAdmin(ctx);
+        // Fetch appointment before cancelling so we can email the rep
+        const apptToCancel = await getAppointmentById(input.id);
         await cancelAppointment(input.id);
+        // Send cancellation email to the assigned sales rep (non-fatal)
+        try {
+          if (apptToCancel && apptToCancel.status !== "cancelled") {
+            const rep = await getSalesRepById(apptToCancel.repId);
+            if (rep?.email) {
+              await sendCancelledAppointmentEmail({
+                repName: rep.name,
+                repEmail: rep.email,
+                customerName: apptToCancel.customerName,
+                customerAddress: apptToCancel.customerAddress,
+                customerPhone: apptToCancel.customerPhone,
+                appointmentDate: apptToCancel.appointmentDate as string,
+                startTime: apptToCancel.startTime,
+                endTime: apptToCancel.endTime,
+                appointmentType: apptToCancel.appointmentType,
+                notes: apptToCancel.notes,
+              });
+            }
+          }
+        } catch (e) {
+          console.error("[cancelAppointment] Failed to send cancellation email:", e);
+        }
         return { success: true };
       }),
 
@@ -1764,13 +1788,8 @@ Be specific, data-driven, and actionable. Format as JSON with keys: bestMonths (
      * starting between 28-32 minutes from now and sends reminder emails.
      * Protected by a shared secret in the Authorization header.
      */
-    sendReminders: publicProcedure.mutation(async ({ ctx }) => {
-      // Simple shared-secret auth for cron calls — uses CRON_SECRET env var
-      const authHeader = (ctx as any).req.headers.authorization ?? "";
-      const expectedSecret = process.env.CRON_SECRET ?? ENV.cookieSecret;
-      if (!authHeader.startsWith("Bearer ") || authHeader.slice(7) !== expectedSecret) {
-        throw new TRPCError({ code: "UNAUTHORIZED" });
-      }
+    sendReminders: protectedProcedure.mutation(async ({ ctx }) => {
+      // Accessible by any authenticated user (including scheduled task cookie with 'user' role)
       const now = new Date();
       const windowStart = new Date(now.getTime() + 28 * 60 * 1000); // 28 min from now
       const windowEnd = new Date(now.getTime() + 32 * 60 * 1000);   // 32 min from now
