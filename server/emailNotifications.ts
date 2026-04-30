@@ -2,7 +2,7 @@
  * Email Notification Helpers — Newport Avenue Landscaping
  *
  * Sends transactional emails to sales reps when appointments are created,
- * rescheduled, or about to start (30-min reminder).
+ * rescheduled, or cancelled.
  *
  * All sends are non-fatal: errors are logged but never thrown.
  */
@@ -116,36 +116,6 @@ export async function sendRescheduledAppointmentEmail(
     console.log(`[emailNotifications] Rescheduled appointment email sent to ${data.repEmail}`);
   } catch (err) {
     console.error("[emailNotifications] Failed to send rescheduled appointment email:", err);
-  }
-}
-
-/** Send 30-minute reminder email to sales rep */
-export async function sendAppointmentReminderEmail(data: AppointmentEmailData) {
-  const resend = getResend();
-  if (!resend || !data.repEmail) return;
-  try {
-    const dateTimeStr = formatDateTime(data.appointmentDate, data.startTime);
-    const typeLabel = appointmentTypeLabel(data.appointmentType);
-    await resend.emails.send({
-      from: FROM,
-      to: [data.repEmail],
-      subject: `⏰ Reminder: ${typeLabel} in 30 minutes — ${data.customerName ?? "Customer"}`,
-      html: [
-        `<p>Hi ${data.repName.split(" ")[0]},</p>`,
-        `<p>You have an appointment <strong>starting in 30 minutes</strong>:</p>`,
-        `<table style="border-collapse:collapse;font-family:sans-serif;font-size:14px;margin:16px 0;">`,
-        `<tr><td style="padding:6px 16px 6px 0;color:#666;font-weight:600;">Type</td><td style="padding:6px 0;">${typeLabel}</td></tr>`,
-        `<tr><td style="padding:6px 16px 6px 0;color:#666;font-weight:600;">When</td><td style="padding:6px 0;">${dateTimeStr}</td></tr>`,
-        data.customerName ? `<tr><td style="padding:6px 16px 6px 0;color:#666;font-weight:600;">Customer</td><td style="padding:6px 0;">${data.customerName}</td></tr>` : "",
-        data.customerPhone ? `<tr><td style="padding:6px 16px 6px 0;color:#666;font-weight:600;">Phone</td><td style="padding:6px 0;"><a href="tel:${data.customerPhone}">${data.customerPhone}</a></td></tr>` : "",
-        data.customerAddress ? `<tr><td style="padding:6px 16px 6px 0;color:#666;font-weight:600;">Address</td><td style="padding:6px 0;">${data.customerAddress}</td></tr>` : "",
-        `</table>`,
-        `<p style="color:#666;font-size:12px;">— Newport Avenue Landscaping Team Portal</p>`,
-      ].filter(Boolean).join("\n"),
-    });
-    console.log(`[emailNotifications] 30-min reminder email sent to ${data.repEmail}`);
-  } catch (err) {
-    console.error("[emailNotifications] Failed to send reminder email:", err);
   }
 }
 

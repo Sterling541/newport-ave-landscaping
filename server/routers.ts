@@ -57,7 +57,7 @@ import {
   seedDefaultReps,
 } from "./scheduler";
 import { fetchHistoricalWeather, fetchWeatherForecast, describeWeatherCode } from "./weather";
-import { sendNewAppointmentEmail, sendRescheduledAppointmentEmail, sendAppointmentReminderEmail, sendCancelledAppointmentEmail } from "./emailNotifications";
+import { sendNewAppointmentEmail, sendRescheduledAppointmentEmail, sendCancelledAppointmentEmail } from "./emailNotifications";
 import { processCsvImport } from "./csvImport";
 import { generateInsights, generateDailyPulseSummary } from "./insightsGenerator";
 import { batchGeocodeSubmissions } from "./geocoder";
@@ -1783,52 +1783,6 @@ Be specific, data-driven, and actionable. Format as JSON with keys: bestMonths (
         return { success: true };
       }),
 
-    /**
-     * Cron: send 30-minute reminder emails for upcoming appointments.
-     * Called by a scheduled task every 5 minutes. Finds appointments
-     * starting between 28-32 minutes from now and sends reminder emails.
-     * Protected by a shared secret in the Authorization header.
-     */
-    sendReminders: protectedProcedure.mutation(async ({ ctx }) => {
-      // Accessible by any authenticated user (including scheduled task cookie with 'user' role)
-      const now = new Date();
-      const windowStart = new Date(now.getTime() + 28 * 60 * 1000); // 28 min from now
-      const windowEnd = new Date(now.getTime() + 32 * 60 * 1000);   // 32 min from now
-      // Build HH:MM strings for the window
-      const toHHMM = (d: Date) =>
-        `${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}`;
-      const todayStr = now.toISOString().slice(0, 10);
-      const windowStartTime = toHHMM(windowStart);
-      const windowEndTime = toHHMM(windowEnd);
-      // Fetch all active appointments for today
-      const allToday = await listAppointments({ dateFrom: todayStr, dateTo: todayStr });
-      const upcoming = allToday.filter(appt =>
-        appt.status !== "cancelled" &&
-        appt.status !== "completed" &&
-        appt.startTime >= windowStartTime &&
-        appt.startTime <= windowEndTime
-      );
-      let sent = 0;
-      for (const appt of upcoming) {
-        const rep = await getSalesRepById(appt.repId);
-        if ((rep as any)?.effectiveEmail ?? rep?.email) {
-          await sendAppointmentReminderEmail({
-            repName: rep.name,
-            repEmail: (rep as any).effectiveEmail ?? rep.email,
-            customerName: appt.customerName,
-            customerAddress: appt.customerAddress,
-            customerPhone: appt.customerPhone,
-            appointmentDate: appt.appointmentDate,
-            startTime: appt.startTime,
-            endTime: appt.endTime,
-            appointmentType: appt.appointmentType,
-            notes: appt.notes,
-          });
-          sent++;
-        }
-      }
-      return { sent, checked: upcoming.length };
-    }),
   }),
 });
 export type AppRouter = typeof appRouter;
