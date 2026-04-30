@@ -98,12 +98,12 @@ const NAV_ITEMS = [
     icon: ScanLine,
     description: "Scan leads & CRM",
   },
-  {
-    label: "Badge Payouts",
-    href: "/admin/employee-payouts",
-    icon: DollarSign,
-    description: "Monthly rep payouts",
-  },
+  // {
+  //   label: "Badge Payouts",
+  //   href: "/admin/employee-payouts",
+  //   icon: DollarSign,
+  //   description: "Monthly rep payouts",
+  // },
 ];
 
 interface AdminLayoutProps {
