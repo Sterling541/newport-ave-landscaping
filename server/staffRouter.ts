@@ -7,7 +7,7 @@ import { z } from "zod";
 import bcrypt from "bcryptjs";
 import crypto from "crypto";
 import { TRPCError } from "@trpc/server";
-import { router, publicProcedure, pinProcedure as protectedProcedure } from "./_core/trpc";
+import { router, publicProcedure, pinProcedure } from "./_core/trpc";
 import { getDb } from "./db";
 import { staffUsers, roleDefinitions, pinResetTokens } from "../drizzle/schema";
 import { eq, desc, and, asc, lt } from "drizzle-orm";
@@ -118,7 +118,7 @@ export const staffRouter = router({
   // ── Admin-only procedures (require Manus owner auth) ──────────────────────
 
   /** List all staff users */
-  listUsers: protectedProcedure.query(async () => {
+  listUsers: pinProcedure.query(async () => {
     const db = await getDb();
     return db.select({
       id: staffUsers.id,
@@ -135,7 +135,7 @@ export const staffRouter = router({
   }),
 
   /** Create a new staff user */
-  createUser: protectedProcedure
+  createUser: pinProcedure
     .input(z.object({
       email: z.string().email(),
       firstName: z.string().min(1).max(128),
@@ -166,7 +166,7 @@ export const staffRouter = router({
     }),
 
   /** Update a staff user */
-  updateUser: protectedProcedure
+  updateUser: pinProcedure
     .input(z.object({
       id: z.number(),
       firstName: z.string().min(1).max(128).optional(),
@@ -191,7 +191,7 @@ export const staffRouter = router({
     }),
 
   /** Delete a staff user */
-  deleteUser: protectedProcedure
+  deleteUser: pinProcedure
     .input(z.object({ id: z.number() }))
     .mutation(async ({ input }) => {
       const db = await getDb();
@@ -202,13 +202,13 @@ export const staffRouter = router({
   // ── Role management ───────────────────────────────────────────────────────
 
   /** List all roles */
-  listRoles: protectedProcedure.query(async () => {
+  listRoles: pinProcedure.query(async () => {
     const db = await getDb();
     return db.select().from(roleDefinitions).orderBy(roleDefinitions.slug);
   }),
 
   /** Create a custom role */
-  createRole: protectedProcedure
+  createRole: pinProcedure
     .input(z.object({
       slug: z.string().min(1).max(64).regex(/^[a-z0-9_]+$/),
       label: z.string().min(1).max(128),
@@ -229,7 +229,7 @@ export const staffRouter = router({
     }),
 
   /** Update role permissions */
-  updateRole: protectedProcedure
+  updateRole: pinProcedure
     .input(z.object({
       id: z.number(),
       label: z.string().min(1).max(128).optional(),
@@ -247,7 +247,7 @@ export const staffRouter = router({
     }),
 
   /** Delete a custom role */
-  deleteRole: protectedProcedure
+  deleteRole: pinProcedure
     .input(z.object({ id: z.number() }))
     .mutation(async ({ input }) => {
       const db = await getDb();
@@ -272,7 +272,7 @@ export const staffRouter = router({
   }),
 
   /** Toggle a user's active status */
-  toggleUserActive: protectedProcedure
+  toggleUserActive: pinProcedure
     .input(z.object({ id: z.number(), isActive: z.boolean() }))
     .mutation(async ({ input }) => {
       const db = await getDb();

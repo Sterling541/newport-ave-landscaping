@@ -1196,3 +1196,11 @@
 - [x] Add /admin/reset-pin route to App.tsx (AdminResetPin.tsx already written)
 - [x] Inline Scheduled With dropdown on AdminSubmissions table row
 - [x] Wire 30-min appointment reminder cron scheduled task (runs every 5 min, uses CRON_SECRET)
+
+## Session — Apr 30, 2026 (Definitive Root Cause Fix)
+- [x] ROOT CAUSE FOUND: All staff admin procedures (listUsers, createUser, updateUser, deleteUser, listRoles, createRole, updateRole, deleteRole, toggleUserActive) used protectedProcedure which requires Manus OAuth — staff PIN sessions were rejected with UNAUTHORIZED, triggering the Manus login redirect
+- [x] ROOT CAUSE FOUND: Configuration page loads AdminUsersContent which calls listUsers/listRoles — both returned UNAUTHORIZED for staff sessions, causing the global error handler to fire and triggering a re-render cascade that briefly made staffUser undefined, hiding Configuration
+- [x] FIX: Changed all 9 admin procedures in staffRouter.ts from protectedProcedure to pinProcedure
+- [x] FIX: Updated pinProcedure in _core/trpc.ts to accept staff cookie sessions (staff_session_id JWT) as a valid third auth path alongside x-admin-pin header and Manus OAuth
+- [x] VERIFIED: staff.myPermissions returns {configuration: true, ...} with staff cookie
+- [x] VERIFIED: staff.listUsers returns users (no UNAUTHORIZED error) with staff cookie
