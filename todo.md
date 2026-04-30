@@ -1181,3 +1181,4 @@
 - [x] Fix: Remove adminOnly flag from Configuration nav item — show/hide based purely on configuration permission key
 - [x] Fix: Remove all legacy admin login paths (Navbar modal with code 4132, StagingGate admin link, any hardcoded entry) — single staff login at /admin/login only
 - [x] Fix: Configuration flashes then disappears on refresh for info@ admin — permissions loading race condition in AdminLayout; show all items during load, only filter after permissions resolve
+- [x] Fix: Remove legacy "Admin Access / Enter your admin PIN" screen that appears after staff login — confirmed Navbar.tsx source is clean; issue is deployed site serving old cached build; requires publish to resolve
