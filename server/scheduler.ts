@@ -11,6 +11,7 @@
 import { getDb } from "./db";
 import { salesReps, appointments } from "../drizzle/schema";
 import { eq, and, ne, asc, sql } from "drizzle-orm";
+import { makeRequest } from "./_core/map";
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
@@ -121,14 +122,24 @@ export async function getDriveTimeMinutes(
   customerAddress: string | null | undefined
 ): Promise<number> {
   if (!customerAddress) return 15;
-
-  console.log(
-    `[Scheduler] Drive-time stub: ${NEWPORT_HQ} → ${customerAddress}. ` +
-      "Real Google Distance Matrix API pending credentials. Returning estimate."
-  );
-
-  // Simple heuristic: Bend addresses get 15min, outlying areas get 30min
-  const lower = customerAddress.toLowerCase();
+  try {
+    const result = await makeRequest<{
+      rows: Array<{ elements: Array<{ status: string; duration: { value: number } }> }>;
+    }>("/maps/api/distancematrix/json", {
+      origins: NEWPORT_HQ,
+      destinations: customerAddress,
+      mode: "driving",
+    });
+    const element = result?.rows?.[0]?.elements?.[0];
+    if (element?.status === "OK" && element.duration?.value) {
+      // duration.value is in seconds — convert to exact minutes (no rounding up)
+      return Math.round(element.duration.value / 60);
+    }
+  } catch (err) {
+    console.warn("[Scheduler] Drive-time API error, using fallback:", err);
+  }
+  // Fallback heuristic
+  const lower = (customerAddress ?? "").toLowerCase();
   if (
     lower.includes("sisters") ||
     lower.includes("redmond") ||
@@ -217,7 +228,7 @@ export async function getSlotSuggestions(params: {
         const driveTimePenalty = Math.max(0, driveTime - 10);
         score -= driveTimePenalty;
         if (driveTimePenalty > 0) {
-          reasons.push(`${driveTime}min drive`);
+          reasons.push(`${driveTime} min from office`);
         }
 
         // Morning preference: 8am–10am gets +10

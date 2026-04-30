@@ -1148,7 +1148,7 @@ export default function SmartScheduler() {
                                   <User className="w-3 h-3" />
                                   {repMap[appt.repId] ?? `Rep #${appt.repId}`}
                                   {appt.driveTimeMinutes && (
-                                    <span className="opacity-60">· ~{appt.driveTimeMinutes}min drive</span>
+                                    <span className="opacity-60">· {appt.driveTimeMinutes} min from office</span>
                                   )}
                                 </div>
                                 {appt.customerAddress && (
