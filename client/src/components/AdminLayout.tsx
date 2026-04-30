@@ -69,13 +69,7 @@ const NAV_ITEMS = [
     description: "Inquiry map",
     permissionKey: "geo_map",
   },
-  {
-    label: "CSV Import",
-    href: "/admin/csv-import",
-    icon: Upload,
-    description: "Import data",
-    permissionKey: "configuration",
-  },
+
   {
     label: "Reminders",
     href: "/admin/reminders",
@@ -97,13 +91,7 @@ const NAV_ITEMS = [
     description: "Appointments & calendar",
     permissionKey: "smart_scheduler",
   },
-  {
-    label: "Sales Reps",
-    href: "/admin/sales-reps",
-    icon: UserCheck,
-    description: "Manage sales consultants",
-    permissionKey: "sales_reps",
-  },
+
   {
     label: "Badge Scans",
     href: "/admin/badge-scans",
