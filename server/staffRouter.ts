@@ -278,6 +278,25 @@ export const staffRouter = router({
       return { ok: true };
     }),
 
+  /** Debug: returns raw DB values for the current staff session — used to diagnose permission issues */
+  debugPermissions: publicProcedure.query(async ({ ctx }) => {
+    const cookieHeader = (ctx as any).req.headers.cookie ?? "";
+    const match = cookieHeader.match(/(?:^|;\s*)staff_session_id=([^;]+)/);
+    const rawToken = match ? match[1] : null;
+    const user = await getStaffUserFromCtx(ctx as any);
+    if (!user) return { cookiePresent: !!rawToken, user: null, role: null, permissions: null };
+    const db = await getDb();
+    const [role] = await db.select().from(roleDefinitions).where(eq(roleDefinitions.slug, user.role));
+    let parsed: unknown = null;
+    try { parsed = role ? JSON.parse(role.permissions) : null; } catch { parsed = "PARSE_ERROR"; }
+    return {
+      cookiePresent: !!rawToken,
+      user: { id: user.id, email: user.email, role: user.role, isActive: user.isActive },
+      role: role ? { id: role.id, slug: role.slug, rawPermissions: role.permissions } : null,
+      permissions: parsed,
+    };
+  }),
+
   /** Get role permissions for the current staff user (used by sidebar) */
   myPermissions: publicProcedure.query(async ({ ctx }) => {
     const user = await getStaffUserFromCtx(ctx as any);

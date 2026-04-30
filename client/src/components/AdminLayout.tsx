@@ -183,8 +183,11 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
 
   // Owner = Manus OAuth user with no staff session (sees everything)
   const isOwner = !!oauthUser && !staffUser;
+  // Staff admin role: always show all items regardless of permissions query result
+  const isStaffAdmin = staffUser?.role === "admin";
   const isItemVisible = (permissionKey: string, adminOnly?: boolean) => {
-    if (isOwner) return true; // owner sees all
+    if (isOwner) return true; // Manus OAuth owner sees all
+    if (isStaffAdmin) return true; // admin role staff sees all (bypasses permissions query)
     // Don't filter until permissions have fully loaded — prevents flash-then-disappear
     if (permissionsLoading || !permissionsFetched) return true;
     // permissions === null means no staff session or no role — show all (owner fallback)

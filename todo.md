@@ -1185,3 +1185,4 @@
 - [x] PERSISTENT BUG: "Admin Access / Enter your admin PIN" screen — root cause found: staff_session_id cookie missing secure:true flag; browser on HTTPS drops cookie after login, causing staff.me to return null and AdminLayout to redirect back to /admin/login (which shows the old cached page)
 - [x] PERSISTENT BUG: Configuration not showing — same root cause: cookie dropped on HTTPS, myPermissions returns null, permissions never resolve correctly
 - [x] Fix: Add secure:true (production only) to staff_session_id cookie set and clearCookie in staffRouter.ts
+- [x] URGENT: Configuration still not showing for info@ admin staff after all fixes — bulletproof fix: (1) window.location.href full reload after login so cookie is present before queries run, (2) isStaffAdmin shortcut in isItemVisible bypasses permissions query entirely for admin role, (3) debugPermissions endpoint at /admin/debug for live diagnosis

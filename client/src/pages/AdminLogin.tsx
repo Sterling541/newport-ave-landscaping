@@ -18,8 +18,10 @@ export default function AdminLogin() {
 
   const login = trpc.staff.login.useMutation({
     onSuccess: () => {
-      toast.success("Welcome back!");
-      navigate("/admin/submissions");
+      // Use full page reload (not client-side navigation) so the new
+      // staff_session_id cookie is present before myPermissions query runs.
+      // Client-side navigate() reuses the pre-login query cache (null permissions).
+      window.location.href = "/admin/submissions";
     },
     onError: (e) => {
       setError("Invalid email or PIN — please try again.");
