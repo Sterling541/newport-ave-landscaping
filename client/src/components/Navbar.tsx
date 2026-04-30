@@ -486,7 +486,7 @@ export default function Navbar() {
           <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
             {/* Secret admin star */}
             <button
-              onClick={() => setAdminModalOpen(true)}
+              onClick={() => { window.location.href = "/admin/login"; }}
               style={{
                 background: "none",
                 border: "none",

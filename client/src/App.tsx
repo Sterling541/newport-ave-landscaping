@@ -230,6 +230,7 @@ const AdminEmployeePayouts = lazy(() => import('./pages/admin/AdminEmployeePayou
 // Configuration & Users
 const Configuration = lazy(() => import('./pages/admin/Configuration'));
 const AdminUsers = lazy(() => import('./pages/admin/AdminUsers'));
+const AdminLogin = lazy(() => import('./pages/AdminLogin'));
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -564,6 +565,7 @@ function Router() {
       <Route path={"/admin/employees"} component={AdminEmployees} />
       <Route path={"/admin/badge-scans"} component={AdminBadgeScans} />
       <Route path={"/admin/employee-payouts"} component={AdminEmployeePayouts} />
+      <Route path={"/admin/login"} component={AdminLogin} />
       <Route path={"/admin/configuration"} component={Configuration} />
       <Route path={"/admin/users"} component={AdminUsers} />
       <Route path={"/service-areas/old-bend-landscaping"} component={OldBendLandscaping} />
