@@ -89,6 +89,7 @@ export default function Pavers() {
         { src: "/manus-storage/svc-pavers-3_d274613a.jpg", alt: "Completed paver patio with fire pit and seating wall in Central Oregon" },
       ]}
       schemaUrl="/services/pavers"
+      canonicalUrl="https://www.newportavelandscaping.com/paver-patios-bend"
       schemaName="Paver Patio Installation"
       schemaDescription="Custom paver patio and walkway installation in Bend, Oregon. Natural stone, concrete pavers, retaining walls. 1-year workmanship warranty on all hardscape projects."
       faqs={[

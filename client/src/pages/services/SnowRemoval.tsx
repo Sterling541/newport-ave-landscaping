@@ -63,6 +63,7 @@ export default function SnowRemoval() {
         { src: "/manus-storage/svc-snow-removal-3_a6dd06ac.jpg", alt: "Residential snow removal and de-icing in Bend Oregon" },
       ]}
       schemaUrl="/services/snow-removal"
+      canonicalUrl="https://www.newportavelandscaping.com/resources/snow-removal-bend-oregon"
       schemaName="Snow Removal"
       schemaDescription="Residential and commercial snow removal in Bend, Oregon. Driveway plowing, walkway clearing, and de-icing."
       faqs={[

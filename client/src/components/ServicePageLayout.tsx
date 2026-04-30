@@ -72,6 +72,7 @@ interface ServicePageProps {
   schemaName?: string;
   schemaDescription?: string;
   schemaUrl?: string;
+  canonicalUrl?: string;
 }
 
 export default function ServicePageLayout({
@@ -93,6 +94,7 @@ export default function ServicePageLayout({
   schemaName,
   schemaDescription,
   schemaUrl,
+  canonicalUrl,
 }: ServicePageProps) {
   const serviceSchema = {
     "@context": "https://schema.org",
@@ -140,12 +142,12 @@ export default function ServicePageLayout({
       <Helmet>
         <title>{seoTitle || `${schemaName || title} in Bend, Oregon | Newport Avenue Landscaping`}</title>
         <meta name="description" content={seoDescription || (schemaDescription || intro).slice(0, 160)} />
-        {schemaUrl && <link rel="canonical" href={`https://www.newportavelandscaping.com${schemaUrl}`} />}
+        {(canonicalUrl || schemaUrl) && <link rel="canonical" href={canonicalUrl ?? `https://www.newportavelandscaping.com${schemaUrl}`} />}
         <meta property="og:title" content={seoTitle || `${schemaName || title} in Bend, Oregon | Newport Avenue Landscaping`} />
         <meta property="og:description" content={seoDescription || (schemaDescription || intro).slice(0, 160)} />
         <meta property="og:type" content="website" />
         <meta property="og:image" content={heroImage} />
-        {schemaUrl && <meta property="og:url" content={`https://www.newportavelandscaping.com${schemaUrl}`} />}
+        {(canonicalUrl || schemaUrl) && <meta property="og:url" content={canonicalUrl ?? `https://www.newportavelandscaping.com${schemaUrl}`} />}
         <meta property="og:site_name" content="Newport Avenue Landscaping" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={seoTitle || `${schemaName || title} in Bend, Oregon | Newport Avenue Landscaping`} />
