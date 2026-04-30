@@ -1158,3 +1158,8 @@
 - [x] robots.txt: /badge-scan excluded from crawling
 - [x] App.tsx routes wired for all 4 new pages
 - [x] MobileCTABar hidden on /badge-scan
+
+## Session — April 30, 2026 (Bug Fixes)
+
+- [x] Fix ScheduleServices form crash: empty string in SelectItem for "Scheduled With" field (removed empty string from options array, added placeholder="Not assigned")
+- [x] Badge Scan Leads: show customer-typed employee name in table Employee column and detail panel (labeled "Employee's Name")

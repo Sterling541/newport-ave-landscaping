@@ -85,7 +85,9 @@ type Scan = {
   submittedAt: Date;
   employeeId: number | null;
   employeeCodeRaw: string | null;
-  employeeName?: string;
+  employeeName?: string | null;
+  employeeNameFirst?: string | null;
+  employeeNameLast?: string | null;
 };
 
 export default function AdminBadgeScans() {
@@ -251,7 +253,9 @@ export default function AdminBadgeScans() {
                       </span>
                     </TableCell>
                     <TableCell>
-                      {scan.employeeName ? (
+                      {scan.employeeNameFirst || scan.employeeNameLast ? (
+                        <span className="text-sm text-gray-700">{[scan.employeeNameFirst, scan.employeeNameLast].filter(Boolean).join(" ")}</span>
+                      ) : scan.employeeName ? (
                         <span className="text-sm text-gray-700">{scan.employeeName}</span>
                       ) : scan.employeeCodeRaw ? (
                         <code className="text-xs bg-gray-100 px-1.5 py-0.5 rounded">{scan.employeeCodeRaw}</code>
@@ -307,16 +311,16 @@ export default function AdminBadgeScans() {
                   <Calendar className="w-4 h-4 text-gray-400 flex-shrink-0" />
                   <span className="text-gray-700">Submitted {new Date(selectedScan.submittedAt).toLocaleString()}</span>
                 </div>
+                {(selectedScan.employeeNameFirst || selectedScan.employeeNameLast) && (
+                  <div className="flex items-center gap-3 text-sm">
+                    <User className="w-4 h-4 text-amber-500 flex-shrink-0" />
+                    <span className="text-gray-700">Employee's Name: <strong>{[selectedScan.employeeNameFirst, selectedScan.employeeNameLast].filter(Boolean).join(" ")}</strong></span>
+                  </div>
+                )}
                 {selectedScan.employeeName && (
                   <div className="flex items-center gap-3 text-sm">
                     <User className="w-4 h-4 text-gray-400 flex-shrink-0" />
-                    <span className="text-gray-700">Badge employee: <strong>{selectedScan.employeeName}</strong></span>
-                  </div>
-                )}
-                {((selectedScan as any).employeeNameFirst || (selectedScan as any).employeeNameLast) && (
-                  <div className="flex items-center gap-3 text-sm">
-                    <User className="w-4 h-4 text-amber-500 flex-shrink-0" />
-                    <span className="text-gray-700">Customer said: <strong>{[(selectedScan as any).employeeNameFirst, (selectedScan as any).employeeNameLast].filter(Boolean).join(" ")}</strong></span>
+                    <span className="text-gray-700">Badge ID employee: <strong>{selectedScan.employeeName}</strong></span>
                   </div>
                 )}
               </div>
