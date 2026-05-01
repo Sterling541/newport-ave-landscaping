@@ -136,13 +136,6 @@ const NAV_ITEMS: NavItem[] = [
     permissionKey: "properties",
   },
   {
-    label: "Badge Scans",
-    href: "/admin/badge-scans",
-    icon: ScanLine,
-    description: "Scan leads & CRM",
-    permissionKey: "badge_scans",
-  },
-  {
     label: "Configuration",
     href: "/admin/configuration",
     icon: Settings,
@@ -248,26 +241,25 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
             <div key={item.href}>
               {/* Parent row: clicking navigates AND toggles sub-items */}
               <div className="flex items-center gap-1">
-                <Link href={item.href}>
-                  <a
-                    onClick={() => mobile && setMobileOpen(false)}
-                    className={`flex-1 flex items-center gap-3 px-2 py-2.5 rounded-lg text-sm transition-colors group ${
-                      isGroupActive
-                        ? "bg-[oklch(0.55_0.15_145)] text-white"
-                        : "text-white/60 hover:bg-white/10 hover:text-white"
-                    }`}
-                    title={collapsed && !mobile ? item.label : undefined}
-                  >
-                    <item.icon className="w-4 h-4 shrink-0" />
-                    {(!collapsed || mobile) && (
-                      <div className="overflow-hidden flex-1">
-                        <p className="font-medium leading-tight truncate">{item.label}</p>
-                        <p className="text-[10px] text-white/40 leading-tight truncate group-hover:text-white/60">
-                          {item.description}
-                        </p>
-                      </div>
-                    )}
-                  </a>
+                <Link
+                  href={item.href}
+                  onClick={() => mobile && setMobileOpen(false)}
+                  className={`flex-1 flex items-center gap-3 px-2 py-2.5 rounded-lg text-sm transition-colors group ${
+                    isGroupActive
+                      ? "bg-[oklch(0.55_0.15_145)] text-white"
+                      : "text-white/60 hover:bg-white/10 hover:text-white"
+                  }`}
+                  title={collapsed && !mobile ? item.label : undefined}
+                >
+                  <item.icon className="w-4 h-4 shrink-0" />
+                  {(!collapsed || mobile) && (
+                    <div className="overflow-hidden flex-1">
+                      <p className="font-medium leading-tight truncate">{item.label}</p>
+                      <p className="text-[10px] text-white/40 leading-tight truncate group-hover:text-white/60">
+                        {item.description}
+                      </p>
+                    </div>
+                  )}
                 </Link>
                 {/* Expand/collapse chevron — only show when sidebar is expanded */}
                 {(!collapsed || mobile) && visibleSubs.length > 0 && (
@@ -288,23 +280,23 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
               {isExpanded && (!collapsed || mobile) && visibleSubs.map((sub) => {
                 const subActive = location === sub.href || location.startsWith(sub.href + "/");
                 return (
-                  <Link key={sub.href} href={sub.href}>
-                    <a
-                      onClick={() => mobile && setMobileOpen(false)}
-                      className={`flex items-center gap-3 pl-7 pr-2 py-2 rounded-lg text-sm transition-colors group ml-1 mt-0.5 ${
-                        subActive
-                          ? "bg-[oklch(0.45_0.12_145)] text-white"
-                          : "text-white/50 hover:bg-white/10 hover:text-white"
-                      }`}
-                    >
-                      <sub.icon className="w-3.5 h-3.5 shrink-0" />
-                      <div className="overflow-hidden">
-                        <p className="font-medium leading-tight truncate text-xs">{sub.label}</p>
-                        <p className="text-[10px] text-white/30 leading-tight truncate group-hover:text-white/50">
-                          {sub.description}
-                        </p>
-                      </div>
-                    </a>
+                  <Link
+                    key={sub.href}
+                    href={sub.href}
+                    onClick={() => mobile && setMobileOpen(false)}
+                    className={`flex items-center gap-3 pl-7 pr-2 py-2 rounded-lg text-sm transition-colors group ml-1 mt-0.5 ${
+                      subActive
+                        ? "bg-[oklch(0.45_0.12_145)] text-white"
+                        : "text-white/50 hover:bg-white/10 hover:text-white"
+                    }`}
+                  >
+                    <sub.icon className="w-3.5 h-3.5 shrink-0" />
+                    <div className="overflow-hidden">
+                      <p className="font-medium leading-tight truncate text-xs">{sub.label}</p>
+                      <p className="text-[10px] text-white/30 leading-tight truncate group-hover:text-white/50">
+                        {sub.description}
+                      </p>
+                    </div>
                   </Link>
                 );
               })}
@@ -312,17 +304,17 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
               {collapsed && !mobile && visibleSubs.map((sub) => {
                 const subActive = location === sub.href || location.startsWith(sub.href + "/");
                 return (
-                  <Link key={sub.href} href={sub.href}>
-                    <a
-                      className={`flex items-center justify-center py-2 rounded-lg transition-colors mt-0.5 ${
-                        subActive
-                          ? "bg-[oklch(0.45_0.12_145)] text-white"
-                          : "text-white/40 hover:bg-white/10 hover:text-white"
-                      }`}
-                      title={sub.label}
-                    >
-                      <sub.icon className="w-3.5 h-3.5" />
-                    </a>
+                  <Link
+                    key={sub.href}
+                    href={sub.href}
+                    className={`flex items-center justify-center py-2 rounded-lg transition-colors mt-0.5 ${
+                      subActive
+                        ? "bg-[oklch(0.45_0.12_145)] text-white"
+                        : "text-white/40 hover:bg-white/10 hover:text-white"
+                    }`}
+                    title={sub.label}
+                  >
+                    <sub.icon className="w-3.5 h-3.5" />
                   </Link>
                 );
               })}
@@ -333,26 +325,26 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
         // Simple nav item
         const active = location === item.href || location.startsWith(item.href + "/");
         return (
-          <Link key={item.href} href={item.href}>
-            <a
-              onClick={() => mobile && setMobileOpen(false)}
-              className={`flex items-center gap-3 px-2 py-2.5 rounded-lg text-sm transition-colors group ${
-                active
-                  ? "bg-[oklch(0.55_0.15_145)] text-white"
-                  : "text-white/60 hover:bg-white/10 hover:text-white"
-              }`}
-              title={collapsed && !mobile ? item.label : undefined}
-            >
-              <item.icon className="w-4 h-4 shrink-0" />
-              {(!collapsed || mobile) && (
-                <div className="overflow-hidden">
-                  <p className="font-medium leading-tight truncate">{item.label}</p>
-                  <p className="text-[10px] text-white/40 leading-tight truncate group-hover:text-white/60">
-                    {item.description}
-                  </p>
-                </div>
-              )}
-            </a>
+          <Link
+            key={item.href}
+            href={item.href}
+            onClick={() => mobile && setMobileOpen(false)}
+            className={`flex items-center gap-3 px-2 py-2.5 rounded-lg text-sm transition-colors group ${
+              active
+                ? "bg-[oklch(0.55_0.15_145)] text-white"
+                : "text-white/60 hover:bg-white/10 hover:text-white"
+            }`}
+            title={collapsed && !mobile ? item.label : undefined}
+          >
+            <item.icon className="w-4 h-4 shrink-0" />
+            {(!collapsed || mobile) && (
+              <div className="overflow-hidden">
+                <p className="font-medium leading-tight truncate">{item.label}</p>
+                <p className="text-[10px] text-white/40 leading-tight truncate group-hover:text-white/60">
+                  {item.description}
+                </p>
+              </div>
+            )}
           </Link>
         );
       })}

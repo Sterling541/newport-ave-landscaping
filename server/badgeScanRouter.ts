@@ -13,6 +13,7 @@ import {
   employees,
   badgeScans,
   payoutRecords,
+  quoteLeads,
 } from "../drizzle/schema";
 import { eq, and, desc, sql, isNull, isNotNull, gte, lte } from "drizzle-orm";
 import { createHash } from "crypto";
@@ -158,6 +159,40 @@ export const badgeScanRouter = router({
         submittedUserAgent: input.userAgent ?? null,
         submittedIpHash: ipHash,
       });
+
+      // Dual-write to quoteLeads so badge scans appear in Lead Center
+      try {
+        let empNameForLabel: string | null = null;
+        if (resolvedEmployeeId) {
+          const [emp] = await (await getDb())
+            .select({ firstName: employees.firstName, lastName: employees.lastName })
+            .from(employees)
+            .where(eq(employees.id, resolvedEmployeeId))
+            .limit(1);
+          if (emp) empNameForLabel = `${emp.firstName} ${emp.lastName}`;
+        } else if (input.employeeFirstName || input.employeeLastName) {
+          empNameForLabel = `${input.employeeFirstName ?? ''} ${input.employeeLastName ?? ''}`.trim();
+        }
+        const svcLabelMap: Record<string, string> = {
+          maintenance: 'Maintenance',
+          landscape_construction: 'Landscape Design',
+          irrigation_sprinkler: 'Irrigation / Sprinklers',
+          other: input.serviceTypeOther || 'Other',
+        };
+        await (await getDb()).insert(quoteLeads).values({
+          firstName: input.firstName.trim(),
+          lastName: input.lastName.trim(),
+          email: input.email,
+          phone: normalizePhone(input.phone),
+          serviceInterest: svcLabelMap[input.serviceType] || 'Other',
+          message: input.message ?? null,
+          source: 'badge_scan',
+          sourceLabel: empNameForLabel,
+          status: 'new',
+        });
+      } catch (e) {
+        console.error("Badge scan quoteLeads dual-write failed:", e);
+      }
 
       // Notify admin
       try {

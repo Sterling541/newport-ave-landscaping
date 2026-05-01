@@ -109,6 +109,25 @@ const SOURCE_CONFIG: Record<string, { label: string; logo?: string; color: strin
       </svg>
     ),
   },
+  badge_scan: {
+    label: "Badge Scan",
+    color: "oklch(0.93 0.05 280)",
+    textColor: "oklch(0.28 0.14 280)",
+    svgLogo: (
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none">
+        <rect x="3" y="3" width="7" height="7" rx="1" stroke="oklch(0.28 0.14 280)" strokeWidth="1.5"/>
+        <rect x="4.5" y="4.5" width="4" height="4" fill="oklch(0.28 0.14 280)" rx="0.5"/>
+        <rect x="14" y="3" width="7" height="7" rx="1" stroke="oklch(0.28 0.14 280)" strokeWidth="1.5"/>
+        <rect x="15.5" y="4.5" width="4" height="4" fill="oklch(0.28 0.14 280)" rx="0.5"/>
+        <rect x="3" y="14" width="7" height="7" rx="1" stroke="oklch(0.28 0.14 280)" strokeWidth="1.5"/>
+        <rect x="4.5" y="15.5" width="4" height="4" fill="oklch(0.28 0.14 280)" rx="0.5"/>
+        <rect x="14" y="14" width="3" height="3" fill="oklch(0.28 0.14 280)"/>
+        <rect x="18.5" y="14" width="2.5" height="2.5" fill="oklch(0.28 0.14 280)"/>
+        <rect x="14" y="18.5" width="2.5" height="2.5" fill="oklch(0.28 0.14 280)"/>
+        <rect x="18.5" y="18.5" width="2.5" height="2.5" fill="oklch(0.28 0.14 280)"/>
+      </svg>
+    ),
+  },
   other: {
     label: "Other",
     color: "oklch(0.93 0.01 240)",
@@ -719,6 +738,8 @@ export default function AdminQuoteLeads() {
                         onChange={e => setAddLeadForm(f => ({ ...f, source: e.target.value }))}
                         style={{ width: "100%", padding: "0.45rem 0.65rem", border: "1.5px solid oklch(0.82 0.01 240)", borderRadius: "0.4rem", fontSize: "0.85rem", color: NAVY, background: "white", boxSizing: "border-box" }}
                       >
+                        <option value="quick_form">Newport Website</option>
+                        <option value="badge_scan">Badge Scan</option>
                         <option value="yelp">Yelp</option>
                         <option value="google">Google</option>
                         <option value="houzz">Houzz</option>
@@ -994,6 +1015,7 @@ export default function AdminQuoteLeads() {
           >
             <option value="all">All Sources</option>
             <option value="quick_form">Newport Website</option>
+            <option value="badge_scan">Badge Scan</option>
             <option value="google">Google</option>
             <option value="yelp">Yelp</option>
             <option value="houzz">Houzz</option>

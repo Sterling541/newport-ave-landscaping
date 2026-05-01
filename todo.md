@@ -1272,3 +1272,21 @@
 - [x] Move "Scheduled Services Trends" to sit under "Completed Scheduled Service Forms" in the sidebar
 - [x] Rename page title on the AdminLeadTrends page to "Scheduled Services Trends"
 - [x] Update permission labels in AdminUsers and AdminUsersContent to match new name
+
+## Session — May 1, 2026 (Badge Scans → Lead Center)
+
+- [x] Remove "Badge Scans" nav item from AdminLayout sidebar
+- [x] Add "badge_scan" as a source option in the SourceBadge component with a QR code icon
+- [x] Update badge scan submission handler to create a quoteLeads entry with source="badge_scan"
+- [x] Migrate existing badge scan records to quoteLeads table with source="badge_scan"
+- [x] Add "Badge Scan" to the source filter dropdown in Lead Center
+- [x] Update the All Sources filter to include badge_scan
+
+## Session — May 1, 2026 (Badge Scans → Lead Center)
+
+- [x] Remove "Badge Scans" nav item from AdminLayout sidebar
+- [x] Add "badge_scan" source to SourceBadge component with QR code icon
+- [x] Update badge scan submission server handler to create a quoteLeads entry with source="badge_scan" (full lead record with all fields)
+- [x] Migrate existing badge scan records into quoteLeads table with source="badge_scan"
+- [x] Badge scan leads get full Lead Center functionality: status workflow, Edit/Schedule/+Contact/+Property, spam marking, filters
+- [x] Add "Badge Scan" to the source filter dropdown in Lead Center
