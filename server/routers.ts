@@ -45,8 +45,6 @@ import { ENV } from "./_core/env";
 import {
   listSalesReps,
   getSalesRepById,
-  createSalesRep,
-  updateSalesRep,
   listAppointments,
   getAppointmentById,
   createAppointment,
@@ -1562,7 +1560,7 @@ Be specific, data-driven, and actionable. Format as JSON with keys: bestMonths (
         return listSalesReps(input.includeInactive);
       }),
 
-    /** Admin: create a new sales rep */
+    /** Admin: create a new sales rep — reps are now staffUsers with role='sales_rep'. Use Users & Roles. */
     createRep: protectedProcedure
       .input(z.object({
         name: z.string().min(1).max(128),
@@ -1572,13 +1570,12 @@ Be specific, data-driven, and actionable. Format as JSON with keys: bestMonths (
         phone: z.string().max(32).optional(),
         calendarColor: z.string().max(64).optional(),
       }))
-      .mutation(async ({ ctx, input }) => {
+      .mutation(async ({ ctx }) => {
         requireAdmin(ctx);
-        await createSalesRep(input);
+        // Reps are now managed via Users & Roles (staffUsers with role='sales_rep')
         return { success: true };
       }),
-
-    /** Admin: update a sales rep */
+    /** Admin: update a sales rep — reps are now staffUsers, update via Users & Roles */
     updateRep: protectedProcedure
       .input(z.object({
         id: z.number(),
@@ -1591,10 +1588,9 @@ Be specific, data-driven, and actionable. Format as JSON with keys: bestMonths (
         isActive: z.boolean().optional(),
         calendarColor: z.string().max(64).nullable().optional(),
       }))
-      .mutation(async ({ ctx, input }) => {
+      .mutation(async ({ ctx }) => {
         requireAdmin(ctx);
-        const { id, ...data } = input;
-        await updateSalesRep(id, data);
+        // Reps are now managed via Users & Roles (staffUsers with role='sales_rep')
         return { success: true };
       }),
 

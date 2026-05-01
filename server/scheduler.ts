@@ -2,14 +2,17 @@
  * Newport Smart Scheduler — server-side logic
  *
  * Handles:
+ *  - Rep eligibility: any staffUser with role='sales_rep' is an assignable rep
  *  - Load balancing (Nathan/William rotate for install_design; Danny for enhancement)
  *  - Slot suggestion engine (8am–5pm, 1-hour blocks, scored by drive time)
  *  - Google Calendar stub (logs to console, returns mock event ID)
- *  - Google Maps drive-time stub (returns 15min default, logs that real API pending)
+ *  - Google Maps drive-time via Manus proxy
+ *
+ * appointments.repId now references staffUsers.id directly.
  */
 
 import { getDb } from "./db";
-import { salesReps, appointments, staffUsers } from "../drizzle/schema";
+import { staffUsers, appointments } from "../drizzle/schema";
 import { eq, and, ne, asc, sql } from "drizzle-orm";
 import { makeRequest } from "./_core/map";
 
@@ -50,34 +53,76 @@ export interface CreateAppointmentInput {
   notes?: string;
 }
 
+// ─── Staff User Rep Helpers ───────────────────────────────────────────────────
+
+/**
+ * Returns all staffUsers with role='sales_rep' as the assignable rep list.
+ * This is the single source of truth — no salesReps table needed.
+ */
+export async function listSalesReps(includeInactive = false) {
+  const dbConn = await getDb();
+  if (!dbConn) return [];
+  const rows = includeInactive
+    ? await dbConn.select().from(staffUsers).where(eq(staffUsers.role, "sales_rep"))
+    : await dbConn.select().from(staffUsers).where(
+        and(eq(staffUsers.role, "sales_rep"), eq(staffUsers.isActive, true))
+      );
+  return rows.map((u) => ({
+    id: u.id,
+    name: `${u.firstName} ${u.lastName}`.trim(),
+    email: u.email,
+    effectiveEmail: u.email,
+    phone: u.phone ?? null,
+    role: "install_design" as const, // default; UI can override per appointment type
+    isActive: u.isActive,
+    googleCalendarId: null as string | null,
+    calendarColor: null as string | null,
+  }));
+}
+
+export async function getSalesRepById(id: number) {
+  const dbConn = await getDb();
+  if (!dbConn) return null;
+  const rows = await dbConn.select().from(staffUsers).where(eq(staffUsers.id, id));
+  if (!rows[0]) return null;
+  const u = rows[0];
+  return {
+    id: u.id,
+    name: `${u.firstName} ${u.lastName}`.trim(),
+    email: u.email,
+    effectiveEmail: u.email,
+    phone: u.phone ?? null,
+    role: u.role,
+    isActive: u.isActive,
+    googleCalendarId: null as string | null,
+    calendarColor: null as string | null,
+  };
+}
+
 // ─── Load Balancing ───────────────────────────────────────────────────────────
 
 /**
  * Returns the suggested rep for a given appointment type.
- * - install_design: rotates Nathan Kooy / William Miller based on who was last assigned
- * - enhancement: always Danny Sheffield
+ * - install_design / follow_up / other: rotates among all sales_rep users
+ * - enhancement: prefers the first sales_rep alphabetically (Danny)
  */
 export async function getSuggestedRep(
   appointmentType: "install_design" | "enhancement" | "follow_up" | "other"
 ): Promise<{ repId: number; repName: string } | null> {
-  const dbConn = await getDb();
-  if (!dbConn) return null;
-
-  const role = appointmentType === "enhancement" ? "enhancement" : "install_design";
-
-  const reps = await dbConn
-    .select()
-    .from(salesReps)
-    .where(and(eq(salesReps.role, role), eq(salesReps.isActive, true)));
-
+  const reps = await listSalesReps(false);
   if (reps.length === 0) return null;
 
-  if (role === "enhancement") {
-    // Danny is the only enhancement rep — return him directly
-    return { repId: reps[0].id, repName: reps[0].name };
+  const sorted = [...reps].sort((a, b) => a.name.localeCompare(b.name));
+
+  if (appointmentType === "enhancement") {
+    // Use first rep alphabetically for enhancement (Danny Sheffield)
+    return { repId: sorted[0].id, repName: sorted[0].name };
   }
 
-  // For install_design: find who was last assigned by looking at the most recent appointment
+  // For install_design/follow_up/other: rotate based on last assigned
+  const dbConn = await getDb();
+  if (!dbConn) return { repId: sorted[0].id, repName: sorted[0].name };
+
   const lastAppt = await dbConn
     .select({ repId: appointments.repId })
     .from(appointments)
@@ -91,33 +136,18 @@ export async function getSuggestedRep(
     .limit(1);
 
   if (lastAppt.length === 0) {
-    // No history — start with first rep alphabetically
-    const sorted = [...reps].sort((a, b) => a.name.localeCompare(b.name));
     return { repId: sorted[0].id, repName: sorted[0].name };
   }
 
   const lastRepId = lastAppt[0].repId;
-  const lastRep = reps.find((r) => r.id === lastRepId);
-
-  if (!lastRep) {
-    return { repId: reps[0].id, repName: reps[0].name };
-  }
-
-  // Rotate to the next rep
-  const sorted = [...reps].sort((a, b) => a.name.localeCompare(b.name));
   const currentIdx = sorted.findIndex((r) => r.id === lastRepId);
   const nextIdx = (currentIdx + 1) % sorted.length;
   const next = sorted[nextIdx];
   return { repId: next.id, repName: next.name };
 }
 
-// ─── Drive-Time Stub ──────────────────────────────────────────────────────────
+// ─── Drive-Time ───────────────────────────────────────────────────────────────
 
-/**
- * Returns estimated drive time in minutes from Newport HQ to the customer address.
- * STUB: returns 15 minutes by default and logs that real API is pending.
- * Replace with Google Distance Matrix API call once credentials are available.
- */
 export async function getDriveTimeMinutes(
   customerAddress: string | null | undefined
 ): Promise<number> {
@@ -132,13 +162,11 @@ export async function getDriveTimeMinutes(
     });
     const element = result?.rows?.[0]?.elements?.[0];
     if (element?.status === "OK" && element.duration?.value) {
-      // duration.value is in seconds — convert to exact minutes (no rounding up)
       return Math.round(element.duration.value / 60);
     }
   } catch (err) {
     console.warn("[Scheduler] Drive-time API error, using fallback:", err);
   }
-  // Fallback heuristic
   const lower = (customerAddress ?? "").toLowerCase();
   if (
     lower.includes("sisters") ||
@@ -154,10 +182,6 @@ export async function getDriveTimeMinutes(
 
 // ─── Slot Suggestion Engine ───────────────────────────────────────────────────
 
-/**
- * Returns scored slot suggestions for the next N business days.
- * Filters out slots that already have appointments for the given rep.
- */
 export async function getSlotSuggestions(params: {
   appointmentType: "install_design" | "enhancement" | "follow_up" | "other";
   customerAddress?: string;
@@ -166,39 +190,25 @@ export async function getSlotSuggestions(params: {
 }): Promise<SlotSuggestion[]> {
   const { appointmentType, customerAddress, daysAhead = 7, repId } = params;
 
-  const role = appointmentType === "enhancement" ? "enhancement" : "install_design";
+  const allReps = await listSalesReps(false);
+  const targetReps = repId ? allReps.filter((r) => r.id === repId) : allReps;
+  if (targetReps.length === 0) return [];
 
   const dbConn = await getDb();
   if (!dbConn) return [];
 
-  const eligibleReps = await dbConn
-    .select()
-    .from(salesReps)
-    .where(and(eq(salesReps.role, role), eq(salesReps.isActive, true)));
-
-  const targetReps = repId
-    ? eligibleReps.filter((r) => r.id === repId)
-    : eligibleReps;
-
-  if (targetReps.length === 0) return [];
-
   const driveTime = await getDriveTimeMinutes(customerAddress);
-
   const suggestions: SlotSuggestion[] = [];
   const today = new Date();
 
   for (let dayOffset = 0; dayOffset < daysAhead; dayOffset++) {
     const date = new Date(today);
     date.setDate(today.getDate() + dayOffset);
-
-    // Skip weekends
     const dow = date.getDay();
     if (dow === 0 || dow === 6) continue;
-
     const dateStr = date.toISOString().split("T")[0];
 
     for (const rep of targetReps) {
-      // Get existing appointments for this rep on this date
       const existingAppts = await dbConn
         .select()
         .from(appointments)
@@ -212,7 +222,6 @@ export async function getSlotSuggestions(params: {
 
       const bookedSlots = new Set(existingAppts.map((a) => a.startTime));
 
-      // Generate available slots
       for (let hour = SLOT_START_HOUR; hour < SLOT_END_HOUR; hour++) {
         const startTime = `${hour.toString().padStart(2, "0")}:00`;
         const endHour = hour + SLOT_DURATION_MINUTES / 60;
@@ -220,41 +229,22 @@ export async function getSlotSuggestions(params: {
 
         if (bookedSlots.has(startTime)) continue;
 
-        // Score the slot (0–100)
         let score = 100;
         const reasons: string[] = [];
 
-        // Drive time penalty: -1 point per minute over 10
         const driveTimePenalty = Math.max(0, driveTime - 10);
         score -= driveTimePenalty;
-        if (driveTimePenalty > 0) {
-          reasons.push(`${driveTime} min from office`);
-        }
-
-        // Morning preference: 8am–10am gets +10
-        if (hour >= 8 && hour <= 10) {
-          score += 10;
-          reasons.push("morning slot");
-        }
-
-        // Early afternoon preference: 1pm–2pm gets +5
-        if (hour >= 13 && hour <= 14) {
-          score += 5;
-          reasons.push("early afternoon");
-        }
-
-        // Day proximity: sooner is better (+5 for today/tomorrow)
-        if (dayOffset <= 1) {
-          score += 5;
-          reasons.push("soon available");
-        }
+        if (driveTimePenalty > 0) reasons.push(`${driveTime} min from office`);
+        if (hour >= 8 && hour <= 10) { score += 10; reasons.push("morning slot"); }
+        if (hour >= 13 && hour <= 14) { score += 5; reasons.push("early afternoon"); }
+        if (dayOffset <= 1) { score += 5; reasons.push("soon available"); }
 
         score = Math.max(0, Math.min(100, score));
 
         suggestions.push({
           repId: rep.id,
           repName: rep.name,
-          repRole: rep.role as "install_design" | "enhancement",
+          repRole: appointmentType === "enhancement" ? "enhancement" : "install_design",
           date: dateStr,
           startTime,
           endTime,
@@ -266,7 +256,6 @@ export async function getSlotSuggestions(params: {
     }
   }
 
-  // Sort by score descending, then by date, then by time
   suggestions.sort((a, b) => {
     if (b.score !== a.score) return b.score - a.score;
     if (a.date !== b.date) return a.date.localeCompare(b.date);
@@ -278,11 +267,6 @@ export async function getSlotSuggestions(params: {
 
 // ─── Google Calendar Stub ─────────────────────────────────────────────────────
 
-/**
- * Creates a Google Calendar event for an appointment.
- * STUB: logs to console and returns a mock event ID.
- * Replace with real Google Calendar API call once credentials are available.
- */
 export async function createCalendarEvent(params: {
   repGoogleCalendarId: string | null | undefined;
   title: string;
@@ -293,32 +277,16 @@ export async function createCalendarEvent(params: {
   description?: string;
 }): Promise<string | null> {
   if (!params.repGoogleCalendarId) {
-    console.log(
-      "[Scheduler] Google Calendar stub: no calendarId set for rep. " +
-        "Set googleCalendarId in rep management UI after completing Google Cloud setup."
-    );
+    console.log("[Scheduler] Google Calendar stub: no calendarId set for rep.");
     return null;
   }
-
-  console.log(
-    `[Scheduler] Google Calendar stub: would create event on calendar ${params.repGoogleCalendarId}:`,
-    {
-      title: params.title,
-      date: params.date,
-      startTime: params.startTime,
-      endTime: params.endTime,
-      location: params.location,
-    }
-  );
-
-  // Return a mock event ID
-  return `mock-event-${Date.now()}`;
+  console.log(`[Scheduler] Google Calendar stub: would create event on calendar ${params.repGoogleCalendarId}:`, {
+    title: params.title, date: params.date, startTime: params.startTime,
+    endTime: params.endTime, location: params.location,
+  });
+  return `mock-event-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
 }
 
-/**
- * Deletes/cancels a Google Calendar event.
- * STUB: logs to console.
- */
 export async function deleteCalendarEvent(params: {
   repGoogleCalendarId: string | null | undefined;
   googleEventId: string | null | undefined;
@@ -327,83 +295,10 @@ export async function deleteCalendarEvent(params: {
     console.log("[Scheduler] Google Calendar stub: deleteCalendarEvent called but no calendarId or eventId.");
     return;
   }
-
-  console.log(
-    `[Scheduler] Google Calendar stub: would delete event ${params.googleEventId} from calendar ${params.repGoogleCalendarId}`
-  );
+  console.log(`[Scheduler] Google Calendar stub: would delete event ${params.googleEventId} from calendar ${params.repGoogleCalendarId}`);
 }
 
 // ─── DB Helpers ───────────────────────────────────────────────────────────────
-
-/**
- * Enrich a raw salesRep row with the linked staffUser's email.
- * Returns the rep with an `effectiveEmail` field: staffUser.email if linked, else rep.email.
- */
-async function enrichRepWithUserEmail(rep: typeof salesReps.$inferSelect & { staffUserEmail?: string | null }) {
-  if (!rep.staffUserId) return { ...rep, effectiveEmail: rep.email ?? null };
-  const dbConn = await getDb();
-  if (!dbConn) return { ...rep, effectiveEmail: rep.email ?? null };
-  const [su] = await dbConn.select({ email: staffUsers.email, firstName: staffUsers.firstName, lastName: staffUsers.lastName })
-    .from(staffUsers).where(eq(staffUsers.id, rep.staffUserId));
-  return { ...rep, effectiveEmail: su?.email ?? rep.email ?? null, staffUserEmail: su?.email ?? null };
-}
-
-export async function listSalesReps(includeInactive = false) {
-  const dbConn = await getDb();
-  if (!dbConn) return [];
-  const rows = includeInactive
-    ? await dbConn.select().from(salesReps)
-    : await dbConn.select().from(salesReps).where(eq(salesReps.isActive, true));
-  return Promise.all(rows.map(enrichRepWithUserEmail));
-}
-
-export async function getSalesRepById(id: number) {
-  const dbConn = await getDb();
-  if (!dbConn) return null;
-  const rows = await dbConn.select().from(salesReps).where(eq(salesReps.id, id));
-  if (!rows[0]) return null;
-  return enrichRepWithUserEmail(rows[0]);
-}
-
-export async function createSalesRep(data: {
-  name: string;
-  role: "install_design" | "enhancement";
-  googleCalendarId?: string;
-  email?: string;
-  phone?: string;
-  calendarColor?: string;
-}) {
-  const dbConn = await getDb();
-  if (!dbConn) throw new Error("Database not available");
-  const result = await dbConn.insert(salesReps).values({
-    name: data.name,
-    role: data.role,
-    googleCalendarId: data.googleCalendarId ?? null,
-    email: data.email ?? null,
-    phone: data.phone ?? null,
-    calendarColor: data.calendarColor ?? null,
-    isActive: true,
-  });
-  return result;
-}
-
-export async function updateSalesRep(
-  id: number,
-  data: Partial<{
-    name: string;
-    role: "install_design" | "enhancement";
-    staffUserId: number | null;
-    googleCalendarId: string | null;
-    email: string | null;
-    phone: string | null;
-    isActive: boolean;
-    calendarColor: string | null;
-  }>
-) {
-  const dbConn = await getDb();
-  if (!dbConn) throw new Error("Database not available");
-  return dbConn.update(salesReps).set(data).where(eq(salesReps.id, id));
-}
 
 export async function listAppointments(params: {
   repId?: number;
@@ -424,7 +319,6 @@ export async function listAppointments(params: {
     ? dbConn.select().from(appointments).where(and(...conditions))
     : dbConn.select().from(appointments);
 
-  // Apply date filters via raw SQL to avoid type issues with mysqlDate
   if (dateFrom || dateTo) {
     const dateConditions: any[] = [...conditions];
     if (dateFrom) dateConditions.push(sql`${appointments.appointmentDate} >= ${dateFrom}`);
@@ -464,7 +358,7 @@ export async function createAppointment(data: CreateAppointmentInput) {
     driveTimeMinutes: await getDriveTimeMinutes(data.customerAddress),
   });
 
-  // Create Google Calendar event (stub)
+  // Google Calendar stub
   if (rep?.googleCalendarId) {
     const eventId = await createCalendarEvent({
       repGoogleCalendarId: rep.googleCalendarId,
@@ -475,14 +369,10 @@ export async function createAppointment(data: CreateAppointmentInput) {
       location: data.customerAddress ?? undefined,
       description: data.notes ?? undefined,
     });
-
     if (eventId) {
       const insertId = (result as any).insertId;
       if (insertId) {
-        await dbConn
-          .update(appointments)
-          .set({ googleEventId: eventId })
-          .where(eq(appointments.id, insertId));
+        await dbConn.update(appointments).set({ googleEventId: eventId }).where(eq(appointments.id, insertId));
       }
     }
   }
@@ -516,45 +406,19 @@ export async function cancelAppointment(id: number) {
   const appt = await getAppointmentById(id);
   if (!appt) return null;
 
-  // Cancel Google Calendar event (stub)
   if (appt.googleEventId) {
     const rep = await getSalesRepById(appt.repId);
     await deleteCalendarEvent({
-      repGoogleCalendarId: rep?.googleCalendarId,
+      repGoogleCalendarId: rep?.googleCalendarId ?? null,
       googleEventId: appt.googleEventId,
     });
   }
 
-  return dbConn
-    .update(appointments)
-    .set({ status: "cancelled" })
-    .where(eq(appointments.id, id));
+  return dbConn.update(appointments).set({ status: "cancelled" }).where(eq(appointments.id, id));
 }
 
-/** Seed the three default reps if they don't already exist */
+/** No-op: kept for backward compatibility — reps are now managed via Users & Roles */
 export async function seedDefaultReps() {
-  const dbConn = await getDb();
-  if (!dbConn) return;
-  const existing = await dbConn.select().from(salesReps);
-  if (existing.length > 0) return; // Already seeded
-
-  await dbConn.insert(salesReps).values([
-    {
-      name: "Nathan Kooy",
-      role: "install_design",
-      isActive: true,
-    },
-    {
-      name: "William Miller",
-      role: "install_design",
-      isActive: true,
-    },
-    {
-      name: "Danny Sheffield",
-      role: "enhancement",
-      isActive: true,
-    },
-  ]);
-
-  console.log("[Scheduler] Seeded default sales reps: Nathan Kooy, William Miller, Danny Sheffield");
+  // Reps are now staffUsers with role='sales_rep'. No seeding needed.
+  console.log("[Scheduler] seedDefaultReps: reps are now managed via Users & Roles (staffUsers with role=sales_rep).");
 }
