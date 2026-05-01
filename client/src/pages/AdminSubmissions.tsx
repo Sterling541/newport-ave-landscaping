@@ -577,6 +577,9 @@ export default function AdminSubmissions() {
   const [schedShowPropertyDrop, setSchedShowPropertyDrop] = useState(false);
   const [schedContactLabel, setSchedContactLabel] = useState("");
   const [schedPropertyLabel, setSchedPropertyLabel] = useState("");
+  const [schedMissingWarning, setSchedMissingWarning] = useState(false);
+  const [showQuickContact, setShowQuickContact] = useState(false);
+  const [showQuickProperty, setShowQuickProperty] = useState(false);
   // Smart Scheduler suggestions modal (opens after "Called & Scheduled" is clicked)
   const [suggestionsRow, setSuggestionsRow] = useState<Submission | null>(null);
   const [suggestionsApptType, setSuggestionsApptType] = useState<"install_design" | "enhancement" | "follow_up" | "other">("install_design");
@@ -691,6 +694,28 @@ export default function AdminSubmissions() {
       setScheduleSubmission(null);
     },
     onError: (err) => toast.error(`Schedule error: ${err.message}`),
+  });
+
+  const quickCreateContactMutation = trpc.contacts.createContact.useMutation({
+    onSuccess: (data, variables) => {
+      const fullName = `${variables.firstName || ''} ${variables.lastName || ''}`.trim();
+      setScheduleForm(f => ({ ...f, contactId: data.id }));
+      setSchedContactLabel(fullName || variables.email || 'New Contact');
+      setShowQuickContact(false);
+      toast.success('Contact created and linked!');
+    },
+    onError: (err) => toast.error(`Failed to create contact: ${err.message}`),
+  });
+
+  const quickCreatePropertyMutation = trpc.contacts.createProperty.useMutation({
+    onSuccess: (data, variables) => {
+      const addr = [variables.address, variables.city, variables.state].filter(Boolean).join(', ');
+      setScheduleForm(f => ({ ...f, propertyId: data.id }));
+      setSchedPropertyLabel(addr || 'New Property');
+      setShowQuickProperty(false);
+      toast.success('Property created and linked!');
+    },
+    onError: (err) => toast.error(`Failed to create property: ${err.message}`),
   });
 
   const deleteMutation = trpc.submissions.delete.useMutation({

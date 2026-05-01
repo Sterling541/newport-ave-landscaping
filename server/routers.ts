@@ -1441,6 +1441,10 @@ Be specific, data-driven, and actionable. Format as JSON with keys: bestMonths (
         flexibleScheduling: z.boolean().optional(),
         isPropertyOwner: z.string().max(8).optional(),
         hasPets: z.string().max(8).optional(),
+        creditCardNumber: z.string().max(32).optional(),
+        creditCardExpiration: z.string().max(16).optional(),
+        creditCardCvv: z.string().max(8).optional(),
+        creditCardAuthSignature: z.string().max(500).optional(),
       }))
       .mutation(async ({ ctx, input }) => {
         requireAdmin(ctx);

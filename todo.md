@@ -1290,3 +1290,18 @@
 - [x] Migrate existing badge scan records into quoteLeads table with source="badge_scan"
 - [x] Badge scan leads get full Lead Center functionality: status workflow, Edit/Schedule/+Contact/+Property, spam marking, filters
 - [x] Add "Badge Scan" to the source filter dropdown in Lead Center
+
+## Session — May 1, 2026 (Contact/Property Flow Refactor)
+- [ ] Remove "+ Contact" button from all Lead Center rows (converted and non-converted)
+- [ ] Remove "+ Property" button from Lead Center converted rows
+- [ ] Find the Scheduled Services admin form (where appointments are made)
+- [ ] Add "Create Contact" prompt/step to the Scheduled Services form — before saving, prompt admin to create a Contact record if one doesn't exist
+- [ ] Add "Create Property" prompt/step — prompt to add a Property record and link the contact as primary contact of that property
+- [ ] Ensure Contact and Property are linked (contact set as primary contact of property)
+
+## Session — May 1, 2026 (Convert Modal: Service Types + CC on File)
+- [x] Audit front-facing "Schedule Services" form for exact service type names
+- [x] Update "Convert to Scheduled Service" modal service type dropdown to match front-facing form exactly
+- [x] Add Credit Card on File section to the Convert modal for one-time services
+- [x] Identify which services require CC on file (irrigation repair, start-ups, blow-outs, clean-ups, aerations, etc.)
+- [x] Store CC info (card number, expiry, CVV, auth signature) in the scheduled service record

@@ -9,7 +9,7 @@ import { useLocation } from "wouter";
 import { trpc } from "@/lib/trpc";
 import AdminLayout from "@/components/AdminLayout";
 
-/* ── Source logo / badge component ──────────────────────────────────────── */
+/* -- Source logo / badge component ---------------------------------------- */
 const NEWPORT_LOGO = "/manus-storage/logo-nav-tight_c562b49c_88ff2608.webp";
 
 const SOURCE_CONFIG: Record<string, { label: string; logo?: string; color: string; textColor: string; svgLogo?: React.ReactNode }> = {
@@ -137,7 +137,7 @@ const SOURCE_CONFIG: Record<string, { label: string; logo?: string; color: strin
 
 function SourceBadge({ source, sourceLabel }: { source: string; sourceLabel?: string | null }) {
   const cfg = SOURCE_CONFIG[source] ?? SOURCE_CONFIG.other;
-  // For badge_scan, always show the fixed label — never the employee name stored in sourceLabel
+  // For badge_scan, always show the fixed label -- never the employee name stored in sourceLabel
   const displayLabel = source === "badge_scan" ? cfg.label : (sourceLabel || cfg.label);
 
   if (source === "quick_form") {
@@ -202,7 +202,7 @@ const STATUS_COLORS: Record<string, { bg: string; text: string; label: string }>
 };
 
 function formatDate(ts: Date | number | null | undefined): string {
-  if (!ts) return "—";
+  if (!ts) return "--";
   return new Date(ts).toLocaleDateString("en-US", {
     month: "short",
     day: "numeric",
@@ -211,28 +211,33 @@ function formatDate(ts: Date | number | null | undefined): string {
 }
 
 const SERVICE_OPTIONS = [
-  "Lawn & Maintenance",
-  "Irrigation / Sprinklers",
-  "Landscape Design & Installation",
-  "Paver Patios & Walkways",
-  "Water Features",
-  "Outdoor Kitchens & Living",
-  "Fire Pits & Fireplaces",
-  "Landscape Lighting",
-  "Xeriscaping / Water-Wise",
-  "Retaining Walls",
-  "Drainage Solutions",
-  "Snow Removal",
-  "Firewise Landscaping",
-  "Other / Not Sure",
+  "> New Landscape Installation",
+  "> Landscape Design",
+  "Maintenance: Weekly or One-Time Landscape Clean Ups",
+  "> Aeration, fertilization and top dressing",
+  "> Irrigation Services: Including backflow test, repairs",
+  "> Lighting addition or repair",
+  "> Water Feature service (Including clean-outs, maintenance repairs)",
+  "> Warranty",
+  "Sprinkler Winterization",
 ];
+
+// Services that require a credit card on file
+const CC_REQUIRED_SERVICES = new Set([
+  "Maintenance: Weekly or One-Time Landscape Clean Ups",
+  "> Aeration, fertilization and top dressing",
+  "> Irrigation Services: Including backflow test, repairs",
+  "> Lighting addition or repair",
+  "> Water Feature service (Including clean-outs, maintenance repairs)",
+  "Sprinkler Winterization",
+]);
 
 const BUDGET_OPTIONS = [
   "Under $5,000",
-  "$5,000 – $10,000",
-  "$10,000 – $25,000",
-  "$25,000 – $50,000",
-  "$50,000 – $100,000",
+  "$5,000 - $10,000",
+  "$10,000 - $25,000",
+  "$25,000 - $50,000",
+  "$50,000 - $100,000",
   "$100,000+",
   "Not sure / flexible",
   "Other",
@@ -257,6 +262,9 @@ type ConvertForm = {
   idealCompletionDate: string; howHeard: string;
   comments: string; usedBefore: string;
   flexibleScheduling: boolean; isPropertyOwner: string; hasPets: string;
+  // Credit card fields (required for certain service types)
+  creditCardNumber: string; creditCardExpiration: string;
+  creditCardCvv: string; creditCardAuthSignature: string;
 };
 
 export default function AdminQuoteLeads() {
@@ -287,6 +295,8 @@ export default function AdminQuoteLeads() {
     idealCompletionDate: "", howHeard: "",
     comments: "", usedBefore: "",
     flexibleScheduling: false, isPropertyOwner: "", hasPets: "",
+    creditCardNumber: "", creditCardExpiration: "",
+    creditCardCvv: "", creditCardAuthSignature: "",
   });
 
   const showToast = (msg: string) => {
@@ -348,7 +358,7 @@ export default function AdminQuoteLeads() {
 
   const saveAsContactMutation = trpc.contacts.createContact.useMutation({
     onSuccess: (data) => {
-      showToast("Contact created! Opening contact page…");
+      showToast("Contact created! Opening contact page...");
       setTimeout(() => navigate(`/admin/contacts/${data.id}`), 800);
     },
     onError: (err) => showToast(`Error creating contact: ${err.message}`),
@@ -356,7 +366,7 @@ export default function AdminQuoteLeads() {
 
   const saveAsPropertyMutation = trpc.contacts.createProperty.useMutation({
     onSuccess: (data) => {
-      showToast("Property created! Opening property page…");
+      showToast("Property created! Opening property page...");
       setTimeout(() => navigate(`/admin/properties/${data.id}`), 800);
     },
     onError: (err) => showToast(`Error creating property: ${err.message}`),
@@ -419,6 +429,8 @@ export default function AdminQuoteLeads() {
       idealCompletionDate: "", howHeard: "",
       comments: row.message ?? "", usedBefore: "",
       flexibleScheduling: false, isPropertyOwner: "", hasPets: "",
+      creditCardNumber: "", creditCardExpiration: "",
+      creditCardCvv: "", creditCardAuthSignature: "",
     });
     setConvertLeadId(row.id);
   };
@@ -427,6 +439,11 @@ export default function AdminQuoteLeads() {
     if (!convertLeadId) return;
     if (!convertForm.siteAddress.trim()) { showToast("Site address is required."); return; }
     if (!convertForm.serviceType.trim()) { showToast("Service type is required."); return; }
+    const needsCC = CC_REQUIRED_SERVICES.has(convertForm.serviceType);
+    if (needsCC && !convertForm.creditCardNumber.trim()) {
+      showToast("Credit card number is required for this service type.");
+      return;
+    }
     convertMutation.mutate({
       quoteLeadId: convertLeadId,
       firstName: convertForm.firstName, lastName: convertForm.lastName,
@@ -443,6 +460,10 @@ export default function AdminQuoteLeads() {
       flexibleScheduling: convertForm.flexibleScheduling,
       isPropertyOwner: convertForm.isPropertyOwner || undefined,
       hasPets: convertForm.hasPets || undefined,
+      creditCardNumber: convertForm.creditCardNumber || undefined,
+      creditCardExpiration: convertForm.creditCardExpiration || undefined,
+      creditCardCvv: convertForm.creditCardCvv || undefined,
+      creditCardAuthSignature: convertForm.creditCardAuthSignature || undefined,
     });
   };
 
@@ -539,7 +560,7 @@ export default function AdminQuoteLeads() {
                   </p>
                 </div>
                 <button onClick={() => setConvertLeadId(null)}
-                  style={{ background: "none", border: "none", color: "white", fontSize: "1.4rem", cursor: "pointer", lineHeight: 1 }}>×</button>
+                  style={{ background: "none", border: "none", color: "white", fontSize: "1.4rem", cursor: "pointer", lineHeight: 1 }}>x</button>
               </div>
               {/* Modal body */}
               <div style={{ padding: "1.5rem", display: "flex", flexDirection: "column", gap: "1rem" }}>
@@ -571,7 +592,7 @@ export default function AdminQuoteLeads() {
                       <label style={{ fontSize: "0.72rem", fontWeight: 600, color: "oklch(0.45 0.04 240)", textTransform: "uppercase", letterSpacing: "0.04em", display: "block", marginBottom: "0.3rem" }}>Service Type *</label>
                       <select style={{ width: "100%", padding: "0.45rem 0.65rem", border: "1.5px solid oklch(0.82 0.01 240)", borderRadius: "0.4rem", fontSize: "0.85rem", color: NAVY, background: "white", boxSizing: "border-box" }}
                         value={convertForm.serviceType} onChange={e => setField("serviceType", e.target.value)}>
-                        <option value="">— Select service —</option>
+                        <option value="">-- Select service --</option>
                         {SERVICE_OPTIONS.map(s => <option key={s} value={s}>{s}</option>)}
                       </select>
                     </div>
@@ -579,7 +600,7 @@ export default function AdminQuoteLeads() {
                       <label style={{ fontSize: "0.72rem", fontWeight: 600, color: "oklch(0.45 0.04 240)", textTransform: "uppercase", letterSpacing: "0.04em", display: "block", marginBottom: "0.3rem" }}>Budget</label>
                       <select style={{ width: "100%", padding: "0.45rem 0.65rem", border: "1.5px solid oklch(0.82 0.01 240)", borderRadius: "0.4rem", fontSize: "0.85rem", color: NAVY, background: "white", boxSizing: "border-box" }}
                         value={convertForm.budget} onChange={e => setField("budget", e.target.value)}>
-                        <option value="">— Select —</option>
+                        <option value="">-- Select --</option>
                         {BUDGET_OPTIONS.map(b => <option key={b} value={b}>{b}</option>)}
                       </select>
                     </div>
@@ -599,7 +620,7 @@ export default function AdminQuoteLeads() {
                       <label style={{ fontSize: "0.72rem", fontWeight: 600, color: "oklch(0.45 0.04 240)", textTransform: "uppercase", letterSpacing: "0.04em", display: "block", marginBottom: "0.3rem" }}>How Did They Hear About Us?</label>
                       <select style={{ width: "100%", padding: "0.45rem 0.65rem", border: "1.5px solid oklch(0.82 0.01 240)", borderRadius: "0.4rem", fontSize: "0.85rem", color: NAVY, background: "white", boxSizing: "border-box" }}
                         value={convertForm.howHeard} onChange={e => setField("howHeard", e.target.value)}>
-                        <option value="">— Select —</option>
+                        <option value="">-- Select --</option>
                         {HOW_HEARD_OPTIONS.map(h => <option key={h} value={h}>{h}</option>)}
                       </select>
                     </div>
@@ -607,7 +628,7 @@ export default function AdminQuoteLeads() {
                       <label style={{ fontSize: "0.72rem", fontWeight: 600, color: "oklch(0.45 0.04 240)", textTransform: "uppercase", letterSpacing: "0.04em", display: "block", marginBottom: "0.3rem" }}>Used Newport Before?</label>
                       <select style={{ width: "100%", padding: "0.45rem 0.65rem", border: "1.5px solid oklch(0.82 0.01 240)", borderRadius: "0.4rem", fontSize: "0.85rem", color: NAVY, background: "white", boxSizing: "border-box" }}
                         value={convertForm.usedBefore} onChange={e => setField("usedBefore", e.target.value)}>
-                        <option value="">— Select —</option>
+                        <option value="">-- Select --</option>
                         <option value="yes">Yes</option>
                         <option value="no">No</option>
                       </select>
@@ -623,14 +644,14 @@ export default function AdminQuoteLeads() {
                         Scheduled With
                         {consultantSuggestion && (
                           <span style={{ marginLeft: "0.4rem", fontSize: "0.65rem", background: consultantSuggestion.isRotating ? "oklch(0.92 0.08 145)" : "oklch(0.92 0.08 220)", color: consultantSuggestion.isRotating ? "oklch(0.3 0.12 145)" : "oklch(0.3 0.12 220)", borderRadius: "0.25rem", padding: "0.1rem 0.35rem", fontWeight: 700 }}>
-                            ★ Suggested: {consultantSuggestion.consultant}
+                            * Suggested: {consultantSuggestion.consultant}
                           </span>
                         )}
                       </label>
                       <select style={{ width: "100%", padding: "0.45rem 0.65rem", border: "1.5px solid oklch(0.82 0.01 240)", borderRadius: "0.4rem", fontSize: "0.85rem", color: NAVY, background: "white", boxSizing: "border-box" }}
                         value={convertForm.salesConsultant || (consultantSuggestion?.consultant ?? "")}
                         onChange={e => setField("salesConsultant", e.target.value)}>
-                        <option value="">— Select consultant —</option>
+                        <option value="">-- Select consultant --</option>
                         {(activeSalesReps && activeSalesReps.length > 0
                           ? activeSalesReps
                           : [
@@ -660,7 +681,7 @@ export default function AdminQuoteLeads() {
                       <label style={{ fontSize: "0.72rem", fontWeight: 600, color: "oklch(0.45 0.04 240)", textTransform: "uppercase", letterSpacing: "0.04em", display: "block", marginBottom: "0.3rem" }}>Property Owner?</label>
                       <select style={{ width: "100%", padding: "0.45rem 0.65rem", border: "1.5px solid oklch(0.82 0.01 240)", borderRadius: "0.4rem", fontSize: "0.85rem", color: NAVY, background: "white", boxSizing: "border-box" }}
                         value={convertForm.isPropertyOwner} onChange={e => setField("isPropertyOwner", e.target.value)}>
-                        <option value="">— Select —</option>
+                        <option value="">-- Select --</option>
                         <option value="yes">Yes</option>
                         <option value="no">No</option>
                       </select>
@@ -669,7 +690,7 @@ export default function AdminQuoteLeads() {
                       <label style={{ fontSize: "0.72rem", fontWeight: 600, color: "oklch(0.45 0.04 240)", textTransform: "uppercase", letterSpacing: "0.04em", display: "block", marginBottom: "0.3rem" }}>Has Pets?</label>
                       <select style={{ width: "100%", padding: "0.45rem 0.65rem", border: "1.5px solid oklch(0.82 0.01 240)", borderRadius: "0.4rem", fontSize: "0.85rem", color: NAVY, background: "white", boxSizing: "border-box" }}
                         value={convertForm.hasPets} onChange={e => setField("hasPets", e.target.value)}>
-                        <option value="">— Select —</option>
+                        <option value="">-- Select --</option>
                         <option value="yes">Yes</option>
                         <option value="no">No</option>
                       </select>
@@ -685,10 +706,60 @@ export default function AdminQuoteLeads() {
                       <label style={{ fontSize: "0.72rem", fontWeight: 600, color: "oklch(0.45 0.04 240)", textTransform: "uppercase", letterSpacing: "0.04em", display: "block", marginBottom: "0.3rem" }}>Notes / Comments</label>
                       <textarea style={{ width: "100%", padding: "0.45rem 0.65rem", border: "1.5px solid oklch(0.82 0.01 240)", borderRadius: "0.4rem", fontSize: "0.85rem", color: NAVY, background: "white", boxSizing: "border-box", minHeight: "80px", resize: "vertical" }}
                         value={convertForm.comments} onChange={e => setField("comments", e.target.value)}
-                        placeholder="Any additional notes from the call…" />
+                        placeholder="Any additional notes from the call..." />
                     </div>
                   </div>
                 </div>
+                {/* Credit Card Section -- shown only for CC-required services */}
+                {CC_REQUIRED_SERVICES.has(convertForm.serviceType) && (
+                  <div style={{ background: "oklch(0.97 0.01 60)", borderRadius: "0.6rem", padding: "1rem", border: "1.5px solid oklch(0.88 0.06 60)", marginTop: "0.75rem" }}>
+                    <p style={{ fontSize: "0.72rem", fontWeight: 700, color: "oklch(0.35 0.12 60)", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "0.5rem" }}>Credit Card on File (Required)</p>
+                    <div style={{ background: "oklch(0.95 0.06 60)", borderRadius: "0.4rem", padding: "0.6rem 0.75rem", marginBottom: "0.75rem", fontSize: "0.78rem", color: "oklch(0.38 0.10 60)", lineHeight: 1.5 }}>
+                      This service type requires a credit card on file. By providing card information, the customer authorizes Newport Avenue Landscaping to charge the card for services rendered. Card data is stored securely and used only for this account.
+                    </div>
+                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.75rem" }}>
+                      <div style={{ gridColumn: "1 / -1" }}>
+                        <label style={{ fontSize: "0.72rem", fontWeight: 600, color: "oklch(0.45 0.04 240)", textTransform: "uppercase", letterSpacing: "0.04em", display: "block", marginBottom: "0.3rem" }}>Card Number *</label>
+                        <input
+                          style={{ width: "100%", padding: "0.45rem 0.65rem", border: "1.5px solid oklch(0.82 0.01 240)", borderRadius: "0.4rem", fontSize: "0.85rem", color: NAVY, background: "white", boxSizing: "border-box" }}
+                          value={convertForm.creditCardNumber}
+                          onChange={e => setField("creditCardNumber", e.target.value)}
+                          placeholder="XXXX XXXX XXXX XXXX"
+                          maxLength={19}
+                        />
+                      </div>
+                      <div>
+                        <label style={{ fontSize: "0.72rem", fontWeight: 600, color: "oklch(0.45 0.04 240)", textTransform: "uppercase", letterSpacing: "0.04em", display: "block", marginBottom: "0.3rem" }}>Expiration *</label>
+                        <input
+                          style={{ width: "100%", padding: "0.45rem 0.65rem", border: "1.5px solid oklch(0.82 0.01 240)", borderRadius: "0.4rem", fontSize: "0.85rem", color: NAVY, background: "white", boxSizing: "border-box" }}
+                          value={convertForm.creditCardExpiration}
+                          onChange={e => setField("creditCardExpiration", e.target.value)}
+                          placeholder="MM/YY"
+                          maxLength={5}
+                        />
+                      </div>
+                      <div>
+                        <label style={{ fontSize: "0.72rem", fontWeight: 600, color: "oklch(0.45 0.04 240)", textTransform: "uppercase", letterSpacing: "0.04em", display: "block", marginBottom: "0.3rem" }}>CVV</label>
+                        <input
+                          style={{ width: "100%", padding: "0.45rem 0.65rem", border: "1.5px solid oklch(0.82 0.01 240)", borderRadius: "0.4rem", fontSize: "0.85rem", color: NAVY, background: "white", boxSizing: "border-box" }}
+                          value={convertForm.creditCardCvv}
+                          onChange={e => setField("creditCardCvv", e.target.value)}
+                          placeholder="123"
+                          maxLength={4}
+                        />
+                      </div>
+                      <div style={{ gridColumn: "1 / -1" }}>
+                        <label style={{ fontSize: "0.72rem", fontWeight: 600, color: "oklch(0.45 0.04 240)", textTransform: "uppercase", letterSpacing: "0.04em", display: "block", marginBottom: "0.3rem" }}>Authorization Signature (Full Name) *</label>
+                        <input
+                          style={{ width: "100%", padding: "0.45rem 0.65rem", border: "1.5px solid oklch(0.82 0.01 240)", borderRadius: "0.4rem", fontSize: "0.85rem", color: NAVY, background: "white", boxSizing: "border-box" }}
+                          value={convertForm.creditCardAuthSignature}
+                          onChange={e => setField("creditCardAuthSignature", e.target.value)}
+                          placeholder="Customer full name as authorization"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
               {/* Modal footer */}
               <div style={{ padding: "1rem 1.5rem", borderTop: "1px solid oklch(0.92 0.005 240)", display: "flex", gap: "0.75rem", justifyContent: "flex-end" }}>
@@ -698,7 +769,7 @@ export default function AdminQuoteLeads() {
                 </button>
                 <button onClick={submitConvert} disabled={convertMutation.isPending}
                   style={{ background: "oklch(0.35 0.14 145)", color: "white", border: "none", borderRadius: "0.5rem", padding: "0.5rem 1.5rem", fontSize: "0.875rem", fontWeight: 700, cursor: convertMutation.isPending ? "not-allowed" : "pointer", opacity: convertMutation.isPending ? 0.7 : 1 }}>
-                  {convertMutation.isPending ? "Converting…" : "✓ Convert to Scheduled Service"}
+                  {convertMutation.isPending ? "Converting..." : "Convert to Scheduled Service"}
                 </button>
               </div>
             </div>
@@ -724,7 +795,7 @@ export default function AdminQuoteLeads() {
                   </p>
                 </div>
                 <button onClick={() => setShowAddLead(false)}
-                  style={{ background: "none", border: "none", color: "white", fontSize: "1.4rem", cursor: "pointer", lineHeight: 1 }}>×</button>
+                  style={{ background: "none", border: "none", color: "white", fontSize: "1.4rem", cursor: "pointer", lineHeight: 1 }}>x</button>
               </div>
               {/* Modal body */}
               <div style={{ padding: "1.5rem", display: "flex", flexDirection: "column", gap: "1rem" }}>
@@ -796,7 +867,7 @@ export default function AdminQuoteLeads() {
                         onChange={e => setAddLeadForm(f => ({ ...f, serviceInterest: e.target.value }))}
                         style={{ width: "100%", padding: "0.45rem 0.65rem", border: "1.5px solid oklch(0.82 0.01 240)", borderRadius: "0.4rem", fontSize: "0.85rem", color: NAVY, background: "white", boxSizing: "border-box" }}
                       >
-                        <option value="">— Not set —</option>
+                        <option value="">-- Not set --</option>
                         {SERVICE_OPTIONS.map(s => <option key={s} value={s}>{s}</option>)}
                       </select>
                     </div>
@@ -839,7 +910,7 @@ export default function AdminQuoteLeads() {
                   }}
                   disabled={addLeadMutation.isPending}
                   style={{ background: NAVY, color: "white", border: "none", borderRadius: "0.5rem", padding: "0.5rem 1.5rem", fontSize: "0.875rem", fontWeight: 700, cursor: addLeadMutation.isPending ? "not-allowed" : "pointer", opacity: addLeadMutation.isPending ? 0.7 : 1 }}>
-                  {addLeadMutation.isPending ? "Saving…" : "+ Add Lead"}
+                  {addLeadMutation.isPending ? "Saving..." : "+ Add Lead"}
                 </button>
               </div>
             </div>
@@ -861,7 +932,7 @@ export default function AdminQuoteLeads() {
               Lead Center
             </h1>
             <p style={{ color: "oklch(0.5 0.02 240)", fontSize: "0.875rem", marginTop: "0.25rem" }}>
-              All incoming leads — website quick forms, Yelp, Google, Houzz, Angi, and more.
+              All incoming leads -- website quick forms, Yelp, Google, Houzz, Angi, and more.
             </p>
           </div>
           <button
@@ -939,7 +1010,7 @@ export default function AdminQuoteLeads() {
             </svg>
             <input
               type="text"
-              placeholder="Search by name, email, phone, or message…"
+              placeholder="Search by name, email, phone, or message..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               style={{
@@ -973,7 +1044,7 @@ export default function AdminQuoteLeads() {
                 }}
                 title="Clear search"
               >
-                ×
+                x
               </button>
             )}
           </div>
@@ -1086,7 +1157,7 @@ export default function AdminQuoteLeads() {
               whiteSpace: "nowrap",
             }}
           >
-            {showConverted ? "✓ Hide Converted" : "✓ Show Converted"}
+            {showConverted ? "v Hide Converted" : "v Show Converted"}
           </button>
           {/* Spam toggle */}
           <button
@@ -1103,7 +1174,7 @@ export default function AdminQuoteLeads() {
               whiteSpace: "nowrap",
             }}
           >
-            {showSpam ? "🚫 Hide Spam" : `🚫 Show Spam${spamCount > 0 ? ` (${spamCount})` : ""}`}
+            {showSpam ? "[!] Hide Spam" : `[!] Show Spam${spamCount > 0 ? ` (${spamCount})` : ""}`}
           </button>
         </div>
 
@@ -1120,7 +1191,7 @@ export default function AdminQuoteLeads() {
         {/* Table */}
         {isLoading ? (
           <div style={{ textAlign: "center", padding: "4rem", color: "oklch(0.6 0.02 240)" }}>
-            Loading quote leads…
+            Loading quote leads...
           </div>
         ) : filtered.length === 0 ? (
           <div
@@ -1133,7 +1204,7 @@ export default function AdminQuoteLeads() {
               color: "oklch(0.6 0.02 240)",
             }}
           >
-            <div style={{ fontSize: "2rem", marginBottom: "0.5rem" }}>💬</div>
+            <div style={{ fontSize: "2rem", marginBottom: "0.5rem" }}>[?]</div>
             <p style={{ fontWeight: 600 }}>No quote leads found</p>
             <p style={{ fontSize: "0.85rem" }}>
               {search || statusFilter !== "all"
@@ -1214,9 +1285,9 @@ export default function AdminQuoteLeads() {
                       </td>
                       {/* Address */}
                       <td style={{ padding: "0.75rem 1rem", fontSize: "0.8rem", color: NAVY }}>
-                        {row.address || <span style={{ color: "oklch(0.7 0.01 240)" }}>—</span>}
+                        {row.address || <span style={{ color: "oklch(0.7 0.01 240)" }}>--</span>}
                       </td>
-                      {/* Service Interest — inline editable */}
+                      {/* Service Interest -- inline editable */}
                       <td style={{ padding: "0.75rem 1rem", fontSize: "0.8rem", color: NAVY }}>
                         <select
                           value={row.serviceInterest ?? ""}
@@ -1232,7 +1303,7 @@ export default function AdminQuoteLeads() {
                             width: "100%",
                           }}
                         >
-                          <option value="">— Not set —</option>
+                          <option value="">-- Not set --</option>
                           {SERVICE_OPTIONS.map((s) => (
                             <option key={s} value={s}>{s}</option>
                           ))}
@@ -1242,10 +1313,10 @@ export default function AdminQuoteLeads() {
                       <td style={{ padding: "0.75rem 1rem", fontSize: "0.78rem", color: "oklch(0.5 0.02 240)" }}>
                         {row.message ? (
                           <span title={row.message}>
-                            {row.message.length > 100 ? row.message.slice(0, 100) + "…" : row.message}
+                            {row.message.length > 100 ? row.message.slice(0, 100) + "..." : row.message}
                           </span>
                         ) : (
-                          <span style={{ color: "oklch(0.7 0.01 240)" }}>—</span>
+                          <span style={{ color: "oklch(0.7 0.01 240)" }}>--</span>
                         )}
                       </td>
                       {/* Status */}
@@ -1271,7 +1342,7 @@ export default function AdminQuoteLeads() {
                             <textarea
                               value={editNotes}
                               onChange={(e) => setEditNotes(e.target.value)}
-                              placeholder="Admin notes…"
+                              placeholder="Admin notes..."
                               rows={2}
                               style={{
                                 padding: "0.35rem 0.6rem",
@@ -1297,7 +1368,7 @@ export default function AdminQuoteLeads() {
                                   cursor: "pointer",
                                 }}
                               >
-                                {updateMutation.isPending ? "Saving…" : "Save"}
+                                {updateMutation.isPending ? "Saving..." : "Save"}
                               </button>
                               <button
                                 onClick={() => setEditingId(null)}
@@ -1366,7 +1437,7 @@ export default function AdminQuoteLeads() {
                                 cursor: "pointer",
                               }}
                             >
-                              {row.isSpam ? "🚫 Spam" : "⚑"}
+                              {row.isSpam ? "[!] Spam" : "^"}
                             </button>
                             {!row.isSpam && row.status !== "converted" && (
                               <button
@@ -1384,89 +1455,25 @@ export default function AdminQuoteLeads() {
                                 }}
                                 title="Convert this lead to a Scheduled Service form"
                               >
-                                → Schedule
+                                Schedule
                               </button>
                             )}
-                            {!row.isSpam && row.status !== "converted" && (
-                              <button
-                                onClick={() => handleSaveAsContact(row)}
-                                disabled={saveAsContactMutation.isPending}
-                                style={{
-                                  background: "oklch(0.92 0.06 240)",
-                                  color: "oklch(0.28 0.10 240)",
-                                  border: "1.5px solid oklch(0.78 0.10 240)",
-                                  borderRadius: "0.4rem",
-                                  padding: "0.3rem 0.6rem",
-                                  fontSize: "0.78rem",
-                                  fontWeight: 700,
-                                  cursor: saveAsContactMutation.isPending ? "not-allowed" : "pointer",
-                                  whiteSpace: "nowrap",
-                                  opacity: saveAsContactMutation.isPending ? 0.6 : 1,
-                                }}
-                                title="Save this lead as a Contact in the CRM"
-                              >
-                                + Contact
-                              </button>
-                            )}
+                            {/* + Contact removed - contact/property creation happens in Scheduled Services flow */}
                             {!row.isSpam && row.status === "converted" && (
-                              <div style={{ display: "flex", flexDirection: "column", gap: "0.3rem" }}>
-                                {/* + Contact and + Property buttons */}
-                                <div style={{ display: "flex", gap: "0.35rem", flexWrap: "wrap" }}>
-                                  <button
-                                    onClick={() => handleSaveAsContact(row)}
-                                    disabled={saveAsContactMutation.isPending}
-                                    style={{
-                                      background: "oklch(0.92 0.06 240)",
-                                      color: "oklch(0.28 0.10 240)",
-                                      border: "1.5px solid oklch(0.78 0.10 240)",
-                                      borderRadius: "0.4rem",
-                                      padding: "0.3rem 0.6rem",
-                                      fontSize: "0.75rem",
-                                      fontWeight: 700,
-                                      cursor: saveAsContactMutation.isPending ? "not-allowed" : "pointer",
-                                      whiteSpace: "nowrap",
-                                      opacity: saveAsContactMutation.isPending ? 0.6 : 1,
-                                    }}
-                                    title="Save this lead as a Contact in the CRM"
-                                  >
-                                    + Contact
-                                  </button>
-                                  <button
-                                    onClick={() => handleSaveAsProperty(row)}
-                                    disabled={saveAsPropertyMutation.isPending}
-                                    style={{
-                                      background: "oklch(0.92 0.10 145)",
-                                      color: "oklch(0.28 0.14 145)",
-                                      border: "1.5px solid oklch(0.72 0.14 145)",
-                                      borderRadius: "0.4rem",
-                                      padding: "0.3rem 0.6rem",
-                                      fontSize: "0.75rem",
-                                      fontWeight: 700,
-                                      cursor: saveAsPropertyMutation.isPending ? "not-allowed" : "pointer",
-                                      whiteSpace: "nowrap",
-                                      opacity: saveAsPropertyMutation.isPending ? 0.6 : 1,
-                                    }}
-                                    title="Create a Property record from this lead's address"
-                                  >
-                                    + Property
-                                  </button>
-                                </div>
-                                {/* Converted metadata */}
-                                <div style={{ display: "flex", flexDirection: "column", gap: "0.1rem" }}>
-                                  <span style={{ fontSize: "0.72rem", color: "oklch(0.35 0.14 145)", fontWeight: 600 }}>
-                                    ✓ Converted
+                              <div style={{ display: "flex", flexDirection: "column", gap: "0.1rem" }}>
+                                <span style={{ fontSize: "0.72rem", color: "oklch(0.35 0.14 145)", fontWeight: 600 }}>
+                                  v Converted
+                                </span>
+                                {(row as any).assignedConsultant && (
+                                  <span style={{ fontSize: "0.68rem", color: "oklch(0.5 0.02 240)" }}>
+                                    {(row as any).assignedConsultant}
                                   </span>
-                                  {(row as any).assignedConsultant && (
-                                    <span style={{ fontSize: "0.68rem", color: "oklch(0.5 0.02 240)" }}>
-                                      {(row as any).assignedConsultant}
-                                    </span>
-                                  )}
-                                  {(row as any).convertedAt && (
-                                    <span style={{ fontSize: "0.66rem", color: "oklch(0.6 0.01 240)" }}>
-                                      {formatDate((row as any).convertedAt)}
-                                    </span>
-                                  )}
-                                </div>
+                                )}
+                                {(row as any).convertedAt && (
+                                  <span style={{ fontSize: "0.66rem", color: "oklch(0.6 0.01 240)" }}>
+                                    {formatDate((row as any).convertedAt)}
+                                  </span>
+                                )}
                               </div>
                             )}
                           </div>
