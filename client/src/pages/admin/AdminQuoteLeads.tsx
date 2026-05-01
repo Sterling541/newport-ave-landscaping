@@ -137,7 +137,8 @@ const SOURCE_CONFIG: Record<string, { label: string; logo?: string; color: strin
 
 function SourceBadge({ source, sourceLabel }: { source: string; sourceLabel?: string | null }) {
   const cfg = SOURCE_CONFIG[source] ?? SOURCE_CONFIG.other;
-  const displayLabel = sourceLabel || cfg.label;
+  // For badge_scan, always show the fixed label — never the employee name stored in sourceLabel
+  const displayLabel = source === "badge_scan" ? cfg.label : (sourceLabel || cfg.label);
 
   if (source === "quick_form") {
     return (
