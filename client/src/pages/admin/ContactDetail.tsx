@@ -12,7 +12,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/hooks/use-toast";
 import {
   ArrowLeft, Edit2, Save, X, Trash2, Building2, User, Phone, Mail,
-  MapPin, Plus, Link2, Home, ChevronRight
+  MapPin, Plus, Link2, Home, ChevronRight, Calendar, Clock
 } from "lucide-react";
 
 const CONTACT_TYPE_LABELS: Record<string, string> = {
@@ -66,6 +66,7 @@ export default function ContactDetail() {
 
   const { data: contact, isLoading, refetch } = trpc.contacts.getContact.useQuery({ id: contactId });
   const { data: links, refetch: refetchLinks } = trpc.contacts.getLinksForContact.useQuery({ contactId });
+  const { data: appointmentsData } = trpc.contacts.appointmentsByContact.useQuery({ contactId });
   const { data: propertiesData } = trpc.contacts.listProperties.useQuery({
     search: propertySearch || undefined,
     limit: 20,
@@ -200,6 +201,7 @@ export default function ContactDetail() {
         <TabsList className="mb-4">
           <TabsTrigger value="profile">Profile</TabsTrigger>
           <TabsTrigger value="properties">Properties ({links?.length ?? 0})</TabsTrigger>
+          <TabsTrigger value="appointments">Appointments ({appointmentsData?.length ?? 0})</TabsTrigger>
         </TabsList>
 
         {/* Profile Tab */}
@@ -376,8 +378,55 @@ export default function ContactDetail() {
             </div>
           )}
         </TabsContent>
-      </Tabs>
 
+        {/* Appointments Tab */}
+        <TabsContent value="appointments">
+          <h3 className="font-semibold text-gray-800 mb-4">Appointment History</h3>
+          {!appointmentsData || appointmentsData.length === 0 ? (
+            <div className="bg-white rounded-xl border border-gray-200 py-16 text-center">
+              <Calendar className="w-10 h-10 text-gray-300 mx-auto mb-3" />
+              <p className="text-gray-500 font-medium">No appointments linked</p>
+              <p className="text-sm text-gray-400 mt-1">Appointments will appear here once linked to this contact in the Smart Scheduler</p>
+            </div>
+          ) : (
+            <div className="space-y-3">
+              {appointmentsData.map((appt) => {
+                const isPast = appt.appointmentDate < new Date().toISOString().slice(0, 10);
+                const statusColors: Record<string, string> = {
+                  scheduled: "bg-blue-100 text-blue-700",
+                  completed: "bg-green-100 text-green-700",
+                  cancelled: "bg-red-100 text-red-700",
+                  no_show: "bg-orange-100 text-orange-700",
+                };
+                const typeLabels: Record<string, string> = {
+                  install_design: "Install / Design",
+                  enhancement: "Enhancement",
+                  follow_up: "Follow-Up",
+                  other: "Other",
+                };
+                return (
+                  <div key={appt.id} className="bg-white rounded-xl border border-gray-200 p-4 flex items-start gap-4">
+                    <div className={`mt-0.5 w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 ${isPast ? "bg-gray-100" : "bg-blue-50"}`}>
+                      <Calendar className={`w-4 h-4 ${isPast ? "text-gray-400" : "text-blue-600"}`} />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <span className="font-medium text-gray-800">{typeLabels[appt.appointmentType] ?? appt.appointmentType}</span>
+                        <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${statusColors[appt.status] ?? "bg-gray-100 text-gray-600"}`}>{appt.status}</span>
+                      </div>
+                      <div className="flex items-center gap-3 mt-1 text-sm text-gray-500 flex-wrap">
+                        <span className="flex items-center gap-1"><Clock className="w-3.5 h-3.5" />{appt.appointmentDate}{appt.startTime ? ` · ${appt.startTime}` : ""}</span>
+                        {appt.customerAddress && <span className="flex items-center gap-1"><MapPin className="w-3.5 h-3.5" />{appt.customerAddress}</span>}
+                      </div>
+                      {appt.notes && <p className="text-xs text-gray-400 mt-1 truncate">{appt.notes}</p>}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </TabsContent>
+      </Tabs>
       {/* Delete Confirmation */}
       <Dialog open={showDelete} onOpenChange={setShowDelete}>
         <DialogContent>

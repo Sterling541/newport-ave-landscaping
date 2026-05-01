@@ -1233,3 +1233,5 @@
 - [ ] Add Convert to Contact flow on Quick Form leads (create/select Contact and Property)
 - [x] Add Contact/Property search-and-link fields to Smart Scheduler new appointment form (auto-fills name/phone/address)
 - [x] Add Contact/Property link pickers to Quick Forms Schedule Appointment modal
+- [x] Add Appointments tab to Contact detail page showing linked appointment history
+- [x] Add Appointments tab to Property detail page showing linked appointment history

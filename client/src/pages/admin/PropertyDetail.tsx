@@ -13,7 +13,7 @@ import { useToast } from "@/hooks/use-toast";
 import { MapView } from "@/components/Map";
 import {
   ArrowLeft, Edit2, Save, X, Trash2, Home, User, Phone, Mail,
-  MapPin, Plus, Link2, Upload, FileText, Image, File, ChevronRight, Download
+  MapPin, Plus, Link2, Upload, FileText, Image, File, ChevronRight, Download, Calendar, Clock
 } from "lucide-react";
 
 const PROPERTY_TYPES = ["residential", "commercial", "hoa", "multi_family", "builder", "other"];
@@ -72,6 +72,7 @@ export default function PropertyDetail() {
   const { data: property, isLoading, refetch } = trpc.contacts.getProperty.useQuery({ id: propertyId });
   const { data: links, refetch: refetchLinks } = trpc.contacts.getLinksForProperty.useQuery({ propertyId });
   const { data: files, refetch: refetchFiles } = trpc.contacts.getFilesForProperty.useQuery({ propertyId });
+  const { data: appointmentsData } = trpc.contacts.appointmentsByProperty.useQuery({ propertyId });
   const { data: contactsData } = trpc.contacts.listContacts.useQuery({
     search: contactSearch || undefined,
     limit: 20,
@@ -239,6 +240,7 @@ export default function PropertyDetail() {
           <TabsTrigger value="overview">Overview</TabsTrigger>
           <TabsTrigger value="contacts">Contacts ({links?.length ?? 0})</TabsTrigger>
           <TabsTrigger value="files">Files ({files?.length ?? 0})</TabsTrigger>
+          <TabsTrigger value="appointments">Appointments ({appointmentsData?.length ?? 0})</TabsTrigger>
         </TabsList>
 
         {/* Overview Tab */}
@@ -402,6 +404,55 @@ export default function PropertyDetail() {
                       </div>
                       {file.description && <p className="text-xs text-gray-500 mt-1 truncate">{file.description}</p>}
                       {file.uploadedByName && <p className="text-xs text-gray-400 mt-0.5">by {file.uploadedByName}</p>}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </TabsContent>
+
+        {/* Appointments Tab */}
+        <TabsContent value="appointments">
+          <h3 className="font-semibold text-gray-800 mb-4">Appointment History</h3>
+          {!appointmentsData || appointmentsData.length === 0 ? (
+            <div className="bg-white rounded-xl border border-gray-200 py-16 text-center">
+              <Calendar className="w-10 h-10 text-gray-300 mx-auto mb-3" />
+              <p className="text-gray-500 font-medium">No appointments linked</p>
+              <p className="text-sm text-gray-400 mt-1">Appointments will appear here once linked to this property in the Smart Scheduler</p>
+            </div>
+          ) : (
+            <div className="space-y-3">
+              {appointmentsData.map((appt) => {
+                const isPast = appt.appointmentDate < new Date().toISOString().slice(0, 10);
+                const statusColors: Record<string, string> = {
+                  scheduled: "bg-blue-100 text-blue-700",
+                  completed: "bg-green-100 text-green-700",
+                  cancelled: "bg-red-100 text-red-700",
+                  no_show: "bg-orange-100 text-orange-700",
+                };
+                const typeLabels: Record<string, string> = {
+                  install_design: "Install / Design",
+                  enhancement: "Enhancement",
+                  follow_up: "Follow-Up",
+                  other: "Other",
+                };
+                return (
+                  <div key={appt.id} className="bg-white rounded-xl border border-gray-200 p-4 flex items-start gap-4">
+                    <div className={`mt-0.5 w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 ${isPast ? "bg-gray-100" : "bg-blue-50"}`}>
+                      <Calendar className={`w-4 h-4 ${isPast ? "text-gray-400" : "text-blue-600"}`} />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <span className="font-medium text-gray-800">{appt.customerName || "Unnamed"}</span>
+                        <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${statusColors[appt.status] ?? "bg-gray-100 text-gray-600"}`}>{appt.status}</span>
+                        <span className="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-600">{typeLabels[appt.appointmentType] ?? appt.appointmentType}</span>
+                      </div>
+                      <div className="flex items-center gap-3 mt-1 text-sm text-gray-500 flex-wrap">
+                        <span className="flex items-center gap-1"><Clock className="w-3.5 h-3.5" />{appt.appointmentDate}{appt.startTime ? ` · ${appt.startTime}` : ""}</span>
+                        {appt.salesRepName && <span className="flex items-center gap-1"><User className="w-3.5 h-3.5" />{appt.salesRepName}</span>}
+                      </div>
+                      {appt.notes && <p className="text-xs text-gray-400 mt-1 truncate">{appt.notes}</p>}
                     </div>
                   </div>
                 );

@@ -3,7 +3,7 @@
  */
 import { getDb } from "./db";
 import {
-  contacts, properties, contactPropertyLinks, propertyFiles,
+  contacts, properties, contactPropertyLinks, propertyFiles, appointments,
   type InsertContact,
   type InsertProperty,
   type InsertContactPropertyLink,
@@ -218,4 +218,28 @@ export async function updatePropertyFile(id: number, data: Partial<InsertPropert
   const db = await getDb();
   if (!db) throw new Error("Database unavailable");
   await db.update(propertyFiles).set(data).where(eq(propertyFiles.id, id));
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// APPOINTMENT HISTORY (linked via contactId / propertyId on appointments table)
+// ─────────────────────────────────────────────────────────────────────────────
+
+export async function getAppointmentsByContact(contactId: number) {
+  const db = await getDb();
+  if (!db) return [];
+  return db
+    .select()
+    .from(appointments)
+    .where(eq(appointments.contactId, contactId))
+    .orderBy(desc(appointments.appointmentDate));
+}
+
+export async function getAppointmentsByProperty(propertyId: number) {
+  const db = await getDb();
+  if (!db) return [];
+  return db
+    .select()
+    .from(appointments)
+    .where(eq(appointments.propertyId, propertyId))
+    .orderBy(desc(appointments.appointmentDate));
 }

@@ -25,6 +25,8 @@ import {
   createPropertyFile,
   deletePropertyFile,
   updatePropertyFile,
+  getAppointmentsByContact,
+  getAppointmentsByProperty,
 } from "./contacts";
 
 // ─── Shared Zod schemas ───────────────────────────────────────────────────────
@@ -335,5 +337,19 @@ export const contactsRouter = router({
     }))
     .query(async ({ input }) => {
       return listProperties({ search: input.query, limit: input.limit });
+    }),
+
+  /** Appointment history for a contact */
+  appointmentsByContact: protectedProcedure
+    .input(z.object({ contactId: z.number() }))
+    .query(async ({ input }) => {
+      return getAppointmentsByContact(input.contactId);
+    }),
+
+  /** Appointment history for a property */
+  appointmentsByProperty: protectedProcedure
+    .input(z.object({ propertyId: z.number() }))
+    .query(async ({ input }) => {
+      return getAppointmentsByProperty(input.propertyId);
     }),
 });
