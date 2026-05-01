@@ -1251,3 +1251,11 @@
 - [x] Add "+ Add Lead" button and modal for manually entering leads from external platforms
 - [x] Add Source filter dropdown to Lead Center filter bar
 - [x] Update website quote form default source to "quick_form"
+
+## Session — May 1, 2026 (Lead Center Source Fix)
+
+- [x] Update all existing leads with source="quote-page" (old default) to source="quick_form" in DB
+- [x] Rename quick_form badge label from "Quick Form" to "Newport Website"
+- [x] Ensure SourceBadge shows Newport Ave logo + "Newport Website" for all website form leads
+- [x] Normalize legacy source values (quote-page, hero, navbar, etc.) to quick_form in server router
+- [x] Update source filter dropdown label to "Newport Website"

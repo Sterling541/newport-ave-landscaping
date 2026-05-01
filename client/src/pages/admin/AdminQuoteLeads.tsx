@@ -14,7 +14,7 @@ const NEWPORT_LOGO = "/manus-storage/logo-nav-tight_c562b49c_88ff2608.webp";
 
 const SOURCE_CONFIG: Record<string, { label: string; logo?: string; color: string; textColor: string; svgLogo?: React.ReactNode }> = {
   quick_form: {
-    label: "Quick Form",
+    label: "Newport Website",
     logo: NEWPORT_LOGO,
     color: "oklch(0.92 0.08 145)",
     textColor: "oklch(0.28 0.14 145)",
@@ -133,7 +133,7 @@ function SourceBadge({ source, sourceLabel }: { source: string; sourceLabel?: st
           background: cfg.color, borderRadius: "0.3rem", padding: "0.1rem 0.4rem",
           textTransform: "uppercase", letterSpacing: "0.04em",
         }}>
-          Quick Form
+          Newport Website
         </span>
       </div>
     );
@@ -967,7 +967,7 @@ export default function AdminQuoteLeads() {
             }}
           >
             <option value="all">All Sources</option>
-            <option value="quick_form">Quick Form (Website)</option>
+            <option value="quick_form">Newport Website</option>
             <option value="google">Google</option>
             <option value="yelp">Yelp</option>
             <option value="houzz">Houzz</option>

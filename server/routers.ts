@@ -1335,7 +1335,10 @@ Be specific, data-driven, and actionable. Format as JSON with keys: bestMonths (
         sourceLabel: z.string().max(128).optional(),
       }))
       .mutation(async ({ input }) => {
-        await createQuoteLead({ ...input, status: "new" });
+        // Normalize legacy source values to quick_form
+        const WEBSITE_SOURCES = ["quote-page", "hero", "navbar", "floating-cta", "contact-page", "service-page", "city-page"];
+        const normalizedSource = WEBSITE_SOURCES.includes(input.source) ? "quick_form" : input.source;
+        await createQuoteLead({ ...input, source: normalizedSource, status: "new" });
 
         // Email notification to front office
         if (ENV.resendApiKey) {
