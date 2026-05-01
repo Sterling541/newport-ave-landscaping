@@ -1225,3 +1225,7 @@
 - [ ] Update Configuration UI: show "Link to User" dropdown (staffUsers with sales_rep role) on each rep row
 - [ ] Update SmartScheduler: rep list auto-populates from staffUsers with sales_rep role
 - [x] Add Delete appointment feature to Smart Scheduler (permanently removes from DB, with confirmation dialog)
+- [x] Add Contacts CRM module (list, create, edit, delete, linked properties)
+- [x] Add Properties CRM module (list, create, edit, delete, linked contacts, map, file uploads)
+- [x] Add Contacts and Properties sidebar nav entries
+- [x] Add database schema for contacts, properties, contact_property_links, property_files

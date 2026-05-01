@@ -230,6 +230,12 @@ const AdminEmployeePayouts = lazy(() => import('./pages/admin/AdminEmployeePayou
 // Configuration & Users
 const Configuration = lazy(() => import('./pages/admin/Configuration'));
 const AdminUsers = lazy(() => import('./pages/admin/AdminUsers'));
+
+// Contacts & Properties CRM
+const Contacts = lazy(() => import('./pages/admin/Contacts'));
+const ContactDetail = lazy(() => import('./pages/admin/ContactDetail'));
+const Properties = lazy(() => import('./pages/admin/Properties'));
+const PropertyDetail = lazy(() => import('./pages/admin/PropertyDetail'));
 const AdminLogin = lazy(() => import('./pages/AdminLogin'));
 const AdminResetPin = lazy(() => import('./pages/AdminResetPin'));
 const AdminDebug = lazy(() => import('./pages/admin/AdminDebug'));
@@ -561,6 +567,12 @@ function Router() {
       <Route path={"/admin/image-tracker"} component={ImageTracker} />
       <Route path={"/admin/scheduler"} component={SmartScheduler} />
       <Route path={"/admin/sales-reps"} component={SalesReps} />
+
+      {/* Contacts & Properties CRM */}
+      <Route path={"/admin/contacts/:id"} component={ContactDetail} />
+      <Route path={"/admin/contacts"} component={Contacts} />
+      <Route path={"/admin/properties/:id"} component={PropertyDetail} />
+      <Route path={"/admin/properties"} component={Properties} />
 
       {/* Badge Scan System */}
       <Route path={"/badge-scan"} component={BadgeScan} />

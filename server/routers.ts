@@ -1,6 +1,7 @@
 import { COOKIE_NAME } from "@shared/const";
 import { badgeScanRouter } from "./badgeScanRouter";
 import { staffRouter } from "./staffRouter";
+import { contactsRouter } from "./contactsRouter";
 import { getSessionCookieOptions } from "./_core/cookies";
 import { notifyOwner } from "./_core/notification";
 import { systemRouter } from "./_core/systemRouter";
@@ -106,6 +107,7 @@ export const appRouter = router({
   system: systemRouter,
   badgeScan: badgeScanRouter,
   staff: staffRouter,
+  contacts: contactsRouter,
 
   auth: router({
     me: publicProcedure.query(opts => opts.ctx.user),

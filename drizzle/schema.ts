@@ -639,3 +639,173 @@ export const loginAttempts = mysqlTable("login_attempts", {
 }));
 export type LoginAttempt = typeof loginAttempts.$inferSelect;
 export type InsertLoginAttempt = typeof loginAttempts.$inferInsert;
+
+/**
+ * Contacts — permanent business records for people/companies.
+ * Separate from leads (serviceSubmissions). Only created intentionally.
+ */
+export const contacts = mysqlTable("contacts", {
+  id: int("id").autoincrement().primaryKey(),
+
+  // Type & prefix
+  contactType: mysqlEnum("contactType", [
+    "prospect", "customer", "employee", "vendor", "other"
+  ]).default("prospect").notNull(),
+  namePrefix: mysqlEnum("namePrefix", [
+    "mr", "mrs", "ms", "dr", "company", "other"
+  ]),
+
+  // Name
+  firstName: varchar("firstName", { length: 128 }),
+  lastName: varchar("lastName", { length: 128 }),
+  companyName: varchar("companyName", { length: 256 }),
+
+  // Contact info
+  email: varchar("email", { length: 320 }),
+  phone: varchar("phone", { length: 32 }),
+  secondaryPhone: varchar("secondaryPhone", { length: 32 }),
+
+  // Addresses
+  mailingAddress: text("mailingAddress"),
+  mailingCity: varchar("mailingCity", { length: 128 }),
+  mailingState: varchar("mailingState", { length: 64 }),
+  mailingZip: varchar("mailingZip", { length: 16 }),
+
+  billingAddress: text("billingAddress"),
+  billingCity: varchar("billingCity", { length: 128 }),
+  billingState: varchar("billingState", { length: 64 }),
+  billingZip: varchar("billingZip", { length: 16 }),
+  billingAddressSameAsMailing: boolean("billingAddressSameAsMailing").default(true).notNull(),
+
+  // Notes
+  notes: text("notes"),
+
+  // Employee-specific: link to a staffUser
+  isSystemUser: boolean("isSystemUser").default(false),
+  linkedStaffUserId: int("linkedStaffUserId"),
+
+  // Source tracking
+  /** Lead that originated this contact, if converted */
+  sourceLeadId: int("sourceLeadId"),
+
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+  createdByUserId: int("createdByUserId"),
+}, (t) => ({
+  idxContactType: index("idx_c_contact_type").on(t.contactType),
+  idxEmail: index("idx_c_email").on(t.email),
+  idxLastName: index("idx_c_last_name").on(t.lastName),
+  idxCreatedAt: index("idx_c_created_at").on(t.createdAt),
+}));
+
+export type Contact = typeof contacts.$inferSelect;
+export type InsertContact = typeof contacts.$inferInsert;
+
+/**
+ * Properties — permanent records for physical locations/sites.
+ * Separate from contacts. A property can have many contacts over time.
+ */
+export const properties = mysqlTable("properties", {
+  id: int("id").autoincrement().primaryKey(),
+
+  propertyName: varchar("propertyName", { length: 256 }),
+
+  // Address
+  address: text("address").notNull(),
+  city: varchar("city", { length: 128 }),
+  state: varchar("state", { length: 64 }),
+  zip: varchar("zip", { length: 16 }),
+
+  // Geocoded coordinates for map display
+  lat: decimal("lat", { precision: 10, scale: 7 }),
+  lng: decimal("lng", { precision: 10, scale: 7 }),
+  geocodedAt: timestamp("geocodedAt"),
+
+  propertyType: mysqlEnum("propertyType", [
+    "residential", "commercial", "hoa", "multi_family", "builder", "other"
+  ]).default("residential").notNull(),
+
+  notes: text("notes"),
+
+  // Source tracking
+  sourceLeadId: int("sourceLeadId"),
+
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+  createdByUserId: int("createdByUserId"),
+}, (t) => ({
+  idxPropertyType: index("idx_p_property_type").on(t.propertyType),
+  idxCity: index("idx_p_city").on(t.city),
+  idxCreatedAt: index("idx_p_created_at").on(t.createdAt),
+  idxZip: index("idx_p_zip").on(t.zip),
+}));
+
+export type Property = typeof properties.$inferSelect;
+export type InsertProperty = typeof properties.$inferInsert;
+
+/**
+ * Contact ↔ Property links — many-to-many with relationship type.
+ * A contact can be linked to many properties and vice versa.
+ */
+export const contactPropertyLinks = mysqlTable("contact_property_links", {
+  id: int("id").autoincrement().primaryKey(),
+  contactId: int("contactId").notNull(),
+  propertyId: int("propertyId").notNull(),
+
+  relationshipType: mysqlEnum("relationshipType", [
+    "owner", "tenant", "primary_contact", "billing_contact",
+    "property_manager", "employee", "other"
+  ]).default("primary_contact").notNull(),
+
+  isPrimary: boolean("isPrimary").default(false).notNull(),
+  isBillingContact: boolean("isBillingContact").default(false).notNull(),
+
+  notes: text("notes"),
+
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+}, (t) => ({
+  idxContactId: index("idx_cpl_contact_id").on(t.contactId),
+  idxPropertyId: index("idx_cpl_property_id").on(t.propertyId),
+  idxContactProperty: index("idx_cpl_contact_property").on(t.contactId, t.propertyId),
+}));
+
+export type ContactPropertyLink = typeof contactPropertyLinks.$inferSelect;
+export type InsertContactPropertyLink = typeof contactPropertyLinks.$inferInsert;
+
+/**
+ * Property files — photos, designs, documents, contracts, etc.
+ * Bytes stored in S3; only metadata stored here.
+ */
+export const propertyFiles = mysqlTable("property_files", {
+  id: int("id").autoincrement().primaryKey(),
+  propertyId: int("propertyId").notNull(),
+
+  // Optional link to a contact (e.g. a signed contract from a specific contact)
+  linkedContactId: int("linkedContactId"),
+
+  fileName: varchar("fileName", { length: 256 }).notNull(),
+  fileKey: varchar("fileKey", { length: 512 }).notNull(),
+  fileUrl: text("fileUrl").notNull(),
+  mimeType: varchar("mimeType", { length: 128 }),
+  fileSizeBytes: int("fileSizeBytes"),
+
+  category: mysqlEnum("category", [
+    "photo", "design", "document", "contract", "plan", "permit", "note", "other"
+  ]).default("other").notNull(),
+
+  description: text("description"),
+
+  uploadedByUserId: int("uploadedByUserId"),
+  uploadedByName: varchar("uploadedByName", { length: 256 }),
+
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+}, (t) => ({
+  idxPropertyId: index("idx_pf_property_id").on(t.propertyId),
+  idxCategory: index("idx_pf_category").on(t.category),
+  idxCreatedAt: index("idx_pf_created_at").on(t.createdAt),
+}));
+
+export type PropertyFile = typeof propertyFiles.$inferSelect;
+export type InsertPropertyFile = typeof propertyFiles.$inferInsert;

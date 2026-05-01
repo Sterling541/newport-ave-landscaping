@@ -31,6 +31,8 @@ import {
   Settings,
   UserCog,
   DollarSign,
+  Home,
+  BookUser,
 } from "lucide-react";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { trpc } from "@/lib/trpc";
@@ -118,6 +120,20 @@ const NAV_ITEMS: NavItem[] = [
     icon: Calendar,
     description: "Appointments & calendar",
     permissionKey: "smart_scheduler",
+  },
+  {
+    label: "Contacts",
+    href: "/admin/contacts",
+    icon: BookUser,
+    description: "People & companies",
+    permissionKey: "contacts",
+  },
+  {
+    label: "Properties",
+    href: "/admin/properties",
+    icon: Home,
+    description: "Service locations",
+    permissionKey: "properties",
   },
   {
     label: "Badge Scans",

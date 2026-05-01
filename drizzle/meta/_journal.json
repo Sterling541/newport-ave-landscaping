@@ -169,6 +169,13 @@
       "when": 1777585692881,
       "tag": "0023_lyrical_scarlet_witch",
       "breakpoints": true
+    },
+    {
+      "idx": 24,
+      "version": "5",
+      "when": 1777604213023,
+      "tag": "0024_salty_riptide",
+      "breakpoints": true
     }
   ]
 }
