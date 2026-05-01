@@ -8,7 +8,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useToast } from "@/hooks/use-toast";
+import { toast } from "sonner";
 import { Home, Plus, Search, MapPin, ChevronRight, Filter, Building2 } from "lucide-react";
 
 const PROPERTY_TYPES = ["residential", "commercial", "hoa", "multi_family", "builder", "other"];
@@ -26,7 +26,6 @@ const PROPERTY_TYPE_COLORS: Record<string, string> = {
 };
 
 export default function Properties() {
-  const { toast } = useToast();
   const [search, setSearch] = useState("");
   const [typeFilter, setTypeFilter] = useState("all");
   const [page, setPage] = useState(0);
@@ -41,8 +40,8 @@ export default function Properties() {
   });
 
   const createMutation = trpc.contacts.createProperty.useMutation({
-    onSuccess: () => { toast({ title: "Property created" }); setShowCreate(false); refetch(); },
-    onError: (e) => toast({ title: "Error", description: e.message, variant: "destructive" }),
+    onSuccess: () => { toast.success("Property created"); setShowCreate(false); refetch(); },
+    onError: (e) => toast.error("Error: " + e.message),
   });
 
   const [form, setForm] = useState({

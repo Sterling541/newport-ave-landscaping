@@ -9,7 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useToast } from "@/hooks/use-toast";
+import { toast } from "sonner";
 import { MapView } from "@/components/Map";
 import {
   ArrowLeft, Edit2, Save, X, Trash2, Home, User, Phone, Mail,
@@ -53,7 +53,6 @@ export default function PropertyDetail() {
   const { id } = useParams<{ id: string }>();
   const propertyId = parseInt(id ?? "0");
   const [, navigate] = useLocation();
-  const { toast } = useToast();
   const [editing, setEditing] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
   const [showLinkContact, setShowLinkContact] = useState(false);
@@ -87,45 +86,45 @@ export default function PropertyDetail() {
   }
 
   const updateMutation = trpc.contacts.updateProperty.useMutation({
-    onSuccess: () => { toast({ title: "Property updated" }); setEditing(false); refetch(); },
-    onError: (e) => toast({ title: "Error", description: e.message, variant: "destructive" }),
+    onSuccess: () => { toast.success("Property updated"); setEditing(false); refetch(); },
+    onError: (e) => toast.error("Error: " + e.message),
   });
 
   const deleteMutation = trpc.contacts.deleteProperty.useMutation({
-    onSuccess: () => { toast({ title: "Property deleted" }); navigate("/admin/properties"); },
-    onError: (e) => toast({ title: "Error", description: e.message, variant: "destructive" }),
+    onSuccess: () => { toast.success("Property deleted"); navigate("/admin/properties"); },
+    onError: (e) => toast.error("Error: " + e.message),
   });
 
   const linkMutation = trpc.contacts.createLink.useMutation({
     onSuccess: () => {
-      toast({ title: "Contact linked" });
+      toast.success("Contact linked");
       setShowLinkContact(false);
       setSelectedContactId(null);
       setContactSearch("");
       refetchLinks();
     },
-    onError: (e) => toast({ title: "Error", description: e.message, variant: "destructive" }),
+    onError: (e) => toast.error("Error: " + e.message),
   });
 
   const unlinkMutation = trpc.contacts.deleteLink.useMutation({
-    onSuccess: () => { toast({ title: "Contact unlinked" }); refetchLinks(); },
-    onError: (e) => toast({ title: "Error", description: e.message, variant: "destructive" }),
+    onSuccess: () => { toast.success("Contact unlinked"); refetchLinks(); },
+    onError: (e) => toast.error("Error: " + e.message),
   });
 
   const uploadMutation = trpc.contacts.uploadPropertyFile.useMutation({
     onSuccess: () => {
-      toast({ title: "File uploaded" });
+      toast.success("File uploaded");
       setShowUpload(false);
       setUploadFile(null);
       setUploadDescription("");
       refetchFiles();
     },
-    onError: (e) => toast({ title: "Upload failed", description: e.message, variant: "destructive" }),
+    onError: (e) => toast.error("Upload failed: " + e.message),
   });
 
   const deleteFileMutation = trpc.contacts.deletePropertyFile.useMutation({
-    onSuccess: () => { toast({ title: "File deleted" }); refetchFiles(); },
-    onError: (e) => toast({ title: "Error", description: e.message, variant: "destructive" }),
+    onSuccess: () => { toast.success("File deleted"); refetchFiles(); },
+    onError: (e) => toast.error("Error: " + e.message),
   });
 
   async function handleUpload() {

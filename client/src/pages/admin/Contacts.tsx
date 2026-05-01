@@ -9,7 +9,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useToast } from "@/hooks/use-toast";
+import { toast } from "sonner";
 import {
   UserPlus, Search, User, Building2, Phone, Mail, ChevronRight,
   Users, Filter
@@ -44,7 +44,6 @@ function getDisplayName(c: any) {
 }
 
 export default function Contacts() {
-  const { toast } = useToast();
   const [search, setSearch] = useState("");
   const [typeFilter, setTypeFilter] = useState<string>("all");
   const [page, setPage] = useState(0);
@@ -60,11 +59,11 @@ export default function Contacts() {
 
   const createMutation = trpc.contacts.createContact.useMutation({
     onSuccess: () => {
-      toast({ title: "Contact created" });
+      toast.success("Contact created");
       setShowCreate(false);
       refetch();
     },
-    onError: (e) => toast({ title: "Error", description: e.message, variant: "destructive" }),
+    onError: (e) => toast.error("Error: " + e.message),
   });
 
   const [form, setForm] = useState({

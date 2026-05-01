@@ -9,7 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useToast } from "@/hooks/use-toast";
+import { toast } from "sonner";
 import {
   ArrowLeft, Edit2, Save, X, Trash2, Building2, User, Phone, Mail,
   MapPin, Plus, Link2, Home, ChevronRight, Calendar, Clock
@@ -53,7 +53,6 @@ export default function ContactDetail() {
   const { id } = useParams<{ id: string }>();
   const contactId = parseInt(id ?? "0");
   const [, navigate] = useLocation();
-  const { toast } = useToast();
   const [editing, setEditing] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
   const [showLinkProperty, setShowLinkProperty] = useState(false);
@@ -81,29 +80,29 @@ export default function ContactDetail() {
   }
 
   const updateMutation = trpc.contacts.updateContact.useMutation({
-    onSuccess: () => { toast({ title: "Contact updated" }); setEditing(false); refetch(); },
-    onError: (e) => toast({ title: "Error", description: e.message, variant: "destructive" }),
+    onSuccess: () => { toast.success("Contact updated"); setEditing(false); refetch(); },
+    onError: (e) => toast.error("Error: " + e.message),
   });
 
   const deleteMutation = trpc.contacts.deleteContact.useMutation({
-    onSuccess: () => { toast({ title: "Contact deleted" }); navigate("/admin/contacts"); },
-    onError: (e) => toast({ title: "Error", description: e.message, variant: "destructive" }),
+    onSuccess: () => { toast.success("Contact deleted"); navigate("/admin/contacts"); },
+    onError: (e) => toast.error("Error: " + e.message),
   });
 
   const linkMutation = trpc.contacts.createLink.useMutation({
     onSuccess: () => {
-      toast({ title: "Property linked" });
+      toast.success("Property linked");
       setShowLinkProperty(false);
       setSelectedPropertyId(null);
       setPropertySearch("");
       refetchLinks();
     },
-    onError: (e) => toast({ title: "Error", description: e.message, variant: "destructive" }),
+    onError: (e) => toast.error("Error: " + e.message),
   });
 
   const unlinkMutation = trpc.contacts.deleteLink.useMutation({
-    onSuccess: () => { toast({ title: "Property unlinked" }); refetchLinks(); },
-    onError: (e) => toast({ title: "Error", description: e.message, variant: "destructive" }),
+    onSuccess: () => { toast.success("Property unlinked"); refetchLinks(); },
+    onError: (e) => toast.error("Error: " + e.message),
   });
 
   // New property form state
@@ -123,7 +122,7 @@ export default function ContactDetail() {
       setShowCreateProperty(false);
       setNewPropForm({ address: "", city: "", state: "OR", zip: "", propertyType: "residential", propertyName: "", notes: "" });
     },
-    onError: (e) => toast({ title: "Error", description: e.message, variant: "destructive" }),
+    onError: (e) => toast.error("Error: " + e.message),
   });
 
   if (isLoading) {
