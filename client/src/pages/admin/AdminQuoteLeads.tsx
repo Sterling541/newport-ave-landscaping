@@ -334,6 +334,32 @@ export default function AdminQuoteLeads() {
     onError: (err) => showToast(`Error creating contact: ${err.message}`),
   });
 
+  const saveAsPropertyMutation = trpc.contacts.createProperty.useMutation({
+    onSuccess: (data) => {
+      showToast("Property created! Opening property page…");
+      setTimeout(() => navigate(`/admin/properties/${data.id}`), 800);
+    },
+    onError: (err) => showToast(`Error creating property: ${err.message}`),
+  });
+
+  const handleSaveAsProperty = (row: typeof rows[0]) => {
+    const addrParts = (row.address ?? "").split(",").map((s: string) => s.trim());
+    const address = addrParts[0] ?? "";
+    const city = addrParts[1] ?? "";
+    const stateZip = (addrParts[2] ?? "").trim().split(" ");
+    const state = stateZip[0] ?? "";
+    const zip = stateZip[1] ?? "";
+    saveAsPropertyMutation.mutate({
+      address,
+      city,
+      state,
+      zip,
+      propertyType: "residential",
+      notes: row.message ? `Lead message: ${row.message}` : undefined,
+      sourceLeadId: row.id,
+    });
+  };
+
   const handleSaveAsContact = (row: typeof rows[0]) => {
     // Parse address into parts (best-effort: "123 Main St, Bend, OR 97701")
     const addrParts = (row.address ?? "").split(",").map(s => s.trim());
@@ -1338,7 +1364,7 @@ export default function AdminQuoteLeads() {
                                 → Schedule
                               </button>
                             )}
-                            {!row.isSpam && (
+                            {!row.isSpam && row.status !== "converted" && (
                               <button
                                 onClick={() => handleSaveAsContact(row)}
                                 disabled={saveAsContactMutation.isPending}
@@ -1360,20 +1386,64 @@ export default function AdminQuoteLeads() {
                               </button>
                             )}
                             {!row.isSpam && row.status === "converted" && (
-                              <div style={{ display: "flex", flexDirection: "column", gap: "0.15rem" }}>
-                                <span style={{ fontSize: "0.75rem", color: "oklch(0.35 0.14 145)", fontWeight: 600 }}>
-                                  ✓ Converted
-                                </span>
-                                {(row as any).assignedConsultant && (
-                                  <span style={{ fontSize: "0.7rem", color: "oklch(0.5 0.02 240)" }}>
-                                    {(row as any).assignedConsultant}
+                              <div style={{ display: "flex", flexDirection: "column", gap: "0.3rem" }}>
+                                {/* + Contact and + Property buttons */}
+                                <div style={{ display: "flex", gap: "0.35rem", flexWrap: "wrap" }}>
+                                  <button
+                                    onClick={() => handleSaveAsContact(row)}
+                                    disabled={saveAsContactMutation.isPending}
+                                    style={{
+                                      background: "oklch(0.92 0.06 240)",
+                                      color: "oklch(0.28 0.10 240)",
+                                      border: "1.5px solid oklch(0.78 0.10 240)",
+                                      borderRadius: "0.4rem",
+                                      padding: "0.3rem 0.6rem",
+                                      fontSize: "0.75rem",
+                                      fontWeight: 700,
+                                      cursor: saveAsContactMutation.isPending ? "not-allowed" : "pointer",
+                                      whiteSpace: "nowrap",
+                                      opacity: saveAsContactMutation.isPending ? 0.6 : 1,
+                                    }}
+                                    title="Save this lead as a Contact in the CRM"
+                                  >
+                                    + Contact
+                                  </button>
+                                  <button
+                                    onClick={() => handleSaveAsProperty(row)}
+                                    disabled={saveAsPropertyMutation.isPending}
+                                    style={{
+                                      background: "oklch(0.92 0.10 145)",
+                                      color: "oklch(0.28 0.14 145)",
+                                      border: "1.5px solid oklch(0.72 0.14 145)",
+                                      borderRadius: "0.4rem",
+                                      padding: "0.3rem 0.6rem",
+                                      fontSize: "0.75rem",
+                                      fontWeight: 700,
+                                      cursor: saveAsPropertyMutation.isPending ? "not-allowed" : "pointer",
+                                      whiteSpace: "nowrap",
+                                      opacity: saveAsPropertyMutation.isPending ? 0.6 : 1,
+                                    }}
+                                    title="Create a Property record from this lead's address"
+                                  >
+                                    + Property
+                                  </button>
+                                </div>
+                                {/* Converted metadata */}
+                                <div style={{ display: "flex", flexDirection: "column", gap: "0.1rem" }}>
+                                  <span style={{ fontSize: "0.72rem", color: "oklch(0.35 0.14 145)", fontWeight: 600 }}>
+                                    ✓ Converted
                                   </span>
-                                )}
-                                {(row as any).convertedAt && (
-                                  <span style={{ fontSize: "0.68rem", color: "oklch(0.6 0.01 240)" }}>
-                                    {formatDate((row as any).convertedAt)}
-                                  </span>
-                                )}
+                                  {(row as any).assignedConsultant && (
+                                    <span style={{ fontSize: "0.68rem", color: "oklch(0.5 0.02 240)" }}>
+                                      {(row as any).assignedConsultant}
+                                    </span>
+                                  )}
+                                  {(row as any).convertedAt && (
+                                    <span style={{ fontSize: "0.66rem", color: "oklch(0.6 0.01 240)" }}>
+                                      {formatDate((row as any).convertedAt)}
+                                    </span>
+                                  )}
+                                </div>
                               </div>
                             )}
                           </div>

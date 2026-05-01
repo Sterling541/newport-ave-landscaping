@@ -25,7 +25,7 @@ const SIDEBAR_SECTIONS = [
   { key: "submissions", label: "Completed Scheduled" },
   { key: "quote_leads", label: "Quick Forms" },
   { key: "daily_pulse", label: "Daily Pulse" },
-  { key: "lead_trends", label: "Lead Trends" },
+  { key: "lead_trends", label: "Scheduled Services Trends" },
   { key: "geo_map", label: "Geo Map" },
   { key: "smart_scheduler", label: "Smart Scheduler" },
   { key: "sales_reps", label: "Sales Reps" },

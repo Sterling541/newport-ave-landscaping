@@ -71,17 +71,10 @@ const NAV_ITEMS: NavItem[] = [
     permissionKey: "submissions",
   },
   {
-    label: "Lead Center",
-    href: "/admin/quote-leads",
-    icon: MessageSquare,
-    description: "Website & platform leads",
-    permissionKey: "quote_leads",
-  },
-  {
-    label: "Lead Trends",
+    label: "Scheduled Services Trends",
     href: "/admin/lead-trends",
     icon: TrendingUp,
-    description: "Volume over time",
+    description: "Submission volume & trends",
     permissionKey: "lead_trends",
     subItems: [
       {
@@ -99,6 +92,13 @@ const NAV_ITEMS: NavItem[] = [
         permissionKey: "geo_map",
       },
     ],
+  },
+  {
+    label: "Lead Center",
+    href: "/admin/quote-leads",
+    icon: MessageSquare,
+    description: "Website & platform leads",
+    permissionKey: "quote_leads",
   },
   {
     label: "Reminders",

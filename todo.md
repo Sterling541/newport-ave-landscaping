@@ -1259,3 +1259,16 @@
 - [x] Ensure SourceBadge shows Newport Ave logo + "Newport Website" for all website form leads
 - [x] Normalize legacy source values (quote-page, hero, navbar, etc.) to quick_form in server router
 - [x] Update source filter dropdown label to "Newport Website"
+
+## Session — May 1, 2026 (Lead Center Converted Actions)
+
+- [ ] Add "+ Property" button next to "+ Contact" on converted lead rows
+- [ ] Wire "+ Property" to open a pre-filled property creation modal/page using the lead's address
+- [ ] Show both "+ Contact" and "+ Property" buttons on all converted leads (not just newly converted)
+
+## Session — May 1, 2026 (Nav Reorder)
+
+- [x] Rename "Lead Trends" → "Scheduled Services Trends" in sidebar nav
+- [x] Move "Scheduled Services Trends" to sit under "Completed Scheduled Service Forms" in the sidebar
+- [x] Rename page title on the AdminLeadTrends page to "Scheduled Services Trends"
+- [x] Update permission labels in AdminUsers and AdminUsersContent to match new name

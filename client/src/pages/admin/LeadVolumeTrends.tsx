@@ -180,7 +180,7 @@ export default function LeadVolumeTrends() {
         {/* Header */}
         <div className="flex items-start justify-between flex-wrap gap-3">
           <div>
-            <h1 className="text-2xl font-bold text-[oklch(0.25_0.05_150)]">Lead Volume Trends</h1>
+            <h1 className="text-2xl font-bold text-[oklch(0.25_0.05_150)]">Scheduled Services Trends</h1>
             <p className="text-sm text-slate-500 mt-0.5">
               {new Date(start + "T12:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })} —{" "}
               {new Date(end + "T12:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
