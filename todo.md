@@ -1305,3 +1305,11 @@
 - [x] Add Credit Card on File section to the Convert modal for one-time services
 - [x] Identify which services require CC on file (irrigation repair, start-ups, blow-outs, clean-ups, aerations, etc.)
 - [x] Store CC info (card number, expiry, CVV, auth signature) in the scheduled service record
+
+## Session — May 1, 2026 (Maintenance Sign-Up Page)
+- [ ] Read Google Form (maintenance sign-up) and capture all fields, sections, and verbiage
+- [ ] Build /maintenance-signup page replicating the Google Form exactly
+- [ ] Add noindex meta tag to /maintenance-signup so it is not indexed by search engines
+- [ ] Wire form submission to Completed Scheduled Services backend (serviceSubmissions table)
+- [ ] Update all residential maintenance page CTAs to link to /maintenance-signup
+- [ ] Rename CTA button text to "Sign Up for Maintenance" or similar on residential maintenance pages
