@@ -1331,7 +1331,8 @@ Be specific, data-driven, and actionable. Format as JSON with keys: bestMonths (
         address: z.string().max(500).optional(),
         serviceInterest: z.string().max(128).optional(),
         message: z.string().max(2000).optional(),
-        source: z.string().max(64).default("other"),
+        source: z.string().max(64).default("quick_form"),
+        sourceLabel: z.string().max(128).optional(),
       }))
       .mutation(async ({ input }) => {
         await createQuoteLead({ ...input, status: "new" });

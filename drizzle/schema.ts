@@ -294,8 +294,10 @@ export const quoteLeads = mysqlTable("quote_leads", {
   address: text("address"),
   serviceInterest: varchar("serviceInterest", { length: 128 }),
   message: text("message"),
-  /** Where they clicked from: 'hero', 'navbar', 'floating_cta', 'cta_banner', 'services', 'other' */
-  source: varchar("source", { length: 64 }).default("other").notNull(),
+  /** Lead platform source: 'quick_form' (website), 'yelp', 'google', 'houzz', 'angi', 'homeadvisor', 'thumbtack', 'nextdoor', 'facebook', 'other' */
+  source: varchar("source", { length: 64 }).default("quick_form").notNull(),
+  /** Optional display label for the source (e.g. 'Yelp', 'Google Business Profile') */
+  sourceLabel: varchar("sourceLabel", { length: 128 }),
   /** Admin workflow status */
   status: mysqlEnum("quoteLeadStatus", ["new", "left_voicemail", "contacted", "quoted", "converted", "lost"]).default("new").notNull(),
   adminNotes: text("adminNotes"),

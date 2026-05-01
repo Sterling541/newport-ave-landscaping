@@ -52,7 +52,7 @@ interface QuoteRequestProps {
   source?: string;
 }
 
-export default function QuoteRequest({ source = "other" }: QuoteRequestProps) {
+export default function QuoteRequest({ source = "quick_form" }: QuoteRequestProps) {
   const [form, setForm] = useState<FormState>({
     firstName: "",
     lastName: "",

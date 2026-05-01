@@ -1238,3 +1238,16 @@
 - [x] Add "Save as Contact" button on Quick Form leads to create CRM contact from lead data
 - [x] Show linked Contact and Property as clickable links in Smart Scheduler appointment detail panel
 - [x] Add employee-to-staff-user linking dialog on Contact detail page (auto-prompts when type is Employee)
+
+## Session — May 1, 2026 (Lead Center Redesign)
+
+- [x] Rename "Quick Forms" nav label to "Lead Center" in AdminLayout.tsx
+- [x] Rename page title from "Quick Forms" to "Lead Center" in AdminQuoteLeads.tsx
+- [x] Add `source` and `sourceLabel` fields to quoteLeads table
+- [x] Add source logo/badge component to each lead card row showing the lead source
+- [x] Website quick form leads show Newport Ave logo + "Quick Form" label
+- [x] External source leads show platform logo (Yelp, Google, Houzz, Angi, etc.)
+- [x] Update page header to show "Lead Center" branding
+- [x] Add "+ Add Lead" button and modal for manually entering leads from external platforms
+- [x] Add Source filter dropdown to Lead Center filter bar
+- [x] Update website quote form default source to "quick_form"

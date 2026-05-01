@@ -71,10 +71,10 @@ const NAV_ITEMS: NavItem[] = [
     permissionKey: "submissions",
   },
   {
-    label: "Quick Forms",
+    label: "Lead Center",
     href: "/admin/quote-leads",
     icon: MessageSquare,
-    description: "Get a Quote inquiries",
+    description: "Website & platform leads",
     permissionKey: "quote_leads",
   },
   {

@@ -4,10 +4,173 @@
    Displays all Quick Quote / Get a Quote submissions with
    status management, filtering, and notes.
    ============================================================ */
-import { useState } from "react";
+import React, { useState } from "react";
 import { useLocation } from "wouter";
 import { trpc } from "@/lib/trpc";
 import AdminLayout from "@/components/AdminLayout";
+
+/* ── Source logo / badge component ──────────────────────────────────────── */
+const NEWPORT_LOGO = "/manus-storage/logo-nav-tight_c562b49c_88ff2608.webp";
+
+const SOURCE_CONFIG: Record<string, { label: string; logo?: string; color: string; textColor: string; svgLogo?: React.ReactNode }> = {
+  quick_form: {
+    label: "Quick Form",
+    logo: NEWPORT_LOGO,
+    color: "oklch(0.92 0.08 145)",
+    textColor: "oklch(0.28 0.14 145)",
+  },
+  yelp: {
+    label: "Yelp",
+    color: "oklch(0.95 0.08 25)",
+    textColor: "oklch(0.42 0.22 25)",
+    svgLogo: (
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="#d32323">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1.5 14.5c-.28.28-.65.44-1.04.44-.39 0-.76-.16-1.04-.44l-3.46-3.46c-.28-.28-.44-.65-.44-1.04 0-.39.16-.76.44-1.04l1.06-1.06c.28-.28.65-.44 1.04-.44.39 0 .76.16 1.04.44l1.36 1.36 3.86-3.86c.28-.28.65-.44 1.04-.44.39 0 .76.16 1.04.44l1.06 1.06c.28.28.44.65.44 1.04 0 .39-.16.76-.44 1.04L10.5 16.5z"/>
+      </svg>
+    ),
+  },
+  google: {
+    label: "Google",
+    color: "oklch(0.97 0.01 240)",
+    textColor: "oklch(0.35 0.05 240)",
+    svgLogo: (
+      <svg viewBox="0 0 24 24" width="52" height="18">
+        <text x="0" y="16" fontFamily="'Product Sans', Arial, sans-serif" fontSize="15" fontWeight="500">
+          <tspan fill="#4285F4">G</tspan>
+          <tspan fill="#EA4335">o</tspan>
+          <tspan fill="#FBBC05">o</tspan>
+          <tspan fill="#4285F4">g</tspan>
+          <tspan fill="#34A853">l</tspan>
+          <tspan fill="#EA4335">e</tspan>
+        </text>
+      </svg>
+    ),
+  },
+  houzz: {
+    label: "Houzz",
+    color: "oklch(0.95 0.04 30)",
+    textColor: "oklch(0.35 0.08 30)",
+    svgLogo: (
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="#7ac142">
+        <path d="M12 2L4 7v15h6v-7h4v7h6V7L12 2z"/>
+      </svg>
+    ),
+  },
+  angi: {
+    label: "Angi",
+    color: "oklch(0.94 0.06 15)",
+    textColor: "oklch(0.38 0.18 15)",
+    svgLogo: (
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="#FF6153">
+        <circle cx="12" cy="12" r="10"/>
+        <text x="12" y="16" textAnchor="middle" fill="white" fontSize="9" fontWeight="700" fontFamily="Arial">Angi</text>
+      </svg>
+    ),
+  },
+  homeadvisor: {
+    label: "HomeAdvisor",
+    color: "oklch(0.94 0.06 200)",
+    textColor: "oklch(0.30 0.12 200)",
+    svgLogo: (
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="#F68B1F">
+        <path d="M12 2L2 7l2 13h16L22 7 12 2zm0 3l7 3.5-1.5 10h-11L5 8.5 12 5z"/>
+      </svg>
+    ),
+  },
+  thumbtack: {
+    label: "Thumbtack",
+    color: "oklch(0.94 0.08 220)",
+    textColor: "oklch(0.30 0.14 220)",
+    svgLogo: (
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="#009FD9">
+        <circle cx="12" cy="12" r="10"/>
+        <text x="12" y="16" textAnchor="middle" fill="white" fontSize="8" fontWeight="700" fontFamily="Arial">TT</text>
+      </svg>
+    ),
+  },
+  nextdoor: {
+    label: "Nextdoor",
+    color: "oklch(0.93 0.08 145)",
+    textColor: "oklch(0.28 0.14 145)",
+    svgLogo: (
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="#00B246">
+        <circle cx="12" cy="12" r="10"/>
+        <text x="12" y="16" textAnchor="middle" fill="white" fontSize="8" fontWeight="700" fontFamily="Arial">ND</text>
+      </svg>
+    ),
+  },
+  facebook: {
+    label: "Facebook",
+    color: "oklch(0.93 0.08 250)",
+    textColor: "oklch(0.28 0.14 250)",
+    svgLogo: (
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="#1877F2">
+        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+      </svg>
+    ),
+  },
+  other: {
+    label: "Other",
+    color: "oklch(0.93 0.01 240)",
+    textColor: "oklch(0.45 0.03 240)",
+  },
+};
+
+function SourceBadge({ source, sourceLabel }: { source: string; sourceLabel?: string | null }) {
+  const cfg = SOURCE_CONFIG[source] ?? SOURCE_CONFIG.other;
+  const displayLabel = sourceLabel || cfg.label;
+
+  if (source === "quick_form") {
+    return (
+      <div style={{ display: "flex", alignItems: "center", gap: "0.4rem" }}>
+        <img
+          src={NEWPORT_LOGO}
+          alt="Newport Ave"
+          style={{ height: "22px", width: "auto", objectFit: "contain" }}
+        />
+        <span style={{
+          fontSize: "0.68rem", fontWeight: 700, color: cfg.textColor,
+          background: cfg.color, borderRadius: "0.3rem", padding: "0.1rem 0.4rem",
+          textTransform: "uppercase", letterSpacing: "0.04em",
+        }}>
+          Quick Form
+        </span>
+      </div>
+    );
+  }
+
+  if (source === "google") {
+    return (
+      <div style={{ display: "flex", alignItems: "center" }}>
+        {cfg.svgLogo}
+      </div>
+    );
+  }
+
+  if (cfg.svgLogo) {
+    return (
+      <div style={{ display: "flex", alignItems: "center", gap: "0.4rem" }}>
+        {cfg.svgLogo}
+        <span style={{
+          fontSize: "0.72rem", fontWeight: 700, color: cfg.textColor,
+        }}>
+          {displayLabel}
+        </span>
+      </div>
+    );
+  }
+
+  return (
+    <span style={{
+      display: "inline-block",
+      fontSize: "0.72rem", fontWeight: 700, color: cfg.textColor,
+      background: cfg.color, borderRadius: "0.3rem", padding: "0.2rem 0.5rem",
+      textTransform: "uppercase", letterSpacing: "0.04em",
+    }}>
+      {displayLabel}
+    </span>
+  );
+}
 
 const STATUS_COLORS: Record<string, { bg: string; text: string; label: string }> = {
   new:            { bg: "oklch(0.92 0.10 145)", text: "oklch(0.30 0.14 145)", label: "New" },
@@ -82,6 +245,13 @@ export default function AdminQuoteLeads() {
   const [showConverted, setShowConverted] = useState(false);
   const [search, setSearch] = useState("");
   const [serviceFilter, setServiceFilter] = useState<string>("all");
+  const [sourceFilter, setSourceFilter] = useState<string>("all");
+  const [showAddLead, setShowAddLead] = useState(false);
+  const [addLeadForm, setAddLeadForm] = useState({
+    firstName: "", lastName: "", email: "", phone: "",
+    address: "", serviceInterest: "", message: "",
+    source: "yelp", sourceLabel: "",
+  });
   const [editingId, setEditingId] = useState<number | null>(null);
   const [editStatus, setEditStatus] = useState<string>("new");
   const [editNotes, setEditNotes] = useState("");
@@ -112,6 +282,16 @@ export default function AdminQuoteLeads() {
   const markSpamMutation = trpc.quoteLeads.markSpam.useMutation({
     onSuccess: (_, variables) => {
       showToast(variables.isSpam ? "Marked as spam" : "Unmarked as spam");
+      refetch();
+    },
+    onError: (err) => showToast(`Error: ${err.message}`),
+  });
+
+  const addLeadMutation = trpc.quoteLeads.submit.useMutation({
+    onSuccess: () => {
+      setShowAddLead(false);
+      setAddLeadForm({ firstName: "", lastName: "", email: "", phone: "", address: "", serviceInterest: "", message: "", source: "yelp", sourceLabel: "" });
+      showToast("Lead added successfully!");
       refetch();
     },
     onError: (err) => showToast(`Error: ${err.message}`),
@@ -230,6 +410,7 @@ export default function AdminQuoteLeads() {
     if (!showSpam && r.isSpam) return false;
     const matchStatus = statusFilter === "all" || r.status === statusFilter;
     const matchService = serviceFilter === "all" || (r.serviceInterest ?? "") === serviceFilter;
+    const matchSource = sourceFilter === "all" || (r.source ?? "quick_form") === sourceFilter;
     const q = search.toLowerCase();
     const matchSearch =
       !q ||
@@ -239,15 +420,16 @@ export default function AdminQuoteLeads() {
       (r.address ?? "").toLowerCase().includes(q) ||
       (r.serviceInterest ?? "").toLowerCase().includes(q) ||
       (r.message ?? "").toLowerCase().includes(q);
-    return matchStatus && matchService && matchSearch;
+    return matchStatus && matchService && matchSource && matchSearch;
   });
 
-  const hasActiveFilters = search !== "" || statusFilter !== "all" || serviceFilter !== "all";
+  const hasActiveFilters = search !== "" || statusFilter !== "all" || serviceFilter !== "all" || sourceFilter !== "all";
 
   const clearFilters = () => {
     setSearch("");
     setStatusFilter("all");
     setServiceFilter("all");
+    setSourceFilter("all");
   };
   const spamCount = rows.filter(r => r.isSpam).length;
 
@@ -477,22 +659,182 @@ export default function AdminQuoteLeads() {
           </div>
         )}
 
+        {/* Add Lead Modal */}
+        {showAddLead && (
+          <div
+            style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.55)", zIndex: 1000,
+              display: "flex", alignItems: "flex-start", justifyContent: "center",
+              padding: "2rem 1rem", overflowY: "auto" }}
+            onClick={(e) => { if (e.target === e.currentTarget) setShowAddLead(false); }}
+          >
+            <div style={{ background: "white", borderRadius: "1rem", width: "100%", maxWidth: "560px",
+              boxShadow: "0 8px 40px rgba(0,0,0,0.22)", overflow: "hidden" }}>
+              {/* Modal header */}
+              <div style={{ background: NAVY, padding: "1.25rem 1.5rem", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                <div>
+                  <h2 style={{ color: "white", margin: 0, fontSize: "1.1rem", fontWeight: 700 }}>Add Lead Manually</h2>
+                  <p style={{ color: "oklch(0.75 0.04 240)", margin: "0.25rem 0 0", fontSize: "0.8rem" }}>
+                    Enter a lead from Yelp, Google, Houzz, Angi, or any other platform.
+                  </p>
+                </div>
+                <button onClick={() => setShowAddLead(false)}
+                  style={{ background: "none", border: "none", color: "white", fontSize: "1.4rem", cursor: "pointer", lineHeight: 1 }}>×</button>
+              </div>
+              {/* Modal body */}
+              <div style={{ padding: "1.5rem", display: "flex", flexDirection: "column", gap: "1rem" }}>
+                {/* Source selector */}
+                <div style={{ background: "oklch(0.97 0.005 240)", borderRadius: "0.6rem", padding: "1rem" }}>
+                  <p style={{ fontSize: "0.72rem", fontWeight: 700, color: NAVY, textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "0.75rem" }}>Lead Source</p>
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.75rem" }}>
+                    <div>
+                      <label style={{ fontSize: "0.72rem", fontWeight: 600, color: "oklch(0.45 0.04 240)", textTransform: "uppercase", letterSpacing: "0.04em", display: "block", marginBottom: "0.3rem" }}>Platform *</label>
+                      <select
+                        value={addLeadForm.source}
+                        onChange={e => setAddLeadForm(f => ({ ...f, source: e.target.value }))}
+                        style={{ width: "100%", padding: "0.45rem 0.65rem", border: "1.5px solid oklch(0.82 0.01 240)", borderRadius: "0.4rem", fontSize: "0.85rem", color: NAVY, background: "white", boxSizing: "border-box" }}
+                      >
+                        <option value="yelp">Yelp</option>
+                        <option value="google">Google</option>
+                        <option value="houzz">Houzz</option>
+                        <option value="angi">Angi</option>
+                        <option value="homeadvisor">HomeAdvisor</option>
+                        <option value="thumbtack">Thumbtack</option>
+                        <option value="nextdoor">Nextdoor</option>
+                        <option value="facebook">Facebook</option>
+                        <option value="other">Other</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label style={{ fontSize: "0.72rem", fontWeight: 600, color: "oklch(0.45 0.04 240)", textTransform: "uppercase", letterSpacing: "0.04em", display: "block", marginBottom: "0.3rem" }}>Source Label (optional)</label>
+                      <input
+                        type="text"
+                        placeholder="e.g. Yelp Request a Quote"
+                        value={addLeadForm.sourceLabel}
+                        onChange={e => setAddLeadForm(f => ({ ...f, sourceLabel: e.target.value }))}
+                        style={{ width: "100%", padding: "0.45rem 0.65rem", border: "1.5px solid oklch(0.82 0.01 240)", borderRadius: "0.4rem", fontSize: "0.85rem", color: NAVY, background: "white", boxSizing: "border-box" }}
+                      />
+                    </div>
+                  </div>
+                </div>
+                {/* Contact info */}
+                <div style={{ background: "oklch(0.97 0.005 240)", borderRadius: "0.6rem", padding: "1rem" }}>
+                  <p style={{ fontSize: "0.72rem", fontWeight: 700, color: NAVY, textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "0.75rem" }}>Contact Information</p>
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.75rem" }}>
+                    {([["First Name *", "firstName"], ["Last Name *", "lastName"], ["Email *", "email"], ["Phone *", "phone"]] as const).map(([lbl, key]) => (
+                      <div key={key}>
+                        <label style={{ fontSize: "0.72rem", fontWeight: 600, color: "oklch(0.45 0.04 240)", textTransform: "uppercase", letterSpacing: "0.04em", display: "block", marginBottom: "0.3rem" }}>{lbl}</label>
+                        <input
+                          type={key === "email" ? "email" : "text"}
+                          value={addLeadForm[key]}
+                          onChange={e => setAddLeadForm(f => ({ ...f, [key]: e.target.value }))}
+                          style={{ width: "100%", padding: "0.45rem 0.65rem", border: "1.5px solid oklch(0.82 0.01 240)", borderRadius: "0.4rem", fontSize: "0.85rem", color: NAVY, background: "white", boxSizing: "border-box" }}
+                        />
+                      </div>
+                    ))}
+                    <div style={{ gridColumn: "1 / -1" }}>
+                      <label style={{ fontSize: "0.72rem", fontWeight: 600, color: "oklch(0.45 0.04 240)", textTransform: "uppercase", letterSpacing: "0.04em", display: "block", marginBottom: "0.3rem" }}>Address (optional)</label>
+                      <input
+                        type="text"
+                        value={addLeadForm.address}
+                        onChange={e => setAddLeadForm(f => ({ ...f, address: e.target.value }))}
+                        placeholder="123 Main St, Bend, OR 97701"
+                        style={{ width: "100%", padding: "0.45rem 0.65rem", border: "1.5px solid oklch(0.82 0.01 240)", borderRadius: "0.4rem", fontSize: "0.85rem", color: NAVY, background: "white", boxSizing: "border-box" }}
+                      />
+                    </div>
+                    <div style={{ gridColumn: "1 / -1" }}>
+                      <label style={{ fontSize: "0.72rem", fontWeight: 600, color: "oklch(0.45 0.04 240)", textTransform: "uppercase", letterSpacing: "0.04em", display: "block", marginBottom: "0.3rem" }}>Service Interest</label>
+                      <select
+                        value={addLeadForm.serviceInterest}
+                        onChange={e => setAddLeadForm(f => ({ ...f, serviceInterest: e.target.value }))}
+                        style={{ width: "100%", padding: "0.45rem 0.65rem", border: "1.5px solid oklch(0.82 0.01 240)", borderRadius: "0.4rem", fontSize: "0.85rem", color: NAVY, background: "white", boxSizing: "border-box" }}
+                      >
+                        <option value="">— Not set —</option>
+                        {SERVICE_OPTIONS.map(s => <option key={s} value={s}>{s}</option>)}
+                      </select>
+                    </div>
+                    <div style={{ gridColumn: "1 / -1" }}>
+                      <label style={{ fontSize: "0.72rem", fontWeight: 600, color: "oklch(0.45 0.04 240)", textTransform: "uppercase", letterSpacing: "0.04em", display: "block", marginBottom: "0.3rem" }}>Message / Notes</label>
+                      <textarea
+                        value={addLeadForm.message}
+                        onChange={e => setAddLeadForm(f => ({ ...f, message: e.target.value }))}
+                        placeholder="What did they say on Yelp / Google?"
+                        rows={3}
+                        style={{ width: "100%", padding: "0.45rem 0.65rem", border: "1.5px solid oklch(0.82 0.01 240)", borderRadius: "0.4rem", fontSize: "0.85rem", color: NAVY, background: "white", boxSizing: "border-box", resize: "vertical" }}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {/* Modal footer */}
+              <div style={{ padding: "1rem 1.5rem", borderTop: "1px solid oklch(0.92 0.005 240)", display: "flex", gap: "0.75rem", justifyContent: "flex-end" }}>
+                <button onClick={() => setShowAddLead(false)}
+                  style={{ background: "white", color: "oklch(0.5 0.02 240)", border: "1.5px solid oklch(0.88 0.01 240)", borderRadius: "0.5rem", padding: "0.5rem 1.25rem", fontSize: "0.875rem", cursor: "pointer", fontWeight: 500 }}>
+                  Cancel
+                </button>
+                <button
+                  onClick={() => {
+                    if (!addLeadForm.firstName.trim()) { showToast("First name is required."); return; }
+                    if (!addLeadForm.lastName.trim()) { showToast("Last name is required."); return; }
+                    if (!addLeadForm.email.trim()) { showToast("Email is required."); return; }
+                    if (!addLeadForm.phone.trim()) { showToast("Phone is required."); return; }
+                    addLeadMutation.mutate({
+                      firstName: addLeadForm.firstName.trim(),
+                      lastName: addLeadForm.lastName.trim(),
+                      email: addLeadForm.email.trim(),
+                      phone: addLeadForm.phone.trim(),
+                      address: addLeadForm.address.trim() || undefined,
+                      serviceInterest: addLeadForm.serviceInterest || undefined,
+                      message: addLeadForm.message.trim() || undefined,
+                      source: addLeadForm.source,
+                      sourceLabel: addLeadForm.sourceLabel.trim() || undefined,
+                    });
+                  }}
+                  disabled={addLeadMutation.isPending}
+                  style={{ background: NAVY, color: "white", border: "none", borderRadius: "0.5rem", padding: "0.5rem 1.5rem", fontSize: "0.875rem", fontWeight: 700, cursor: addLeadMutation.isPending ? "not-allowed" : "pointer", opacity: addLeadMutation.isPending ? 0.7 : 1 }}>
+                  {addLeadMutation.isPending ? "Saving…" : "+ Add Lead"}
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Header */}
-        <div style={{ marginBottom: "1.5rem" }}>
-          <h1
+        <div style={{ marginBottom: "1.5rem", display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: "1rem", flexWrap: "wrap" }}>
+          <div>
+            <h1
+              style={{
+                fontFamily: "'Playfair Display', serif",
+                fontSize: "1.75rem",
+                fontWeight: 700,
+                color: NAVY,
+                margin: 0,
+              }}
+            >
+              Lead Center
+            </h1>
+            <p style={{ color: "oklch(0.5 0.02 240)", fontSize: "0.875rem", marginTop: "0.25rem" }}>
+              All incoming leads — website quick forms, Yelp, Google, Houzz, Angi, and more.
+            </p>
+          </div>
+          <button
+            onClick={() => setShowAddLead(true)}
             style={{
-              fontFamily: "'Playfair Display', serif",
-              fontSize: "1.75rem",
+              background: NAVY,
+              color: "white",
+              border: "none",
+              borderRadius: "0.5rem",
+              padding: "0.6rem 1.25rem",
+              fontSize: "0.875rem",
               fontWeight: 700,
-              color: NAVY,
-              margin: 0,
+              cursor: "pointer",
+              whiteSpace: "nowrap",
+              display: "flex",
+              alignItems: "center",
+              gap: "0.4rem",
             }}
           >
-            Quick Forms
-          </h1>
-          <p style={{ color: "oklch(0.5 0.02 240)", fontSize: "0.875rem", marginTop: "0.25rem" }}>
-            Submissions from the Get a Quote / Quick Quote form on the website.
-          </p>
+            + Add Lead
+          </button>
         </div>
 
         {/* Stats bar */}
@@ -607,6 +949,34 @@ export default function AdminQuoteLeads() {
             {SERVICE_OPTIONS.map((s) => (
               <option key={s} value={s}>{s}</option>
             ))}
+          </select>
+
+          {/* Source filter */}
+          <select
+            value={sourceFilter}
+            onChange={(e) => setSourceFilter(e.target.value)}
+            style={{
+              padding: "0.5rem 0.875rem",
+              border: `1.5px solid ${sourceFilter !== "all" ? "oklch(0.55 0.14 240)" : "oklch(0.88 0.01 240)"}`,
+              borderRadius: "0.5rem",
+              fontSize: "0.875rem",
+              color: NAVY,
+              background: "white",
+              cursor: "pointer",
+              minWidth: "150px",
+            }}
+          >
+            <option value="all">All Sources</option>
+            <option value="quick_form">Quick Form (Website)</option>
+            <option value="google">Google</option>
+            <option value="yelp">Yelp</option>
+            <option value="houzz">Houzz</option>
+            <option value="angi">Angi</option>
+            <option value="homeadvisor">HomeAdvisor</option>
+            <option value="thumbtack">Thumbtack</option>
+            <option value="nextdoor">Nextdoor</option>
+            <option value="facebook">Facebook</option>
+            <option value="other">Other</option>
           </select>
 
           {/* Status filter */}
@@ -734,7 +1104,7 @@ export default function AdminQuoteLeads() {
             <table style={{ width: "100%", minWidth: "1100px", borderCollapse: "collapse", tableLayout: "fixed" }}>
               <thead>
                 <tr style={{ background: "oklch(0.97 0.005 240)", borderBottom: "1.5px solid oklch(0.92 0.01 240)" }}>
-                  {[["Date","90px"], ["Name","130px"], ["Contact","200px"], ["Address","180px"], ["Service Interest","160px"], ["Message","200px"], ["Status","110px"], ["Actions","180px"]].map(([h, w]) => (
+                  {[["Source","130px"], ["Date","90px"], ["Name","130px"], ["Contact","200px"], ["Address","180px"], ["Service Interest","160px"], ["Message","200px"], ["Status","110px"], ["Actions","180px"]].map(([h, w]) => (
                     <th
                       key={h}
                       style={{
@@ -766,6 +1136,10 @@ export default function AdminQuoteLeads() {
                         background: i % 2 === 0 ? "white" : "oklch(0.99 0.002 240)",
                       }}
                     >
+                      {/* Source */}
+                      <td style={{ padding: "0.75rem 1rem" }}>
+                        <SourceBadge source={row.source ?? "quick_form"} sourceLabel={(row as any).sourceLabel} />
+                      </td>
                       {/* Date */}
                       <td style={{ padding: "0.75rem 1rem", fontSize: "0.8rem", color: "oklch(0.55 0.02 240)", whiteSpace: "nowrap" }}>
                         {formatDate(row.createdAt)}
@@ -1019,7 +1393,7 @@ export default function AdminQuoteLeads() {
                 textAlign: "right",
               }}
             >
-              Showing {filtered.length} of {total} quote leads
+              Showing {filtered.length} of {total} leads
             </div>
           </div>
         )}
