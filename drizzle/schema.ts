@@ -434,6 +434,10 @@ export const appointments = mysqlTable("appointments", {
   customerPhone: varchar("customerPhone", { length: 32 }),
   /** Admin / scheduler notes */
   notes: text("notes"),
+  /** Optional FK to contacts CRM table */
+  contactId: int("contactId"),
+  /** Optional FK to properties CRM table */
+  propertyId: int("propertyId"),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
 });

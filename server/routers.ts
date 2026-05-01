@@ -1657,6 +1657,8 @@ Be specific, data-driven, and actionable. Format as JSON with keys: bestMonths (
         customerAddress: z.string().max(500).optional(),
         customerPhone: z.string().max(32).optional(),
         notes: z.string().max(2000).optional(),
+        contactId: z.number().optional(),
+        propertyId: z.number().optional(),
       }))
       .mutation(async ({ ctx, input }) => {
         requireAdmin(ctx);

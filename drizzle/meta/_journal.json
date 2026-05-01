@@ -176,6 +176,13 @@
       "when": 1777604213023,
       "tag": "0024_salty_riptide",
       "breakpoints": true
+    },
+    {
+      "idx": 25,
+      "version": "5",
+      "when": 1777604952763,
+      "tag": "0025_careless_ezekiel",
+      "breakpoints": true
     }
   ]
 }

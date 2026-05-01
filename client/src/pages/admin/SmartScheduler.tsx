@@ -414,7 +414,27 @@ function CreateModal({ reps, onClose, onCreated, prefillDate, prefillHour, prefi
     customerAddress: rescheduleAppt?.customerAddress ?? "",
     customerPhone: rescheduleAppt?.customerPhone ?? "",
     notes: rescheduleAppt?.notes ?? "",
+    contactId: undefined as number | undefined,
+    propertyId: undefined as number | undefined,
   });
+  const [contactSearch, setContactSearch] = useState("");
+  const [propertySearch, setPropertySearch] = useState("");
+  const [showContactDropdown, setShowContactDropdown] = useState(false);
+  const [showPropertyDropdown, setShowPropertyDropdown] = useState(false);
+  const [selectedContactLabel, setSelectedContactLabel] = useState("");
+  const [selectedPropertyLabel, setSelectedPropertyLabel] = useState("");
+  // Search contacts
+  const contactSearchQuery = trpc.contacts.searchContacts.useQuery(
+    { query: contactSearch, limit: 8 },
+    { enabled: contactSearch.length >= 1, refetchOnWindowFocus: false }
+  );
+  const contactResults = contactSearchQuery.data ?? [];
+  // Search properties
+  const propertySearchQuery = trpc.contacts.searchProperties.useQuery(
+    { query: propertySearch, limit: 8 },
+    { enabled: propertySearch.length >= 1, refetchOnWindowFocus: false }
+  );
+  const propertyResults = propertySearchQuery.data ?? [];
   const [toast, setToast] = useState<string | null>(null);
 
   const cancelOldMutation = trpc.scheduler.cancelAppointment.useMutation();
@@ -554,6 +574,117 @@ function CreateModal({ reps, onClose, onCreated, prefillDate, prefillHour, prefi
               </div>
             </div>
 
+            {/* ── CRM Contact Link ── */}
+            <div className="relative">
+              <label className="block text-xs font-medium mb-1" style={{ color: "oklch(0.45 0.05 155)" }}>
+                Link Contact <span className="font-normal opacity-60">(optional)</span>
+              </label>
+              {form.contactId ? (
+                <div className="flex items-center gap-2 px-3 py-2 rounded-lg border text-sm" style={{ borderColor: "oklch(0.65 0.12 155)", backgroundColor: "oklch(0.97 0.02 155)" }}>
+                  <span className="flex-1 font-medium" style={{ color: "oklch(0.3 0.08 155)" }}>{selectedContactLabel}</span>
+                  <button
+                    type="button"
+                    onClick={() => { setForm({ ...form, contactId: undefined }); setSelectedContactLabel(""); setContactSearch(""); }}
+                    className="text-xs px-2 py-0.5 rounded hover:bg-red-100 text-red-600"
+                  >Remove</button>
+                </div>
+              ) : (
+                <div className="relative">
+                  <input
+                    type="text"
+                    value={contactSearch}
+                    onChange={(e) => { setContactSearch(e.target.value); setShowContactDropdown(true); }}
+                    onFocus={() => setShowContactDropdown(true)}
+                    onBlur={() => setTimeout(() => setShowContactDropdown(false), 200)}
+                    placeholder="Search by name, email, or phone..."
+                    className="w-full px-3 py-2 rounded-lg border text-sm outline-none"
+                    style={{ borderColor: "oklch(0.82 0.03 155)" }}
+                  />
+                  {showContactDropdown && contactResults.length > 0 && (
+                    <div className="absolute z-50 w-full mt-1 rounded-lg border shadow-lg bg-white overflow-hidden" style={{ borderColor: "oklch(0.82 0.03 155)" }}>
+                      {contactResults.map((c: any) => (
+                        <button
+                          key={c.id}
+                          type="button"
+                          onMouseDown={() => {
+                            const fullName = `${c.firstName} ${c.lastName}`.trim();
+                            setForm({
+                              ...form,
+                              contactId: c.id,
+                              customerName: fullName || form.customerName,
+                              customerPhone: c.phone || form.customerPhone,
+                            });
+                            setSelectedContactLabel(fullName);
+                            setContactSearch("");
+                            setShowContactDropdown(false);
+                          }}
+                          className="w-full text-left px-3 py-2 text-sm hover:bg-green-50 border-b last:border-b-0"
+                          style={{ borderColor: "oklch(0.93 0.02 155)" }}
+                        >
+                          <div className="font-medium">{c.firstName} {c.lastName}</div>
+                          <div className="text-xs opacity-60">{c.email || c.phone || c.contactType}</div>
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+            {/* ── CRM Property Link ── */}
+            <div className="relative">
+              <label className="block text-xs font-medium mb-1" style={{ color: "oklch(0.45 0.05 155)" }}>
+                Link Property <span className="font-normal opacity-60">(optional)</span>
+              </label>
+              {form.propertyId ? (
+                <div className="flex items-center gap-2 px-3 py-2 rounded-lg border text-sm" style={{ borderColor: "oklch(0.65 0.12 155)", backgroundColor: "oklch(0.97 0.02 155)" }}>
+                  <span className="flex-1 font-medium" style={{ color: "oklch(0.3 0.08 155)" }}>{selectedPropertyLabel}</span>
+                  <button
+                    type="button"
+                    onClick={() => { setForm({ ...form, propertyId: undefined }); setSelectedPropertyLabel(""); setPropertySearch(""); }}
+                    className="text-xs px-2 py-0.5 rounded hover:bg-red-100 text-red-600"
+                  >Remove</button>
+                </div>
+              ) : (
+                <div className="relative">
+                  <input
+                    type="text"
+                    value={propertySearch}
+                    onChange={(e) => { setPropertySearch(e.target.value); setShowPropertyDropdown(true); }}
+                    onFocus={() => setShowPropertyDropdown(true)}
+                    onBlur={() => setTimeout(() => setShowPropertyDropdown(false), 200)}
+                    placeholder="Search by address or property name..."
+                    className="w-full px-3 py-2 rounded-lg border text-sm outline-none"
+                    style={{ borderColor: "oklch(0.82 0.03 155)" }}
+                  />
+                  {showPropertyDropdown && propertyResults.length > 0 && (
+                    <div className="absolute z-50 w-full mt-1 rounded-lg border shadow-lg bg-white overflow-hidden" style={{ borderColor: "oklch(0.82 0.03 155)" }}>
+                      {propertyResults.map((p: any) => (
+                        <button
+                          key={p.id}
+                          type="button"
+                          onMouseDown={() => {
+                            const addr = [p.address, p.city, p.state].filter(Boolean).join(", ");
+                            setForm({
+                              ...form,
+                              propertyId: p.id,
+                              customerAddress: addr || form.customerAddress,
+                            });
+                            setSelectedPropertyLabel(p.propertyName || addr || p.address);
+                            setPropertySearch("");
+                            setShowPropertyDropdown(false);
+                          }}
+                          className="w-full text-left px-3 py-2 text-sm hover:bg-green-50 border-b last:border-b-0"
+                          style={{ borderColor: "oklch(0.93 0.02 155)" }}
+                        >
+                          <div className="font-medium">{p.propertyName || p.streetAddress}</div>
+                          <div className="text-xs opacity-60">{p.address}{p.city ? `, ${p.city}` : ""}</div>
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
             <div>
               <label className="block text-xs font-medium mb-1" style={{ color: "oklch(0.45 0.05 155)" }}>
                 Customer Name

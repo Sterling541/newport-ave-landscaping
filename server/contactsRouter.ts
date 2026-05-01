@@ -316,4 +316,24 @@ export const contactsRouter = router({
       const file = await deletePropertyFile(input.id);
       return { success: true, fileKey: file?.fileKey };
     }),
+
+  /** Quick search for contacts — used by Smart Scheduler contact picker */
+  searchContacts: protectedProcedure
+    .input(z.object({
+      query: z.string().min(1).max(128),
+      limit: z.number().min(1).max(20).default(8),
+    }))
+    .query(async ({ input }) => {
+      return listContacts({ search: input.query, limit: input.limit });
+    }),
+
+  /** Quick search for properties — used by Smart Scheduler property picker */
+  searchProperties: protectedProcedure
+    .input(z.object({
+      query: z.string().min(1).max(256),
+      limit: z.number().min(1).max(20).default(8),
+    }))
+    .query(async ({ input }) => {
+      return listProperties({ search: input.query, limit: input.limit });
+    }),
 });

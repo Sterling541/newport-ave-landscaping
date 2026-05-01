@@ -570,7 +570,13 @@ export default function AdminSubmissions() {
   const [selected, setSelected] = useState<Submission | null>(null);
   const [deleteId, setDeleteId] = useState<number | null>(null);
   const [scheduleSubmission, setScheduleSubmission] = useState<Submission | null>(null);
-  const [scheduleForm, setScheduleForm] = useState({ repId: 0, appointmentDate: "", startTime: "09:00", endTime: "10:00", appointmentType: "install_design" as "install_design" | "enhancement" | "follow_up" | "other", notes: "" });
+  const [scheduleForm, setScheduleForm] = useState({ repId: 0, appointmentDate: "", startTime: "09:00", endTime: "10:00", appointmentType: "install_design" as "install_design" | "enhancement" | "follow_up" | "other", notes: "", contactId: undefined as number | undefined, propertyId: undefined as number | undefined });
+  const [schedContactSearch, setSchedContactSearch] = useState("");
+  const [schedPropertySearch, setSchedPropertySearch] = useState("");
+  const [schedShowContactDrop, setSchedShowContactDrop] = useState(false);
+  const [schedShowPropertyDrop, setSchedShowPropertyDrop] = useState(false);
+  const [schedContactLabel, setSchedContactLabel] = useState("");
+  const [schedPropertyLabel, setSchedPropertyLabel] = useState("");
   // Smart Scheduler suggestions modal (opens after "Called & Scheduled" is clicked)
   const [suggestionsRow, setSuggestionsRow] = useState<Submission | null>(null);
   const [suggestionsApptType, setSuggestionsApptType] = useState<"install_design" | "enhancement" | "follow_up" | "other">("install_design");
@@ -663,6 +669,16 @@ export default function AdminSubmissions() {
   const followUpMap = new Map<number, string>(
     (statusSummaryQuery.data ?? []).map(r => [r.submissionId, r.status])
   );
+  const schedContactQuery = trpc.contacts.searchContacts.useQuery(
+    { query: schedContactSearch, limit: 8 },
+    { enabled: schedContactSearch.length >= 1, refetchOnWindowFocus: false }
+  );
+  const schedContactResults = schedContactQuery.data ?? [];
+  const schedPropertyQuery = trpc.contacts.searchProperties.useQuery(
+    { query: schedPropertySearch, limit: 8 },
+    { enabled: schedPropertySearch.length >= 1, refetchOnWindowFocus: false }
+  );
+  const schedPropertyResults = schedPropertyQuery.data ?? [];
   const { data: repsData } = trpc.scheduler.listReps.useQuery(
     { includeInactive: false },
     { enabled: !!user && !isLoading, refetchOnWindowFocus: false, staleTime: 10 * 60 * 1000 }
@@ -1478,6 +1494,86 @@ export default function AdminSubmissions() {
                 <div className="text-stone-500 text-xs mt-0.5">{scheduleSubmission.siteAddress}</div>
                 {scheduleSubmission.phone && <div className="text-stone-500 text-xs">{scheduleSubmission.phone}</div>}
               </div>
+              {/* ── CRM Contact Link ── */}
+              <div className="relative">
+                <label className="block text-xs font-medium mb-1 text-stone-500">
+                  Link Contact <span className="font-normal opacity-50">(optional)</span>
+                </label>
+                {scheduleForm.contactId ? (
+                  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border text-sm border-blue-300 bg-blue-50">
+                    <span className="flex-1 font-medium text-blue-800">{schedContactLabel}</span>
+                    <button type="button" onClick={() => { setScheduleForm({ ...scheduleForm, contactId: undefined }); setSchedContactLabel(""); setSchedContactSearch(""); }} className="text-xs px-2 py-0.5 rounded hover:bg-red-100 text-red-600">Remove</button>
+                  </div>
+                ) : (
+                  <div className="relative">
+                    <input
+                      type="text"
+                      value={schedContactSearch}
+                      onChange={(e) => { setSchedContactSearch(e.target.value); setSchedShowContactDrop(true); }}
+                      onFocus={() => setSchedShowContactDrop(true)}
+                      onBlur={() => setTimeout(() => setSchedShowContactDrop(false), 200)}
+                      placeholder="Search contacts by name, email, or phone..."
+                      className="w-full px-3 py-2 rounded-lg border border-stone-200 text-sm outline-none"
+                    />
+                    {schedShowContactDrop && schedContactResults.length > 0 && (
+                      <div className="absolute z-50 w-full mt-1 rounded-lg border border-stone-200 shadow-lg bg-white overflow-hidden">
+                        {schedContactResults.map((c: any) => (
+                          <button key={c.id} type="button" onMouseDown={() => {
+                            const fullName = `${c.firstName} ${c.lastName}`.trim();
+                            setScheduleForm({ ...scheduleForm, contactId: c.id });
+                            setSchedContactLabel(fullName);
+                            setSchedContactSearch("");
+                            setSchedShowContactDrop(false);
+                          }} className="w-full text-left px-3 py-2 text-sm hover:bg-blue-50 border-b border-stone-100 last:border-b-0">
+                            <div className="font-medium">{c.firstName} {c.lastName}</div>
+                            <div className="text-xs opacity-60">{c.email || c.phone || c.contactType}</div>
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+              {/* ── CRM Property Link ── */}
+              <div className="relative">
+                <label className="block text-xs font-medium mb-1 text-stone-500">
+                  Link Property <span className="font-normal opacity-50">(optional)</span>
+                </label>
+                {scheduleForm.propertyId ? (
+                  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border text-sm border-blue-300 bg-blue-50">
+                    <span className="flex-1 font-medium text-blue-800">{schedPropertyLabel}</span>
+                    <button type="button" onClick={() => { setScheduleForm({ ...scheduleForm, propertyId: undefined }); setSchedPropertyLabel(""); setSchedPropertySearch(""); }} className="text-xs px-2 py-0.5 rounded hover:bg-red-100 text-red-600">Remove</button>
+                  </div>
+                ) : (
+                  <div className="relative">
+                    <input
+                      type="text"
+                      value={schedPropertySearch}
+                      onChange={(e) => { setSchedPropertySearch(e.target.value); setSchedShowPropertyDrop(true); }}
+                      onFocus={() => setSchedShowPropertyDrop(true)}
+                      onBlur={() => setTimeout(() => setSchedShowPropertyDrop(false), 200)}
+                      placeholder="Search properties by address or name..."
+                      className="w-full px-3 py-2 rounded-lg border border-stone-200 text-sm outline-none"
+                    />
+                    {schedShowPropertyDrop && schedPropertyResults.length > 0 && (
+                      <div className="absolute z-50 w-full mt-1 rounded-lg border border-stone-200 shadow-lg bg-white overflow-hidden">
+                        {schedPropertyResults.map((p: any) => (
+                          <button key={p.id} type="button" onMouseDown={() => {
+                            const addr = [p.address, p.city, p.state].filter(Boolean).join(", ");
+                            setScheduleForm({ ...scheduleForm, propertyId: p.id });
+                            setSchedPropertyLabel(p.propertyName || addr || p.address);
+                            setSchedPropertySearch("");
+                            setSchedShowPropertyDrop(false);
+                          }} className="w-full text-left px-3 py-2 text-sm hover:bg-blue-50 border-b border-stone-100 last:border-b-0">
+                            <div className="font-medium">{p.propertyName || p.address}</div>
+                            <div className="text-xs opacity-60">{p.address}{p.city ? `, ${p.city}` : ""}</div>
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
               <div className="grid grid-cols-2 gap-3">
                 <div>
                   <label className="block text-xs font-medium mb-1 text-stone-500">Appointment Type</label>
@@ -1537,6 +1633,8 @@ export default function AdminSubmissions() {
                     customerAddress: scheduleSubmission.siteAddress,
                     customerPhone: scheduleSubmission.phone,
                     notes: scheduleForm.notes || undefined,
+                    contactId: scheduleForm.contactId,
+                    propertyId: scheduleForm.propertyId,
                   })}
                   disabled={createApptMutation.isPending || !scheduleForm.repId || !scheduleForm.appointmentDate}
                   className="flex-1 py-2 rounded-lg text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 disabled:opacity-50 transition-colors"

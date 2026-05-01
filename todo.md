@@ -1229,3 +1229,7 @@
 - [x] Add Properties CRM module (list, create, edit, delete, linked contacts, map, file uploads)
 - [x] Add Contacts and Properties sidebar nav entries
 - [x] Add database schema for contacts, properties, contact_property_links, property_files
+- [ ] Add Contact/Property search/select fields to Smart Scheduler new appointment form
+- [ ] Add Convert to Contact flow on Quick Form leads (create/select Contact and Property)
+- [x] Add Contact/Property search-and-link fields to Smart Scheduler new appointment form (auto-fills name/phone/address)
+- [x] Add Contact/Property link pickers to Quick Forms Schedule Appointment modal

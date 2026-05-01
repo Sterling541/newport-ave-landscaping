@@ -51,6 +51,8 @@ export interface CreateAppointmentInput {
   customerAddress?: string;
   customerPhone?: string;
   notes?: string;
+  contactId?: number;
+  propertyId?: number;
 }
 
 // ─── Staff User Rep Helpers ───────────────────────────────────────────────────
@@ -355,6 +357,8 @@ export async function createAppointment(data: CreateAppointmentInput) {
     customerAddress: data.customerAddress ?? null,
     customerPhone: data.customerPhone ?? null,
     notes: data.notes ?? null,
+    contactId: data.contactId ?? null,
+    propertyId: data.propertyId ?? null,
     driveTimeMinutes: await getDriveTimeMinutes(data.customerAddress),
   });
 
