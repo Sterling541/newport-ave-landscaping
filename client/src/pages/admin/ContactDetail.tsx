@@ -434,7 +434,7 @@ export default function ContactDetail() {
                     </thead>
                     <tbody>
                       {links.map((link) => (
-                        <PropertySummaryRow key={link.id} link={link} />
+                        <PropertySummaryRow key={link.id} link={link} onUnlink={() => unlinkMutation.mutate({ id: link.id })} />
                       ))}
                     </tbody>
                   </table>
@@ -730,7 +730,7 @@ export default function ContactDetail() {
 }
 
 // Linked property card — fetches property details inline
-function PropertySummaryRow({ link }: { link: any }) {
+function PropertySummaryRow({ link, onUnlink }: { link: any; onUnlink: () => void }) {
   const { data: property } = trpc.contacts.getProperty.useQuery({ id: link.propertyId });
   return (
     <tr className="border-b border-gray-50 hover:bg-gray-50 transition-colors">
@@ -756,9 +756,18 @@ function PropertySummaryRow({ link }: { link: any }) {
         {link.isBillingContact ? <Check className="w-4 h-4 text-blue-600 mx-auto" /> : <span className="text-gray-300">—</span>}
       </td>
       <td className="py-2 text-right">
-        <Link href={`/admin/properties/${link.propertyId}`}>
-          <span className="text-xs text-green-700 hover:underline cursor-pointer">View →</span>
-        </Link>
+        <div className="flex items-center justify-end gap-2">
+          <Link href={`/admin/properties/${link.propertyId}`}>
+            <span className="text-xs text-green-700 hover:underline cursor-pointer">View →</span>
+          </Link>
+          <button
+            onClick={onUnlink}
+            className="text-gray-300 hover:text-red-500 transition-colors p-0.5 rounded"
+            title="Unlink property"
+          >
+            <X className="w-3.5 h-3.5" />
+          </button>
+        </div>
       </td>
     </tr>
   );
