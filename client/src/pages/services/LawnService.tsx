@@ -98,6 +98,8 @@ export default function LawnService() {
       schemaUrl="/services/lawn-service"
       schemaName="Lawn Maintenance Service"
       schemaDescription="Weekly and bi-weekly lawn maintenance in Bend, Oregon. Mowing, edging, blowing, fertilization, and weed control."
+      ctaSecondaryHref="/maintenance/sign-up"
+      ctaSecondaryLabel="SIGN UP FOR MAINTENANCE"
       faqs={[
           { question: "How much does lawn service cost in Bend, Oregon?", answer: "Residential lawn maintenance in Bend, OR starts at $55–$75 per visit for a typical 5,000–10,000 sq ft yard on a weekly or bi-weekly schedule. Larger properties (10,000–20,000 sq ft) typically run $75–$120 per visit. Pricing depends on lot size, terrain, frequency, and add-on services. Newport Avenue Landscaping provides free quotes — call (541) 617-8873 or submit a request online." },
           { question: "What is included in Newport Avenue Landscaping's lawn maintenance service?", answer: "Our standard lawn maintenance visits include mowing at the correct height for your grass type, string trimming around all obstacles (fences, beds, trees), edging along driveways, sidewalks, and curbs, and blowing all clippings off hard surfaces. We also offer add-on services: fertilization programs, pre-emergent and post-emergent weed control, aeration, overseeding, and fungus treatment." },

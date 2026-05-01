@@ -79,6 +79,8 @@ export default function Aeration() {
       schemaUrl="/services/aeration"
       schemaName="Lawn Aeration Service"
       schemaDescription="Core aeration and overseeding in Bend, Oregon. Improve soil compaction, water penetration, and lawn health."
+      ctaSecondaryHref="/maintenance/sign-up"
+      ctaSecondaryLabel="SIGN UP FOR MAINTENANCE"
       faqs={[
           { question: "When is the best time to aerate a lawn in Bend, Oregon?", answer: "The best time to aerate in Central Oregon is early fall (late August through September), when cool-season grasses like Kentucky bluegrass and tall fescue are actively growing and can recover quickly before winter. Spring aeration (late April through May) is also effective after the ground thaws. Avoid aerating during summer heat stress (July–August) or when the ground is frozen. Newport Avenue Landscaping schedules aeration appointments throughout the Bend area — call (541) 617-8873 to book." },
           { question: "How much does lawn aeration cost in Bend, Oregon?", answer: "Core aeration in Bend, OR typically costs $85–$175 for a standard residential lawn (5,000–10,000 sq ft). Larger properties (10,000–20,000 sq ft) run $150–$275. We recommend combining aeration with overseeding for maximum benefit — the open cores provide ideal seed-to-soil contact for germination. Aeration + overseeding packages start at $175 for most Bend residential lawns." },

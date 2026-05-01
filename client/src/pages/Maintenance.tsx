@@ -377,14 +377,23 @@ export default function Maintenance() {
               className="font-body mb-8 mx-auto"
               style={{ color: "oklch(0.92 0.05 25)", fontWeight: 300, maxWidth: "480px" }}
             >
-              Fill out our project form and we'll get you on the schedule. Seasonal contracts are limited — reach out today.
+              Sign up directly online or fill out our project form and we'll get you on the schedule. Seasonal contracts are limited — reach out today.
             </p>
-            <Link
-              href="/contact"
-              className="btn-red"
-            >
-              I AM READY TO START SERVICE
-            </Link>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <Link
+                href="/maintenance/sign-up"
+                className="btn-red"
+                style={{ background: "oklch(0.35 0.12 145)", borderColor: "oklch(0.35 0.12 145)" }}
+              >
+                SIGN UP FOR MAINTENANCE
+              </Link>
+              <Link
+                href="/contact"
+                className="btn-red"
+              >
+                GET A FREE QUOTE
+              </Link>
+            </div>
           </FadeIn>
         </div>
       </section>

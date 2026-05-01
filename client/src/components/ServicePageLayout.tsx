@@ -73,6 +73,13 @@ interface ServicePageProps {
   schemaDescription?: string;
   schemaUrl?: string;
   canonicalUrl?: string;
+  /** Override the primary CTA button href (default: /contact) */
+  ctaPrimaryHref?: string;
+  /** Override the primary CTA button label */
+  ctaPrimaryLabel?: string;
+  /** Add a secondary CTA button */
+  ctaSecondaryHref?: string;
+  ctaSecondaryLabel?: string;
 }
 
 export default function ServicePageLayout({
@@ -95,6 +102,10 @@ export default function ServicePageLayout({
   schemaDescription,
   schemaUrl,
   canonicalUrl,
+  ctaPrimaryHref = "/contact",
+  ctaPrimaryLabel = "SCHEDULE FREE CONSULTATION",
+  ctaSecondaryHref,
+  ctaSecondaryLabel,
 }: ServicePageProps) {
   const serviceSchema = {
     "@context": "https://schema.org",
@@ -437,11 +448,20 @@ export default function ServicePageLayout({
               We visit your property, listen to your vision, and provide a detailed written proposal — at no cost, no pressure.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              {ctaSecondaryHref && ctaSecondaryLabel && (
+                <Link
+                  href={ctaSecondaryHref}
+                  className="btn-red"
+                  style={{ background: "oklch(0.35 0.12 145)", borderColor: "oklch(0.35 0.12 145)" }}
+                >
+                  {ctaSecondaryLabel}
+                </Link>
+              )}
               <Link
-                href="/contact"
+                href={ctaPrimaryHref}
                 className="btn-red"
               >
-                SCHEDULE FREE CONSULTATION
+                {ctaPrimaryLabel}
               </Link>
               <a href="tel:5416178873" className="font-label text-white hover:text-red-400 transition-colors" style={{ fontSize: "0.85rem", letterSpacing: "0.08em" }}>
                 or call (541) 617-8873

@@ -255,6 +255,15 @@ export const appRouter = router({
           isPropertyOwner: z.string().max(8).optional(),
           hasPets: z.string().max(8).optional(),
           comments: z.string().max(5000).optional(),
+          // Maintenance sign-up form specific fields
+          weeklyServiceCap: z.string().max(256).optional(),
+          cleanupCap: z.string().max(512).optional(),
+          wantsAeration: z.string().max(128).optional(),
+          wantsDethatch: z.string().max(128).optional(),
+          wantsSprinklerStartup: z.string().max(128).optional(),
+          wantsBackflowTest: z.string().max(128).optional(),
+          gateCode: z.string().max(512).optional(),
+          wantsPropertyEnhancement: z.string().max(128).optional(),
           // Analytics fields
           formCompletionSeconds: z.number().optional(),
           ipHash: z.string().max(64).optional(),

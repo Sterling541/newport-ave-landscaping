@@ -57,6 +57,7 @@ const Terms = lazy(() => import("./pages/Terms"));
 const Careers = lazy(() => import("./pages/Careers"));
 
 // Maintenance sub-pages
+const MaintenanceSignUp = lazy(() => import("./pages/MaintenanceSignUp"));
 const LawnService = lazy(() => import("./pages/services/LawnService"));
 const CommercialMaintenance = lazy(() => import("./pages/services/CommercialMaintenance"));
 const CommercialHOAMaintenance = lazy(() => import("./pages/maintenance/CommercialHOAMaintenance"));
@@ -276,6 +277,7 @@ function Router() {
       <Route path={"/terms"} component={Terms} />
 
       {/* Maintenance sub-pages */}
+      <Route path={"/maintenance/sign-up"} component={MaintenanceSignUp} />
       <Route path={"/services/lawn-service"} component={LawnService} />
       <Route path={"/services/commercial-maintenance"} component={CommercialMaintenance} />
       <Route path={"/maintenance/commercial-hoa"} component={CommercialHOAMaintenance} />

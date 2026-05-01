@@ -75,6 +75,8 @@ export default function SprinklerActivation() {
       schemaUrl="/services/sprinkler-activation"
       schemaName="Sprinkler System Spring Activation"
       schemaDescription="Spring sprinkler system startup and activation in Bend, Oregon. Zone checks, head adjustments, controller programming. $140/tech hour."
+      ctaSecondaryHref="/maintenance/sign-up"
+      ctaSecondaryLabel="SIGN UP FOR MAINTENANCE"
       faqs={[
           { question: "When should I turn on my sprinklers in Bend, Oregon?", answer: "In Central Oregon, we recommend activating your irrigation system in late April or early May, after the last hard frost date has passed. Bend's average last frost is around April 20–25, but late freezes can occur into early May in lower elevations and rural areas. Turning on your system too early risks freeze damage to above-ground components including backflow preventers and spray heads. Newport Avenue Landscaping monitors local frost forecasts and can advise on the optimal activation date for your specific property. Call (541) 617-8873 to get on our spring schedule." },
           { question: "What is included in a spring sprinkler activation in Bend?", answer: "Newport Avenue Landscaping's spring activation service includes: turning on and testing the backflow preventer, pressurizing all zones and checking for leaks or broken heads, inspecting and adjusting every spray head and rotor for proper coverage, flushing the system, programming your controller for the season with zone-by-zone run times optimized for Central Oregon's climate, and a full pressure check. We leave you with a fully operational, water-efficient system ready for summer. Most residential activations take 45–90 minutes." },

@@ -50,6 +50,15 @@ export const serviceSubmissions = mysqlTable("service_submissions", {
   // ── Maintenance fields ────────────────────────────────────────────────────
   maintenanceTypes: text("maintenanceTypes"),
   maintenanceNotes: text("maintenanceNotes"),
+  // Maintenance sign-up form specific fields
+  weeklyServiceCap: varchar("weeklyServiceCap", { length: 256 }),
+  cleanupCap: varchar("cleanupCap", { length: 512 }),
+  wantsAeration: varchar("wantsAeration", { length: 128 }),
+  wantsDethatch: varchar("wantsDethatch", { length: 128 }),
+  wantsSprinklerStartup: varchar("wantsSprinklerStartup", { length: 128 }),
+  wantsBackflowTest: varchar("wantsBackflowTest", { length: 128 }),
+  gateCode: varchar("gateCode", { length: 512 }),
+  wantsPropertyEnhancement: varchar("wantsPropertyEnhancement", { length: 128 }),
 
   // ── Irrigation fields ─────────────────────────────────────────────────────
   irrigationTypes: text("irrigationTypes"),

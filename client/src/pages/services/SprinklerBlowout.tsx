@@ -77,6 +77,8 @@ export default function SprinklerBlowout() {
       schemaUrl="/services/sprinkler-blowout"
       schemaName="Sprinkler Winterization"
       schemaDescription="Professional sprinkler blowout and winterization service in Bend, Oregon. $140/tech hour. Schedule before the first freeze."
+      ctaSecondaryHref="/maintenance/sign-up"
+      ctaSecondaryLabel="SIGN UP FOR MAINTENANCE"
       faqs={[
           { question: "How much does a sprinkler blowout cost in Bend, Oregon?", answer: "Sprinkler winterization in Bend is billed at $140 per technician hour with a one-hour minimum. Most residential blowouts take 30–60 minutes depending on the number of zones — a typical 5-zone system runs about $140–$175 total. We use commercial-grade compressors (185 CFM) to ensure every zone is fully evacuated. Newport Avenue Landscaping serves Bend, Redmond, Sisters, and Sunriver. Call (541) 617-8873 to schedule." },
           { question: "When should I winterize my sprinkler system in Bend, Oregon?", answer: "In Central Oregon, the first hard freeze (below 28°F) typically arrives in late October or early November. We recommend scheduling your blowout in September or October to beat the rush — our fall schedule fills by mid-October every year. Once nighttime temperatures drop below 32°F consistently, water left in your pipes can expand and crack PVC, split poly tubing, and break spray heads. Repairs from a single freeze event typically cost $500–$3,000." },

@@ -190,6 +190,13 @@
       "when": 1777667873672,
       "tag": "0026_soft_nighthawk",
       "breakpoints": true
+    },
+    {
+      "idx": 27,
+      "version": "5",
+      "when": 1777674342358,
+      "tag": "0027_dry_clea",
+      "breakpoints": true
     }
   ]
 }

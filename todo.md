@@ -1307,9 +1307,9 @@
 - [x] Store CC info (card number, expiry, CVV, auth signature) in the scheduled service record
 
 ## Session — May 1, 2026 (Maintenance Sign-Up Page)
-- [ ] Read Google Form (maintenance sign-up) and capture all fields, sections, and verbiage
-- [ ] Build /maintenance-signup page replicating the Google Form exactly
-- [ ] Add noindex meta tag to /maintenance-signup so it is not indexed by search engines
-- [ ] Wire form submission to Completed Scheduled Services backend (serviceSubmissions table)
-- [ ] Update all residential maintenance page CTAs to link to /maintenance-signup
-- [ ] Rename CTA button text to "Sign Up for Maintenance" or similar on residential maintenance pages
+- [x] Read Google Form (maintenance sign-up) and capture all fields, sections, and verbiage
+- [x] Build /maintenance/sign-up page replicating the Google Form exactly (5 sections, multi-step)
+- [x] Add noindex meta tag to /maintenance/sign-up so it is not indexed by search engines
+- [x] Wire form submission to Completed Scheduled Services backend (serviceSubmissions table)
+- [x] Update all residential maintenance page CTAs to link to /maintenance/sign-up (LawnService, Aeration, SprinklerActivation, SprinklerBlowout, SnowRemoval, LawnFungus, Maintenance)
+- [x] Rename CTA button text to "Sign Up for Maintenance" on all residential maintenance pages

@@ -66,6 +66,8 @@ export default function SnowRemoval() {
       canonicalUrl="https://www.newportavelandscaping.com/resources/snow-removal-bend-oregon"
       schemaName="Snow Removal"
       schemaDescription="Residential and commercial snow removal in Bend, Oregon. Driveway plowing, walkway clearing, and de-icing."
+      ctaSecondaryHref="/maintenance/sign-up"
+      ctaSecondaryLabel="SIGN UP FOR MAINTENANCE"
       faqs={[
           { question: "Do you offer residential snow removal in Bend, Oregon?", answer: "Yes — Newport Avenue Landscaping provides residential snow removal for driveways, walkways, and entryways throughout Bend, Redmond, and surrounding Central Oregon communities. We offer seasonal contracts (priority scheduling, predictable costs) and per-event service. We are fully licensed (LCB #9153), insured, and have served Bend homeowners since 2005. Call (541) 617-8873 to get on our route before the season fills." },
           { question: "How much does snow removal cost in Bend, Oregon?", answer: "Per-event residential driveway clearing in Bend starts at $65–$120 for a standard single-car driveway, depending on snowfall depth and driveway length. Seasonal contracts are priced by property square footage and service scope — most residential seasonal contracts run $400–$900 for a full Bend winter. Commercial properties and HOAs are priced by lot size and service frequency. Contact Newport Avenue Landscaping for a free custom quote." },
