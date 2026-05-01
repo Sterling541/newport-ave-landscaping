@@ -5,6 +5,7 @@
    status management, filtering, and notes.
    ============================================================ */
 import { useState } from "react";
+import { useLocation } from "wouter";
 import { trpc } from "@/lib/trpc";
 import AdminLayout from "@/components/AdminLayout";
 
@@ -142,6 +143,39 @@ export default function AdminQuoteLeads() {
     undefined,
     { staleTime: 5 * 60 * 1000 }
   );
+
+  const [, navigate] = useLocation();
+
+  const saveAsContactMutation = trpc.contacts.createContact.useMutation({
+    onSuccess: (data) => {
+      showToast("Contact created! Opening contact page…");
+      setTimeout(() => navigate(`/admin/contacts/${data.id}`), 800);
+    },
+    onError: (err) => showToast(`Error creating contact: ${err.message}`),
+  });
+
+  const handleSaveAsContact = (row: typeof rows[0]) => {
+    // Parse address into parts (best-effort: "123 Main St, Bend, OR 97701")
+    const addrParts = (row.address ?? "").split(",").map(s => s.trim());
+    const mailingAddress = addrParts[0] ?? "";
+    const mailingCity = addrParts[1] ?? "";
+    const stateZip = (addrParts[2] ?? "").trim().split(" ");
+    const mailingState = stateZip[0] ?? "";
+    const mailingZip = stateZip[1] ?? "";
+    saveAsContactMutation.mutate({
+      contactType: "prospect",
+      firstName: row.firstName,
+      lastName: row.lastName,
+      email: row.email || undefined,
+      phone: row.phone || undefined,
+      mailingAddress,
+      mailingCity,
+      mailingState,
+      mailingZip,
+      notes: row.message ? `Lead message: ${row.message}` : undefined,
+      sourceLeadId: row.id,
+    });
+  };
 
   const updateServiceInterestMutation = trpc.quoteLeads.updateServiceInterest.useMutation({
     onSuccess: () => { refetch(); showToast("Service type updated."); },
@@ -928,6 +962,27 @@ export default function AdminQuoteLeads() {
                                 title="Convert this lead to a Scheduled Service form"
                               >
                                 → Schedule
+                              </button>
+                            )}
+                            {!row.isSpam && (
+                              <button
+                                onClick={() => handleSaveAsContact(row)}
+                                disabled={saveAsContactMutation.isPending}
+                                style={{
+                                  background: "oklch(0.92 0.06 240)",
+                                  color: "oklch(0.28 0.10 240)",
+                                  border: "1.5px solid oklch(0.78 0.10 240)",
+                                  borderRadius: "0.4rem",
+                                  padding: "0.3rem 0.6rem",
+                                  fontSize: "0.78rem",
+                                  fontWeight: 700,
+                                  cursor: saveAsContactMutation.isPending ? "not-allowed" : "pointer",
+                                  whiteSpace: "nowrap",
+                                  opacity: saveAsContactMutation.isPending ? 0.6 : 1,
+                                }}
+                                title="Save this lead as a Contact in the CRM"
+                              >
+                                + Contact
                               </button>
                             )}
                             {!row.isSpam && row.status === "converted" && (

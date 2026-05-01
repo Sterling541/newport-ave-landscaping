@@ -1235,3 +1235,5 @@
 - [x] Add Contact/Property link pickers to Quick Forms Schedule Appointment modal
 - [x] Add Appointments tab to Contact detail page showing linked appointment history
 - [x] Add Appointments tab to Property detail page showing linked appointment history
+- [x] Add "Save as Contact" button on Quick Form leads to create CRM contact from lead data
+- [x] Show linked Contact and Property as clickable links in Smart Scheduler appointment detail panel

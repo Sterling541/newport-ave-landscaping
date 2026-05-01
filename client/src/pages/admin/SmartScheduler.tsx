@@ -28,6 +28,8 @@ import {
   Tag,
   StickyNote,
   Trash2,
+  Home,
+  UserCircle,
 } from "lucide-react";
 import {
   AlertDialog,
@@ -124,6 +126,8 @@ type ApptDetailAppt = {
   customerAddress?: string | null;
   customerPhone?: string | null;
   notes?: string | null;
+  contactId?: number | null;
+  propertyId?: number | null;
 };
 
 const TYPE_LABELS: Record<string, string> = {
@@ -288,6 +292,42 @@ function AppointmentDetailPanel({
             </div>
           </div>
 
+          {/* Linked CRM records */}
+          {(appt.contactId || appt.propertyId) && (
+            <div
+              className="rounded-xl p-4 border"
+              style={{ background: "oklch(0.95 0.03 240)", borderColor: "oklch(0.88 0.06 240)" }}
+            >
+              <div className="flex items-center gap-2 mb-3">
+                <UserCircle className="w-4 h-4" style={{ color: "oklch(0.40 0.12 240)" }} />
+                <span className="text-xs font-semibold uppercase tracking-wide" style={{ color: "oklch(0.40 0.12 240)" }}>CRM Records</span>
+              </div>
+              <div className="flex flex-col gap-2">
+                {appt.contactId && (
+                  <a
+                    href={`/admin/contacts/${appt.contactId}`}
+                    className="inline-flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-medium transition-colors hover:opacity-80"
+                    style={{ background: "oklch(0.40 0.12 240)", color: "white" }}
+                  >
+                    <User className="w-3.5 h-3.5" />
+                    View Linked Contact
+                    <ExternalLink className="w-3 h-3 ml-auto" />
+                  </a>
+                )}
+                {appt.propertyId && (
+                  <a
+                    href={`/admin/properties/${appt.propertyId}`}
+                    className="inline-flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-medium transition-colors hover:opacity-80"
+                    style={{ background: "oklch(0.35 0.10 200)", color: "white" }}
+                  >
+                    <Home className="w-3.5 h-3.5" />
+                    View Linked Property
+                    <ExternalLink className="w-3 h-3 ml-auto" />
+                  </a>
+                )}
+              </div>
+            </div>
+          )}
           {/* Link to submission */}
           {appt.submissionId && (
             <div
