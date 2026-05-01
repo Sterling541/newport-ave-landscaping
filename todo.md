@@ -1224,3 +1224,4 @@
 - [ ] Update email logic to prefer staffUser.email over salesReps.email
 - [ ] Update Configuration UI: show "Link to User" dropdown (staffUsers with sales_rep role) on each rep row
 - [ ] Update SmartScheduler: rep list auto-populates from staffUsers with sales_rep role
+- [x] Add Delete appointment feature to Smart Scheduler (permanently removes from DB, with confirmation dialog)

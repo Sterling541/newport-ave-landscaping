@@ -27,7 +27,18 @@ import {
   Mail,
   Tag,
   StickyNote,
+  Trash2,
 } from "lucide-react";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -129,8 +140,10 @@ function AppointmentDetailPanel({
   onClose,
   onEdit,
   onCancel,
+  onDelete,
   onStatusChange,
   isCancelling,
+  isDeleting,
 }: {
   appt: ApptDetailAppt;
   repName: string;
@@ -138,9 +151,12 @@ function AppointmentDetailPanel({
   onClose: () => void;
   onEdit: () => void;
   onCancel: () => void;
+  onDelete: () => void;
   onStatusChange: (status: string) => void;
   isCancelling: boolean;
+  isDeleting: boolean;
 }) {
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const displayDate = (() => {
     const d = typeof appt.appointmentDate === "string"
       ? new Date(appt.appointmentDate + "T12:00:00")
@@ -326,7 +342,47 @@ function AppointmentDetailPanel({
               {isCancelling ? "Cancelling…" : "Cancel Appt"}
             </button>
           )}
+          <button
+            onClick={() => setShowDeleteConfirm(true)}
+            disabled={isDeleting}
+            className="flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors"
+            style={{
+              background: "oklch(0.25 0.08 0)",
+              color: "oklch(0.95 0.01 0)",
+              border: "1px solid oklch(0.35 0.10 0)",
+              opacity: isDeleting ? 0.6 : 1,
+            }}
+            title="Permanently delete this appointment"
+          >
+            <Trash2 className="w-4 h-4" />
+            {isDeleting ? "Deleting…" : "Delete"}
+          </button>
         </div>
+
+        {/* Delete confirmation dialog */}
+        <AlertDialog open={showDeleteConfirm} onOpenChange={setShowDeleteConfirm}>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Delete Appointment?</AlertDialogTitle>
+              <AlertDialogDescription>
+                This will <strong>permanently remove</strong> the appointment for{" "}
+                <strong>{appt.customerName}</strong> from the database. This cannot be undone.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>Keep It</AlertDialogCancel>
+              <AlertDialogAction
+                className="bg-red-600 hover:bg-red-700 text-white"
+                onClick={() => {
+                  setShowDeleteConfirm(false);
+                  onDelete();
+                }}
+              >
+                Yes, Delete
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
       </div>
     </>
   );
@@ -727,14 +783,22 @@ export default function SmartScheduler() {
     onError: (err) => showToast(`Error: ${err.message}`),
   });
 
-  const cancelMutation = trpc.scheduler.cancelAppointment.useMutation({
+   const cancelMutation = trpc.scheduler.cancelAppointment.useMutation({
     onSuccess: () => {
       showToast("Appointment cancelled.");
       refetch();
     },
     onError: (err) => showToast(`Error: ${err.message}`),
   });
-
+  const deleteMutation = trpc.scheduler.deleteAppointment.useMutation({
+    onSuccess: () => {
+      showToast("Appointment permanently deleted.");
+      setDetailAppt(null);
+      setEditingId(null);
+      refetch();
+    },
+    onError: (err) => showToast(`Error deleting: ${err.message}`),
+  });
   const rescheduleMutation = trpc.scheduler.updateAppointment.useMutation({
     onSuccess: () => {
       showToast("Appointment rescheduled.");
@@ -1559,11 +1623,15 @@ export default function SmartScheduler() {
               setDetailAppt(null);
               setEditingId(null);
             }}
+            onDelete={() => {
+              deleteMutation.mutate({ id: detailAppt.id });
+            }}
             onStatusChange={(status) => {
               updateMutation.mutate({ id: detailAppt.id, status: status as any });
               setDetailAppt((prev) => prev ? { ...prev, status } : null);
             }}
             isCancelling={cancelMutation.isPending}
+            isDeleting={deleteMutation.isPending}
           />
         );
       })()}

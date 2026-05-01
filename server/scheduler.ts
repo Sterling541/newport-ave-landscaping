@@ -417,6 +417,24 @@ export async function cancelAppointment(id: number) {
   return dbConn.update(appointments).set({ status: "cancelled" }).where(eq(appointments.id, id));
 }
 
+export async function deleteAppointment(id: number) {
+  const dbConn = await getDb();
+  if (!dbConn) throw new Error("Database not available");
+  const appt = await getAppointmentById(id);
+  if (!appt) return null;
+
+  // Remove from Google Calendar if linked
+  if (appt.googleEventId) {
+    const rep = await getSalesRepById(appt.repId);
+    await deleteCalendarEvent({
+      repGoogleCalendarId: rep?.googleCalendarId ?? null,
+      googleEventId: appt.googleEventId,
+    });
+  }
+
+  return dbConn.delete(appointments).where(eq(appointments.id, id));
+}
+
 /** No-op: kept for backward compatibility — reps are now managed via Users & Roles */
 export async function seedDefaultReps() {
   // Reps are now staffUsers with role='sales_rep'. No seeding needed.

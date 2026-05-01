@@ -50,6 +50,7 @@ import {
   createAppointment,
   updateAppointment,
   cancelAppointment,
+  deleteAppointment,
   getSlotSuggestions,
   getSuggestedRep,
   seedDefaultReps,
@@ -1743,6 +1744,15 @@ Be specific, data-driven, and actionable. Format as JSON with keys: bestMonths (
         } catch (e) {
           console.error("[updateAppointment] Failed to send reschedule notification email:", e);
         }
+        return { success: true };
+      }),
+
+    /** Admin: permanently delete an appointment from the database */
+    deleteAppointment: protectedProcedure
+      .input(z.object({ id: z.number() }))
+      .mutation(async ({ ctx, input }) => {
+        requireAdmin(ctx);
+        await deleteAppointment(input.id);
         return { success: true };
       }),
 
