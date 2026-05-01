@@ -330,6 +330,19 @@ export const staffRouter = router({
       and(eq(staffUsers.role, "sales_rep"), eq(staffUsers.isActive, true))
     ).orderBy(asc(staffUsers.firstName));
   }),
+  /** List all active staff users — used by CRM Contact linking (no PIN required) */
+  listAllStaffUsers: publicProcedure.query(async () => {
+    const db = await getDb();
+    return db.select({
+      id: staffUsers.id,
+      firstName: staffUsers.firstName,
+      lastName: staffUsers.lastName,
+      email: staffUsers.email,
+      role: staffUsers.role,
+      title: staffUsers.title,
+      isActive: staffUsers.isActive,
+    }).from(staffUsers).where(eq(staffUsers.isActive, true)).orderBy(asc(staffUsers.firstName));
+  }),
 
   /** Toggle a user's active status */
   toggleUserActive: pinProcedure

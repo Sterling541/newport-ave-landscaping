@@ -12,7 +12,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { toast } from "sonner";
 import {
   ArrowLeft, Edit2, Save, X, Trash2, Building2, User, Phone, Mail,
-  MapPin, Plus, Link2, Home, ChevronRight, Calendar, Clock
+  MapPin, Plus, Link2, Home, ChevronRight, Calendar, Clock, ShieldCheck, UserCog
 } from "lucide-react";
 
 const CONTACT_TYPE_LABELS: Record<string, string> = {
@@ -66,6 +66,11 @@ export default function ContactDetail() {
   const { data: contact, isLoading, refetch } = trpc.contacts.getContact.useQuery({ id: contactId });
   const { data: links, refetch: refetchLinks } = trpc.contacts.getLinksForContact.useQuery({ contactId });
   const { data: appointmentsData } = trpc.contacts.appointmentsByContact.useQuery({ contactId });
+  const [showLinkStaffUser, setShowLinkStaffUser] = useState(false);
+  const [selectedStaffUserId, setSelectedStaffUserId] = useState<number | null>(null);
+  const { data: allStaffUsers } = trpc.staff.listAllStaffUsers.useQuery(undefined, {
+    enabled: contact?.contactType === "employee" || showLinkStaffUser,
+  });
   const { data: propertiesData } = trpc.contacts.listProperties.useQuery({
     search: propertySearch || undefined,
     limit: 20,
@@ -105,6 +110,19 @@ export default function ContactDetail() {
     onError: (e) => toast.error("Error: " + e.message),
   });
 
+  const linkStaffUserMutation = trpc.contacts.updateContact.useMutation({
+    onSuccess: () => {
+      toast.success("Linked to system user");
+      setShowLinkStaffUser(false);
+      setSelectedStaffUserId(null);
+      refetch();
+    },
+    onError: (e) => toast.error("Error: " + e.message),
+  });
+  const unlinkStaffUserMutation = trpc.contacts.updateContact.useMutation({
+    onSuccess: () => { toast.success("System user link removed"); refetch(); },
+    onError: (e) => toast.error("Error: " + e.message),
+  });
   // New property form state
   const [newPropForm, setNewPropForm] = useState({
     address: "", city: "", state: "OR", zip: "", propertyType: "residential" as any, propertyName: "", notes: ""
@@ -125,6 +143,12 @@ export default function ContactDetail() {
     onError: (e) => toast.error("Error: " + e.message),
   });
 
+  // Auto-prompt to link staff user when contact type is employee and not yet linked
+  const [hasPromptedEmployeeLink, setHasPromptedEmployeeLink] = useState(false);
+  if (contact && contact.contactType === "employee" && !contact.linkedStaffUserId && !hasPromptedEmployeeLink && !showLinkStaffUser) {
+    setHasPromptedEmployeeLink(true);
+    setShowLinkStaffUser(true);
+  }
   if (isLoading) {
     return (
       <div className="p-6 max-w-5xl mx-auto space-y-4">
@@ -330,6 +354,48 @@ export default function ContactDetail() {
               )}
             </div>
 
+            {/* Employee System Account */}
+            {contact.contactType === "employee" && (
+              <div className="bg-white rounded-xl border border-purple-200 p-5 md:col-span-2">
+                <h3 className="font-semibold text-gray-800 mb-3 flex items-center gap-2">
+                  <UserCog className="w-4 h-4 text-purple-600" /> System Account Link
+                </h3>
+                {contact.linkedStaffUserId ? (
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className="w-9 h-9 rounded-full bg-purple-100 flex items-center justify-center">
+                        <ShieldCheck className="w-5 h-5 text-purple-600" />
+                      </div>
+                      <div>
+                        <p className="text-sm font-medium text-gray-800">
+                          {allStaffUsers?.find(u => u.id === contact.linkedStaffUserId)
+                            ? `${allStaffUsers.find(u => u.id === contact.linkedStaffUserId)!.firstName} ${allStaffUsers.find(u => u.id === contact.linkedStaffUserId)!.lastName}`
+                            : `Staff User #${contact.linkedStaffUserId}`}
+                        </p>
+                        <p className="text-xs text-gray-500">
+                          {allStaffUsers?.find(u => u.id === contact.linkedStaffUserId)?.email ?? ""}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex gap-2">
+                      <Button variant="outline" size="sm" onClick={() => setShowLinkStaffUser(true)}>Change</Button>
+                      <Button variant="outline" size="sm" className="text-red-600 border-red-200 hover:bg-red-50"
+                        onClick={() => unlinkStaffUserMutation.mutate({ id: contactId, linkedStaffUserId: null, isSystemUser: false })}>
+                        Unlink
+                      </Button>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="flex items-center justify-between">
+                    <p className="text-sm text-gray-500 italic">Not linked to a system user account.</p>
+                    <Button size="sm" className="bg-purple-600 hover:bg-purple-700 text-white gap-1"
+                      onClick={() => setShowLinkStaffUser(true)}>
+                      <UserCog className="w-4 h-4" /> Link to System User
+                    </Button>
+                  </div>
+                )}
+              </div>
+            )}
             {/* Notes */}
             <div className="bg-white rounded-xl border border-gray-200 p-5 md:col-span-2">
               <h3 className="font-semibold text-gray-800 mb-3">Notes</h3>
@@ -426,6 +492,54 @@ export default function ContactDetail() {
           )}
         </TabsContent>
       </Tabs>
+      {/* Link Staff User Dialog */}
+      <Dialog open={showLinkStaffUser} onOpenChange={setShowLinkStaffUser}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <UserCog className="w-5 h-5 text-purple-600" /> Link to System User
+            </DialogTitle>
+          </DialogHeader>
+          <div className="py-2 space-y-3">
+            <p className="text-sm text-gray-600">
+              Select the staff system account that corresponds to this employee contact.
+            </p>
+            <div>
+              <Label className="text-xs mb-1 block">System User</Label>
+              <Select
+                value={selectedStaffUserId?.toString() ?? ""}
+                onValueChange={v => setSelectedStaffUserId(parseInt(v))}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Select a staff user..." />
+                </SelectTrigger>
+                <SelectContent>
+                  {(allStaffUsers ?? []).map(u => (
+                    <SelectItem key={u.id} value={u.id.toString()}>
+                      {u.firstName} {u.lastName}
+                      {u.title ? ` — ${u.title}` : ""}
+                      {u.role ? ` (${u.role.replace(/_/g, " ")})` : ""}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => { setShowLinkStaffUser(false); setSelectedStaffUserId(null); }}>Cancel</Button>
+            <Button
+              className="bg-purple-600 hover:bg-purple-700 text-white"
+              disabled={!selectedStaffUserId || linkStaffUserMutation.isPending}
+              onClick={() => {
+                if (!selectedStaffUserId) return;
+                linkStaffUserMutation.mutate({ id: contactId, linkedStaffUserId: selectedStaffUserId, isSystemUser: true });
+              }}
+            >
+              {linkStaffUserMutation.isPending ? "Linking..." : "Link Account"}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
       {/* Delete Confirmation */}
       <Dialog open={showDelete} onOpenChange={setShowDelete}>
         <DialogContent>

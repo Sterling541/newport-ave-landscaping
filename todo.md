@@ -1237,3 +1237,4 @@
 - [x] Add Appointments tab to Property detail page showing linked appointment history
 - [x] Add "Save as Contact" button on Quick Form leads to create CRM contact from lead data
 - [x] Show linked Contact and Property as clickable links in Smart Scheduler appointment detail panel
+- [x] Add employee-to-staff-user linking dialog on Contact detail page (auto-prompts when type is Employee)
