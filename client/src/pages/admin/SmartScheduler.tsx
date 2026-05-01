@@ -1302,7 +1302,7 @@ export default function SmartScheduler() {
                       className="text-sm font-bold group-hover:underline"
                       style={{ color: isToday ? "oklch(0.30 0.14 145)" : "oklch(0.25 0.05 155)" }}
                     >
-                      {day.getDate()}
+                      {day.toLocaleDateString("en-US", { month: "short" })} {day.getDate()}
                     </div>
                   </div>
                 );
