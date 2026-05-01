@@ -12,7 +12,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { toast } from "sonner";
 import {
   ArrowLeft, Edit2, Save, X, Trash2, Building2, User, Phone, Mail,
-  MapPin, Plus, Link2, Home, ChevronRight, Calendar, Clock, ShieldCheck, UserCog
+  MapPin, Plus, Link2, Home, ChevronRight, Calendar, Clock, ShieldCheck, UserCog, Check
 } from "lucide-react";
 
 const CONTACT_TYPE_LABELS: Record<string, string> = {
@@ -412,6 +412,35 @@ export default function ContactDetail() {
                 </p>
               )}
             </div>
+            {/* Linked Properties Summary — shown on Profile tab */}
+            {links && links.length > 0 && (
+              <div className="bg-white rounded-xl border border-gray-200 p-5 md:col-span-2">
+                <div className="flex items-center justify-between mb-3">
+                  <h3 className="font-semibold text-gray-800 flex items-center gap-2">
+                    <Home className="w-4 h-4 text-green-700" /> Properties ({links.length})
+                  </h3>
+                </div>
+                <div className="overflow-x-auto">
+                  <table className="w-full text-sm">
+                    <thead>
+                      <tr className="border-b border-gray-100">
+                        <th className="text-left text-xs font-medium text-gray-500 pb-2 pr-4">Property Name</th>
+                        <th className="text-left text-xs font-medium text-gray-500 pb-2 pr-4">City</th>
+                        <th className="text-left text-xs font-medium text-gray-500 pb-2 pr-4">Relationship</th>
+                        <th className="text-center text-xs font-medium text-gray-500 pb-2 pr-4">Primary</th>
+                        <th className="text-center text-xs font-medium text-gray-500 pb-2 pr-4">Billing</th>
+                        <th className="text-right text-xs font-medium text-gray-500 pb-2"></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {links.map((link) => (
+                        <PropertySummaryRow key={link.id} link={link} />
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            )}
           </div>
         </TabsContent>
 
@@ -701,6 +730,39 @@ export default function ContactDetail() {
 }
 
 // Linked property card — fetches property details inline
+function PropertySummaryRow({ link }: { link: any }) {
+  const { data: property } = trpc.contacts.getProperty.useQuery({ id: link.propertyId });
+  return (
+    <tr className="border-b border-gray-50 hover:bg-gray-50 transition-colors">
+      <td className="py-2 pr-4">
+        <Link href={`/admin/properties/${link.propertyId}`}>
+          <span className="font-medium text-gray-900 hover:text-green-700 cursor-pointer">
+            {property?.propertyName || property?.address || `Property #${link.propertyId}`}
+          </span>
+        </Link>
+      </td>
+      <td className="py-2 pr-4 text-gray-600">
+        {property?.city ?? <span className="text-gray-300">—</span>}
+      </td>
+      <td className="py-2 pr-4">
+        <span className="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full capitalize">
+          {link.relationshipType?.replace(/_/g, " ") ?? "—"}
+        </span>
+      </td>
+      <td className="py-2 pr-4 text-center">
+        {link.isPrimary ? <Check className="w-4 h-4 text-green-600 mx-auto" /> : <span className="text-gray-300">—</span>}
+      </td>
+      <td className="py-2 pr-4 text-center">
+        {link.isBillingContact ? <Check className="w-4 h-4 text-blue-600 mx-auto" /> : <span className="text-gray-300">—</span>}
+      </td>
+      <td className="py-2 text-right">
+        <Link href={`/admin/properties/${link.propertyId}`}>
+          <span className="text-xs text-green-700 hover:underline cursor-pointer">View →</span>
+        </Link>
+      </td>
+    </tr>
+  );
+}
 function LinkedPropertyCard({ link, onUnlink }: { link: any; onUnlink: () => void }) {
   const { data: property } = trpc.contacts.getProperty.useQuery({ id: link.propertyId });
 
