@@ -438,7 +438,7 @@ export default function MaintenanceSignUp() {
                 Our certified irrigation technician offers a comprehensive service to test your irrigation backflow. This service includes not only the testing but also the submission of the certification paperwork to your city. The charge for this complete service is <strong>$140 per backflow</strong> (most properties have one backflow), ensuring that your irrigation system complies with local regulations and operates safely and effectively.
               </p>
               <div style={{ borderRadius: 8, overflow: "hidden", marginBottom: 16 }}>
-                <img src="/manus-storage/svc-sprinkler-activation-1_fd7a0b4a.jpg" alt="Backflow testing equipment" style={{ width: "100%", maxHeight: 240, objectFit: "cover", display: "block" }} />
+                <img src="/manus-storage/backflow-preventer-rpz_fc63f41e.jpg" alt="Backflow testing equipment" style={{ width: "100%", maxHeight: 240, objectFit: "cover", display: "block" }} />
               </div>
               <RadioGroup
                 options={["Yes", "No"]}

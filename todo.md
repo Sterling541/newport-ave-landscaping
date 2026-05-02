@@ -1332,3 +1332,8 @@
 - [x] Add standalone "Backflow Test" button (split from Irrigation Services)
 - [x] Remove "Water Feature" button
 - [x] Lighten left sidebar inactive step text/icons (opacity-65 + text-stone-300 instead of opacity-30 + text-stone-500)
+
+## Session — May 1, 2026 (Image Fixes — Competitor Photos)
+- [x] Replace old Rain Bird timer photo in SprinklerActivationSignUp.tsx with Rachio 3rd Gen smart controller
+- [x] Replace Cascade Irrigation competitor photo in SprinklerActivationSignUp.tsx backflow section with clean RPZ valve image
+- [x] Replace Cascade Irrigation competitor photo in MaintenanceSignUp.tsx backflow section with clean RPZ valve image

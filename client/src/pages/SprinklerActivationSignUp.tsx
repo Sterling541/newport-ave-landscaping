@@ -372,7 +372,7 @@ export default function SprinklerActivationSignUp() {
         {/* Hero image */}
         <div style={{ borderRadius: 12, overflow: "hidden", marginBottom: 28, maxHeight: 320 }}>
           <img
-            src="/images/forms/sprinkler-activation-hero.jpeg"
+            src="/manus-storage/rachio-smart-sprinkler-controller_6613214a.jpg"
             alt="Sprinkler system activation"
             style={{ width: "100%", height: 320, objectFit: "cover", display: "block" }}
           />
@@ -656,7 +656,7 @@ export default function SprinklerActivationSignUp() {
               {/* Backflow image */}
               <div style={{ borderRadius: 8, overflow: "hidden", marginBottom: 16 }}>
                 <img
-                  src="/images/forms/maintenance-backflow.jpg"
+                  src="/manus-storage/backflow-preventer-rpz_fc63f41e.jpg"
                   alt="Backflow testing equipment"
                   style={{ width: "100%", maxHeight: 260, objectFit: "cover", display: "block" }}
                 />
