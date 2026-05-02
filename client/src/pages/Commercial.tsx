@@ -247,7 +247,7 @@ export default function Commercial() {
               }}
               className="btn-red"
             >
-              Request a Bid
+              Send us your RFP
             </button>
             <a
               href="tel:5416178873"

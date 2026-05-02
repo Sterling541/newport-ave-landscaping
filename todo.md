@@ -1361,3 +1361,9 @@
 ## Session — May 2, 2026 (Copy Updates)
 - [x] Rename Schedule Services page header from "Schedule Services" to "Ready to Schedule?"
 - [x] Update "Need More Detail?" sidebar box on Get a Quote page to "Ready to Sign Up?" with "Sign up for services here" CTA
+
+## Session — May 2, 2026 (Game Page & Commercial Copy)
+- [x] Lawn Mower Dash already on its own /game page (LawnMowerDash.tsx) — no Commercial embed found
+- [x] /game route already registered in App.tsx
+- [x] Add "Lawn Mower Dash" link in footer (unhidden)
+- [x] Rename "Request a Bid" to "Send us your RFP" on Commercial page
