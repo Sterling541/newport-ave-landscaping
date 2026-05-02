@@ -98,7 +98,7 @@ const SERVICE_BUBBLES: Array<{
   {
     value: "> New Landscape Installation",
     label: "Landscape Installs",
-    sublabel: "Full property build-out",
+    sublabel: "Property build-out & installs",
     icon: <Hammer className="w-5 h-5" />,
     accent: "oklch(0.42 0.14 60)",
   },
@@ -117,18 +117,18 @@ const SERVICE_BUBBLES: Array<{
     accent: "oklch(0.45 0.18 200)",
   },
   {
-    value: "Sprinkler Winterization",
-    label: "Sprinkler Winterization",
-    sublabel: "Fall system blowout",
-    icon: <Snowflake className="w-5 h-5" />,
-    accent: "oklch(0.50 0.18 240)",
-  },
-  {
     value: "> Irrigation Repair: System repairs & diagnostics",
     label: "Irrigation Repair",
     sublabel: "System repairs & diagnostics",
     icon: <Droplets className="w-5 h-5" />,
     accent: "oklch(0.45 0.18 210)",
+  },
+  {
+    value: "Sprinkler Winterization",
+    label: "Sprinkler Winterization",
+    sublabel: "Fall system blowout",
+    icon: <Snowflake className="w-5 h-5" />,
+    accent: "oklch(0.50 0.18 240)",
   },
   {
     value: "> Backflow Test",
