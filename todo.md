@@ -1344,3 +1344,7 @@
 
 ## Session — May 2, 2026 (Landscape Design Reorder)
 - [x] Move Landscape Design to position 2 (right of Landscape Installs) in SERVICE_BUBBLES grid
+
+## Session — May 2, 2026 (Service Bubble Auto-Advance)
+- [x] Remove Continue button from service bubble selection step (step 1)
+- [x] Auto-advance to next step after ~320ms highlight delay when bubble is tapped

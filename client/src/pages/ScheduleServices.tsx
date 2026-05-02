@@ -558,6 +558,7 @@ export default function ScheduleServices() {
   const [form, setForm] = useState<FormData>(INITIAL_FORM);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitted, setSubmitted] = useState(false);
+  const [pendingAdvance, setPendingAdvance] = useState(false);
   const [, navigate] = useLocation();
 
   const submitMutation = trpc.submissions.create.useMutation({ onSuccess: () => setSubmitted(true) });
@@ -566,6 +567,21 @@ export default function ScheduleServices() {
     setForm(f => ({ ...f, [key]: value }));
     setErrors(e => { const n = { ...e }; delete n[key]; return n; });
   };
+
+  // Auto-advance when a service bubble is tapped
+  // Note: we use setStep with a large safe bound; the steps array recalculates after state update
+  function selectService(value: string) {
+    set("serviceType", value);
+    setPendingAdvance(true);
+    setTimeout(() => {
+      setPendingAdvance(false);
+      // Redirect flows
+      if (value === MAINTENANCE_VALUE) { navigate("/maintenance/sign-up"); return; }
+      if (value === SPRINKLER_ACTIVATION_VALUE) { navigate("/services/sprinkler-activation/sign-up"); return; }
+      setStep(1); // always go to step index 1 (contact info) from service selection
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }, 320);
+  }
 
   const svc = form.serviceType;
   const isWarranty     = svc === "> Warranty";
@@ -738,10 +754,11 @@ export default function ScheduleServices() {
                         <button
                           key={b.value}
                           type="button"
-                          onClick={() => set("serviceType", b.value)}
-                          className={`flex items-center gap-3 rounded-xl border-2 px-4 py-3.5 text-left transition-all duration-150 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-1 ${
+                          onClick={() => !pendingAdvance && selectService(b.value)}
+                          disabled={pendingAdvance}
+                          className={`flex items-center gap-3 rounded-xl border-2 px-4 py-3.5 text-left transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-1 ${
                             selected
-                              ? "border-transparent shadow-md"
+                              ? "border-transparent shadow-lg scale-[1.02]"
                               : "border-stone-200 bg-white hover:border-stone-300 hover:shadow-sm"
                           }`}
                           style={selected ? { background: b.accent, borderColor: b.accent } : {}}
@@ -1029,7 +1046,10 @@ export default function ScheduleServices() {
                     <ChevronLeft className="w-4 h-4" /> Back
                   </Button>
                 ) : <div />}
-                {step < totalSteps - 1 ? (
+                {/* On the service selection step, the bubble tap auto-advances — no Continue button needed */}
+                {currentStepName === "service" ? (
+                  <div />
+                ) : step < totalSteps - 1 ? (
                   <Button onClick={next} className="bg-red-700 hover:bg-red-800 text-white gap-2 px-7 shadow-md shadow-red-900/20">
                     Continue <ChevronRight className="w-4 h-4" />
                   </Button>
