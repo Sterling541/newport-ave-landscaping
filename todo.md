@@ -1348,3 +1348,6 @@
 ## Session — May 2, 2026 (Service Bubble Auto-Advance)
 - [x] Remove Continue button from service bubble selection step (step 1)
 - [x] Auto-advance to next step after ~320ms highlight delay when bubble is tapped
+
+## Session — May 2, 2026 (Mobile Nav CTA)
+- [x] Rename mobile hamburger menu primary CTA from "Schedule Services" to "Get in Touch" (green, links to /contact), keep Schedule Services as secondary (blue), Opt-Out as tertiary (red), Call as dark bottom button

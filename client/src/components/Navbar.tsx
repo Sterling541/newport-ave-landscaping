@@ -935,8 +935,36 @@ export default function Navbar() {
               </div>
             ))}
 
-            {/* Schedule Services & Opt-Out — mobile CTA buttons */}
+            {/* Mobile CTA buttons — Contact Us (primary), Schedule Services (secondary), Opt-Out, Call */}
             <div style={{ display: "flex", flexDirection: "column", gap: "0.6rem", marginTop: "1rem" }}>
+
+              {/* Primary: Get in Touch */}
+              <a
+                href="/contact"
+                onClick={(e) => { e.preventDefault(); goTo("/contact"); }}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: "0.5rem",
+                  padding: "0.9rem 1rem",
+                  backgroundColor: "oklch(0.38 0.14 145)",
+                  borderRadius: "8px",
+                  textDecoration: "none",
+                  fontFamily: "'Montserrat', sans-serif",
+                  fontSize: "0.72rem",
+                  fontWeight: 700,
+                  letterSpacing: "0.15em",
+                  color: "oklch(1 0 0)",
+                  textTransform: "uppercase",
+                  boxShadow: "0 2px 12px oklch(0.38 0.14 145 / 0.35)",
+                }}
+              >
+                <Phone size={14} />
+                Get in Touch
+              </a>
+
+              {/* Secondary: Schedule Services */}
               <a
                 href="/schedule-services"
                 onClick={(e) => { e.preventDefault(); goTo("/schedule-services"); }}
@@ -961,7 +989,8 @@ export default function Navbar() {
                 <Calendar size={14} />
                 Schedule Services
               </a>
-              {/* Opt-Out — prominent full-width red button */}
+
+              {/* Tertiary: Opt-Out Program */}
               <a
                 href="/opt-out"
                 onClick={(e) => { e.preventDefault(); goTo("/opt-out"); }}
@@ -986,32 +1015,33 @@ export default function Navbar() {
                 <Leaf size={14} />
                 Opt-Out Program
               </a>
-            </div>
 
-            <a
-              href="tel:5416178873"
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                gap: "0.5rem",
-                marginTop: "0.75rem",
-                padding: "0.9rem",
-            backgroundColor: "oklch(0.38 0.14 145)",
-            borderRadius: "8px",
-            textDecoration: "none",
-            fontFamily: "'Montserrat', sans-serif",
-            fontSize: "0.72rem",
-            fontWeight: 700,
-            letterSpacing: "0.15em",
-            color: "oklch(1 0 0)",
-            boxShadow: "0 2px 12px oklch(0.38 0.14 145 / 0.35)",
-                textTransform: "uppercase",
-              }}
-            >
-              <Phone size={14} />
-              Call (541) 617-8873
-            </a>
+              {/* Call button */}
+              <a
+                href="tel:5416178873"
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: "0.5rem",
+                  marginTop: "0.1rem",
+                  padding: "0.9rem",
+                  backgroundColor: "oklch(0.20 0.02 250)",
+                  borderRadius: "8px",
+                  textDecoration: "none",
+                  fontFamily: "'Montserrat', sans-serif",
+                  fontSize: "0.72rem",
+                  fontWeight: 700,
+                  letterSpacing: "0.15em",
+                  color: "oklch(1 0 0)",
+                  boxShadow: "0 2px 12px oklch(0.20 0.02 250 / 0.35)",
+                  textTransform: "uppercase",
+                }}
+              >
+                <Phone size={14} />
+                Call (541) 617-8873
+              </a>
+            </div>
           </div>
       </div>
 
