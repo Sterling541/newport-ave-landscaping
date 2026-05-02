@@ -1313,3 +1313,9 @@
 - [x] Wire form submission to Completed Scheduled Services backend (serviceSubmissions table)
 - [x] Update all residential maintenance page CTAs to link to /maintenance/sign-up (LawnService, Aeration, SprinklerActivation, SprinklerBlowout, SnowRemoval, LawnFungus, Maintenance)
 - [x] Rename CTA button text to "Sign Up for Maintenance" on all residential maintenance pages
+
+## Session — May 1, 2026 (Maintenance Sign-Up Filter in Admin)
+- [ ] Add "Maintenance Sign-Ups" filter tab to admin Completed Scheduled Services page
+- [ ] Show badge count of unscheduled maintenance sign-up submissions on the tab
+- [ ] Highlight maintenance sign-up rows visually (e.g. green accent or badge)
+- [ ] Ensure filter persists/resets correctly alongside existing filters
