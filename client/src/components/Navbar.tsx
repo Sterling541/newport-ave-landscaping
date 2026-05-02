@@ -582,7 +582,7 @@ export default function Navbar() {
               onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "oklch(0.55 0.16 240)")}
               onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "oklch(0.65 0.16 240)")}
             >
-              Schedule Services
+              Schedule Your Service
               <ArrowRight size={10} />
             </a>
           </div>
@@ -735,6 +735,12 @@ export default function Navbar() {
               href="/service-areas"
               active={isActive("/service-areas")}
               onClick={() => goTo("/service-areas")}
+            />
+            <NavTextLink
+              label="Contact"
+              href="/contact"
+              active={isActive("/contact")}
+              onClick={() => goTo("/contact")}
             />
 
             {/* Get a Quote — pill CTA, brand red */}
@@ -987,7 +993,7 @@ export default function Navbar() {
                 }}
               >
                 <Calendar size={14} />
-                Schedule Services
+                Schedule Your Service
               </a>
 
               {/* Tertiary: Opt-Out Program */}

@@ -1351,3 +1351,9 @@
 
 ## Session — May 2, 2026 (Mobile Nav CTA)
 - [x] Rename mobile hamburger menu primary CTA from "Schedule Services" to "Get in Touch" (green, links to /contact), keep Schedule Services as secondary (blue), Opt-Out as tertiary (red), Call as dark bottom button
+
+## Session — May 2, 2026 (Nav & Footer Updates)
+- [x] Add "Contact" link to desktop nav bar (right cluster, before GET A QUOTE)
+- [x] Contact Us already present in footer quick links (confirmed)
+- [x] Rename desktop utility bar button from "SCHEDULE SERVICES" to "SCHEDULE YOUR SERVICE"
+- [x] Rename mobile hamburger menu secondary CTA from "Schedule Services" to "Schedule Your Service"
