@@ -1,10 +1,14 @@
 /* ============================================================
    SCHEDULE SERVICES PAGE — Newport Avenue Landscaping
    Premium two-column design: dark green sidebar + warm parchment form.
-   All 9 service branches, all fields and dropdown options are
-   IDENTICAL to the original Google Form. Only the visual design changed.
+
+   CHANGES (May 2026):
+   - "What are you interested in?" is now STEP 1 (before contact info)
+   - Selecting "Maintenance" immediately redirects to /maintenance/sign-up
+   - Credit card / Payment Info step has been removed entirely
    ============================================================ */
 import { useState } from "react";
+import { useLocation } from "wouter";
 import { trpc } from "@/lib/trpc";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -17,7 +21,7 @@ import {
 } from "@/components/ui/select";
 import {
   CheckCircle2, ChevronLeft, ChevronRight, Loader2, AlertCircle,
-  Leaf, Phone, Calendar, CreditCard, Shield, Wrench, Droplets,
+  Leaf, Phone, Calendar, Shield, Wrench, Droplets,
   Lightbulb, TreePine, Star, User, Settings,
 } from "lucide-react";
 import Navbar from "@/components/Navbar";
@@ -35,7 +39,6 @@ type FormData = {
   irrigationTypes: string[]; irrigationNotes: string; winterizationDate: string;
   lightingTypes: string[]; lightingNotes: string;
   waterFeatureTypes: string[]; waterFeatureNotes: string; waterFeatureRepairDesc: string;
-  creditCardNumber: string; creditCardExpiration: string; creditCardCvv: string; creditCardAuthSignature: string;
   concreteServiceType: string; concreteElements: string[]; concreteDimensions: string;
   concreteHasStairs: string; concreteAttachedToBuilding: string;
   hasExistingDesign: string; needsHoaApproval: string; landscapeElements: string[];
@@ -52,7 +55,6 @@ const INITIAL_FORM: FormData = {
   irrigationTypes: [], irrigationNotes: "", winterizationDate: "",
   lightingTypes: [], lightingNotes: "",
   waterFeatureTypes: [], waterFeatureNotes: "", waterFeatureRepairDesc: "",
-  creditCardNumber: "", creditCardExpiration: "", creditCardCvv: "", creditCardAuthSignature: "",
   concreteServiceType: "", concreteElements: [], concreteDimensions: "",
   concreteHasStairs: "", concreteAttachedToBuilding: "",
   hasExistingDesign: "", needsHoaApproval: "", landscapeElements: [],
@@ -66,6 +68,8 @@ const HOW_HEARD_OPTIONS = [
   "Current Customer", "TV", "Email Marketing", "Postcard", "Instagram",
   "Facebook", "Houzz.com", "Home Advisor", "Nextdoor.com", "Other",
 ];
+
+// Service options — "Maintenance" is handled separately (redirect)
 const SERVICE_OPTIONS = [
   "> New Landscape Installation",
   "> Landscape Design",
@@ -77,6 +81,9 @@ const SERVICE_OPTIONS = [
   "> Warranty",
   "Sprinkler Winterization",
 ];
+
+const MAINTENANCE_VALUE = "Maintenance: Weekly or One-Time Landscape Clean Ups";
+
 const MAINTENANCE_TYPES = [
   "Weekly Lawn Mowing", "One-Time Clean Up", "Spring Clean Up", "Fall Clean Up",
   "Hedge / Shrub Trimming", "Edging & Blowing", "Weed Control",
@@ -107,24 +114,16 @@ const BUDGET_OPTIONS = [
   "$10,000\u2013$20,000", "$20,000\u2013$35,000", "$35,000\u2013$60,000",
   "$60,000\u2013$100,000", "$100,000+",
 ];
-const CC_SERVICES = new Set([
-  "Maintenance: Weekly or One-Time Landscape Clean Ups",
-  "> Irrigation Services: Including backflow test, repairs",
-  "> Lighting addition or repair",
-  "> Water Feature service (Including clean-outs, maintenance repairs)",
-  "Sprinkler Winterization",
-]);
 
 type StepMeta = { icon: React.ReactNode; label: string; desc: string };
 const STEP_META: Record<string, StepMeta> = {
-  contact:      { icon: <User className="w-4 h-4" />,        label: "Contact Info",    desc: "Tell us how to reach you" },
   service:      { icon: <Settings className="w-4 h-4" />,    label: "Service Type",    desc: "What can we help with?" },
+  contact:      { icon: <User className="w-4 h-4" />,        label: "Contact Info",    desc: "Tell us how to reach you" },
   warranty:     { icon: <Shield className="w-4 h-4" />,      label: "Warranty",        desc: "Describe your issue" },
   maintenance:  { icon: <Wrench className="w-4 h-4" />,      label: "Maintenance",     desc: "Select services needed" },
   irrigation:   { icon: <Droplets className="w-4 h-4" />,    label: "Irrigation",      desc: "Irrigation details" },
   lighting:     { icon: <Lightbulb className="w-4 h-4" />,   label: "Lighting",        desc: "Lighting service details" },
   waterfeature: { icon: <Droplets className="w-4 h-4" />,    label: "Water Feature",   desc: "Water feature service" },
-  creditcard:   { icon: <CreditCard className="w-4 h-4" />,  label: "Payment Info",    desc: "Card on file required" },
   design:       { icon: <TreePine className="w-4 h-4" />,    label: "Design Details",  desc: "Your vision & budget" },
   scheduling:   { icon: <Calendar className="w-4 h-4" />,    label: "Scheduling",      desc: "Property details" },
   final:        { icon: <Star className="w-4 h-4" />,        label: "Almost Done!",    desc: "Final notes & review" },
@@ -213,8 +212,8 @@ function SectionHeader({ title, description }: { title: string; description?: st
   return (
     <div className="mb-6">
       <div className="flex items-center gap-3 mb-2">
-        <div className="h-7 w-1 rounded-full bg-red-700 shrink-0" />
-        <h3 className="text-xl font-bold text-stone-900">{title}</h3>
+        <div className="h-7 w-1 rounded-full" style={{ backgroundColor: "oklch(0.46 0.20 25)" }} />
+        <h2 className="text-xl font-bold text-stone-900 tracking-tight">{title}</h2>
       </div>
       {description && <p className="text-sm text-stone-500 ml-4 leading-relaxed">{description}</p>}
     </div>
@@ -236,10 +235,9 @@ function FormSidebar({ steps, currentStep }: { steps: string[]; currentStep: num
         width: "270px",
       }}
     >
-      {/* Logo area with subtle bottom border */}
+      {/* Logo area */}
       <div className="px-7 pt-8 pb-6" style={{ borderBottom: "1px solid rgba(255,255,255,0.07)" }}>
-        <img src={LOGO_URL} alt="Newport Avenue Landscaping" className="h-12 brightness-0 invert opacity-90" loading="lazy"
-                />
+        <img src={LOGO_URL} alt="Newport Avenue Landscaping" className="h-12 brightness-0 invert opacity-90" loading="lazy" />
       </div>
 
       {/* Steps */}
@@ -335,6 +333,7 @@ export default function ScheduleServices() {
   const [form, setForm] = useState<FormData>(INITIAL_FORM);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitted, setSubmitted] = useState(false);
+  const [, navigate] = useLocation();
 
   const submitMutation = trpc.submissions.create.useMutation({ onSuccess: () => setSubmitted(true) });
 
@@ -345,20 +344,19 @@ export default function ScheduleServices() {
 
   const svc = form.serviceType;
   const isWarranty     = svc === "> Warranty";
-  const isMaintenance  = svc === "Maintenance: Weekly or One-Time Landscape Clean Ups";
+  const isMaintenance  = svc === MAINTENANCE_VALUE;
   const isIrrigation   = svc === "> Irrigation Services: Including backflow test, repairs";
   const isLighting     = svc === "> Lighting addition or repair";
   const isWaterFeature = svc === "> Water Feature service (Including clean-outs, maintenance repairs)";
   const isDesign       = svc === "> Landscape Design" || svc === "> New Landscape Installation";
-  const needsCC        = CC_SERVICES.has(svc);
 
-  const steps = ["contact", "service"];
+  // Build step list — service is always first, credit card step removed entirely
+  const steps = ["service", "contact"];
   if (isWarranty)     steps.push("warranty");
   if (isMaintenance)  steps.push("maintenance");
   if (isIrrigation)   steps.push("irrigation");
   if (isLighting)     steps.push("lighting");
   if (isWaterFeature) steps.push("waterfeature");
-  if (needsCC)        steps.push("creditcard");
   if (isDesign)       steps.push("design");
   steps.push("scheduling");
   steps.push("final");
@@ -368,6 +366,7 @@ export default function ScheduleServices() {
 
   function validateStep(): boolean {
     const e: Record<string, string> = {};
+    if (currentStepName === "service" && !form.serviceType) e.serviceType = "Please choose a service";
     if (currentStepName === "contact") {
       if (!form.email)       e.email       = "Email is required";
       if (!form.firstName)   e.firstName   = "First name is required";
@@ -375,17 +374,10 @@ export default function ScheduleServices() {
       if (!form.phone)       e.phone       = "Phone number is required";
       if (!form.siteAddress) e.siteAddress = "Site address is required";
     }
-    if (currentStepName === "service" && !form.serviceType) e.serviceType = "Please choose a service";
     if (currentStepName === "warranty") {
       if (!form.warrantyDetails)   e.warrantyDetails   = "Please describe your warranty issue";
       if (!form.salesConsultant)   e.salesConsultant   = "Sales consultant name is required";
       if (!form.projectManager)    e.projectManager    = "Project manager name is required";
-    }
-    if (currentStepName === "creditcard") {
-      if (!form.creditCardNumber)        e.creditCardNumber        = "Credit card number is required";
-      if (!form.creditCardExpiration)    e.creditCardExpiration    = "Expiration date is required";
-      if (!form.creditCardCvv)           e.creditCardCvv           = "Security code is required";
-      if (!form.creditCardAuthSignature) e.creditCardAuthSignature = "Authorization signature is required";
     }
     if (currentStepName === "design" && !form.budget) e.budget = "Please select a budget range";
     setErrors(e);
@@ -394,6 +386,11 @@ export default function ScheduleServices() {
 
   function next() {
     if (!validateStep()) return;
+    // If user selected Maintenance on the service step, redirect to the dedicated sign-up form
+    if (currentStepName === "service" && isMaintenance) {
+      navigate("/maintenance/sign-up");
+      return;
+    }
     setStep(s => Math.min(s + 1, totalSteps - 1));
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
@@ -409,7 +406,6 @@ export default function ScheduleServices() {
       siteAddress: form.siteAddress, billingAddress: form.billingAddress || undefined,
       howHeard: form.howHeard.join(", ") || undefined, serviceType: form.serviceType,
       warrantyDetails: form.warrantyDetails || undefined,
-      // salesConsultant: use scheduledWith if set, otherwise fall back to warranty form's salesConsultant
       salesConsultant: form.scheduledWith || form.salesConsultant || undefined,
       projectManager: form.projectManager || undefined,
       maintenanceTypes: form.maintenanceTypes.join(", ") || undefined, maintenanceNotes: form.maintenanceNotes || undefined,
@@ -418,8 +414,6 @@ export default function ScheduleServices() {
       lightingTypes: form.lightingTypes.join(", ") || undefined, lightingNotes: form.lightingNotes || undefined,
       waterFeatureTypes: form.waterFeatureTypes.join(", ") || undefined, waterFeatureNotes: form.waterFeatureNotes || undefined,
       waterFeatureRepairDesc: form.waterFeatureRepairDesc || undefined,
-      creditCardNumber: form.creditCardNumber || undefined, creditCardExpiration: form.creditCardExpiration || undefined,
-      creditCardCvv: form.creditCardCvv || undefined, creditCardAuthSignature: form.creditCardAuthSignature || undefined,
       concreteServiceType: form.concreteServiceType || undefined, concreteElements: form.concreteElements.join(", ") || undefined,
       concreteDimensions: form.concreteDimensions || undefined, concreteHasStairs: form.concreteHasStairs || undefined,
       concreteAttachedToBuilding: form.concreteAttachedToBuilding || undefined,
@@ -466,369 +460,344 @@ export default function ScheduleServices() {
         <title>Schedule Services | Newport Avenue Landscaping</title>
       </Helmet>
       <div className="min-h-screen" style={{ backgroundColor: "oklch(0.97 0.003 30)" }}>
-      <Navbar />
+        <Navbar />
 
-      {/* Hero */}
-      <div style={{ background: "linear-gradient(135deg, oklch(0.13 0.005 30) 0%, oklch(0.19 0.008 30) 100%)", paddingTop: "204px" }}>
-        <div className="max-w-5xl mx-auto px-4 py-8 lg:hidden text-center">
-          <img src={LOGO_URL} alt="Newport Avenue Landscaping" className="h-12 mx-auto mb-3 drop-shadow-sm" loading="lazy"
-                />
-          <h1 className="text-2xl font-bold text-white mb-1">Schedule Services</h1>
-          <p className="text-stone-400 text-sm">Quick and easy — completed in just 4 minutes on average.</p>
-        </div>
-        <div className="hidden lg:block max-w-5xl mx-auto px-4 py-6">
-          <h1 className="text-2xl font-bold text-white">Schedule Services</h1>
-          <p className="text-stone-400 text-sm mt-1">Quick and easy — completed in just 4 minutes on average.</p>
-        </div>
-      </div>
-
-      {/* Disclaimer */}
-      <div className="bg-stone-100 border-b border-stone-200 px-4 py-3">
-        <div className="max-w-5xl mx-auto flex gap-3 items-start">
-          <AlertCircle className="w-4 h-4 text-stone-500 mt-0.5 shrink-0" />
-          <p className="text-xs text-stone-600 leading-relaxed">
-            <strong>Licensing Disclaimer (LCB #9153):</strong> Newport Ave Landscaping is not licensed to perform electrical or plumbing work. This includes outlets for pumps, irrigation timers, water features, or any connections to potable water systems. Services requiring a licensed plumber or electrician must be coordinated separately.
-          </p>
-        </div>
-      </div>
-
-      {/* Main */}
-      <div className="max-w-5xl mx-auto px-4 py-8 pb-16">
-        <div className="flex rounded-2xl shadow-2xl overflow-hidden border border-stone-200/60">
-          <FormSidebar steps={steps} currentStep={step} />
-
-          <div className="flex-1 p-6 sm:p-8 bg-white">
-            <div className="lg:hidden">
-              <MobileProgress step={step} total={totalSteps} stepName={currentStepName} />
-            </div>
-
-            {/* Contact */}
-            {currentStepName === "contact" && (
-              <div className="space-y-5">
-                <SectionHeader title="Client Contact Info" description="Tell us about yourself so we can reach you." />
-                <div className="space-y-1.5">
-                  <FieldLabel required>Email Address</FieldLabel>
-                  <StyledInput type="email" value={form.email} onChange={v => set("email", v)} placeholder="you@example.com" error={errors.email} />
-                </div>
-                <SelectField label="Have you used Newport Avenue Landscaping in the past?" value={form.usedBefore} onChange={v => set("usedBefore", v)} options={["Yes", "No"]} />
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="space-y-1.5">
-                    <FieldLabel required>First Name</FieldLabel>
-                    <StyledInput value={form.firstName} onChange={v => set("firstName", v)} error={errors.firstName} />
-                  </div>
-                  <div className="space-y-1.5">
-                    <FieldLabel required>Last Name</FieldLabel>
-                    <StyledInput value={form.lastName} onChange={v => set("lastName", v)} error={errors.lastName} />
-                  </div>
-                </div>
-                <div className="space-y-1.5">
-                  <FieldLabel required>Best Phone Number</FieldLabel>
-                  <StyledInput type="tel" value={form.phone} onChange={v => set("phone", v)} placeholder="(541) 000-0000" error={errors.phone} />
-                </div>
-                <div className="space-y-1.5">
-                  <FieldLabel required>Site Address (Full Address)</FieldLabel>
-                  <StyledInput value={form.siteAddress} onChange={v => set("siteAddress", v)} placeholder="123 Main St, Bend, OR 97701" error={errors.siteAddress} />
-                </div>
-                <div className="space-y-1.5">
-                  <FieldLabel>Billing Address (if different)</FieldLabel>
-                  <StyledTextarea value={form.billingAddress} onChange={v => set("billingAddress", v)} rows={2} placeholder="Leave blank if same as site address" />
-                </div>
-                <div className="space-y-2">
-                  <FieldLabel>How did you hear about Newport Ave Landscaping?</FieldLabel>
-                  <CheckboxGroup options={HOW_HEARD_OPTIONS} value={form.howHeard} onChange={v => set("howHeard", v)} />
-                </div>
-              </div>
-            )}
-
-            {/* Service */}
-            {currentStepName === "service" && (
-              <div className="space-y-5">
-                <SectionHeader title="Choose Your Desired Service" description="Select the service you're requesting." />
-                <div className="space-y-1.5">
-                  <FieldLabel required>Service Type</FieldLabel>
-                  <Select value={form.serviceType} onValueChange={v => set("serviceType", v)}>
-                    <SelectTrigger className={`border-stone-200 focus:border-stone-500 bg-white ${errors.serviceType ? "border-red-400" : ""}`}>
-                      <SelectValue placeholder="Choose a service\u2026" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {SERVICE_OPTIONS.map(o => <SelectItem key={o} value={o}>{o}</SelectItem>)}
-                    </SelectContent>
-                  </Select>
-                  {errors.serviceType && <p className="text-xs text-red-500">{errors.serviceType}</p>}
-                </div>
-                {form.serviceType === SERVICE_OPTIONS[SERVICE_OPTIONS.findIndex(o => o.includes("Aeration, fertilization"))] && (
-                  <InfoBox variant="green">
-                    <p className="font-semibold mb-1 text-stone-900">Aeration, Fertilization &amp; Top Dressing</p>
-                    <p className="text-xs text-stone-700 leading-relaxed">Our aeration and fertilization services are priced per square foot. After submitting this form, we'll reach out to schedule a site visit and provide a quote.</p>
-                  </InfoBox>
-                )}
-                {form.serviceType === "Sprinkler Winterization" && (
-                  <InfoBox variant="blue">
-                    <p className="font-semibold mb-1 text-sky-900">Sprinkler Winterization</p>
-                    <p className="text-xs text-sky-800 leading-relaxed">Winterization is a seasonal service. We'll contact you to confirm scheduling and pricing.</p>
-                  </InfoBox>
-                )}
-              </div>
-            )}
-
-            {/* Warranty */}
-            {currentStepName === "warranty" && (
-              <div className="space-y-5">
-                <SectionHeader title="Warranty Service" description="Please provide details about your warranty issue." />
-                <div className="space-y-1.5">
-                  <FieldLabel required>Warranty Details</FieldLabel>
-                  <StyledTextarea value={form.warrantyDetails} onChange={v => set("warrantyDetails", v)} rows={5} placeholder="Describe the issue in detail\u2026" error={errors.warrantyDetails} />
-                </div>
-                <div className="space-y-1.5">
-                  <FieldLabel required>Sales Consultant Name</FieldLabel>
-                  <StyledInput value={form.salesConsultant} onChange={v => set("salesConsultant", v)} error={errors.salesConsultant} />
-                </div>
-                <div className="space-y-1.5">
-                  <FieldLabel required>Project Manager Name</FieldLabel>
-                  <StyledInput value={form.projectManager} onChange={v => set("projectManager", v)} error={errors.projectManager} />
-                </div>
-              </div>
-            )}
-
-            {/* Maintenance */}
-            {currentStepName === "maintenance" && (
-              <div className="space-y-5">
-                <SectionHeader title="Maintenance / Clean Up" description="Select all maintenance services you need." />
-                <div className="space-y-2">
-                  <FieldLabel>Type of Maintenance</FieldLabel>
-                  <CheckboxGroup options={MAINTENANCE_TYPES} value={form.maintenanceTypes} onChange={v => set("maintenanceTypes", v)} />
-                </div>
-                <div className="space-y-1.5">
-                  <FieldLabel>Additional Notes</FieldLabel>
-                  <StyledTextarea value={form.maintenanceNotes} onChange={v => set("maintenanceNotes", v)} rows={4} placeholder="Any specific instructions or details\u2026" />
-                </div>
-              </div>
-            )}
-
-            {/* Irrigation */}
-            {currentStepName === "irrigation" && (
-              <div className="space-y-5">
-                <SectionHeader title="Irrigation Services" description="Select all irrigation services you need." />
-                <div className="space-y-2">
-                  <FieldLabel>Type of Irrigation Service</FieldLabel>
-                  <CheckboxGroup options={IRRIGATION_TYPES} value={form.irrigationTypes} onChange={v => set("irrigationTypes", v)} />
-                </div>
-                <div className="space-y-1.5">
-                  <FieldLabel>Winterization Date</FieldLabel>
-                  <p className="text-xs text-stone-500 mb-1">If requesting winterization, please indicate your preferred date.</p>
-                  <div className="relative">
-                    <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400" />
-                    <Input type="date" value={form.winterizationDate} onChange={e => set("winterizationDate", e.target.value)}
-                      className="pl-9 border-stone-200 focus:border-stone-500 bg-white" />
-                  </div>
-                </div>
-                <div className="space-y-1.5">
-                  <FieldLabel>Additional Notes</FieldLabel>
-                  <StyledTextarea value={form.irrigationNotes} onChange={v => set("irrigationNotes", v)} rows={4} placeholder="Any specific instructions or details\u2026" />
-                </div>
-              </div>
-            )}
-
-            {/* Lighting */}
-            {currentStepName === "lighting" && (
-              <div className="space-y-5">
-                <SectionHeader title="Lighting Service" description="Select all lighting services you need." />
-                <div className="space-y-2">
-                  <FieldLabel>Type of Lighting Service</FieldLabel>
-                  <CheckboxGroup options={LIGHTING_TYPES} value={form.lightingTypes} onChange={v => set("lightingTypes", v)} />
-                </div>
-                <div className="space-y-1.5">
-                  <FieldLabel>Additional Notes</FieldLabel>
-                  <StyledTextarea value={form.lightingNotes} onChange={v => set("lightingNotes", v)} rows={4} placeholder="Any specific instructions or details\u2026" />
-                </div>
-              </div>
-            )}
-
-            {/* Water Feature */}
-            {currentStepName === "waterfeature" && (
-              <div className="space-y-5">
-                <SectionHeader title="Water Feature Service" description="Select all water feature services you need." />
-                <div className="space-y-2">
-                  <FieldLabel>Type of Water Feature Service</FieldLabel>
-                  <CheckboxGroup options={WATER_FEATURE_TYPES} value={form.waterFeatureTypes} onChange={v => set("waterFeatureTypes", v)} columns={1} />
-                </div>
-                <div className="space-y-1.5">
-                  <FieldLabel>Water Feature Repair Description</FieldLabel>
-                  <p className="text-xs text-stone-500">Required if "Water Feature Repair" is selected above.</p>
-                  <StyledTextarea value={form.waterFeatureRepairDesc} onChange={v => set("waterFeatureRepairDesc", v)} rows={3} />
-                </div>
-                <div className="space-y-1.5">
-                  <FieldLabel>Additional Notes</FieldLabel>
-                  <StyledTextarea value={form.waterFeatureNotes} onChange={v => set("waterFeatureNotes", v)} rows={3} placeholder="Any specific instructions or details\u2026" />
-                </div>
-              </div>
-            )}
-
-            {/* Credit Card */}
-            {currentStepName === "creditcard" && (
-              <div className="space-y-5">
-                <SectionHeader title="Payment Information" description="A credit card is required on file for this service." />
-                <InfoBox variant="amber">
-                  <p className="font-semibold mb-1 text-amber-900">Credit Card Authorization</p>
-                  <p className="text-amber-800 text-xs leading-relaxed">By providing your credit card information, you authorize Newport Ave Landscaping to charge the card for services rendered. This authorization also allows for any additional debits or credits to your account in the event it becomes delinquent.</p>
-                </InfoBox>
-                <div className="space-y-1.5">
-                  <FieldLabel required>Credit Card Number</FieldLabel>
-                  <StyledInput value={form.creditCardNumber} onChange={v => set("creditCardNumber", v)} placeholder="XXXX XXXX XXXX XXXX" maxLength={19} error={errors.creditCardNumber} />
-                </div>
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="space-y-1.5">
-                    <FieldLabel required>Expiration Date</FieldLabel>
-                    <StyledInput value={form.creditCardExpiration} onChange={v => set("creditCardExpiration", v)} placeholder="MM/YY" maxLength={5} error={errors.creditCardExpiration} />
-                  </div>
-                  <div className="space-y-1.5">
-                    <FieldLabel required>Security Code (CVV)</FieldLabel>
-                    <StyledInput value={form.creditCardCvv} onChange={v => set("creditCardCvv", v)} placeholder="123" maxLength={4} error={errors.creditCardCvv} />
-                  </div>
-                </div>
-                <div className="space-y-1.5">
-                  <FieldLabel required>Authorization Signature (Type Full Name)</FieldLabel>
-                  <StyledInput value={form.creditCardAuthSignature} onChange={v => set("creditCardAuthSignature", v)} placeholder="Your full name" error={errors.creditCardAuthSignature} />
-                </div>
-              </div>
-            )}
-
-            {/* Design */}
-            {currentStepName === "design" && (
-              <div className="space-y-5">
-                <SectionHeader
-                  title={svc === "> New Landscape Installation" ? "New Landscape Installation" : "Landscape Design"}
-                  description="Tell us about your vision and budget."
-                />
-                <SelectField label="Do you have an existing design for your project?" value={form.hasExistingDesign} onChange={v => set("hasExistingDesign", v)} options={["Yes", "No"]} />
-                <SelectField label="Will your project need to pass Design Review (HOA approval)?" value={form.needsHoaApproval} onChange={v => set("needsHoaApproval", v)} options={["Yes", "No", "I don't Know"]} />
-                <div className="space-y-2">
-                  <FieldLabel>Choose all elements you'd like to include in the landscape</FieldLabel>
-                  <CheckboxGroup options={LANDSCAPE_ELEMENTS} value={form.landscapeElements} onChange={v => set("landscapeElements", v)} />
-                </div>
-                <div className="space-y-1.5">
-                  <FieldLabel required>Preliminary Budget</FieldLabel>
-                  <p className="text-xs text-stone-500 mb-1 leading-relaxed">All projects require an established budget by the end of the initial consultation. Most of our construction projects range from $25,000 to $150,000, with a minimum project investment of $10,000.</p>
-                  <Select value={form.budget} onValueChange={v => set("budget", v)}>
-                    <SelectTrigger className={`border-stone-200 focus:border-stone-500 bg-white ${errors.budget ? "border-red-400" : ""}`}>
-                      <SelectValue placeholder="Choose a budget range\u2026" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {BUDGET_OPTIONS.map(o => <SelectItem key={o} value={o}>{o}</SelectItem>)}
-                    </SelectContent>
-                  </Select>
-                  {errors.budget && <p className="text-xs text-red-500">{errors.budget}</p>}
-                </div>
-                <div className="space-y-1.5">
-                  <FieldLabel>Other Budget Notes</FieldLabel>
-                  <StyledInput value={form.budgetOther} onChange={v => set("budgetOther", v)} placeholder="Any additional budget notes\u2026" />
-                </div>
-                <div className="space-y-2">
-                  <FieldLabel>Design Consultation Terms</FieldLabel>
-                  <InfoBox variant="blue">
-                    <p className="text-xs text-sky-800 leading-relaxed">Newport Ave Landscaping charges a <strong>$250 design consultation fee</strong> for new landscape design projects. This fee is applied toward the project cost if you choose to proceed. The consultation includes a site visit, design concepts, and a detailed estimate.</p>
-                  </InfoBox>
-                  <RadioGroup value={form.designConsultationAccepted} onValueChange={v => set("designConsultationAccepted", v)} className="space-y-2 mt-2">
-                    <div className={`flex items-start gap-3 p-3 rounded-xl border-2 transition-all cursor-pointer ${form.designConsultationAccepted === "accepted" ? "border-stone-800 bg-stone-50" : "border-stone-200 hover:border-stone-400"}`}>
-                      <RadioGroupItem value="accepted" id="dc-accept" className="mt-0.5" />
-                      <Label htmlFor="dc-accept" className="text-sm cursor-pointer">I understand and accept these terms</Label>
-                    </div>
-                    <div className={`flex items-start gap-3 p-3 rounded-xl border-2 transition-all cursor-pointer ${form.designConsultationAccepted === "declined" ? "border-stone-400 bg-stone-50" : "border-stone-200 hover:border-stone-400"}`}>
-                      <RadioGroupItem value="declined" id="dc-decline" className="mt-0.5" />
-                      <Label htmlFor="dc-decline" className="text-sm cursor-pointer">I do not want any landscape design or consultation services at this point</Label>
-                    </div>
-                  </RadioGroup>
-                </div>
-                <div className="space-y-1.5">
-                  <FieldLabel>Ideally, when would you like your project to be completed?</FieldLabel>
-                  <div className="relative">
-                    <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400" />
-                    <Input type="date" value={form.idealCompletionDate} onChange={e => set("idealCompletionDate", e.target.value)}
-                      className="pl-9 border-stone-200 focus:border-stone-500 bg-white" />
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* Scheduling */}
-            {currentStepName === "scheduling" && (
-              <div className="space-y-5">
-                <SectionHeader title="Scheduling & Property Details" description="Help us prepare for your service." />
-                <label className={`flex items-start gap-3 cursor-pointer p-3 rounded-xl border-2 transition-all ${form.flexibleScheduling ? "border-stone-800 bg-stone-50" : "border-stone-200 hover:border-stone-400"}`}>
-                  <Checkbox checked={form.flexibleScheduling} onCheckedChange={v => set("flexibleScheduling", !!v)}
-                    className="mt-0.5 border-stone-400 data-[state=checked]:bg-stone-800 data-[state=checked]:border-stone-800 shrink-0" />
-                  <span className="text-sm text-stone-700 leading-snug">NAL can schedule my service and come anytime without notice <span className="text-stone-600 font-medium">(This is the quickest way to complete service)</span></span>
-                </label>
-                <SelectField label="Is this a rental property?" value={form.isRentalProperty} onChange={v => set("isRentalProperty", v)} options={["Yes", "No"]} />
-                <SelectField label="Are you the property owner?" value={form.isPropertyOwner} onChange={v => set("isPropertyOwner", v)} options={["Yes", "No"]} />
-                <SelectField label="Are there dogs & other pets at the property we should know about?" value={form.hasPets} onChange={v => set("hasPets", v)} options={["Yes", "No"]} />
-
-              </div>
-            )}
-
-            {/* Final */}
-            {currentStepName === "final" && (
-              <div className="space-y-5">
-                <SectionHeader title="Almost Done!" description="Please feel free to forward this signup to anyone that you think would like our services." />
-                <div className="space-y-1.5">
-                  <FieldLabel>Comments or Questions</FieldLabel>
-                  <StyledTextarea value={form.comments} onChange={v => set("comments", v)} rows={5} placeholder="Any additional information you'd like us to know\u2026" />
-                </div>
-                <div className="rounded-xl border-2 border-stone-200 p-4 text-sm bg-stone-50">
-                  <p className="font-semibold text-stone-700 mb-3 flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-red-700" /> Your Request Summary
-                  </p>
-                  <div className="space-y-1.5 text-stone-600">
-                    <div className="flex gap-2"><span className="text-stone-400 w-20 shrink-0">Name:</span><span className="font-medium">{form.firstName} {form.lastName}</span></div>
-                    <div className="flex gap-2"><span className="text-stone-400 w-20 shrink-0">Service:</span><span className="font-medium">{form.serviceType || "\u2014"}</span></div>
-                    <div className="flex gap-2"><span className="text-stone-400 w-20 shrink-0">Address:</span><span className="font-medium">{form.siteAddress || "\u2014"}</span></div>
-                  </div>
-                </div>
-                {submitMutation.isError && (
-                  <div className="bg-red-50 border border-red-200 rounded-xl p-4 text-sm text-red-700 flex gap-3">
-                    <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
-                    <span>Something went wrong. Please try again or call us at <strong>(541) 617-8873</strong>.</span>
-                  </div>
-                )}
-              </div>
-            )}
-
-            {/* Navigation */}
-            <div className="flex justify-between mt-8 pt-5 border-t border-stone-200">
-              {step > 0 ? (
-                <Button variant="outline" onClick={back} className="gap-2 border-stone-300 text-stone-700 hover:bg-stone-50">
-                  <ChevronLeft className="w-4 h-4" /> Back
-                </Button>
-              ) : <div />}
-              {step < totalSteps - 1 ? (
-                <Button onClick={next} className="bg-red-700 hover:bg-red-800 text-white gap-2 px-7 shadow-md shadow-red-900/20">
-                  Continue <ChevronRight className="w-4 h-4" />
-                </Button>
-              ) : (
-                <Button onClick={handleSubmit} disabled={submitMutation.isPending}
-                  className="bg-red-700 hover:bg-red-800 text-white gap-2 min-w-[160px] px-7 shadow-md shadow-red-900/20">
-                  {submitMutation.isPending
-                    ? <><Loader2 className="w-4 h-4 animate-spin" /> Submitting&hellip;</>
-                    : <>Submit Request <CheckCircle2 className="w-4 h-4" /></>}
-                </Button>
-              )}
-            </div>
+        {/* Hero */}
+        <div style={{ background: "linear-gradient(135deg, oklch(0.13 0.005 30) 0%, oklch(0.19 0.008 30) 100%)", paddingTop: "204px" }}>
+          <div className="max-w-5xl mx-auto px-4 py-8 lg:hidden text-center">
+            <img src={LOGO_URL} alt="Newport Avenue Landscaping" className="h-12 mx-auto mb-3 drop-shadow-sm" loading="lazy" />
+            <h1 className="text-2xl font-bold text-white mb-1">Schedule Services</h1>
+            <p className="text-stone-400 text-sm">Quick and easy — completed in just 4 minutes on average.</p>
+          </div>
+          <div className="hidden lg:block max-w-5xl mx-auto px-4 py-6">
+            <h1 className="text-2xl font-bold text-white">Schedule Services</h1>
+            <p className="text-stone-400 text-sm mt-1">Quick and easy — completed in just 4 minutes on average.</p>
           </div>
         </div>
 
-        <div className="flex flex-wrap justify-center gap-5 mt-5 text-xs text-stone-400">
-          <span>&#10003; Licensed &amp; Bonded &middot; LCB #9153</span>
-          <span>&#10003; Serving Central Oregon since 2005</span>
-          <span>&#10003; 400+ Properties Maintained</span>
+        {/* Disclaimer */}
+        <div className="bg-stone-100 border-b border-stone-200 px-4 py-3">
+          <div className="max-w-5xl mx-auto flex gap-3 items-start">
+            <AlertCircle className="w-4 h-4 text-stone-500 mt-0.5 shrink-0" />
+            <p className="text-xs text-stone-600 leading-relaxed">
+              <strong>Licensing Disclaimer (LCB #9153):</strong> Newport Ave Landscaping is not licensed to perform electrical or plumbing work. This includes outlets for pumps, irrigation timers, water features, or any connections to potable water systems. Services requiring a licensed plumber or electrician must be coordinated separately.
+            </p>
+          </div>
         </div>
-      </div>
-      {/* ── Sprinkler Dodge Game ── */}
-      <div className="w-full">
-        <div className="max-w-3xl mx-auto">
+
+        {/* Main */}
+        <div className="max-w-5xl mx-auto px-4 py-8 pb-16">
+          <div className="flex rounded-2xl shadow-2xl overflow-hidden border border-stone-200/60">
+            <FormSidebar steps={steps} currentStep={step} />
+
+            <div className="flex-1 p-6 sm:p-8 bg-white">
+              <div className="lg:hidden">
+                <MobileProgress step={step} total={totalSteps} stepName={currentStepName} />
+              </div>
+
+              {/* ── STEP 1: What are you interested in? ── */}
+              {currentStepName === "service" && (
+                <div className="space-y-5">
+                  <SectionHeader title="What Are You Interested In?" description="Select the service you're requesting and we'll guide you from there." />
+                  <div className="space-y-1.5">
+                    <FieldLabel required>Service Type</FieldLabel>
+                    <Select value={form.serviceType} onValueChange={v => set("serviceType", v)}>
+                      <SelectTrigger className={`border-stone-200 focus:border-stone-500 bg-white ${errors.serviceType ? "border-red-400" : ""}`}>
+                        <SelectValue placeholder="Choose a service\u2026" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {SERVICE_OPTIONS.map(o => <SelectItem key={o} value={o}>{o}</SelectItem>)}
+                      </SelectContent>
+                    </Select>
+                    {errors.serviceType && <p className="text-xs text-red-500">{errors.serviceType}</p>}
+                  </div>
+
+                  {/* Maintenance callout — redirect notice */}
+                  {isMaintenance && (
+                    <InfoBox variant="green">
+                      <p className="font-semibold mb-1 text-stone-900">Maintenance &amp; Clean-Up Sign-Up</p>
+                      <p className="text-xs text-stone-700 leading-relaxed">
+                        Great choice! Clicking <strong>Continue</strong> will take you directly to our dedicated Maintenance Sign-Up form where you can enroll in weekly service or schedule a clean-up.
+                      </p>
+                    </InfoBox>
+                  )}
+
+                  {form.serviceType === SERVICE_OPTIONS[SERVICE_OPTIONS.findIndex(o => o.includes("Aeration, fertilization"))] && (
+                    <InfoBox variant="green">
+                      <p className="font-semibold mb-1 text-stone-900">Aeration, Fertilization &amp; Top Dressing</p>
+                      <p className="text-xs text-stone-700 leading-relaxed">Our aeration and fertilization services are priced per square foot. After submitting this form, we'll reach out to schedule a site visit and provide a quote.</p>
+                    </InfoBox>
+                  )}
+                  {form.serviceType === "Sprinkler Winterization" && (
+                    <InfoBox variant="blue">
+                      <p className="font-semibold mb-1 text-sky-900">Sprinkler Winterization</p>
+                      <p className="text-xs text-sky-800 leading-relaxed">Winterization is a seasonal service. We'll contact you to confirm scheduling and pricing.</p>
+                    </InfoBox>
+                  )}
+                </div>
+              )}
+
+              {/* ── STEP 2: Contact Info ── */}
+              {currentStepName === "contact" && (
+                <div className="space-y-5">
+                  <SectionHeader title="Client Contact Info" description="Tell us about yourself so we can reach you." />
+                  <div className="space-y-1.5">
+                    <FieldLabel required>Email Address</FieldLabel>
+                    <StyledInput type="email" value={form.email} onChange={v => set("email", v)} placeholder="you@example.com" error={errors.email} />
+                  </div>
+                  <SelectField label="Have you used Newport Avenue Landscaping in the past?" value={form.usedBefore} onChange={v => set("usedBefore", v)} options={["Yes", "No"]} />
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="space-y-1.5">
+                      <FieldLabel required>First Name</FieldLabel>
+                      <StyledInput value={form.firstName} onChange={v => set("firstName", v)} error={errors.firstName} />
+                    </div>
+                    <div className="space-y-1.5">
+                      <FieldLabel required>Last Name</FieldLabel>
+                      <StyledInput value={form.lastName} onChange={v => set("lastName", v)} error={errors.lastName} />
+                    </div>
+                  </div>
+                  <div className="space-y-1.5">
+                    <FieldLabel required>Best Phone Number</FieldLabel>
+                    <StyledInput type="tel" value={form.phone} onChange={v => set("phone", v)} placeholder="(541) 000-0000" error={errors.phone} />
+                  </div>
+                  <div className="space-y-1.5">
+                    <FieldLabel required>Site Address (Full Address)</FieldLabel>
+                    <StyledInput value={form.siteAddress} onChange={v => set("siteAddress", v)} placeholder="123 Main St, Bend, OR 97701" error={errors.siteAddress} />
+                  </div>
+                  <div className="space-y-1.5">
+                    <FieldLabel>Billing Address (if different)</FieldLabel>
+                    <StyledTextarea value={form.billingAddress} onChange={v => set("billingAddress", v)} rows={2} placeholder="Leave blank if same as site address" />
+                  </div>
+                  <div className="space-y-2">
+                    <FieldLabel>How did you hear about Newport Ave Landscaping?</FieldLabel>
+                    <CheckboxGroup options={HOW_HEARD_OPTIONS} value={form.howHeard} onChange={v => set("howHeard", v)} />
+                  </div>
+                </div>
+              )}
+
+              {/* Warranty */}
+              {currentStepName === "warranty" && (
+                <div className="space-y-5">
+                  <SectionHeader title="Warranty Service" description="Please provide details about your warranty issue." />
+                  <div className="space-y-1.5">
+                    <FieldLabel required>Warranty Details</FieldLabel>
+                    <StyledTextarea value={form.warrantyDetails} onChange={v => set("warrantyDetails", v)} rows={5} placeholder="Describe the issue in detail\u2026" error={errors.warrantyDetails} />
+                  </div>
+                  <div className="space-y-1.5">
+                    <FieldLabel required>Sales Consultant Name</FieldLabel>
+                    <StyledInput value={form.salesConsultant} onChange={v => set("salesConsultant", v)} error={errors.salesConsultant} />
+                  </div>
+                  <div className="space-y-1.5">
+                    <FieldLabel required>Project Manager Name</FieldLabel>
+                    <StyledInput value={form.projectManager} onChange={v => set("projectManager", v)} error={errors.projectManager} />
+                  </div>
+                </div>
+              )}
+
+              {/* Maintenance */}
+              {currentStepName === "maintenance" && (
+                <div className="space-y-5">
+                  <SectionHeader title="Maintenance / Clean Up" description="Select all maintenance services you need." />
+                  <div className="space-y-2">
+                    <FieldLabel>Type of Maintenance</FieldLabel>
+                    <CheckboxGroup options={MAINTENANCE_TYPES} value={form.maintenanceTypes} onChange={v => set("maintenanceTypes", v)} />
+                  </div>
+                  <div className="space-y-1.5">
+                    <FieldLabel>Additional Notes</FieldLabel>
+                    <StyledTextarea value={form.maintenanceNotes} onChange={v => set("maintenanceNotes", v)} rows={4} placeholder="Any specific instructions or details\u2026" />
+                  </div>
+                </div>
+              )}
+
+              {/* Irrigation */}
+              {currentStepName === "irrigation" && (
+                <div className="space-y-5">
+                  <SectionHeader title="Irrigation Services" description="Select all irrigation services you need." />
+                  <div className="space-y-2">
+                    <FieldLabel>Type of Irrigation Service</FieldLabel>
+                    <CheckboxGroup options={IRRIGATION_TYPES} value={form.irrigationTypes} onChange={v => set("irrigationTypes", v)} />
+                  </div>
+                  <div className="space-y-1.5">
+                    <FieldLabel>Winterization Date</FieldLabel>
+                    <p className="text-xs text-stone-500 mb-1">If requesting winterization, please indicate your preferred date.</p>
+                    <div className="relative">
+                      <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400" />
+                      <Input type="date" value={form.winterizationDate} onChange={e => set("winterizationDate", e.target.value)}
+                        className="pl-9 border-stone-200 focus:border-stone-500 bg-white" />
+                    </div>
+                  </div>
+                  <div className="space-y-1.5">
+                    <FieldLabel>Additional Notes</FieldLabel>
+                    <StyledTextarea value={form.irrigationNotes} onChange={v => set("irrigationNotes", v)} rows={4} placeholder="Any specific instructions or details\u2026" />
+                  </div>
+                </div>
+              )}
+
+              {/* Lighting */}
+              {currentStepName === "lighting" && (
+                <div className="space-y-5">
+                  <SectionHeader title="Lighting Service" description="Select all lighting services you need." />
+                  <div className="space-y-2">
+                    <FieldLabel>Type of Lighting Service</FieldLabel>
+                    <CheckboxGroup options={LIGHTING_TYPES} value={form.lightingTypes} onChange={v => set("lightingTypes", v)} />
+                  </div>
+                  <div className="space-y-1.5">
+                    <FieldLabel>Additional Notes</FieldLabel>
+                    <StyledTextarea value={form.lightingNotes} onChange={v => set("lightingNotes", v)} rows={4} placeholder="Any specific instructions or details\u2026" />
+                  </div>
+                </div>
+              )}
+
+              {/* Water Feature */}
+              {currentStepName === "waterfeature" && (
+                <div className="space-y-5">
+                  <SectionHeader title="Water Feature Service" description="Select all water feature services you need." />
+                  <div className="space-y-2">
+                    <FieldLabel>Type of Water Feature Service</FieldLabel>
+                    <CheckboxGroup options={WATER_FEATURE_TYPES} value={form.waterFeatureTypes} onChange={v => set("waterFeatureTypes", v)} columns={1} />
+                  </div>
+                  <div className="space-y-1.5">
+                    <FieldLabel>Water Feature Repair Description</FieldLabel>
+                    <p className="text-xs text-stone-500">Required if "Water Feature Repair" is selected above.</p>
+                    <StyledTextarea value={form.waterFeatureRepairDesc} onChange={v => set("waterFeatureRepairDesc", v)} rows={3} />
+                  </div>
+                  <div className="space-y-1.5">
+                    <FieldLabel>Additional Notes</FieldLabel>
+                    <StyledTextarea value={form.waterFeatureNotes} onChange={v => set("waterFeatureNotes", v)} rows={3} placeholder="Any specific instructions or details\u2026" />
+                  </div>
+                </div>
+              )}
+
+              {/* Design */}
+              {currentStepName === "design" && (
+                <div className="space-y-5">
+                  <SectionHeader
+                    title={svc === "> New Landscape Installation" ? "New Landscape Installation" : "Landscape Design"}
+                    description="Tell us about your vision and budget."
+                  />
+                  <SelectField label="Do you have an existing design for your project?" value={form.hasExistingDesign} onChange={v => set("hasExistingDesign", v)} options={["Yes", "No"]} />
+                  <SelectField label="Will your project need to pass Design Review (HOA approval)?" value={form.needsHoaApproval} onChange={v => set("needsHoaApproval", v)} options={["Yes", "No", "I don't Know"]} />
+                  <div className="space-y-2">
+                    <FieldLabel>Choose all elements you'd like to include in the landscape</FieldLabel>
+                    <CheckboxGroup options={LANDSCAPE_ELEMENTS} value={form.landscapeElements} onChange={v => set("landscapeElements", v)} />
+                  </div>
+                  <div className="space-y-1.5">
+                    <FieldLabel required>Preliminary Budget</FieldLabel>
+                    <p className="text-xs text-stone-500 mb-1 leading-relaxed">All projects require an established budget by the end of the initial consultation. Most of our construction projects range from $25,000 to $150,000, with a minimum project investment of $10,000.</p>
+                    <Select value={form.budget} onValueChange={v => set("budget", v)}>
+                      <SelectTrigger className={`border-stone-200 focus:border-stone-500 bg-white ${errors.budget ? "border-red-400" : ""}`}>
+                        <SelectValue placeholder="Choose a budget range\u2026" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {BUDGET_OPTIONS.map(o => <SelectItem key={o} value={o}>{o}</SelectItem>)}
+                      </SelectContent>
+                    </Select>
+                    {errors.budget && <p className="text-xs text-red-500">{errors.budget}</p>}
+                  </div>
+                  <div className="space-y-1.5">
+                    <FieldLabel>Other Budget Notes</FieldLabel>
+                    <StyledInput value={form.budgetOther} onChange={v => set("budgetOther", v)} placeholder="Any additional budget notes\u2026" />
+                  </div>
+                  <div className="space-y-2">
+                    <FieldLabel>Design Consultation Terms</FieldLabel>
+                    <InfoBox variant="blue">
+                      <p className="text-xs text-sky-800 leading-relaxed">Newport Ave Landscaping charges a <strong>$250 design consultation fee</strong> for new landscape design projects. This fee is applied toward the project cost if you choose to proceed. The consultation includes a site visit, design concepts, and a detailed estimate.</p>
+                    </InfoBox>
+                    <RadioGroup value={form.designConsultationAccepted} onValueChange={v => set("designConsultationAccepted", v)} className="space-y-2 mt-2">
+                      <div className={`flex items-start gap-3 p-3 rounded-xl border-2 transition-all cursor-pointer ${form.designConsultationAccepted === "accepted" ? "border-stone-800 bg-stone-50" : "border-stone-200 hover:border-stone-400"}`}>
+                        <RadioGroupItem value="accepted" id="dc-accept" className="mt-0.5" />
+                        <Label htmlFor="dc-accept" className="text-sm cursor-pointer">I understand and accept these terms</Label>
+                      </div>
+                      <div className={`flex items-start gap-3 p-3 rounded-xl border-2 transition-all cursor-pointer ${form.designConsultationAccepted === "declined" ? "border-stone-400 bg-stone-50" : "border-stone-200 hover:border-stone-400"}`}>
+                        <RadioGroupItem value="declined" id="dc-decline" className="mt-0.5" />
+                        <Label htmlFor="dc-decline" className="text-sm cursor-pointer">I do not want any landscape design or consultation services at this point</Label>
+                      </div>
+                    </RadioGroup>
+                  </div>
+                  <div className="space-y-1.5">
+                    <FieldLabel>Ideally, when would you like your project to be completed?</FieldLabel>
+                    <div className="relative">
+                      <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400" />
+                      <Input type="date" value={form.idealCompletionDate} onChange={e => set("idealCompletionDate", e.target.value)}
+                        className="pl-9 border-stone-200 focus:border-stone-500 bg-white" />
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Scheduling */}
+              {currentStepName === "scheduling" && (
+                <div className="space-y-5">
+                  <SectionHeader title="Scheduling & Property Details" description="Help us prepare for your service." />
+                  <label className={`flex items-start gap-3 cursor-pointer p-3 rounded-xl border-2 transition-all ${form.flexibleScheduling ? "border-stone-800 bg-stone-50" : "border-stone-200 hover:border-stone-400"}`}>
+                    <Checkbox checked={form.flexibleScheduling} onCheckedChange={v => set("flexibleScheduling", !!v)}
+                      className="mt-0.5 border-stone-400 data-[state=checked]:bg-stone-800 data-[state=checked]:border-stone-800 shrink-0" />
+                    <span className="text-sm text-stone-700 leading-snug">NAL can schedule my service and come anytime without notice <span className="text-stone-600 font-medium">(This is the quickest way to complete service)</span></span>
+                  </label>
+                  <SelectField label="Is this a rental property?" value={form.isRentalProperty} onChange={v => set("isRentalProperty", v)} options={["Yes", "No"]} />
+                  <SelectField label="Are you the property owner?" value={form.isPropertyOwner} onChange={v => set("isPropertyOwner", v)} options={["Yes", "No"]} />
+                  <SelectField label="Are there dogs & other pets at the property we should know about?" value={form.hasPets} onChange={v => set("hasPets", v)} options={["Yes", "No"]} />
+                </div>
+              )}
+
+              {/* Final */}
+              {currentStepName === "final" && (
+                <div className="space-y-5">
+                  <SectionHeader title="Almost Done!" description="Please feel free to forward this signup to anyone that you think would like our services." />
+                  <div className="space-y-1.5">
+                    <FieldLabel>Comments or Questions</FieldLabel>
+                    <StyledTextarea value={form.comments} onChange={v => set("comments", v)} rows={5} placeholder="Any additional information you'd like us to know\u2026" />
+                  </div>
+                  <div className="rounded-xl border-2 border-stone-200 p-4 text-sm bg-stone-50">
+                    <p className="font-semibold text-stone-700 mb-3 flex items-center gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-red-700" /> Your Request Summary
+                    </p>
+                    <div className="space-y-1.5 text-stone-600">
+                      <div className="flex gap-2"><span className="text-stone-400 w-20 shrink-0">Name:</span><span className="font-medium">{form.firstName} {form.lastName}</span></div>
+                      <div className="flex gap-2"><span className="text-stone-400 w-20 shrink-0">Service:</span><span className="font-medium">{form.serviceType || "\u2014"}</span></div>
+                      <div className="flex gap-2"><span className="text-stone-400 w-20 shrink-0">Address:</span><span className="font-medium">{form.siteAddress || "\u2014"}</span></div>
+                    </div>
+                  </div>
+                  {submitMutation.isError && (
+                    <div className="bg-red-50 border border-red-200 rounded-xl p-4 text-sm text-red-700 flex gap-3">
+                      <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
+                      <span>Something went wrong. Please try again or call us at <strong>(541) 617-8873</strong>.</span>
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* Navigation */}
+              <div className="flex justify-between mt-8 pt-5 border-t border-stone-200">
+                {step > 0 ? (
+                  <Button variant="outline" onClick={back} className="gap-2 border-stone-300 text-stone-700 hover:bg-stone-50">
+                    <ChevronLeft className="w-4 h-4" /> Back
+                  </Button>
+                ) : <div />}
+                {step < totalSteps - 1 ? (
+                  <Button onClick={next} className="bg-red-700 hover:bg-red-800 text-white gap-2 px-7 shadow-md shadow-red-900/20">
+                    Continue <ChevronRight className="w-4 h-4" />
+                  </Button>
+                ) : (
+                  <Button onClick={handleSubmit} disabled={submitMutation.isPending}
+                    className="bg-red-700 hover:bg-red-800 text-white gap-2 min-w-[160px] px-7 shadow-md shadow-red-900/20">
+                    {submitMutation.isPending
+                      ? <><Loader2 className="w-4 h-4 animate-spin" /> Submitting&hellip;</>
+                      : <>Submit Request <CheckCircle2 className="w-4 h-4" /></>}
+                  </Button>
+                )}
+              </div>
+            </div>
+          </div>
+
+          <div className="flex flex-wrap justify-center gap-5 mt-5 text-xs text-stone-400">
+            <span>&#10003; Licensed &amp; Bonded &middot; LCB #9153</span>
+            <span>&#10003; Serving Central Oregon since 2005</span>
+            <span>&#10003; 400+ Properties Maintained</span>
+          </div>
         </div>
+        <Footer />
       </div>
-      <Footer />
-    </div>
     </>
   );
 }
