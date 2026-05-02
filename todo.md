@@ -1324,3 +1324,11 @@
 - [x] Add hero image to /maintenance/sign-up page (full-width lawn photo with dark overlay + title text)
 - [x] Replace service type dropdown in ScheduleServices.tsx with styled bubble/pill buttons
 - [x] Fix broken images on /maintenance/sign-up page (replaced /images/forms/*.jpg with CDN URLs)
+
+## Session — May 1, 2026 (Schedule Services Form UX Updates)
+- [x] Reorder service bubbles: Landscape Installs top-left, Residential Maintenance top-right
+- [x] Rename "Irrigation Services" to "Irrigation Repair"
+- [x] Rename "Warranty" to "Submit Warranty Claim"
+- [x] Add standalone "Backflow Test" button (split from Irrigation Services)
+- [x] Remove "Water Feature" button
+- [x] Lighten left sidebar inactive step text/icons (opacity-65 + text-stone-300 instead of opacity-30 + text-stone-500)

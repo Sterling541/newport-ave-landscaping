@@ -96,8 +96,15 @@ const SERVICE_BUBBLES: Array<{
   accent: string;
 }> = [
   {
+    value: "> New Landscape Installation",
+    label: "Landscape Installs",
+    sublabel: "Full property build-out",
+    icon: <Hammer className="w-5 h-5" />,
+    accent: "oklch(0.42 0.14 60)",
+  },
+  {
     value: "Maintenance: Weekly or One-Time Landscape Clean Ups",
-    label: "Maintenance",
+    label: "Residential Maintenance",
     sublabel: "Weekly service or clean-ups",
     icon: <Wrench className="w-5 h-5" />,
     accent: "oklch(0.35 0.12 145)",
@@ -117,11 +124,18 @@ const SERVICE_BUBBLES: Array<{
     accent: "oklch(0.50 0.18 240)",
   },
   {
-    value: "> Irrigation Services: Including backflow test, repairs",
-    label: "Irrigation Services",
-    sublabel: "Backflow test, repairs & more",
+    value: "> Irrigation Repair: System repairs & diagnostics",
+    label: "Irrigation Repair",
+    sublabel: "System repairs & diagnostics",
     icon: <Droplets className="w-5 h-5" />,
     accent: "oklch(0.45 0.18 210)",
+  },
+  {
+    value: "> Backflow Test",
+    label: "Backflow Test",
+    sublabel: "Annual certification test",
+    icon: <Droplets className="w-5 h-5" />,
+    accent: "oklch(0.45 0.18 200)",
   },
   {
     value: "> Aeration, fertilization and top dressing",
@@ -129,13 +143,6 @@ const SERVICE_BUBBLES: Array<{
     sublabel: "Lawn health & top dressing",
     icon: <Leaf className="w-5 h-5" />,
     accent: "oklch(0.40 0.15 145)",
-  },
-  {
-    value: "> New Landscape Installation",
-    label: "New Landscape Install",
-    sublabel: "Full property build-out",
-    icon: <Hammer className="w-5 h-5" />,
-    accent: "oklch(0.42 0.14 60)",
   },
   {
     value: "> Landscape Design",
@@ -152,15 +159,8 @@ const SERVICE_BUBBLES: Array<{
     accent: "oklch(0.55 0.18 80)",
   },
   {
-    value: "> Water Feature service (Including clean-outs, maintenance repairs)",
-    label: "Water Feature",
-    sublabel: "Clean-outs, repairs & more",
-    icon: <Fish className="w-5 h-5" />,
-    accent: "oklch(0.45 0.16 220)",
-  },
-  {
     value: "> Warranty",
-    label: "Warranty",
+    label: "Submit Warranty Claim",
     sublabel: "Existing project warranty",
     icon: <Shield className="w-5 h-5" />,
     accent: "oklch(0.45 0.10 25)",
@@ -336,8 +336,8 @@ function FormSidebar({ steps, currentStep }: { steps: string[]; currentStep: num
                 active
                   ? "bg-white/12 border border-white/10"
                   : done
-                  ? "opacity-70"
-                  : "opacity-30"
+                  ? "opacity-90"
+                  : "opacity-65"
               }`}>
                 <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 text-xs font-bold transition-all ${
                   done
@@ -350,7 +350,7 @@ function FormSidebar({ steps, currentStep }: { steps: string[]; currentStep: num
                 </div>
                 <div className="min-w-0">
                   <p className={`text-sm font-semibold leading-none truncate ${
-                    active ? "text-white" : done ? "text-stone-300" : "text-stone-500"
+                    active ? "text-white" : done ? "text-stone-200" : "text-stone-300"
                   }`}>{meta.label}</p>
                   {active && <p className="text-stone-400 text-xs mt-1 leading-snug">{meta.desc}</p>}
                 </div>
