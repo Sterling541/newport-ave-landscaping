@@ -219,14 +219,27 @@ export default function MaintenanceSignUp() {
       </Helmet>
       <Navbar />
 
-      {/* ── Header ── */}
-      <div style={{ background: GREEN, padding: "48px 24px 40px", textAlign: "center" }}>
-        <p style={{ color: "rgba(255,255,255,0.7)", fontSize: "0.7rem", letterSpacing: "0.18em", textTransform: "uppercase", marginBottom: 8 }}>
-          Residential Maintenance
-        </p>
-        <h1 style={{ fontFamily: "var(--font-display, serif)", fontSize: "clamp(1.6rem, 3vw, 2.4rem)", color: "#fff", fontWeight: 300, margin: 0 }}>
-          2026 Landscape Maintenance Agreement
-        </h1>
+      {/* ── Hero Image Header ── */}
+      <div style={{ position: "relative", height: "clamp(280px, 40vw, 420px)", overflow: "hidden", marginTop: 0 }}>
+        <img
+          src="/manus-storage/safe-hero-lawn-service_fcba45d8.jpg"
+          alt="Newport Avenue Landscaping maintenance crew"
+          style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 40%" }}
+        />
+        {/* Dark overlay */}
+        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.6) 100%)" }} />
+        {/* Text over image */}
+        <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "flex-end", padding: "0 24px 40px", textAlign: "center" }}>
+          <p style={{ color: "rgba(255,255,255,0.75)", fontSize: "0.7rem", letterSpacing: "0.18em", textTransform: "uppercase", marginBottom: 10 }}>
+            Residential Maintenance
+          </p>
+          <h1 style={{ fontFamily: "var(--font-display, serif)", fontSize: "clamp(1.6rem, 3vw, 2.4rem)", color: "#fff", fontWeight: 300, margin: 0, textShadow: "0 2px 8px rgba(0,0,0,0.4)" }}>
+            2026 Landscape Maintenance Agreement
+          </h1>
+          <p style={{ color: "rgba(255,255,255,0.7)", fontSize: "0.85rem", marginTop: 12, maxWidth: 520 }}>
+            Complete the form below and your account manager will be in touch to confirm scheduling.
+          </p>
+        </div>
       </div>
 
       {/* ── Progress bar ── */}
@@ -354,7 +367,7 @@ export default function MaintenanceSignUp() {
                 It's important to note that we typically do not remove the aeration plugs, as they naturally decompose and contribute to the lawn's health. However, if you specifically request the removal and raking of these plugs, we can accommodate this with advanced notice.
               </p>
               <div style={{ borderRadius: 8, overflow: "hidden", marginBottom: 16 }}>
-                <img src="/images/forms/maintenance-aeration.jpg" alt="Lawn aeration machine" style={{ width: "100%", maxHeight: 240, objectFit: "cover", display: "block" }} />
+                <img src="/manus-storage/safe-hero-aeration_742c2b11.jpg" alt="Lawn aeration machine" style={{ width: "100%", maxHeight: 240, objectFit: "cover", display: "block" }} />
               </div>
               <RadioGroup
                 options={["Yes — Spring only", "Yes — Fall only", "Yes — Both Spring and Fall", "No"]}
@@ -376,7 +389,7 @@ export default function MaintenanceSignUp() {
                 Please be aware that dethatching usually takes about 1.5 to 2 times longer than aerating. This is due to the additional time required for raking and disposing of the dead grass that is removed during the process.
               </p>
               <div style={{ borderRadius: 8, overflow: "hidden", marginBottom: 16 }}>
-                <img src="/images/forms/maintenance-dethatch.jpg" alt="Lawn dethatching machine" style={{ width: "100%", maxHeight: 240, objectFit: "cover", display: "block" }} />
+                <img src="/manus-storage/svc-aeration-1_afc106ab.jpg" alt="Lawn dethatching machine" style={{ width: "100%", maxHeight: 240, objectFit: "cover", display: "block" }} />
               </div>
               <RadioGroup
                 options={["Yes — Spring", "No"]}
@@ -406,7 +419,7 @@ export default function MaintenanceSignUp() {
                 <li>Set the sprinkler timer, provided the timer is accessible.</li>
               </ul>
               <div style={{ borderRadius: 8, overflow: "hidden", marginBottom: 16 }}>
-                <img src="/images/forms/maintenance-sprinkler-startup.jpg" alt="Sprinkler system startup" style={{ width: "100%", maxHeight: 240, objectFit: "cover", display: "block" }} />
+                <img src="/manus-storage/safe-hero-sprinkler-activation_6c04210c.jpg" alt="Sprinkler system startup" style={{ width: "100%", maxHeight: 240, objectFit: "cover", display: "block" }} />
               </div>
               <RadioGroup
                 options={["Yes", "No"]}
@@ -425,7 +438,7 @@ export default function MaintenanceSignUp() {
                 Our certified irrigation technician offers a comprehensive service to test your irrigation backflow. This service includes not only the testing but also the submission of the certification paperwork to your city. The charge for this complete service is <strong>$140 per backflow</strong> (most properties have one backflow), ensuring that your irrigation system complies with local regulations and operates safely and effectively.
               </p>
               <div style={{ borderRadius: 8, overflow: "hidden", marginBottom: 16 }}>
-                <img src="/images/forms/maintenance-backflow.jpg" alt="Backflow testing equipment" style={{ width: "100%", maxHeight: 240, objectFit: "cover", display: "block" }} />
+                <img src="/manus-storage/svc-sprinkler-activation-1_fd7a0b4a.jpg" alt="Backflow testing equipment" style={{ width: "100%", maxHeight: 240, objectFit: "cover", display: "block" }} />
               </div>
               <RadioGroup
                 options={["Yes", "No"]}

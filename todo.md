@@ -1319,3 +1319,8 @@
 - [ ] Show badge count of unscheduled maintenance sign-up submissions on the tab
 - [ ] Highlight maintenance sign-up rows visually (e.g. green accent or badge)
 - [ ] Ensure filter persists/resets correctly alongside existing filters
+
+## Session — May 1, 2026 (Maintenance Sign-Up Page Fixes)
+- [x] Add hero image to /maintenance/sign-up page (full-width lawn photo with dark overlay + title text)
+- [x] Replace service type dropdown in ScheduleServices.tsx with styled bubble/pill buttons
+- [x] Fix broken images on /maintenance/sign-up page (replaced /images/forms/*.jpg with CDN URLs)

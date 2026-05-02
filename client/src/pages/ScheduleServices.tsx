@@ -22,7 +22,8 @@ import {
 import {
   CheckCircle2, ChevronLeft, ChevronRight, Loader2, AlertCircle,
   Leaf, Phone, Calendar, Shield, Wrench, Droplets,
-  Lightbulb, TreePine, Star, User, Settings,
+  Lightbulb, TreePine, Star, User, Settings, Snowflake,
+  Hammer, Paintbrush, Sprout, Zap, Fish,
 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -85,6 +86,86 @@ const SERVICE_OPTIONS = [
 
 const MAINTENANCE_VALUE = "Maintenance: Weekly or One-Time Landscape Clean Ups";
 const SPRINKLER_ACTIVATION_VALUE = "Sprinkler Activation: Spring System Start-Up";
+
+// Bubble button config for the service selection step
+const SERVICE_BUBBLES: Array<{
+  value: string;
+  label: string;
+  sublabel: string;
+  icon: React.ReactNode;
+  accent: string;
+}> = [
+  {
+    value: "Maintenance: Weekly or One-Time Landscape Clean Ups",
+    label: "Maintenance",
+    sublabel: "Weekly service or clean-ups",
+    icon: <Wrench className="w-5 h-5" />,
+    accent: "oklch(0.35 0.12 145)",
+  },
+  {
+    value: "Sprinkler Activation: Spring System Start-Up",
+    label: "Sprinkler Activation",
+    sublabel: "Spring system start-up",
+    icon: <Sprout className="w-5 h-5" />,
+    accent: "oklch(0.45 0.18 200)",
+  },
+  {
+    value: "Sprinkler Winterization",
+    label: "Sprinkler Winterization",
+    sublabel: "Fall system blowout",
+    icon: <Snowflake className="w-5 h-5" />,
+    accent: "oklch(0.50 0.18 240)",
+  },
+  {
+    value: "> Irrigation Services: Including backflow test, repairs",
+    label: "Irrigation Services",
+    sublabel: "Backflow test, repairs & more",
+    icon: <Droplets className="w-5 h-5" />,
+    accent: "oklch(0.45 0.18 210)",
+  },
+  {
+    value: "> Aeration, fertilization and top dressing",
+    label: "Aeration & Fertilization",
+    sublabel: "Lawn health & top dressing",
+    icon: <Leaf className="w-5 h-5" />,
+    accent: "oklch(0.40 0.15 145)",
+  },
+  {
+    value: "> New Landscape Installation",
+    label: "New Landscape Install",
+    sublabel: "Full property build-out",
+    icon: <Hammer className="w-5 h-5" />,
+    accent: "oklch(0.42 0.14 60)",
+  },
+  {
+    value: "> Landscape Design",
+    label: "Landscape Design",
+    sublabel: "Plans, renderings & concepts",
+    icon: <Paintbrush className="w-5 h-5" />,
+    accent: "oklch(0.48 0.16 30)",
+  },
+  {
+    value: "> Lighting addition or repair",
+    label: "Landscape Lighting",
+    sublabel: "New install or repair",
+    icon: <Zap className="w-5 h-5" />,
+    accent: "oklch(0.55 0.18 80)",
+  },
+  {
+    value: "> Water Feature service (Including clean-outs, maintenance repairs)",
+    label: "Water Feature",
+    sublabel: "Clean-outs, repairs & more",
+    icon: <Fish className="w-5 h-5" />,
+    accent: "oklch(0.45 0.16 220)",
+  },
+  {
+    value: "> Warranty",
+    label: "Warranty",
+    sublabel: "Existing project warranty",
+    icon: <Shield className="w-5 h-5" />,
+    accent: "oklch(0.45 0.10 25)",
+  },
+];
 
 const MAINTENANCE_TYPES = [
   "Weekly Lawn Mowing", "One-Time Clean Up", "Spring Clean Up", "Fall Clean Up",
@@ -506,19 +587,43 @@ export default function ScheduleServices() {
               {/* ── STEP 1: What are you interested in? ── */}
               {currentStepName === "service" && (
                 <div className="space-y-5">
-                  <SectionHeader title="What Are You Interested In?" description="Select the service you're requesting and we'll guide you from there." />
-                  <div className="space-y-1.5">
-                    <FieldLabel required>Service Type</FieldLabel>
-                    <Select value={form.serviceType} onValueChange={v => set("serviceType", v)}>
-                      <SelectTrigger className={`border-stone-200 focus:border-stone-500 bg-white ${errors.serviceType ? "border-red-400" : ""}`}>
-                        <SelectValue placeholder="Choose a service\u2026" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {SERVICE_OPTIONS.map(o => <SelectItem key={o} value={o}>{o}</SelectItem>)}
-                      </SelectContent>
-                    </Select>
-                    {errors.serviceType && <p className="text-xs text-red-500">{errors.serviceType}</p>}
+                  <SectionHeader title="What Are You Interested In?" description="Tap the service you need and we'll guide you through the rest." />
+                  {/* Bubble/pill service selector */}
+                  <div className="grid grid-cols-2 gap-3">
+                    {SERVICE_BUBBLES.map(b => {
+                      const selected = form.serviceType === b.value;
+                      return (
+                        <button
+                          key={b.value}
+                          type="button"
+                          onClick={() => set("serviceType", b.value)}
+                          className={`flex items-center gap-3 rounded-xl border-2 px-4 py-3.5 text-left transition-all duration-150 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-1 ${
+                            selected
+                              ? "border-transparent shadow-md"
+                              : "border-stone-200 bg-white hover:border-stone-300 hover:shadow-sm"
+                          }`}
+                          style={selected ? { background: b.accent, borderColor: b.accent } : {}}
+                        >
+                          <span
+                            className={`shrink-0 w-9 h-9 rounded-lg flex items-center justify-center ${
+                              selected ? "bg-white/20 text-white" : "bg-stone-100 text-stone-600"
+                            }`}
+                          >
+                            {b.icon}
+                          </span>
+                          <span className="min-w-0">
+                            <span className={`block text-sm font-semibold leading-tight ${
+                              selected ? "text-white" : "text-stone-800"
+                            }`}>{b.label}</span>
+                            <span className={`block text-xs mt-0.5 leading-snug ${
+                              selected ? "text-white/80" : "text-stone-500"
+                            }`}>{b.sublabel}</span>
+                          </span>
+                        </button>
+                      );
+                    })}
                   </div>
+                  {errors.serviceType && <p className="text-xs text-red-500">{errors.serviceType}</p>}
 
                   {/* Maintenance callout — redirect notice */}
                   {isMaintenance && (
