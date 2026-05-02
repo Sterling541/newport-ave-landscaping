@@ -74,6 +74,7 @@ const SERVICE_OPTIONS = [
   "> New Landscape Installation",
   "> Landscape Design",
   "Maintenance: Weekly or One-Time Landscape Clean Ups",
+  "Sprinkler Activation: Spring System Start-Up",
   "> Aeration, fertilization and top dressing",
   "> Irrigation Services: Including backflow test, repairs",
   "> Lighting addition or repair",
@@ -83,6 +84,7 @@ const SERVICE_OPTIONS = [
 ];
 
 const MAINTENANCE_VALUE = "Maintenance: Weekly or One-Time Landscape Clean Ups";
+const SPRINKLER_ACTIVATION_VALUE = "Sprinkler Activation: Spring System Start-Up";
 
 const MAINTENANCE_TYPES = [
   "Weekly Lawn Mowing", "One-Time Clean Up", "Spring Clean Up", "Fall Clean Up",
@@ -345,6 +347,7 @@ export default function ScheduleServices() {
   const svc = form.serviceType;
   const isWarranty     = svc === "> Warranty";
   const isMaintenance  = svc === MAINTENANCE_VALUE;
+  const isSprinklerActivation = svc === SPRINKLER_ACTIVATION_VALUE;
   const isIrrigation   = svc === "> Irrigation Services: Including backflow test, repairs";
   const isLighting     = svc === "> Lighting addition or repair";
   const isWaterFeature = svc === "> Water Feature service (Including clean-outs, maintenance repairs)";
@@ -389,6 +392,11 @@ export default function ScheduleServices() {
     // If user selected Maintenance on the service step, redirect to the dedicated sign-up form
     if (currentStepName === "service" && isMaintenance) {
       navigate("/maintenance/sign-up");
+      return;
+    }
+    // If user selected Sprinkler Activation, redirect to the dedicated sign-up form
+    if (currentStepName === "service" && isSprinklerActivation) {
+      navigate("/services/sprinkler-activation/sign-up");
       return;
     }
     setStep(s => Math.min(s + 1, totalSteps - 1));

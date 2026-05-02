@@ -58,6 +58,7 @@ const Careers = lazy(() => import("./pages/Careers"));
 
 // Maintenance sub-pages
 const MaintenanceSignUp = lazy(() => import("./pages/MaintenanceSignUp"));
+const SprinklerActivationSignUp = lazy(() => import("./pages/SprinklerActivationSignUp"));
 const LawnService = lazy(() => import("./pages/services/LawnService"));
 const CommercialMaintenance = lazy(() => import("./pages/services/CommercialMaintenance"));
 const CommercialHOAMaintenance = lazy(() => import("./pages/maintenance/CommercialHOAMaintenance"));
@@ -278,6 +279,7 @@ function Router() {
 
       {/* Maintenance sub-pages */}
       <Route path={"/maintenance/sign-up"} component={MaintenanceSignUp} />
+      <Route path={"/services/sprinkler-activation/sign-up"} component={SprinklerActivationSignUp} />
       <Route path={"/services/lawn-service"} component={LawnService} />
       <Route path={"/services/commercial-maintenance"} component={CommercialMaintenance} />
       <Route path={"/maintenance/commercial-hoa"} component={CommercialHOAMaintenance} />

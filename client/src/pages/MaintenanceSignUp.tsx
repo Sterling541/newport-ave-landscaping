@@ -353,6 +353,9 @@ export default function MaintenanceSignUp() {
               <p style={{ fontSize: "0.88rem", color: "#666", marginBottom: 16, lineHeight: 1.6 }}>
                 It's important to note that we typically do not remove the aeration plugs, as they naturally decompose and contribute to the lawn's health. However, if you specifically request the removal and raking of these plugs, we can accommodate this with advanced notice.
               </p>
+              <div style={{ borderRadius: 8, overflow: "hidden", marginBottom: 16 }}>
+                <img src="/images/forms/maintenance-aeration.jpg" alt="Lawn aeration machine" style={{ width: "100%", maxHeight: 240, objectFit: "cover", display: "block" }} />
+              </div>
               <RadioGroup
                 options={["Yes — Spring only", "Yes — Fall only", "Yes — Both Spring and Fall", "No"]}
                 value={form.wantsAeration}
@@ -372,6 +375,9 @@ export default function MaintenanceSignUp() {
               <p style={{ fontSize: "0.88rem", color: "#666", marginBottom: 16, lineHeight: 1.6 }}>
                 Please be aware that dethatching usually takes about 1.5 to 2 times longer than aerating. This is due to the additional time required for raking and disposing of the dead grass that is removed during the process.
               </p>
+              <div style={{ borderRadius: 8, overflow: "hidden", marginBottom: 16 }}>
+                <img src="/images/forms/maintenance-dethatch.jpg" alt="Lawn dethatching machine" style={{ width: "100%", maxHeight: 240, objectFit: "cover", display: "block" }} />
+              </div>
               <RadioGroup
                 options={["Yes — Spring", "No"]}
                 value={form.wantsDethatch}
@@ -399,6 +405,9 @@ export default function MaintenanceSignUp() {
                 <li>Thoroughly check the entire system for any leaks.</li>
                 <li>Set the sprinkler timer, provided the timer is accessible.</li>
               </ul>
+              <div style={{ borderRadius: 8, overflow: "hidden", marginBottom: 16 }}>
+                <img src="/images/forms/maintenance-sprinkler-startup.jpg" alt="Sprinkler system startup" style={{ width: "100%", maxHeight: 240, objectFit: "cover", display: "block" }} />
+              </div>
               <RadioGroup
                 options={["Yes", "No"]}
                 value={form.wantsSprinklerStartup}
@@ -415,6 +424,9 @@ export default function MaintenanceSignUp() {
               <p style={{ fontSize: "0.88rem", color: "#666", marginBottom: 16, lineHeight: 1.6 }}>
                 Our certified irrigation technician offers a comprehensive service to test your irrigation backflow. This service includes not only the testing but also the submission of the certification paperwork to your city. The charge for this complete service is <strong>$140 per backflow</strong> (most properties have one backflow), ensuring that your irrigation system complies with local regulations and operates safely and effectively.
               </p>
+              <div style={{ borderRadius: 8, overflow: "hidden", marginBottom: 16 }}>
+                <img src="/images/forms/maintenance-backflow.jpg" alt="Backflow testing equipment" style={{ width: "100%", maxHeight: 240, objectFit: "cover", display: "block" }} />
+              </div>
               <RadioGroup
                 options={["Yes", "No"]}
                 value={form.wantsBackflowTest}
