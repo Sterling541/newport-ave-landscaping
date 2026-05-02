@@ -704,7 +704,7 @@ export default function ScheduleServices() {
     <>
       <Helmet>
         <meta name="robots" content="noindex, nofollow" />
-        <title>Schedule Services | Newport Avenue Landscaping</title>
+        <title>Ready to Schedule? | Newport Avenue Landscaping</title>
       </Helmet>
       <div className="min-h-screen" style={{ backgroundColor: "oklch(0.97 0.003 30)" }}>
         <Navbar />
@@ -713,11 +713,11 @@ export default function ScheduleServices() {
         <div style={{ background: "linear-gradient(135deg, oklch(0.13 0.005 30) 0%, oklch(0.19 0.008 30) 100%)", paddingTop: "204px" }}>
           <div className="max-w-5xl mx-auto px-4 py-8 lg:hidden text-center">
             <img src={LOGO_URL} alt="Newport Avenue Landscaping" className="h-12 mx-auto mb-3 drop-shadow-sm" loading="lazy" />
-            <h1 className="text-2xl font-bold text-white mb-1">Schedule Services</h1>
+            <h1 className="text-2xl font-bold text-white mb-1">Ready to Schedule?</h1>
             <p className="text-stone-400 text-sm">Quick and easy — completed in just 4 minutes on average.</p>
           </div>
           <div className="hidden lg:block max-w-5xl mx-auto px-4 py-6">
-            <h1 className="text-2xl font-bold text-white">Schedule Services</h1>
+            <h1 className="text-2xl font-bold text-white">Ready to Schedule?</h1>
             <p className="text-stone-400 text-sm mt-1">Quick and easy — completed in just 4 minutes on average.</p>
           </div>
         </div>

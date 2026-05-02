@@ -347,16 +347,15 @@ export default function QuoteRequest({ source = "quick_form" }: QuoteRequestProp
           </div>
 
           <div className="bg-gray-50 rounded-xl p-5 border border-gray-100">
-            <h3 className="font-semibold text-gray-800 mb-2">Need More Detail?</h3>
+            <h3 className="font-semibold text-gray-800 mb-2">Ready to Sign Up?</h3>
             <p className="text-sm text-gray-600 mb-4">
-              Use our full Schedule Services form to provide project specifics,
-              preferred dates, and service details — this gets you on our calendar faster.
+              Sign up for services here — choose your service, pick a date, and we’ll take care of the rest.
             </p>
             <a
               href="/schedule-services"
               className="inline-flex items-center gap-1.5 text-sm font-semibold text-green-700 hover:text-green-800"
             >
-              Full Schedule Services Form <ArrowRight className="w-3.5 h-3.5" />
+              Schedule Your Service <ArrowRight className="w-3.5 h-3.5" />
             </a>
           </div>
 

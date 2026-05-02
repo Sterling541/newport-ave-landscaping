@@ -1357,3 +1357,7 @@
 - [x] Contact Us already present in footer quick links (confirmed)
 - [x] Rename desktop utility bar button from "SCHEDULE SERVICES" to "SCHEDULE YOUR SERVICE"
 - [x] Rename mobile hamburger menu secondary CTA from "Schedule Services" to "Schedule Your Service"
+
+## Session — May 2, 2026 (Copy Updates)
+- [x] Rename Schedule Services page header from "Schedule Services" to "Ready to Schedule?"
+- [x] Update "Need More Detail?" sidebar box on Get a Quote page to "Ready to Sign Up?" with "Sign up for services here" CTA
