@@ -103,7 +103,7 @@ export default function ServicePageLayout({
   schemaUrl,
   canonicalUrl,
   ctaPrimaryHref = "/contact",
-  ctaPrimaryLabel = "SCHEDULE FREE CONSULTATION",
+  ctaPrimaryLabel = "SIGN UP HERE",
   ctaSecondaryHref,
   ctaSecondaryLabel,
 }: ServicePageProps) {
@@ -439,7 +439,7 @@ export default function ServicePageLayout({
               className="font-display font-light text-white mb-4"
               style={{ fontSize: "clamp(1.6rem, 3vw, 2.8rem)" }}
             >
-              Get Your Free Quote Today
+              Contact Us to Learn More
             </h2>
             <p
               className="font-body mb-8 mx-auto"
