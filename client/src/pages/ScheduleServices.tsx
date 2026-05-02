@@ -87,7 +87,149 @@ const SERVICE_OPTIONS = [
 const MAINTENANCE_VALUE = "Maintenance: Weekly or One-Time Landscape Clean Ups";
 const SPRINKLER_ACTIVATION_VALUE = "Sprinkler Activation: Spring System Start-Up";
 
-// Bubble button config for the service selection step
+// ── Custom thin-stroke SVG icons (24×24 viewBox, strokeWidth 1.5) ──────────────
+const SvgIcon = ({ children }: { children: React.ReactNode }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"
+    strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+    {children}
+  </svg>
+);
+const IconLandscapeInstall = () => (
+  <SvgIcon>
+    {/* Nursery pot */}
+    <path d="M8 21h8l-1-5H9z" />
+    <line x1="7" y1="16" x2="17" y2="16" />
+    {/* Trunk */}
+    <line x1="12" y1="16" x2="12" y2="10" />
+    {/* Canopy */}
+    <circle cx="12" cy="7" r="3.5" />
+    {/* Side branches */}
+    <path d="M10 8 Q8 6.5 8.5 5" />
+    <path d="M14 8 Q16 6.5 15.5 5" />
+  </SvgIcon>
+);
+const IconLandscapeDesign = () => (
+  <SvgIcon>
+    {/* Paper */}
+    <rect x="4" y="3" width="11" height="15" rx="1" />
+    {/* Pencil */}
+    <path d="M14 1.5l3 3-8.5 8.5H5.5v-3z" />
+    <line x1="13" y1="2.5" x2="16" y2="5.5" />
+    {/* Leaf sketch on paper */}
+    <path d="M7 10 Q9 8 11 10 Q9 12 7 10z" />
+  </SvgIcon>
+);
+const IconMaintenance = () => (
+  <SvgIcon>
+    {/* Mower deck */}
+    <rect x="3" y="11" width="15" height="5" rx="1.5" />
+    {/* Handle bar */}
+    <path d="M16 11 L19.5 5.5" />
+    <line x1="18" y1="5.5" x2="21" y2="5.5" />
+    {/* Wheels */}
+    <circle cx="6.5" cy="17.5" r="2" />
+    <circle cx="14.5" cy="17.5" r="2" />
+    {/* Blade vents */}
+    <line x1="8" y1="11" x2="8" y2="13" />
+    <line x1="11" y1="11" x2="11" y2="13" />
+  </SvgIcon>
+);
+const IconSprinklerActivation = () => (
+  <SvgIcon>
+    {/* Pipe riser */}
+    <line x1="12" y1="21" x2="12" y2="15" />
+    {/* Head body */}
+    <path d="M9 15h6l-1-2.5H10z" />
+    {/* Water arcs */}
+    <path d="M12 12.5 Q7 8 4 9.5" />
+    <path d="M12 12.5 Q12 6.5 12 4" />
+    <path d="M12 12.5 Q17 8 20 9.5" />
+    {/* Droplets at tips */}
+    <circle cx="4" cy="10" r="0.8" fill="currentColor" stroke="none" />
+    <circle cx="12" cy="3.5" r="0.8" fill="currentColor" stroke="none" />
+    <circle cx="20" cy="10" r="0.8" fill="currentColor" stroke="none" />
+  </SvgIcon>
+);
+const IconIrrigationRepair = () => (
+  <SvgIcon>
+    {/* Pipe wrench handle */}
+    <line x1="4" y1="20" x2="13" y2="11" />
+    {/* Wrench jaw */}
+    <path d="M13 11 Q17 7 19.5 8.5 Q18 11 15.5 11 L13 11" />
+    <line x1="13" y1="11" x2="15.5" y2="8.5" />
+    {/* Water drop */}
+    <path d="M19 15 Q19 20 22 19.5 Q22 15 19 15z" />
+    <path d="M19 15 Q16 19.5 19 20" />
+  </SvgIcon>
+);
+const IconWinterization = () => (
+  <SvgIcon>
+    {/* Snowflake axes */}
+    <line x1="12" y1="2" x2="12" y2="22" />
+    <line x1="2" y1="12" x2="22" y2="12" />
+    <line x1="5" y1="5" x2="19" y2="19" />
+    <line x1="19" y1="5" x2="5" y2="19" />
+    {/* Top/bottom tips */}
+    <path d="M12 2 L10 4 M12 2 L14 4" />
+    <path d="M12 22 L10 20 M12 22 L14 20" />
+    {/* Left/right tips */}
+    <path d="M2 12 L4 10 M2 12 L4 14" />
+    <path d="M22 12 L20 10 M22 12 L20 14" />
+  </SvgIcon>
+);
+const IconBackflow = () => (
+  <SvgIcon>
+    {/* Horizontal pipe */}
+    <line x1="2" y1="13" x2="22" y2="13" />
+    <line x1="2" y1="11" x2="22" y2="11" />
+    {/* First check valve */}
+    <circle cx="8" cy="12" r="3" />
+    {/* Second check valve */}
+    <circle cx="16" cy="12" r="3" />
+    {/* Test cocks */}
+    <line x1="8" y1="9" x2="8" y2="7" />
+    <line x1="16" y1="9" x2="16" y2="7" />
+    <line x1="6" y1="7" x2="10" y2="7" />
+    <line x1="14" y1="7" x2="18" y2="7" />
+  </SvgIcon>
+);
+const IconAeration = () => (
+  <SvgIcon>
+    {/* Ground line */}
+    <line x1="2" y1="18" x2="22" y2="18" />
+    {/* Three hollow tine cores */}
+    <rect x="5" y="13" width="3" height="5" rx="0.5" />
+    <rect x="10.5" y="11" width="3" height="7" rx="0.5" />
+    <rect x="16" y="13" width="3" height="5" rx="0.5" />
+    {/* Ejected plugs above ground */}
+    <rect x="5" y="9" width="3" height="3" rx="0.5" />
+    <rect x="10.5" y="6" width="3" height="4" rx="0.5" />
+    <rect x="16" y="9" width="3" height="3" rx="0.5" />
+  </SvgIcon>
+);
+const IconLighting = () => (
+  <SvgIcon>
+    {/* Ground stake */}
+    <line x1="12" y1="23" x2="12" y2="17" />
+    {/* Fixture housing */}
+    <path d="M8.5 17h7l-2-4.5H10.5z" />
+    {/* Light beams (dashed) */}
+    <line x1="9.5" y1="12.5" x2="5.5" y2="6" strokeDasharray="1.5 1.5" />
+    <line x1="12" y1="12.5" x2="12" y2="5" strokeDasharray="1.5 1.5" />
+    <line x1="14.5" y1="12.5" x2="18.5" y2="6" strokeDasharray="1.5 1.5" />
+    {/* Glow arc */}
+    <path d="M7.5 9 Q12 7 16.5 9" />
+  </SvgIcon>
+);
+const IconWarranty = () => (
+  <SvgIcon>
+    {/* Shield */}
+    <path d="M12 2.5 L20.5 6.5 V13 C20.5 17.8 16.5 21.5 12 22.5 C7.5 21.5 3.5 17.8 3.5 13 V6.5 Z" />
+    {/* Checkmark */}
+    <polyline points="8.5,12.5 11,15.5 15.5,9.5" />
+  </SvgIcon>
+);
+// ── Service bubble definitions ─────────────────────────────────────────────────
 const SERVICE_BUBBLES: Array<{
   value: string;
   label: string;
@@ -99,70 +241,70 @@ const SERVICE_BUBBLES: Array<{
     value: "> New Landscape Installation",
     label: "Landscape Installs",
     sublabel: "Property build-out & installs",
-    icon: <Hammer className="w-5 h-5" />,
+    icon: <IconLandscapeInstall />,
     accent: "oklch(0.42 0.14 60)",
+  },
+  {
+    value: "> Landscape Design",
+    label: "Landscape Design",
+    sublabel: "Plans, renderings & concepts",
+    icon: <IconLandscapeDesign />,
+    accent: "oklch(0.48 0.16 30)",
   },
   {
     value: "Maintenance: Weekly or One-Time Landscape Clean Ups",
     label: "Residential Maintenance",
     sublabel: "Weekly service or clean-ups",
-    icon: <Wrench className="w-5 h-5" />,
+    icon: <IconMaintenance />,
     accent: "oklch(0.35 0.12 145)",
   },
   {
     value: "Sprinkler Activation: Spring System Start-Up",
     label: "Sprinkler Activation",
     sublabel: "Spring system start-up",
-    icon: <Sprout className="w-5 h-5" />,
+    icon: <IconSprinklerActivation />,
     accent: "oklch(0.45 0.18 200)",
   },
   {
     value: "> Irrigation Repair: System repairs & diagnostics",
     label: "Irrigation Repair",
     sublabel: "System repairs & diagnostics",
-    icon: <Droplets className="w-5 h-5" />,
+    icon: <IconIrrigationRepair />,
     accent: "oklch(0.45 0.18 210)",
   },
   {
     value: "Sprinkler Winterization",
     label: "Sprinkler Winterization",
     sublabel: "Fall system blowout",
-    icon: <Snowflake className="w-5 h-5" />,
+    icon: <IconWinterization />,
     accent: "oklch(0.50 0.18 240)",
   },
   {
     value: "> Backflow Test",
     label: "Backflow Test",
     sublabel: "Annual certification test",
-    icon: <Droplets className="w-5 h-5" />,
+    icon: <IconBackflow />,
     accent: "oklch(0.45 0.18 200)",
   },
   {
     value: "> Aeration, fertilization and top dressing",
     label: "Aeration & Fertilization",
     sublabel: "Lawn health & top dressing",
-    icon: <Leaf className="w-5 h-5" />,
+    icon: <IconAeration />,
     accent: "oklch(0.40 0.15 145)",
-  },
-  {
-    value: "> Landscape Design",
-    label: "Landscape Design",
-    sublabel: "Plans, renderings & concepts",
-    icon: <Paintbrush className="w-5 h-5" />,
-    accent: "oklch(0.48 0.16 30)",
   },
   {
     value: "> Lighting addition or repair",
     label: "Landscape Lighting",
     sublabel: "New install or repair",
-    icon: <Zap className="w-5 h-5" />,
+    icon: <IconLighting />,
     accent: "oklch(0.55 0.18 80)",
   },
   {
     value: "> Warranty",
     label: "Submit Warranty Claim",
     sublabel: "Existing project warranty",
-    icon: <Shield className="w-5 h-5" />,
+    icon: <IconWarranty />,
     accent: "oklch(0.45 0.10 25)",
   },
 ];

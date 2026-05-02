@@ -1337,3 +1337,10 @@
 - [x] Replace old Rain Bird timer photo in SprinklerActivationSignUp.tsx with Rachio 3rd Gen smart controller
 - [x] Replace Cascade Irrigation competitor photo in SprinklerActivationSignUp.tsx backflow section with clean RPZ valve image
 - [x] Replace Cascade Irrigation competitor photo in MaintenanceSignUp.tsx backflow section with clean RPZ valve image
+
+## Session — May 1, 2026 (Custom Service Icons)
+- [x] Create custom thin-outline SVG icons for all 10 service bubbles in ScheduleServices.tsx
+- [x] Icons: Landscape Installs (nursery pot tree), Residential Maintenance (lawn mower), Sprinkler Activation (sprinkler head), Sprinkler Winterization (snowflake with pipe), Irrigation Repair (wrench + water drop), Backflow Test (RPZ valve), Aeration & Fertilization (lawn plug/core), Landscape Design (pencil + leaf), Landscape Lighting (spotlight/bulb), Submit Warranty Claim (shield + checkmark)
+
+## Session — May 2, 2026 (Landscape Design Reorder)
+- [x] Move Landscape Design to position 2 (right of Landscape Installs) in SERVICE_BUBBLES grid
