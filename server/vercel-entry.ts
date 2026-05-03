@@ -10,6 +10,7 @@ import express from "express";
 import { createServer } from "http";
 import { createExpressMiddleware } from "@trpc/server/adapters/express";
 import { registerOAuthRoutes } from "./_core/oauth";
+import { registerYelpLeadWebhook } from "./yelp-lead-ingest";
 import { registerStorageProxy } from "./_core/storageProxy";
 import { registerRedirects } from "./redirects";
 import { appRouter } from "./routers";

@@ -11,6 +11,7 @@ import { createContext } from "./context";
 import { serveStatic, setupVite } from "./vite";
 import { registerSSR } from "../ssr";
 import { batchGeocodeSubmissions } from "../geocoder";
+import { registerYelpLeadWebhook } from "../yelp-lead-ingest";
 
 function isPortAvailable(port: number): Promise<boolean> {
   return new Promise(resolve => {
