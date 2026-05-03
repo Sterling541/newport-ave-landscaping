@@ -1,18 +1,22 @@
 /**
- * Yelp Lead Ingest
+ * Platform Lead Ingest (Yelp + Houzz)
  * ─────────────────────────────────────────────────────────────────────────────
- * Receives a POST from Google Apps Script when a new Yelp lead email arrives
- * in the leads@newportavelandscaping.com Gmail inbox, parses the email body,
- * and creates a quoteLeads record in the Lead Center.
+ * Receives a POST from Google Apps Script when a new Yelp or Houzz lead email
+ * arrives in the leads@newportavelandscaping.com Gmail inbox, parses the email
+ * body, and creates a quoteLeads record in the Lead Center.
  *
  * Security: requests must include the header  X-Webhook-Secret: <YELP_WEBHOOK_SECRET>
+ *
+ * Supported platforms:
+ *   - Yelp  (from: messaging.yelp.com, Q&A format)
+ *   - Houzz (from: houzz.com, labeled-field format)
  */
 import type { Express, Request, Response } from "express";
 import { createQuoteLead } from "./db";
 import { ENV } from "./_core/env";
 
-// ── Yelp email body parser ────────────────────────────────────────────────────
-export interface YelpLeadData {
+// ── Shared lead data shape ────────────────────────────────────────────────────
+export interface PlatformLeadData {
   firstName: string;
   lastName: string;
   email: string;
@@ -22,8 +26,12 @@ export interface YelpLeadData {
   comments: string;
   rawSubject: string;
   rawBody: string;
+  platform: "yelp" | "houzz";
 }
 
+// ─────────────────────────────────────────────────────────────────────────────
+// YELP PARSER
+// ─────────────────────────────────────────────────────────────────────────────
 /**
  * Parse a Yelp lead notification email.
  *
@@ -48,7 +56,7 @@ export interface YelpLeadData {
  *   Jennifer S.
  *   @0 ★5 ✉0
  */
-export function parseYelpEmail(subject: string, body: string): YelpLeadData {
+export function parseYelpEmail(subject: string, body: string): PlatformLeadData {
   const text = body.replace(/\r\n/g, "\n").replace(/\r/g, "\n");
   const lines = text.split("\n").map(l => l.trim()).filter(l => l.length > 0);
 
@@ -144,19 +152,14 @@ export function parseYelpEmail(subject: string, body: string): YelpLeadData {
   }
 
   // If subject only gave first name, look for full name in body
-  // Look for a line that matches "FirstName LastName" or "FirstName L." pattern
-  // that appears after the Q&A section (after the last "?" answer)
   if (!fullName || !fullName.includes(" ")) {
-    // Find the line that looks like a name (2 words, not a question, not a URL)
     for (let i = lines.length - 1; i >= 0; i--) {
       const line = lines[i];
-      // Skip lines that are clearly not names
       if (line.includes("@") || line.includes("http") || line.includes("©")) continue;
       if (line.startsWith("Or ") || line.startsWith("Don't") || line.startsWith("Having")) continue;
       if (line.includes("yelp") || line.includes("Yelp")) continue;
-      if (/^\d/.test(line)) continue; // starts with digit
-      if (line.endsWith("?")) continue; // question
-      // Match "Word Word" or "Word W." pattern (a name)
+      if (/^\d/.test(line)) continue;
+      if (line.endsWith("?")) continue;
       if (/^[A-Z][a-z]+ [A-Z][a-z.]+\.?$/.test(line)) {
         fullName = line;
         break;
@@ -180,7 +183,223 @@ export function parseYelpEmail(subject: string, body: string): YelpLeadData {
     comments,
     rawSubject: subject,
     rawBody: body,
+    platform: "yelp",
   };
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// HOUZZ PARSER
+// ─────────────────────────────────────────────────────────────────────────────
+/**
+ * Parse a Houzz lead notification email.
+ *
+ * Houzz sends labeled-field emails in two main formats:
+ *
+ * FORMAT 1 — Project Match / Direct Message (most common):
+ *   Subject: "New lead from [Name] on Houzz"  OR  "[Name] sent you a message on Houzz"
+ *
+ *   Name: John Smith
+ *   Email: john@example.com
+ *   Phone: (541) 555-1234
+ *   Zip Code: 97701
+ *   Project Type: Landscape Design
+ *   Message: I'm looking for help with my backyard...
+ *
+ * FORMAT 2 — Houzz Pro website contact form:
+ *   Subject: "New contact form submission from [Name]"
+ *
+ *   You have a new contact form submission from [Name].
+ *   Name: John Smith
+ *   Email: john@example.com
+ *   Phone: (541) 555-1234
+ *   Address: 123 Main St, Bend, OR 97701
+ *   Message: I need help with...
+ *
+ * FORMAT 3 — Project Match questionnaire:
+ *   Subject: "You have a new lead on Houzz"
+ *
+ *   A homeowner in [City, State] is looking for help with [service].
+ *   Name: [may be masked as "Homeowner" until you respond]
+ *   Zip Code: 97701
+ *   Project: Lawn Care
+ *   Details: ...
+ */
+export function parseHouzzEmail(subject: string, body: string): PlatformLeadData {
+  const text = body.replace(/\r\n/g, "\n").replace(/\r/g, "\n");
+  const lines = text.split("\n").map(l => l.trim()).filter(l => l.length > 0);
+
+  // ── Extract labeled fields (e.g. "Name: John Smith") ─────────────────────
+  const fields: Record<string, string> = {};
+  for (const line of lines) {
+    const match = line.match(/^([A-Za-z][A-Za-z\s]{1,30}):\s*(.+)$/);
+    if (match) {
+      const key = match[1].trim().toLowerCase();
+      const val = match[2].trim();
+      fields[key] = val;
+    }
+  }
+
+  // ── Name ──────────────────────────────────────────────────────────────────
+  let fullName =
+    fields["name"] ||
+    fields["full name"] ||
+    fields["customer name"] ||
+    "";
+
+  // Try extracting from subject: "New lead from John Smith on Houzz"
+  if (!fullName) {
+    const subjectNameMatch =
+      subject.match(/New lead from (.+?) on Houzz/i) ||
+      subject.match(/^(.+?) sent you a message/i) ||
+      subject.match(/submission from (.+?)$/i);
+    if (subjectNameMatch) fullName = subjectNameMatch[1].trim();
+  }
+
+  // Houzz sometimes masks the name as "Homeowner" for Project Match leads
+  if (!fullName || fullName.toLowerCase() === "homeowner") fullName = "Houzz Lead";
+
+  const nameParts = fullName.trim().split(/\s+/);
+  const firstName = nameParts[0] ?? "Houzz";
+  const lastName = nameParts.slice(1).join(" ") || "Lead";
+
+  // ── Contact info ──────────────────────────────────────────────────────────
+  const email =
+    fields["email"] ||
+    fields["email address"] ||
+    "noreply@houzz.com";
+
+  const phone =
+    fields["phone"] ||
+    fields["phone number"] ||
+    fields["mobile"] ||
+    "";
+
+  // ── Address / location ────────────────────────────────────────────────────
+  let siteAddress =
+    fields["address"] ||
+    fields["street address"] ||
+    "";
+
+  const zipCode =
+    fields["zip code"] ||
+    fields["zip"] ||
+    fields["postal code"] ||
+    "";
+
+  if (!siteAddress && zipCode) {
+    siteAddress = /^\d{5}$/.test(zipCode) ? `Bend, OR ${zipCode}` : zipCode;
+  }
+
+  if (!siteAddress) {
+    // Try to extract city/state from body: "A homeowner in Bend, OR is looking for..."
+    const locationMatch = text.match(/homeowner in ([A-Za-z\s]+,\s*[A-Z]{2})/i);
+    if (locationMatch) siteAddress = locationMatch[1].trim();
+  }
+
+  if (!siteAddress) siteAddress = "Bend, OR";
+
+  // ── Service type ──────────────────────────────────────────────────────────
+  let serviceType =
+    fields["project type"] ||
+    fields["project"] ||
+    fields["service type"] ||
+    fields["service"] ||
+    fields["type of work"] ||
+    fields["category"] ||
+    "";
+
+  // Try subject: "New lead for Lawn Care on Houzz"
+  if (!serviceType) {
+    const subjectSvcMatch =
+      subject.match(/New lead for (.+?) on Houzz/i) ||
+      subject.match(/looking for help with (.+?)[\.\,]/i);
+    if (subjectSvcMatch) serviceType = subjectSvcMatch[1].trim();
+  }
+
+  // Try body: "is looking for help with lawn care"
+  if (!serviceType) {
+    const bodyMatch = text.match(/looking for (?:help with|a pro for|someone to help with)\s+(.+?)[\.\n]/i);
+    if (bodyMatch) serviceType = bodyMatch[1].trim();
+  }
+
+  if (!serviceType) serviceType = "Houzz Lead";
+
+  // ── Message / details ─────────────────────────────────────────────────────
+  const message =
+    fields["message"] ||
+    fields["details"] ||
+    fields["project details"] ||
+    fields["description"] ||
+    fields["notes"] ||
+    "";
+
+  // Build a structured comment block
+  const commentParts: string[] = [];
+  if (message) commentParts.push(`Message: ${message}`);
+
+  // Include any extra Q&A fields that aren't already captured
+  const skipKeys = new Set([
+    "name", "full name", "customer name",
+    "email", "email address",
+    "phone", "phone number", "mobile",
+    "address", "street address", "zip code", "zip", "postal code",
+    "project type", "project", "service type", "service", "type of work", "category",
+    "message", "details", "project details", "description", "notes",
+  ]);
+  for (const [key, val] of Object.entries(fields)) {
+    if (!skipKeys.has(key)) {
+      commentParts.push(`${key.charAt(0).toUpperCase() + key.slice(1)}: ${val}`);
+    }
+  }
+
+  const comments = commentParts.join("\n");
+
+  return {
+    firstName,
+    lastName,
+    email,
+    phone,
+    siteAddress,
+    serviceType,
+    comments,
+    rawSubject: subject,
+    rawBody: body,
+    platform: "houzz",
+  };
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// PLATFORM DETECTION
+// ─────────────────────────────────────────────────────────────────────────────
+export function detectPlatform(from: string, subject: string): "yelp" | "houzz" | null {
+  const fromLower = (from || "").toLowerCase();
+  const subjectLower = (subject || "").toLowerCase();
+
+  if (
+    fromLower.includes("yelp.com") ||
+    fromLower.includes("yelp-inc") ||
+    fromLower.includes("messaging.yelp")
+  ) {
+    return "yelp";
+  }
+
+  if (
+    fromLower.includes("houzz.com") ||
+    fromLower.includes("houzz-inc") ||
+    subjectLower.includes("on houzz") ||
+    subjectLower.includes("from houzz") ||
+    subjectLower.includes("houzz lead") ||
+    subjectLower.includes("contact form submission")
+  ) {
+    return "houzz";
+  }
+
+  // Fallback: if subject says "new lead" and no platform identified, try Yelp heuristic
+  if (subjectLower.includes("new lead")) {
+    return "yelp";
+  }
+
+  return null;
 }
 
 // ── Express route registration ────────────────────────────────────────────────
@@ -196,9 +415,10 @@ export function registerYelpLeadWebhook(app: Express) {
       }
     }
 
-    const { subject, body, messageId } = req.body as {
+    const { subject, body, from, messageId } = req.body as {
       subject?: string;
       body?: string;
+      from?: string;
       messageId?: string;
     };
 
@@ -207,25 +427,29 @@ export function registerYelpLeadWebhook(app: Express) {
       return;
     }
 
-    // ── Verify this is actually a Yelp lead email ─────────────────────────
-    const isYelpLead =
-      /yelp/i.test(req.body.from ?? "") ||
-      /new lead/i.test(subject) ||
-      /yelp/i.test(subject);
+    // ── Detect platform ───────────────────────────────────────────────────
+    const platform = detectPlatform(from ?? "", subject);
 
-    if (!isYelpLead) {
-      res.json({ ok: true, skipped: true, reason: "not_yelp_lead" });
+    if (!platform) {
+      res.json({ ok: true, skipped: true, reason: "not_recognized_platform" });
       return;
     }
 
     try {
-      const lead = parseYelpEmail(subject, body);
+      let lead: PlatformLeadData;
+      if (platform === "houzz") {
+        lead = parseHouzzEmail(subject, body);
+      } else {
+        lead = parseYelpEmail(subject, body);
+      }
 
-      // Build a rich message that includes all parsed Q&A data
+      // Build a rich message that includes all parsed data
       const message = [
         lead.comments,
-        `\n[Yelp Lead — original subject: ${lead.rawSubject}]`,
+        `\n[${platform === "houzz" ? "Houzz" : "Yelp"} Lead — original subject: ${lead.rawSubject}]`,
       ].filter(Boolean).join("\n");
+
+      const sourceLabel = platform === "houzz" ? "Houzz" : "Yelp";
 
       await createQuoteLead({
         firstName: lead.firstName,
@@ -235,16 +459,16 @@ export function registerYelpLeadWebhook(app: Express) {
         address: lead.siteAddress,
         serviceInterest: lead.serviceType,
         message,
-        source: "yelp",
-        sourceLabel: "Yelp",
+        source: platform,
+        sourceLabel,
         status: "new",
         adminNotes: messageId ? `Gmail Message-ID: ${messageId}` : undefined,
       });
 
-      console.log(`[yelp-ingest] Created lead: ${lead.firstName} ${lead.lastName} — ${lead.serviceType}`);
-      res.json({ ok: true, lead: `${lead.firstName} ${lead.lastName}` });
+      console.log(`[platform-ingest] Created ${sourceLabel} lead: ${lead.firstName} ${lead.lastName} — ${lead.serviceType}`);
+      res.json({ ok: true, lead: `${lead.firstName} ${lead.lastName}`, platform });
     } catch (err) {
-      console.error("[yelp-ingest] Failed to create submission:", err);
+      console.error("[platform-ingest] Failed to create submission:", err);
       res.status(500).json({ error: "Failed to save lead" });
     }
   });
