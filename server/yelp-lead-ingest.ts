@@ -12,7 +12,7 @@
  */
 
 import type { Express, Request, Response } from "express";
-import { createServiceSubmission } from "./db";
+import { createQuoteLead } from "./db";
 import { ENV } from "./_core/env";
 
 // ── Yelp email body parser ────────────────────────────────────────────────────
@@ -179,20 +179,19 @@ export function registerYelpLeadWebhook(app: Express) {
     try {
       const lead = parseYelpEmail(subject, body);
 
-      await createServiceSubmission({
+      await createQuoteLead({
         firstName: lead.firstName,
         lastName: lead.lastName,
         email: lead.email,
         phone: lead.phone,
-        siteAddress: lead.siteAddress,
-        serviceType: lead.serviceType,
-        comments: lead.comments
+        address: lead.siteAddress,
+        serviceInterest: lead.serviceType,
+        message: lead.comments
           ? `${lead.comments}\n\n[Yelp Lead — original subject: ${lead.rawSubject}]`
           : `[Yelp Lead — original subject: ${lead.rawSubject}]`,
-        howHeard: "Yelp",
-        dataSource: "yelp_email",
-        leadStatus: "new",
-        schemaVersion: "1.0",
+        source: "yelp",
+        sourceLabel: "Yelp",
+        status: "new",
         adminNotes: messageId ? `Gmail Message-ID: ${messageId}` : undefined,
       });
 
