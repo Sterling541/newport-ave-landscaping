@@ -114,6 +114,9 @@ async function startServer() {
   // OAuth callback under /api/oauth/callback
   registerOAuthRoutes(app);
 
+  // Yelp inbound lead webhook
+  registerYelpLeadWebhook(app);
+
   // tRPC API
   app.use(
     "/api/trpc",
